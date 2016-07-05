@@ -1,0 +1,257 @@
+
+.cotent-image{
+  float: left;
+  width: 32px;
+  margin-left: 6px;
+  margin-top: 16px;
+  margin-bottom: 10px
+
+}
+.boy-girl{
+  margin-left: -1rem; position: absolute;
+}
+
+.head-image{
+  position: absolute;
+  top: .35rem;
+  left: 5.62rem;
+  width: 4.43rem;
+}
+.head-image1{
+  position: absolute;
+  top: 0.35rem;
+  left: 9.22rem;
+  width: 1.43rem;
+}
+
+.round {
+  padding:10px; width:300px; height:50px;
+  border: 5px solid #dedede;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius:15px;
+}
+.head-name{
+  margin-left: 1.1rem;
+}
+.shuxian {
+  position: absolute;
+  width: 3px;
+  height: 2.5rem;
+  border-color: white;
+  background-color: white;
+  float: left;
+  margin-left: 50%;
+  margin-top: 0.2rem;
+}
+.jifen{
+  position: absolute;
+  right: 10rem;
+  font-size: 16px;
+  margin-top: 1rem;
+}
+.chongzhi{
+  position: absolute;
+  left: 12rem;
+  font-size: 16px;
+  margin-top: 1rem
+}
+.foot-color{
+  height: 2.8rem;
+rgba(216, 216, 11, 0.39);
+  position: initial;
+  margin-top: -2.8rem;
+}
+.foot-image{
+  position: absolute;
+  width: 30px;
+  margin-left: 0%;
+  top: 10.2rem;
+}
+.foot-jifen{
+  position: absolute;
+  width: 32px;
+  margin-left: 0.5rem;
+
+  top: 10.2rem;
+}
+.has-top{
+  top:25px;
+  background-color: white;
+}
+.item-height{
+  height: 57px;
+  margin-left: 50px;
+  padding-left: 0px;
+}
+
+.jifen-head{
+  text-align: center;
+  font-size: 16px;
+  padding-left: 10%;
+  height: 2rem;
+  color: black;
+  text-decoration: none
+
+}
+.advice{
+  width: 90%;
+  height: 10rem;
+  margin: 5%;
+}
+.advice-Nb{
+  margin: 5%;
+  width: 90%;
+}
+
+.head-chongzhi{
+  text-align: center;
+  color: yellow;
+  background-color: #88490B;
+}
+.select-chongzhi{
+  float: right;
+  font-size: 22px;
+  color: #a2a2a2;
+
+}
+.select-chongzhi1{
+  float: right;
+  font-size: 22px;
+  color: #a2a2a2;
+  margin-right: -1rem;
+}
+.list-chongzhi{
+  margin-top: 20px;
+}
+.item-weixin{
+  position: absolute;left: 11px;font-size: 32px;top: 7px;height: 70%
+}
+.item-weixin-headimage{
+  position: absolute;right: 45px;font-size: 32px;top: 10px;height: 70%
+}
+.item-xinye{
+  position: absolute;left: 11px;font-size: 32px;top: 12px;height: 50%
+}
+.item-weixin-left{
+  padding-left: 90px;
+}
+.item-input-left{
+  padding-left: 10px;
+}
+.input-color{
+  width: 70%;
+  border:dotted white;
+}
+.input-color-usercolse{
+  width: 100%;
+  border:dotted white;
+}
+.input-color-password{
+  width: 50%;
+  border:dotted white;
+}
+.item-one-left{
+  padding-left: 10px;
+}
+.ion-close-user{
+  position: absolute;
+  right: 20px;
+  margin-top: -22px;
+  color: #a2a2a2;
+
+}
+.ion-close-user1{
+  position: absolute;
+  right: 8px;
+  margin-top: -22px;
+  color: #a2a2a2;
+  font-size: 14px;
+}
+.ion-close-sex{
+  position: absolute;
+  right: 20px;
+  margin-top: -22px;
+  color: red;
+}
+.shuxianPassword{
+  position: absolute;
+  width: 2px;
+  height: 2.2rem;
+  border-color: #ccc;
+  background-color: #ccc;
+  right: 80px;
+  top: 7px;
+}
+.homein-tabs-meun1{
+  padding: .4rem 0px;
+  height:3.5rem;
+  .col{
+    text-align: center;
+    img{
+      width:2.3rem;
+    }
+    p{
+      color: #333;
+      margin: 0px;
+    }
+  }
+}
+.please-frist{
+  text-align: center;
+  margin-top: 2rem;
+}
+
+#please{
+  text-align: center;
+  background-color: #e6b500;
+  width: 12rem;
+  height: 2rem;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  color: black;
+}
+.icon-friends-image{
+  margin-top: 2rem
+;
+}
+#header-images{
+  padding: 1.5rem 0px;
+  height:3.5rem;
+}
+.address-name{
+  font-size: 13.5px;
+  padding: 0px 8px
+}
+.address-number{
+  font-size: 13.5px;
+  float: right;
+}
+.address{
+  font-size: 12px;
+  padding: 0px 8px
+
+}
+.address-delete{
+  width: 17px;
+  margin-top: 7px;
+}
+
+#address-please{
+  text-align: center;
+  background-color: yellow;
+  width: 12rem;
+  height: 1.8rem;
+  border-style: solid;
+  border-width: 2px;
+  color: black;
+  margin-top: 5rem;
+}
+.address-add{
+  color: #333333;
+  font-weight: 700;
+}
+#icon-right{
+  font-size: 23px;
+}

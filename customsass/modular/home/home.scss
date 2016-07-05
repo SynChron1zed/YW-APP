@@ -1,0 +1,187 @@
+.homein-tabs-meun{
+    padding: .4rem 0px;
+    height:3.5rem;
+    .col{
+      text-align: center;
+      img{
+        width:1.3rem;
+      }
+      p{
+        color: #333;
+        margin: 0px;
+      }
+    }
+}
+
+.homebox{
+  position: relative;
+  margin: 0 auto;
+  background: #fff;
+  &:after{
+    content: '';
+    display: inline-block;
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    top: 0px;
+    background-color: #ddd;
+  }
+  &:before{
+    content: '';
+    display: inline-block;
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    bottom: 0px;
+    background-color: #ddd;
+  }
+  .row.rowtow{
+    padding-bottom: 0px;
+      div{
+        border:none;
+      }
+  }
+  .row{
+    width: 96%;
+    margin:  0 auto;
+    div:last-child{
+      &:after{
+        content: '';
+        display: none;
+      }
+    }
+    div{
+      border-bottom:1px solid #ddd;
+      text-align: center;
+      height: 3rem;
+      position: relative;
+      &:after{
+        content: '';
+        display: block;
+        clear: both;
+        width: 1px;
+        height: 80%;
+        position: absolute;
+        background-color: #ddd;
+        right: 0px;
+        top: 10%;
+      }
+      img{
+        width:1.4rem;
+      }
+      p{
+        color: #333;
+        margin:  0px;
+      }
+    }
+  }
+}
+
+
+.home-Honestenterprise{
+  padding: 0px  6px;
+  >.title{
+    height: 1.5rem;
+    line-height: 1.5rem;
+    font-size: 15px;
+    font-weight: bold;
+    color: #6c3800;
+    position: relative;
+    padding-left: 10px;
+    span{
+      float: right;
+      font-weight: normal;
+      font-size: 14px;
+    }
+    &:after{
+      content: '';
+      display: inline-block;
+      height: 80%;
+      top: 10%;
+      left: 0px;
+      position: absolute;
+      width: 5px;
+      background-color: #ffd35c;
+    }
+  }
+  .itemin{
+    margin-bottom: .5rem;
+    background:url(/img/homepage/icon_chanpin@3x@3x.png)  no-repeat;
+    background-size: 100%;
+    height: 4rem;
+    .content{
+      &:after{
+        content: '';
+        display: inline-block;
+        width: 1px;
+        height: 90%;
+        position: absolute;
+        top: 5%;
+        left: 0px;
+        background-color: rgba(160, 126, 90, 0.33);
+      }
+      position: relative;
+      display: inline-block;
+      width: 35%;
+      float: right;
+      height: 4rem;
+      .title{
+        height: 1.8rem;
+        line-height: 1.8rem;
+        text-align: center;
+        font-size: 15px;
+        color: #6c3800;
+      }
+      .lev{
+        text-align: center;
+        img{
+          width: 55%;
+          margin:  0 auto;
+        }
+      }
+    }
+  }
+}
+
+.homenewlist  {
+  .title{
+    border-bottom:1px solid #6c3800;
+    &:after{
+      background-color: #6c3800;
+      top: 20%;
+    }
+  }
+
+  .content{
+    background-color: #fff;
+    .newitem{
+      &:before{
+        content: '';
+        position: absolute;
+        display: block;
+        bottom: 0px;
+        width: 100%;
+        height: 1px;
+        background-color: rgba(185, 163, 139, 0.37);
+      }
+      position: relative;
+      height: 1.8rem;
+      line-height: 1.8rem;
+      &:after{
+        content: '';
+        display: block;
+        clear: both;
+      }
+      >div{float: left;font-size:14px;color: #333}
+      .text{width: 70%;overflow:hidden;text-overflow:ellipsis;
+        text-indent: 5px;
+      }
+      .tiem{
+        width: 30%;
+        text-align: right;
+        padding-right: 10px;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,41 @@
+.login-header-imgbox{
+  height: 10rem;
+  position: relative;
+  .imgbox{
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    margin-left:-50px;
+    background-color: red
+  }
+}
+.loginbox{
+  width: 80%;
+  margin: 0 auto;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+      input{
+        background:transparent;
+        width: 100%;
+        border:none;
+        padding: 0px;
+        padding-left: 5%;
+        margin: 0px;
+        height: 2rem;
+      }      
+      input[type='text']{
+        border-bottom:1px solid #ddd;
+      }
+}
+.block-botton{
+  width: 80% !important;
+  margin-left: 10%;
+  background-color:#feeb0b !important;
+  color: #333333 !important;
+  font-size:16px !important;
+  letter-spacing: 2px !important;
+}

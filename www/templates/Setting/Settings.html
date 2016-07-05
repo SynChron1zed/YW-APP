@@ -1,0 +1,126 @@
+<ion-view view-title="个人中心"  hide-nav-bar="true" >
+
+  <ion-content style="background: whitesmoke" scrollbar-y="false">
+
+    <div style="height: 12.2rem;;background-color: yellow">
+      <div id="header-images" class="homein-tabs-meun row">
+        <div class="col">
+          <a href="/#/r/tab/Settings/update"><img style="width: 5rem" src="/img/icon_Head portrait.png" alt=""></a>
+          <img class="boy-girl" src="/img/icon_women.png">
+          <p>少来勾搭</p>
+        </div>
+      </div>
+
+
+      <div class="row " style="margin-top: 6.8rem;">
+        <a class="col jifen-head" href="#" ><img class="col foot-image" src="/img/icon_integral@3x.png">积分600</a>
+
+        <a class="col jifen-head" href="/#/r/tab/Settings/recharge"><img class="col foot-jifen" src="/img/icon_top-up.png">充值</a>
+      </div>
+
+    </div>
+    <div class="foot-color">
+      <div class="shuxian"></div>
+    </div>
+    <div class="content has-header ionic-pseudo has-top">
+      <table style="    position: absolute;">
+        <tr>
+          <th><img class="cotent-image" src="/img/icon_company.png"></th>
+
+        </tr>
+        <tr>
+          <td><img class="cotent-image" src="/img/icon_management.png"></td>
+
+        </tr>
+        <tr>
+          <td><img class="cotent-image" src="/img/icon_code.png"></td>
+
+        </tr>
+        <tr>
+          <td><img class="cotent-image" src="/img/icon_share.png"></td>
+
+        </tr>
+        <tr>
+          <td><img class="cotent-image" src="/img/icon_feedback.png"></td>
+
+        </tr>
+        <tr>
+          <td><img class="cotent-image" src="/img/icon_update.png"></td>
+
+        </tr>
+        <tr>
+          <td><img class="cotent-image" src="/img/icon_About.png"></td>
+
+        </tr>
+      </table>
+
+      <div class="list">
+
+        <a class="item item-icon-left item-icon-right item-height" href="#">
+
+          <div>管理企业信息</div>
+
+          <i id="icon-right" class="icon ion-ios-arrow-right"></i>
+        </a>
+
+        <a class="item item-icon-left item-icon-right item-height" href="/#/r/tab/Settings/address">
+
+          <div> 管理收货地址</div>
+          <i id="icon-right" class="icon ion-ios-arrow-right"></i>
+        </a>
+
+        <a class="item item-icon-left item-icon-right item-height"  ng-click="showPopup()" href="#">
+
+          <div> 我的二维码</div>
+          <i id="icon-right" class="icon ion-ios-arrow-right"></i>
+        </a>
+
+
+        <a class="item item-icon-left item-icon-right item-height" href="/#/r/tab/Settings/friends">
+
+          <div> 分享好友</div>
+          <i id="icon-right" class="icon ion-ios-arrow-right"></i>
+        </a>
+
+        <a class="item item-icon-left item-icon-right item-height" href="/#/r/tab/Settings/user">
+
+          <div> 用户反馈</div>
+          <i id="icon-right" class="icon ion-ios-arrow-right"></i>
+        </a>
+
+        <a class="item item-icon-left item-icon-right item-height" href="#">
+
+          <div> 版本更新</div>
+          <i id="icon-right" class="icon ion-ios-arrow-right"></i>
+        </a>
+
+        <a class="item item-icon-left item-icon-right item-height" href="#">
+
+          <div> 关于我们</div>
+          <i id="icon-right" class="icon ion-ios-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+
+
+
+    <script  id="my-friend" type="text/ng-template">
+      <div style="height: 15rem" ng-click="closePopup()">
+        <div class="homein-tabs-meun row">
+          <div class="col">
+            <img style="width: 5rem" src="/img/icon_Head portrait.png" alt="">
+            <img class="boy-girl" src="/img/icon_women.png">
+            <p>少来勾搭</p>
+            <img style="width: 5rem" src="/img/222.png" alt="">
+            <p>扫一扫二维码，加我为好友</p>
+          </div>
+
+        </div>
+
+      </div>
+    </script>
+
+
+
+  </ion-content>
+</ion-view>

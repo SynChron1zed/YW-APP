@@ -1,0 +1,158 @@
+<ion-view  hide-back-button="true"  view-title="首页" >
+
+
+
+
+  <ion-nav-bar   class="bar-positive ">
+
+    <!--<ion-nav-buttons side="left">-->
+    <!--<button class="button" ng-click="doSomething()">-->
+    <!--我是一个在导航栏左侧的按钮！-->
+    <!--</button>-->
+    <!--</ion-nav-buttons>-->
+    <!--<ion-header-bar  class="bar-positive item-input-inset  lb-main-title-search" >-->
+    <ion-nav-buttons side="left">
+      <a   nav-direction="forward" ng-click="login('r.login')"  class="button button-icon ion-ios-location-outline location-headers home-location">
+        <p>全国</p>
+      </a>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons side="right">
+      <button class="button button-icon  ion-ios-search-strong"  ui-sref="r.tab.HomeSearch"  ></button>
+    </ion-nav-buttons>
+    <!--</ion-header-bar>-->
+</ion-nav-bar>
+
+  <ion-content  scrollbar-y="false"  style='background-color:#f3f3f3' >
+
+    <ion-slide-box  class='homeSlidebox' auto-play='true' >
+      <ion-slide  ng-click='a1()' >
+        <img src="http://dl.bizhi.sogou.com/images/2012/09/30/44928.jpg" alt="">
+      </ion-slide>
+      <ion-slide>
+        <img src="http://a1.att.hudong.com/51/37/300000559649128756377561017.jpg" alt="">
+      </ion-slide>
+      <ion-slide>
+        <img src="http://www.deskcar.com/desktop/fengjing/2013729231159/5.jpg" alt="">
+      </ion-slide>
+    </ion-slide-box>
+    <div class="homein-tabs-meun row">
+      <div class="col col-25">
+        <img src="/img/homepage/icon_service@3x1.png" alt="">
+        <p>交易流程</p>
+      </div>
+      
+      <div class="col col-25">
+        <img src="/img/homepage/icon_dynamic@3x.png" alt="">
+        <p>最新动态</p>
+      </div>
+      <div class="col col-25">
+        <img src="/img/homepage/icon_experience@3x.png" alt="">
+        <p>体验专区</p>
+      </div>
+      <div class="col col-25">
+        <img src="/img/homepage/icon_charity@3x.png" alt="">
+        <p>慈善物品</p>
+      </div>
+    </div>
+
+    <div class="homebox">
+      <div class="row ">
+        <div class="col col-33" >
+          <img src="/img/homepage/iconfont-diqiu@3x.png" alt="">
+          <p>销售订单</p>
+        </div>
+        <div class="col col-33" >
+          <img src="/img/homepage/iconfont-shangchengxiton@3x.png" alt="">
+          <p>店铺管理</p>
+        </div>
+        <div class="col col-33" >
+          <img src="/img/homepage/icon_procurement@3x.png" alt="">
+          <p>采购订单</p>
+        </div>
+      </div>
+
+      <div class="row rowtow">
+        <div class="col col-33" >
+          <img src="/img/homepage/iconfont-saoma@3x.png" alt="">
+          <p>扫码验证</p>
+        </div>
+
+        <div class="col col-33" >
+          <img src="/img/homepage/icon_release@3x.png" alt="">
+          <p>商品发布</p>
+        </div>
+
+        <div class="col col-33" >
+          <img src="/img/homepage/icon_classificationaa@3x.png" alt="">
+          <p>商品分类</p>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="home-Honestenterprise">
+      <div class="title">
+        诚信企业  <span>更多</span>
+      </div>
+      <div class="content">
+
+        <div class="itemin">
+          <div class="content">
+            <div class="title">新概念公司</div>
+            <div class="lev">
+              <img src="/img/homepage/lev.jpg" alt="">
+            </div>
+          </div>
+        </div>
+
+        <div class="itemin">
+          <div class="content">
+            <div class="title">新概念公司</div>
+            <div class="lev">
+              <img src="/img/homepage/lev.jpg" alt="">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class=" home-Honestenterprise homenewlist">
+      <div class="title">易物快报  <span>更多</span></div>
+      <div class="content">
+
+
+        <div class="newitem">
+          <div class="text">长沙咸鱼一堆</div>
+          <div class="tiem">2016-02-11</div>
+        </div>
+
+        <div class="newitem">
+          <div class="text">长沙咸鱼一堆</div>
+          <div class="tiem">2016-02-11</div>
+        </div>
+
+
+        <div class="newitem">
+          <div class="text">长沙咸鱼一堆</div>
+          <div class="tiem">2016-02-11</div>
+        </div>
+
+        <div class="newitem">
+          <div class="text">长沙咸鱼一堆</div>
+          <div class="tiem">2016-02-11</div>
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+    <p style="height:10px"></p>
+  </ion-content>
+</ion-view>

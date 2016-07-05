@@ -1,0 +1,11 @@
+.tabs {
+  -webkit-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+  transform: translateY(0);
+}
+.tabs-item-hide > .tabs{
+  -webkit-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+  transform: translateY(60px);
+  display: flex;
+}
