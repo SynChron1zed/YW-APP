@@ -18,6 +18,7 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
     $scope.closePopup = function() {
       myPopup.close();
     };
+   /* $scope.(".popup").addClass(".twoimage1")*/
   };
 }])
 

@@ -13,13 +13,6 @@ Ctr.controller('Classif',['$scope','native','$state',function($scope,native,$sta
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('tabCtr',[function(){
-
-}])
-
-/**
- * Created by Why on 16/6/8.
- */
 Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','$ionicPopup',function($scope,native,$state,fromStateServ,$ionicPopup) {
     $scope.a1 = function (){
       alert('1');
@@ -31,13 +24,8 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','$ionicPopu
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('homesearchCtr',['$scope','$state','$ionicHistory','$timeout',function($scope,$state,$ionicHistory,$timeout) {
-
-  $scope.back =  function(){
-
-      $ionicHistory.goBack();
-      }
-
+Ctr.controller('homesearchCtr',['$scope','$state',function($scope,$state) {
+  
 
 
 }]);
@@ -91,6 +79,13 @@ Ctr.controller('registerCtr',['$ionicHistory','$scope','$rootScope',function($io
 /**
  * Created by Why on 16/6/8.
  */
+Ctr.controller('tabCtr',[function(){
+
+}])
+
+/**
+ * Created by Why on 16/6/8.
+ */
 Ctr.controller('noticeCtr', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -113,6 +108,14 @@ Ctr.controller('noticeCtr', function($scope, Chats) {
 
   });
 
+/**
+ * Created by Why on 16/6/8.
+ */
+
+Ctr.controller('rootCtr',[function(){
+  
+}])
+
 Ctr.controller("OtherCtrl", function($scope, $state, fromStateServ) {
     $scope.backNav = function() {
         var fromState = fromStateServ.getState("other");
@@ -125,12 +128,25 @@ Ctr.controller("OtherCtrl", function($scope, $state, fromStateServ) {
     };
 })
 /**
- * Created by Why on 16/6/8.
+ * Created by Administrator on 2016/7/5.
+ */
+Ctr.controller('SettingsAddAddressCtr',function($scope) {
+  $scope.a1 = function (){
+    alert('1');
+  }
+
+});
+
+/**
+ * Created by Administrator on 2016/7/5.
  */
 
-Ctr.controller('rootCtr',[function(){
-  
-}])
+Ctr.controller('SettingsAddressCtr',function($scope) {
+  $scope.a1 = function (){
+    alert('1');
+  }
+
+});
 
 /**
  * Created by Why on 16/6/8.
@@ -152,6 +168,7 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
     $scope.closePopup = function() {
       myPopup.close();
     };
+   /* $scope.(".popup").addClass(".twoimage1")*/
   };
 }])
 

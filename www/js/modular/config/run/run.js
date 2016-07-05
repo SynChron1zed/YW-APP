@@ -8,10 +8,9 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
     $state.go('r.tab.Home');
     $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
       //console.log($ionicHistory.viewHistory())
-      
     });
 
-
+    
     function showConfirm() {
       var confirmPopup = $ionicPopup.confirm({
         title: '<strong>退出应用?</strong>',
