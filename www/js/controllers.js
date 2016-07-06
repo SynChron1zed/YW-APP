@@ -3,12 +3,9 @@ var  Ctr = angular.module('starter.controllers', []);
 /**
  * Created by Why on 16/6/8.
  */
+Ctr.controller('tabCtr',[function(){
 
-Ctr.controller('Classif',['$scope','native','$state',function($scope,native,$state) {
-
-
-}]);
-
+}])
 
 /**
  * Created by Why on 16/6/8.
@@ -24,9 +21,11 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','$ionicPopu
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('homesearchCtr',['$scope','$state',function($scope,$state) {
-  
-
+Ctr.controller('homesearchCtr',['$scope','$state','$ionicHistory',function($scope,$state,$ionicHistory) {
+    
+  $scope.back  =  function (){
+      $ionicHistory.goBack();
+  }
 
 }]);
 
@@ -37,7 +36,6 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','$state','fromStateServ','$i
 
 
   //保存历史记录的方法  调用  上一次1 title  和返回方法
-  $scope.parenttitle     =   fromStateServ.getState('r.login').title;
   $scope.backtoprevView  =   fromStateServ.backView;
   
   //安卓返回键  对公共模块的返回
@@ -47,12 +45,11 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','$state','fromStateServ','$i
      return false;
    }, 101);
 
-
-
-
-
   $scope.$on('$stateChangeSuccess',function(){
+      $scope.parenttitle     =   fromStateServ.getState('r.login').title;
   })
+
+
   $scope.backView  = function(){
     $scope.$ionicGoBack();
   }
@@ -75,13 +72,6 @@ Ctr.controller('registerCtr',['$ionicHistory','$scope','$rootScope',function($io
 
 
 }]);
-
-/**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('tabCtr',[function(){
-
-}])
 
 /**
  * Created by Why on 16/6/8.
@@ -112,9 +102,11 @@ Ctr.controller('noticeCtr', function($scope, Chats) {
  * Created by Why on 16/6/8.
  */
 
-Ctr.controller('rootCtr',[function(){
-  
-}])
+Ctr.controller('Classif',['$scope','native','$state',function($scope,native,$state) {
+
+
+}]);
+
 
 Ctr.controller("OtherCtrl", function($scope, $state, fromStateServ) {
     $scope.backNav = function() {
@@ -127,6 +119,14 @@ Ctr.controller("OtherCtrl", function($scope, $state, fromStateServ) {
         }
     };
 })
+/**
+ * Created by Why on 16/6/8.
+ */
+
+Ctr.controller('rootCtr',[function(){
+  
+}])
+
 /**
  * Created by Administrator on 2016/7/5.
  */
@@ -227,6 +227,8 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('shoppingCartCtr',function(){
+Ctr.controller('shoppingCartCtr',['$scope','fromStateServ',function($scope,fromStateServ){
 
-})
+      $scope.login  = fromStateServ.stateChange;
+
+}])

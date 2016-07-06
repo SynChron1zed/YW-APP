@@ -351,7 +351,7 @@ body {
 
 .foot-color {
   height: 2.8rem;
-  background-color: #D8D80B;
+  background-color: rgba(216, 216, 11, 0.39);
   position: initial;
   margin-top: -2.8rem; }
 
@@ -368,7 +368,7 @@ body {
   top: 10.2rem; }
 
 .has-top {
-  top: 25px;
+  top: 20px;
   background-color: white; }
 
 .item-height {
@@ -547,6 +547,14 @@ body {
 #icon-right {
   font-size: 23px; }
 
+#twoimage2 {
+  width: 4rem;
+  margin-left: -110px;
+  margin-top: -20px; }
+
+.twoimage1 {
+  width: 80%; }
+
 .homein-tabs-meun {
   padding: .4rem 0px;
   height: 3.5rem; }
@@ -604,7 +612,7 @@ body {
         right: 0px;
         top: 10%; }
       .homebox .row div img {
-        width: 1.4rem; }
+        width: 1.3rem; }
       .homebox .row div p {
         color: #333;
         margin: 0px; }
@@ -841,3 +849,240 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
 
 .tab-nav.tabs {
   padding-top: 0px !important; }
+
+.shopcartnoitem {
+  margin-top: 10px;
+  height: 2.4rem;
+  line-height: 2.4rem;
+  text-align: center;
+  font-size: 14px;
+  color: #999; }
+  .shopcartnoitem .ion-ios-cart-outline {
+    display: inline-block;
+    border: 1px  solid #7b7b7b;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    color: #333;
+    text-align: center;
+    line-height: 30px;
+    font-size: 20px;
+    margin-right: 10px; }
+
+.platform-android .bar .title, .bar .title {
+  font-size: 16px; }
+
+img {
+  max-width: 100%; }
+
+ion-content {
+  overflow: auto; }
+
+.shopcrtboxbj {
+  background: #F5F5F4; }
+
+.shopcartBOXLIST .shopitem .shoptitle {
+  background: #fff;
+  height: 45px;
+  position: relative;
+  line-height: 45px; }
+  .shopcartBOXLIST .shopitem .shoptitle:after {
+    display: block;
+    content: '';
+    clear: both; }
+  .shopcartBOXLIST .shopitem .shoptitle > div {
+    float: left; }
+  .shopcartBOXLIST .shopitem .shoptitle .shoptile {
+    color: #333;
+    width: 70%;
+    font-size: 14px;
+    position: relative;
+    text-indent: 10px; }
+    .shopcartBOXLIST .shopitem .shoptitle .shoptile span {
+      display: inline-block;
+      width: 90%;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+    .shopcartBOXLIST .shopitem .shoptitle .shoptile i {
+      color: #9c9c9c;
+      position: absolute;
+      right: 0px;
+      font-size: 20px; }
+  .shopcartBOXLIST .shopitem .shoptitle .edit {
+    color: #333;
+    float: right;
+    padding-right: 10px;
+    font-size: 14px; }
+  .shopcartBOXLIST .shopitem .shoptitle .shopimg {
+    position: relative;
+    width: 10%;
+    min-width: 50px; }
+    .shopcartBOXLIST .shopitem .shoptitle .shopimg img {
+      width: 36px;
+      height: 38px;
+      border-radius: 50%;
+      margin-left: 10px;
+      margin-top: 3px; }
+
+.shopcartBOXLIST .shopitem .goodslist {
+  display: block;
+  width: 100%; }
+  .shopcartBOXLIST .shopitem .goodslist:after {
+    content: '';
+    display: block;
+    clear: both; }
+  .shopcartBOXLIST .shopitem .goodslist .goodsitem {
+    display: flex;
+    height: 4.8rem;
+    width: 100%;
+    top: -10px;
+    margin-bottom: 5px;
+    position: relative;
+    padding-bottom: 5px;
+    border-bottom: 1px   solid #ddd; }
+    .shopcartBOXLIST .shopitem .goodslist .goodsitem > div {
+      height: 4.8rem;
+      float: left;
+      display: inline-block; }
+    .shopcartBOXLIST .shopitem .goodslist .goodsitem:after {
+      content: '';
+      display: block;
+      clear: both; }
+    .shopcartBOXLIST .shopitem .goodslist .goodsitem .icons {
+      flex: 1;
+      width: 30px;
+      text-align: center;
+      line-height: 4.7rem;
+      font-size: 1.05rem;
+      color: #868686;
+      position: relative; }
+    .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsimg {
+      flex: 3.2;
+      overflow: hidden;
+      width: 30%; }
+    .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg.edit .cheknumber {
+      display: block; }
+    .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg.edit .del {
+      transform: translateX(0px);
+      -webkit-transform: translateX(0px); }
+    .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg.edit h5, .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg.edit .price {
+      display: none; }
+    .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg {
+      flex: 7;
+      width: 30%;
+      position: relative;
+      padding-left: 5px; }
+      .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg .cheknumber {
+        width: 100%;
+        height: 4.8rem;
+        display: none; }
+        .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg .cheknumber .numberctr {
+          line-height: 1.39;
+          width: 80%;
+          overflow: hidden;
+          float: left; }
+          .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg .cheknumber .numberctr > div {
+            width: 80%;
+            margin: 0 auto;
+            margin-top: 1rem; }
+            .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg .cheknumber .numberctr > div > div {
+              float: left;
+              text-align: center;
+              font-size: .8rem; }
+            .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg .cheknumber .numberctr > div div.remove {
+              width: 19%;
+              height: 1.1rem;
+              border: 1px solid #ddd;
+              border-right: none;
+              border-radius: 4px 0px 0px 4px;
+              line-height: 1rem; }
+            .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg .cheknumber .numberctr > div div.add {
+              width: 19%;
+              height: 1.1rem;
+              border: 1px solid #ddd;
+              border-left: none;
+              border-radius: 0px 4px 4px 0px;
+              line-height: 1rem; }
+            .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg .cheknumber .numberctr > div input {
+              float: left;
+              width: 60%;
+              height: 1.1rem;
+              padding: 0;
+              margin: 0;
+              text-align: center;
+              border: 1px solid #ddd;
+              border-left: none;
+              border-right: none; }
+      .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg .del {
+        height: 4.8rem;
+        width: 20%;
+        text-align: center;
+        background: #FC9000;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        color: #fff;
+        font-size: .6rem;
+        line-height: 4.8rem;
+        font-weight: 500;
+        letter-spacing: 2px;
+        transition: all  300ms;
+        transform: translateX(70px);
+        -webkit-transform: translateX(70px); }
+      .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg h5 {
+        padding-right: 5px;
+        margin: 0 auto;
+        font-weight: normal;
+        font-size: 14px;
+        max-width: 100%;
+        display: inline-block;
+        height: 3.5rem;
+        line-height: 1.6;
+        position: relative;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        word-break: break-all;
+        color: #333;
+        -webkit-transition: all 200ms;
+        transition: all 200ms; }
+      .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg .price {
+        height: 1.2rem;
+        line-height: 1.2rem;
+        margin: 0px;
+        font-size: 14px; }
+        .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg .price .pricemonye {
+          text-indent: -2px;
+          font-size: 16px;
+          color: #FF4A00;
+          font-weight: 600;
+          display: inline-block;
+          width: 70%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap; }
+        .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg .price .number {
+          float: right;
+          padding-right: 10px;
+          font-size: 12px; }
+          .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg .price .number em {
+            font-size: 15px;
+            font-weight: 500;
+            margin-left: .1rem; }
+
+.shopcartnologin {
+  width: 100%;
+  padding-top: 5rem;
+  text-align: center; }
+  .shopcartnologin img {
+    width: 40%;
+    display: block;
+    margin: 0  auto;
+    margin-bottom: 1.5rem; }
+  .shopcartnologin .gotologin {
+    padding: .3rem  1.4rem;
+    border-radius: 4px;
+    border: none;
+    background: #feeb0b;
+    color: #6b3801; }

@@ -5,7 +5,6 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','$state','fromStateServ','$i
 
 
   //保存历史记录的方法  调用  上一次1 title  和返回方法
-  $scope.parenttitle     =   fromStateServ.getState('r.login').title;
   $scope.backtoprevView  =   fromStateServ.backView;
   
   //安卓返回键  对公共模块的返回
@@ -15,12 +14,11 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','$state','fromStateServ','$i
      return false;
    }, 101);
 
-
-
-
-
   $scope.$on('$stateChangeSuccess',function(){
+      $scope.parenttitle     =   fromStateServ.getState('r.login').title;
   })
+
+
   $scope.backView  = function(){
     $scope.$ionicGoBack();
   }
