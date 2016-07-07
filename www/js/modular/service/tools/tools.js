@@ -16,7 +16,11 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     $ionicLoading.hide();
   };
   var   getData  = function(data,Callback,errorCallback,sendType){
+
+    data.client_type =   window.platform?window.platform:'ios';
     data.post_content.token  = window.Token?window.Token:storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:'';
+    data.post_content.token_phone  = window.token_phone?window.token_phone:storage.getObject('UserInfo').phone?storage.getObject('UserInfo').phone:'';
+
     $http({
       url:window.Interactivehost,
       method:sendType?sendType:'POST',
@@ -33,7 +37,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
           hidelogin();
         },200);
         Callback(false);
-        errorCallback(r);
+        errorCallback?errorCallback(r):null;
         if(r.msg){
           $ionicPopup.alert({
             title: r.msg
@@ -46,8 +50,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
         }
       }
     }).error(function(e){
-
-      errorCallback(e);
+      errorCallback?errorCallback(e):null;
       $timeout(function(){
         hidelogin();
       },200);
@@ -57,6 +60,57 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     });
 
   };
+  var  reg = {
+    USPhone: function (val) {
+      return /^0?1[3|4|5|7|8][0-9]\d{8}$/.test(val);
+    },
+    //邮编
+    Zipcode:function(val){
+      return /^[0-9][0-9]{5}$/.test(val);
+    },
+    //汉字
+    chinese:function(val){
+      return /[\u4E00-\u9FA5]/.test(val);
+    },
+    //身份证验证
+    ID:function(val){
+      return  /^((1[1-5])|(2[1-3])|(3[1-7])|(4[1-6])|(5[0-4])|(6[1-5])|71|(8[12])|91)\d{4}((19\d{2}(0[13-9]|1[012])(0[1-9]|[12]\d|30))|(19\d{2}(0[13578]|1[02])31)|(19\d{2}02(0[1-9]|1\d|2[0-8]))|(19([13579][26]|[2468][048]|0[48])0229))\d{3}(\d|X)?$/.test(val);
+    },
+    //固定电话
+    tel:function(val){
+      var mobilecheck = /^(\d{3,4}-)?\d{7,8}$/i;
+      return mobilecheck.test(val);
+    },
+    //传真
+    Fax:function(val){
+      var mobilecheck = /^(\d{3,4}-)?\d{7,8}$/i;
+      return  mobilecheck.test(val);
+    },
+    //不能为负数
+    negative:function(val){
+      return  /(^\+?\d+((\.{1}\d+)|(\d*))$)/.test(val);
+    },
+    // matches mm/dd/yyyy (requires leading 0's (which may be a bit silly, what do you think?)
+    date: function (val) {
+      return /^([0-9A-Za-z\\-_\\.]+)@([0-9a-z]+\\.[a-z]{2,3}(\\.[a-z]{2})?)$/i.test(val);
+    },
+    email: function (val) {
+      return /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(val);
+    },
+    
+    minLength: function (val, length) {
+      return val.length >= length;
+    },
+    
+    maxLength: function (val, length) {
+      return val.length <= length;
+    },
+    equal: function (val1, val2) {
+      return (val1 == val2);
+    }
+    
+  };
+
   return{
     //angualr  本事自带的一些小方法
     //angualr.forEach
@@ -178,8 +232,8 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     },
     showlogin:showlogin,
     hidelogin:hidelogin,
-    getData:getData
-
+    getData:getData,
+    reg:reg
 
 
 

@@ -8,11 +8,14 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
     $state.go('r.tab.Home');
 
 
+    //初始读取toke =  phone
+    var userinfo  = storage.getObject('UserInfo');
+    window.Token  =  userinfo.token?userinfo.token:undefined;
+    window.Token_phone  =  userinfo.phone?userinfo.phone:undefined;
+    
 
-    //初始读取toke =
-    window.Token  =  storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:undefined;
-    
-    
+
+
     $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
       //console.log($ionicHistory.viewHistory())
     });
