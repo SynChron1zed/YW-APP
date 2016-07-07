@@ -58,7 +58,7 @@
 }
 .foot-color{
   height: 2.8rem;
-  background-color:rgba(216, 216, 11, 0.39);
+  background-color: #D8D80B;
   position: initial;
   margin-top: -2.8rem;
 }
@@ -263,4 +263,36 @@
 }
 .twoimage1{
   width: 80%;
+}
+.class-every{
+text-align: center;
+  padding: 5px 5px 0px 5px;
+
+
+}
+.bottom-xian{
+  height: 1.5rem;
+  border-bottom: 2px solid yellow
+}
+.classif-list{
+  text-align: center;
+
+}
+.classlist .classif-list img{
+  width: 3.4rem
+;
+}
+.classif-one{
+  border: 1px solid #ccc;
+  margin-left: 5px;
+}
+#class-boder{
+  margin-top: 2.5px;
+}
+.classif-price{
+  color: red;
+}
+.classif-priceone{
+ color: rgba(0, 0, 0, 0.65);
+  text-decoration:line-through;
 }
