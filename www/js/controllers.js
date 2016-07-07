@@ -3,49 +3,6 @@ var  Ctr = angular.module('starter.controllers', []);
 /**
  * Created by Why on 16/6/8.
  */
-
-Ctr.controller('Classif',['$scope','native','$state',function($scope,native,$state) {
-
-
-}]);
-
-
-/**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('tabCtr',[function(){
-
-}])
-
-/**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','$ionicPopup',function($scope,native,$state,fromStateServ,$ionicPopup) {
-    $scope.a1 = function (){
-      alert('1');
-    }
-    
-    $scope.login  =    function(r){
-        fromStateServ.stateChange(r);
-    }
-
-
-}]);
-
-/**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('homesearchCtr',['$scope','$state','$ionicHistory',function($scope,$state,$ionicHistory) {
-    
-  $scope.back  =  function (){
-      $ionicHistory.goBack();
-  }
-
-}]);
-
-/**
- * Created by Why on 16/6/8.
- */
 Ctr.controller('registercfpwdCtr',['$scope','$rootScope','$ionicModal','$state',function($scope,$rootScope,$ionicModal,$state){
 
 
@@ -87,13 +44,14 @@ Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$io
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatform','$state',function($ionicHistory,$scope,fromStateServ,$ionicPlatform,$state){
+Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatform','$state','Tools',function($ionicHistory,$scope,fromStateServ,$ionicPlatform,$state,Tools){
 
+
+
+  //处理登录
 
   //保存历史记录的方法  调用  上一次1 title  和返回方法
   $scope.backtoprevView  =   fromStateServ.backView;
-
-
   // //安卓返回键  对公共模块的返回
   // $ionicPlatform.registerBackButtonAction(function (e) {
   //    e.preventDefault();
@@ -187,6 +145,14 @@ Ctr.controller("OtherCtrl", function($scope, $state, fromStateServ) {
         }
     };
 })
+/**
+ * Created by Why on 16/6/8.
+ */
+
+Ctr.controller('rootCtr',[function(){
+  
+}])
+
 /**
  * Created by Administrator on 2016/7/5.
  */
@@ -287,14 +253,6 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
 /**
  * Created by Why on 16/6/8.
  */
-
-Ctr.controller('rootCtr',[function(){
-  
-}])
-
-/**
- * Created by Why on 16/6/8.
- */
 Ctr.controller('shoppingCartCtr',['$scope','fromStateServ',function($scope,fromStateServ){
 
       $scope.login  =  function(r){
@@ -303,3 +261,46 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ',function($scope,fromS
 
 
 }])
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','$ionicPopup',function($scope,native,$state,fromStateServ,$ionicPopup) {
+    $scope.a1 = function (){
+      alert('1');
+    }
+    
+    $scope.login  =    function(r){
+        fromStateServ.stateChange(r);
+    }
+
+
+}]);
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('homesearchCtr',['$scope','$state','$ionicHistory',function($scope,$state,$ionicHistory) {
+    
+  $scope.back  =  function (){
+      $ionicHistory.goBack();
+  }
+
+}]);
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('tabCtr',[function(){
+
+}])
+
+/**
+ * Created by Why on 16/6/8.
+ */
+
+Ctr.controller('Classif',['$scope','native','$state',function($scope,native,$state) {
+
+
+}]);
+

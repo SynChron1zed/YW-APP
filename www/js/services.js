@@ -3,25 +3,16 @@ var  Server = angular.module('starter.services', []);
 /**
  * Created by Why on 16/6/12.
  */
+  
+   //全局变量定义
+   window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index'; 
+
+
+
 Server.factory('const',['$window',function($window){
   return{
     haha:'哈哈'
   }
-
-}]);
-
-/**
- * Created by Why on 16/6/10.
- */
-//推送的方法类封装
-Server.factory('native',['$window',function($window){
-  return{
-    //存储单个属性
-    set :function(key,value){
-      $window.localStorage[key]=value;
-    },
-  }
-
 }]);
 
 /**
@@ -439,14 +430,7 @@ Server.factory('storage',['$window',function($window){
       },
       //读取对象
       getObject: function (key) {
-
-        console.log(typeof  window.localStorage[key]  )
-        
-        if($window.localStorage[key]  == 'undefined'){
-          return {};
-        }else{
-          return JSON.parse($window.localStorage[key]);
-        }
+          return JSON.parse( $window.localStorage[key] || '{}'   );
       }
     }
 
@@ -457,7 +441,57 @@ Server.factory('storage',['$window',function($window){
  * Created by Why on 16/6/10.
  */
 //小工具方法类
-Server.factory('tools',['$window',function($window){
+Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup',function($window,$ionicLoading,$http,$timeout,$ionicPopup){
+
+  //加在视图的加载效果http前调用
+  var   showlogin = function() {
+    $ionicLoading.show({
+      //template: '<ion-spinner icon="crescent" class="spinner-royal"></ion-spinner>',
+      template: '<ion-spinner  icon="ripple" class="spinner-energized"  ></ion-spinner>',
+      delay:100
+    });
+  };
+  var   hidelogin = function(){
+    $ionicLoading.hide();
+  };
+  var   getData  = function(data,Callback,sendType){
+    $http({
+      url:window.Interactivehost,
+      method:sendType?sendType:'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+      data:data
+    }).success(function(r){
+      if(r.resp_code== '0000'){
+        $timeout(function(){
+          hidelogin();
+        },200);
+        Callback(r);
+      }else{
+        $timeout(function(){
+          hidelogin();
+        },200);
+        Callback(false);
+        if(r.msg){
+          $ionicPopup.alert({
+            title: r.msg
+          });
+        }else{
+          $ionicPopup.alert({
+            title: '异常错误!'
+          });
+
+        }
+      }
+    }).error(function(e){
+      $timeout(function(){
+        hidelogin();
+      },200);
+      $ionicPopup.alert({
+        title:'网络错误,请确认网络连接!'
+      });
+    });
+
+  };
   return{
     //angualr  本事自带的一些小方法
     //angualr.forEach
@@ -576,7 +610,10 @@ Server.factory('tools',['$window',function($window){
           }
         }
       }
-    }
+    },
+    showlogin:showlogin,
+    hidelogin:hidelogin,
+    getData:getData
 
 
 
@@ -585,6 +622,20 @@ Server.factory('tools',['$window',function($window){
 
 
 
+  }
+
+}]);
+
+/**
+ * Created by Why on 16/6/10.
+ */
+//推送的方法类封装
+Server.factory('native',['$window',function($window){
+  return{
+    //存储单个属性
+    set :function(key,value){
+      $window.localStorage[key]=value;
+    },
   }
 
 }]);
