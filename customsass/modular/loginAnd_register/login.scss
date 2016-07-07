@@ -1,7 +1,15 @@
+
 .login-header-imgbox{
   height: 10rem;
   position: relative;
+  .goin.imgbox{
+    transform: translateY(4rem);
+    -webkit-transform: translateY(4rem);
+    opacity: 1;
+  }
   .imgbox{
+    transition:  all 500ms;
+    -webkit-transition:  all 500ms;
     height: 100px;
     width: 100px;
     overflow: hidden;
@@ -12,7 +20,23 @@
     margin-left:-50px;
   }
 }
+
+
+.loginbutton{
+  transition: all  1000ms;
+  -webkit-transition: all  1000ms;
+}
+.loginbutton.hidenlo{
+  opacity: 0;
+  -webkit-transform: translateY(350px);
+}
+
+.loginbox.hidenlo{
+  opacity: 0;
+}
 .loginbox{
+  transition: all  200ms;
+  -webkit-transition: all  200ms;
   width: 80%;
   margin: 0 auto;
   border-radius: 5px;
@@ -25,7 +49,7 @@
         padding-left: 5%;
         margin: 0px;
         height: 2rem;
-      }      
+      }
       input[type='text']{
         border-bottom:1px solid #ddd;
       }

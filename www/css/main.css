@@ -351,7 +351,7 @@ body {
 
 .foot-color {
   height: 2.8rem;
-  background-color: rgba(216, 216, 11, 0.39);
+  background-color: #D8D80B;
   position: initial;
   margin-top: -2.8rem; }
 
@@ -555,6 +555,34 @@ body {
 .twoimage1 {
   width: 80%; }
 
+.class-every {
+  text-align: center;
+  padding: 5px 5px 0px 5px; }
+
+.bottom-xian {
+  height: 1.5rem;
+  border-bottom: 2px solid yellow; }
+
+.classif-list {
+  text-align: center; }
+
+.classlist .classif-list img {
+  width: 3.4rem; }
+
+.classif-one {
+  border: 1px solid #ccc;
+  margin-left: 5px; }
+
+#class-boder {
+  margin-top: 2.5px; }
+
+.classif-price {
+  color: red; }
+
+.classif-priceone {
+  color: rgba(0, 0, 0, 0.65);
+  text-decoration: line-through; }
+
 .homein-tabs-meun {
   padding: .4rem 0px;
   height: 3.5rem; }
@@ -713,7 +741,13 @@ body {
 .login-header-imgbox {
   height: 10rem;
   position: relative; }
+  .login-header-imgbox .goin.imgbox {
+    transform: translateY(4rem);
+    -webkit-transform: translateY(4rem);
+    opacity: 1; }
   .login-header-imgbox .imgbox {
+    transition: all 500ms;
+    -webkit-transition: all 500ms;
     height: 100px;
     width: 100px;
     overflow: hidden;
@@ -723,7 +757,20 @@ body {
     left: 50%;
     margin-left: -50px; }
 
+.loginbutton {
+  transition: all  1000ms;
+  -webkit-transition: all  1000ms; }
+
+.loginbutton.hidenlo {
+  opacity: 0;
+  -webkit-transform: translateY(350px); }
+
+.loginbox.hidenlo {
+  opacity: 0; }
+
 .loginbox {
+  transition: all  200ms;
+  -webkit-transition: all  200ms;
   width: 80%;
   margin: 0 auto;
   border-radius: 5px;

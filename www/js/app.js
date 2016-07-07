@@ -530,6 +530,13 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
 
   $ionicPlatform.ready(function() {
     $state.go('r.tab.Home');
+
+
+
+    //初始读取toke =
+    window.Token  =  storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:undefined;
+    
+    
     $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
       //console.log($ionicHistory.viewHistory())
     });
@@ -551,10 +558,11 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
       });
     }
 
+
+
     //安卓返回键的处理
     $ionicPlatform.registerBackButtonAction(function (e) {
      e.preventDefault();
-
         //执行一个零时的 处理函数
         if(window.androdzerofun){
             window.androdzerofun(window.androdzerofun_parms);
@@ -574,8 +582,6 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
      return false;
    }, 101);
 
-
-
     $window.platform = window.platform = ionic.Platform.platform();
     console.log(window.platform);
 
@@ -591,25 +597,26 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
       //Return event listener
       $ionicPlatform.registerBackButtonAction(function(r){
       });
-
         //uuid
         var  locldevice  =    storage.getObject('device');
         window.plugins.sim.getSimInfo(  function (result) {
-        locldevice.uuid.phoneNumber  =result.phoneNumber;
+        locldevice.phoneNumber  =result.phoneNumber;
         }, function(){});
         locldevice.uuid  = device.uuid;
         storage.setObject('device',locldevice);
-      
+
     }else{
         //这里是浏览器写的是固定的值
         //uuid
+
         var     locldevice  =    storage.getObject('device');
-                locldevice.uuid.phoneNumber  ='13517437500';
+                locldevice.phoneNumber  ='13517437500';
                 locldevice.uuid  =   'dsadsa-dsad-12321sad-das' ;
                 storage.setObject('device',locldevice);
         var     locjPush  =    storage.getObject('jPush');
                 locjPush.RegistrationID =  'janiokq-text-jpush';
-                storage.setObject('jPush',locldevice);
+                storage.setObject('jPush',locjPush);
+
     }
 
     if (window.StatusBar) {StatusBar.styleDefault();}
@@ -630,7 +637,7 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
       try {
         var  locjPush  =    storage.getObject('jPush');
         locjPush.RegistrationID =  data;
-        storage.setObject('jPush',locldevice);
+        storage.setObject('jPush',locjPush);
       } catch(exception) {
         console.log(exception,'发生了错误');
       }

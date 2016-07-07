@@ -11,25 +11,30 @@
 
       <ion-content     style="background: #fff;overflow-x: hidden; overflow-y:visible;" scroll="false"    on-swipe-right="backtoprevView('r.login')"   >
       <div class="login-header-imgbox">
-            <div class="imgbox">
+            <div class="imgbox"  ng-class="{'goin':ing}" >
               <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1365080916,3639569330&fm=116&gp=0.jpg" alt="">
             </div>
       </div>
 
-      <div class="loginbox">
-        <input type="text" placeholder="请输入你的用户名/手机号">
-        <input type="password"  placeholder='请输入密码' >
+
+
+
+      <div class="loginbox"  ng-class="{'hidenlo':ing}" >
+        <input type="text"      ng-model="loginboj.userName"     maxlength="40"          placeholder="请输入你的用户名/手机号">
+        <input type="password"  ng-model="loginboj.Pwd"     maxlength="40"          placeholder='请输入密码' >
       </div>
 
-      <button class="button button-block button-positive block-botton"
+
+
+
+      <button    ng-click="loginhan()"   ng-class="{'hidenlo':ing}"  class="  loginbutton button button-block button-positive block-botton"
       style="margin-top:1.4rem"
        >登录</button>
-       <p style='text-align: center;margin: .5rem 0px;font-size: 13px;text-decoration: underline;color:#999' >忘记了密码</p>
-
+       <p style='text-align: center;margin: .5rem 0px;font-size: 13px;text-decoration: underline;color:#999' class="loginbutton"   ng-class="{'hidenlo':ing}"    >忘记了密码</p>
     </ion-content>
-    
-      <ion-footer-bar align-title="center"  ng-click='register()'   style="background:#fff" >
-      <h1 class="title" style="color:#5e5a29">注册</h1>
+
+      <ion-footer-bar align-title="center"       ng-click='register()'   style="background:#fff" >
+      <h1 class="title" style="color:#5e5a29"   >注册</h1>
     </ion-footer-bar>
 
 </ion-view>

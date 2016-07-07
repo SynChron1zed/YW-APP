@@ -3,6 +3,49 @@ var  Ctr = angular.module('starter.controllers', []);
 /**
  * Created by Why on 16/6/8.
  */
+
+Ctr.controller('Classif',['$scope','native','$state',function($scope,native,$state) {
+
+
+}]);
+
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('tabCtr',[function(){
+
+}])
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','$ionicPopup',function($scope,native,$state,fromStateServ,$ionicPopup) {
+    $scope.a1 = function (){
+      alert('1');
+    }
+    
+    $scope.login  =    function(r){
+        fromStateServ.stateChange(r);
+    }
+
+
+}]);
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('homesearchCtr',['$scope','$state','$ionicHistory',function($scope,$state,$ionicHistory) {
+    
+  $scope.back  =  function (){
+      $ionicHistory.goBack();
+  }
+
+}]);
+
+/**
+ * Created by Why on 16/6/8.
+ */
 Ctr.controller('registercfpwdCtr',['$scope','$rootScope','$ionicModal','$state',function($scope,$rootScope,$ionicModal,$state){
 
 
@@ -44,11 +87,72 @@ Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$io
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatform','$state','Tools',function($ionicHistory,$scope,fromStateServ,$ionicPlatform,$state,Tools){
-
-
+Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatform','$state','Tools','$ionicPopup','storage','$timeout',function($ionicHistory,$scope,fromStateServ,$ionicPlatform,$state,Tools,$ionicPopup,storage,$timeout){
 
   //处理登录
+  $scope.loginboj  = {};
+  $scope.loginhan  = function (){
+      if(!$scope.loginboj.userName){
+         $ionicPopup.alert({
+           title:'请输入用户名!',
+           okText:'确认'
+         });
+        return false;
+      }
+      if(!$scope.loginboj.Pwd){
+        $ionicPopup.alert({
+          title:'请输入密码!',
+          okText:'确认'
+        });
+        return false;
+      }
+      $scope.ing  = true;
+      var devinfo  =   storage.getObject('device');
+      Tools.getData({
+        "interface_number": "000001",
+        "client_type": window.platform,
+        "post_content": {
+          "phone":$scope.loginboj.userName,
+          "push_registration_id" : storage.getObject('jPush').RegistrationID,
+          "password":window.md5($scope.loginboj.Pwd),
+          "uuid":devinfo.uuid
+        }
+      },function(r){
+        if(r){
+              window.Token  = r.resp_data.token;
+              r.resp_data.user_info.token  = window.Token;
+              storage.setObject('UserInfo',r.resp_data.user_info);
+                $timeout(function(){
+                  $scope.ing  = false;
+                  $timeout(function(){
+                    $scope.backtoprevView('r.login');
+                    $timeout(function(){
+                      $ionicPopup.alert({
+                        title:'登录成功!',
+                        okText:'确认'
+                      })
+                    },400);
+                  },1000);
+                },800)
+
+
+
+        }
+      },function(){
+        $timeout(function(){
+          $scope.ing  = false;
+        },600)
+
+      })
+
+
+
+  };
+
+
+
+
+
 
   //保存历史记录的方法  调用  上一次1 title  和返回方法
   $scope.backtoprevView  =   fromStateServ.backView;
@@ -58,17 +162,19 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
   //    $scope.backtoprevView('r.login');
   //    return false;
   //  }, 101);
-
   $scope.$on('$stateChangeSuccess',function(){
+      $scope.loginboj = {};
+      $scope.ing  = false;
       $scope.parenttitle     =   fromStateServ.getState('r.login').title;
-  })
+  });
 
   $scope.backView  = function(){
     $scope.$ionicGoBack();
-  }
-
+  };
   $scope.register  =  function (){
-      $state.go('r.register');
+      if(!$scope.ing){
+            $state.go('r.register');
+      }
   }
 
 }])
@@ -78,13 +184,20 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
  */
 Ctr.controller('registerCtr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher','$state',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher,$state){
 
+  
+  $scope.registbasinfo  = {};
+  
+
+
+
+
+
+
 
   $scope.$on('$stateChangeSuccess',function(){});
-  
   $scope.backView  = function(){
     $scope.$ionicGoBack();
   };
-
   //输入密码
   $scope.next =  function (){
     $state.go('r.registercfpwd')
@@ -261,46 +374,3 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ',function($scope,fromS
 
 
 }])
-
-/**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','$ionicPopup',function($scope,native,$state,fromStateServ,$ionicPopup) {
-    $scope.a1 = function (){
-      alert('1');
-    }
-    
-    $scope.login  =    function(r){
-        fromStateServ.stateChange(r);
-    }
-
-
-}]);
-
-/**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('homesearchCtr',['$scope','$state','$ionicHistory',function($scope,$state,$ionicHistory) {
-    
-  $scope.back  =  function (){
-      $ionicHistory.goBack();
-  }
-
-}]);
-
-/**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('tabCtr',[function(){
-
-}])
-
-/**
- * Created by Why on 16/6/8.
- */
-
-Ctr.controller('Classif',['$scope','native','$state',function($scope,native,$state) {
-
-
-}]);
-

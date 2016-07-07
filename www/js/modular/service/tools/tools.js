@@ -2,7 +2,7 @@
  * Created by Why on 16/6/10.
  */
 //小工具方法类
-Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup',function($window,$ionicLoading,$http,$timeout,$ionicPopup){
+Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup','storage',function($window,$ionicLoading,$http,$timeout,$ionicPopup,storage){
 
   //加在视图的加载效果http前调用
   var   showlogin = function() {
@@ -15,7 +15,8 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   var   hidelogin = function(){
     $ionicLoading.hide();
   };
-  var   getData  = function(data,Callback,sendType){
+  var   getData  = function(data,Callback,errorCallback,sendType){
+    data.post_content.token  = window.Token?window.Token:storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:'';
     $http({
       url:window.Interactivehost,
       method:sendType?sendType:'POST',
@@ -32,6 +33,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
           hidelogin();
         },200);
         Callback(false);
+        errorCallback(r);
         if(r.msg){
           $ionicPopup.alert({
             title: r.msg
@@ -44,6 +46,8 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
         }
       }
     }).error(function(e){
+
+      errorCallback(e);
       $timeout(function(){
         hidelogin();
       },200);
