@@ -3,6 +3,16 @@ var  Ctr = angular.module('starter.controllers', []);
 /**
  * Created by Why on 16/6/8.
  */
+
+Ctr.controller('Classif',['$scope','native','$state',function($scope,native,$state) {
+
+
+}]);
+
+
+/**
+ * Created by Why on 16/6/8.
+ */
 Ctr.controller('tabCtr',[function(){
 
 }])
@@ -14,7 +24,11 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','$ionicPopu
     $scope.a1 = function (){
       alert('1');
     }
-    $scope.login  = fromStateServ.stateChange;
+    
+    $scope.login  =    function(r){
+        fromStateServ.stateChange(r);
+    }
+
 
 }]);
 
@@ -32,29 +46,71 @@ Ctr.controller('homesearchCtr',['$scope','$state','$ionicHistory',function($scop
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('loginCtr',['$ionicHistory','$scope','$state','fromStateServ','$ionicPlatform',function($ionicHistory,$scope,$state,fromStateServ,$ionicPlatform){
+Ctr.controller('registercfpwdCtr',['$scope','$rootScope','$ionicModal','$state',function($scope,$rootScope,$ionicModal,$state){
+
+
+
+
+  //选择认证方式
+  $scope.next =  function (){
+    $state.go('r.selectAuth');
+  }
+  
+
+
+  
+  
+}]);
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher){
+
+  
+}]);
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher){
+
+
+  $scope.$on('$stateChangeSuccess',function(){});
+  $scope.backView  = function(){
+    $scope.$ionicGoBack();
+  };
+
+
+
+}]);
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatform','$state',function($ionicHistory,$scope,fromStateServ,$ionicPlatform,$state){
 
 
   //保存历史记录的方法  调用  上一次1 title  和返回方法
   $scope.backtoprevView  =   fromStateServ.backView;
-  
-  //安卓返回键  对公共模块的返回
-  $ionicPlatform.registerBackButtonAction(function (e) {
-     e.preventDefault();
-     $scope.backtoprevView('r.login');
-     return false;
-   }, 101);
+
+
+  // //安卓返回键  对公共模块的返回
+  // $ionicPlatform.registerBackButtonAction(function (e) {
+  //    e.preventDefault();
+  //    $scope.backtoprevView('r.login');
+  //    return false;
+  //  }, 101);
 
   $scope.$on('$stateChangeSuccess',function(){
       $scope.parenttitle     =   fromStateServ.getState('r.login').title;
   })
 
-
   $scope.backView  = function(){
     $scope.$ionicGoBack();
   }
+
   $scope.register  =  function (){
-    $state.go('r.register');
+      $state.go('r.register');
   }
 
 }])
@@ -62,15 +118,37 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','$state','fromStateServ','$i
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('registerCtr',['$ionicHistory','$scope','$rootScope',function($ionicHistory,$scope,$rootScope){
+Ctr.controller('registerCtr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher','$state',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher,$state){
+
+
+  $scope.$on('$stateChangeSuccess',function(){});
   
-  $scope.$on('$stateChangeSuccess',function(){
-  });
   $scope.backView  = function(){
     $scope.$ionicGoBack();
+  };
+
+  //输入密码
+  $scope.next =  function (){
+    $state.go('r.registercfpwd')
   }
 
+}]);
 
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher','$state',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher,$state){
+
+  //个人认证
+  $scope.gren  =  function (){
+    $state.go('r.grAuthentication');
+  }
+  //企业认证
+  $scope.qiye  =  function (){
+    $state.go('r.entAuthentication');
+  }
+  
+  
 }]);
 
 /**
@@ -98,16 +176,6 @@ Ctr.controller('noticeCtr', function($scope, Chats) {
 
   });
 
-/**
- * Created by Why on 16/6/8.
- */
-
-Ctr.controller('Classif',['$scope','native','$state',function($scope,native,$state) {
-
-
-}]);
-
-
 Ctr.controller("OtherCtrl", function($scope, $state, fromStateServ) {
     $scope.backNav = function() {
         var fromState = fromStateServ.getState("other");
@@ -119,14 +187,6 @@ Ctr.controller("OtherCtrl", function($scope, $state, fromStateServ) {
         }
     };
 })
-/**
- * Created by Why on 16/6/8.
- */
-
-Ctr.controller('rootCtr',[function(){
-  
-}])
-
 /**
  * Created by Administrator on 2016/7/5.
  */
@@ -227,8 +287,19 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
 /**
  * Created by Why on 16/6/8.
  */
+
+Ctr.controller('rootCtr',[function(){
+  
+}])
+
+/**
+ * Created by Why on 16/6/8.
+ */
 Ctr.controller('shoppingCartCtr',['$scope','fromStateServ',function($scope,fromStateServ){
 
-      $scope.login  = fromStateServ.stateChange;
+      $scope.login  =  function(r){
+            fromStateServ.stateChange(r);
+      }
+
 
 }])

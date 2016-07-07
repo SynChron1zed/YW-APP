@@ -1,7 +1,41 @@
 /**
  * Created by Why on 16/6/6.
  */
-App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider,$httpProvider) {
+App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider,$httpProvider){
+
+  
+  // $ionicNativeTransitionsProvider.setDefaultOptions({
+  //   duration: 500, // in milliseconds (ms), default 400,
+  //   slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
+  //   iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
+  //   androiddelay: -1, // same as above but for Android, default -1
+  //   winphonedelay: -1, // same as above but for Windows Phone, default -1,
+  //   fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
+  //   fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
+  //   triggerTransitionEvent: '$ionicView.afterEnter', // internal ionic-native-transitions option
+  //   backInOppositeDirection: false // Takes over default back transition and state back transition to use the opposite direction transition to go back
+  // });
+  //
+  // $ionicNativeTransitionsProvider.setDefaultTransition({
+  //   type: 'slide',
+  //   direction: 'left'
+  // });
+  //
+  // $ionicNativeTransitionsProvider.setDefaultBackTransition({
+  //   type: 'slide',
+  //   direction: 'right'
+  // });
+  //
+  // $ionicNativeTransitionsProvider.enable(true);
+  // // $ionicNativeTransitions.enable(false);
+  // // $ionicNativeTransitions.enable(true);
+  // // $ionicNativeTransitions.enable(false, true);
+  // // $ionicNativeTransitions.enable(true, false);
+  //
+
+  
+  
+
 
   //post  auto    transfromition  to  json
   ! function ($httpProvider) {
@@ -85,6 +119,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     //登录
      .state('r.login', {
       url: '/login',
+       // nativeTransitions: {
+       //   "type": "flip",
+       //   "direction": "up"
+       // },
       onEnter: function(fromStateServ,$ionicHistory) {
           fromStateServ.saveHisty($ionicHistory,'r.login')
         },
@@ -101,6 +139,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     //注册
     .state('r.register',{
       url: '/register',
+      // nativeTransitions: {
+      //   "type": "flip",
+      //   "direction": "up"
+      // },
        views: {
         'rootview': {
           templateUrl: 'templates/login/register.html',
@@ -108,6 +150,63 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
        }
     })
+    //输入密码
+    .state('r.registercfpwd',{
+      nativeTransitions: {
+        "type": "flip",
+        "direction": "up"
+      },
+      url: '/registercfpwd',
+      views: {
+        'rootview': {
+          templateUrl: 'templates/login/registercfpwd.html',
+          controller: 'registercfpwdCtr'
+        }
+      }
+    })
+    //选择认证
+      .state('r.selectAuth',{
+        // nativeTransitions: {
+        //   "type": "flip",
+        //   "direction": "up"
+        // },
+        url: '/selectAuth',
+        views: {
+          'rootview': {
+            templateUrl: 'templates/login/selectAuth.html',
+            controller: 'selectAuthctr'
+          }
+        }
+      })
+
+    //个人认证
+    .state('r.grAuthentication',{
+        // nativeTransitions: {
+        //   "type": "flip",
+        //   "direction": "up"
+        // },
+        url: '/grAuthentication',
+        views: {
+          'rootview': {
+            templateUrl: 'templates/login/grAuthentication.html',
+            controller: 'grAuthenticationctr'
+          }
+        }
+      })
+    //企业认证
+      .state('r.entAuthentication',{
+        // nativeTransitions: {
+        //   "type": "flip",
+        //   "direction": "up"
+        // },
+        url: '/entAuthentication',
+        views: {
+          'rootview': {
+            templateUrl: 'templates/login/entAuthentication.html',
+            controller: 'entAuthenticationctr'
+          }
+        }
+      })
 
 
 
@@ -126,6 +225,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     // home  主页
     .state('r.tab.Home',{
+      nativeTransitions: {
+        "type": "flip",
+        "direction": "up"
+      },
       url: '/Home',
       views: {
         'Home': {
@@ -136,6 +239,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
 
     .state('r.tab.HomeSearch',{
+      nativeTransitions: {
+        "type": "flip",
+        "direction": "up"
+      },
       url: '/HomeSearch',
       views: {
         'Home': {

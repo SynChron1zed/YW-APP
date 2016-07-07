@@ -18,7 +18,14 @@ Server.factory('storage',['$window',function($window){
       },
       //读取对象
       getObject: function (key) {
-        return JSON.parse($window.localStorage[key] || '{}');
+
+        console.log(typeof  window.localStorage[key]  )
+        
+        if($window.localStorage[key]  == 'undefined'){
+          return {};
+        }else{
+          return JSON.parse($window.localStorage[key]);
+        }
       }
     }
 

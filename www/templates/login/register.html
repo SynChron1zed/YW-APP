@@ -2,25 +2,15 @@
 
 
   <ion-nav-buttons side="right"    class="button back-button buttons button-clear header-item">
-    <div class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.login')">
+    <div class="button back-button buttons button-clear header-item"   ng-click="next()"    >
 
-      <span class="previous-title">下一步</span></span>
+      <span class="previous-title"     >下一步</span></span>
+
     </div>
   </ion-nav-buttons>
-    <ion-content  scrollbar-y="false" style="background: #f2f2f2">
+    <ion-content  scrollbar-y="false"  overflow-scroll="false"   style="background: #f2f2f2">
 
 
-
-
-
-       <div class="registerlist">
-          <div>
-            <div class="lable">公司名称</div>
-            <div class="input">
-              <input type="text" placeholder="请输入公司名称">
-            </div>
-          </div>
-       </div>
 
 
       <div class="registerlist">
@@ -47,6 +37,38 @@
       </div>
 
 
+
+
+      <div class="registerlist">
+
+
+        <div>
+          <div class="lable">公司名称</div>
+          <div class="input">
+            <input type="text" placeholder="请输的公司名称">
+          </div>
+        </div>
+
+        <div>
+          <div class="lable">姓名</div>
+          <div class="input">
+            <input type="text" placeholder="请输的正式姓名">
+          </div>
+        </div>
+
+        <div>
+          <div class="lable">邀请码(会费)</div>
+          <div class="input">
+            <input type="number" placeholder="请输的你的邀请码">
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+      <p style="text-indent: 10px;color: #f75252;height: 30px;line-height: 30px;font-size: 13px;">友情提示: 若没有邀请码,请直接点击下一步!</p>
 
 
   </ion-content>

@@ -3,6 +3,9 @@
  */
 Ctr.controller('shoppingCartCtr',['$scope','fromStateServ',function($scope,fromStateServ){
 
-      $scope.login  = fromStateServ.stateChange;
+      $scope.login  =  function(r){
+            fromStateServ.stateChange(r);
+      }
+
 
 }])

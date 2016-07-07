@@ -1,7 +1,7 @@
 /**
  * Created by Why on 16/6/6.
  */
-App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup) {
+App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage) {
 
 
   $ionicPlatform.ready(function() {
@@ -10,7 +10,7 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
       //console.log($ionicHistory.viewHistory())
     });
 
-    
+
     function showConfirm() {
       var confirmPopup = $ionicPopup.confirm({
         title: '<strong>退出应用?</strong>',
@@ -60,49 +60,67 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
-      ionic.Platform.isFullScreen = true
+      ionic.Platform.isFullScreen = true;
       //Return event listener
       $ionicPlatform.registerBackButtonAction(function(r){
-      })
+      });
+        
+     //uuid
+        var  locldevice  =    storage.getObject('device');
+        locldevice.uuid  = device.uuid;
+        storage.setObject('device',locldevice);
+
     }
     if (window.StatusBar) {StatusBar.styleDefault();}
 
+    //极光推送  初始初始化
+    window.plugins.jPushPlugin.init();
+    //调试模式
+    window.plugins.jPushPlugin.setDebugMode(true);
 
+      //获取极光推送注册id
+      window.plugins.jPushPlugin.getRegistrationID(onGetRegistradionID);
+      var onGetRegistradionID = function(data) {
+          try {
+              var  locjPush  =    storage.getObject('jPush');
+                   locjPush.RegistrationID =  data;
+                   storage.setObject('jPush',locldevice);
+                    console.log(data,'极光推送id获取成功!')
+          } catch(exception) {
+              console.log(exception,'发生了错误');
+          }
+      }
 
-    // //极光推送  初始初始化
-    // window.plugins.jPushPlugin.init();
-    // //调试模式
-    // window.plugins.jPushPlugin.setDebugMode(true);
-    // //极光推送事件处理
-    // //极光数据处理  兼容ios  安卓平台  剥离数据
-    // var bestripped  =  function(data){
-    //   var result = {};
-    //   if(device.platform == "Android") {
-    //     result.title = data.alert;
-    //     result.value = data.extras["cn.jpush.android.EXTRA"];
-    //   }else{
-    //     var iosVlue  ={};
-    //     angular.forEach(data,function(value,key){
-    //       if(key  !=='aps' || key  !=='_j_msgid'){
-    //         iosVlue[key] = value;
-    //       }
-    //     })
-    //     result.title = data.aps.alert;
-    //     result.value = iosVlue;
-    //   }
-    //   return  result;
-    // };
-    // //点击通知的处理
-    // var onOpenNotification  = function(){
-    //   var alertContent  =  bestripped(window.plugins.jPushPlugin.openNotification);
-    //   //推送的附带对象 数据 直接访问
-    //   //window.plugins.jPushPlugin.openNotification
-    // };
-    // window.document.addEventListener("jpush.openNotification", onOpenNotification, false);
-    // //收到推送 事件  触发
-    // window.document.addEventListener("jpush.receiveNotification", function(){
-    //   var alertContent  =  bestripped(window.plugins.jPushPlugin.openNotification);
-    // }, false);
+    //极光推送事件处理
+    //极光数据处理  兼容ios  安卓平台  剥离数据
+    var bestripped  =  function(data){
+      var result = {};
+      if(device.platform == "Android") {
+        result.title = data.alert;
+        result.value = data.extras["cn.jpush.android.EXTRA"];
+      }else{
+        var iosVlue  ={};
+        angular.forEach(data,function(value,key){
+          if(key  !=='aps' || key  !=='_j_msgid'){
+            iosVlue[key] = value;
+          }
+        })
+        result.title = data.aps.alert;
+        result.value = iosVlue;
+      }
+      return  result;
+    };
+    //点击通知的处理
+    var onOpenNotification  = function(){
+      var alertContent  =  bestripped(window.plugins.jPushPlugin.openNotification);
+      //推送的附带对象 数据 直接访问
+      //window.plugins.jPushPlugin.openNotification
+    };
+    window.document.addEventListener("jpush.openNotification", onOpenNotification, false);
+    //收到推送 事件  触发
+    window.document.addEventListener("jpush.receiveNotification", function(){
+      var alertContent  =  bestripped(window.plugins.jPushPlugin.openNotification);
+    }, false);
 
 
 

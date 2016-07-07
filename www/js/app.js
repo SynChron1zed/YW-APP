@@ -8,7 +8,6 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 var App = angular.module('starter', ['ionic','ngCordova','starter.controllers', 'starter.services','ionicLazyLoad']);
-
 //hidden  tabs  directive
 App.directive('hideTabs',function($rootScope) {
     return {
@@ -16,7 +15,10 @@ App.directive('hideTabs',function($rootScope) {
         link: function(scope, element, attributes) {
             scope.$on('$ionicView.beforeEnter', function() {
                 scope.$watch(attributes.hideTabs, function(value){
-                    $rootScope.hideTabs = value;
+                    $rootScope.hideTabs = true;
+                    console.log($rootScope.hideTabs)
+
+
                 });
             });
             scope.$on('$ionicView.beforeLeave', function() {
@@ -71,7 +73,11 @@ App.directive('jfocus',function($rootScope,$parse) {
         link: function(scope, element, attributes) {
             setTimeout(function(){
                 element[0].focus()
-                window.cordova.plugins.Keyboard.show();
+
+                if(ionic.Platform.isAndroid()){
+                    window.cordova.plugins.Keyboard.show();
+                }
+                
             },800)
 
         }
@@ -82,7 +88,41 @@ App.directive('jfocus',function($rootScope,$parse) {
 /**
  * Created by Why on 16/6/6.
  */
-App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider,$httpProvider) {
+App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider,$httpProvider){
+
+  
+  // $ionicNativeTransitionsProvider.setDefaultOptions({
+  //   duration: 500, // in milliseconds (ms), default 400,
+  //   slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
+  //   iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
+  //   androiddelay: -1, // same as above but for Android, default -1
+  //   winphonedelay: -1, // same as above but for Windows Phone, default -1,
+  //   fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
+  //   fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
+  //   triggerTransitionEvent: '$ionicView.afterEnter', // internal ionic-native-transitions option
+  //   backInOppositeDirection: false // Takes over default back transition and state back transition to use the opposite direction transition to go back
+  // });
+  //
+  // $ionicNativeTransitionsProvider.setDefaultTransition({
+  //   type: 'slide',
+  //   direction: 'left'
+  // });
+  //
+  // $ionicNativeTransitionsProvider.setDefaultBackTransition({
+  //   type: 'slide',
+  //   direction: 'right'
+  // });
+  //
+  // $ionicNativeTransitionsProvider.enable(true);
+  // // $ionicNativeTransitions.enable(false);
+  // // $ionicNativeTransitions.enable(true);
+  // // $ionicNativeTransitions.enable(false, true);
+  // // $ionicNativeTransitions.enable(true, false);
+  //
+
+  
+  
+
 
   //post  auto    transfromition  to  json
   ! function ($httpProvider) {
@@ -166,6 +206,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     //登录
      .state('r.login', {
       url: '/login',
+       // nativeTransitions: {
+       //   "type": "flip",
+       //   "direction": "up"
+       // },
       onEnter: function(fromStateServ,$ionicHistory) {
           fromStateServ.saveHisty($ionicHistory,'r.login')
         },
@@ -182,6 +226,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     //注册
     .state('r.register',{
       url: '/register',
+      // nativeTransitions: {
+      //   "type": "flip",
+      //   "direction": "up"
+      // },
        views: {
         'rootview': {
           templateUrl: 'templates/login/register.html',
@@ -189,6 +237,63 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
        }
     })
+    //输入密码
+    .state('r.registercfpwd',{
+      nativeTransitions: {
+        "type": "flip",
+        "direction": "up"
+      },
+      url: '/registercfpwd',
+      views: {
+        'rootview': {
+          templateUrl: 'templates/login/registercfpwd.html',
+          controller: 'registercfpwdCtr'
+        }
+      }
+    })
+    //选择认证
+      .state('r.selectAuth',{
+        // nativeTransitions: {
+        //   "type": "flip",
+        //   "direction": "up"
+        // },
+        url: '/selectAuth',
+        views: {
+          'rootview': {
+            templateUrl: 'templates/login/selectAuth.html',
+            controller: 'selectAuthctr'
+          }
+        }
+      })
+
+    //个人认证
+    .state('r.grAuthentication',{
+        // nativeTransitions: {
+        //   "type": "flip",
+        //   "direction": "up"
+        // },
+        url: '/grAuthentication',
+        views: {
+          'rootview': {
+            templateUrl: 'templates/login/grAuthentication.html',
+            controller: 'grAuthenticationctr'
+          }
+        }
+      })
+    //企业认证
+      .state('r.entAuthentication',{
+        // nativeTransitions: {
+        //   "type": "flip",
+        //   "direction": "up"
+        // },
+        url: '/entAuthentication',
+        views: {
+          'rootview': {
+            templateUrl: 'templates/login/entAuthentication.html',
+            controller: 'entAuthenticationctr'
+          }
+        }
+      })
 
 
 
@@ -207,6 +312,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     // home  主页
     .state('r.tab.Home',{
+      nativeTransitions: {
+        "type": "flip",
+        "direction": "up"
+      },
       url: '/Home',
       views: {
         'Home': {
@@ -217,6 +326,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
 
     .state('r.tab.HomeSearch',{
+      nativeTransitions: {
+        "type": "flip",
+        "direction": "up"
+      },
       url: '/HomeSearch',
       views: {
         'Home': {
@@ -412,7 +525,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 /**
  * Created by Why on 16/6/6.
  */
-App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup) {
+App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage) {
 
 
   $ionicPlatform.ready(function() {
@@ -421,7 +534,7 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
       //console.log($ionicHistory.viewHistory())
     });
 
-    
+
     function showConfirm() {
       var confirmPopup = $ionicPopup.confirm({
         title: '<strong>退出应用?</strong>',
@@ -471,49 +584,67 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
-      ionic.Platform.isFullScreen = true
+      ionic.Platform.isFullScreen = true;
       //Return event listener
       $ionicPlatform.registerBackButtonAction(function(r){
-      })
+      });
+        
+     //uuid
+        var  locldevice  =    storage.getObject('device');
+        locldevice.uuid  = device.uuid;
+        storage.setObject('device',locldevice);
+
     }
     if (window.StatusBar) {StatusBar.styleDefault();}
 
+    //极光推送  初始初始化
+    window.plugins.jPushPlugin.init();
+    //调试模式
+    window.plugins.jPushPlugin.setDebugMode(true);
 
+      //获取极光推送注册id
+      window.plugins.jPushPlugin.getRegistrationID(onGetRegistradionID);
+      var onGetRegistradionID = function(data) {
+          try {
+              var  locjPush  =    storage.getObject('jPush');
+                   locjPush.RegistrationID =  data;
+                   storage.setObject('jPush',locldevice);
+                    console.log(data,'极光推送id获取成功!')
+          } catch(exception) {
+              console.log(exception,'发生了错误');
+          }
+      }
 
-    // //极光推送  初始初始化
-    // window.plugins.jPushPlugin.init();
-    // //调试模式
-    // window.plugins.jPushPlugin.setDebugMode(true);
-    // //极光推送事件处理
-    // //极光数据处理  兼容ios  安卓平台  剥离数据
-    // var bestripped  =  function(data){
-    //   var result = {};
-    //   if(device.platform == "Android") {
-    //     result.title = data.alert;
-    //     result.value = data.extras["cn.jpush.android.EXTRA"];
-    //   }else{
-    //     var iosVlue  ={};
-    //     angular.forEach(data,function(value,key){
-    //       if(key  !=='aps' || key  !=='_j_msgid'){
-    //         iosVlue[key] = value;
-    //       }
-    //     })
-    //     result.title = data.aps.alert;
-    //     result.value = iosVlue;
-    //   }
-    //   return  result;
-    // };
-    // //点击通知的处理
-    // var onOpenNotification  = function(){
-    //   var alertContent  =  bestripped(window.plugins.jPushPlugin.openNotification);
-    //   //推送的附带对象 数据 直接访问
-    //   //window.plugins.jPushPlugin.openNotification
-    // };
-    // window.document.addEventListener("jpush.openNotification", onOpenNotification, false);
-    // //收到推送 事件  触发
-    // window.document.addEventListener("jpush.receiveNotification", function(){
-    //   var alertContent  =  bestripped(window.plugins.jPushPlugin.openNotification);
-    // }, false);
+    //极光推送事件处理
+    //极光数据处理  兼容ios  安卓平台  剥离数据
+    var bestripped  =  function(data){
+      var result = {};
+      if(device.platform == "Android") {
+        result.title = data.alert;
+        result.value = data.extras["cn.jpush.android.EXTRA"];
+      }else{
+        var iosVlue  ={};
+        angular.forEach(data,function(value,key){
+          if(key  !=='aps' || key  !=='_j_msgid'){
+            iosVlue[key] = value;
+          }
+        })
+        result.title = data.aps.alert;
+        result.value = iosVlue;
+      }
+      return  result;
+    };
+    //点击通知的处理
+    var onOpenNotification  = function(){
+      var alertContent  =  bestripped(window.plugins.jPushPlugin.openNotification);
+      //推送的附带对象 数据 直接访问
+      //window.plugins.jPushPlugin.openNotification
+    };
+    window.document.addEventListener("jpush.openNotification", onOpenNotification, false);
+    //收到推送 事件  触发
+    window.document.addEventListener("jpush.receiveNotification", function(){
+      var alertContent  =  bestripped(window.plugins.jPushPlugin.openNotification);
+    }, false);
 
 
 

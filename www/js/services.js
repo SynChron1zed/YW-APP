@@ -273,8 +273,8 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
         data: {},
         savestate:false,
         backView:function(tartg){
-
             $ionicViewSwitcher.nextDirection('back');
+            //$ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams);
             $state.go(box.getState(tartg).fromState,box.getState(tartg).fromParams);
             $timeout(function(){
                 // var inc  = false;
@@ -303,10 +303,17 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
         },
         stateChange: function(stateName,parms,animation){
 
-
             box.savestate = true;
             $ionicViewSwitcher.nextDirection(animation?animation:'forward');
+            // $ionicNativeTransitions.stateGo(stateName,parms,{
+            //     "type": "drawer",
+            //     "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
+            //     "duration": 1000 // in milliseconds (ms), default 400
+            // });
             $state.go(stateName,parms)
+
+
+
         },
         removebackregistevent:function(){
             window.androdzerofun   =  undefined;
@@ -432,7 +439,14 @@ Server.factory('storage',['$window',function($window){
       },
       //读取对象
       getObject: function (key) {
-        return JSON.parse($window.localStorage[key] || '{}');
+
+        console.log(typeof  window.localStorage[key]  )
+        
+        if($window.localStorage[key]  == 'undefined'){
+          return {};
+        }else{
+          return JSON.parse($window.localStorage[key]);
+        }
       }
     }
 

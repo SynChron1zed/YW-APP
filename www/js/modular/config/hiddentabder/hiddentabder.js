@@ -5,7 +5,10 @@ App.directive('hideTabs',function($rootScope) {
         link: function(scope, element, attributes) {
             scope.$on('$ionicView.beforeEnter', function() {
                 scope.$watch(attributes.hideTabs, function(value){
-                    $rootScope.hideTabs = value;
+                    $rootScope.hideTabs = true;
+                    console.log($rootScope.hideTabs)
+
+
                 });
             });
             scope.$on('$ionicView.beforeLeave', function() {
@@ -60,7 +63,11 @@ App.directive('jfocus',function($rootScope,$parse) {
         link: function(scope, element, attributes) {
             setTimeout(function(){
                 element[0].focus()
-                window.cordova.plugins.Keyboard.show();
+
+                if(ionic.Platform.isAndroid()){
+                    window.cordova.plugins.Keyboard.show();
+                }
+                
             },800)
 
         }

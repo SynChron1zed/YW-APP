@@ -5,6 +5,10 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','$ionicPopu
     $scope.a1 = function (){
       alert('1');
     }
-    $scope.login  = fromStateServ.stateChange;
+    
+    $scope.login  =    function(r){
+        fromStateServ.stateChange(r);
+    }
+
 
 }]);
