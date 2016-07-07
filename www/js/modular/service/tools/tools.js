@@ -97,18 +97,18 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     email: function (val) {
       return /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(val);
     },
-    
+
     minLength: function (val, length) {
       return val.length >= length;
     },
-    
+
     maxLength: function (val, length) {
       return val.length <= length;
     },
     equal: function (val1, val2) {
       return (val1 == val2);
     }
-    
+
   };
 
   return{

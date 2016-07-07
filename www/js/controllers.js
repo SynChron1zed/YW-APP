@@ -282,7 +282,7 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
       });
       return  false;
     }
-
+    
     //交互
     $state.go('r.registercfpwd')
 

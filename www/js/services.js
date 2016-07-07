@@ -15,20 +15,6 @@ Server.factory('const',['$window',function($window){
   }
 }]);
 
-/**
- * Created by Why on 16/6/10.
- */
-//推送的方法类封装
-Server.factory('native',['$window',function($window){
-  return{
-    //存储单个属性
-    set :function(key,value){
-      $window.localStorage[key]=value;
-    },
-  }
-
-}]);
-
 Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$timeout',function($state,$ionicViewSwitcher,$ionicHistory,$timeout){
     var box  = {
         data: {},
@@ -303,33 +289,6 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
 }]);
 
 /**
- * Created by Why on 16/6/10.
- */
-  //本地存储数据===================================
-Server.factory('storage',['$window',function($window){
-    return{
-      //存储单个属性
-      set :function(key,value){
-        $window.localStorage[key]=value;
-      },
-      //读取单个属性
-      get:function(key,defaultValue){
-        return  $window.localStorage[key] || defaultValue;
-      },
-      //存储对象，以JSON格式存储
-      setObject:function(key,value){
-        $window.localStorage[key]=JSON.stringify(value);
-      },
-      //读取对象
-      getObject: function (key) {
-          return JSON.parse( $window.localStorage[key] || '{}'   );
-      }
-    }
-
-
-  }]);
-
-/**
  * Created by Why on 16/6/14.
  */
   //本地存储数据===================================
@@ -396,6 +355,20 @@ Server.factory('share',['$window','native',function($window,native){
 
   }
 
+
+}]);
+
+/**
+ * Created by Why on 16/6/10.
+ */
+//推送的方法类封装
+Server.factory('native',['$window',function($window){
+  return{
+    //存储单个属性
+    set :function(key,value){
+      $window.localStorage[key]=value;
+    },
+  }
 
 }]);
 
@@ -498,18 +471,18 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     email: function (val) {
       return /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(val);
     },
-    
+
     minLength: function (val, length) {
       return val.length >= length;
     },
-    
+
     maxLength: function (val, length) {
       return val.length <= length;
     },
     equal: function (val1, val2) {
       return (val1 == val2);
     }
-    
+
   };
 
   return{
@@ -645,6 +618,33 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   }
 
 }]);
+
+/**
+ * Created by Why on 16/6/10.
+ */
+  //本地存储数据===================================
+Server.factory('storage',['$window',function($window){
+    return{
+      //存储单个属性
+      set :function(key,value){
+        $window.localStorage[key]=value;
+      },
+      //读取单个属性
+      get:function(key,defaultValue){
+        return  $window.localStorage[key] || defaultValue;
+      },
+      //存储对象，以JSON格式存储
+      setObject:function(key,value){
+        $window.localStorage[key]=JSON.stringify(value);
+      },
+      //读取对象
+      getObject: function (key) {
+          return JSON.parse( $window.localStorage[key] || '{}'   );
+      }
+    }
+
+
+  }]);
 
 /**
  * Created by Why on 16/6/6.
