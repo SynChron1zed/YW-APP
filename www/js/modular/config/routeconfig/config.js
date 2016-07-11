@@ -3,7 +3,7 @@
  */
 App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider,$httpProvider){
 
-  
+
   // $ionicNativeTransitionsProvider.setDefaultOptions({
   //   duration: 500, // in milliseconds (ms), default 400,
   //   slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
@@ -33,8 +33,8 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
   // // $ionicNativeTransitions.enable(true, false);
   //
 
-  
-  
+
+
 
 
   //post  auto    transfromition  to  json
@@ -152,13 +152,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
     //输入密码
     .state('r.registercfpwd',{
-      nativeTransitions: {
-        "type": "flip",
-        "direction": "up"
-      },
-      url: '/registercfpwd',
+      url: '/registercfpwd?phone:',
       views: {
         'rootview': {
+          params:{phone:null},
           templateUrl: 'templates/login/registercfpwd.html',
           controller: 'registercfpwdCtr'
         }
@@ -180,7 +177,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       })
 
     //个人认证
-    .state('r.grAuthentication',{
+     .state('r.grAuthentication',{
         // nativeTransitions: {
         //   "type": "flip",
         //   "direction": "up"
@@ -207,7 +204,15 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           }
         }
       })
-
+      .state('r.selectPaydues',{
+        url: '/selectPaydues',
+        views: {
+          'rootview': {
+            templateUrl: 'templates/login/selectPaydues.html',
+            controller: 'selectPayduesctr'
+          }
+        }
+      })
 
 
     //分类
@@ -416,6 +421,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+
     //setting  个人设置 管理收货地址 addadresss
     .state('r.tab.Settingsaddaddress', {
       url: '/Settings/address/add',
@@ -431,6 +437,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('tab/Home');
+  $urlRouterProvider.otherwise('/r/tab/Home');
 
 }]);

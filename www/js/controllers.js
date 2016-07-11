@@ -46,20 +46,55 @@ Ctr.controller('homesearchCtr',['$scope','$state','$ionicHistory',function($scop
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('registercfpwdCtr',['$scope','$rootScope','$ionicModal','$state',function($scope,$rootScope,$ionicModal,$state){
+Ctr.controller('registercfpwdCtr',['$scope','$state','Tools','$stateParams','$ionicPopup',function($scope,$state,Tools,$stateParams,$ionicPopup){
 
 
-
-
+  $scope.password  = {};
   //选择认证方式
+
+  console.log($stateParams.phone)
   $scope.next =  function (){
+
+  if(!$scope.password.Original || !$scope.password.Repeat)  {
+    $ionicPopup.alert({
+      title:'请填写密码!',
+      okText:'确认'
+    });
+    return false;
+  }
+    if(!Tools.reg.equal($scope.password.Original,$scope.password.Repeat) ){
+      $ionicPopup.alert({
+        title:'密码不一致!',
+        okText:'确认'
+      });
+      return false;
+    };
+
+    Tools.getData({
+      "interface_number": "000103",
+         "post_content": {
+             "phone":$stateParams.phone,
+             "password":window.md5($scope.password.Original),
+             "repassword":window.md5($scope.password.Repeat)
+         }
+    },function(r){
+      if(r){
+          console.log(r);
+
+      }
+    })
+
+
+
+
+    return  false;
     $state.go('r.selectAuth');
   }
-  
 
 
-  
-  
+
+
+
 }]);
 
 /**
@@ -190,8 +225,6 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
   $scope.vercodeing  = false;
 
 
-
-
   $scope.$on('$stateChangeSuccess',function(){});
   $scope.backView  = function(){
     $scope.$ionicGoBack();
@@ -219,7 +252,6 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
             if(r){
               $scope.vercodeing  = true;
               $scope.nextvercode =  60;
-
               var   time  = setInterval(function(){
                 $scope.nextvercode--;
                 if($scope.nextvercode <= 0){
@@ -282,13 +314,36 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
       });
       return  false;
     }
-    
     //交互
-    $state.go('r.registercfpwd')
+    Tools.getData({
+      "interface_number": "000102",
+      "post_content": {
+          "phone":$scope.registbasinfo.phone,
+          "register_code":$scope.registbasinfo.Vercode,
+          "company_name":$scope.registbasinfo.CorporateName,
+          "real_name":$scope.registbasinfo.userName,
+          "invite_code":$scope.registbasinfo.InvitationCode?$scope.registbasinfo.InvitationCode:''
+      }
+    },function(r){
+    if(r){
+
+        $state.go('r.registercfpwd',{phone:r.resp_data.phone})
+    }
+    });
+    return  false;
+
 
 
   }
 
+}]);
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('selectPayduesctr',['$scope','$state','Tools',function($scope,$state,Tools){
+
+      console.log('xxxx');
 }]);
 
 /**
@@ -304,8 +359,12 @@ Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicVie
   $scope.qiye  =  function (){
     $state.go('r.entAuthentication');
   }
-  
-  
+  //跳过
+  $scope.skip  = function(){
+  $state.go('r.selectPaydues')
+  }
+
+
 }]);
 
 /**

@@ -9,8 +9,6 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
   $scope.vercodeing  = false;
 
 
-
-
   $scope.$on('$stateChangeSuccess',function(){});
   $scope.backView  = function(){
     $scope.$ionicGoBack();
@@ -38,7 +36,6 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
             if(r){
               $scope.vercodeing  = true;
               $scope.nextvercode =  60;
-
               var   time  = setInterval(function(){
                 $scope.nextvercode--;
                 if($scope.nextvercode <= 0){
@@ -101,9 +98,24 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
       });
       return  false;
     }
-    
     //交互
-    $state.go('r.registercfpwd')
+    Tools.getData({
+      "interface_number": "000102",
+      "post_content": {
+          "phone":$scope.registbasinfo.phone,
+          "register_code":$scope.registbasinfo.Vercode,
+          "company_name":$scope.registbasinfo.CorporateName,
+          "real_name":$scope.registbasinfo.userName,
+          "invite_code":$scope.registbasinfo.InvitationCode?$scope.registbasinfo.InvitationCode:''
+      }
+    },function(r){
+    if(r){
+
+        $state.go('r.registercfpwd',{phone:r.resp_data.phone})
+    }
+    });
+    return  false;
+
 
 
   }

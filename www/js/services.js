@@ -3,98 +3,31 @@ var  Server = angular.module('starter.services', []);
 /**
  * Created by Why on 16/6/12.
  */
-  
+
    //全局变量定义
-   window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index'; 
+   window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
+  //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
 
 
+    Server.factory('const',['$window',function($window){
+      return{
+        haha:'哈哈'
+      }
+    }]);
 
-Server.factory('const',['$window',function($window){
+/**
+ * Created by Why on 16/6/10.
+ */
+//推送的方法类封装
+Server.factory('native',['$window',function($window){
   return{
-    haha:'哈哈'
+    //存储单个属性
+    set :function(key,value){
+      $window.localStorage[key]=value;
+    },
   }
+
 }]);
-
-Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$timeout',function($state,$ionicViewSwitcher,$ionicHistory,$timeout){
-    var box  = {
-        data: {},
-        savestate:false,
-        backView:function(tartg){
-            $ionicViewSwitcher.nextDirection('back');
-            //$ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams);
-            $state.go(box.getState(tartg).fromState,box.getState(tartg).fromParams);
-            $timeout(function(){
-                // var inc  = false;
-                // var overflow  = [];
-                // angular.forEach($ionicHistory.viewHistory().views,function(v,k){
-                //   if(inc){  overflow.push(k); }
-                //   if(v.stateName  == tartg){ inc=true;  }} )
-                // angular.forEach(overflow,function (v){delete $ionicHistory.viewHistory().views[v];});
-                console.log($ionicHistory.viewHistory())
-            },500)
-
-
-
-        },
-        setState: function(module, fromState, fromParams,title,viewid) {
-            this.data[module] = {
-                "fromState": fromState,
-                "fromParams": fromParams,
-                title:title,
-                viewId:viewid
-
-            };
-        },
-        getState: function(module) {
-            return this.data[module];
-        },
-        stateChange: function(stateName,parms,animation){
-
-            box.savestate = true;
-            $ionicViewSwitcher.nextDirection(animation?animation:'forward');
-            // $ionicNativeTransitions.stateGo(stateName,parms,{
-            //     "type": "drawer",
-            //     "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
-            //     "duration": 1000 // in milliseconds (ms), default 400
-            // });
-            $state.go(stateName,parms)
-
-
-
-        },
-        removebackregistevent:function(){
-            window.androdzerofun   =  undefined;
-        },
-        saveHisty:function ($histy,stateNa){
-            var hostiy  = $histy.currentView();
-
-            //注册安卓返回监听
-            window.androdzerofun  =  box.backView;
-            window.androdzerofun_parms  = stateNa;
-
-
-            // var inc  = false;
-            // var overflow  = [];
-            // angular.forEach($ionicHistory.viewHistory().views,function(v,k){if(inc){overflow.push(k);}if(v.stateName  == stateNa){inc=true;}})
-            // angular.forEach(overflow,function (v){delete $ionicHistory.viewHistory().views[v];});
-
-            $timeout(function(){
-                $ionicHistory.clearHistory();
-            },500)
-
-            if(this.savestate){
-                this.savestate  = false;
-                box.data = {};
-                this.setState(stateNa,hostiy.stateName,hostiy.stateParams,hostiy.title,hostiy.viewId);
-                console.log(box.data)
-            }
-
-        }
-
-    };
-
-    return box;
-}])
 
 /**
  * Created by Why on 16/6/10.
@@ -288,96 +221,120 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
 
 }]);
 
-/**
- * Created by Why on 16/6/14.
- */
-  //本地存储数据===================================
-Server.factory('share',['$window','native',function($window,native){
+Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$timeout',function($state,$ionicViewSwitcher,$ionicHistory,$timeout){
+    var box  = {
+        data: {},
+        savestate:false,
+        backView:function(tartg){
+            $ionicViewSwitcher.nextDirection('back');
+            //$ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams);
+            $state.go(box.getState(tartg).fromState,box.getState(tartg).fromParams);
+            $timeout(function(){
+                // var inc  = false;
+                // var overflow  = [];
+                // angular.forEach($ionicHistory.viewHistory().views,function(v,k){
+                //   if(inc){  overflow.push(k); }
+                //   if(v.stateName  == tartg){ inc=true;  }} )
+                // angular.forEach(overflow,function (v){delete $ionicHistory.viewHistory().views[v];});
+                console.log($ionicHistory.viewHistory())
+            },500)
 
 
 
-  //是否安装微信
-  function wechatishas  (sharego){
-    native.loading('启动微信...');
-    if($window.Wechat   ==  undefined  ){
-      native.hidloading()
-      native.alert('微信插件没有安装!');
-      return false;
-    }
-    $window.Wechat.isInstalled(function (installed) {
-      if(installed){
-        setTimeout(function(){
-          native.hidloading()
-          sharego();
-        },300)
-      }else{
-        native.alert('请安装,微信!')
-        native.hidloading()
-      }
-    }, function (reason) {
-      alert("Failed: " + reason);
-      native.hidloading()
-    });
-  }
+        },
+        setState: function(module, fromState, fromParams,title,viewid) {
+            this.data[module] = {
+                "fromState": fromState,
+                "fromParams": fromParams,
+                title:title,
+                viewId:viewid
 
-  return{
-    //微信分享
-    weichat:function(config){
-      wechatishas(function(){
-        window.Wechat.share({
-          message: {
-            title: "这是测试",
-            description: "易物app",
-            thumb: "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1903957143,479133575&fm=111&gp=0.jpg",
-            mediaTagName: "TEST-TAG-001",
-            messageExt: "易物",
-            messageAction: "<action>dotalist</action>",
-            media: {
-              type: window.Wechat.Type.LINK,
-              webpageUrl: "http://tech.qq.com/zt2012/tmtdecode/252.htm"
+            };
+        },
+        getState: function(module) {
+            return this.data[module];
+        },
+        stateChange: function(stateName,parms,animation){
+
+            box.savestate = true;
+            $ionicViewSwitcher.nextDirection(animation?animation:'forward');
+            // $ionicNativeTransitions.stateGo(stateName,parms,{
+            //     "type": "drawer",
+            //     "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
+            //     "duration": 1000 // in milliseconds (ms), default 400
+            // });
+            $state.go(stateName,parms)
+
+
+
+        },
+        removebackregistevent:function(){
+            window.androdzerofun   =  undefined;
+        },
+        saveHisty:function ($histy,stateNa){
+            var hostiy  = $histy.currentView();
+
+            //注册安卓返回监听
+            window.androdzerofun  =  box.backView;
+            window.androdzerofun_parms  = stateNa;
+
+
+            // var inc  = false;
+            // var overflow  = [];
+            // angular.forEach($ionicHistory.viewHistory().views,function(v,k){if(inc){overflow.push(k);}if(v.stateName  == stateNa){inc=true;}})
+            // angular.forEach(overflow,function (v){delete $ionicHistory.viewHistory().views[v];});
+
+            $timeout(function(){
+                $ionicHistory.clearHistory();
+            },500)
+
+            if(this.savestate){
+                this.savestate  = false;
+                box.data = {};
+                this.setState(stateNa,hostiy.stateName,hostiy.stateParams,hostiy.title,hostiy.viewId);
+                console.log(box.data)
             }
-          },
-          scene: window.Wechat.Scene.SESSION   // share to Timeline
-          //TIMELINE   盆友圈
-          //FAVORITE   收藏
-          //SESSION    微信聊天回话
 
+        }
 
+    };
 
-        }, function () {
-        }, function (reason) {
-          alert("Failed: " + reason);
-        });
-      })
-    }
-
-
-
-  }
-
-
-}]);
+    return box;
+}])
 
 /**
  * Created by Why on 16/6/10.
  */
-//推送的方法类封装
-Server.factory('native',['$window',function($window){
-  return{
-    //存储单个属性
-    set :function(key,value){
-      $window.localStorage[key]=value;
-    },
-  }
+  //本地存储数据===================================
+Server.factory('storage',['$window',function($window){
+    return{
+      //存储单个属性
+      set :function(key,value){
+        $window.localStorage[key]=value;
+      },
+      //读取单个属性
+      get:function(key,defaultValue){
+        return  $window.localStorage[key] || defaultValue;
+      },
+      //存储对象，以JSON格式存储
+      setObject:function(key,value){
+        $window.localStorage[key]=JSON.stringify(value);
+      },
+      //读取对象
+      getObject: function (key) {
+          return JSON.parse( $window.localStorage[key] || '{}'   );
+      }
+    }
 
-}]);
+
+  }]);
 
 /**
  * Created by Why on 16/6/10.
  */
 //小工具方法类
 Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup','storage',function($window,$ionicLoading,$http,$timeout,$ionicPopup,storage){
-
+  
   //加在视图的加载效果http前调用
   var   showlogin = function() {
     $ionicLoading.show({
@@ -620,31 +577,74 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 }]);
 
 /**
- * Created by Why on 16/6/10.
+ * Created by Why on 16/6/14.
  */
   //本地存储数据===================================
-Server.factory('storage',['$window',function($window){
-    return{
-      //存储单个属性
-      set :function(key,value){
-        $window.localStorage[key]=value;
-      },
-      //读取单个属性
-      get:function(key,defaultValue){
-        return  $window.localStorage[key] || defaultValue;
-      },
-      //存储对象，以JSON格式存储
-      setObject:function(key,value){
-        $window.localStorage[key]=JSON.stringify(value);
-      },
-      //读取对象
-      getObject: function (key) {
-          return JSON.parse( $window.localStorage[key] || '{}'   );
+Server.factory('share',['$window','native',function($window,native){
+
+
+
+  //是否安装微信
+  function wechatishas  (sharego){
+    native.loading('启动微信...');
+    if($window.Wechat   ==  undefined  ){
+      native.hidloading()
+      native.alert('微信插件没有安装!');
+      return false;
+    }
+    $window.Wechat.isInstalled(function (installed) {
+      if(installed){
+        setTimeout(function(){
+          native.hidloading()
+          sharego();
+        },300)
+      }else{
+        native.alert('请安装,微信!')
+        native.hidloading()
       }
+    }, function (reason) {
+      alert("Failed: " + reason);
+      native.hidloading()
+    });
+  }
+
+  return{
+    //微信分享
+    weichat:function(config){
+      wechatishas(function(){
+        window.Wechat.share({
+          message: {
+            title: "这是测试",
+            description: "易物app",
+            thumb: "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1903957143,479133575&fm=111&gp=0.jpg",
+            mediaTagName: "TEST-TAG-001",
+            messageExt: "易物",
+            messageAction: "<action>dotalist</action>",
+            media: {
+              type: window.Wechat.Type.LINK,
+              webpageUrl: "http://tech.qq.com/zt2012/tmtdecode/252.htm"
+            }
+          },
+          scene: window.Wechat.Scene.SESSION   // share to Timeline
+          //TIMELINE   盆友圈
+          //FAVORITE   收藏
+          //SESSION    微信聊天回话
+
+
+
+        }, function () {
+        }, function (reason) {
+          alert("Failed: " + reason);
+        });
+      })
     }
 
 
-  }]);
+
+  }
+
+
+}]);
 
 /**
  * Created by Why on 16/6/6.

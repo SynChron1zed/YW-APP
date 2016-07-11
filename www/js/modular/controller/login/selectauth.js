@@ -11,6 +11,10 @@ Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicVie
   $scope.qiye  =  function (){
     $state.go('r.entAuthentication');
   }
-  
-  
+  //跳过
+  $scope.skip  = function(){
+  $state.go('r.selectPaydues')
+  }
+
+
 }]);

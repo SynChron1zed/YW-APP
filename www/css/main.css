@@ -289,6 +289,22 @@ img {
 .home-search-noback .title.title-center.header-item {
   overflow: visible; }
 
+ion-view {
+  background: -webkit-linear-gradient(#feeb0b, #fff, #fff, #fff, #fff) !important; }
+
+.bar .button.button-icon, .bar button.button-icon {
+  font-size: 15px; }
+
+.bar .buttons-right span {
+  font-size: 15px; }
+
+.bar-stable .button, .bar-stable .button.button-clear, .bar.bar-stable .title {
+  font-size: 15px; }
+
+.bar .button.button-clear .icon:before, .bar .button.button-clear.icon:before, .bar .button.button-clear.icon-left:before, .bar .button.button-clear.icon-right:before, .bar button.button-clear .icon:before, .bar button.button-clear.icon:before, .bar button.button-clear.icon-left:before, .bar button.button-clear.icon-right:before {
+  font-size: 29px !important;
+  line-height: 34px !important; }
+
 body {
   background: #fff; }
 

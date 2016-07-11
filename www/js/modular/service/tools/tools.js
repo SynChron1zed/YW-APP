@@ -3,7 +3,7 @@
  */
 //小工具方法类
 Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup','storage',function($window,$ionicLoading,$http,$timeout,$ionicPopup,storage){
-
+  
   //加在视图的加载效果http前调用
   var   showlogin = function() {
     $ionicLoading.show({

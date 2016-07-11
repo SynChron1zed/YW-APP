@@ -5,14 +5,14 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
 
 
   $ionicPlatform.ready(function() {
-    $state.go('r.tab.Home');
 
+    //$state.go('r.tab.Home');
 
     //初始读取toke =  phone
     var userinfo  = storage.getObject('UserInfo');
     window.Token  =  userinfo.token?userinfo.token:undefined;
     window.Token_phone  =  userinfo.phone?userinfo.phone:undefined;
-    
+
 
 
 
@@ -62,7 +62,6 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
    }, 101);
 
     $window.platform = window.platform = ionic.Platform.platform();
-    console.log(window.platform);
 
 
 
