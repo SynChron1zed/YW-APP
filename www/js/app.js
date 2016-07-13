@@ -7,7 +7,8 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-var App = angular.module('starter', ['ionic','ngCordova','starter.controllers', 'starter.services','ionicLazyLoad']);
+var App = angular.module('starter', ['ionic','ngCordova','starter.controllers', 'starter.services','ionicLazyLoad','ionic-native-transitions']);
+
 //hidden  tabs  directive
 App.directive('hideTabs',function($rootScope) {
     return {
@@ -16,13 +17,10 @@ App.directive('hideTabs',function($rootScope) {
             scope.$on('$ionicView.beforeEnter', function() {
                 scope.$watch(attributes.hideTabs, function(value){
                     $rootScope.hideTabs = true;
-                    console.log($rootScope.hideTabs)
-
-
                 });
             });
             scope.$on('$ionicView.beforeLeave', function() {
-                $rootScope.hideTabs = false;
+                $rootScope.hideTabs = true;
             });
         }
     };
@@ -34,9 +32,7 @@ App.directive('draggable', function($document, $timeout) {
         link:function(scope, element, attr) {
             var now = 0 ;
             ionic.onGesture('dragstart',function(e){
-
                 element[0].style.transitionDuration='0ms';
-
                 var position   = element[0].style.transform.replace('translateX(','').replace('px)','');
                 if(position !==  ''){
                     now  = parseInt(position);
@@ -77,7 +73,7 @@ App.directive('jfocus',function($rootScope,$parse) {
                 if(ionic.Platform.isAndroid()){
                     window.cordova.plugins.Keyboard.show();
                 }
-                
+
             },800)
 
         }
@@ -85,41 +81,29 @@ App.directive('jfocus',function($rootScope,$parse) {
 
     };
 });
+
 /**
  * Created by Why on 16/6/6.
  */
-App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider,$httpProvider){
+App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpProvider','$ionicNativeTransitionsProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider,$httpProvider,$ionicNativeTransitionsProvider){
 
-
-  // $ionicNativeTransitionsProvider.setDefaultOptions({
-  //   duration: 500, // in milliseconds (ms), default 400,
-  //   slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
-  //   iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
-  //   androiddelay: -1, // same as above but for Android, default -1
-  //   winphonedelay: -1, // same as above but for Windows Phone, default -1,
-  //   fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
-  //   fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
-  //   triggerTransitionEvent: '$ionicView.afterEnter', // internal ionic-native-transitions option
-  //   backInOppositeDirection: false // Takes over default back transition and state back transition to use the opposite direction transition to go back
-  // });
-  //
-  // $ionicNativeTransitionsProvider.setDefaultTransition({
-  //   type: 'slide',
-  //   direction: 'left'
-  // });
-  //
-  // $ionicNativeTransitionsProvider.setDefaultBackTransition({
-  //   type: 'slide',
-  //   direction: 'right'
-  // });
-  //
-  // $ionicNativeTransitionsProvider.enable(true);
-  // // $ionicNativeTransitions.enable(false);
-  // // $ionicNativeTransitions.enable(true);
-  // // $ionicNativeTransitions.enable(false, true);
-  // // $ionicNativeTransitions.enable(true, false);
-  //
-
+  $ionicNativeTransitionsProvider.setDefaultOptions({
+    duration: 200, // in milliseconds (ms), default 400,
+    slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
+    iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
+    androiddelay: -1, // same as above but for Android, default -1
+    winphonedelay: -1, // same as above but for Windows Phone, default -1,
+    fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
+    fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
+    triggerTransitionEvent: '$ionicView.afterEnter', // internal ionic-native-transitions option
+    backInOppositeDirection: false // Takes over default back transition and state back transition to use the opposite direction transition to go back
+  }).setDefaultTransition({
+    type: 'slide',
+    direction: 'left'
+  }).setDefaultBackTransition({
+    type: 'slide',
+    direction: 'right'
+  });
 
 
 
@@ -189,11 +173,13 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     .state('r',{
       url: "/r",
       abstract: true,
+      nativeTransitions: null,
       templateUrl: "templates/root/root.html",
     })
 
     .state('r.tab', {
       url: '/tab',
+      nativeTransitions: null,
       abstract: true,
       views: {
         'rootview': {
@@ -250,10 +236,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
     //选择认证
       .state('r.selectAuth',{
-        // nativeTransitions: {
-        //   "type": "flip",
-        //   "direction": "up"
-        // },
         url: '/selectAuth',
         views: {
           'rootview': {
@@ -265,10 +247,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     //个人认证
      .state('r.grAuthentication',{
-        // nativeTransitions: {
-        //   "type": "flip",
-        //   "direction": "up"
-        // },
         url: '/grAuthentication',
         views: {
           'rootview': {
@@ -279,10 +257,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       })
     //企业认证
       .state('r.entAuthentication',{
-        // nativeTransitions: {
-        //   "type": "flip",
-        //   "direction": "up"
-        // },
         url: '/entAuthentication',
         views: {
           'rootview': {
@@ -300,11 +274,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           }
         }
       })
-
-
     //分类
     .state('r.tab.Classif', {
       url: '/Classif',
+      nativeTransitions: null,
       views: {
         'Classif': {
           templateUrl: 'templates/Classif/Classif.html',
@@ -312,16 +285,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
-
-
     // home  主页
     .state('r.tab.Home',{
-      nativeTransitions: {
-        "type": "flip",
-        "direction": "up"
-      },
       url: '/Home',
+      nativeTransitions: null,
       views: {
         'Home': {
           templateUrl: 'templates/Home/home.html',
@@ -329,11 +296,12 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
     .state('r.tab.HomeSearch',{
-      nativeTransitions: {
-        "type": "flip",
-        "direction": "up"
+      onEnter: function() {
+        window.noNavtionsbackRootuer   = 'r.tab.Home';
+      },
+      onExit:function(){
+        window.noNavtionsbackRootuer   =   undefined;
       },
       url: '/HomeSearch',
       views: {
@@ -344,13 +312,9 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-
-
-
-
-
     // Shopping Cart 购物车
     .state('r.tab.Shopping_Cart',{
+      nativeTransitions: null,
       url: '/ShoppingCart',
       views: {
         'Shopping-Cart': {
@@ -372,6 +336,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     // Notice   通知
     .state('r.tab.Notice',{
+      nativeTransitions: null,
       url: '/Notice',
       views: {
         'notice': {
@@ -400,6 +365,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     //setting  个人设置
     .state('r.tab.Settings', {
+      nativeTransitions: null,
       url: '/Settings',
       views: {
         'setting': {
@@ -520,9 +486,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     });
 
-
-
-
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/r/tab/Home');
 
@@ -531,17 +494,42 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 /**
  * Created by Why on 16/6/6.
  */
-App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage) {
+App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,$ionicNativeTransitions,$timeout) {
+
+
 
 
   $ionicPlatform.ready(function() {
 
-    //$state.go('r.tab.Home');
+    //$state.go('r.selectAuth');
+
+    window.noNavtionsback =  function (rooter,parmgs){
+
+
+      $ionicNativeTransitions.stateGo(rooter,parmgs,{
+        "type": "slide",
+        "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
+        "duration": 300, // in milliseconds (ms), default 400
+      });
+      $timeout(function(){
+        $ionicHistory.clearHistory();
+      },300)
+    };
 
     //初始读取toke =  phone
     var userinfo  = storage.getObject('UserInfo');
     window.Token  =  userinfo.token?userinfo.token:undefined;
     window.Token_phone  =  userinfo.phone?userinfo.phone:undefined;
+    Tools.getData({
+      "interface_number": "000002",
+      "client_type": "ios",
+      "post_content": {}
+    },function(r){
+      if(r){
+        storage.setObject('qiniu',r.resp_data);
+      }
+    });
+
 
 
 
@@ -568,14 +556,20 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
     }
 
 
-
     //安卓返回键的处理
     $ionicPlatform.registerBackButtonAction(function (e) {
      e.preventDefault();
-        //执行一个零时的 处理函数
+      //返回一个没有使用  原始过度的页面
+      if(window.noNavtionsbackRootuer){
+        window.noNavtionsback(window.noNavtionsbackRootuer);
+      }
+
+
+
+
+    //执行一个零时的 处理函数
         if(window.androdzerofun){
             window.androdzerofun(window.androdzerofun_parms);
-
           return false;
         }
 
@@ -601,7 +595,8 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
-      ionic.Platform.isFullScreen = true;
+      //ionic.Platform.isFullScreen = true;
+
       //Return event listener
       $ionicPlatform.registerBackButtonAction(function(r){
       });
@@ -650,7 +645,6 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
         console.log(exception,'发生了错误');
       }
     });
-
 
     //极光推送事件处理
     //极光数据处理  兼容ios  安卓平台  剥离数据

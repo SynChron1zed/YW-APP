@@ -6,13 +6,10 @@ App.directive('hideTabs',function($rootScope) {
             scope.$on('$ionicView.beforeEnter', function() {
                 scope.$watch(attributes.hideTabs, function(value){
                     $rootScope.hideTabs = true;
-                    console.log($rootScope.hideTabs)
-
-
                 });
             });
             scope.$on('$ionicView.beforeLeave', function() {
-                $rootScope.hideTabs = false;
+                $rootScope.hideTabs = true;
             });
         }
     };
@@ -24,9 +21,7 @@ App.directive('draggable', function($document, $timeout) {
         link:function(scope, element, attr) {
             var now = 0 ;
             ionic.onGesture('dragstart',function(e){
-
                 element[0].style.transitionDuration='0ms';
-
                 var position   = element[0].style.transform.replace('translateX(','').replace('px)','');
                 if(position !==  ''){
                     now  = parseInt(position);
@@ -67,7 +62,7 @@ App.directive('jfocus',function($rootScope,$parse) {
                 if(ionic.Platform.isAndroid()){
                     window.cordova.plugins.Keyboard.show();
                 }
-                
+
             },800)
 
         }
