@@ -40,16 +40,16 @@
         <img src="/img/homepage/icon_service@3x1.png" alt="">
         <p>交易流程</p>
       </div>
-      
+
       <div class="col col-25">
         <img src="/img/homepage/icon_dynamic@3x.png" alt="">
         <p>最新动态</p>
       </div>
-      <div class="col col-25">
+      <div class="col col-25" ui-sref="r.tab.HomTaste">
         <img src="/img/homepage/icon_experience@3x.png" alt="">
         <p>体验专区</p>
       </div>
-      <div class="col col-25">
+      <div class="col col-25" ui-sref="r.tab.HomeCharitable" >
         <img src="/img/homepage/icon_charity@3x.png" alt="">
         <p>慈善物品</p>
       </div>
@@ -97,23 +97,23 @@
       </div>
       <div class="content">
 
-        <div class="itemin">
+
+
+        <div class="itemin" ng-repeat="x in company">
           <div class="content">
-            <div class="title">新概念公司</div>
+            <div class="title">{{ x.company_name }}</div>
             <div class="lev">
-              <img src="/img/homepage/lev.jpg" alt="">
+             <!-- <img src="/img/homepage/lev1.png" alt="" ng-show="false">
+              <img src="/img/homepage/lev2.png" alt="" ng-show="false">
+              <img src="/img/homepage/lev3.png" alt="" ng-show="false">
+              <img src="/img/homepage/lev4.png" alt="" ng-show="false">-->
+              <img src="/img/homepage/lev5.png" alt="" ng-show="true">
             </div>
           </div>
         </div>
 
-        <div class="itemin">
-          <div class="content">
-            <div class="title">新概念公司</div>
-            <div class="lev">
-              <img src="/img/homepage/lev.jpg" alt="">
-            </div>
-          </div>
-        </div>
+
+
 
       </div>
 
@@ -124,28 +124,10 @@
       <div class="title">易物快报  <span>更多</span></div>
       <div class="content">
 
-
-        <div class="newitem">
-          <div class="text">长沙咸鱼一堆</div>
-          <div class="tiem">2016-02-11</div>
+        <div class="newitem" ng-repeat="x in news">
+          <div class="text">{{ x.goods_name }}</div>
+          <div class="tiem">{{ x.pay_time }}</div>
         </div>
-
-        <div class="newitem">
-          <div class="text">长沙咸鱼一堆</div>
-          <div class="tiem">2016-02-11</div>
-        </div>
-
-
-        <div class="newitem">
-          <div class="text">长沙咸鱼一堆</div>
-          <div class="tiem">2016-02-11</div>
-        </div>
-
-        <div class="newitem">
-          <div class="text">长沙咸鱼一堆</div>
-          <div class="tiem">2016-02-11</div>
-        </div>
-
 
       </div>
 

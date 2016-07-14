@@ -1,84 +1,29 @@
 <ion-view  hide-back-button="true"  view-title="分类" >
 
   <ion-nav-bar   class="bar-positive ">
-    
+
   </ion-nav-bar>
-  <ion-content  >
+  <ion-content style="background: white" >
 
       <div  class="row class-every" >
-        <div class="col">
-          <div class="col-60 bottom-xian">食品</div>
+        <div class="col" ng-click="shoppingsList(item)" ng-repeat="item in Citysd ">
+          <div class="col-60 bottom-xian " ng-class="{true:'yellowC',false:'yellowA'}[item==selectedItem]" >{{ item.itemcats_name }}</div>
         </div>
-        <div class="col">
-          <div class="col-60" >男人</div>
-        </div>
-        <div class="col">
-          <div class="col-60">女人</div>
-        </div>
-        <div class="col">
-          <div class="col-60">美妆</div>
-        </div>
-        <div class="col">
-          <div class="col-60">亲子</div>
-        </div>
-        <div class="col">
-          <div class="col-60">家居</div>
-        </div>
-        <!--<div class="item item-select">
-
-          <select>
-            <option>Blue</option>
-            <option >Green</option>
-            <option>Red</option>
-          </select>
-        </div>-->
       </div>
+
 <div>
   <img src="/img/classif/banner@3x.png" alt="">
 </div>
 
-    <div id="class-boder" class="classlist">
-      <div class="row classif-list ">
-        <div class="col col-28 classif-one" >
+    <div id="class-boder" class="classlist" >
+      <div class=" classif-list " >
+        <div class="classif-one" ng-repeat="item in ShoppingList" >
           <img src="/img/classif/macair.png" alt="">
-          <div>Apple MacBook</div>
-          <div class="classif-price">￥8888 <span class="classif-priceone">￥19999</span></div>
-
-        </div>
-        <div class="col col-28 classif-one" >
-          <img src="/img/classif/macair.png" alt="">
-          <div>Apple MacBook</div>
-          <div class="classif-price">￥8888 <span class="classif-priceone">￥19999</span></div>
-
-        </div>
-        <div class="col col-28 classif-one" >
-          <img src="/img/classif/macair.png" alt="">
-          <div>Apple MacBook</div>
-          <div class="classif-price">￥8888 <span class="classif-priceone">￥19999</span></div>
+          <div>{{item.goods_title}}</div>
+          <div class="classif-price">￥{{item.total_in_price}} <span class="classif-priceone">￥19999</span></div>
 
         </div>
 
-      </div>
-
-      <div id="class-boder" class="row classif-list ">
-        <div class="col col-28 classif-one" >
-          <img src="/img/classif/macair.png" alt="">
-          <div>Apple MacBook</div>
-          <div class="classif-price">￥8888 <span class="classif-priceone">￥19999</span></div>
-
-        </div>
-        <div class="col col-28 classif-one" >
-          <img src="/img/classif/macair.png" alt="">
-          <div>Apple MacBook</div>
-          <div class="classif-price">￥8888 <span class="classif-priceone">￥19999</span></div>
-
-        </div>
-        <div class="col col-28 classif-one" >
-          <img src="/img/classif/macair.png" alt="">
-          <div>Apple MacBook</div>
-          <div class="classif-price">￥8888 <span class="classif-priceone">￥19999</span></div>
-
-        </div>
 
       </div>
 

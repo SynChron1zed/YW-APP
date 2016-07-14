@@ -5,7 +5,7 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ',function($scope,fromS
 
       $scope.login  =  function(r){
             fromStateServ.stateChange(r);
-      }
+      };
 
-
+       $scope.isShow = true;
 }])

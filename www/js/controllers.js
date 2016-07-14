@@ -5,6 +5,68 @@ var  Ctr = angular.module('starter.controllers', []);
  */
 Ctr.controller('tabCtr',[function(){
 
+Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
+
+  Tools.getData({
+    "interface_number": "020101",
+    "client_type": window.platform,
+    "post_content": {
+      "token" : "",
+      "token_phone": ""
+    }
+  },function(r){
+    if(r){
+      $scope.Citysd = (r.resp_data)
+      $scope.selectedItem = $scope.Citysd[0];
+
+    }
+  });
+
+  Tools.getData({
+    "interface_number": "020103",
+    "client_type": window.platform,
+    "post_content": {
+      "token" : "",
+      "token_phone": "",
+      "searchParam": {
+        "shop_cate_id": 1
+      },
+      "page_num": "1"
+    }
+  },function(r){
+    if(r){
+      $scope.ShoppingList = (r.resp_data.data.data)
+    }
+  });
+
+
+
+  $scope.shoppingsList=function (item) {
+
+    $scope.selectedItem = item;
+    var cateId= item.cate_id;
+
+    Tools.getData({
+      "interface_number": "020103",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": "",
+        "searchParam": {
+          "shop_cate_id": cateId
+        },
+        "page_num": "1"
+      }
+    },function(r){
+      if(r){
+        $scope.ShoppingList = (r.resp_data.data.data)
+
+      }
+    });
+
+  }
+
+
 }])
 
 /**
@@ -526,6 +588,24 @@ Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicVie
 /**
  * Created by Why on 16/6/8.
  */
+Ctr.controller('tabCtr',[function(){
+
+}])
+
+Ctr.controller("OtherCtrl", function($scope, $state, fromStateServ) {
+    $scope.backNav = function() {
+        var fromState = fromStateServ.getState("other");
+        if (fromState.fromState !== undefined) {
+            $state.go(fromState.fromState.name, fromState.fromParams);
+        } else {
+            //设置没有历史的时候，默认的跳转
+            $state.go("app.xxx");
+        }
+    };
+})
+/**
+ * Created by Why on 16/6/8.
+ */
 Ctr.controller('noticeCtr', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -548,17 +628,6 @@ Ctr.controller('noticeCtr', function($scope, Chats) {
 
   });
 
-Ctr.controller("OtherCtrl", function($scope, $state, fromStateServ) {
-    $scope.backNav = function() {
-        var fromState = fromStateServ.getState("other");
-        if (fromState.fromState !== undefined) {
-            $state.go(fromState.fromState.name, fromState.fromParams);
-        } else {
-            //设置没有历史的时候，默认的跳转
-            $state.go("app.xxx");
-        }
-    };
-})
 /**
  * Created by Why on 16/6/8.
  */
@@ -566,6 +635,81 @@ Ctr.controller("OtherCtrl", function($scope, $state, fromStateServ) {
 Ctr.controller('rootCtr',[function(){
   
 }])
+
+/**
+ * Created by Administrator on 2016/7/13.
+ */
+Ctr.controller('chariCtr',function($scope) {
+  $scope.a1 = function (){
+    alert('1');
+  }
+
+});
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
+    $scope.a1 = function (){
+      alert('1');
+    };
+    $scope.login  =    function(r){
+        fromStateServ.stateChange(r);
+    };
+    Tools.getData({
+      "interface_number": "020001",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": ""
+      }
+    },function(r){
+      if(r){
+        $scope.company = (r.resp_data.data)
+
+      }
+    });
+
+  Tools.getData({
+    "interface_number": "020002",
+    "client_type": window.platform,
+    "post_content": {
+      "token" : "",
+      "token_phone": ""
+    }
+  },function(r){
+    if(r){
+
+      $scope.news = (r.resp_data.data)
+
+    }
+  });
+
+
+}]);
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('homesearchCtr',['$scope','$state','$ionicHistory',function($scope,$state,$ionicHistory) {
+    
+  $scope.back  =  function (){
+      $ionicHistory.goBack();
+  }
+
+}]);
+
+/**
+ * Created by Administrator on 2016/7/13.
+ */
+Ctr.controller('tasteCtr',function($scope) {
+  $scope.a1 = function (){
+
+
+    alert('1');
+  }
+
+});
 
 /**
  * Created by Administrator on 2016/7/5.
@@ -663,6 +807,14 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
     }
 
   });
+
+/**
+ * Created by Administrator on 2016/7/7.
+ */
+Ctr.controller('SettingsUpdateCtr',function($scope) {
+
+
+});
 
 /**
  * Created by Why on 16/6/8.

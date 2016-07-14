@@ -228,6 +228,33 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
+    //慈善专区
+    .state('r.tab.HomeCharitable',{
+      url: '/HomeCharitable',
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/charitable.html',
+          controller: 'chariCtr'
+        }
+      }
+    })
+
+    //体验专区
+    .state('r.tab.HomTaste',{
+      url: '/HomeTaste',
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/taste.html',
+          controller: 'tasteCtr'
+        }
+      }
+    })
+
+
+
+
+
+
     // Shopping Cart 购物车
     .state('r.tab.Shopping_Cart',{
       nativeTransitions: null,
