@@ -1,17 +1,50 @@
 /**
  * Created by Why on 16/6/6.
  */
-App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage) {
+App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,$ionicNativeTransitions,$timeout) {
+
+
+
+  window.noNavtionsback =  function (rooter,parmgs){
+    $ionicNativeTransitions.stateGo(rooter,parmgs,{
+      "type": "slide",
+      "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
+      "duration": 300, // in milliseconds (ms), default 400
+    });
+    $timeout(function(){
+      $ionicHistory.clearHistory();
+    },300)
+  };
 
 
   $ionicPlatform.ready(function() {
+    //$state.go('r.selectAuth');
 
-    //$state.go('r.tab.Home');
-
-    //初始读取toke =  phone
+    //初始读取toke =  phone  初始化登录状态
     var userinfo  = storage.getObject('UserInfo');
     window.Token  =  userinfo.token?userinfo.token:undefined;
     window.Token_phone  =  userinfo.phone?userinfo.phone:undefined;
+
+
+
+
+    // console.log('r');
+    // if(!storage.getObject('UserInfo').user_id){
+    //   //没有登录 处理缓存 （跟新数据） 更新队列记录状态
+    //   storage.set('LocalCacheState',window.LocalCacheStatelist)
+    // }
+
+
+    Tools.getData({
+      "interface_number": "000002",
+      "client_type": "ios",
+      "post_content": {}
+    },function(r){
+      if(r){
+        storage.setObject('qiniu',r.resp_data);
+      }
+    });
+
 
 
 
@@ -38,14 +71,20 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
     }
 
 
-
     //安卓返回键的处理
     $ionicPlatform.registerBackButtonAction(function (e) {
      e.preventDefault();
-        //执行一个零时的 处理函数
+      //返回一个没有使用  原始过度的页面
+      if(window.noNavtionsbackRootuer){
+        window.noNavtionsback(window.noNavtionsbackRootuer);
+      }
+
+
+
+
+    //执行一个零时的 处理函数
         if(window.androdzerofun){
             window.androdzerofun(window.androdzerofun_parms);
-
           return false;
         }
 
@@ -71,7 +110,8 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
-      ionic.Platform.isFullScreen = true;
+      //ionic.Platform.isFullScreen = true;
+
       //Return event listener
       $ionicPlatform.registerBackButtonAction(function(r){
       });
@@ -120,7 +160,6 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
         console.log(exception,'发生了错误');
       }
     });
-
 
     //极光推送事件处理
     //极光数据处理  兼容ios  安卓平台  剥离数据

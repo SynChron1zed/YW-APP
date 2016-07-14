@@ -1,7 +1,8 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('registercfpwdCtr',['$scope','$state','Tools','$stateParams','$ionicPopup',function($scope,$state,Tools,$stateParams,$ionicPopup){
+Ctr.controller('registercfpwdCtr',['$scope','$state','Tools','$stateParams','$ionicPopup','storage',function($scope,$state,Tools,$stateParams,$ionicPopup,storage){
+
 
 
   $scope.password  = {};
@@ -30,20 +31,20 @@ Ctr.controller('registercfpwdCtr',['$scope','$state','Tools','$stateParams','$io
          "post_content": {
              "phone":$stateParams.phone,
              "password":window.md5($scope.password.Original),
-             "repassword":window.md5($scope.password.Repeat)
+             "repassword":window.md5($scope.password.Repeat),
+             uuid:storage.getObject('device').uuid,
+             "push_registration_id" : storage.getObject('jPush').RegistrationID,
          }
     },function(r){
       if(r){
-          console.log(r);
-
+        window.Token  = r.resp_data.token;
+        r.resp_data.user_info.token  = window.Token;
+        storage.setObject('UserInfo',r.resp_data.user_info);
+        
+        $state.go('r.selectAuth');
       }
     })
-
-
-
-
     return  false;
-    $state.go('r.selectAuth');
   }
 
 

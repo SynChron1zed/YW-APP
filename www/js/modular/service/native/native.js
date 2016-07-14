@@ -55,13 +55,12 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
         //Camera.PictureSourceType.PHOTOLIBRARY      //配置对象config  0  图库 (有可能有的设备没有  建议使用 1和 2)
         //Camera.PictureSourceType.CAMERA            //配置对象config  1  摄像头
         //Camera.PictureSourceType.SAVEDPHOTOALBUM   //配置对象config  2 相册
-        allowEdit: config.allowEdit?config.allowEdit:true,  //是否允许裁切
+        allowEdit: config.allowEdit?config.allowEdit:false,  //是否允许裁切
         encodingType: config.encodingType?config.encodingType:Camera.EncodingType.JPEG,
         //返回图片类型
         //配置对象config  0   JPEG
         //配置对象config  1   PNG
-        targetWidth: config.targetWidth?config.targetWidth:400,
-        targetHeight: config.targetHeight?config.targetHeight:400,
+
         //返回图片高宽 设置
         mediaType:config.mediaType?config.mediaType:0,
         //可以选择的媒体类型
@@ -78,6 +77,14 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
         correctOrientation:config.correctOrientation?config.correctOrientation:true
         //支持图片旋转是否
       };
+
+      if(config.targetWidth){
+        options.targetWidth  = config.targetWidth;
+      }else  if(config.targetHeight){
+        options.targetHeight  = config.targetHeight;
+      }
+
+
       $cordovaCamera.getPicture(options).then(function(imageData) {
         var  data = "data:image/jpeg;base64," + imageData;
         Callback(data,imageData);

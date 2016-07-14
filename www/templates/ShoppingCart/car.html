@@ -5,9 +5,7 @@
   </ion-nav-bar>
   <ion-content  class='shopcrtboxbj' overflow-scroll="false"   scrollbar-y="false"  >
 
-
-
-
+    <ion-refresher  spinner="ios"   pulling-text="刷新" on-refresh="doRefresh()"   ></ion-refresher>
 
       <div class="shopcartnologin" ng-show="isShow">
           <img src="img/img3@x.png" alt="">
@@ -15,17 +13,17 @@
       </div>
 
 
+        <div class="shopcartBOXLIST"  ng-show="!isShow"  >
 
 
-
-        <div class="shopcartBOXLIST">
-
-                <div class="shopitem">
+                <div class="shopitem"  ng-repeat='xx  in shopcartdata'  >
 
                     <div class="shoptitle">
                         <div class="shopimg">
-                            <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2335087169,1786669280&fm=21&gp=0.jpg" alt="">
+                               <img ng-src="{{xx.shop_img?xx.shop_img:'img/nopice.jpg'}}" alt="">
                         </div>
+
+
                         <div class="shoptile">
                             <span>无敌的店铺</span>
                             <i class="ion-ios-arrow-right"></i>
@@ -70,88 +68,17 @@
 
 
                             </div>
-
                         </div>
-
-
-
-
-
                     </div>
                 </div>
-
-            <div class="shopitem">
-
-                <div class="shoptitle">
-                    <div class="shopimg">
-                        <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2335087169,1786669280&fm=21&gp=0.jpg" alt="">
-                    </div>
-                    <div class="shoptile">
-                        <span>无敌的店铺</span>
-                        <i class="ion-ios-arrow-right"></i>
-                    </div>
-                    <div class="edit">编辑</div>
-
-                </div>
-                <div class="goodslist">
-                    <div class="goodsitem">
-                        <div class="icons">
-                            <i class="ion-ios-circle-outline"></i>
-                            <!--ion-ios-checkmark-->
-                        </div>
-                        <div class="goodsimg">
-                            <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2335087169,1786669280&fm=21&gp=0.jpg" alt="">
-                        </div>
-                        <div class="goodsbasmsg  edit">
-                            <h5>这是一个商品的标题</h5>
-                            <p class="price">
-                                <span class="pricemonye">￥10214214124142141241.00</span>
-                                    <span class="number">
-                                    X<em>6</em>
-                                    </span>
-                            </p>
-                            <div class="cheknumber">
-                                <div class="numberctr">
-                                    <div>
-                                        <div class="remove">-</div>
-                                        <input type="number" value="5">
-                                        <div class="add">+</div>
-
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-                            <div class="del">
-                                删除
-                            </div>
-
-
-                        </div>
-
-                    </div>
-
-
-
-                </div>
-            </div>
-
-
         </div>
 
 
 
 
-
-
-
-
-
-
-        <!--<div class="shopcartnoitem">-->
-                  <!--<i class="ion-ios-cart-outline"  ></i>购物车空空如有-->
-        <!--</div>-->
+        <div class="shopcartnoitem"   ng-show='noitem' >
+                  <i class="ion-ios-cart-outline"  ></i>购物车空空如
+        </div>
 
 
   </ion-content>

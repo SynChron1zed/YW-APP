@@ -74,6 +74,119 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
 /**
  * Created by Why on 16/6/8.
  */
+Ctr.controller('tabCtr',[function(){
+
+}])
+
+/**
+ * Created by Administrator on 2016/7/13.
+ */
+Ctr.controller('chariCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
+  Tools.getData({
+    "interface_number": "020201",
+    "client_type": window.platform,
+    "post_content": {
+      "token": "",
+      "token_phone": "",
+      "searchParam": {
+        "shop_cate_id": "0"         //代表只搜索 此分类下的商品
+      },
+      "page_num": "1"
+    }
+  },function(r){
+    if(r){
+      $scope.Charitable = (r.resp_data.data)
+
+
+    }
+  });
+
+}]);
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
+    $scope.a1 = function (){
+      alert('1');
+    };
+    $scope.login  =    function(r){
+        fromStateServ.stateChange(r);
+    };
+    Tools.getData({
+      "interface_number": "020001",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": ""
+      }
+    },function(r){
+      if(r){
+        $scope.company = (r.resp_data.data)
+
+      }
+    });
+
+  Tools.getData({
+    "interface_number": "020002",
+    "client_type": window.platform,
+    "post_content": {
+      "token" : "",
+      "token_phone": ""
+    }
+  },function(r){
+    if(r){
+
+      $scope.news = (r.resp_data.data)
+
+    }
+  });
+
+
+}]);
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('homesearchCtr',['$scope','$state','$ionicHistory',function($scope,$state,$ionicHistory) {
+
+  $scope.back  =  function (){
+    window.noNavtionsback(window.noNavtionsbackRootuer);
+  }
+
+
+
+}]);
+
+/**
+ * Created by Administrator on 2016/7/13.
+ */
+Ctr.controller('tasteCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup){
+  Tools.getData({
+    "interface_number": "020202",
+    "client_type": window.platform,
+    "post_content": {
+      "token": "",
+      "token_phone": "",
+      "searchParam": {
+        "shop_cate_id": "0"         //代表只搜索 此分类下的商品
+      },
+      "page_num": "1"
+    }
+  },function(r){
+    if(r){
+      $scope.Taste = (r.resp_data.data)
+
+    }
+  });
+
+
+
+}]);
+
+/**
+ * Created by Why on 16/6/8.
+ */
 Ctr.controller('registercfpwdCtr',['$scope','$state','Tools','$stateParams','$ionicPopup','storage',function($scope,$state,Tools,$stateParams,$ionicPopup,storage){
 
 
@@ -129,22 +242,169 @@ Ctr.controller('registercfpwdCtr',['$scope','$state','Tools','$stateParams','$io
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher){
+Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher','Tools','$ionicPopup',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher,Tools,$ionicPopup){
 
+
+  //身份证  图片对象
+  $scope.identity  = {};
+  $scope.rmPositive   = function () {
+    $scope.identity.Positive   =  undefined;
+  };
+
+  $scope.xuanzpirce  = function(){
+    Tools.chekpirc({},function(r){
+      $scope.identity.Positive  = r;
+    });
+    // Tools.sendqiniu_single($scope.c,function(r){
+    //   if(r){
+    //     console.log(JSON.stringify(r))
+    //   }
+    // })
+  };
+
+  $scope.xuanzpirceinverse   =  function (){
+    Tools.chekpirc({},function(r){
+      $scope.identity.inverse  = r;
+    });
+  }
   
+  $scope.rminverse  = function (){
+    $scope.identity.inverse  = undefined;
+  };
+  
+  //基本表单信息
+  $scope.from   = {};
+  
+  $scope.Submitaudit  = function (){
+
+    if(!$scope.identity.Positive || !$scope.identity.inverse){
+      $ionicPopup.alert({
+        title:'请上传审核照片',
+        okText:'确认'
+      });
+      return false;
+    }
+    if(!$scope.from.compname   ||  !$scope.from.License  || !$scope.from.mechanism ){
+      $ionicPopup.alert({
+        title:'请填写完整基本信息',
+        okText:'确认'
+      });
+      return false;
+    }
+    //发送请求
+
+    
+
+
+
+  }
+
+
+
+
+
+
+
+
+
 }]);
+
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher){
+Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher','native','$ionicActionSheet','Tools','$ionicPopup','storage','$state',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher,native,$ionicActionSheet,Tools,$ionicPopup,storage,$state){
 
 
   $scope.$on('$stateChangeSuccess',function(){});
   $scope.backView  = function(){
     $scope.$ionicGoBack();
   };
+  
+  //身份证  图片对象
+  $scope.identity  = {};
+  $scope.rmPositive   = function () {
+    $scope.identity.Positive   =  undefined;
+  };
+
+  $scope.xuanzpirce  = function(){
+    Tools.chekpirc({},function(r){
+      $scope.identity.Positive  = r;
+    });
+    // Tools.sendqiniu_single($scope.c,function(r){
+    //   if(r){
+    //     console.log(JSON.stringify(r))
+    //   }
+    // })
+  };
+
+  $scope.xuanzpirceinverse   =  function (){
+    Tools.chekpirc({},function(r){
+      $scope.identity.inverse  = r;
+    });
+  };
+
+  $scope.rminverse  = function (){
+    $scope.identity.inverse  = undefined;
+  };
+
+  $scope.form = {};
+
+  //提交审核
+  $scope.Submitaudit  =  function (){
 
 
+
+
+    if(!$scope.identity.Positive || !$scope.identity.inverse){
+      $ionicPopup.alert({
+        title:'请上传审核照片',
+        okText:'确认'
+      });
+      return false;
+    }
+    if(!$scope.form.id ||  !$scope.form.name ){
+      $ionicPopup.alert({
+        title:'请填写完审核信息',
+        okText:'确认'
+      });
+      return false;
+    }
+
+    //发送图片到期牛
+    Tools.sendqiniu_queue([
+      $scope.identity.Positive,
+      $scope.identity.inverse
+    ],function(f){
+      //发送请求
+      Tools.getData({
+        "interface_number": "000301",
+        "post_content": {
+          "company_type":"1",
+          "card_no":$scope.form.id+"",
+          name:$scope.form.name,
+          "card_front_img":f[0].hash,
+          "card_back_img":f[1].hash
+        }
+      },function(r){
+        if(r){
+
+          //需要支付会费
+          if(r.resp_data.need_paid){
+            $state.go('r.selectPaydues');
+          }else{
+            //返回原始入口页
+            window.backtoinroot(window.backtoinroot_parms);
+          }
+
+
+
+        }
+      });
+    },'auth_'+(storage.getObject('UserInfo').company_id)+'_');
+
+
+  }
+  console.log(  JSON.stringify(storage.getObject('UserInfo')))
 
 }]);
 
@@ -208,16 +468,9 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
         },600)
 
       })
-
-
-
   };
 
-
-
-
-
-
+  
   //保存历史记录的方法  调用  上一次1 title  和返回方法
   $scope.backtoprevView  =   fromStateServ.backView;
   // //安卓返回键  对公共模块的返回
@@ -371,7 +624,28 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
 /**
  * Created by Why on 16/6/8.
  */
+Ctr.controller('selectPayduesctr',['$scope','$state','Tools',function($scope,$state,Tools){
+
+        console.log('xxxx');
+        $scope.skip  =  function (){
+          window.backtoinroot(window.backtoinroot_parms);
+        }
+  
+}]);
+
+/**
+ * Created by Why on 16/6/8.
+ */
 Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher','$state',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher,$state){
+
+
+  window.androdzerofun  =window.backtoinroot;
+  window.androdzerofun_parms  = window.backtoinroot_parms;
+  
+  $scope.$ionicGoBack  =  function(){
+       window.backtoinroot(window.backtoinroot_parms);
+  };
+
 
   //个人认证
   $scope.gren  =  function (){
@@ -389,24 +663,6 @@ Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicVie
 
 }]);
 
-/**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('tabCtr',[function(){
-
-}])
-
-Ctr.controller("OtherCtrl", function($scope, $state, fromStateServ) {
-    $scope.backNav = function() {
-        var fromState = fromStateServ.getState("other");
-        if (fromState.fromState !== undefined) {
-            $state.go(fromState.fromState.name, fromState.fromParams);
-        } else {
-            //设置没有历史的时候，默认的跳转
-            $state.go("app.xxx");
-        }
-    };
-})
 /**
  * Created by Why on 16/6/8.
  */
@@ -432,6 +688,17 @@ Ctr.controller('noticeCtr', function($scope, Chats) {
 
   });
 
+Ctr.controller("OtherCtrl", function($scope, $state, fromStateServ) {
+    $scope.backNav = function() {
+        var fromState = fromStateServ.getState("other");
+        if (fromState.fromState !== undefined) {
+            $state.go(fromState.fromState.name, fromState.fromParams);
+        } else {
+            //设置没有历史的时候，默认的跳转
+            $state.go("app.xxx");
+        }
+    };
+})
 /**
  * Created by Why on 16/6/8.
  */
@@ -439,81 +706,6 @@ Ctr.controller('noticeCtr', function($scope, Chats) {
 Ctr.controller('rootCtr',[function(){
   
 }])
-
-/**
- * Created by Administrator on 2016/7/13.
- */
-Ctr.controller('chariCtr',function($scope) {
-  $scope.a1 = function (){
-    alert('1');
-  }
-
-});
-
-/**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
-    $scope.a1 = function (){
-      alert('1');
-    };
-    $scope.login  =    function(r){
-        fromStateServ.stateChange(r);
-    };
-    Tools.getData({
-      "interface_number": "020001",
-      "client_type": window.platform,
-      "post_content": {
-        "token" : "",
-        "token_phone": ""
-      }
-    },function(r){
-      if(r){
-        $scope.company = (r.resp_data.data)
-
-      }
-    });
-
-  Tools.getData({
-    "interface_number": "020002",
-    "client_type": window.platform,
-    "post_content": {
-      "token" : "",
-      "token_phone": ""
-    }
-  },function(r){
-    if(r){
-
-      $scope.news = (r.resp_data.data)
-
-    }
-  });
-
-
-}]);
-
-/**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('homesearchCtr',['$scope','$state','$ionicHistory',function($scope,$state,$ionicHistory) {
-    
-  $scope.back  =  function (){
-      $ionicHistory.goBack();
-  }
-
-}]);
-
-/**
- * Created by Administrator on 2016/7/13.
- */
-Ctr.controller('tasteCtr',function($scope) {
-  $scope.a1 = function (){
-
-
-    alert('1');
-  }
-
-});
 
 /**
  * Created by Administrator on 2016/7/5.
@@ -613,21 +805,48 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
   });
 
 /**
- * Created by Administrator on 2016/7/7.
- */
-Ctr.controller('SettingsUpdateCtr',function($scope) {
-
-
-});
-
-/**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('shoppingCartCtr',['$scope','fromStateServ',function($scope,fromStateServ){
-
+Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools',function($scope,fromStateServ,storage,Tools){
       $scope.login  =  function(r){
             fromStateServ.stateChange(r);
       };
+      $scope.shopcartdata  =[];
+      //请求购物数据  整体刷新
+      $scope.doRefresh  =  function (){
+           Tools.getData({
+             "interface_number": "020402",
+             "post_content": {}
+           },function(r){
+             if(r){
+                    $scope.shopcartdata  = r.resp_data.cart;
+                    if(Object.keys($scope.shopcartdata).length  == 0){
+                      $scope.noitem  = true;
+                    }else{
+                      $scope.noitem  = false;
+                    }
+                    $scope.$broadcast('scroll.refreshComplete');
 
-       $scope.isShow = true;
+             }
+           })
+      };
+
+      function handtat  (){
+        if(storage.getObject('UserInfo').user_id){
+            $scope.isShow = false;
+            $scope.doRefresh();
+        }else{
+          $scope.isShow = true;
+        }
+      }
+
+      $scope.$on('$stateChangeSuccess',function(){
+      handtat();
+      });
+
+
+
+
+
+
 }])
