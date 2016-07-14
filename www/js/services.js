@@ -1,6 +1,21 @@
 var  Server = angular.module('starter.services', []);
 
 /**
+ * Created by Why on 16/6/12.
+ */
+
+   //全局变量定义
+   window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
+  //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
+
+
+    Server.factory('const',['$window',function($window){
+      return{
+        haha:'哈哈'
+      }
+    }]);
+
+/**
  * Created by Why on 16/6/10.
  */
 //推送的方法类封装
@@ -13,32 +28,6 @@ Server.factory('native',['$window',function($window){
   }
 
 }]);
-
-/**
- * Created by Why on 16/6/12.
- */
-
-   //全局变量定
-
-   window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
-  //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
-
-  //没有使用过度的返回页面的使用
-
-    Server.factory('const',['$window','$ionicHistory','$timeout','$ionicNativeTransitions',function($window,$ionicHistory,$timeout,$ionicNativeTransitions){
-
-
-  
-
-      return{
-        haha:'哈哈'
-      }
-
-
-
-
-
-    }]);
 
 /**
  * Created by Why on 16/6/10.
@@ -102,7 +91,8 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
         //返回图片类型
         //配置对象config  0   JPEG
         //配置对象config  1   PNG
-
+        targetWidth: config.targetWidth?config.targetWidth:400,
+        targetHeight: config.targetHeight?config.targetHeight:400,
         //返回图片高宽 设置
         mediaType:config.mediaType?config.mediaType:0,
         //可以选择的媒体类型
@@ -119,14 +109,6 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
         correctOrientation:config.correctOrientation?config.correctOrientation:true
         //支持图片旋转是否
       };
-
-      if(config.targetWidth){
-        options.targetWidth  = config.targetWidth;
-      }else  if(config.targetHeight){
-        options.targetHeight  = config.targetHeight;
-      }
-
-
       $cordovaCamera.getPicture(options).then(function(imageData) {
         var  data = "data:image/jpeg;base64," + imageData;
         Callback(data,imageData);
@@ -291,20 +273,14 @@ Server.factory('Chats', function() {
 });
 
 
-Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$timeout','$ionicNativeTransitions',function($state,$ionicViewSwitcher,$ionicHistory,$timeout,$ionicNativeTransitions){
+Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$timeout',function($state,$ionicViewSwitcher,$ionicHistory,$timeout){
     var box  = {
         data: {},
         savestate:false,
         backView:function(tartg){
-
             $ionicViewSwitcher.nextDirection('back');
-            $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
-              "type": "slide",
-              "direction": "up", // 'left|right|up|down', default 'left' (which is like 'next')
-              "duration": 500, // in milliseconds (ms), default 400
-            });
-
-            //$state.go(box.getState(tartg).fromState,box.getState(tartg).fromParams);
+            //$ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams);
+            $state.go(box.getState(tartg).fromState,box.getState(tartg).fromParams);
             $timeout(function(){
                 // var inc  = false;
                 // var overflow  = [];
@@ -314,7 +290,8 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                 // angular.forEach(overflow,function (v){delete $ionicHistory.viewHistory().views[v];});
                 console.log($ionicHistory.viewHistory())
             },500)
-          window.backtoinroot  = undefined;
+
+
 
         },
         setState: function(module, fromState, fromParams,title,viewid) {
@@ -323,6 +300,7 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                 "fromParams": fromParams,
                 title:title,
                 viewId:viewid
+
             };
         },
         getState: function(module) {
@@ -331,17 +309,13 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
         stateChange: function(stateName,parms,animation){
 
             box.savestate = true;
-            //$ionicViewSwitcher.nextDirection(animation?animation:'forward');
+            $ionicViewSwitcher.nextDirection(animation?animation:'forward');
             // $ionicNativeTransitions.stateGo(stateName,parms,{
             //     "type": "drawer",
             //     "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
             //     "duration": 1000 // in milliseconds (ms), default 400
             // });
-          $ionicNativeTransitions.stateGo(stateName,parms, {
-            "type": "slide",
-            "direction": "down", // 'left|right|up|down', default 'left' (which is like 'next')
-            "duration": 500, // in milliseconds (ms), default 400
-          });
+            $state.go(stateName,parms)
 
 
 
@@ -355,15 +329,6 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
             //注册安卓返回监听
             window.androdzerofun  =  box.backView;
             window.androdzerofun_parms  = stateNa;
-
-            //内部固化一个返回路径  (当第三方视图完全退出时 销毁)
-            window.backtoinroot      =   box.backView;
-            window.backtoinroot_parms  =  stateNa;
-
-
-
-
-
 
 
             // var inc  = false;
@@ -460,82 +425,10 @@ Server.factory('share',['$window','native',function($window,native){
 }]);
 
 /**
- * Created by Why on 16/6/14.
- */
-  //本地存储数据===================================
-Server.factory('share',['$window','native',function($window,native){
-
-
-
-  //是否安装微信
-  function wechatishas  (sharego){
-    native.loading('启动微信...');
-    if($window.Wechat   ==  undefined  ){
-      native.hidloading()
-      native.alert('微信插件没有安装!');
-      return false;
-    }
-    $window.Wechat.isInstalled(function (installed) {
-      if(installed){
-        setTimeout(function(){
-          native.hidloading()
-          sharego();
-        },300)
-      }else{
-        native.alert('请安装,微信!')
-        native.hidloading()
-      }
-    }, function (reason) {
-      alert("Failed: " + reason);
-      native.hidloading()
-    });
-  }
-
-  return{
-    //微信分享
-    weichat:function(config){
-      wechatishas(function(){
-        window.Wechat.share({
-          message: {
-            title: "这是测试",
-            description: "易物app",
-            thumb: "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1903957143,479133575&fm=111&gp=0.jpg",
-            mediaTagName: "TEST-TAG-001",
-            messageExt: "易物",
-            messageAction: "<action>dotalist</action>",
-            media: {
-              type: window.Wechat.Type.LINK,
-              webpageUrl: "http://tech.qq.com/zt2012/tmtdecode/252.htm"
-            }
-          },
-          scene: window.Wechat.Scene.SESSION   // share to Timeline
-          //TIMELINE   盆友圈
-          //FAVORITE   收藏
-          //SESSION    微信聊天回话
-
-
-
-        }, function () {
-        }, function (reason) {
-          alert("Failed: " + reason);
-        });
-      })
-    }
-
-
-
-  }
-
-
-}]);
-
-/**
  * Created by Why on 16/6/10.
  */
 //小工具方法类
 Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup','storage',function($window,$ionicLoading,$http,$timeout,$ionicPopup,storage){
-
-Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup','storage','native',function($window,$ionicLoading,$http,$timeout,$ionicPopup,storage,native){
 
   //加在视图的加载效果http前调用
   var   showlogin = function() {
@@ -545,117 +438,6 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       delay:100
     });
   };
-  String.prototype.getBytesLength = function() {
-    var totalLength = 0;
-    var charCode;
-    for (var i = 0; i < this.length; i++) {
-      charCode = this.charCodeAt(i);
-      if (charCode < 0x007f)  {
-        totalLength++;
-      } else if ((0x0080 <= charCode) && (charCode <= 0x07ff))  {
-        totalLength += 2;
-      } else if ((0x0800 <= charCode) && (charCode <= 0xffff))  {
-        totalLength += 3;
-      } else{
-        totalLength += 4;
-      }
-    }
-    return totalLength;
-  };
-
-
-
-  //上传到七牛  图片单张
-  var   sendqiniu_single  =  function (data,claback,key_header,next){
-
-      var  piclen  =   '-1';
-      var  key  = Base64.encode(key_header+(Date.parse(new Date()))+'.jpg');
-    $http({
-      type:'POST',
-      url:'http://upload.qiniu.com/putb64/'+piclen+'/key/'+key,
-      headers:{
-        "Content-Type":'application/octet-stream',
-        ///服务器交互token
-        "Authorization":'UpToken '+storage.getObject('qiniu').qp_token
-      },
-      data:{
-        pice:data
-      },
-    }).success(function(r){
-      claback(r);
-      if(next){
-        next(r);
-      }
-
-    }).error(function(r,s){
-      console.log('error_r',JSON.stringify(r),'xxx',JSON.stringify(s));
-      native.task('网络异常!',1000);
-    })
-
-
-
-  };
-  //上传到七牛  图片多张队列
-  var   sendqiniu_queue  =  function (data,claback,key_header){
-      var   index  =  -1;
-      var   reslf  = [];
-      !function  run (){
-        index++;
-        if(index>=data.length){
-          claback(reslf);
-          return false;
-        }else{
-          sendqiniu_single(data[index],function (r){
-            reslf.push(r);
-            run();
-          },key_header)
-        }
-      }();
-
-  };
-  //选择图片  提供相机  和  相册功能
-   var  chekpirc    = function (cofnig,claback){
-
-     if(!typeof   cofnig  == 'object' || !cofnig){
-       cofnig = {};
-     }
-     native.ActionSheet({
-       title:'图片来源',
-       buttonLabels:['相册'],
-       addDestructiveButtonWithLabel:'拍照'
-     },function(r){
-       if(r==1) {
-         cofnig.quality?cofnig.quality:0;
-         cofnig.allowEdit?cofnig.allowEdit:false;
-         native.Camera(cofnig,function(r){
-           //base64 回调
-           claback(r)
-         });
-       }else if(r==2){
-
-         cofnig.quality?cofnig.quality:0;
-         cofnig.allowEdit?cofnig.allowEdit:false;
-         cofnig.sourceType  =  Camera.PictureSourceType.SAVEDPHOTOALBUM;
-         native.Camera(cofnig,function(r){
-           //base64 回调
-           claback(r);
-         });
-       }else{
-         native.task('取消');
-       }
-     })
-
-   }
-
-
-
-
-
-
-
-
-
-
   var   hidelogin = function(){
     $ionicLoading.hide();
   };
@@ -877,10 +659,8 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     showlogin:showlogin,
     hidelogin:hidelogin,
     getData:getData,
-    reg:reg,
-    sendqiniu_single:sendqiniu_single,
-    sendqiniu_queue:sendqiniu_queue,
-    chekpirc:chekpirc
+    reg:reg
+
 
 
 
@@ -892,123 +672,28 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 }]);
 
 /**
- * Created by Why on 16/6/14.
+ * Created by Why on 16/6/10.
  */
   //本地存储数据===================================
-Server.factory('share',['$window','native',function($window,native){
-
-
-
-  //是否安装微信
-  function wechatishas  (sharego){
-    native.loading('启动微信...');
-    if($window.Wechat   ==  undefined  ){
-      native.hidloading()
-      native.alert('微信插件没有安装!');
-      return false;
-    }
-    $window.Wechat.isInstalled(function (installed) {
-      if(installed){
-        setTimeout(function(){
-          native.hidloading()
-          sharego();
-        },300)
-      }else{
-        native.alert('请安装,微信!')
-        native.hidloading()
+Server.factory('storage',['$window',function($window){
+    return{
+      //存储单个属性
+      set :function(key,value){
+        $window.localStorage[key]=value;
+      },
+      //读取单个属性
+      get:function(key,defaultValue){
+        return  $window.localStorage[key] || defaultValue;
+      },
+      //存储对象，以JSON格式存储
+      setObject:function(key,value){
+        $window.localStorage[key]=JSON.stringify(value);
+      },
+      //读取对象
+      getObject: function (key) {
+          return JSON.parse( $window.localStorage[key] || '{}'   );
       }
-    }, function (reason) {
-      alert("Failed: " + reason);
-      native.hidloading()
-    });
-  }
-
-  return{
-    //微信分享
-    weichat:function(config){
-      wechatishas(function(){
-        window.Wechat.share({
-          message: {
-            title: "这是测试",
-            description: "易物app",
-            thumb: "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1903957143,479133575&fm=111&gp=0.jpg",
-            mediaTagName: "TEST-TAG-001",
-            messageExt: "易物",
-            messageAction: "<action>dotalist</action>",
-            media: {
-              type: window.Wechat.Type.LINK,
-              webpageUrl: "http://tech.qq.com/zt2012/tmtdecode/252.htm"
-            }
-          },
-          scene: window.Wechat.Scene.SESSION   // share to Timeline
-          //TIMELINE   盆友圈
-          //FAVORITE   收藏
-          //SESSION    微信聊天回话
-
-
-
-        }, function () {
-        }, function (reason) {
-          alert("Failed: " + reason);
-        });
-      })
     }
 
 
-
-  }
-
-
-}]);
-
-/**
- * Created by Why on 16/6/6.
- */
-Server.factory('Chats', function() {
-  // Might use a resource here that returns a JSON array
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
-  }];
-
-  return {
-    all: function() {
-      return chats;
-    },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
-    },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
-        }
-      }
-      return null;
-    }
-  };
-});
-
+  }]);

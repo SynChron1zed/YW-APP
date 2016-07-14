@@ -126,7 +126,7 @@
 
         <div class="newitem" ng-repeat="x in news">
           <div class="text">{{ x.goods_name }}</div>
-          <div class="tiem">{{ x.pay_time }}</div>
+          <div class="tiem">{{ x.pay_time| date:"yyyy/MM/dd/" }}</div>
         </div>
 
       </div>

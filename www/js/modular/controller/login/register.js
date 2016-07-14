@@ -4,12 +4,11 @@
 Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup){
 
 
-
-
-
   $scope.registbasinfo  = {};
   $scope.nextvercode =  60;
   $scope.vercodeing  = false;
+
+
   $scope.$on('$stateChangeSuccess',function(){});
   $scope.backView  = function(){
     $scope.$ionicGoBack();

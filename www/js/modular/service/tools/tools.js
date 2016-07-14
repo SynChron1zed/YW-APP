@@ -2,7 +2,7 @@
  * Created by Why on 16/6/10.
  */
 //小工具方法类
-Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup','storage','native',function($window,$ionicLoading,$http,$timeout,$ionicPopup,storage,native){
+Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup','storage',function($window,$ionicLoading,$http,$timeout,$ionicPopup,storage){
 
   //加在视图的加载效果http前调用
   var   showlogin = function() {
@@ -12,117 +12,6 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       delay:100
     });
   };
-  String.prototype.getBytesLength = function() {
-    var totalLength = 0;
-    var charCode;
-    for (var i = 0; i < this.length; i++) {
-      charCode = this.charCodeAt(i);
-      if (charCode < 0x007f)  {
-        totalLength++;
-      } else if ((0x0080 <= charCode) && (charCode <= 0x07ff))  {
-        totalLength += 2;
-      } else if ((0x0800 <= charCode) && (charCode <= 0xffff))  {
-        totalLength += 3;
-      } else{
-        totalLength += 4;
-      }
-    }
-    return totalLength;
-  };
-
-
-
-  //上传到七牛  图片单张
-  var   sendqiniu_single  =  function (data,claback,key_header,next){
-
-      var  piclen  =   '-1';
-      var  key  = Base64.encode(key_header+(Date.parse(new Date()))+'.jpg');
-    $http({
-      type:'POST',
-      url:'http://upload.qiniu.com/putb64/'+piclen+'/key/'+key,
-      headers:{
-        "Content-Type":'application/octet-stream',
-        ///服务器交互token
-        "Authorization":'UpToken '+storage.getObject('qiniu').qp_token
-      },
-      data:{
-        pice:data
-      },
-    }).success(function(r){
-      claback(r);
-      if(next){
-        next(r);
-      }
-
-    }).error(function(r,s){
-      console.log('error_r',JSON.stringify(r),'xxx',JSON.stringify(s));
-      native.task('网络异常!',1000);
-    })
-
-
-
-  };
-  //上传到七牛  图片多张队列
-  var   sendqiniu_queue  =  function (data,claback,key_header){
-      var   index  =  -1;
-      var   reslf  = [];
-      !function  run (){
-        index++;
-        if(index>=data.length){
-          claback(reslf);
-          return false;
-        }else{
-          sendqiniu_single(data[index],function (r){
-            reslf.push(r);
-            run();
-          },key_header)
-        }
-      }();
-
-  };
-  //选择图片  提供相机  和  相册功能
-   var  chekpirc    = function (cofnig,claback){
-
-     if(!typeof   cofnig  == 'object' || !cofnig){
-       cofnig = {};
-     }
-     native.ActionSheet({
-       title:'图片来源',
-       buttonLabels:['相册'],
-       addDestructiveButtonWithLabel:'拍照'
-     },function(r){
-       if(r==1) {
-         cofnig.quality?cofnig.quality:0;
-         cofnig.allowEdit?cofnig.allowEdit:false;
-         native.Camera(cofnig,function(r){
-           //base64 回调
-           claback(r)
-         });
-       }else if(r==2){
-
-         cofnig.quality?cofnig.quality:0;
-         cofnig.allowEdit?cofnig.allowEdit:false;
-         cofnig.sourceType  =  Camera.PictureSourceType.SAVEDPHOTOALBUM;
-         native.Camera(cofnig,function(r){
-           //base64 回调
-           claback(r);
-         });
-       }else{
-         native.task('取消');
-       }
-     })
-
-   }
-
-
-
-
-
-
-
-
-
-
   var   hidelogin = function(){
     $ionicLoading.hide();
   };
@@ -344,10 +233,8 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     showlogin:showlogin,
     hidelogin:hidelogin,
     getData:getData,
-    reg:reg,
-    sendqiniu_single:sendqiniu_single,
-    sendqiniu_queue:sendqiniu_queue,
-    chekpirc:chekpirc
+    reg:reg
+
 
 
 
