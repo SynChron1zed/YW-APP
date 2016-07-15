@@ -3,14 +3,16 @@
   <ion-nav-bar   class="bar-positive ">
 
   </ion-nav-bar>
-  <ion-content style="background: white" >
-<ion-scroll direction="x" style="overflow-x:hidden;" scrollbar-x="false">
-      <div  class="row class-every" >
+  <ion-content style="background: white" scroll="false">
+<ion-scroll direction="x" style="overflow-x:hidden;" scrollbar-x="false" >
+      <div  class=" row class-every" >
         <div class="col" ng-click="shoppingsList(item)" ng-repeat="item in Citysd ">
           <div class="col-30 bottom-xian " ng-class="{true:'yellowC',false:'yellowA'}[item==selectedItem]" ><nobr>{{ item.itemcats_name }}</nobr></div>
         </div>
       </div>
 </ion-scroll>
+
+    <ion-scroll style="position: absolute;overflow-y:hidden;" zooming="true";on-infinite="loadMore()";distance="1%">
 <div>
   <img src="/img/classif/banner@3x.png" alt="">
 </div>
@@ -24,5 +26,6 @@
         </div>
       </div>
     </div>
+    </ion-scroll>
   </ion-content>
 </ion-view>

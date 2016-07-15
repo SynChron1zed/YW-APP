@@ -1,3 +1,4 @@
+
 <ion-view view-title="管理收货地址">
   <ion-nav-bar   class="bar-positive ">
     <ion-nav-buttons side="left">
@@ -6,7 +7,7 @@
       </a>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-      <a   nav-direction="back"  href="/#/r/tab/Settings"  class="button button-icon  ">
+      <a   nav-direction="back"  href=""  class="button button-icon  "ng-click="deleteAdress(item)" >
           <img class="address-delete" src="/img/setting/icon_shanchu@3x.png">
       </a>
     </ion-nav-buttons>
@@ -16,22 +17,28 @@
     <div class="list list-chongzhi" >
 
 
-      <a class="item item-icon-right item-one-left" href="#">
 
-        <span class="address-name">少来勾搭</span> <span class="address-number">13188888888</span><br/><span class="address">北京市东花市北里20号楼6单元501室 </span>
+      <ion-checkbox ng-repeat="item in addressList"  ng-show="expression" ng-click="gainAdress(item.addr_id)">
+        <span class="address-name ">{{item.link_man}}</span> <span class="address-number">{{item.link_phone}}</span><br/><span class="address">{{item.province}}{{item.city}}{{item.region}}{{item.street}} </span>
+
+        <span class="select-chongzhi" ng-show="false">
+     <i id="icon-right" class="icon ion-ios-arrow-right"></i>
+    </span>
+      </ion-checkbox>
+
+      <a class="item item-icon-right item-one-left"  ng-repeat="item in addressList" ng-show="expressionA" ng-click="gainAdress(item)">
+
+        <span class="address-name ">{{item.link_man}}</span> <span class="address-number">{{item.link_phone}}</span><br/><span class="address">{{item.province}}{{item.city}}{{item.region}}{{item.street}} </span>
          <span class="select-chongzhi">
      <i id="icon-right" class="icon ion-ios-arrow-right"></i>
     </span>
 
       </a>
 
-      <a class="item  item-icon-right item-one-left" href="#">
-        <span class="address-name">少来勾搭</span> <span class="address-number">13188888888</span><br/><span class="address">北京市东花市北里20号楼6单元501室 </span>
-           <span class="select-chongzhi">
-     <i id="icon-right" class="icon ion-ios-arrow-right"></i>
-    </span>
 
-      </a>
+
+
+
 
     </div>
 

@@ -1,25 +1,38 @@
 /**
  * Created by Why on 16/6/6.
  */
-App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpProvider','$ionicNativeTransitionsProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider,$httpProvider,$ionicNativeTransitionsProvider){
+App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider,$httpProvider){
 
-  $ionicNativeTransitionsProvider.setDefaultOptions({
-    duration: 200, // in milliseconds (ms), default 400,
-    slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
-    iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
-    androiddelay: -1, // same as above but for Android, default -1
-    winphonedelay: -1, // same as above but for Windows Phone, default -1,
-    fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
-    fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
-    triggerTransitionEvent: '$ionicView.afterEnter', // internal ionic-native-transitions option
-    backInOppositeDirection: false // Takes over default back transition and state back transition to use the opposite direction transition to go back
-  }).setDefaultTransition({
-    type: 'slide',
-    direction: 'left'
-  }).setDefaultBackTransition({
-    type: 'slide',
-    direction: 'right'
-  });
+
+  // $ionicNativeTransitionsProvider.setDefaultOptions({
+  //   duration: 500, // in milliseconds (ms), default 400,
+  //   slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
+  //   iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
+  //   androiddelay: -1, // same as above but for Android, default -1
+  //   winphonedelay: -1, // same as above but for Windows Phone, default -1,
+  //   fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
+  //   fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
+  //   triggerTransitionEvent: '$ionicView.afterEnter', // internal ionic-native-transitions option
+  //   backInOppositeDirection: false // Takes over default back transition and state back transition to use the opposite direction transition to go back
+  // });
+  //
+  // $ionicNativeTransitionsProvider.setDefaultTransition({
+  //   type: 'slide',
+  //   direction: 'left'
+  // });
+  //
+  // $ionicNativeTransitionsProvider.setDefaultBackTransition({
+  //   type: 'slide',
+  //   direction: 'right'
+  // });
+  //
+  // $ionicNativeTransitionsProvider.enable(true);
+  // // $ionicNativeTransitions.enable(false);
+  // // $ionicNativeTransitions.enable(true);
+  // // $ionicNativeTransitions.enable(false, true);
+  // // $ionicNativeTransitions.enable(true, false);
+  //
+
 
 
 
@@ -89,13 +102,11 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     .state('r',{
       url: "/r",
       abstract: true,
-      nativeTransitions: null,
       templateUrl: "templates/root/root.html",
     })
 
     .state('r.tab', {
       url: '/tab',
-      nativeTransitions: null,
       abstract: true,
       views: {
         'rootview': {
@@ -152,6 +163,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
     //选择认证
       .state('r.selectAuth',{
+        // nativeTransitions: {
+        //   "type": "flip",
+        //   "direction": "up"
+        // },
         url: '/selectAuth',
         views: {
           'rootview': {
@@ -163,6 +178,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     //个人认证
      .state('r.grAuthentication',{
+        // nativeTransitions: {
+        //   "type": "flip",
+        //   "direction": "up"
+        // },
         url: '/grAuthentication',
         views: {
           'rootview': {
@@ -173,6 +192,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       })
     //企业认证
       .state('r.entAuthentication',{
+        // nativeTransitions: {
+        //   "type": "flip",
+        //   "direction": "up"
+        // },
         url: '/entAuthentication',
         views: {
           'rootview': {
@@ -190,10 +213,11 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           }
         }
       })
+
+
     //分类
     .state('r.tab.Classif', {
       url: '/Classif',
-      nativeTransitions: null,
       views: {
         'Classif': {
           templateUrl: 'templates/Classif/Classif.html',
@@ -201,10 +225,16 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+
+
+
     // home  主页
     .state('r.tab.Home',{
+      nativeTransitions: {
+        "type": "flip",
+        "direction": "up"
+      },
       url: '/Home',
-      nativeTransitions: null,
       views: {
         'Home': {
           templateUrl: 'templates/Home/home.html',
@@ -212,12 +242,11 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+
     .state('r.tab.HomeSearch',{
-      onEnter: function() {
-        window.noNavtionsbackRootuer   = 'r.tab.Home';
-      },
-      onExit:function(){
-        window.noNavtionsbackRootuer   =   undefined;
+      nativeTransitions: {
+        "type": "flip",
+        "direction": "up"
       },
       url: '/HomeSearch',
       views: {
@@ -257,7 +286,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     // Shopping Cart 购物车
     .state('r.tab.Shopping_Cart',{
-      nativeTransitions: null,
       url: '/ShoppingCart',
       views: {
         'Shopping-Cart': {
@@ -279,7 +307,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     // Notice   通知
     .state('r.tab.Notice',{
-      nativeTransitions: null,
       url: '/Notice',
       views: {
         'notice': {
@@ -303,12 +330,8 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
 
-
-
-
     //setting  个人设置
     .state('r.tab.Settings', {
-      nativeTransitions: null,
       url: '/Settings',
       views: {
         'setting': {
@@ -419,15 +442,41 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
 
     //setting  个人设置 管理收货地址 addadresss
-    .state('r.tab.Settingsaddaddress', {
-      url: '/Settings/address/add',
+  .state('r.tab.Settingsaddaddress', {
+    url: '/Settings/address/add',
+    views: {
+      'setting': {
+        templateUrl: 'templates/Setting/SettingsAddAddress.html',
+        controller: 'SettingsAddAddressCtr'
+      }
+
+    }
+  })
+  //setting  个人设置 管理收货地址 selectaddadresss
+    .state('r.tab.SettingsSelectaddaddress', {
+      url: '/Settings/address/add/select',
       views: {
         'setting': {
-          templateUrl: 'templates/Setting/SettingsAddAddress.html',
-          controller: 'SettingsAddAddressCtr'
+          templateUrl: 'templates/Setting/SettingsSelectAddAddress.html',
+          controller: 'SettingsSelectCtr'
         }
+
+      }
+    })
+
+    //setting  个人设置 更新管理收货地址
+    .state('r.tab.SettingsUpdateAdress', {
+      url: '/r.tab.SettingsUpdateAdress/:item',
+      views: {
+        'setting': {
+          templateUrl: 'templates/Setting/UpdateAddress.html',
+          controller: 'UpdateaddressCtr'
+        }
+
       }
     });
+
+
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/r/tab/Home');

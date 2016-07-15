@@ -3,7 +3,8 @@
  */
 
 Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
-
+  var pageNum = 1;
+  //商城分类
   Tools.getData({
     "interface_number": "020101",
     "client_type": window.platform,
@@ -28,7 +29,7 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
       "searchParam": {
         "shop_cate_id": 1
       },
-      "page_num": "1"
+      "page_num": pageNum
     }
   },function(r){
     if(r){
@@ -37,7 +38,7 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
   });
 
 
-
+  //点击分类
   $scope.shoppingsList=function (item) {
 
     $scope.selectedItem = item;
@@ -52,13 +53,44 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
         "searchParam": {
           "shop_cate_id": cateId
         },
-        "page_num": "1"
+        "page_num": pageNum
       }
     },function(r){
       if(r){
         $scope.ShoppingList = (r.resp_data.data.data)
 
       }
+    });
+
+
+    //翻页加载
+    $scope.loadMore = function() {
+      alert(1)
+      
+      pageNum = pageNum+1;
+      Tools.getData({
+        "interface_number": "020103",
+        "client_type": window.platform,
+        "post_content": {
+          "token" : "",
+          "token_phone": "",
+          "searchParam": {
+            "shop_cate_id": cateId
+          },
+          "page_num": pageNum
+        }
+      },function(r){
+        if(r){
+          $scope.ShoppingList = (r.resp_data.data.data);
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+
+        }
+      });
+
+    };
+
+    $scope.$on('stateChangeSuccess', function() {
+      $scope.loadMore();
     });
 
   }
