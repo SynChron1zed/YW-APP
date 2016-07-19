@@ -5,7 +5,7 @@
   </ion-nav-bar>
   <ion-content  class='shopcrtboxbj' overflow-scroll="false"   scrollbar-y="false"  >
 
-    <ion-refresher  spinner="ios"   pulling-text="刷新" on-refresh="doRefresh()"   ></ion-refresher>
+    <ion-refresher  spinner="ios"  ng-if='!isShow'   pulling-text="刷新" on-refresh="doRefresh()"   ></ion-refresher>
 
       <div class="shopcartnologin" ng-show="isShow">
           <img src="img/img3@x.png" alt="">
@@ -16,53 +16,60 @@
         <div class="shopcartBOXLIST"  ng-show="!isShow"  >
 
 
-                <div class="shopitem"  ng-repeat='xx  in shopcartdata'  >
+                <div class="shopitem"  ng-repeat='(xxkey,xx)  in shopcartdata'  >
 
                     <div class="shoptitle">
                         <div class="shopimg">
                                <img ng-src="{{xx.shop_img?xx.shop_img:'img/nopice.jpg'}}" alt="">
                         </div>
 
-
                         <div class="shoptile">
-                            <span>无敌的店铺</span>
+                            <span>{{xx.shop_name}}</span>
                             <i class="ion-ios-arrow-right"></i>
                         </div>
-                        <div class="edit">编辑</div>
+                        <div class="edit" ng-click='edit(xx)'  > <span ng-if='!xx.edit' >编辑</span>  <span ng-if='xx.edit' >完成</span>  </div>
 
                     </div>
                     <div class="goodslist">
 
-                        <div class="goodsitem">
-                            <div class="icons">
-                                <i class="ion-ios-circle-outline"></i>
-                                <!--ion-ios-checkmark-->
+                        <div class="goodsitem"  ng-repeat='(key , ss) in xx.goods_info' >
+                            <div class="icons" ng-class="{'chekthis':ss.select}"  ng-click="chekthis(ss)" >
+
+                                <i class="  " ng-class="{'ion-ios-circle-outline':!ss.select,'ion-ios-checkmark':ss.select}"   ></i>
+                                <!-- ion-ios-checkmark -->
+
+
                             </div>
                             <div class="goodsimg">
-                                <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2335087169,1786669280&fm=21&gp=0.jpg" alt="">
+                                <img ng-src="{{ss.img_url?ss.img_url:'img/nopice.jpg'}}" alt="">
                             </div>
-                            <div class="goodsbasmsg  edit">
-                                <h5>这是一个商品的标题</h5>
+                            <div class="goodsbasmsg  "   ng-class="{'edit':xx.edit}" >
+                                <h5
+
+                                ng-click="chekthis(ss)"
+                                >{{ss.goods_title}}</h5>
                                 <p class="price">
-                                    <span class="pricemonye">￥10214214124142141241.00</span>
+                                    <span class="pricemonye">￥{{ss.activity_price=='0.00'?ss.total_in_price:ss.activity_price}}</span>
                                     <span class="number">
-                                    X<em>6</em>
+                                    X<em>{{ss.number}}</em>
                                     </span>
                                 </p>
+
                                 <div class="cheknumber">
                                     <div class="numberctr">
                                         <div>
-                                            <div class="remove">-</div>
-                                            <input type="number" value="5">
-                                            <div class="add">+</div>
+
+                                            <div class="remove"   ng-click='Subtractme(ss)' >-</div>
+                                            <input type="text"  ng-model='ss.number'  readonly style='background-color:#fff'  value="5">
+                                            <div   class="add"   ng-click='Increase(ss)'>+</div>
+
 
                                         </div>
                                     </div>
 
-
                                 </div>
 
-                                <div class="del">
+                                <div class="del"  ng-click="delmyseif(ss,key,xx,xxkey,shopcartdata)"  >
                                     删除
                                 </div>
 
@@ -79,7 +86,67 @@
         <div class="shopcartnoitem"   ng-show='noitem' >
                   <i class="ion-ios-cart-outline"  ></i>购物车空空如
         </div>
-
+    <p style="
+    height:40px;
+    "></p>
 
   </ion-content>
+
+  <ion-footer-bar align-title="center"  ng-if='!isShow'      ng-click='Submitaudit()'   style="background:#fff" >
+
+
+    <style>
+      .selectallme  i {
+
+          color: #fe7e0b;
+
+      }
+    </style>
+    <div
+      ng-click="selctall()"
+      style="width:16%;
+      line-height: 34px;
+      color: #404040;
+    "
+    ng-class="{'selectallme':selectall}"
+    >
+      <i
+        ng-class="{'ion-ios-circle-outline':!selectall,'ion-ios-checkmark':selectall}"
+        class="ion-ios-circle-outline" style="font-size: 1.05rem;
+      float: left;margin-right: 4px;
+      color: #b4b4b4;
+      "></i>
+      全选
+    </div>
+
+    <div style="
+    width: 60%;
+    line-height: 34px;;
+    font-size:14px;;
+    color: #ff4a00;
+    " >￥{{TotalPrice}}</div>
+
+
+    <div
+
+
+      ng-click="Settlement()"
+      style="
+        width: 24%;
+    line-height: 44px;
+    background: #fe7e0b;
+    height: 44px;
+    position: absolute;
+    top: 0px;
+    text-align: center;
+    font-size: .6rem;
+    color: #fff;
+    "  >
+      结算
+    </div>
+
+
+</ion-footer-bar>
+
+
 </ion-view>

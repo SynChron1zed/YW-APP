@@ -5,7 +5,8 @@ var  Ctr = angular.module('starter.controllers', []);
  */
 
 Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
-
+  var pageNum = 1;
+  //商城分类
   Tools.getData({
     "interface_number": "020101",
     "client_type": window.platform,
@@ -30,7 +31,7 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
       "searchParam": {
         "shop_cate_id": 1
       },
-      "page_num": "1"
+      "page_num": pageNum
     }
   },function(r){
     if(r){
@@ -39,7 +40,7 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
   });
 
 
-
+  //点击分类
   $scope.shoppingsList=function (item) {
 
     $scope.selectedItem = item;
@@ -54,13 +55,44 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
         "searchParam": {
           "shop_cate_id": cateId
         },
-        "page_num": "1"
+        "page_num": pageNum
       }
     },function(r){
       if(r){
         $scope.ShoppingList = (r.resp_data.data.data)
 
       }
+    });
+
+
+    //翻页加载
+    $scope.loadMore = function() {
+      alert(1)
+      
+      pageNum = pageNum+1;
+      Tools.getData({
+        "interface_number": "020103",
+        "client_type": window.platform,
+        "post_content": {
+          "token" : "",
+          "token_phone": "",
+          "searchParam": {
+            "shop_cate_id": cateId
+          },
+          "page_num": pageNum
+        }
+      },function(r){
+        if(r){
+          $scope.ShoppingList = (r.resp_data.data.data);
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+
+        }
+      });
+
+    };
+
+    $scope.$on('stateChangeSuccess', function() {
+      $scope.loadMore();
     });
 
   }
@@ -75,6 +107,27 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
  * Created by Why on 16/6/8.
  */
 Ctr.controller('tabCtr',[function(){
+
+}])
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('listofgoodsCtr',['$scope','fromStateServ',function($scope,fromStateServ){
+  $scope.backtoprevView  =   fromStateServ.backView;
+
+  $scope.$on('$stateChangeSuccess',function(){
+    $scope.loginboj = {};
+    $scope.ing  = false;
+    $scope.parenttitle     =   fromStateServ.getState('r.listofgoods').title;
+  });
+
+
+
+
+
+
+
 
 }])
 
@@ -110,9 +163,12 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
     $scope.a1 = function (){
       alert('1');
     };
-    $scope.login  =    function(r){
+
+    $scope.goModular  =    function(r){
         fromStateServ.stateChange(r);
     };
+
+
     Tools.getData({
       "interface_number": "020001",
       "client_type": window.platform,
@@ -415,6 +471,7 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
 
   //处理登录
   $scope.loginboj  = {};
+  
   $scope.loginhan  = function (){
       if(!$scope.loginboj.userName){
          $ionicPopup.alert({
@@ -473,6 +530,7 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
   
   //保存历史记录的方法  调用  上一次1 title  和返回方法
   $scope.backtoprevView  =   fromStateServ.backView;
+  
   // //安卓返回键  对公共模块的返回
   // $ionicPlatform.registerBackButtonAction(function (e) {
   //    e.preventDefault();
@@ -488,6 +546,8 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
   $scope.backView  = function(){
     $scope.$ionicGoBack();
   };
+  
+  
   $scope.register  =  function (){
       if(!$scope.ing){
             $state.go('r.register');
@@ -710,21 +770,224 @@ Ctr.controller('rootCtr',[function(){
 /**
  * Created by Administrator on 2016/7/5.
  */
-Ctr.controller('SettingsAddAddressCtr',function($scope) {
-  $scope.a1 = function (){
-    alert('1');
+Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
+  var Address =[],Name=[],Number=[],Email=[],Checked=[];
+  $scope.pushNotification = { checked: true};
+
+  //默认
+  $scope.pushNotificationChange = function() {
+
+    console.log('Push Notification Change', $scope.pushNotification.checked);
+    if($scope.pushNotification.checked==false){
+      Checked=0;
+    }else{
+      Checked=1;
+    }
+  };
+
+  //详细地址
+    $scope.Addaddress = function (newaddress) {
+      Address = newaddress
+};
+
+  //收货人
+  $scope.newname = function (name) {
+      Name = name;
+  };
+
+  //电话
+  $scope.newnumber = function (number) {
+    Number=number;
+  };
+
+  //邮编
+  $scope.newemail = function (email) {
+    Email=email;
+  };
+
+  // 保存地址
+  $scope.keepaddress = function () {
+
+    var confirmPopup = $ionicPopup.confirm({
+      title: '确定要保存该地址吗？',
+      template: '',
+      okText:'确定',
+      cancelText:'取消'
+    });
+
+    confirmPopup.then(function(res) {
+      if(res) {
+        Tools.getData({
+          "interface_number": "020501",
+          "client_type": window.platform,
+          "post_content": {
+            "token": "{EB5E2D45-AC28-1573-A39E-9F17DDE732BE}",
+            "token_phone": "",
+            "province": "湖南省",
+            "city": "长沙市",
+            "region": "天心区",
+            "street": Address,
+            "zcode": Email,
+            "link_man": Name,
+            "link_phone":Number,
+            "is_default": 0
+          }
+        },function(r){
+          if(r){
+
+
+          }
+        });
+
+      } else {
+        console.log('You are not sure');
+      }
+    });
+
+
   }
 
-});
+}]);
 
 /**
  * Created by Administrator on 2016/7/5.
  */
 
-Ctr.controller('SettingsAddressCtr',function($scope) {
-  $scope.a1 = function (){
-    alert('1');
+Ctr.controller('SettingsAddressCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
+  var arrs = [];
+  $scope.addressList=[]
+  //获取收货地址
+  Tools.getData({
+    "interface_number": "020505",
+    "client_type": window.platform,
+    "post_content": {
+      "token" : "{EB5E2D45-AC28-1573-A39E-9F17DDE732BE}",
+      "token_phone": ""
+    }
+  },function(r){
+    if(r){
+      $scope.addressList= (r.resp_data.data)
+
+    }
+  });
+
+  $scope.expressionA = true;
+
+  $scope.deleteAdress=function (item) {
+    if($scope.expression==true){
+
+      var confirmPopup = $ionicPopup.confirm({
+        title: '确定要删除选中地址吗？',
+        template: '',
+        okText:'确定',
+        cancelText:'取消'
+      });
+      confirmPopup.then(function(res) {
+        if(res) {
+
+          Tools.getData({
+          "interface_number": "020504",
+          "client_type": window.platform,
+          "post_content": {
+            "token" : "{EB5E2D45-AC28-1573-A39E-9F17DDE732BE}",
+            "token_phone": "",
+            "addr_id": arrs
+          }
+        },function(r){
+          if(r){
+          }
+        });
+          Tools.getData({
+            "interface_number": "020505",
+            "client_type": window.platform,
+            "post_content": {
+              "token" : "{EB5E2D45-AC28-1573-A39E-9F17DDE732BE}",
+              "token_phone": ""
+            }
+          },function(r){
+            if(r){
+              $scope.newaddressList= (r.resp_data.data)
+
+            }
+          });
+
+          setTimeout(function () {
+            $scope.$apply(function () {
+              $scope.addressList = $scope.newaddressList
+            });
+          }, 1);
+
+        } else {
+          console.log('You are not sure');
+        }
+      });
+
+    }else{
+      $scope.expressionA = false;
+      $scope.expression=true
+    }
+
+
+  };
+
+  $scope.gainAdress = function (gain) {
+   if(arrs.indexOf(gain) == -1){
+     arrs.push(gain)
+   }else{
+     for(var i = 0;i<arrs.length;i++){
+       var pageId =  arrs[i];
+       if(pageId==gain){
+         Tools.rmArrin(arrs,i);
+       }
+
+     }
+     console.log(arrs)
+   }
   }
+
+  //修改地址获取值
+  $scope.gainAdress= function (item) {
+    debugger;
+  console.log(item);
+    $state.go('r.tab.SettingsUpdateAdress', {item:item});
+
+  }
+
+
+}]);
+
+/**
+ * Created by Administrator on 2016/7/15.
+ */
+Ctr.controller('SettingsSelectCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
+
+
+
+
+}]);
+
+/**
+ * Created by Administrator on 2016/7/15.
+ */
+Ctr.controller('UpdateaddressCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams) {
+debugger;
+  var item = $stateParams.item;
+  console.log(item)
+
+}]);
+
+/**
+ * Created by Administrator on 2016/7/7.
+ */
+Ctr.controller('SettingsUpdateCtr',function($scope) {
+  
+  $scope.back  =  function (){
+    window.noNavtionsback(window.noNavtionsbackRootuer);
+  }
+
+
+
+
 
 });
 
@@ -807,46 +1070,240 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools',function($scope,fromStateServ,storage,Tools){
+Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$rootScope','$ionicPopup',function($scope,fromStateServ,storage,Tools,$rootScope,$ionicPopup){
+
+  window.addEventListener('native.keyboardshow', function(){
+    $rootScope.hideTabs = false;
+  });
+  window.addEventListener('native.keyboardhide', function(){
+    $rootScope.hideTabs = true;
+  });
+
+
+
       $scope.login  =  function(r){
             fromStateServ.stateChange(r);
       };
       $scope.shopcartdata  =[];
+      $scope.TotalPrice  = '0.00';
+
+  //统计总价
+  $scope.Total  =function (){
+    $scope.TotalPrice  = 0;
+    angular.forEach($scope.shopcartdata,function(v){
+      angular.forEach(v.goods_info,function(value){
+        if(value.select){
+          $scope.TotalPrice += parseFloat(value.total_in_price)*parseInt(value.number);
+        }
+      })
+    });
+    $scope.TotalPrice   = $scope.TotalPrice.toFixed(2);
+  };
+
+
+
+
+
       //请求购物数据  整体刷新
       $scope.doRefresh  =  function (){
            Tools.getData({
              "interface_number": "020402",
              "post_content": {}
            },function(r){
+             $scope.$broadcast('scroll.refreshComplete');
+             $scope.selectall   = false;
              if(r){
+                      if(r.resp_data.cart == []){
+                        $scope.noitem  = true;
+                        return  false;
+                      }else{
+                        $scope.noitem  = false;
+                      }
+
                     $scope.shopcartdata  = r.resp_data.cart;
+
                     if(Object.keys($scope.shopcartdata).length  == 0){
                       $scope.noitem  = true;
                     }else{
                       $scope.noitem  = false;
+                      angular.forEach($scope.shopcartdata,function(value){
+                          angular.forEach(value.goods_info,function(subvalue){
+                              subvalue.edit  =false;
+                          })
+                      })
                     }
-                    $scope.$broadcast('scroll.refreshComplete');
-
              }
+             
            })
       };
 
       function handtat  (){
         if(storage.getObject('UserInfo').user_id){
             $scope.isShow = false;
+
             $scope.doRefresh();
         }else{
           $scope.isShow = true;
         }
       }
 
-      $scope.$on('$stateChangeSuccess',function(){
-      handtat();
-      });
+      //编辑
+      $scope.edit  =function (e){
+        if(!e.edit){
+            e.edit  = true;
+        }else{
+            e.edit  = false;
+
+          var changedatat =  [];
+          angular.forEach(e.goods_info,function(v){
+            changedatat.push({
+              number:v.number,
+              cart_id:v.cart_id
+            });
+
+          });
+          //完成的交互
+          Tools.showlogin();
+          Tools.getData({
+            "interface_number": "020404",
+            "post_content": {
+              "cart_data": changedatat
+            }
+          },function(r){
+            if(r){
+              Tools.hidelogin();
+
+                console.log(r)
+            }
+          })
+
+
+
+        }
+      };
+
+  //选中自身
+  $scope.chekthis  = function (r){
+
+       if(!r.select){
+         r.select  =true;
+       }else{
+         r.select  =false;
+       }
+
+    $scope.Total();
+  };
+
+
+  //选中所以
+  $scope.selctall   = function (){
+
+
+      if(!$scope.selectall){
+        $scope.selectall   = true;
+        angular.forEach($scope.shopcartdata,function(v){
+          angular.forEach(v.goods_info,function(value){
+            value.select  = true;
+          })
+        })
+
+      }else {
+        $scope.selectall   = false;
+        angular.forEach($scope.shopcartdata,function(v){
+          angular.forEach(v.goods_info,function(value){
+            value.select  = false;
+          })
+        })
+
+      }
+
+    $scope.Total()
+
+  }
+
+
+
+   //自  --
+        $scope.Subtractme  = function (r){
+            r.number    = (parseInt(r.number) -1);
+            if(r.number  <=1){
+              r.number  = 1;
+            }
+        }
+   //增加  ++
+        $scope.Increase  = function (r){
+
+            r.number    = (parseInt(r.number)+1);
+            if(r.number  >=  parseInt(r.max_buy_num)){
+              r.number  = parseInt(r.max_buy_num);
+            }
+        }
+
+        //del    Myself
+        $scope.delmyseif  = function (c,key,parnt,parntkey,root){
+
+          Tools.getData({
+              "interface_number": "020403",
+              "post_content": {
+              "cart_id": [c.cart_id]
+              }
+          },function(r){
+            if(r){
+               Tools.rmArrin(parnt.goods_info,key)
+               if(parnt.goods_info.length  ==0 ){
+                    delete  root[parntkey];
+               }
+            }
+          });
+          $scope.Total();
+        };
+
+
+        //去结算
+        $scope.Settlement  = function (){
+
+          //用于结算的  订单的 商品存储对象
+          var   shopcartOrder  = [];
+          var   nogoods  = true;
+
+          angular.forEach($scope.shopcartdata,function(v){
+            angular.forEach(v.goods_info,function(value){
+              if(value.select){
+                nogoods   = false;
+                shopcartOrder.push(
+                  {
+                    cart_id:value.cart_id,
+                    number:value.number
+                  }
+                );
+              }
+            })
+          })
+
+          if(nogoods){
+            $ionicPopup.alert({
+              title:'请选择结算的商品',
+              okText:'确定'
+            });
+
+            return false;
+          }
+
+          //选中的商品
+           console.log(shopcartOrder);
 
 
 
 
 
+
+        };
+
+
+
+
+
+     window.stateChangeListen['r.tab.Shopping_Cart']  = handtat;
+     handtat()
 
 }])

@@ -112,6 +112,9 @@ ion-content{
               position: relative;
               i{  }
             }
+            .icons.chekthis{
+              i{color: #fe7e0b}
+            }
             .goodsimg{
               flex: 3.2;
               overflow: hidden;
@@ -284,4 +287,9 @@ ion-content{
     background: #feeb0b;
     color: #6b3801;
   }
+}
+
+
+.selectallme{
+   i {color: #fe7e0b !important;}
 }

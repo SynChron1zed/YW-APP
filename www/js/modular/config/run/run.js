@@ -5,25 +5,52 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
 
 
 
+
   window.noNavtionsback =  function (rooter,parmgs){
     $ionicNativeTransitions.stateGo(rooter,parmgs,{
       "type": "slide",
       "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
       "duration": 300, // in milliseconds (ms), default 400
     });
+
     $timeout(function(){
       $ionicHistory.clearHistory();
     },300)
   };
 
+  //退出登录
+  window.outlogin  = function(Callback){
+    storage.setObject('UserInfo',{})
+    Callback();
+  }
 
   $ionicPlatform.ready(function() {
-    //$state.go('r.selectAuth');
+    $rootScope.$on('$stateChangeSuccess',function(event, toState, toParams, fromState, fromParams){
+      //console.log(JSON.stringify(toState.name));
+      //console.log(JSON.stringify(fromState.name));
+      angular.forEach(window.stateChangeListen,function(value,key){
+        if(key  == toState.name){
+          value();
+        }
+      })
+      //handtat();
+
+
+    });
+
+
+    $state.go('r.tab.Home');
 
     //初始读取toke =  phone  初始化登录状态
     var userinfo  = storage.getObject('UserInfo');
     window.Token  =  userinfo.token?userinfo.token:undefined;
     window.Token_phone  =  userinfo.phone?userinfo.phone:undefined;
+
+
+
+
+
+
 
 
 
@@ -47,8 +74,6 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
 
 
 
-
-
     $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
       //console.log($ionicHistory.viewHistory())
     });
@@ -69,7 +94,6 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
         }
       });
     }
-
 
     //安卓返回键的处理
     $ionicPlatform.registerBackButtonAction(function (e) {
@@ -99,14 +123,11 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
      }
      return false;
    }, 101);
-
     $window.platform = window.platform = ionic.Platform.platform();
-
-
-
-
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
+
+
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
@@ -115,18 +136,20 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
       //Return event listener
       $ionicPlatform.registerBackButtonAction(function(r){
       });
+
         //uuid
         var  locldevice  =    storage.getObject('device');
         window.plugins.sim.getSimInfo(  function (result) {
         locldevice.phoneNumber  =result.phoneNumber;
         }, function(){});
         locldevice.uuid  = device.uuid;
-        storage.setObject('device',locldevice);
+        storage.setObject('device',locldevice)
+
 
     }else{
         //这里是浏览器写的是固定的值
         //uuid
-
+      console.log('xxxx')
         var     locldevice  =    storage.getObject('device');
                 locldevice.phoneNumber  ='13517437500';
                 locldevice.uuid  =   'dsadsa-dsad-12321sad-das' ;

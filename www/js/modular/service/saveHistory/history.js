@@ -6,11 +6,12 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
             $ionicViewSwitcher.nextDirection('back');
             $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
               "type": "slide",
-              "direction": "up", // 'left|right|up|down', default 'left' (which is like 'next')
-              "duration": 350, // in milliseconds (ms), default 400
+              "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
+              "duration": 300, // in milliseconds (ms), default 400
             });
 
             //$state.go(box.getState(tartg).fromState,box.getState(tartg).fromParams);
+            $ionicHistory.viewHistory();
             $timeout(function(){
                 // var inc  = false;
                 // var overflow  = [];
@@ -18,8 +19,8 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                 //   if(inc){  overflow.push(k); }
                 //   if(v.stateName  == tartg){ inc=true;  }} )
                 // angular.forEach(overflow,function (v){delete $ionicHistory.viewHistory().views[v];});
-                console.log($ionicHistory.viewHistory())
-            },500)
+                $ionicHistory.viewHistory()
+            },500);
           window.backtoinroot  = undefined;
 
         },
@@ -46,7 +47,7 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
 
           $ionicNativeTransitions.stateGo(stateName,parms, {
             "type": "slide",
-            "direction": "down", // 'left|right|up|down', default 'left' (which is like 'next')
+            "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
             "duration": 350, // in milliseconds (ms), default 400
           });
 
@@ -80,7 +81,7 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
 
             $timeout(function(){
                 $ionicHistory.clearHistory();
-            },500)
+            },50)
 
             if(this.savestate){
                 this.savestate  = false;

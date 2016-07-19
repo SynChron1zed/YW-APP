@@ -111,9 +111,14 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   };
   var   getData  = function(data,Callback,errorCallback,sendType){
 
+
+
     data.client_type =   window.platform?window.platform:'ios';
     data.post_content.token  = window.Token?window.Token:storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:'';
     data.post_content.token_phone  = window.token_phone?window.token_phone:storage.getObject('UserInfo').phone?storage.getObject('UserInfo').phone:'';
+
+
+    console.log(JSON.stringify(data))
 
     $http({
       url:window.Interactivehost,
@@ -330,10 +335,8 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     reg:reg,
     sendqiniu_single:sendqiniu_single,
     sendqiniu_queue:sendqiniu_queue,
-    chekpirc:chekpirc,
-    rmArrin:rmArrin,
-    clone:clone,
-    descartes:descartes
+    chekpirc:chekpirc
+
 
 
 

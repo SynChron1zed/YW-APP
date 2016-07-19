@@ -11,7 +11,7 @@
     <!--</ion-nav-buttons>-->
     <!--<ion-header-bar  class="bar-positive item-input-inset  lb-main-title-search" >-->
     <ion-nav-buttons side="left">
-      <a   nav-direction="forward" ng-click="login('r.login')"  class="button button-icon ion-ios-location-outline location-headers home-location">
+      <a   nav-direction="forward" ng-click="goModular('r.login')"  class="button button-icon ion-ios-location-outline location-headers home-location">
         <p>全国</p>
       </a>
     </ion-nav-buttons>
@@ -77,9 +77,9 @@
           <p>扫码验证</p>
         </div>
 
-        <div class="col col-33" >
+        <div class="col col-33"  ng-click="goModular('r.listofgoods')"  >
           <img src="/img/homepage/icon_release@3x.png" alt="">
-          <p>商品发布</p>
+          <p>商品管理</p>
         </div>
 
         <div class="col col-33" >
@@ -133,6 +133,11 @@
 
     </div>
 
+
+
+   <button class="button"  onclick="window.outlogin()">
+     退出登录
+   </button>
 
     <p style="height:10px"></p>
   </ion-content>

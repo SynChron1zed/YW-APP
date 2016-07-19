@@ -19,9 +19,10 @@ body {
 
 .tabs-item-hide > .tabs {
   -webkit-transition: all linear 0.2s;
-  transition: all linear 0.2s;
-  transform: translateY(60px);
-  display: flex; }
+  -webkit-transition: all linear 0.2s;
+  -webkit-transform: translateY(60px);
+  display: flex;
+  background-color: red; }
 
 ion-tabs {
   transition: opacity  200ms;
@@ -302,7 +303,7 @@ ion-view {
   font-size: 15px; }
 
 .bar .button.button-clear .icon:before, .bar .button.button-clear.icon:before, .bar .button.button-clear.icon-left:before, .bar .button.button-clear.icon-right:before, .bar button.button-clear .icon:before, .bar button.button-clear.icon:before, .bar button.button-clear.icon-left:before, .bar button.button-clear.icon-right:before {
-  font-size: 29px !important;
+  font-size: 28px !important;
   line-height: 34px !important; }
 
 body {
@@ -898,10 +899,8 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 1px solid #d2d2d2;
     top: -12px;
     left: 50%;
-    background: #fff;
     margin-left: -20px;
     opacity: 1;
     z-index: -1; }
@@ -928,10 +927,8 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 1px solid #d2d2d2;
     top: -12px;
     left: 50%;
-    background: #fff;
     margin-left: -20px;
     opacity: 1;
     z-index: -1; }
@@ -1052,6 +1049,8 @@ ion-content {
       font-size: 1.05rem;
       color: #868686;
       position: relative; }
+    .shopcartBOXLIST .shopitem .goodslist .goodsitem .icons.chekthis i {
+      color: #fe7e0b; }
     .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsimg {
       flex: 3.2;
       overflow: hidden;
@@ -1183,3 +1182,6 @@ ion-content {
     border: none;
     background: #feeb0b;
     color: #6b3801; }
+
+.selectallme i {
+  color: #fe7e0b !important; }

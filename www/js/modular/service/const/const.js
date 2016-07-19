@@ -9,14 +9,13 @@
   //没有使用过度的返回页面的使用
 
 
-
-
-
   //本地缓存   对象列表 定义
-  window.LocalCacheStatelist  =  {
-    shopCart:'YES',
-  };
+  // window.LocalCacheStatelist  =  {
+  //   shopCart:'YES',
+  // };
 
+  //路由改变监听  队列 处理事件
+  window.stateChangeListen   ={};
   Server.factory('const',['$window','$ionicHistory','$timeout','$ionicNativeTransitions',function($window,$ionicHistory,$timeout,$ionicNativeTransitions){
 
 

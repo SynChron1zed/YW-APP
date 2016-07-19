@@ -5,9 +5,12 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
     $scope.a1 = function (){
       alert('1');
     };
-    $scope.login  =    function(r){
+
+    $scope.goModular  =    function(r){
         fromStateServ.stateChange(r);
     };
+
+
     Tools.getData({
       "interface_number": "020001",
       "client_type": window.platform,
