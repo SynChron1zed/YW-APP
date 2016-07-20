@@ -1,0 +1,87 @@
+<ion-view view-title="">
+  <ion-nav-bar   class="bar-positive ">
+    <ion-nav-buttons side="left">
+      <a   nav-direction="back"  href="/#/r/tab/Home"  class="button button-icon ion-ios-arrow-left">
+        订单列表
+      </a>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <a   nav-direction="back"  href=""  class="button button-icon ion-ios-search-strong ">
+
+      </a>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content  style="background: #F7F7F7;overflow: hidden;"  overflow-scroll="true"  scroll="false"  >
+
+    <div class="coutms" >
+      <div  ng-class="{'active':all}"   ng-click="alls()"    >全&nbsp;部</div>
+      <div  ng-class="{'active':dfk}"   ng-click="dfks()"   >待付款</div>
+      <div  ng-class="{'active':dfh}"   ng-click="dfns()" >待发货</div>
+    </div>
+
+    <ion-scroll    ng-style="scorllerheight"   scrollbar-y="false"    >
+      <ion-refresher pulling-text="刷新" on-refresh="customcucdownlisloadMore(true)"   ></ion-refresher>
+
+
+      <!--////显示的那个 tab  自己控制-->
+      <div class="quanbu">
+
+        <div class="goodslistitme"  ng-repeat="xx in listdata" >
+          <p class="title"   > <span class="left">  <span>{{xx.buyer_nick}} </span>  <i  class="ion-ios-arrow-right"></i></span>     <span  class="right" >{{xx.money_status_cn}}</span> </p>
+          <div  ng-repeat="lin in xx.goods_info"  >
+            <div class="goodsimg"   ng-click="quxiangq(xx)"  ng-repeat="b  in lin" >
+              <div class="img">
+                <img src="img/ercode.png" alt="">
+              </div>
+              <div class="msg">
+                <p class="dismg">{{b.goods_title}}</p>
+                <p>{{b.sku}}</p>
+              </div>
+              <div class="preicnbumer">
+                <p>￥{{b.goods_price}}</p>
+                <p>&nbsp;X {{b.goods_num}}</p>
+              </div>
+              <span style="display: block;clear: both"></span>
+            </div>
+          </div>
+
+          <div class="dindanmsgalll">
+            共计10件商品 &nbsp;合计:￥1824212.00
+          </div>
+          <div class="dindanmsgalll">
+            订单编号:  {{xx.order_id}}
+          </div>
+          <div class="functions">
+            <span class="morershow">更&nbsp;多</span>
+            <div style="float: right;display: inline-block">
+
+              <button class="fahuo"  ng-if="xx.showfahuo"   ng-click="delivery(xx)"   >发&nbsp;货</button>
+
+              <button class="fahuo" ng-if="!xx.is_confirm"  style="border-color: #46A203;color: #64B926"    ng-click="chkeorder(xx)"   >确认订单</button>
+
+              <button  ng-click="quxiangq(xx)"  >详&nbsp;情</button>
+
+            </div>
+            <div style="display: block;clear: both"></div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+      <ion-infinite-scroll ng-if="downlistloadmor" style="height: 60px;line-height: 60px;margin-bottom:40px;text-align: center" on-infinite="customcucdownlisloadMore()" distance="1%" ></ion-infinite-scroll>
+      <p ng-if="!downlistloadmor" style="height: 90px;line-height: 90px;margin-bottom:40px;text-align: center;color:#999" >没有更多了!</p>
+
+
+    </ion-scroll>
+
+
+
+  </ion-content>
+</ion-view>
+
+
+

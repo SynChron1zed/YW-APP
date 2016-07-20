@@ -96,7 +96,8 @@ Ctr.controller('SettingsAddressCtr',['$scope','native','$state','fromStateServ',
 
   //修改地址获取值
   $scope.gainAdress= function (item) {
-    debugger;
+
+    
   console.log(item);
     $state.go('r.tab.SettingsUpdateAdress', {item:item});
 

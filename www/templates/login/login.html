@@ -8,7 +8,7 @@
           </div>
       </ion-nav-buttons>
 
-      <ion-content     style="background: #fff;overflow:hidden; overflow-y:visible;"     on-swipe-right="backtoprevView('r.login')"   >
+      <ion-content     style="background: #fff;overflow-x: hidden; overflow-y:visible;" scroll="false"    on-swipe-right="backtoprevView('r.login')"   >
       <div class="login-header-imgbox">
             <div class="imgbox"  ng-class="{'goin':ing}" >
               <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1365080916,3639569330&fm=116&gp=0.jpg" alt="">
@@ -29,27 +29,11 @@
       <button    ng-click="loginhan()"   ng-class="{'hidenlo':ing}"  class="  loginbutton button button-block button-positive block-botton"
       style="margin-top:1.4rem"
        >登录</button>
-
        <p style='text-align: center;margin: .5rem 0px;font-size: 13px;text-decoration: underline;color:#999' class="loginbutton"   ng-class="{'hidenlo':ing}"    >忘记了密码</p>
-
-        <style>
-          .hidemi{
-            opacity: 0 !important;
-          }
-        </style>
-
-        <h1 class="title"
-            ng-class="{'hidemi':ing}"
-            style="color:#5e5a29;
-            font-size: 18px;
-            font-weight: normal;
-            text-align: center;
-            width: 100%;
-            transition: all  200ms;
-            opacity: 1;
-        "  ng-click='register()'  >注册</h1>
-
     </ion-content>
 
+      <ion-footer-bar align-title="center"       ng-click='register()'   style="background:#fff" >
+      <h1 class="title" style="color:#5e5a29"   >注册</h1>
+    </ion-footer-bar>
 
 </ion-view>
