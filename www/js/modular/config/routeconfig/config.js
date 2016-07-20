@@ -1,6 +1,6 @@
 /**
  * Created by Why on 16/6/6.
- * testtt
+ * testtt11111111
  */
 App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpProvider','$ionicNativeTransitionsProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider,$httpProvider,$ionicNativeTransitionsProvider){
 
