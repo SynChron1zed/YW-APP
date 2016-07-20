@@ -88,8 +88,6 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
   $scope.shouldShowDelete = true;
   $scope.shouldShowReorder = false;
 
-
-
   //父类
   $scope.systemparnslec =   function (targe){
     console.log($scope.goods.systemSelect);
@@ -111,6 +109,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
              $scope.goods.Market_price  = 999999;
            }
    });
+
    $scope.$watch('goods.Platform_price',function(newValue,oldValue, scope){
             if(Math.abs(newValue)  >= 999999){
               $scope.goods.Platform_price  = 999999;

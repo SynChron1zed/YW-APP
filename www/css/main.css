@@ -1450,7 +1450,6 @@ ion-content {
               border-radius: 0px 4px 4px 0px;
               line-height: 1rem; }
             .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg .cheknumber .numberctr > div input {
-              -webkit-appearance: caret;
               border-radius: 0px;
               float: left;
               width: 60%;

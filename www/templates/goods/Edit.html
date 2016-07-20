@@ -186,10 +186,6 @@
 
         <div class="goodsphotitme" style="padding: 4px  5px;margin-bottom: 10px;">
 
-
-
-
-
                     <div  ng-repeat="(key,linh)  in goodspice " class="pushgoodphost"  ng-click="chkefengmian(linh)"  ng-class="{'fengmian':linh.fengmian}" >
                       <img ng-src="{{linh.img}}" alt="" style="width: 90px;height: 90px" >
                       <i  ng-click="delimg(goodspice,key)"  class="ion-close-circled"></i>
@@ -246,6 +242,34 @@
             </ion-header-bar>
             <ion-content  overflow-scroll="false"  scrollbar-y="false"   class='shopcrtboxbj' >
 
+            <div class="list">
+              <div class="item item-input" >
+                <input type="text"  placeholder="分类名称">
+
+                <i class="ion-android-add"
+
+
+
+                ></i>
+                <i
+
+                    style="
+                    position: absolute;
+                    height: 100%;
+                    display: inline-block;
+                    padding: 0px 10px;
+                    right: 0px;
+                    top: 0px;
+                    width: 50px;
+                    text-align: center;
+                    font-size:25px;
+                    line-height: 45px;
+                    "
+
+                 class="ion-android-more-vertical"></i>
+
+              </div>
+            </div>
 
 
                           <ion-list

@@ -4,23 +4,28 @@ var  Ctr = angular.module('starter.controllers', []);
  * Created by Why on 16/6/8.
  */
 
-Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
-  var pageNum = 1;
-  //商城分类
-  Tools.getData({
-    "interface_number": "020101",
-    "client_type": window.platform,
-    "post_content": {
-      "token" : "",
-      "token_phone": ""
-    }
-  },function(r){
-    if(r){
-      $scope.Citysd = (r.resp_data)
-      $scope.selectedItem = $scope.Citysd[0];
+Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout) {
+  var pageNum = 0;
+  var cateId = [];
 
-    }
-  });
+  //商城分类
+  $scope.ShoppingList=[];
+    Tools.getData({
+      "interface_number": "020101",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": ""
+      }
+    },function(r){
+      if(r){
+        $scope.Citysd = (r.resp_data)
+        $scope.selectedItem = $scope.Citysd[0];
+
+      }
+    });
+
+
 
   Tools.getData({
     "interface_number": "020103",
@@ -31,20 +36,28 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
       "searchParam": {
         "shop_cate_id": 1
       },
-      "page_num": pageNum
+      "page_num": 1,
+      "page_per":12
     }
   },function(r){
     if(r){
+      if(r.resp_data.data.data.length==12){
+        $scope.expression=true
+      }else{
+        $scope.expression=false
+      }
       $scope.ShoppingList = (r.resp_data.data.data)
+
     }
   });
 
 
   //点击分类
   $scope.shoppingsList=function (item) {
-
+    $scope.expression = true;
+    pageNum = 0
     $scope.selectedItem = item;
-    var cateId= item.cate_id;
+     cateId= item.cate_id;
 
     Tools.getData({
       "interface_number": "020103",
@@ -55,7 +68,8 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
         "searchParam": {
           "shop_cate_id": cateId
         },
-        "page_num": pageNum
+        "page_num": 1,
+        "page_per":12
       }
     },function(r){
       if(r){
@@ -63,45 +77,163 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
 
       }
     });
+  };
+
+  $scope.proDetail = function (Classitem) {
+
+    $state.go('r.tab.ClassifDetails', {Classitem: Classitem});
+  };
 
 
-    //翻页加载
-    $scope.loadMore = function() {
-      alert(1)
-      
-      pageNum = pageNum+1;
-      Tools.getData({
-        "interface_number": "020103",
-        "client_type": window.platform,
-        "post_content": {
-          "token" : "",
-          "token_phone": "",
-          "searchParam": {
-            "shop_cate_id": cateId
-          },
-          "page_num": pageNum
-        }
-      },function(r){
-        if(r){
-          $scope.ShoppingList = (r.resp_data.data.data);
-          $scope.$broadcast('scroll.infiniteScrollComplete');
 
-        }
-      });
+  //翻页加载
+   $scope.loadOlderStories=function (ddd) {
+         pageNum +=1;
+        if(cateId==""){
+         cateId=1
+     }
+       Tools.getData({
+         "interface_number": "020103",
+         "client_type": window.platform,
+         "post_content": {
+           "token": "",
+           "token_phone": "",
+           "searchParam": {
+             "shop_cate_id":cateId
+           },
+           "page_num": pageNum,
+           "page_per": 12
+         }
+       }, function (r) {
+         if (r) {
+           if (r.resp_data.data.data.length == 0) {
+             $scope.expression = false
+           } else {
+              if(pageNum==1){
+                r.resp_data.data.data=[];
+              }
+             for(var i=0;i<r.resp_data.data.data.length;i++){
+               $scope.ShoppingList.push(r.resp_data.data.data[i])
+             }
+           }
+           $scope.$broadcast('scroll.infiniteScrollComplete');
+         }
 
-    };
+       });
 
-    $scope.$on('stateChangeSuccess', function() {
-      $scope.loadMore();
-    });
 
-  }
+
+   };
+
+  $scope.calssifloadMore = function (xxx) {
+    $timeout(function () {
+      $scope.$broadcast('scroll.refreshComplete');
+    }, 600);
+
+  };
 
 
 
 
 }]);
 
+
+/**
+ * Created by Administrator on 2016/7/18.
+ */
+Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$ionicModal',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$ionicModal) {
+  var Classitem = $stateParams.Classitem;
+
+  Tools.getData({
+    "interface_number": "020205",
+    "client_type": window.platform,
+    "post_content": {
+      "token" : "",
+      "token_phone": "",
+      "goods_basic_id": Classitem
+
+    }
+  },function(r){
+    if(r){
+      $scope.ClassifDetailsList = (r.resp_data.data.data);
+
+
+    }
+  });
+
+
+
+  $ionicModal.fromTemplateUrl('templates/modal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+  $scope.ClassifConfirm=function () {
+    $scope.modal.hide();
+    $state.go('r.tab.confirmOrder');
+
+  };
+  $scope.isCone=true;
+   $scope.Detailsone=function () {
+       $scope.isCone=true;
+     $scope.isCtwo=false;
+     $scope.isCtree=false;
+ };
+  $scope.Detailstwo=function () {
+    $scope.isCone=false;
+    $scope.isCtwo=true;
+    $scope.isCtree=false;
+  };
+  $scope.Detailstree=function () {
+
+    $scope.isCone=false;
+    $scope.isCtwo=false;
+    $scope.isCtree=true;
+  };
+
+  $scope.addcart=function () {
+    Tools.getData({
+      "interface_number": "020401",
+      "client_type": window.platform,
+      "post_content": {
+        "token": "",
+        "token_phone": "",
+        "shop_id": "9",
+        "sku_id": "1",
+        "goods_basic_id": Classitem,
+        "number": "1"
+
+      }
+    },function(r){
+      if(r){
+        $scope.ClassifDetailsList = (r.resp_data.data.data);
+
+
+      }
+    });
+  }
+
+}]);
+
+/**
+ * Created by Administrator on 2016/7/18.
+ */
+/**
+ * Created by Administrator on 2016/7/18.
+ */
+Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$ionicModal',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$ionicModal) {
+
+
+
+  $ionicModal.fromTemplateUrl('templates/modal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+
+}]);
 
 /**
  * Created by Why on 16/6/8.
@@ -200,8 +332,6 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
   $scope.shouldShowDelete = true;
   $scope.shouldShowReorder = false;
 
-
-
   //父类
   $scope.systemparnslec =   function (targe){
     console.log($scope.goods.systemSelect);
@@ -223,6 +353,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
              $scope.goods.Market_price  = 999999;
            }
    });
+
    $scope.$watch('goods.Platform_price',function(newValue,oldValue, scope){
             if(Math.abs(newValue)  >= 999999){
               $scope.goods.Platform_price  = 999999;
@@ -563,15 +694,53 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 }]);
 
 /**
+ * Created by Administrator on 2016/7/19.
+ */
+/**
+ * Created by Administrator on 2016/7/13.
+ */
+Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
+  $scope.all = true;
+  $scope.dfk = false;
+  $scope.dfh = false;
+  $scope.listtype  =  undefined;
+  $scope.alls = function  (){
+    $scope.all = true;
+    $scope.dfk = false;
+    $scope.dfh = false;
+    $ionicScrollDelegate.scrollTop();
+    senpoiont.post_content.searchParam.buyer_name  = '';
+    senpoiont.post_content.searchParam.order_type  = '';
+    getdata('',$scope.nextpage =1);
+  }
+  $scope.dfks =  function  (){
+    $scope.all = false;
+    $scope.dfk = true;
+    $scope.dfh = false;
+    $ionicScrollDelegate.scrollTop();
+    senpoiont.post_content.searchParam.buyer_name  = '';
+    senpoiont.post_content.searchParam.order_type  = '';
+    getdata('0',$scope.nextpage =1,'Pending_payment');
+  };
+  $scope.dfns = function  (){
+    $scope.all = false;
+    $scope.dfk = false;
+    $scope.dfh = true;
+    $ionicScrollDelegate.scrollTop();
+    senpoiont.post_content.searchParam.buyer_name  = '';
+    senpoiont.post_content.searchParam.order_type  = '';
+    getdata('0',$scope.nextpage =1,'To_be_shipped');
+  };
+}]);
+
+/**
  * Created by Why on 16/6/8.
  */
 Ctr.controller('homesearchCtr',['$scope','$state','$ionicHistory',function($scope,$state,$ionicHistory) {
-
+    
   $scope.back  =  function (){
-    window.noNavtionsback(window.noNavtionsbackRootuer);
+      $ionicHistory.goBack();
   }
-
-
 
 }]);
 
@@ -1300,7 +1469,8 @@ Ctr.controller('SettingsAddressCtr',['$scope','native','$state','fromStateServ',
 
   //修改地址获取值
   $scope.gainAdress= function (item) {
-    debugger;
+
+    
   console.log(item);
     $state.go('r.tab.SettingsUpdateAdress', {item:item});
 
@@ -1323,7 +1493,8 @@ Ctr.controller('SettingsSelectCtr',['$scope','native','$state','fromStateServ','
  * Created by Administrator on 2016/7/15.
  */
 Ctr.controller('UpdateaddressCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams) {
-debugger;
+
+  
   var item = $stateParams.item;
   console.log(item)
 

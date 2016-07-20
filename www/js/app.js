@@ -17,6 +17,9 @@ App.directive('hideTabs',function($rootScope) {
             scope.$on('$ionicView.beforeEnter', function() {
                 scope.$watch(attributes.hideTabs, function(value){
                     $rootScope.hideTabs = true;
+                    console.log($rootScope.hideTabs)
+
+
                 });
             });
             scope.$on('$ionicView.beforeLeave', function() {
@@ -33,7 +36,9 @@ App.directive('draggable', function($document, $timeout) {
         link:function(scope, element, attr) {
             var now = 0 ;
             ionic.onGesture('dragstart',function(e){
+
                 element[0].style.transitionDuration='0ms';
+
                 var position   = element[0].style.transform.replace('translateX(','').replace('px)','');
                 if(position !==  ''){
                     now  = parseInt(position);
@@ -340,6 +345,17 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
+    //销售订单
+    .state('r.tab.HomSales',{
+      url: '/HomeSales',
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/salesorders.html',
+          controller: 'salesCtr'
+        }
+      }
+    })
+
 
 
 
@@ -542,12 +558,37 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
     //setting  个人设置 更新管理收货地址
-    .state('r.tab.SettingsUpdateAdress', {
-      url: '/r.tab.SettingsUpdateAdress/:item',
+  .state('r.tab.SettingsUpdateAdress', {
+    url: '/r.tab.SettingsUpdateAdress/:item',
+    views: {
+      'setting': {
+        templateUrl: 'templates/Setting/UpdateAddress.html',
+        controller: 'UpdateaddressCtr'
+      }
+
+    }
+  })
+
+
+  //setting  分类商品详情
+  .state('r.tab.ClassifDetails', {
+    url: '/r.tab.ClassifDetails/:Classitem',
+    views: {
+      'Classif': {
+        templateUrl: 'templates/Classif/ProductDetails.html',
+        controller: 'ClassifDetailsCtr'
+      }
+
+    }
+  })
+
+  //setting  分类商品详情确认订单
+    .state('r.tab.confirmOrder', {
+      url: '/r.tab.confirmOrder',
       views: {
-        'setting': {
-          templateUrl: 'templates/Setting/UpdateAddress.html',
-          controller: 'UpdateaddressCtr'
+        'Classif': {
+          templateUrl: 'templates/Classif/confitmorder.html',
+          controller: 'ConfirmOrderCtr'
         }
       }
     })
