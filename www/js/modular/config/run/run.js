@@ -3,6 +3,7 @@
  */
 App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,$ionicNativeTransitions,$timeout) {
 
+
   $ionicPlatform.ready(function() {
     $state.go('r.tab.Home');
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {

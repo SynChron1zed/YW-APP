@@ -7,6 +7,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   //加在视图的加载效果http前调用
   var   showlogin = function() {
 
+
     native.loading();
 
     // $ionicLoading.show({
