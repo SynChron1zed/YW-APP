@@ -51,7 +51,7 @@ Server.factory('native',['$window',function($window){
  * Created by Why on 16/6/10.
  */
 //调用原生方法类
-Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaActionSheet','$cordovaAppVersion','$cordovaBadge','$cordovaBarcodeScanner','$cordovaToast','$cordovaProgress','$cordovaCalendar',function($window,$cordovaCamera,$cordovaDialogs,$cordovaActionSheet,$cordovaAppVersion,$cordovaBadge,$cordovaBarcodeScanner,$cordovaToast,$cordovaProgress,$cordovaCalendar){
+Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaActionSheet','$cordovaAppVersion','$cordovaBadge','$cordovaBarcodeScanner','$cordovaToast','$cordovaProgress','$cordovaCalendar','$ionicLoading',function($window,$cordovaCamera,$cordovaDialogs,$cordovaActionSheet,$cordovaAppVersion,$cordovaBadge,$cordovaBarcodeScanner,$cordovaToast,$cordovaProgress,$cordovaCalendar,$ionicLoading){
   return{
     ref:this,
     //原生输出
@@ -209,15 +209,40 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
     },
     //原生 加载条
     loading:function(text){
-      if(text){
-        $cordovaProgress.showText(false, 100000, text)
+
+      $ionicLoading.show({
+      template: '<ion-spinner icon="crescent" class="spinner-royal"></ion-spinner>',
+      //template: '<ion-spinner  icon="ripple" class="spinner-energized"  ></ion-spinner>',
+      delay:100
+      });
+      return false;
+      if(window.ProgressIndicator){
+        if(text){
+          $cordovaProgress.showText(false, 100000, text)
+        }else{
+          $cordovaProgress.showSimple(true)
+        }
       }else{
-        $cordovaProgress.showSimple(true)
+        $ionicLoading.show({
+        template: '<ion-spinner icon="crescent" class="spinner-royal"></ion-spinner>',
+        //template: '<ion-spinner  icon="ripple" class="spinner-energized"  ></ion-spinner>',
+        delay:100
+      });
       }
     },
     //隐藏加载条
     hidloading:function(){
+
+      $ionicLoading.hide();
+
+
+      return false;
+      if(window.ProgressIndicator){
       $cordovaProgress.hide();
+    }else{
+      $ionicLoading.hide();
+    }
+
     },
     //复制
     Copy:function(text,success,error){
@@ -307,11 +332,9 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
             $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
               "type": "slide",
               "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
-              "duration": 300, // in milliseconds (ms), default 400
+              "duration": 400, // in milliseconds (ms), default 400
             });
-
             //$state.go(box.getState(tartg).fromState,box.getState(tartg).fromParams);
-            $ionicHistory.viewHistory();
             $timeout(function(){
                 // var inc  = false;
                 // var overflow  = [];
@@ -319,8 +342,8 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                 //   if(inc){  overflow.push(k); }
                 //   if(v.stateName  == tartg){ inc=true;  }} )
                 // angular.forEach(overflow,function (v){delete $ionicHistory.viewHistory().views[v];});
-                $ionicHistory.viewHistory()
-            },500);
+                $ionicHistory.clearHistory();
+            },30);
           window.backtoinroot  = undefined;
 
         },
@@ -344,11 +367,11 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
             //     "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
             //     "duration": 1000 // in milliseconds (ms), default 400
             // });
-
+          $ionicViewSwitcher.nextDirection('forward');
           $ionicNativeTransitions.stateGo(stateName,parms, {
             "type": "slide",
             "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
-            "duration": 350, // in milliseconds (ms), default 400
+            "duration": 400, // in milliseconds (ms), default 400
           });
 
 
@@ -502,11 +525,14 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 
   //加在视图的加载效果http前调用
   var   showlogin = function() {
-    $ionicLoading.show({
-      //template: '<ion-spinner icon="crescent" class="spinner-royal"></ion-spinner>',
-      template: '<ion-spinner  icon="ripple" class="spinner-energized"  ></ion-spinner>',
-      delay:100
-    });
+
+    native.loading();
+
+    // $ionicLoading.show({
+    //   //template: '<ion-spinner icon="crescent" class="spinner-royal"></ion-spinner>',
+    //   template: '<ion-spinner  icon="ripple" class="spinner-energized"  ></ion-spinner>',
+    //   delay:100
+    // });
   };
 
 
@@ -515,7 +541,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   var   sendqiniu_single  =  function (data,claback,key_header,next){
 
       var  piclen  =   '-1';
-      var  key  = Base64.encode(key_header+(Date.parse(new Date()))+'.jpg');
+      var  key  = Base64.encode(key_header+'_'+(storage.getObject('UserInfo').user_id?storage.getObject('UserInfo').user_id:'-1_')+'_'+(Date.parse(new Date()))+'.jpg');
     $http({
       type:'POST',
       url:'http://upload.qiniu.com/putb64/'+piclen+'/key/'+key,
@@ -537,8 +563,6 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       console.log('error_r',JSON.stringify(r),'xxx',JSON.stringify(s));
       native.task('网络异常!',1000);
     })
-
-
 
   };
   //上传到七牛  图片多张队列
@@ -590,32 +614,16 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
          native.task('取消');
        }
      })
-
-   }
-
-
-
-
-
-
-
-
-
+   };
 
   var   hidelogin = function(){
-        $ionicLoading.hide();
+        native.hidloading();
+      //$ionicLoading.hide();
   };
   var   getData  = function(data,Callback,errorCallback,sendType){
-
-
-
     data.client_type =   window.platform?window.platform:'ios';
     data.post_content.token  = window.Token?window.Token:storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:'';
     data.post_content.token_phone  = window.token_phone?window.token_phone:storage.getObject('UserInfo').phone?storage.getObject('UserInfo').phone:'';
-
-
-    console.log(JSON.stringify(data))
-
     $http({
       url:window.Interactivehost,
       method:sendType?sendType:'POST',

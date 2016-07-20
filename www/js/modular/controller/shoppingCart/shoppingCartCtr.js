@@ -1,14 +1,7 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$rootScope','$ionicPopup',function($scope,fromStateServ,storage,Tools,$rootScope,$ionicPopup){
-
-  window.addEventListener('native.keyboardshow', function(){
-    $rootScope.hideTabs = false;
-  });
-  window.addEventListener('native.keyboardhide', function(){
-    $rootScope.hideTabs = true;
-  });
+Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$rootScope','$ionicPopup','$ionicHistory',function($scope,fromStateServ,storage,Tools,$rootScope,$ionicPopup,$ionicHistory){
 
 
 
@@ -30,9 +23,6 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
     });
     $scope.TotalPrice   = $scope.TotalPrice.toFixed(2);
   };
-
-
-
 
 
       //请求购物数据  整体刷新
@@ -64,7 +54,7 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
                       })
                     }
              }
-             
+
            })
       };
 
@@ -194,22 +184,17 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
         $scope.Settlement  = function (){
 
           //用于结算的  订单的 商品存储对象
-          var   shopcartOrder  = [];
+          var   shopcartOrder  = '';
           var   nogoods  = true;
 
           angular.forEach($scope.shopcartdata,function(v){
             angular.forEach(v.goods_info,function(value){
               if(value.select){
                 nogoods   = false;
-                shopcartOrder.push(
-                  {
-                    cart_id:value.cart_id,
-                    number:value.number
-                  }
-                );
+                shopcartOrder += value.cart_id+','
               }
             })
-          })
+          });
 
           if(nogoods){
             $ionicPopup.alert({
@@ -219,9 +204,18 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
 
             return false;
           }
-
           //选中的商品
-           console.log(shopcartOrder);
+          shopcartOrder  = shopcartOrder.substring(0,shopcartOrder.length-1);
+          Tools.getData({
+            "interface_number": "020601",
+            "post_content": {
+              cartIds:shopcartOrder
+            }
+          },function(r){
+
+            console.log(r)
+
+          })
 
 
 

@@ -1,0 +1,297 @@
+<ion-view view-title="{{title}}"  style='background:#feeb0b'  >
+
+
+
+  <ion-nav-buttons side="right"    class="button back-button buttons button-clear header-item">
+    <div class="button back-button buttons button-clear header-item"   ng-click="save()"    >
+      <span class="previous-title"      >{{state}}</span></span>
+    </div>
+  </ion-nav-buttons>
+
+      <ion-content   style="background: #f7f7f7 !important;"   class='shopcrtboxbj' overflow-scroll="false"  scrollbar-y="false"   >
+
+
+        <div class="list" style="overflow: visible;z-index: 999;padding:0px;">
+          <label class="item item-input" style="border: none" >
+            <span class="input-label">名称 <span style="color: red">*</span>   </span>
+            <input type="text"  style="background:transparent"      ng-disabled="goods.edit"  ng-model="goods.title"  placeholder="商品名称" >
+          </label>
+
+          <div class="item item-input"   >
+                <span     class="input-label">条码 <span style="color: #fff"> *</span>
+                </span>
+
+                <i    ng-click="Barcode()"     class="extends" style="
+                margin-left: 4px;
+                color: #616161;
+                font-size: 25px;
+                position: absolute;
+                right: 0px;
+                background: #fff;
+                display: inline-block;
+                height: 100%;
+                line-height: 44px;
+                padding-right: 20px;
+                padding-left: 16px;
+                top: 0px;
+                border-left: 1px solid #ddd;
+                ">&#xe62e;</i>
+            <input type="text"   ng-model="goods.barcode"
+            style="padding-right:40px;"
+             placeholder="条码">
+          </div>
+
+          <div class="item" style="padding: 8px 10px;overflow: visible; " ng-model="airplaneMode"   ng-if="!edith_isfictitious"  >
+                    <span style="display: inline-block;height: 40px;line-height: 40px;">
+                    是否属于虚拟产品!
+                    </span>
+            <label   style="float: right;position: relative;top: 4px;" class="toggle disable-user-behavior"><input type="checkbox" ng-model="goods.is_virtual" class="ng-untouched ng-valid ng-dirty ng-valid-parse" value="on" style=""><div class="track"><div class="handle"></div></div></label>
+          </div>
+        </div>
+
+
+        <div class="list">
+          <div class="item item-input item-two-seletc">
+            <span class="input-label">商城分类  </span>
+
+            <select   style='    padding-left: 0px;
+                                 background: transparent;
+                                 border: none;
+                                 max-width: 100px;
+                                 white-space: nowrap;
+    '  ng-options="x.value as  x.key  for x in  goods.systemClass"   style="padding-left:0px;"   ng-model="goods.systemSelect"   ng-change='systemparnslec()'   >
+            </select>
+
+
+
+
+
+            <select    ng-if='goods.systemchidSelct'   style='    padding-left: 0px;
+                                 background: transparent;
+                                 border: none;
+                                 max-width: 100px;
+                                     white-space: nowrap;
+        '  ng-options="x.value as  x.key  for x in  goods.systemchidlist"   style="padding-left:0px;"   ng-model="goods.systemchidSelct"    ng-change='chidselect()' >
+            </select>
+
+
+
+          </div>
+
+          <div class="item item-input" style="border-top:1px solid #ddd;background:#fff !important"  ng-click='goodclass.show()'
+
+           >
+            <span class="input-label">店铺分类</span>
+            <input style="background:#fff"    ng-model="Storeclassification"    type="text" value="设置商铺所属分类"   readonly    >
+          </div>
+
+
+          <div class="item item-input"     >
+            <span class="input-label">市场价 <span style="color: red">*</span></span>
+            <input type="number" placeholder="￥0.00"  maxlength="6"  ng-model="goods.Market_price" >
+          </div>
+
+
+          <div class="item item-input"     >
+            <span class="input-label">平台价 <span style="color: red">*</span></span>
+            <input type="number" placeholder="￥0.00"    ng-model="goods.Platform_price" >
+          </div>
+
+
+
+          </div>
+
+
+        <div class="list">
+          <div class="item item-input"     >
+            <span class="input-label">库存 </span>
+            <input type="number"  placeholder="库存数"    ng-model="goods.Stock_number" >
+          </div>
+          <div class="item item-input"     >
+            <span class="input-label">运费 </span>
+            <input type="number" placeholder="运费价格"    ng-model="goods.freight_price" >
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <style>
+          .pushgoodphost{
+            width: 90px;height: 90px;
+            margin: 3px 5px !important;
+            float: left;position: relative;
+            padding: 2px ;
+            background: #fff;
+            text-align: center;
+            max-width: 100% !important;
+            font-size: 60px;
+            color: #636363;
+          }
+
+          .pushgoodphost .shoping, .pushgoodphost  .kinlh{
+            display:none;
+          }
+
+          .pushgoodphost.fengmian  .shoping{
+            display: block;
+            position: absolute;
+            z-index: 2;
+            top: 17px;
+            color: rgb(254, 143, 37);
+            font-size: 50px;
+            left: 2px;
+            height: 40px;
+            width: 30px;
+          }
+          .pushgoodphost.fengmian  .kinlh {
+            display: inline-block;
+            width: 30px;
+            height: 40px;
+            background: #fff;
+            top: -4px;
+            position: absolute;
+            left: 0px;
+            transform: rotateZ(45deg);
+            -webkit-transform: rotateZ(45deg);
+          }
+
+          .pushgoodphost .ion-close-circled{
+            position: absolute;
+            font-size: 24px;
+            top:0px;
+            display: inherit;
+            line-height: 0;
+            right: 0px;
+            background: white;
+            height: 12px;
+            width: 12px;
+          }
+
+          .pushgoodphost .ion-close-circled::before{
+            margin: -5px;
+            margin-top: -8px;
+          }
+        </style>
+
+
+        <div style="background: #fff;padding-bottom: 10px;">
+
+        <div class="goodsphotitme" style="padding: 4px  5px;margin-bottom: 10px;">
+
+
+
+
+
+                    <div  ng-repeat="(key,linh)  in goodspice " class="pushgoodphost"  ng-click="chkefengmian(linh)"  ng-class="{'fengmian':linh.fengmian}" >
+                      <img ng-src="{{linh.img}}" alt="" style="width: 90px;height: 90px" >
+                      <i  ng-click="delimg(goodspice,key)"  class="ion-close-circled"></i>
+                      <i class="shoping">&#xe628;</i>
+                      <span class="kinlh"> </span>
+
+                    </div>
+
+
+
+                    <div  ng-click="selectpirce()" class="pushgoodphost">
+                      <i     class="ion-camera" style="    position: relative;top: 10px;"></i>
+                    </div>
+                    <span style="display:block;clear:both"></span>
+                  </div>
+
+                  <p style="width: 90%;margin: 0 auto;background:#E3E3E3;padding:6px;">
+                    上传图片 大小不能超过2M,单个商品最多可添加5张图片
+                    点击图片设置为封面图片
+                  </p>
+                  </div>
+
+        </div>
+
+
+
+
+        <div class="list">
+        <div class="item">
+          <textarea name="" ng-model="goods.goodsDesc"  maxlenght='300'  cols="30" rows="10"  style="min-height:70px;width:100%" placeholder="商品描述详情..." ></textarea>
+        </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <script id="goodclass.html" type="text/ng-template">
+          <div class="modal">
+
+            <ion-header-bar  class="bar-positive item-input-inset  lb-main-title-search" >
+              <button  style="padding: 0px;" class="button button-icon "  >
+                选择店铺分类
+              </button>
+              <h5 class="title"></h5>
+              <button class="button button-icon ion-android-close"  ng-click="goodclass.hide()" >
+              </button>
+            </ion-header-bar>
+            <ion-content  overflow-scroll="false"  scrollbar-y="false"   class='shopcrtboxbj' >
+
+
+
+                          <ion-list
+
+                                show-delete="shouldShowDelete"
+                                show-reorder="shouldShowReorder"
+                                can-swipe="true"
+                                >
+                        <ion-item ng-repeat="item in goods.catelist"  class="">
+
+                          <!-- <img ng-src="{{item.key}}"> -->
+
+                          <h2>{{item.key}}</h2>
+
+                          <ion-option-button class="button-positive"
+                                             ng-click="share(item)">
+                            分享
+                          </ion-option-button>
+                          <ion-option-button class="button-info"
+                                             ng-click="edit(item)">
+                            编辑
+                          </ion-option-button>
+                          <ion-delete-button class="ion-minus-circled"
+                                             ng-click="items.splice($index, 1)">
+                          </ion-delete-button>
+                          <ion-reorder-button class="ion-navicon"
+                                              on-reorder="reorderItem(item, $fromIndex, $toIndex)">
+                          </ion-reorder-button>
+
+                        </ion-item>
+                      </ion-list>
+
+
+
+            </ion-content>
+
+          </div>
+        </script>
+
+
+
+
+
+
+
+
+
+      </ion-content>
+</ion-view>

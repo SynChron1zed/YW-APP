@@ -8,26 +8,240 @@
       </ion-nav-buttons>
 
   <ion-nav-buttons side="right"    class="button back-button buttons button-clear header-item">
-    <div class="button back-button buttons button-clear header-item">
+    <div class="button back-button buttons button-clear header-item"
+         ng-click="listsearch.show()"
+    >
       <i class="icon ion-ios-search-strong" style="float:left;margin-right:5px;"></i>
     </div>
   </ion-nav-buttons>
+      <ion-content    class='shopcrtboxbj'    overflow-scroll="false"  scrollbar-y="false"   >
+        <div class="list_tabs">
+          <div>上架(1)</div>
+          <div>下架(0)</div>
+        </div>
+
+        <ion-scroll
+                    overflow-scroll="false"
+                    scrollbar-y="false"
+                     style="width: 100%;
+                     overflow:hidden
+                     "
+                     ng-style="caklateheight"
+                    >
+          <ion-refresher  spinner="ios"     pulling-text="刷新" on-refresh="customcucdownlisloadMore(true)"  ></ion-refresher>
 
 
-      <ion-content     style="background: #fff;overflow:hidden; overflow-y:visible;"     on-swipe-right="backtoprevView('r.login')"   >
+          <div class="goodsmsgItem">
+            <div class="imghader">
+              <img ng-src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1083355526,1545787254&fm=58" alt="">
+            </div>
+            <div class="msg">
+              <p class="title">
+                商品的title
+              </p>
+              <p style="
+              height: .8rem;
+              line-height: .8rem;
+              font-size: 13px;
+              margin:  0px;
+              color: #343434;
+              ">
+                 &nbsp;库存 : 1421
+              </p>
+              <div class="price">
+                <span class="pri">￥19900.00</span>
+                <div class="ctr"> <i class="ion-ios-plus-outline"></i>
+                  <div class="box">
 
-        dsa
-        dsadsad
-        dsa
-        dsa
-        d
-        sad
-        a
+                    <div>
+                      <i class="ion-android-delete"></i>
+                      <p>删除</p>
+                    </div>
+
+                    <div>
+                      <i class="ion-archive"></i>
+                      <p>下架</p>
+                    </div>
+
+                    <div>
+                      <i class="ion-compose"></i>
+                      <p>编辑</p>
+                    </div>
+
+                    <div>
+                      <i class="ion-folder"></i>
+                      <p>分类</p>
+                    </div>
+
+                    <div>
+                      <i class="ion-ios-pricetags"></i>
+                      <p>上架</p>
+                    </div>
+
+
+
+
+
+
+
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+
+          <ion-infinite-scroll ng-if="downlistloadmor"      style="height: 30px;line-height: 30px;margin-bottom:10px;text-align: center"   spinner="dots"      on-infinite="customcucdownlisloadMore()" distance="1%" ></ion-infinite-scroll>
+          <p ng-if="!downlistloadmor" style="height: 30px;line-height: 30px;margin-bottom:10px;text-align: center;color:#999" >没有更多了!</p>
+        </ion-scroll>
+
+
+
+
+
+
+        <script id="listsearch.html" type="text/ng-template">
+          <div class="modal">
+
+            <ion-header-bar  class="bar-positive item-input-inset  lb-main-title-search" >
+              <button  style="padding: 0px;" class="button button-icon "  >
+                搜索商品
+              </button>
+              <h5 class="title"></h5>
+              <button class="button button-icon ion-android-close"  ng-click="listsearch.hide()" >
+              </button>
+            </ion-header-bar>
+
+            <ion-content  overflow-scroll="false"  scrollbar-y="false"  >
+
+
+              <div class="list">
+                <label class="item item-input" ng-click="openseargoodsclass();" style="border-top: none" >
+                  <span class="input-label" style="    width: 25%">店铺分类</span>
+                  <input type="text" placeholder="全部分类"  ng-model="search.goodscalss.itemcats_name" style="background:transparent"   readonly >
+                </label>
+
+                <div class="item item-input" >
+              <span class="input-label"  style="    width: 25%" >商品
+               </span>
+
+                  <i ng-click="scar()" class="extends"
+                     style="
+                          margin-left: 4px;
+                          color: #616161;
+                          font-size: 25px;
+                          position: absolute;
+                          right: 0px;
+                          background: #fff;
+                          display: inline-block;
+                          height: 100%;
+                          line-height: 44px;
+                          padding-right: 20px;
+                          padding-left: 16px;
+                          top: 0px;
+                          border-left: 1px solid #ddd;
+                     ">
+
+                    &#xe62e;
+                  </i>
+
+              <input type="text"  ng-model="search.tiaomiao"  placeholder="输入名称/货号/条码查询"
+                     style="background: #fff;padding-right: 40px;"    >
+
+                </div>
+                <div class="item item-input"   ng-click="swatchtstate()"   style="overflow: visible"     >
+                  <span class="input-label"   style="    width: 25%" >状态</span>
+
+                  <input type="text" placeholder="上架"  ng-model="searchobj.state"  style="background: transparent"  readonly >
+
+
+
+                  <div class="searchTypeselct"  style="
+                  position: absolute;
+                  right: 15px;
+                  bottom: 12px;
+                  top: 8px;
+                  display: inline-block;
+                  width: 30px;
+                  ">
+                    <i class="ion-ios-plus-outline"     style="font-size:30px;">
+                    </i>
+                    <div class="tipmuen"  ng-class="{'active':searchobj.swatch}" >
+                      <div class="tipionc" >
+                        <div style="width: 45px" ng-click="selectsearchstat('下架',$event)" >
+                          <i class="ion-archive"></i>
+                          <p>下架</p>
+                        </div>
+                        <div style="width:45px" ng-click="selectsearchstat('上架',$event)" >
+                          <i class="ion-ios-pricetags"></i>
+                          <p>上架</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <button  ng-click="searchresult()"  class="button button-block" style="
+                  background: rgb(254, 235, 11);
+                  color: #fff;
+                  width: 90%;
+                  margin-left: 5%;
+                  color: #703f00;
+                  letter-spacing: 5px;
+              ">搜索</button>
+
+
+            </ion-content>
+            <div   class="bar bar-footer"  ng-click="searchclarall()" style="line-height: 44px;text-align: center;font-size:20px;">
+              <button style="margin: 0 auto;background: transparent;border: none;font-size:18px;color:rgb(202, 129, 43);"> 清空</button>
+            </div>
+
+          </div>
+        </script>
+
+
+
+
+
 
 
 
 
     </ion-content>
+  <ion-footer-bar align-title="center" >
+    <div class="buttons">
+      <!--<button class="button">左侧按钮</button>-->
+    </div>
+
+    <div class="title"  ng-click="Add()"  >
+      <div  style="
+                        height: 34px;
+                        line-height: 34px;
+                        background: transparent;
+                        font-weight: normal;
+                        margin-top: 5px;
+                        /*border: 1px solid #fe7e0b;*/
+                        border: none;
+                        border-radius: 5px;
+                        color: #fe7e0b;
+      " >
+        添加商品
+      </div>
+
+    </div>
+    <div class="buttons" >
+
+      <!--<button class="button">右侧按钮</button>-->
+
+    </div>
+  </ion-footer-bar>
+
+
+
 
 
 </ion-view>

@@ -89,7 +89,7 @@ App.directive('jfocus',function($rootScope,$parse) {
 App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpProvider','$ionicNativeTransitionsProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider,$httpProvider,$ionicNativeTransitionsProvider){
 
   $ionicNativeTransitionsProvider.setDefaultOptions({
-    duration: 200, // in milliseconds (ms), default 400,
+    duration: 400, // in milliseconds (ms), default 400,
     slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
     iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
     androiddelay: -1, // same as above but for Android, default -1
@@ -146,7 +146,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     }];
   }($httpProvider);
   //android toolbar position reset
-  $ionicConfigProvider.platform.android.views.maxCache(5);
+  $ionicConfigProvider.platform.android.views.maxCache(3);
   $ionicConfigProvider.platform.android.tabs.position('bottom');
   $ionicConfigProvider.platform.ios.tabs.position('bottom');
   $ionicConfigProvider.platform.ios.tabs.style('standard');
@@ -183,6 +183,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       views: {
         'rootview': {
           templateUrl: 'templates/Navigation_tab/tabs.html',
+          controller: 'tabCtr'
         }
       }
     })
@@ -441,7 +442,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       onExit:function(){
         window.noNavtionsbackRootuer   =   undefined;
       },
-
       url: '/Settings/update',
       views: {
         'setting': {
@@ -540,7 +540,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
 
-      
+
     //setting  个人设置 更新管理收货地址
     .state('r.tab.SettingsUpdateAdress', {
       url: '/r.tab.SettingsUpdateAdress/:item',
@@ -551,12 +551,12 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-      
-      
-      
-      
-      
-      
+
+
+
+
+
+
     //商品管理模块
     .state('r.listofgoods', {
       url: '/listofgoods',
@@ -572,9 +572,22 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           controller: 'listofgoodsCtr'
         }
       }
-      
-      
     })
+    //  添加编辑商品模块
+    .state('r.goodsEdit', {
+      url: '/goodsEdit?state:&id:',
+      cache: false,
+      views: {
+        'rootview': {
+          params:{'state':null,id:null},
+          templateUrl: 'templates/goods/Edit.html',
+          controller: 'goodsEditCtr'
+        }
+      }
+    })
+
+
+
 
 
 
@@ -594,28 +607,46 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
  */
 App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,$ionicNativeTransitions,$timeout) {
 
-
-
-
-  window.noNavtionsback =  function (rooter,parmgs){
-    $ionicNativeTransitions.stateGo(rooter,parmgs,{
-      "type": "slide",
-      "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
-      "duration": 300, // in milliseconds (ms), default 400
-    });
-
-    $timeout(function(){
-      $ionicHistory.clearHistory();
-    },300)
-  };
-
-  //退出登录
-  window.outlogin  = function(Callback){
-    storage.setObject('UserInfo',{})
-    Callback();
-  }
-
   $ionicPlatform.ready(function() {
+    $state.go('r.tab.Home');
+    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      cordova.plugins.Keyboard.disableScroll(true);
+      //ionic.Platform.isFullScreen = true;
+      //Return event listener
+        //uuid
+        var  locldevice  =    storage.getObject('device');
+        window.plugins.sim.getSimInfo(  function (result) {
+        locldevice.phoneNumber  =result.phoneNumber;
+        }, function(){});
+        locldevice.uuid  = device.uuid;
+        storage.setObject('device',locldevice)
+
+
+    }else{
+        //这里是浏览器写的是固定的值
+        //uuid
+
+        var     locldevice  =    storage.getObject('device');
+                locldevice.phoneNumber  ='13517437500';
+                locldevice.uuid  =   'dsadsa-dsad-12321sad-das' ;
+                storage.setObject('device',locldevice);
+        var     locjPush  =    storage.getObject('jPush');
+                locjPush.RegistrationID =  'janiokq-text-jpush';
+                storage.setObject('jPush',locjPush);
+
+    }
+
+    if (window.StatusBar) {StatusBar.styleDefault();}
+
+
+
+
+
+
+
+
+
     $rootScope.$on('$stateChangeSuccess',function(event, toState, toParams, fromState, fromParams){
       //console.log(JSON.stringify(toState.name));
       //console.log(JSON.stringify(fromState.name));
@@ -630,7 +661,31 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
     });
 
 
-    $state.go('r.tab.Home');
+
+
+      window.noNavtionsback =  function (rooter,parmgs){
+        $ionicNativeTransitions.stateGo(rooter,parmgs,{
+          "type": "slide",
+          "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
+          "duration": 300, // in milliseconds (ms), default 400
+        });
+
+        $timeout(function(){
+          $ionicHistory.clearHistory();
+        },300)
+      };
+
+      //退出登录
+      window.outlogin  = function(Callback){
+        window.Token   = undefined;
+        window.token_phone   = undefined;
+        storage.setObject('UserInfo',{})
+        if(Callback){
+        Callback();
+        }
+      };
+
+
 
     //初始读取toke =  phone  初始化登录状态
     var userinfo  = storage.getObject('UserInfo');
@@ -689,13 +744,13 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
     //安卓返回键的处理
     $ionicPlatform.registerBackButtonAction(function (e) {
      e.preventDefault();
+
+
       //返回一个没有使用  原始过度的页面
       if(window.noNavtionsbackRootuer){
         window.noNavtionsback(window.noNavtionsbackRootuer);
+        return false;
       }
-
-
-
 
     //执行一个零时的 处理函数
         if(window.androdzerofun){
@@ -707,55 +762,27 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
      if (JSON.stringify($location.path()) == '/r/tab/Home' ) {
        showConfirm();
      } else if ($ionicHistory.backView()) {
-      $ionicHistory.goBack();
+       $rootScope.$ionicGoBack();
      } else {
        // This is the last page: Show confirmation popup
        showConfirm();
      }
      return false;
-   }, 101);
+
+   }, 100);
+
+
+
+
+
+
+
+
+
+
     $window.platform = window.platform = ionic.Platform.platform();
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-
-
-    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
-      //ionic.Platform.isFullScreen = true;
-
-      //Return event listener
-      $ionicPlatform.registerBackButtonAction(function(r){
-      });
-
-        //uuid
-        var  locldevice  =    storage.getObject('device');
-        window.plugins.sim.getSimInfo(  function (result) {
-        locldevice.phoneNumber  =result.phoneNumber;
-        }, function(){});
-        locldevice.uuid  = device.uuid;
-        storage.setObject('device',locldevice)
-
-
-    }else{
-        //这里是浏览器写的是固定的值
-        //uuid
-      console.log('xxxx')
-        var     locldevice  =    storage.getObject('device');
-                locldevice.phoneNumber  ='13517437500';
-                locldevice.uuid  =   'dsadsa-dsad-12321sad-das' ;
-                storage.setObject('device',locldevice);
-        var     locjPush  =    storage.getObject('jPush');
-                locjPush.RegistrationID =  'janiokq-text-jpush';
-                storage.setObject('jPush',locjPush);
-
-    }
-
-    if (window.StatusBar) {StatusBar.styleDefault();}
-
-
-
-
 
 
 
@@ -778,9 +805,6 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
     //极光推送事件处理
     //极光数据处理  兼容ios  安卓平台  剥离数据
     var bestripped  =  function(data){
-
-      console.log(JSON.stringify(data));
-
       var result = {};
       if(device.platform == "Android") {
         result.title = data.alert;
@@ -797,9 +821,6 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
       }
       return  result;
     };
-
-
-
 
 
     //点击通知的处理

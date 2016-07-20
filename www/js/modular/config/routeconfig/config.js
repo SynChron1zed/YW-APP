@@ -4,7 +4,7 @@
 App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpProvider','$ionicNativeTransitionsProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider,$httpProvider,$ionicNativeTransitionsProvider){
 
   $ionicNativeTransitionsProvider.setDefaultOptions({
-    duration: 200, // in milliseconds (ms), default 400,
+    duration: 400, // in milliseconds (ms), default 400,
     slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
     iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
     androiddelay: -1, // same as above but for Android, default -1
@@ -61,7 +61,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     }];
   }($httpProvider);
   //android toolbar position reset
-  $ionicConfigProvider.platform.android.views.maxCache(5);
+  $ionicConfigProvider.platform.android.views.maxCache(3);
   $ionicConfigProvider.platform.android.tabs.position('bottom');
   $ionicConfigProvider.platform.ios.tabs.position('bottom');
   $ionicConfigProvider.platform.ios.tabs.style('standard');
@@ -98,6 +98,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       views: {
         'rootview': {
           templateUrl: 'templates/Navigation_tab/tabs.html',
+          controller: 'tabCtr'
         }
       }
     })
@@ -356,7 +357,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       onExit:function(){
         window.noNavtionsbackRootuer   =   undefined;
       },
-
       url: '/Settings/update',
       views: {
         'setting': {
@@ -455,7 +455,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
 
-      
+
     //setting  个人设置 更新管理收货地址
     .state('r.tab.SettingsUpdateAdress', {
       url: '/r.tab.SettingsUpdateAdress/:item',
@@ -466,12 +466,12 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-      
-      
-      
-      
-      
-      
+
+
+
+
+
+
     //商品管理模块
     .state('r.listofgoods', {
       url: '/listofgoods',
@@ -487,9 +487,22 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           controller: 'listofgoodsCtr'
         }
       }
-      
-      
     })
+    //  添加编辑商品模块
+    .state('r.goodsEdit', {
+      url: '/goodsEdit?state:&id:',
+      cache: false,
+      views: {
+        'rootview': {
+          params:{'state':null,id:null},
+          templateUrl: 'templates/goods/Edit.html',
+          controller: 'goodsEditCtr'
+        }
+      }
+    })
+
+
+
 
 
 

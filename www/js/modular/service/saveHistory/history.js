@@ -7,11 +7,9 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
             $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
               "type": "slide",
               "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
-              "duration": 300, // in milliseconds (ms), default 400
+              "duration": 400, // in milliseconds (ms), default 400
             });
-
             //$state.go(box.getState(tartg).fromState,box.getState(tartg).fromParams);
-            $ionicHistory.viewHistory();
             $timeout(function(){
                 // var inc  = false;
                 // var overflow  = [];
@@ -19,8 +17,8 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                 //   if(inc){  overflow.push(k); }
                 //   if(v.stateName  == tartg){ inc=true;  }} )
                 // angular.forEach(overflow,function (v){delete $ionicHistory.viewHistory().views[v];});
-                $ionicHistory.viewHistory()
-            },500);
+                $ionicHistory.clearHistory();
+            },30);
           window.backtoinroot  = undefined;
 
         },
@@ -44,11 +42,11 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
             //     "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
             //     "duration": 1000 // in milliseconds (ms), default 400
             // });
-
+          $ionicViewSwitcher.nextDirection('forward');
           $ionicNativeTransitions.stateGo(stateName,parms, {
             "type": "slide",
             "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
-            "duration": 350, // in milliseconds (ms), default 400
+            "duration": 400, // in milliseconds (ms), default 400
           });
 
 

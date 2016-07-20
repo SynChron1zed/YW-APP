@@ -3,28 +3,46 @@
  */
 App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,$ionicNativeTransitions,$timeout) {
 
-
-
-
-  window.noNavtionsback =  function (rooter,parmgs){
-    $ionicNativeTransitions.stateGo(rooter,parmgs,{
-      "type": "slide",
-      "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
-      "duration": 300, // in milliseconds (ms), default 400
-    });
-
-    $timeout(function(){
-      $ionicHistory.clearHistory();
-    },300)
-  };
-
-  //退出登录
-  window.outlogin  = function(Callback){
-    storage.setObject('UserInfo',{})
-    Callback();
-  }
-
   $ionicPlatform.ready(function() {
+    $state.go('r.tab.Home');
+    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      cordova.plugins.Keyboard.disableScroll(true);
+      //ionic.Platform.isFullScreen = true;
+      //Return event listener
+        //uuid
+        var  locldevice  =    storage.getObject('device');
+        window.plugins.sim.getSimInfo(  function (result) {
+        locldevice.phoneNumber  =result.phoneNumber;
+        }, function(){});
+        locldevice.uuid  = device.uuid;
+        storage.setObject('device',locldevice)
+
+
+    }else{
+        //这里是浏览器写的是固定的值
+        //uuid
+
+        var     locldevice  =    storage.getObject('device');
+                locldevice.phoneNumber  ='13517437500';
+                locldevice.uuid  =   'dsadsa-dsad-12321sad-das' ;
+                storage.setObject('device',locldevice);
+        var     locjPush  =    storage.getObject('jPush');
+                locjPush.RegistrationID =  'janiokq-text-jpush';
+                storage.setObject('jPush',locjPush);
+
+    }
+
+    if (window.StatusBar) {StatusBar.styleDefault();}
+
+
+
+
+
+
+
+
+
     $rootScope.$on('$stateChangeSuccess',function(event, toState, toParams, fromState, fromParams){
       //console.log(JSON.stringify(toState.name));
       //console.log(JSON.stringify(fromState.name));
@@ -39,7 +57,31 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
     });
 
 
-    $state.go('r.tab.Home');
+
+
+      window.noNavtionsback =  function (rooter,parmgs){
+        $ionicNativeTransitions.stateGo(rooter,parmgs,{
+          "type": "slide",
+          "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
+          "duration": 300, // in milliseconds (ms), default 400
+        });
+
+        $timeout(function(){
+          $ionicHistory.clearHistory();
+        },300)
+      };
+
+      //退出登录
+      window.outlogin  = function(Callback){
+        window.Token   = undefined;
+        window.token_phone   = undefined;
+        storage.setObject('UserInfo',{})
+        if(Callback){
+        Callback();
+        }
+      };
+
+
 
     //初始读取toke =  phone  初始化登录状态
     var userinfo  = storage.getObject('UserInfo');
@@ -98,13 +140,13 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
     //安卓返回键的处理
     $ionicPlatform.registerBackButtonAction(function (e) {
      e.preventDefault();
+
+
       //返回一个没有使用  原始过度的页面
       if(window.noNavtionsbackRootuer){
         window.noNavtionsback(window.noNavtionsbackRootuer);
+        return false;
       }
-
-
-
 
     //执行一个零时的 处理函数
         if(window.androdzerofun){
@@ -116,55 +158,27 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
      if (JSON.stringify($location.path()) == '/r/tab/Home' ) {
        showConfirm();
      } else if ($ionicHistory.backView()) {
-      $ionicHistory.goBack();
+       $rootScope.$ionicGoBack();
      } else {
        // This is the last page: Show confirmation popup
        showConfirm();
      }
      return false;
-   }, 101);
+
+   }, 100);
+
+
+
+
+
+
+
+
+
+
     $window.platform = window.platform = ionic.Platform.platform();
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-
-
-    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
-      //ionic.Platform.isFullScreen = true;
-
-      //Return event listener
-      $ionicPlatform.registerBackButtonAction(function(r){
-      });
-
-        //uuid
-        var  locldevice  =    storage.getObject('device');
-        window.plugins.sim.getSimInfo(  function (result) {
-        locldevice.phoneNumber  =result.phoneNumber;
-        }, function(){});
-        locldevice.uuid  = device.uuid;
-        storage.setObject('device',locldevice)
-
-
-    }else{
-        //这里是浏览器写的是固定的值
-        //uuid
-      console.log('xxxx')
-        var     locldevice  =    storage.getObject('device');
-                locldevice.phoneNumber  ='13517437500';
-                locldevice.uuid  =   'dsadsa-dsad-12321sad-das' ;
-                storage.setObject('device',locldevice);
-        var     locjPush  =    storage.getObject('jPush');
-                locjPush.RegistrationID =  'janiokq-text-jpush';
-                storage.setObject('jPush',locjPush);
-
-    }
-
-    if (window.StatusBar) {StatusBar.styleDefault();}
-
-
-
-
 
 
 
@@ -187,9 +201,6 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
     //极光推送事件处理
     //极光数据处理  兼容ios  安卓平台  剥离数据
     var bestripped  =  function(data){
-
-      console.log(JSON.stringify(data));
-
       var result = {};
       if(device.platform == "Android") {
         result.title = data.alert;
@@ -206,9 +217,6 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
       }
       return  result;
     };
-
-
-
 
 
     //点击通知的处理

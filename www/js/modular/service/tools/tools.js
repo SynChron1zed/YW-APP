@@ -6,11 +6,14 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 
   //加在视图的加载效果http前调用
   var   showlogin = function() {
-    $ionicLoading.show({
-      //template: '<ion-spinner icon="crescent" class="spinner-royal"></ion-spinner>',
-      template: '<ion-spinner  icon="ripple" class="spinner-energized"  ></ion-spinner>',
-      delay:100
-    });
+
+    native.loading();
+
+    // $ionicLoading.show({
+    //   //template: '<ion-spinner icon="crescent" class="spinner-royal"></ion-spinner>',
+    //   template: '<ion-spinner  icon="ripple" class="spinner-energized"  ></ion-spinner>',
+    //   delay:100
+    // });
   };
 
 
@@ -19,7 +22,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   var   sendqiniu_single  =  function (data,claback,key_header,next){
 
       var  piclen  =   '-1';
-      var  key  = Base64.encode(key_header+(Date.parse(new Date()))+'.jpg');
+      var  key  = Base64.encode(key_header+'_'+(storage.getObject('UserInfo').user_id?storage.getObject('UserInfo').user_id:'-1_')+'_'+(Date.parse(new Date()))+'.jpg');
     $http({
       type:'POST',
       url:'http://upload.qiniu.com/putb64/'+piclen+'/key/'+key,
@@ -41,8 +44,6 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       console.log('error_r',JSON.stringify(r),'xxx',JSON.stringify(s));
       native.task('网络异常!',1000);
     })
-
-
 
   };
   //上传到七牛  图片多张队列
@@ -94,32 +95,16 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
          native.task('取消');
        }
      })
-
-   }
-
-
-
-
-
-
-
-
-
+   };
 
   var   hidelogin = function(){
-        $ionicLoading.hide();
+        native.hidloading();
+      //$ionicLoading.hide();
   };
   var   getData  = function(data,Callback,errorCallback,sendType){
-
-
-
     data.client_type =   window.platform?window.platform:'ios';
     data.post_content.token  = window.Token?window.Token:storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:'';
     data.post_content.token_phone  = window.token_phone?window.token_phone:storage.getObject('UserInfo').phone?storage.getObject('UserInfo').phone:'';
-
-
-    console.log(JSON.stringify(data))
-
     $http({
       url:window.Interactivehost,
       method:sendType?sendType:'POST',

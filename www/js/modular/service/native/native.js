@@ -2,7 +2,7 @@
  * Created by Why on 16/6/10.
  */
 //调用原生方法类
-Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaActionSheet','$cordovaAppVersion','$cordovaBadge','$cordovaBarcodeScanner','$cordovaToast','$cordovaProgress','$cordovaCalendar',function($window,$cordovaCamera,$cordovaDialogs,$cordovaActionSheet,$cordovaAppVersion,$cordovaBadge,$cordovaBarcodeScanner,$cordovaToast,$cordovaProgress,$cordovaCalendar){
+Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaActionSheet','$cordovaAppVersion','$cordovaBadge','$cordovaBarcodeScanner','$cordovaToast','$cordovaProgress','$cordovaCalendar','$ionicLoading',function($window,$cordovaCamera,$cordovaDialogs,$cordovaActionSheet,$cordovaAppVersion,$cordovaBadge,$cordovaBarcodeScanner,$cordovaToast,$cordovaProgress,$cordovaCalendar,$ionicLoading){
   return{
     ref:this,
     //原生输出
@@ -160,15 +160,40 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
     },
     //原生 加载条
     loading:function(text){
-      if(text){
-        $cordovaProgress.showText(false, 100000, text)
+
+      $ionicLoading.show({
+      template: '<ion-spinner icon="crescent" class="spinner-royal"></ion-spinner>',
+      //template: '<ion-spinner  icon="ripple" class="spinner-energized"  ></ion-spinner>',
+      delay:100
+      });
+      return false;
+      if(window.ProgressIndicator){
+        if(text){
+          $cordovaProgress.showText(false, 100000, text)
+        }else{
+          $cordovaProgress.showSimple(true)
+        }
       }else{
-        $cordovaProgress.showSimple(true)
+        $ionicLoading.show({
+        template: '<ion-spinner icon="crescent" class="spinner-royal"></ion-spinner>',
+        //template: '<ion-spinner  icon="ripple" class="spinner-energized"  ></ion-spinner>',
+        delay:100
+      });
       }
     },
     //隐藏加载条
     hidloading:function(){
+
+      $ionicLoading.hide();
+
+
+      return false;
+      if(window.ProgressIndicator){
       $cordovaProgress.hide();
+    }else{
+      $ionicLoading.hide();
+    }
+
     },
     //复制
     Copy:function(text,success,error){
