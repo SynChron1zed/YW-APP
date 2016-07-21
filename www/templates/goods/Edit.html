@@ -59,7 +59,9 @@
                                  border: none;
                                  max-width: 100px;
                                  white-space: nowrap;
-    '  ng-options="x.value as  x.key  for x in  goods.systemClass"   style="padding-left:0px;"   ng-model="goods.systemSelect"   ng-change='systemparnslec()'   >
+    '  ng-options="x.cate_id as  x.itemcats_name  for x in  goods.systemClass"   style="padding-left:0px;"   ng-model="goods.systemSelect"   ng-change='systemparnslec()'   >
+
+
             </select>
 
 
@@ -244,16 +246,29 @@
 
             <div class="list">
               <div class="item item-input" >
-                <input type="text"  placeholder="分类名称">
+                <input type="text"  placeholder="分类名称"  style='padding-right:110px' maxlength='10'  >
 
                 <i class="ion-android-add"
-
-
-
+                  style="
+                  position: absolute;
+                  height: 100%;
+                  display: inline-block;
+                  padding: 0px 10px;
+                  right: 0px;
+                  top: 0px;
+                  width: 50px;
+                  text-align: center;
+                  font-size: 25px;
+                  border-left: 1px solid #bfbfbf;
+                  line-height: 45px;
+                  right:50px;
+                  color:#6b3801
+                  "
                 ></i>
                 <i
 
                     style="
+                    color:#6b3801;
                     position: absolute;
                     height: 100%;
                     display: inline-block;
@@ -262,7 +277,8 @@
                     top: 0px;
                     width: 50px;
                     text-align: center;
-                    font-size:25px;
+                    font-size: 25px;
+                    border-left: 1px solid #bfbfbf;
                     line-height: 45px;
                     "
 
@@ -280,24 +296,13 @@
                                 >
                         <ion-item ng-repeat="item in goods.catelist"  class="">
 
-                          <!-- <img ng-src="{{item.key}}"> -->
-
                           <h2>{{item.key}}</h2>
-
-                          <ion-option-button class="button-positive"
-                                             ng-click="share(item)">
-                            分享
-                          </ion-option-button>
-                          <ion-option-button class="button-info"
-                                             ng-click="edit(item)">
-                            编辑
-                          </ion-option-button>
                           <ion-delete-button class="ion-minus-circled"
+
                                              ng-click="items.splice($index, 1)">
+
                           </ion-delete-button>
-                          <ion-reorder-button class="ion-navicon"
-                                              on-reorder="reorderItem(item, $fromIndex, $toIndex)">
-                          </ion-reorder-button>
+
 
                         </ion-item>
                       </ion-list>

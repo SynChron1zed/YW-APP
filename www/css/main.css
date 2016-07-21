@@ -1,6 +1,10 @@
 body {
   font-size: 4rem; }
 
+.button.active, .button.activated {
+  border: none;
+  background-color: inherit; }
+
 .item {
   border-left: none;
   border-right: none; }

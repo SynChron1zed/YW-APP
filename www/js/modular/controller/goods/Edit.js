@@ -16,8 +16,6 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
     });
 
 
-
-
   //构建商品对象  基本信息
   $scope.goods = {};
   $scope.goods.edit  =  false;  //商品编辑状态
@@ -26,79 +24,91 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
   $scope.goods.systemchidSelct  =undefined;
   $scope.goods.systemchidlist  = undefined;
   $scope.goods.cateSelctItem  = '请选择分类';
-  $scope.goods.systemClass = [
-    {
-      key:'啥呀dsadsadsadsadsadasdsadsadsa',
-      value:'ss'
-    },
-    {
-      key:'啥呀',
-      value:'ff'
-    }
-  ];
-
   $scope.goods.catelist =  [
     {
       key:'哈哈',
        value:'1'
-    },
-    {
-      key:'哈哈',
-       value:'1'
-    },
-    {
-      key:'哈哈',
-       value:'1'
-    },
-    {
-      key:'哈哈',
-       value:'1'
-    },
-    {
-      key:'哈哈',
-       value:'1'
-    },
-    {
-      key:'哈哈',
-       value:'1'
-    },
-    {
-      key:'哈哈',
-       value:'1'
-    },
-    {
-      key:'哈哈',
-       value:'1'
-    },
-    {
-      key:'哈哈',
-       value:'1'
-    },
-    {
-      key:'哈哈',
-       value:'1'
-    },
-    {
-      key:'哈哈',
-       value:'1'
     }
   ];
+
+
+ //初始化 goods 对象
+ Tools.getData({
+   "interface_number": "030102",
+       "post_content": {
+         "goods_id": $stateParams.id?$stateParams.id:'',
+      }
+ },function(r){
+      if(r){
+        console.log(r)
+           $scope.goods.systemClass   = r.resp_data.sys_cate;
+           $scope.systemparnslec();
+           
+           //$scope.goods.systemSelect  =  undefined;
+           angular.forEach(r.resp_data.sys_cate,function(c){
+
+           })
+
+      }
+ })
+
 
 
   $scope.shouldShowDelete = true;
   $scope.shouldShowReorder = false;
 
   //父类
-  $scope.systemparnslec =   function (targe){
-    console.log($scope.goods.systemSelect);
-  }
+  $scope.systemparnslec =   function (){
+
+    var hanparnselect = true;
+    angular.forEach($scope.goods.systemClass,function(c){
+
+          if(c.select){
+            $scope.goods.systemSelect   =  c.cate_id;
+            hanparnselect  = false;
+          }
+
+          if(c.cate_id  == $scope.goods.systemSelect  &&  c.children.length !=0){
+
+                //计算那个   默认选中
+                $scope.goods.systemchidlist  =  c.children;
+                var hasslect = true;
+
+                angular.forEach($scope.goods.systemchidlist,function(xx){
+                        if(xx.select){
+                          hasslect = false;;
+                            $scope.goods.systemchidSelct   = xx.cate_id;
+                        }
+                });
+                if(hasslect){
+                    $scope.goods.systemchidSelct   =  $scope.goods.systemchidlist[0].cate_id;
+                }
+
+          }else{
+            $scope.goods.systemchidlist  =  undefined;
+            $scope.goods.systemchidSelct  =  undefined;
+          }
+
+
+
+
+    })
+
+    if(hanparnselect){
+    $scope.goods.systemClass[0].select = true;
+    $scope.goods.systemSelect  = $scope.goods.systemClass[0].cate_id;
+
+    }
+
+  };
   //子类
   $scope.chidselect   = function(){
-      console.log($scope.goods.systemchidSelct)
+      //console.log($scope.goods.systemchidSelct)
   }
 
-
   //$scope.goods.
+
+
 
   //title
   //is_virtual
