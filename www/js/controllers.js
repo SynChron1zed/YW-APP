@@ -3,13 +3,6 @@ var  Ctr = angular.module('starter.controllers', []);
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('tabCtr',[function(){
-
-}])
-
-/**
- * Created by Why on 16/6/8.
- */
 
 Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout) {
   var pageNum = 0;
@@ -245,6 +238,13 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
 /**
  * Created by Why on 16/6/8.
  */
+Ctr.controller('tabCtr',[function(){
+
+}])
+
+/**
+ * Created by Why on 16/6/8.
+ */
 Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','native','Tools','$ionicPopup','$ionicModal','$rootScope','$timeout',function($scope,$timeout,$state,$stateParams,native,Tools,$ionicPopup,$ionicModal,$rootScope,$timeout){
 
 
@@ -397,12 +397,11 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
 
   //$scope.goods.
 
-
   //title
   //is_virtual
   //barcode
   //goodsDesc
-  $scope.$watch('goods.Market_price',function(newValue,oldValue, scope){
+  $scope.$watch('goods.retail_price',function(newValue,oldValue, scope){
            if(Math.abs(newValue)  >= 999999){
              $scope.goods.Market_price  = 999999;
            }
@@ -561,8 +560,6 @@ $scope.save  = function (){
         cartlist.push(c.cate_id);
       }
     })
-
-    
     native.loading();
     Tools.getData({
       "interface_number": "030101",
@@ -629,6 +626,15 @@ $scope.save  = function (){
  */
 Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$ionicModal','native',function($scope,fromStateServ,$timeout,$state,$ionicModal,native){
 
+
+
+
+  //编辑
+  $scope.edith  = function (){
+    $state.go('r.goodsEdit',{state:'edit',id:'53'});    
+  }
+
+
   //构建搜索功能
   $scope.searchobj  = {};
     $scope.scar =  function(){
@@ -641,8 +647,6 @@ $scope.selectsearchstat  = function (r,e){
   $scope.searchobj.swatch  = true;
   $scope.searchobj.state  = r;
 }
-
-
 
 $scope.swatchtstate  = function (){
   $scope.searchobj.swatch   = !$scope.searchobj.swatch;

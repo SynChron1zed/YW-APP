@@ -153,12 +153,11 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
 
   //$scope.goods.
 
-
   //title
   //is_virtual
   //barcode
   //goodsDesc
-  $scope.$watch('goods.Market_price',function(newValue,oldValue, scope){
+  $scope.$watch('goods.retail_price',function(newValue,oldValue, scope){
            if(Math.abs(newValue)  >= 999999){
              $scope.goods.Market_price  = 999999;
            }
@@ -317,8 +316,6 @@ $scope.save  = function (){
         cartlist.push(c.cate_id);
       }
     })
-
-    
     native.loading();
     Tools.getData({
       "interface_number": "030101",

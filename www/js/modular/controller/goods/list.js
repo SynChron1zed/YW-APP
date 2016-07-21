@@ -3,6 +3,15 @@
  */
 Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$ionicModal','native',function($scope,fromStateServ,$timeout,$state,$ionicModal,native){
 
+
+
+
+  //编辑
+  $scope.edith  = function (){
+    $state.go('r.goodsEdit',{state:'edit',id:'53'});    
+  }
+
+
   //构建搜索功能
   $scope.searchobj  = {};
     $scope.scar =  function(){
@@ -15,8 +24,6 @@ $scope.selectsearchstat  = function (r,e){
   $scope.searchobj.swatch  = true;
   $scope.searchobj.state  = r;
 }
-
-
 
 $scope.swatchtstate  = function (){
   $scope.searchobj.swatch   = !$scope.searchobj.swatch;

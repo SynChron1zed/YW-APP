@@ -1,4 +1,4 @@
-<ion-view  hide-back-button="true"  view-title="商品详情"   >
+<ion-view  hide-back-button="true"  view-title="商品详情"    hide-tabs="true"   >
   <ion-nav-bar   class="bar-positive ">
     <ion-nav-buttons side="left">
       <a   nav-direction="back"  href="/#/r/tab/Classif"  class="button button-icon ion-ios-arrow-left">
@@ -45,11 +45,14 @@ Apple MacBook Pro 13.3英寸笔记本电脑 银色(Core i5 处理器/8GB内存/)
       2：字符串数组形式。
       3：对象key/value处理。
     </div>
+
+
     <div class="row classif-topborder">
       <div class="col classif-topborder1" ><img src="../img/classif/wujiaoxing.png" style="width: 20px;"><div style="font-size: 15px;">收藏</div></div>
       <div class="col col-40  classif-topborder2" ng-click="addcart()"><div style="font-size: 15px;color: white;padding: 10px">加入购物车</div></div>
       <div class="col col-40 classif-topborder3" ng-click="modal.show()"><div style="font-size: 15px;color: white;padding: 10px">立即购买</div></div>
     </div>
+
 
   </ion-content>
 
@@ -95,9 +98,9 @@ Apple MacBook Pro 13.3英寸笔记本电脑</span>
       <div>
         <button style="margin-top: 90%;background-color: orange" class="button button-full button-positive" ng-click="ClassifConfirm()">立即购买</button>
       </div>
+
     </ion-modal-view>
+
   </script>
 
 </ion-view>
-
-
