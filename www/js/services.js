@@ -6,9 +6,11 @@ var  Server = angular.module('starter.services', []);
 
    //全局变量定义
   /* window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';*/
-     window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
+ //window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
 
    window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
+   
+   window.qiniuimgHost =  'http://7xv9wr.com1.z0.glb.clouddn.com/';
   //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
   //没有使用过度的返回页面的使用
 
@@ -528,6 +530,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   //加在视图的加载效果http前调用
   var   showlogin = function() {
 
+
     native.loading();
 
     // $ionicLoading.show({
@@ -626,6 +629,9 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     data.client_type =   window.platform?window.platform:'ios';
     data.post_content.token  = window.Token?window.Token:storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:'';
     data.post_content.token_phone  = window.token_phone?window.token_phone:storage.getObject('UserInfo').phone?storage.getObject('UserInfo').phone:'';
+
+
+    console.log(JSON.stringify(data))
     $http({
       url:window.Interactivehost,
       method:sendType?sendType:'POST',
