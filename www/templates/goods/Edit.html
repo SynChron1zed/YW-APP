@@ -59,7 +59,10 @@
                                  border: none;
                                  max-width: 100px;
                                  white-space: nowrap;
-    '  ng-options="x.value as  x.key  for x in  goods.systemClass"   style="padding-left:0px;"   ng-model="goods.systemSelect"   ng-change='systemparnslec()'   >
+                                 margin-left:-4px;
+    '  ng-options="x.cate_id as  x.itemcats_name  for x in  goods.systemClass"   style="padding-left:0px;"   ng-model="goods.systemSelect"   ng-change='systemparnslec()'   >
+
+
             </select>
 
 
@@ -70,8 +73,9 @@
                                  background: transparent;
                                  border: none;
                                  max-width: 100px;
-                                     white-space: nowrap;
-        '  ng-options="x.value as  x.key  for x in  goods.systemchidlist"   style="padding-left:0px;"   ng-model="goods.systemchidSelct"    ng-change='chidselect()' >
+                                    white-space: nowrap;
+                                     margin-left:-4px;
+        '  ng-options="x.cate_id as  x.itemcats_name  for x in  goods.systemchidlist"   style="padding-left:0px;"   ng-model="goods.systemchidSelct"    ng-change='chidselect()' >
             </select>
 
 
@@ -82,7 +86,7 @@
 
            >
             <span class="input-label">店铺分类</span>
-            <input style="background:#fff"    ng-model="Storeclassification"    type="text" value="设置商铺所属分类"   readonly    >
+            <input style="background:#fff"    ng-model="goods.cateSelctItem"    type="text" value="设置商铺所属分类"   readonly    >
           </div>
 
 
@@ -244,16 +248,30 @@
 
             <div class="list">
               <div class="item item-input" >
-                <input type="text"  placeholder="分类名称">
+                <input type="text"  placeholder="分类名称"  style='padding-right:110px' maxlength='10'  >
 
                 <i class="ion-android-add"
+                  style="
+                  position: absolute;
+                  height: 100%;
+                  display: inline-block;
+                  padding: 0px 10px;
+                  right: 0px;
+                  top: 0px;
+                  width: 50px;
+                  text-align: center;
+                  font-size: 25px;
+                  border-left: 1px solid #bfbfbf;
+                  line-height: 45px;
 
-
-
+                  color:#6b3801
+                  "
                 ></i>
-                <i
+                <!-- <i
+             ng-click='swatchdetial()'
 
                     style="
+                    color:#6b3801;
                     position: absolute;
                     height: 100%;
                     display: inline-block;
@@ -262,42 +280,56 @@
                     top: 0px;
                     width: 50px;
                     text-align: center;
-                    font-size:25px;
+                    font-size: 25px;
+                    border-left: 1px solid #bfbfbf;
                     line-height: 45px;
                     "
 
-                 class="ion-android-more-vertical"></i>
+                 class="ion-android-more-vertical"></i> -->
 
               </div>
+
+
+<style>
+.slectline.selectin  i{
+  color: #fe7e0b;
+}
+.slectline{
+  line-height: 30px;
+}
+       .selctgoodcediric{
+        font-size: 30px;
+          float: left;
+        margin-right: 10px;
+        color: #bbbbbb;
+        }
+
+          .sleilist  .item-content{
+            padding-top:10px;padding-bottom:10px;
+          }
+
+</style>
+
             </div>
 
-
                           <ion-list
-
-                                show-delete="shouldShowDelete"
-                                show-reorder="shouldShowReorder"
+                                show-reorder="showdetail"
                                 can-swipe="true"
                                 >
-                        <ion-item ng-repeat="item in goods.catelist"  class="">
+                        <ion-item ng-repeat="item in goods.catelist"     ng-click='chengselect(item)'   class='sleilist'   >
 
-                          <!-- <img ng-src="{{item.key}}"> -->
+                      <p ng-class="{'selectin':item.select}"   class="slectline"    >  <i class="selctgoodcediric  "
 
-                          <h2>{{item.key}}</h2>
 
-                          <ion-option-button class="button-positive"
-                                             ng-click="share(item)">
-                            分享
-                          </ion-option-button>
-                          <ion-option-button class="button-info"
-                                             ng-click="edit(item)">
-                            编辑
-                          </ion-option-button>
-                          <ion-delete-button class="ion-minus-circled"
-                                             ng-click="items.splice($index, 1)">
-                          </ion-delete-button>
-                          <ion-reorder-button class="ion-navicon"
-                                              on-reorder="reorderItem(item, $fromIndex, $toIndex)">
-                          </ion-reorder-button>
+                          ng-class="{'ion-ios-circle-outline':!item.select,'ion-ios-checkmark':item.select}"
+                        ></i>
+
+                        {{item.cate_name}}</p>
+
+                        <ion-reorder-button class="ion-android-delete"  style="color:#fb6231"
+                               on-reorder="reorderItem(item, $fromIndex, $toIndex)">
+                        </ion-reorder-button>
+
 
                         </ion-item>
                       </ion-list>

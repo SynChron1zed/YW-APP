@@ -106,6 +106,9 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     data.client_type =   window.platform?window.platform:'ios';
     data.post_content.token  = window.Token?window.Token:storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:'';
     data.post_content.token_phone  = window.token_phone?window.token_phone:storage.getObject('UserInfo').phone?storage.getObject('UserInfo').phone:'';
+
+
+    console.log(JSON.stringify(data))
     $http({
       url:window.Interactivehost,
       method:sendType?sendType:'POST',

@@ -245,8 +245,12 @@ Ctr.controller('tabCtr',[function(){
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','native','Tools','$ionicPopup','$ionicModal',function($scope,$timeout,$state,$stateParams,native,Tools,$ionicPopup,$ionicModal){
+Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','native','Tools','$ionicPopup','$ionicModal','$rootScope','$timeout',function($scope,$timeout,$state,$stateParams,native,Tools,$ionicPopup,$ionicModal,$rootScope,$timeout){
 
+
+    $scope.$ionicGoBack  = function (){
+
+    }
     //商城分类对象
     $scope.$on('$destroy', function() {
       $scope.goodclass.remove();
@@ -261,86 +265,135 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
 
 
 
-
   //构建商品对象  基本信息
   $scope.goods = {};
   $scope.goods.edit  =  false;  //商品编辑状态
   $scope.goods.Stock_number = 1;
-  $scope.goods.systemSelect  = 'ff';
+  $scope.goods.systemSelect  = undefined;
   $scope.goods.systemchidSelct  =undefined;
   $scope.goods.systemchidlist  = undefined;
   $scope.goods.cateSelctItem  = '请选择分类';
-  $scope.goods.systemClass = [
-    {
-      key:'啥呀dsadsadsadsadsadasdsadsadsa',
-      value:'ss'
-    },
-    {
-      key:'啥呀',
-      value:'ff'
-    }
-  ];
-
-  $scope.goods.catelist =  [
-    {
-      key:'哈哈',
-       value:'1'
-    },
-    {
-      key:'哈哈',
-       value:'1'
-    },
-    {
-      key:'哈哈',
-       value:'1'
-    },
-    {
-      key:'哈哈',
-       value:'1'
-    },
-    {
-      key:'哈哈',
-       value:'1'
-    },
-    {
-      key:'哈哈',
-       value:'1'
-    },
-    {
-      key:'哈哈',
-       value:'1'
-    },
-    {
-      key:'哈哈',
-       value:'1'
-    },
-    {
-      key:'哈哈',
-       value:'1'
-    },
-    {
-      key:'哈哈',
-       value:'1'
-    },
-    {
-      key:'哈哈',
-       value:'1'
-    }
-  ];
+  $scope.goods.catelist =  [];
 
 
-  $scope.shouldShowDelete = true;
-  $scope.shouldShowReorder = false;
+ //初始化 goods 对象
+ Tools.getData({
+   "interface_number": "030102",
+       "post_content": {
+         "goods_id": $stateParams.id?$stateParams.id:'',
+      }
+ },function(r){
+      if(r){
+        console.log(r)
+           $scope.goods.systemClass   = r.resp_data.sys_cate;
+           $scope.goods.catelist  = r.resp_data.shop_cate;
+           $scope.systemparnslec();
+           //$scope.goods.Stock_number  =
+
+      }
+ })
+
+
+
+
+  $scope.showdetail = false;
+
+  $scope.swatchdetial  = function (){
+        $scope.showdetail = !$scope.showdetail;
+  }
+
+
+
+  $scope.chengselect = function (r){
+     r.select  = !r.select;
+
+    var selectleng  = 0;
+    var sselctname  =  undefined;
+     angular.forEach($scope.goods.catelist,function(k){
+          console.log(k);
+          if(k.select){
+            selectleng++;
+            sselctname = k.cate_name;
+          }
+     });
+
+    console.log(selectleng);
+
+     if(selectleng == 0 ){
+          $scope.goods.cateSelctItem    ='选择商品分类';
+     }else if(selectleng == 1){
+       $scope.goods.cateSelctItem  = sselctname;
+     }else{
+       $scope.goods.cateSelctItem  = selectleng+' 个';
+     }
+
+
+
+  }
+
 
   //父类
-  $scope.systemparnslec =   function (targe){
-    console.log($scope.goods.systemSelect);
-  }
+  $scope.systemparnslec =   function (){
+
+
+    if($scope.goods.systemSelect){
+        angular.forEach($scope.goods.systemClass,function(c){
+
+                if(c.cate_id   ==  $scope.goods.systemSelect){
+                  c.select  =true;
+                }else{
+                  c.select  = false;
+                }
+        })
+    }
+
+
+
+    var hanparnselect = true;
+    angular.forEach($scope.goods.systemClass,function(c){
+
+          if(c.select){
+            $scope.goods.systemSelect   =  c.cate_id;
+            hanparnselect  = false;
+          }
+
+          if(c.cate_id  == $scope.goods.systemSelect  &&  c.children.length !=0){
+
+                //计算那个   默认选中
+                $scope.goods.systemchidlist  =  c.children;
+                var hasslect = true;
+
+                angular.forEach($scope.goods.systemchidlist,function(xx){
+                        if(xx.select){
+                          hasslect = false;;
+                            $scope.goods.systemchidSelct   = xx.cate_id;
+                        }
+                });
+                if(hasslect){
+                    $scope.goods.systemchidSelct   =  $scope.goods.systemchidlist[0].cate_id;
+                }
+
+          }else{
+            $scope.goods.systemchidlist  =  undefined;
+            $scope.goods.systemchidSelct  =  undefined;
+          }
+
+
+
+
+    })
+
+    if(hanparnselect){
+    $scope.goods.systemClass[0].select = true;
+    $scope.goods.systemSelect  = $scope.goods.systemClass[0].cate_id;
+
+    }
+
+  };
   //子类
   $scope.chidselect   = function(){
-      console.log($scope.goods.systemchidSelct)
+      //console.log($scope.goods.systemchidSelct)
   }
-
 
   //$scope.goods.
 
@@ -348,7 +401,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
   //is_virtual
   //barcode
   //goodsDesc
-  $scope.$watch('goods.Market_price',function(newValue,oldValue, scope){
+  $scope.$watch('goods.retail_price',function(newValue,oldValue, scope){
            if(Math.abs(newValue)  >= 999999){
              $scope.goods.Market_price  = 999999;
            }
@@ -424,6 +477,15 @@ $scope.chkefengmian  = function (c){
     var   imguplist = [];
     //保存索引
     var   imgindex = [];
+
+
+    if($scope.goodspice.length==0){
+
+      claback();
+      return  false;
+    }
+
+
     angular.forEach($scope.goodspice,function(v,key){
       if(v.news){
         imguplist.push(v.img)
@@ -460,40 +522,76 @@ $scope.save  = function (){
     return  false;
   }
 
+
   uploadimg(function(){
       // console.log(JSON.stringify($scope.goodspice))
       var hasfengmiang   = true;
       var fenmiangtuimg   = undefined;
       var imglist = [];
-      angular.forEach($scope.goodspice,function(v){
-        if(v.fengmian){
-          hasfengmiang    = false;
-          fenmiangtuimg  = v.key;
+
+      if($scope.goodspice.length){
+        angular.forEach($scope.goodspice,function(v){
+          if(v.fengmian){
+            hasfengmiang    = false;
+            fenmiangtuimg  = v.key;
+          }
+          imglist.push(v.key);
+        });
+        if(hasfengmiang){
+            fenmiangtuimg = $scope.goodspice[0].key;
         }
-        imglist.push(v.key);
-      });
-      if(hasfengmiang){
-          fenmiangtuimg = $scope.goodspice[0].key;
       }
 
-    Tools.getdata({
+     console.log($scope.goods)
+
+     var sys_catId  ='';
+
+     if($scope.goods.systemSelect){
+        sys_catId   = $scope.goods.systemSelect
+     }
+
+    if($scope.goods.systemchidSelct){
+        sys_catId   = $scope.goods.systemchidSelct
+    }
+
+    var cartlist  = [];
+    angular.forEach($scope.goods.catelist,function(c){
+      if(c.select){
+        cartlist.push(c.cate_id);
+      }
+    })
+    native.loading();
+    Tools.getData({
       "interface_number": "030101",
       "post_content": {
        "goods_title": $scope.goods.title,
-       "sys_cate_id": "1",
+       "sys_cate_id":sys_catId,
        "barcode": $scope.goods.barcode,
        "express_fee": $scope.goods.freight_price?$scope.goods.freight_price:0,
        "is_virtual": $scope.goods.is_virtual?'1':'0',
        "retail_price": $scope.goods.Market_price,
        "activity_price":  $scope.goods.Platform_price,
-       "img_url": fenmiangtuimg,
+       "img_url": fenmiangtuimg?fenmiangtuimg:'',
        "total_in_number": $scope.goods.Stock_number?$scope.goods.Stock_number:0,
-       "arr_img":imglist,
-       "cateIds": "",
-       "desc": $scope.goodsDesc
+       "arr_img":imglist.length?imglist:[],
+       "cateIds": cartlist.length?cartlist:'',
+       "desc": $scope.goodsDesc?$scope.goodsDesc:''
         }
     },function(r){
+
+
       if(r){
+
+        if($stateParams.state){
+          native.task('保存成功!',3000)
+        }else{
+          native.task('发布成功!',3000)
+        }
+        cordova.plugins.Keyboard.close();
+        $timeout(function(){
+            $rootScope.$ionicGoBack();
+        },300)
+
 
 
 
@@ -528,6 +626,15 @@ $scope.save  = function (){
  */
 Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$ionicModal','native',function($scope,fromStateServ,$timeout,$state,$ionicModal,native){
 
+
+
+
+  //编辑
+  $scope.edith  = function (){
+    $state.go('r.goodsEdit',{state:'edit',id:'53'});    
+  }
+
+
   //构建搜索功能
   $scope.searchobj  = {};
     $scope.scar =  function(){
@@ -540,8 +647,6 @@ $scope.selectsearchstat  = function (r,e){
   $scope.searchobj.swatch  = true;
   $scope.searchobj.state  = r;
 }
-
-
 
 $scope.swatchtstate  = function (){
   $scope.searchobj.swatch   = !$scope.searchobj.swatch;

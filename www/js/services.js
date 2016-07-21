@@ -6,9 +6,11 @@ var  Server = angular.module('starter.services', []);
 
    //全局变量定义
   /* window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';*/
-     window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
+ //window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
 
    window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
+
+   window.qiniuimgHost =  'http://7xv9wr.com1.z0.glb.clouddn.com/';
   //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
   //没有使用过度的返回页面的使用
 
@@ -273,58 +275,6 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
 
 }]);
 
-/**
- * Created by Why on 16/6/6.
- */
-Server.factory('Chats', function() {
-  // Might use a resource here that returns a JSON array
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
-  }];
-
-  return {
-    all: function() {
-      return chats;
-    },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
-    },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
-        }
-      }
-      return null;
-    }
-  };
-});
-
-
 Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$timeout','$ionicNativeTransitions',function($state,$ionicViewSwitcher,$ionicHistory,$timeout,$ionicNativeTransitions){
     var box  = {
         data: {},
@@ -421,6 +371,58 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
 
     return box;
 }])
+
+/**
+ * Created by Why on 16/6/6.
+ */
+Server.factory('Chats', function() {
+  // Might use a resource here that returns a JSON array
+  // Some fake testing data
+  var chats = [{
+    id: 0,
+    name: 'Ben Sparrow',
+    lastText: 'You on your way?',
+    face: 'img/ben.png'
+  }, {
+    id: 1,
+    name: 'Max Lynx',
+    lastText: 'Hey, it\'s me',
+    face: 'img/max.png'
+  }, {
+    id: 2,
+    name: 'Adam Bradleyson',
+    lastText: 'I should buy a boat',
+    face: 'img/adam.jpg'
+  }, {
+    id: 3,
+    name: 'Perry Governor',
+    lastText: 'Look at my mukluks!',
+    face: 'img/perry.png'
+  }, {
+    id: 4,
+    name: 'Mike Harrington',
+    lastText: 'This is wicked good ice cream.',
+    face: 'img/mike.png'
+  }];
+
+  return {
+    all: function() {
+      return chats;
+    },
+    remove: function(chat) {
+      chats.splice(chats.indexOf(chat), 1);
+    },
+    get: function(chatId) {
+      for (var i = 0; i < chats.length; i++) {
+        if (chats[i].id === parseInt(chatId)) {
+          return chats[i];
+        }
+      }
+      return null;
+    }
+  };
+});
+
 
 /**
  * Created by Why on 16/6/14.
@@ -528,6 +530,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   //加在视图的加载效果http前调用
   var   showlogin = function() {
 
+
     native.loading();
 
     // $ionicLoading.show({
@@ -626,6 +629,9 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     data.client_type =   window.platform?window.platform:'ios';
     data.post_content.token  = window.Token?window.Token:storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:'';
     data.post_content.token_phone  = window.token_phone?window.token_phone:storage.getObject('UserInfo').phone?storage.getObject('UserInfo').phone:'';
+
+
+    console.log(JSON.stringify(data))
     $http({
       url:window.Interactivehost,
       method:sendType?sendType:'POST',

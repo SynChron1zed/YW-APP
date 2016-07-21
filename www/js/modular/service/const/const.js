@@ -4,9 +4,11 @@
 
    //全局变量定义
   /* window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';*/
-     window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
+ //window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
 
    window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
+
+   window.qiniuimgHost =  'http://7xv9wr.com1.z0.glb.clouddn.com/';
   //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
   //没有使用过度的返回页面的使用
 

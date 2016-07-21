@@ -11,6 +11,7 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
       cordova.plugins.Keyboard.disableScroll(true);
       //ionic.Platform.isFullScreen = true;
       //Return event listener
+      
         //uuid
         var  locldevice  =    storage.getObject('device');
         window.plugins.sim.getSimInfo(  function (result) {
