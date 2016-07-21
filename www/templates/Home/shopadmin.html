@@ -1,0 +1,109 @@
+<ion-view view-title="">
+  <ion-nav-bar   class="bar-positive ">
+    <ion-nav-buttons side="left">
+      <a   nav-direction="back"  href="/#/r/tab/Home"  class="button button-icon ion-ios-arrow-left">
+        店铺管理
+      </a>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <a   nav-direction="back"   class="button button-icon  ">
+        查看店铺
+      </a>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content  style="background: #F7F7F7;overflow: hidden;"  overflow-scroll="true"  scroll="false"  >
+
+    <div class="list " style="margin-top: 1rem" >
+
+
+
+
+      <a class="item item-icon-right item-input-left" ng-click="shopName(item.shop_name)" ng-repeat="item in shopadmindata">
+
+        <div>
+
+          店铺名称
+          <span style="float: right;font-size: 15px;color: #444">{{item.shop_name}}</span>
+
+          <div class="ion-close-sex"></div>
+             <span class="select-chongzhi">
+     <i id="icon-right" class="icon ion-ios-arrow-right"></i>
+    </span>
+        </div>
+
+      </a>
+      <a class="item item-icon-right item-input-left" ui-sref="r.tab.HomShopadminbrief" ng-repeat="item in shopadmindata">
+
+        <div>
+          店铺简介
+          <span style="float: right;font-size: 15px;color: #444">{{item.description}}</span>
+          <div class=" ion-close-sex"></div>
+               <span class="select-chongzhi">
+     <i id="icon-right" class="icon ion-ios-arrow-right"></i>
+    </span>
+        </div>
+
+      </a>
+
+      <a class="item item-icon-right item-input-left" style="    height: 5rem;">
+
+        <div>
+          店铺头像
+          <img src="/img/classif/macair.png" style="width: 5rem;float: right">
+          <div class=" ion-close-sex"></div>
+               <span class="select-chongzhi">
+     <i id="icon-right" class="icon ion-ios-arrow-right"></i>
+    </span>
+        </div>
+
+      </a>
+
+
+    </div>
+
+
+    <div class="list " style="margin-top: 1rem" >
+
+
+
+
+      <a class="item item-icon-right item-input-left" >
+
+        <div>
+
+          店铺装修
+          <div class="ion-close-sex"></div>
+               <span class="select-chongzhi">
+     <i id="icon-right" class="icon ion-ios-arrow-right"></i>
+    </span>
+        </div>
+
+      </a>
+      <a class="item item-icon-right item-input-left" >
+
+        <div>
+
+          店铺商品管理
+          <div class=" ion-close-sex"></div>
+               <span class="select-chongzhi">
+     <i id="icon-right" class="icon ion-ios-arrow-right"></i>
+    </span>
+        </div>
+
+      </a>
+
+
+
+
+    </div>
+
+
+
+
+  </ion-content>
+</ion-view>
+
+
+
+

@@ -1,0 +1,46 @@
+<ion-view view-title="">
+  <ion-nav-bar   class="bar-positive ">
+    <ion-nav-buttons side="left">
+      <a   nav-direction="back"  href="/#/r/tab/HomShopadmin"  class="button button-icon ion-ios-arrow-left">
+        修改店铺名称
+      </a>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right" >
+      <a   nav-direction="back"   class="button button-icon " ng-click="queryname()">
+        保存
+      </a>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content  style="background: #F7F7F7;overflow: hidden;"  overflow-scroll="true"  scroll="false"  >
+    <div class="list " >
+
+
+
+      <a class="item item-icon-left item-input-left" >
+
+        <div>
+
+          <input type="text"  value="么么么么吗" class="input-color-usercolse" placeholder="设置店铺名称" ng-model="shopname"  ng-change="newshopname(shopname)" >
+          <div class="ion-close-circled ion-close-user"></div>
+        </div>
+
+      </a>
+
+
+
+    </div>
+
+
+
+  </ion-content>
+
+
+
+</ion-view>
+
+
+
+
+
+

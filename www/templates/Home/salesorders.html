@@ -27,7 +27,7 @@
       <!--////显示的那个 tab  自己控制-->
       <div class="quanbu">
 
-        <div class="goodslistitme"  ng-repeat="xx in listdata" >
+        <div class="goodslistitme"  ng-repeat="xx in SalesList" >
           <p class="title"   > <span class="left">  <span>{{xx.buyer_nick}} </span>  <i  class="ion-ios-arrow-right"></i></span>     <span  class="right" >{{xx.money_status_cn}}</span> </p>
           <div  ng-repeat="lin in xx.goods_info"  >
             <div class="goodsimg"   ng-click="quxiangq(xx)"  ng-repeat="b  in lin" >

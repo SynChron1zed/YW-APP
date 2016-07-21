@@ -15,8 +15,9 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
     }
   },function(r){
     if(r){
-      $scope.ClassifDetailsList = (r.resp_data.data.data);
 
+      $scope.ClassifDetailsList = (r.resp_data.data);
+console.log($scope.ClassifDetailsList.shop_id)
 
     }
   });
@@ -29,9 +30,10 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
     $scope.modal = modal;
   });
 
-  $scope.ClassifConfirm=function () {
+  $scope.ClassifConfirm=function (basic,shop) {
+   
     $scope.modal.hide();
-    $state.go('r.tab.confirmOrder');
+    $state.go('r.tab.confirmOrder',{basicID:basic,shopID:shop});
 
   };
   $scope.isCone=true;
@@ -52,12 +54,14 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
     $scope.isCtree=true;
   };
 
+
+  //加入购物车
   $scope.addcart=function () {
     Tools.getData({
       "interface_number": "020401",
       "client_type": window.platform,
       "post_content": {
-        "token": "",
+        "token": "{166EA93B-964B-9D39-0EE2-3A991BC364E0}",
         "token_phone": "",
         "shop_id": "9",
         "sku_id": "1",
@@ -66,8 +70,11 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
 
       }
     },function(r){
-      if(r){
-        $scope.ClassifDetailsList = (r.resp_data.data.data);
+      if(r!= 'error'){
+        $ionicPopup.alert({
+          title:'添加成功!',
+          okText:'确认'
+        })
 
 
       }
