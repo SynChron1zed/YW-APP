@@ -155,8 +155,9 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
     }
   },function(r){
     if(r){
-      $scope.ClassifDetailsList = (r.resp_data.data.data);
 
+      $scope.ClassifDetailsList = (r.resp_data.data);
+console.log($scope.ClassifDetailsList.shop_id)
 
     }
   });
@@ -169,9 +170,10 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
     $scope.modal = modal;
   });
 
-  $scope.ClassifConfirm=function () {
+  $scope.ClassifConfirm=function (basic,shop) {
+   
     $scope.modal.hide();
-    $state.go('r.tab.confirmOrder');
+    $state.go('r.tab.confirmOrder',{basicID:basic,shopID:shop});
 
   };
   $scope.isCone=true;
@@ -192,12 +194,14 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
     $scope.isCtree=true;
   };
 
+
+  //加入购物车
   $scope.addcart=function () {
     Tools.getData({
       "interface_number": "020401",
       "client_type": window.platform,
       "post_content": {
-        "token": "",
+        "token": "{166EA93B-964B-9D39-0EE2-3A991BC364E0}",
         "token_phone": "",
         "shop_id": "9",
         "sku_id": "1",
@@ -206,8 +210,11 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
 
       }
     },function(r){
-      if(r){
-        $scope.ClassifDetailsList = (r.resp_data.data.data);
+      if(r!= 'error'){
+        $ionicPopup.alert({
+          title:'添加成功!',
+          okText:'确认'
+        })
 
 
       }
@@ -224,13 +231,82 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
  */
 Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$ionicModal',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$ionicModal) {
 
+  var bascId = $stateParams.basicID;
+  var shopId = $stateParams.shopID;
+  var cartId = [];
 
+  console.log(bascId)
+  console.log(shopId)
 
-  $ionicModal.fromTemplateUrl('templates/modal.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
+  $scope.addressList=[]
+  //获取收货地址
+  Tools.getData({
+    "interface_number": "020505",
+    "client_type": window.platform,
+    "post_content": {
+      "token" : "{166EA93B-964B-9D39-0EE2-3A991BC364E0}",
+      "token_phone": ""
+    }
+  },function(r){
+    if(r){
+
+      $scope.addressList= (r.resp_data.data)
+      for(var i = 0;i<$scope.addressList.length;i++){
+        if($scope.addressList[i].is_default=="1"){
+          $scope.addressListone = $scope.addressList[i]
+        }
+      }
+
+    }
   });
+
+
+  //加入购物车
+  Tools.getData({
+    "interface_number": "020401",
+    "client_type": window.platform,
+    "post_content": {
+      "token" : "{166EA93B-964B-9D39-0EE2-3A991BC364E0}",
+      "token_phone": "",
+      "shop_id": shopId,
+      "sku_id": "1",
+      "goods_basic_id": bascId ,
+      "number": "1"
+    }
+  },function(r){
+    if(r){
+
+      cartId= (r.resp_data.cart_id)
+
+
+    }
+  });
+
+  //确认订单
+  $scope.orderquery = function () {
+
+    Tools.getData({
+      "interface_number": "020601",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "{166EA93B-964B-9D39-0EE2-3A991BC364E0}",
+        "token_phone": "",
+        "cartIds": cartId,
+        "addr_id": $scope.addressListone.addr_id ,
+        "remark": ""
+      }
+    },function(r){
+      if(r!= 'error'){
+        $ionicPopup.alert({
+          title:'确认成功!',
+          okText:'确认'
+        })
+
+
+      }
+    });
+  }
+
 
 
 }]);
@@ -272,34 +348,65 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
   $scope.goods.cateSelctItem  = '请选择分类';
   $scope.goods.catelist =  [];
 
+  function inlint(){
+    Tools.showlogin();
+    Tools.getData({
+      "interface_number": "030102",
+          "post_content": {
+            "goods_id": $stateParams.id?$stateParams.id:'',
+         }
+    },function(r){
+         if(r){
+           console.log(r)
+              $scope.goods.systemClass   = r.resp_data.sys_cate;
+              $scope.goods.catelist  = r.resp_data.shop_cate;
+              $scope.systemparnslec();
+              //$scope.goods.Stock_number  =
+              $scope.chengselect();
+              if($scope.goods.edit){
+                $scope.goods.barcode =   r.resp_data.goodsInfo.barcode;
+                $scope.goods.freight_price =   parseFloat(r.resp_data.goodsInfo.express_fee);
+                $scope.goods.is_virtual  =     r.resp_data.goodsInfo.is_virtual?true:false;
+                $scope.goods.title =     r.resp_data.goodsInfo.goods_title;
+                $scope.goods.Market_price =    parseFloat(r.resp_data.goodsInfo.retail_price);
+                $scope.goods.Platform_price =    parseFloat(r.resp_data.goodsInfo.activity_price);
+                $scope.goods.id  = r.resp_data.goodsInfo.goods_basic_id;
+                angular.forEach(r.resp_data.goodsInfo.arr_img,function (v){
+                  var   c = undefined;
+                  if(v  == r.resp_data.goodsInfo.img_url){
+                    c   = {
+                      fengmian:true,
+                      img:window.qiniuimgHost+v+'?imageView2/1/w/200/h/200',
+                      news:false,
+                      key:v
+                    };
+                  }else{
+                    c   = {
+                      fengmian:false,
+                      img:window.qiniuimgHost+v+'?imageView2/1/w/200/h/200',
+                      news:false,
+                      key:v
+                    };
+                  }
+                  $scope.goodspice.push(c);
+                })
 
+
+
+
+                //$scope.
+              }
+
+
+         }
+    })
+  }
  //初始化 goods 对象
- Tools.getData({
-   "interface_number": "030102",
-       "post_content": {
-         "goods_id": $stateParams.id?$stateParams.id:'',
-      }
- },function(r){
-      if(r){
-        console.log(r)
-           $scope.goods.systemClass   = r.resp_data.sys_cate;
-           $scope.goods.catelist  = r.resp_data.shop_cate;
-           $scope.systemparnslec();
-           //$scope.goods.Stock_number  =
-
-           if($scope.goods.edit){
 
 
-             $scope.goods.barcode =   r.resp_data.goodsInfo.barcode;
-             $scope.goods.freight_price =   parseFloat(r.resp_data.goodsInfo.barcode);
-             $scope.goods.is_virtual  = r.resp_data.goodsInfo.barcode.is_virtual;
-             
-             //$scope.
-           }
-
-
-      }
- })
+$timeout(function(){
+  inlint();
+},400)
 
 
 
@@ -312,7 +419,11 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
 
 
   $scope.chengselect = function (r){
-     r.select  = !r.select;
+
+    if(r){
+    r.select  = !r.select;
+    }
+
 
     var selectleng  = 0;
     var sselctname  =  undefined;
@@ -327,7 +438,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
     console.log(selectleng);
 
      if(selectleng == 0 ){
-          $scope.goods.cateSelctItem    ='选择商品分类';
+          $scope.goods.cateSelctItem    ='请选择分类';
      }else if(selectleng == 1){
        $scope.goods.cateSelctItem  = sselctname;
      }else{
@@ -529,7 +640,6 @@ $scope.save  = function (){
     return  false;
   }
 
-
   uploadimg(function(){
       // console.log(JSON.stringify($scope.goodspice))
       var hasfengmiang   = true;
@@ -568,28 +678,37 @@ $scope.save  = function (){
       }
     })
     native.loading();
-    Tools.getData({
-      "interface_number": "030101",
-      "post_content": {
-       "goods_title": $scope.goods.title,
-       "sys_cate_id":sys_catId,
-       "barcode": $scope.goods.barcode,
-       "express_fee": $scope.goods.freight_price?$scope.goods.freight_price:0,
-       "is_virtual": $scope.goods.is_virtual?'1':'0',
-       "retail_price": $scope.goods.Market_price,
-       "activity_price":  $scope.goods.Platform_price,
-       "img_url": fenmiangtuimg?fenmiangtuimg:'',
-       "total_in_number": $scope.goods.Stock_number?$scope.goods.Stock_number:0,
-       "arr_img":imglist.length?imglist:[],
-       "cateIds": cartlist.length?cartlist:'',
-       "desc": $scope.goodsDesc?$scope.goodsDesc:''
-        }
-    },function(r){
 
+
+
+    var sendoption  =  {
+        "interface_number": '030101',
+        "post_content": {
+         "goods_title": $scope.goods.title,
+         "sys_cate_id":sys_catId,
+         "barcode": $scope.goods.barcode,
+         "express_fee": $scope.goods.freight_price?$scope.goods.freight_price:0,
+         "is_virtual": $scope.goods.is_virtual?'1':'0',
+         "retail_price": $scope.goods.Market_price,
+         "activity_price":  $scope.goods.Platform_price,
+         "img_url": fenmiangtuimg?fenmiangtuimg:'',
+         "total_in_number": $scope.goods.Stock_number?$scope.goods.Stock_number:0,
+         "arr_img":imglist.length?imglist:[],
+         "cateIds": cartlist.length?cartlist:'',
+         "desc": $scope.goodsDesc?$scope.goodsDesc:''
+          }
+    };
+
+    if($scope.goods.edit){
+      sendoption.interface_number   = "030103";
+      sendoption.post_content.goods_basic_id  = $scope.goods.id;
+    }
+    
+    Tools.getData(sendoption,function(r){
 
       if(r){
 
-        if($stateParams.state){
+        if($scope.goods.edit){
           native.task('保存成功!',3000)
         }else{
           native.task('发布成功!',3000)
@@ -806,44 +925,75 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 }]);
 
 /**
+ * Created by Administrator on 2016/7/21.
+ */
+Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
+
+  
+}]);
+
+/**
  * Created by Administrator on 2016/7/19.
  */
 /**
  * Created by Administrator on 2016/7/13.
  */
 Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
+
+
+  $scope.SalesList = [];
+  Tools.getData({
+    "interface_number": "020701",
+    "client_type": window.platform,
+    "post_content": {
+      "token" : "{611FF161-F539-A956-5B4F-2FFB04F7AAC8}",
+      "token_phone": "",
+      "status": "",
+      "page_num": 1,
+      "page_per":10
+    }
+  },function(r){
+    if(r){
+      if(r.resp_data.data.data.length==10){
+        $scope.expression=true
+      }else{
+        $scope.expression=false
+      }
+      $scope.SalesList = (r.resp_data.data.data)
+
+    }
+  });
+
+
+
   $scope.all = true;
   $scope.dfk = false;
   $scope.dfh = false;
-  $scope.listtype  =  undefined;
+
+  //全部
   $scope.alls = function  (){
     $scope.all = true;
     $scope.dfk = false;
     $scope.dfh = false;
-    $ionicScrollDelegate.scrollTop();
-    senpoiont.post_content.searchParam.buyer_name  = '';
-    senpoiont.post_content.searchParam.order_type  = '';
-    getdata('',$scope.nextpage =1);
-  }
+
+  };
+  //待付款
   $scope.dfks =  function  (){
     $scope.all = false;
     $scope.dfk = true;
     $scope.dfh = false;
-    $ionicScrollDelegate.scrollTop();
-    senpoiont.post_content.searchParam.buyer_name  = '';
-    senpoiont.post_content.searchParam.order_type  = '';
-    getdata('0',$scope.nextpage =1,'Pending_payment');
+
   };
+  //待收货
   $scope.dfns = function  (){
     $scope.all = false;
     $scope.dfk = false;
     $scope.dfh = true;
-    $ionicScrollDelegate.scrollTop();
-    senpoiont.post_content.searchParam.buyer_name  = '';
-    senpoiont.post_content.searchParam.order_type  = '';
-    getdata('0',$scope.nextpage =1,'To_be_shipped');
+
   };
 }]);
+
+
 
 /**
  * Created by Why on 16/6/8.
@@ -853,6 +1003,99 @@ Ctr.controller('homesearchCtr',['$scope','$state','$ionicHistory',function($scop
   $scope.back  =  function (){
       $ionicHistory.goBack();
   }
+
+}]);
+
+/**
+ * Created by Administrator on 2016/7/21.
+ */
+Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
+
+  $scope.shopadmindata=[];
+  Tools.getData({
+    "interface_number": "010101",
+    "client_type": window.platform,
+    "post_content": {
+      "token" : "{166EA93B-964B-9D39-0EE2-3A991BC364E0}",
+      "token_phone": ""
+    }
+  },function(r){
+    if(r){
+      $scope.shopadmindata = (r.resp_data)
+
+
+    }
+  });
+
+
+  $scope.shopName = function (Classitem) {
+
+    $state.go('r.tab.HomShopadminname', {Classitem: Classitem});
+  };
+
+
+}]);
+
+/**
+ * Created by Administrator on 2016/7/21.
+ */
+Ctr.controller('shopbriefingCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
+
+  var Name = [];
+  $scope.querybriefing = function () {
+    Tools.getData({
+      "interface_number": "010104",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "{35CAD486-424C-E3B9-CD41-4BC41A1CC156}",
+        "token_phone": "",
+        "name": Name
+      }
+    },function(r){
+      if(r){
+        $scope.shopadmindata = (r.resp_data)
+
+
+      }
+    });
+  }
+
+  //收货人
+  $scope.newshopBname = function (shopBname) {
+    Name = shopBname;
+  };
+
+
+}]);
+
+/**
+ * Created by Administrator on 2016/7/21.
+ */
+Ctr.controller('shopnameCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
+var Name=[]
+$scope.queryname = function () {
+  Tools.getData({
+    "interface_number": "010103",
+    "client_type": window.platform,
+    "post_content": {
+      "token" : "{166EA93B-964B-9D39-0EE2-3A991BC364E0}",
+      "token_phone": "",
+      "name": "Name"
+    }
+  },function(r){
+    if(r){
+      $scope.shopadmindata = (r.resp_data)
+
+
+    }
+  });
+}
+
+//收货人
+  $scope.newshopname = function (shopname) {
+    Name = shopname;
+  };
+
 
 }]);
 

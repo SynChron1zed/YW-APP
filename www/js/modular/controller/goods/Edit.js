@@ -28,34 +28,65 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
   $scope.goods.cateSelctItem  = '请选择分类';
   $scope.goods.catelist =  [];
 
+  function inlint(){
+    Tools.showlogin();
+    Tools.getData({
+      "interface_number": "030102",
+          "post_content": {
+            "goods_id": $stateParams.id?$stateParams.id:'',
+         }
+    },function(r){
+         if(r){
+           console.log(r)
+              $scope.goods.systemClass   = r.resp_data.sys_cate;
+              $scope.goods.catelist  = r.resp_data.shop_cate;
+              $scope.systemparnslec();
+              //$scope.goods.Stock_number  =
+              $scope.chengselect();
+              if($scope.goods.edit){
+                $scope.goods.barcode =   r.resp_data.goodsInfo.barcode;
+                $scope.goods.freight_price =   parseFloat(r.resp_data.goodsInfo.express_fee);
+                $scope.goods.is_virtual  =     r.resp_data.goodsInfo.is_virtual?true:false;
+                $scope.goods.title =     r.resp_data.goodsInfo.goods_title;
+                $scope.goods.Market_price =    parseFloat(r.resp_data.goodsInfo.retail_price);
+                $scope.goods.Platform_price =    parseFloat(r.resp_data.goodsInfo.activity_price);
+                $scope.goods.id  = r.resp_data.goodsInfo.goods_basic_id;
+                angular.forEach(r.resp_data.goodsInfo.arr_img,function (v){
+                  var   c = undefined;
+                  if(v  == r.resp_data.goodsInfo.img_url){
+                    c   = {
+                      fengmian:true,
+                      img:window.qiniuimgHost+v+'?imageView2/1/w/200/h/200',
+                      news:false,
+                      key:v
+                    };
+                  }else{
+                    c   = {
+                      fengmian:false,
+                      img:window.qiniuimgHost+v+'?imageView2/1/w/200/h/200',
+                      news:false,
+                      key:v
+                    };
+                  }
+                  $scope.goodspice.push(c);
+                })
 
+
+
+
+                //$scope.
+              }
+
+
+         }
+    })
+  }
  //初始化 goods 对象
- Tools.getData({
-   "interface_number": "030102",
-       "post_content": {
-         "goods_id": $stateParams.id?$stateParams.id:'',
-      }
- },function(r){
-      if(r){
-        console.log(r)
-           $scope.goods.systemClass   = r.resp_data.sys_cate;
-           $scope.goods.catelist  = r.resp_data.shop_cate;
-           $scope.systemparnslec();
-           //$scope.goods.Stock_number  =
-
-           if($scope.goods.edit){
 
 
-             $scope.goods.barcode =   r.resp_data.goodsInfo.barcode;
-             $scope.goods.freight_price =   parseFloat(r.resp_data.goodsInfo.barcode);
-             $scope.goods.is_virtual  = r.resp_data.goodsInfo.barcode.is_virtual;
-             
-             //$scope.
-           }
-
-
-      }
- })
+$timeout(function(){
+  inlint();
+},400)
 
 
 
@@ -68,7 +99,11 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
 
 
   $scope.chengselect = function (r){
-     r.select  = !r.select;
+
+    if(r){
+    r.select  = !r.select;
+    }
+
 
     var selectleng  = 0;
     var sselctname  =  undefined;
@@ -83,7 +118,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
     console.log(selectleng);
 
      if(selectleng == 0 ){
-          $scope.goods.cateSelctItem    ='选择商品分类';
+          $scope.goods.cateSelctItem    ='请选择分类';
      }else if(selectleng == 1){
        $scope.goods.cateSelctItem  = sselctname;
      }else{
@@ -285,7 +320,6 @@ $scope.save  = function (){
     return  false;
   }
 
-
   uploadimg(function(){
       // console.log(JSON.stringify($scope.goodspice))
       var hasfengmiang   = true;
@@ -324,28 +358,37 @@ $scope.save  = function (){
       }
     })
     native.loading();
-    Tools.getData({
-      "interface_number": "030101",
-      "post_content": {
-       "goods_title": $scope.goods.title,
-       "sys_cate_id":sys_catId,
-       "barcode": $scope.goods.barcode,
-       "express_fee": $scope.goods.freight_price?$scope.goods.freight_price:0,
-       "is_virtual": $scope.goods.is_virtual?'1':'0',
-       "retail_price": $scope.goods.Market_price,
-       "activity_price":  $scope.goods.Platform_price,
-       "img_url": fenmiangtuimg?fenmiangtuimg:'',
-       "total_in_number": $scope.goods.Stock_number?$scope.goods.Stock_number:0,
-       "arr_img":imglist.length?imglist:[],
-       "cateIds": cartlist.length?cartlist:'',
-       "desc": $scope.goodsDesc?$scope.goodsDesc:''
-        }
-    },function(r){
 
+
+
+    var sendoption  =  {
+        "interface_number": '030101',
+        "post_content": {
+         "goods_title": $scope.goods.title,
+         "sys_cate_id":sys_catId,
+         "barcode": $scope.goods.barcode,
+         "express_fee": $scope.goods.freight_price?$scope.goods.freight_price:0,
+         "is_virtual": $scope.goods.is_virtual?'1':'0',
+         "retail_price": $scope.goods.Market_price,
+         "activity_price":  $scope.goods.Platform_price,
+         "img_url": fenmiangtuimg?fenmiangtuimg:'',
+         "total_in_number": $scope.goods.Stock_number?$scope.goods.Stock_number:0,
+         "arr_img":imglist.length?imglist:[],
+         "cateIds": cartlist.length?cartlist:'',
+         "desc": $scope.goodsDesc?$scope.goodsDesc:''
+          }
+    };
+
+    if($scope.goods.edit){
+      sendoption.interface_number   = "030103";
+      sendoption.post_content.goods_basic_id  = $scope.goods.id;
+    }
+    
+    Tools.getData(sendoption,function(r){
 
       if(r){
 
-        if($stateParams.state){
+        if($scope.goods.edit){
           native.task('保存成功!',3000)
         }else{
           native.task('发布成功!',3000)
