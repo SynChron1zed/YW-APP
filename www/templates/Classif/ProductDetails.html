@@ -40,10 +40,7 @@ Apple MacBook Pro 13.3英寸笔记本电脑 银色(Core i5 处理器/8GB内存/)
     </div>
 
     <div class="classif-detailsone" >
-      在angular中为我们提供了3种方案处理class：
-      1：scope变量绑定，如上例。（不推荐使用）
-      2：字符串数组形式。
-      3：对象key/value处理。
+     xxxxxxxxxxx
     </div>
     <div class="row classif-topborder">
       <div class="col classif-topborder1" ><img src="../img/classif/wujiaoxing.png" style="width: 20px;"><div style="font-size: 15px;">收藏</div></div>
@@ -72,28 +69,33 @@ Apple MacBook Pro 13.3英寸笔记本电脑</span>
 
         <div style="margin-top: -15px;">尺码
           <div class="row">
-        <div class="col classif-chicun">qqq</div>
-          <div class="col classif-chicun">qqq</div>
-            <div class="col classif-chicun">qqq</div>
-            <div class="col classif-chicun">qqq</div>
-            <div class="col classif-chicun">qqq</div>
+        <div class="col30 classif-chicun" >标准</div>
+
           </div>
         </div>
         <div>颜色
           <div class="row">
-            <div class="col classif-chicun">qqq</div>
-            <div class="col classif-chicun">qqq</div>
-            <div class="col classif-chicun">qqq</div>
-            <div class="col classif-chicun">qqq</div>
-            <div class="col classif-chicun">qqq</div>
+            <div class="col30 classif-chicun" >标准</div>
+
           </div>
         </div>
-        <div>购物数量</div>
+        <div>购物数量
+          <button class="button button-small button-stable " style="    float: right;
+    background-color: #ddd;"><span style="font-size: 20px">+</span></button>
+
+              <input disabled="disabled" type="text" value="1" style="float: right;width: 50px;text-align: center;border-bottom: 2px solid #ddd;
+    border-top: 2px solid #ddd;">
+
+          <button class="button button-small button-stable " style="    float: right;
+    background-color: #ddd;"><span style="font-size: 20px">-</span></button>
+
+        </div>
+
 
 
       </ion-content>
       <div>
-        <button style="margin-top: 90%;background-color: orange" class="button button-full button-positive" ng-click="ClassifConfirm()">立即购买</button>
+        <button style="margin-top: 90%;background-color: orange" class="button button-full button-positive" ng-click="ClassifConfirm(ClassifDetailsList.goods_basic_id,ClassifDetailsList.goodsShop.shop_id)">立即购买</button>
       </div>
     </ion-modal-view>
   </script>

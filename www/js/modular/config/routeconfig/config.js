@@ -280,7 +280,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
     //店铺name
     .state('r.tab.HomShopadminname',{
-      url: '/HomShopadminname',
+      url: '/HomShopadminname/:Classitem',
       views: {
         'Home': {
           templateUrl: 'templates/Home/shopname.html',
@@ -538,7 +538,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
   //setting  分类商品详情确认订单
     .state('r.tab.confirmOrder', {
-      url: '/r.tab.confirmOrder',
+      url: '/r.tab.confirmOrder/:basicID/:shopID',
       views: {
         'Classif': {
           templateUrl: 'templates/Classif/confitmorder.html',

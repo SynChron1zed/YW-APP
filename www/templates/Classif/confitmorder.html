@@ -12,11 +12,11 @@
     </ion-nav-buttons>
   </ion-nav-bar>
 <ion-content scrollbar-y="false" style="background-color: #f3f3f3">
-  <div class="order-name">
+  <div class="order-name" >
 
-    <div class="order-name1">收货人:XXX</div>
-    <div class="order-name2">13811112222</div>
-    <div class="order-name3 ">收货地址</div>
+    <div class="order-name1">收货人:{{addressListone.link_man}}</div>
+    <div class="order-name2">{{addressListone.link_phone}}</div>
+    <div class="order-name3 ">收货地址: {{addressListone.province}}{{addressListone.city}}{{addressListone.region}}{{addressListone.street}}</div>
     <img src="../img/classif/right.png" class="order-name4">
   </div>
 
@@ -57,7 +57,7 @@
 
   <div class="row classif-topborder ">
     <div class="col col-60 " ><div style="font-size: 15px;color: orange;padding: 10px;margin-right: 90px">合计：150</div></div>
-    <div class="col classif-topborder3"><div style="font-size: 15px;color: white;padding: 10px">确认</div></div>
+    <div class="col classif-topborder3" ng-click="orderquery()"><div style="font-size: 15px;color: white;padding: 10px">确认</div></div>
   </div>
 
 </ion-content>

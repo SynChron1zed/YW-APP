@@ -8,7 +8,7 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
     "interface_number": "010101",
     "client_type": window.platform,
     "post_content": {
-      "token" : "{E465AF0A-845A-BC21-C538-F868137E9D43}",
+      "token" : "{166EA93B-964B-9D39-0EE2-3A991BC364E0}",
       "token_phone": ""
     }
   },function(r){
@@ -18,6 +18,12 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
 
     }
   });
+
+
+  $scope.shopName = function (Classitem) {
+
+    $state.go('r.tab.HomShopadminname', {Classitem: Classitem});
+  };
 
 
 }]);
