@@ -52,12 +52,14 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
     $scope.isCtree=true;
   };
 
+
+  //加入购物车
   $scope.addcart=function () {
     Tools.getData({
       "interface_number": "020401",
       "client_type": window.platform,
       "post_content": {
-        "token": "",
+        "token": "{611FF161-F539-A956-5B4F-2FFB04F7AAC8}",
         "token_phone": "",
         "shop_id": "9",
         "sku_id": "1",

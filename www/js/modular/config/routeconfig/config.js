@@ -1,11 +1,12 @@
 /**
  * Created by Why on 16/6/6.
- * testtt11111111
+ * testtt11111111222222222222222222222222
  */
 App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpProvider','$ionicNativeTransitionsProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider,$httpProvider,$ionicNativeTransitionsProvider){
 
   $ionicNativeTransitionsProvider.setDefaultOptions({
     duration: 405, // in milliseconds (ms), default 400,
+    duration: 401, // in milliseconds (ms), default 400,
     slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
     iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
     androiddelay: -1, // same as above but for Android, default -1
@@ -263,6 +264,48 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         'Home': {
           templateUrl: 'templates/Home/salesorders.html',
           controller: 'salesCtr'
+        }
+      }
+    })
+
+    //店铺管理
+    .state('r.tab.HomShopadmin',{
+      url: '/HomShopadmin',
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/shopadmin.html',
+          controller: 'shopadminCtr'
+        }
+      }
+    })
+    //店铺name
+    .state('r.tab.HomShopadminname',{
+      url: '/HomShopadminname',
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/shopname.html',
+          controller: 'shopnameCtr'
+        }
+      }
+    })
+    //店铺简介
+    .state('r.tab.HomShopadminbrief',{
+      url: '/HomShopadminbrief',
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/shopbriefing.html',
+          controller: 'shopbriefingCtr'
+        }
+      }
+    })
+
+    //采购订单
+    .state('r.tab.HomPurchase',{
+      url: '/HomPurchase',
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/purchaseorder.html',
+          controller: 'purchaseorderCtr'
         }
       }
     })
