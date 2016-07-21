@@ -1,39 +1,55 @@
 <ion-view view-title="登录"  style='background:#feeb0b'  >
 
 
-      <ion-nav-buttons side="left"    class="button back-button buttons button-clear header-item">
-        <div class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.login')">
-        <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
-          <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
-          </div>
-      </ion-nav-buttons>
+  <ion-nav-buttons side="left"    class="button back-button buttons button-clear header-item">
+    <div class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.login')">
+      <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
+    </div>
+  </ion-nav-buttons>
 
-      <ion-content     style="background: #fff;overflow-x: hidden; overflow-y:visible;" scroll="false"    on-swipe-right="backtoprevView('r.login')"   >
-      <div class="login-header-imgbox">
-            <div class="imgbox"  ng-class="{'goin':ing}" >
-              <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1365080916,3639569330&fm=116&gp=0.jpg" alt="">
-            </div>
+  <ion-content     style="background: #fff;overflow:hidden; overflow-y:visible;"     on-swipe-right="backtoprevView('r.login')"   >
+    <div class="login-header-imgbox">
+      <div class="imgbox"  ng-class="{'goin':ing}" >
+        <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1365080916,3639569330&fm=116&gp=0.jpg" alt="">
       </div>
+    </div>
 
 
 
 
-      <div class="loginbox"  ng-class="{'hidenlo':ing}" >
-        <input type="text"      ng-model="loginboj.userName"     maxlength="40"          placeholder="请输入你的用户名/手机号">
-        <input type="password"  ng-model="loginboj.Pwd"     maxlength="40"          placeholder='请输入密码' >
-      </div>
+    <div class="loginbox"  ng-class="{'hidenlo':ing}" >
+      <input type="text"      ng-model="loginboj.userName"     maxlength="40"          placeholder="请输入你的用户名/手机号">
+      <input type="password"  ng-model="loginboj.Pwd"     maxlength="40"          placeholder='请输入密码' >
+    </div>
 
 
 
 
-      <button    ng-click="loginhan()"   ng-class="{'hidenlo':ing}"  class="  loginbutton button button-block button-positive block-botton"
-      style="margin-top:1.4rem"
-       >登录</button>
-       <p style='text-align: center;margin: .5rem 0px;font-size: 13px;text-decoration: underline;color:#999' class="loginbutton"   ng-class="{'hidenlo':ing}"    >忘记了密码</p>
-    </ion-content>
+    <button    ng-click="loginhan()"   ng-class="{'hidenlo':ing}"  class="  loginbutton button button-block button-positive block-botton"
+               style="margin-top:1.4rem"
+    >登录</button>
 
-      <ion-footer-bar align-title="center"       ng-click='register()'   style="background:#fff" >
-      <h1 class="title" style="color:#5e5a29"   >注册</h1>
-    </ion-footer-bar>
+    <p style='text-align: center;margin: .5rem 0px;font-size: 13px;text-decoration: underline;color:#999' class="loginbutton"   ng-class="{'hidenlo':ing}"    >忘记了密码</p>
+
+    <style>
+      .hidemi{
+        opacity: 0 !important;
+      }
+    </style>
+
+    <h1 class="title"
+        ng-class="{'hidemi':ing}"
+        style="color:#5e5a29;
+            font-size: 18px;
+            font-weight: normal;
+            text-align: center;
+            width: 100%;
+            transition: all  200ms;
+            opacity: 1;
+        "  ng-click='register()'  >注册</h1>
+
+  </ion-content>
+
 
 </ion-view>

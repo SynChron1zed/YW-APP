@@ -8,7 +8,7 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
 
   //编辑
   $scope.edith  = function (){
-    $state.go('r.goodsEdit',{state:'edit',id:'53'});    
+    $state.go('r.goodsEdit',{state:'edit',id:'77'});
   }
 
 

@@ -5,7 +5,6 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
 
 
     $scope.$ionicGoBack  = function (){
-
     }
     //商城分类对象
     $scope.$on('$destroy', function() {
@@ -18,8 +17,6 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
     }).then(function(modal) {
       $scope.goodclass = modal;
     });
-
-
 
   //构建商品对象  基本信息
   $scope.goods = {};
@@ -46,6 +43,17 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
            $scope.systemparnslec();
            //$scope.goods.Stock_number  =
 
+           if($scope.goods.edit){
+
+
+             $scope.goods.barcode =   r.resp_data.goodsInfo.barcode;
+             $scope.goods.freight_price =   parseFloat(r.resp_data.goodsInfo.barcode);
+             $scope.goods.is_virtual  = r.resp_data.goodsInfo.barcode.is_virtual;
+             
+             //$scope.
+           }
+
+
       }
  })
 
@@ -53,7 +61,6 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
 
 
   $scope.showdetail = false;
-
   $scope.swatchdetial  = function (){
         $scope.showdetail = !$scope.showdetail;
   }
