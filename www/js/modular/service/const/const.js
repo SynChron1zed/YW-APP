@@ -8,7 +8,7 @@
 
    window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
 
-   window.qiniuimgHost =  'http://7xv9wr.com1.z0.glb.clouddn.com/';
+   window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';
   //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
   //没有使用过度的返回页面的使用
 
@@ -21,16 +21,17 @@
   //路由改变监听  队列 处理事件
   window.stateChangeListen   ={};
   Server.factory('const',['$window','$ionicHistory','$timeout','$ionicNativeTransitions',function($window,$ionicHistory,$timeout,$ionicNativeTransitions){
-
-
-
-
       return{
         haha:'哈哈'
       }
-
-
-
-
-
-    }]);
+    }])
+    .factory('goodsState',[function(){
+      return{
+         Refresh:false,
+         goods_basic_id:undefined,
+         goods_title:undefined,
+         img_url:undefined,
+         activity_price:undefined,
+         
+      }
+    }])

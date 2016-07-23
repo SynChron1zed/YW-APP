@@ -14,7 +14,7 @@
         <div class="list" style="overflow: visible;z-index: 999;padding:0px;">
           <label class="item item-input" style="border: none" >
             <span class="input-label">名称 <span style="color: red">*</span>   </span>
-            <input type="text"  style="background:transparent"      ng-disabled="goods.edit"  ng-model="goods.title"  placeholder="商品名称" >
+            <input type="text"  style="background:transparent"    maxlength="150"  ng-model="goods.title"  placeholder="商品名称" >
           </label>
 
           <div class="item item-input"   >
@@ -249,9 +249,10 @@
 
             <div class="list">
               <div class="item item-input" >
-                <input type="text"  placeholder="分类名称"  style='padding-right:110px' maxlength='10'  >
+                <input type="text"  placeholder="分类名称"  ng-model="newclass.name"   style='padding-right:110px' maxlength='10'  >
 
                 <i class="ion-android-add"
+                ng-click="addnewclass()"
                   style="
                   position: absolute;
                   height: 100%;

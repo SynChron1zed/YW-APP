@@ -160,12 +160,13 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
     },
     //原生 加载条
     loading:function(text){
-
+      
       $ionicLoading.show({
       template: '<ion-spinner icon="crescent" class="spinner-royal"></ion-spinner>',
       //template: '<ion-spinner  icon="ripple" class="spinner-energized"  ></ion-spinner>',
       delay:100
       });
+
       return false;
       if(window.ProgressIndicator){
         if(text){

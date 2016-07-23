@@ -14,13 +14,15 @@
       <i class="icon ion-ios-search-strong" style="float:left;margin-right:5px;"></i>
     </div>
   </ion-nav-buttons>
-      <ion-content    class='shopcrtboxbj'    overflow-scroll="false"  scrollbar-y="false"   >
-        <div class="list_tabs">
-          <div>上架(1)</div>
-          <div>下架(0)</div>
+      <ion-content    class='shopcrtboxbj'   ng-click='closectr()'    overflow-scroll="false"  scrollbar-y="false"   >
+        <div class="list_tabs"  ng-class="{'active':!liststate}"  >
+          <div  ng-click='left()'   >上架({{salestotin.up}})</div>
+          <div  ng-click='right()' >下架({{salestotin.down}})</div>
         </div>
 
         <ion-scroll
+                    delegate-handle="list"
+                    lazy-scroll
                     overflow-scroll="false"
                     scrollbar-y="false"
                      style="width: 100%;
@@ -30,21 +32,13 @@
                     >
           <ion-refresher  spinner="ios"     pulling-text="刷新" on-refresh="customcucdownlisloadMore(true)"  ></ion-refresher>
 
-
-
-
-
-           <button  class='button'  ng-click='edith()'  >
-                   编辑
-           </button>
-
-          <div class="goodsmsgItem">
-            <div class="imghader">
-              <img ng-src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1083355526,1545787254&fm=58" alt="">
+          <div class="goodsmsgItem"   ng-repeat='xx  in datalist'  >
+            <div class="imghader "   ng-click='edith(xx)'   >
+              <img image-lazy-src="{{xx.img_url}}" alt="" image-lazy-distance-from-bottom-to-load="100" >
             </div>
             <div class="msg">
               <p class="title">
-                商品的title
+                {{xx.goods_title}}
               </p>
               <p style="
               height: .8rem;
@@ -56,58 +50,88 @@
                  &nbsp;库存 : 1421
               </p>
               <div class="price">
-                <span class="pri">￥19900.00</span>
-                <div class="ctr"> <i class="ion-ios-plus-outline"></i>
-                  <div class="box">
+                <span class="pri">￥{{xx.activity_price}}</span>
+                <div class="ctr"    ng-click='swatchctr(xx,$event)'  ng-class="{'active':xx.ctr}" > <i class="ion-ios-plus-outline"></i>
+                  <div class="box"  ng-class="{'active':xx.ctr}" >
 
-                    <div>
+                  <div ng-click='delgoods(xx,$index)' >
                       <i class="ion-android-delete"></i>
                       <p>删除</p>
                     </div>
 
-                    <div>
+                    <div ng-if='liststate'  ng-click='goodsdown(xx,$index)' >
                       <i class="ion-archive"></i>
                       <p>下架</p>
                     </div>
 
-                    <div>
+                    <div  ng-click='edith(xx)'   >
                       <i class="ion-compose"></i>
                       <p>编辑</p>
                     </div>
 
-                    <div>
+                    <div ng-click='edithgoodsclassopen(xx)'>
                       <i class="ion-folder"></i>
                       <p>分类</p>
                     </div>
 
-                    <div>
+                    <div  ng-if='!liststate'  ng-click='goodsup(xx,$index)' >
                       <i class="ion-ios-pricetags"></i>
                       <p>上架</p>
                     </div>
 
-
-
-
-
-
-
-
                   </div>
                 </div>
-
               </div>
-
             </div>
           </div>
 
-
-          <ion-infinite-scroll ng-if="downlistloadmor"      style="height: 30px;line-height: 30px;margin-bottom:10px;text-align: center"   spinner="dots"      on-infinite="customcucdownlisloadMore()" distance="1%" ></ion-infinite-scroll>
-          <p ng-if="!downlistloadmor" style="height: 30px;line-height: 30px;margin-bottom:10px;text-align: center;color:#999" >没有更多了!</p>
+          <ion-infinite-scroll ng-if="downlistloadmor"      style="height: 40px;line-height: 40px;margin-bottom:10px;text-align: center"   spinner="dots"      on-infinite="customcucdownlisloadMore()" distance="1%" ></ion-infinite-scroll>
+          <p ng-if="!downlistloadmor" style="height: 40px;line-height: 40px;margin-bottom:10px;text-align: center;color:#999" >没有更多了!</p>
         </ion-scroll>
 
 
 
 
+
+
+
+
+
+
+      <!-- 选择商品分类 -->
+      <script id="goodsfenle.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar  class="bar-positive item-input-inset  lb-main-title-search" >
+          <button  style="padding: 0px;" class="button button-icon "  >
+            选择分类
+          </button>
+          <h5 class="title"></h5>
+          <button class="button button-icon ion-android-close"  ng-click="goodsfenle.hide()" >
+          </button>
+        </ion-header-bar>
+
+        <ion-content  overflow-scroll="false"  scrollbar-y="false"  >
+
+            <div class="list">
+
+                  <div class="item  item-icon-right "  ng-repeat='ss  in fenliedata'  ng-click='searchselctme(ss)'  >{{ss.cate_name}}
+                    <i  ng-if='ss.select'  class="ion-android-done" style="
+
+                    position: absolute;
+                    right: 16px;
+                    font-size: 20px;
+                    color: #fe7e0b;
+                    "
+                    ></i>
+                  </div>
+
+            </div>
+
+
+
+        </ion-content>
+      </div>
+    </script>
 
 
         <script id="listsearch.html" type="text/ng-template">
@@ -126,9 +150,9 @@
 
 
               <div class="list">
-                <label class="item item-input" ng-click="openseargoodsclass();" style="border-top: none" >
+                <label class="item item-input" ng-click="goodsfenle.show();" style="border-top: none" >
                   <span class="input-label" style="    width: 25%">店铺分类</span>
-                  <input type="text" placeholder="全部分类"  ng-model="search.goodscalss.itemcats_name" style="background:transparent"   readonly >
+                  <input type="text" placeholder="全部分类"  ng-model="searchobj.fel" style="background:transparent"   readonly >
                 </label>
 
                 <div class="item item-input" >
@@ -151,11 +175,10 @@
                           top: 0px;
                           border-left: 1px solid #ddd;
                      ">
-
                     &#xe62e;
                   </i>
 
-              <input type="text"  ng-model="search.tiaomiao"  placeholder="输入名称/货号/条码查询"
+              <input type="text"  ng-model="searchobj.tiaomiao"  placeholder="输入名称/货号/条码查询"
                      style="background: #fff;padding-right: 40px;"    >
 
                 </div>
@@ -209,6 +232,109 @@
 
           </div>
         </script>
+
+
+
+
+
+
+
+
+
+
+
+           <!-- 选择商品分类 -->
+      <script id="edithgoodsclass.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar  class="bar-positive item-input-inset  lb-main-title-search" >
+          <button  style="padding: 0px;" class="button button-icon "  >
+            编辑商品分类
+          </button>
+          <h5 class="title"></h5>
+          <button class="button button-icon"  ng-click="savegoodsClass()" >
+            保存
+          </button>
+        </ion-header-bar>
+        <ion-content  overflow-scroll="false"  scrollbar-y="false"  style="background:#f7f7f7" >
+
+
+
+            <div class="list">
+              <div class="item item-input" >
+                <input type="text"  placeholder="分类名称"  ng-model="newgoodsclass.name"  style='padding-right:110px' maxlength='10'  >
+
+                <i
+                  ng-click="addgoodsClass()"
+
+                 class="ion-android-add"
+                  style="
+                  position: absolute;
+                  height: 100%;
+                  display: inline-block;
+                  padding: 0px 10px;
+                  right: 0px;
+                  top: 0px;
+                  width: 50px;
+                  text-align: center;
+                  font-size: 25px;
+                  border-left: 1px solid #bfbfbf;
+                  line-height: 45px;
+
+                  color:#6b3801
+                  "
+                ></i>
+
+                </div>
+
+              </div>
+
+
+
+
+
+                <style>
+                .slectline.selectin  i{
+                  color: #fe7e0b;
+                }
+                .slectline{
+                  line-height: 30px;
+                }
+                      .selctgoodcediric{
+                        font-size: 30px;
+                          float: left;
+                        margin-right: 10px;
+                        color: #bbbbbb;
+                        }
+                          .sleilist  .item-content{
+                            padding-top:10px;padding-bottom:10px;
+                          }
+                         
+                </style>
+                
+              <div>
+                          <ion-list  style="margin-top:10px;">
+                        <ion-item   ng-repeat="item in goodsClasda"   style="
+                        padding-top:10px;padding-bottom:10px;
+                        "   ng-click='chengselect(item)'   class='sleilist  sleilists'   >
+
+                      <p ng-class="{'selectin':item.select}"   class="slectline"    >  <i class="selctgoodcediric  "
+
+
+                          ng-class="{'ion-ios-circle-outline':!item.select,'ion-ios-checkmark':item.select}"
+                        ></i>
+
+                        {{item.cate_name}}</p>
+
+                        </ion-item>
+                      </ion-list>
+
+                  </div>
+
+        </ion-content>
+      </div>
+    </script>
+
+
 
 
 

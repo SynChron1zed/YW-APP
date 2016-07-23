@@ -10,7 +10,7 @@ var  Server = angular.module('starter.services', []);
 
    window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
 
-   window.qiniuimgHost =  'http://7xv9wr.com1.z0.glb.clouddn.com/';
+   window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';
   //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
   //没有使用过度的返回页面的使用
 
@@ -23,19 +23,20 @@ var  Server = angular.module('starter.services', []);
   //路由改变监听  队列 处理事件
   window.stateChangeListen   ={};
   Server.factory('const',['$window','$ionicHistory','$timeout','$ionicNativeTransitions',function($window,$ionicHistory,$timeout,$ionicNativeTransitions){
-
-
-
-
       return{
         haha:'哈哈'
       }
-
-
-
-
-
-    }]);
+    }])
+    .factory('goodsState',[function(){
+      return{
+         Refresh:false,
+         goods_basic_id:undefined,
+         goods_title:undefined,
+         img_url:undefined,
+         activity_price:undefined,
+         
+      }
+    }])
 
 /**
  * Created by Why on 16/6/10.
@@ -213,12 +214,13 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
     },
     //原生 加载条
     loading:function(text){
-
+      
       $ionicLoading.show({
       template: '<ion-spinner icon="crescent" class="spinner-royal"></ion-spinner>',
       //template: '<ion-spinner  icon="ripple" class="spinner-energized"  ></ion-spinner>',
       delay:100
       });
+
       return false;
       if(window.ProgressIndicator){
         if(text){
@@ -275,103 +277,6 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
 
 }]);
 
-Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$timeout','$ionicNativeTransitions',function($state,$ionicViewSwitcher,$ionicHistory,$timeout,$ionicNativeTransitions){
-    var box  = {
-        data: {},
-        savestate:false,
-        backView:function(tartg){
-            $ionicViewSwitcher.nextDirection('back');
-            $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
-              "type": "slide",
-              "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
-              "duration": 400, // in milliseconds (ms), default 400
-            });
-            //$state.go(box.getState(tartg).fromState,box.getState(tartg).fromParams);
-            $timeout(function(){
-                // var inc  = false;
-                // var overflow  = [];
-                // angular.forEach($ionicHistory.viewHistory().views,function(v,k){
-                //   if(inc){  overflow.push(k); }
-                //   if(v.stateName  == tartg){ inc=true;  }} )
-                // angular.forEach(overflow,function (v){delete $ionicHistory.viewHistory().views[v];});
-                $ionicHistory.clearHistory();
-            },30);
-          window.backtoinroot  = undefined;
-
-        },
-        setState: function(module, fromState, fromParams,title,viewid) {
-            this.data[module] = {
-                "fromState": fromState,
-                "fromParams": fromParams,
-                title:title,
-                viewId:viewid
-            };
-        },
-        getState: function(module) {
-            return this.data[module];
-        },
-        stateChange: function(stateName,parms,animation){
-
-            box.savestate = true;
-            //$ionicViewSwitcher.nextDirection(animation?animation:'forward');
-            // $ionicNativeTransitions.stateGo(stateName,parms,{
-            //     "type": "drawer",
-            //     "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
-            //     "duration": 1000 // in milliseconds (ms), default 400
-            // });
-          $ionicViewSwitcher.nextDirection('forward');
-          $ionicNativeTransitions.stateGo(stateName,parms, {
-            "type": "slide",
-            "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
-            "duration": 400, // in milliseconds (ms), default 400
-          });
-
-
-
-        },
-        removebackregistevent:function(){
-            window.androdzerofun   =  undefined;
-        },
-        saveHisty:function ($histy,stateNa){
-            var hostiy  = $histy.currentView();
-
-            //注册安卓返回监听
-            window.androdzerofun  =  box.backView;
-            window.androdzerofun_parms  = stateNa;
-
-            //内部固化一个返回路径  (当第三方视图完全退出时 销毁)
-            window.backtoinroot      =   box.backView;
-            window.backtoinroot_parms  =  stateNa;
-
-
-
-
-
-
-
-            // var inc  = false;
-            // var overflow  = [];
-            // angular.forEach($ionicHistory.viewHistory().views,function(v,k){if(inc){overflow.push(k);}if(v.stateName  == stateNa){inc=true;}})
-            // angular.forEach(overflow,function (v){delete $ionicHistory.viewHistory().views[v];});
-
-            $timeout(function(){
-                $ionicHistory.clearHistory();
-            },50)
-
-            if(this.savestate){
-                this.savestate  = false;
-                box.data = {};
-                this.setState(stateNa,hostiy.stateName,hostiy.stateParams,hostiy.title,hostiy.viewId);
-                console.log(box.data)
-            }
-
-        }
-
-    };
-
-    return box;
-}])
-
 /**
  * Created by Why on 16/6/6.
  */
@@ -423,6 +328,125 @@ Server.factory('Chats', function() {
   };
 });
 
+
+Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$timeout','$ionicNativeTransitions',function($state,$ionicViewSwitcher,$ionicHistory,$timeout,$ionicNativeTransitions){
+    var box  = {
+        data: {},
+        savestate:false,
+        backView:function(tartg,clback){
+
+            $ionicViewSwitcher.nextDirection('back');
+            $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
+              "type": "slide",
+              "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
+              "duration": 400, // in milliseconds (ms), default 400
+            });
+            //$state.go(box.getState(tartg).fromState,box.getState(tartg).fromParams);
+            $timeout(function(){
+                // var inc  = false;
+                // var overflow  = [];
+                // angular.forEach($ionicHistory.viewHistory().views,function(v,k){
+                //   if(inc){  overflow.push(k); }
+                //   if(v.stateName  == tartg){ inc=true;  }} )
+                // angular.forEach(overflow,function (v){delete $ionicHistory.viewHistory().views[v];});
+                $ionicHistory.clearHistory();
+            },30);
+
+            $timeout(function () {
+
+              if(clback){
+                  clback()
+              }
+              
+              window.backtoinroot  = undefined;
+              window.androdzerofun  =  undefined;
+              window.androdzerofun_parms  = undefined;
+              window.androdzerofun_clback  = undefined;
+              window.backtoinroot_parms  =  undefined;
+            }, 300);
+
+
+
+
+
+
+        },
+        setState: function(module, fromState, fromParams,title,viewid) {
+            this.data[module] = {
+                "fromState": fromState,
+                "fromParams": fromParams,
+                title:title,
+                viewId:viewid
+            };
+        },
+        getState: function(module) {
+            return this.data[module];
+        },
+        stateChange: function(stateName,parms,animation){
+
+            box.savestate = true;
+            //$ionicViewSwitcher.nextDirection(animation?animation:'forward');
+            // $ionicNativeTransitions.stateGo(stateName,parms,{
+            //     "type": "drawer",
+            //     "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
+            //     "duration": 1000 // in milliseconds (ms), default 400
+            // });
+          $ionicViewSwitcher.nextDirection('forward');
+          $ionicNativeTransitions.stateGo(stateName,parms, {
+            "type": "slide",
+            "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
+            "duration": 400, // in milliseconds (ms), default 400
+          });
+
+
+
+        },
+        removebackregistevent:function(){
+            window.androdzerofun   =  undefined;
+        },
+        saveHisty:function ($histy,stateNa){
+            var hostiy  = $histy.currentView();
+
+            //注册安卓返回监听
+            window.androdzerofun  =  box.backView;
+            window.androdzerofun_parms  = stateNa;
+            window.androdzerofun_clback  = window.anbackAndcals;
+
+
+            //内部固化一个返回路径  (当第三方视图完全退出时 销毁)
+            window.backtoinroot      =   box.backView;
+            window.backtoinroot_parms  =  stateNa;
+
+
+
+
+
+
+
+
+
+            // var inc  = false;
+            // var overflow  = [];
+            // angular.forEach($ionicHistory.viewHistory().views,function(v,k){if(inc){overflow.push(k);}if(v.stateName  == stateNa){inc=true;}})
+            // angular.forEach(overflow,function (v){delete $ionicHistory.viewHistory().views[v];});
+
+            $timeout(function(){
+                $ionicHistory.clearHistory();
+            },50)
+
+            if(this.savestate){
+                this.savestate  = false;
+                box.data = {};
+                this.setState(stateNa,hostiy.stateName,hostiy.stateParams,hostiy.title,hostiy.viewId);
+                console.log(box.data)
+            }
+
+        }
+
+    };
+
+    return box;
+}])
 
 /**
  * Created by Why on 16/6/14.
@@ -547,29 +571,39 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 
       var  piclen  =   '-1';
       var  key  = Base64.encode(key_header+'_'+(storage.getObject('UserInfo').user_id?storage.getObject('UserInfo').user_id:'-1_')+'_'+(Date.parse(new Date()))+'.jpg');
-    $http({
-      type:'POST',
-      url:'http://upload.qiniu.com/putb64/'+piclen+'/key/'+key,
-      headers:{
-        "Content-Type":'application/octet-stream',
-        ///服务器交互token
-        "Authorization":'UpToken '+storage.getObject('qiniu').qp_token
-      },
-      data:{
-        pice:data
-      },
-    }).success(function(r){
-      claback(r);
-      if(next){
-        next(r);
-      }
+        data  = data.substring(data.indexOf(",")+1);
 
-    }).error(function(r,s){
-      console.log('error_r',JSON.stringify(r),'xxx',JSON.stringify(s));
-      native.task('网络异常!',1000);
-    })
+
+
+
+        var pic =data;
+        var url = 'http://upload.qiniu.com/putb64/'+piclen+'/key/'+key;
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange=function(){
+          if (xhr.readyState==4){
+            if (xhr.status == 200) {
+              claback(JSON.parse(xhr.responseText));
+              if(next){
+                next(JSON.parse(xhr.responseText));
+              }
+            }else{
+              native.task('图片上传失败!',1000);
+            }
+          }
+        }
+
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/octet-stream");
+        xhr.setRequestHeader("Authorization", 'UpToken '+storage.getObject('qiniu').qp_token);
+        xhr.send(pic);
+
+
+
+
+
 
   };
+
   //上传到七牛  图片多张队列
   var   sendqiniu_queue  =  function (data,claback,key_header){
       var   index  =  -1;
@@ -622,8 +656,10 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
    };
 
   var   hidelogin = function(){
-        native.hidloading();
-      //$ionicLoading.hide();
+
+        $ionicLoading.hide();
+        //native.hidloading();
+
   };
   var   getData  = function(data,Callback,errorCallback,sendType){
     data.client_type =   window.platform?window.platform:'ios';
@@ -638,17 +674,19 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
       data:data
     }).success(function(r){
+
+      $timeout(function(){
+                hidelogin();
+              },200);
+
       if(r.resp_code== '0000'){
-        $timeout(function(){
-          hidelogin();
-        },200);
+      
         Callback(r);
       }else{
-        $timeout(function(){
-          hidelogin();
-        },200);
-        Callback(false);
-        errorCallback?errorCallback(r):null;
+        
+
+        // Callback(false);
+        // errorCallback?errorCallback(r):null;
         if(r.msg){
           $ionicPopup.alert({
             title: r.msg
@@ -661,10 +699,11 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
         }
       }
     }).error(function(e){
-      errorCallback?errorCallback(e):null;
+      // errorCallback?errorCallback(e):null;
       $timeout(function(){
         hidelogin();
       },200);
+      
       $ionicPopup.alert({
         title:'网络错误,请确认网络连接!'
       });

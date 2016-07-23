@@ -2,7 +2,8 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
     var box  = {
         data: {},
         savestate:false,
-        backView:function(tartg){
+        backView:function(tartg,clback){
+
             $ionicViewSwitcher.nextDirection('back');
             $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
               "type": "slide",
@@ -19,7 +20,24 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                 // angular.forEach(overflow,function (v){delete $ionicHistory.viewHistory().views[v];});
                 $ionicHistory.clearHistory();
             },30);
-          window.backtoinroot  = undefined;
+
+            $timeout(function () {
+
+              if(clback){
+                  clback()
+              }
+              
+              window.backtoinroot  = undefined;
+              window.androdzerofun  =  undefined;
+              window.androdzerofun_parms  = undefined;
+              window.androdzerofun_clback  = undefined;
+              window.backtoinroot_parms  =  undefined;
+            }, 300);
+
+
+
+
+
 
         },
         setState: function(module, fromState, fromParams,title,viewid) {
@@ -61,10 +79,14 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
             //注册安卓返回监听
             window.androdzerofun  =  box.backView;
             window.androdzerofun_parms  = stateNa;
+            window.androdzerofun_clback  = window.anbackAndcals;
+
 
             //内部固化一个返回路径  (当第三方视图完全退出时 销毁)
             window.backtoinroot      =   box.backView;
             window.backtoinroot_parms  =  stateNa;
+
+
 
 
 

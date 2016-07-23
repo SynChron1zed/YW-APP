@@ -118,7 +118,12 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
   padding-top: 0px !important;
 }
 
-
+.list_tabs.active{
+  &:before{
+    transform:translateX(100%);
+    -webkit-transform:translateX(100%);
+  }
+}
 .list_tabs {
   display: block;
   width: 100%;
@@ -215,12 +220,15 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
       }
       .ctr{
         top: -.6rem;
-        padding-left: 1rem;
         float: right;
+        width: 2rem;
+        line-height: 1.4rem;
+        text-align: right;
         position: relative;
         display: inline-block;
         font-size: 28px;
         height: 1.4rem;
+        color: #616160;
         >i:before{
           transform: rotateZ(0deg);
           -webkit-transform: rotateZ(0deg);
@@ -365,5 +373,5 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
 }
 
 .input-label{
-  width: 25%;  
+  width: 25%;
 }

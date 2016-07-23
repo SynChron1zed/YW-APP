@@ -112,7 +112,8 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
        //   "type": "flip",
        //   "direction": "up"
        // },
-      onEnter: function(fromStateServ,$ionicHistory) {
+       cache: false,
+       onEnter: function(fromStateServ,$ionicHistory) {
           fromStateServ.saveHisty($ionicHistory,'r.login')
         },
        onExit:function(fromStateServ){
@@ -132,6 +133,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       //   "type": "flip",
       //   "direction": "up"
       // },
+
        views: {
         'rootview': {
           templateUrl: 'templates/login/register.html',
@@ -567,6 +569,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+
     //  添加编辑商品模块
     .state('r.goodsEdit', {
       url: '/goodsEdit?state:&id:',
@@ -576,6 +579,35 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           params:{'state':null,id:null},
           templateUrl: 'templates/goods/Edit.html',
           controller: 'goodsEditCtr'
+        }
+      }
+    })
+
+
+    //商品分类
+    .state('r.goodsclasslist', {
+      url: '/goodsclasslist',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.goodsclasslist')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/goods/Classlist.html',
+          controller: 'goodsclasslist'
+        }
+      }
+    })
+    // 商品分类详情
+    .state('r.goodsclassDetail', {
+      url: '/goodsclassDetail?title:&id:',
+      views: {
+        params:{'title':null,id:null},
+        'rootview': {
+          templateUrl: 'templates/goods/clasEdith.html',
+          controller: 'goodsclassDetail'
         }
       }
     })

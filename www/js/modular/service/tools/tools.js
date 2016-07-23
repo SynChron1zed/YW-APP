@@ -24,29 +24,39 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 
       var  piclen  =   '-1';
       var  key  = Base64.encode(key_header+'_'+(storage.getObject('UserInfo').user_id?storage.getObject('UserInfo').user_id:'-1_')+'_'+(Date.parse(new Date()))+'.jpg');
-    $http({
-      type:'POST',
-      url:'http://upload.qiniu.com/putb64/'+piclen+'/key/'+key,
-      headers:{
-        "Content-Type":'application/octet-stream',
-        ///服务器交互token
-        "Authorization":'UpToken '+storage.getObject('qiniu').qp_token
-      },
-      data:{
-        pice:data
-      },
-    }).success(function(r){
-      claback(r);
-      if(next){
-        next(r);
-      }
+        data  = data.substring(data.indexOf(",")+1);
 
-    }).error(function(r,s){
-      console.log('error_r',JSON.stringify(r),'xxx',JSON.stringify(s));
-      native.task('网络异常!',1000);
-    })
+
+
+
+        var pic =data;
+        var url = 'http://upload.qiniu.com/putb64/'+piclen+'/key/'+key;
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange=function(){
+          if (xhr.readyState==4){
+            if (xhr.status == 200) {
+              claback(JSON.parse(xhr.responseText));
+              if(next){
+                next(JSON.parse(xhr.responseText));
+              }
+            }else{
+              native.task('图片上传失败!',1000);
+            }
+          }
+        }
+
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/octet-stream");
+        xhr.setRequestHeader("Authorization", 'UpToken '+storage.getObject('qiniu').qp_token);
+        xhr.send(pic);
+
+
+
+
+
 
   };
+
   //上传到七牛  图片多张队列
   var   sendqiniu_queue  =  function (data,claback,key_header){
       var   index  =  -1;
@@ -99,8 +109,10 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
    };
 
   var   hidelogin = function(){
-        native.hidloading();
-      //$ionicLoading.hide();
+
+        $ionicLoading.hide();
+        //native.hidloading();
+
   };
   var   getData  = function(data,Callback,errorCallback,sendType){
     data.client_type =   window.platform?window.platform:'ios';
@@ -115,17 +127,19 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
       data:data
     }).success(function(r){
+
+      $timeout(function(){
+                hidelogin();
+              },200);
+
       if(r.resp_code== '0000'){
-        $timeout(function(){
-          hidelogin();
-        },200);
+      
         Callback(r);
       }else{
-        $timeout(function(){
-          hidelogin();
-        },200);
-        Callback(false);
-        errorCallback?errorCallback(r):null;
+        
+
+        // Callback(false);
+        // errorCallback?errorCallback(r):null;
         if(r.msg){
           $ionicPopup.alert({
             title: r.msg
@@ -138,10 +152,11 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
         }
       }
     }).error(function(e){
-      errorCallback?errorCallback(e):null;
+      // errorCallback?errorCallback(e):null;
       $timeout(function(){
         hidelogin();
       },200);
+      
       $ionicPopup.alert({
         title:'网络错误,请确认网络连接!'
       });

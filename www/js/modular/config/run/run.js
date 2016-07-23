@@ -151,7 +151,7 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
 
     //执行一个零时的 处理函数
         if(window.androdzerofun){
-            window.androdzerofun(window.androdzerofun_parms);
+            window.androdzerofun(window.androdzerofun_parms,window.androdzerofun_clback);
           return false;
         }
 

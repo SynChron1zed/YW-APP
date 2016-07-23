@@ -1088,6 +1088,10 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
 .tab-nav.tabs {
   padding-top: 0px !important; }
 
+.list_tabs.active:before {
+  transform: translateX(100%);
+  -webkit-transform: translateX(100%); }
+
 .list_tabs {
   display: block;
   width: 100%;
@@ -1171,12 +1175,15 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
         transform: rotateZ(40deg); }
       .goodsmsgItem .msg .price .ctr {
         top: -.6rem;
-        padding-left: 1rem;
         float: right;
+        width: 2rem;
+        line-height: 1.4rem;
+        text-align: right;
         position: relative;
         display: inline-block;
         font-size: 28px;
         height: 1.4rem;
+        color: #616160;
         color: #616160; }
         .goodsmsgItem .msg .price .ctr > i:before {
           transform: rotateZ(0deg);
