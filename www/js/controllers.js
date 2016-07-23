@@ -7,6 +7,8 @@ var  Ctr = angular.module('starter.controllers', []);
 Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout) {
   var pageNum = 0;
   var cateId = [];
+  $scope.imageshow=true;
+  $scope.imagehide =false;
 
   //商城分类
   $scope.ShoppingList=[];
@@ -157,7 +159,7 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
     if(r){
 
       $scope.ClassifDetailsList = (r.resp_data.data);
-console.log($scope.ClassifDetailsList.shop_id)
+       console.log($scope.ClassifDetailsList)
 
     }
   });
@@ -170,10 +172,24 @@ console.log($scope.ClassifDetailsList.shop_id)
     $scope.modal = modal;
   });
 
+  $scope.Number=1;
+  $scope.addshop = function () {
+    $scope.Number+=1
+  }
+  $scope.delshop = function () {
+
+    if($scope.Number<=1){
+      $scope.Number=1
+    }else{
+      $scope.Number-=1
+    }
+
+  }
+
   $scope.ClassifConfirm=function (basic,shop) {
-   
+
     $scope.modal.hide();
-    $state.go('r.tab.confirmOrder',{basicID:basic,shopID:shop});
+    $state.go('r.tab.confirmOrder',{basicID:basic,shopID:shop,Num:$scope.Number});
 
   };
   $scope.isCone=true;
@@ -195,13 +211,15 @@ console.log($scope.ClassifDetailsList.shop_id)
   };
 
 
+
+
   //加入购物车
   $scope.addcart=function () {
     Tools.getData({
       "interface_number": "020401",
       "client_type": window.platform,
       "post_content": {
-        "token": "{166EA93B-964B-9D39-0EE2-3A991BC364E0}",
+        "token": "",
         "token_phone": "",
         "shop_id": "9",
         "sku_id": "1",
@@ -219,7 +237,11 @@ console.log($scope.ClassifDetailsList.shop_id)
 
       }
     });
-  }
+  };
+
+
+
+
 
 }]);
 
@@ -233,18 +255,43 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
 
   var bascId = $stateParams.basicID;
   var shopId = $stateParams.shopID;
+  var Num = $stateParams.Num;
+  $scope.shopNum=Num
   var cartId = [];
 
   console.log(bascId)
   console.log(shopId)
 
   $scope.addressList=[]
+
+  Tools.getData({
+    "interface_number": "020205",
+    "client_type": window.platform,
+    "post_content": {
+      "token" : "",
+      "token_phone": "",
+      "goods_basic_id":bascId
+
+    }
+  },function(r){
+    if(r){
+
+      $scope.ClassifDetailsList = (r.resp_data.data);
+      console.log($scope.ClassifDetailsList)
+      var total = $scope.ClassifDetailsList.total_in_price * $scope.shopNum
+      $scope.TotalNum = total
+      console.log(total)
+    }
+  });
+
+
+
   //获取收货地址
   Tools.getData({
     "interface_number": "020505",
     "client_type": window.platform,
     "post_content": {
-      "token" : "{166EA93B-964B-9D39-0EE2-3A991BC364E0}",
+      "token" : "",
       "token_phone": ""
     }
   },function(r){
@@ -266,7 +313,7 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
     "interface_number": "020401",
     "client_type": window.platform,
     "post_content": {
-      "token" : "{166EA93B-964B-9D39-0EE2-3A991BC364E0}",
+      "token" : "",
       "token_phone": "",
       "shop_id": shopId,
       "sku_id": "1",
@@ -289,7 +336,7 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
       "interface_number": "020601",
       "client_type": window.platform,
       "post_content": {
-        "token" : "{166EA93B-964B-9D39-0EE2-3A991BC364E0}",
+        "token" : "",
         "token_phone": "",
         "cartIds": cartId,
         "addr_id": $scope.addressListone.addr_id ,
@@ -2159,26 +2206,15 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 /**
  * Created by Administrator on 2016/7/21.
  */
-Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
-
-  
-}]);
-
-/**
- * Created by Administrator on 2016/7/19.
- */
-/**
- * Created by Administrator on 2016/7/13.
- */
-Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
+Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout) {
 
 
   $scope.SalesList = [];
   Tools.getData({
-    "interface_number": "020701",
+    "interface_number": "020702",
     "client_type": window.platform,
     "post_content": {
-      "token" : "{611FF161-F539-A956-5B4F-2FFB04F7AAC8}",
+      "token" : "",
       "token_phone": "",
       "status": "",
       "page_num": 1,
@@ -2186,12 +2222,16 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
     }
   },function(r){
     if(r){
-      if(r.resp_data.data.data.length==10){
+      if(r.resp_data.data.length==10){
         $scope.expression=true
       }else{
         $scope.expression=false
       }
-      $scope.SalesList = (r.resp_data.data.data)
+      $scope.SalesList = (r.resp_data.data)
+      console.log($scope.SalesList)
+
+
+
 
     }
   });
@@ -2200,29 +2240,346 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
 
   $scope.all = true;
   $scope.dfk = false;
+  $scope.dfc = false;
   $scope.dfh = false;
 
   //全部
   $scope.alls = function  (){
     $scope.all = true;
     $scope.dfk = false;
+    $scope.dfc = false;
     $scope.dfh = false;
 
+    Tools.getData({
+      "interface_number": "020702",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": "",
+        "status": "",
+        "page_num": 1,
+        "page_per":10
+      }
+    },function(r){
+      if(r){
+        if(r.resp_data.data.length==10){
+          $scope.expression=true
+        }else{
+          $scope.expression=false
+        }
+        $scope.SalesList = (r.resp_data.data)
+        console.log($scope.SalesList)
+
+        $scope.post_status=[];
+
+      }
+    });
+
   };
-  //待付款
+  //待发货
   $scope.dfks =  function  (){
     $scope.all = false;
     $scope.dfk = true;
+    $scope.dfc = false;
     $scope.dfh = false;
 
+    Tools.getData({
+      "interface_number": "020702",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": "",
+        "status": "1",
+        "page_num": 1,
+        "page_per":10
+      }
+    },function(r){
+      if(r){
+        if(r.resp_data.data.length==10){
+          $scope.expression=true
+        }else{
+          $scope.expression=false
+        }
+        $scope.SalesList = (r.resp_data.data)
+        console.log($scope.SalesList)
+
+        $scope.post_status=[];
+
+      }
+    });
   };
+
   //待收货
+  $scope.dfcs = function  (){
+    $scope.all = false;
+    $scope.dfk = false;
+    $scope.dfc = true;
+    $scope.dfh = false;
+
+    Tools.getData({
+      "interface_number": "020702",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": "",
+        "status": "2",
+        "page_num": 1,
+        "page_per":10
+      }
+    },function(r){
+      if(r){
+        if(r.resp_data.data.length==10){
+          $scope.expression=true
+        }else{
+          $scope.expression=false
+        }
+        $scope.SalesList = (r.resp_data.data)
+        console.log($scope.SalesList)
+
+        $scope.post_status=[];
+
+      }
+    });
+
+  };
+
+
+  //已完成
   $scope.dfns = function  (){
     $scope.all = false;
     $scope.dfk = false;
+    $scope.dfc = false;
     $scope.dfh = true;
 
+    Tools.getData({
+      "interface_number": "020702",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": "",
+        "status": "4",
+        "page_num": 1,
+        "page_per":10
+      }
+    },function(r){
+      if(r){
+        if(r.resp_data.data.length==10){
+          $scope.expression=true
+        }else{
+          $scope.expression=false
+        }
+        $scope.SalesList = (r.resp_data.data)
+        console.log($scope.SalesList)
+  
+        $scope.post_status=[];
+
+      }
+    });
+
   };
+
+  $scope.purchaseorde=function (value) {
+    $state.go('r.tab.HomPurordersbody',{basicID:value});
+  }
+
+  $scope.calssifloadMore = function (xxx) {
+    $timeout(function () {
+      $scope.$broadcast('scroll.refreshComplete');
+    }, 600);
+
+  };
+
+}]);
+
+/**
+ * Created by Administrator on 2016/7/19.
+ */
+/**
+ * Created by Administrator on 2016/7/13.
+ */
+Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout) {
+
+
+  $scope.SalesList = [];
+  Tools.getData({
+    "interface_number": "020701",
+    "client_type": window.platform,
+    "post_content": {
+      "token" : "",
+      "token_phone": "",
+      "status": "",
+      "page_num": 1,
+      "page_per":10
+    }
+  },function(r){
+    if(r){
+      if(r.resp_data.data.length==10){
+        $scope.expression=true
+      }else{
+        $scope.expression=false
+      }
+      $scope.SalesList = (r.resp_data.data)
+       console.log($scope.SalesList)
+   ;
+      $scope.post_status=[];
+
+    }
+  });
+
+
+
+  $scope.all = true;
+  $scope.dfk = false;
+  $scope.dfc = false;
+  $scope.dfh = false;
+
+  //全部
+  $scope.alls = function  (){
+    $scope.all = true;
+    $scope.dfk = false;
+    $scope.dfc = false;
+    $scope.dfh = false;
+
+    Tools.getData({
+      "interface_number": "020701",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": "",
+        "status": "",
+        "page_num": 1,
+        "page_per":10
+      }
+    },function(r){
+      if(r){
+        if(r.resp_data.data.length==10){
+          $scope.expression=true
+        }else{
+          $scope.expression=false
+        }
+        $scope.SalesList = (r.resp_data.data)
+        console.log($scope.SalesList)
+
+
+        $scope.post_status=[];
+
+      }
+    });
+
+  };
+  //待发货
+  $scope.dfks =  function  (){
+    $scope.all = false;
+    $scope.dfk = true;
+    $scope.dfc = false;
+    $scope.dfh = false;
+
+    Tools.getData({
+      "interface_number": "020701",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": "",
+        "status": "1",
+        "page_num": 1,
+        "page_per":10
+      }
+    },function(r){
+      if(r){
+        if(r.resp_data.data.length==10){
+          $scope.expression=true
+        }else{
+          $scope.expression=false
+        }
+        $scope.SalesList = (r.resp_data.data)
+        console.log($scope.SalesList)
+
+        $scope.post_status=[];
+
+      }
+    });
+  };
+
+  //待收货
+  $scope.dfcs = function  (){
+    $scope.all = false;
+    $scope.dfk = false;
+    $scope.dfc = true;
+    $scope.dfh = false;
+
+    Tools.getData({
+      "interface_number": "020701",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": "",
+        "status": "2",
+        "page_num": 1,
+        "page_per":10
+      }
+    },function(r){
+      if(r){
+        if(r.resp_data.data.length==10){
+          $scope.expression=true
+        }else{
+          $scope.expression=false
+        }
+        $scope.SalesList = (r.resp_data.data)
+        console.log($scope.SalesList)
+
+        $scope.post_status=[];
+
+      }
+    });
+
+  };
+
+
+  //已完成
+  $scope.dfns = function  (){
+    $scope.all = false;
+    $scope.dfk = false;
+    $scope.dfc = false;
+    $scope.dfh = true;
+
+    Tools.getData({
+      "interface_number": "020701",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": "",
+        "status": "4",
+        "page_num": 1,
+        "page_per":10
+      }
+    },function(r){
+      if(r){
+        if(r.resp_data.data.length==10){
+          $scope.expression=true
+        }else{
+          $scope.expression=false
+        }
+        $scope.SalesList = (r.resp_data.data)
+        console.log($scope.SalesList)
+
+        $scope.post_status=[];
+
+      }
+    });
+
+  };
+
+  $scope.ordersbody= function (value) {
+
+    $state.go('r.tab.Homordersbody',{basicID:value});
+  }
+  $scope.calssifloadMore = function (xxx) {
+    $timeout(function () {
+      $scope.$broadcast('scroll.refreshComplete');
+    }, 600);
+
+  };
+
 }]);
 
 
@@ -2255,47 +2612,94 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
     if(r){
       $scope.shopadmindata = (r.resp_data)
 
+      
+
 
     }
   });
 
 
   $scope.shopName = function (Classitem) {
-
     $state.go('r.tab.HomShopadminname', {Classitem: Classitem});
   };
+  $scope.shopBrief = function (Classitem) {
 
+    $state.go('r.tab.HomShopadminbrief', {Classitem: Classitem});
+  };
 
 }]);
 
 /**
  * Created by Administrator on 2016/7/21.
  */
-Ctr.controller('shopbriefingCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
+Ctr.controller('shopbriefingCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$timeout',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$timeout) {
 
   var Name = [];
+  var oldName = $stateParams.Classitem
+  $scope.shop = {};
+  $scope.shop.Name = oldName;
+  $scope.ziflength = 40
+  $scope.$watch('shop.Name',function(newvalue,olavalue,scope){
+    $scope.ziflength =  (40)-(newvalue.length);
+    if($scope.ziflength < 0 ){
+      $scope.shop.Name  = olavalue;
+      $ionicPopup.alert({
+        title:'已达最大输入长度!',
+        okText:'确认'
+      });
+    }
+  });
+
+  $scope.backlistrotop  = function(){
+    $state.go('r.tab.HomShopadmin');
+  };
+
   $scope.querybriefing = function () {
+
+    if($scope.shop.Name  == "" ||  $scope.shop.Name == undefined){
+      $ionicPopup.alert({
+        title:'请填写店铺描述!',
+        okText:'确认'
+      });
+      return false;
+    }else{
+      Tools.showlogin();
     Tools.getData({
       "interface_number": "010104",
       "client_type": window.platform,
       "post_content": {
-        "token" : "{35CAD486-424C-E3B9-CD41-4BC41A1CC156}",
+        "token" : "",
         "token_phone": "",
-        "name": Name
+        "description": $scope.shop.Name
       }
     },function(r){
-      if(r){
-        $scope.shopadmindata = (r.resp_data)
+      if(r!='error'){
+        $ionicPopup.alert({
+          title:'修改成功',
+          okText:'确认'
+        }).then(function(){
+          $stateParams.Classitem = $scope.shop.Name;
 
 
+
+        });
+        $timeout(function(){
+          Tools.hidelogin();
+        },300)
       }
     });
+
+    }
   }
 
   //收货人
-  $scope.newshopBname = function (shopBname) {
-    Name = shopBname;
+
+  $scope.newshopBname = function (value) {
+
   };
+
+
+
 
 
 }]);
@@ -2303,31 +2707,75 @@ Ctr.controller('shopbriefingCtr',['$scope','native','$state','fromStateServ','To
 /**
  * Created by Administrator on 2016/7/21.
  */
-Ctr.controller('shopnameCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
-var Name=[]
-$scope.queryname = function () {
-  Tools.getData({
-    "interface_number": "010103",
-    "client_type": window.platform,
-    "post_content": {
-      "token" : "{166EA93B-964B-9D39-0EE2-3A991BC364E0}",
-      "token_phone": "",
-      "name": "Name"
-    }
-  },function(r){
-    if(r){
-      $scope.shopadmindata = (r.resp_data)
+Ctr.controller('shopnameCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams) {
 
+  var Name=[]
+  var oldName = $stateParams.Classitem
+  $scope.ShopName = oldName;
+  $scope.showclear  =false;
+  $scope.shop = {};
+  $scope.shop.name = oldName
+  if($scope.shop.name !== '' ||   $scope.shop.name !==   undefined){
+    $scope.showclear  =true;
+  }
 
-    }
-  });
-}
-
-//收货人
-  $scope.newshopname = function (shopname) {
-    Name = shopname;
+  $scope.backlistrotop  = function(){
+    $state.go('r.tab.HomShopadmin');
   };
 
+//收货人
+  $scope.newshopname = function (value) {
+    if(value ==''  ||  value ==  undefined){
+      $scope.showclear = false;
+    }else{
+      $scope.showclear = true;
+    }
+  };
+
+  //del
+  $scope.clear = function(){
+    $scope.shop = {};
+    $scope.showclear = false;
+  };
+
+  //保存
+  $scope.queryname = function () {
+    if($scope.shop.name  == "" ||  $scope.shop.name == undefined) {
+      $ionicPopup.alert({
+        title: '请填写店铺名称!',
+        okText: '确认'
+      });
+    }else{
+
+      Tools.showlogin();
+    Tools.getData({
+      "interface_number": "010103",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": "",
+        "name": $scope.shop.name
+      }
+    },function(r){
+      if(r!='error'){
+        $ionicPopup.alert({
+          title:'修改成功',
+          okText:'确认'
+        }).then(function(){
+
+
+          $stateParams.Classitem = $scope.shop.name;
+
+
+
+        });
+        $timeout(function(){
+          Tools.hidelogin();
+        },300)
+      }
+    });
+  }
+  }
 
 }]);
 
@@ -2869,14 +3317,6 @@ Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory)
 }])
 
 /**
- * Created by Why on 16/6/8.
- */
-
-Ctr.controller('rootCtr',[function(){
-  
-}])
-
-/**
  * Created by Administrator on 2016/7/5.
  */
 Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
@@ -3177,6 +3617,14 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
     }
 
   });
+
+/**
+ * Created by Why on 16/6/8.
+ */
+
+Ctr.controller('rootCtr',[function(){
+  
+}])
 
 /**
  * Created by Why on 16/6/8.

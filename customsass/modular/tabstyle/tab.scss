@@ -1,39 +1,39 @@
 .tab-classif-off{
-  background: url('/img/tabar-iocn/classif.png') no-repeat  center  -66px;
+  background: url('../img/tabar-iocn/classif.png') no-repeat  center  -66px;
   background-size: 24px;
 }
 .tab-classif-on{
-  background: url('/img/tabar-iocn/classif.png') no-repeat  center  6px;
+  background: url('../img/tabar-iocn/classif.png') no-repeat  center  6px;
   background-size: 24px;
 }
 .tab-crat-off {
-  background: url('/img/tabar-iocn/crat.png') no-repeat  center  -69px;
+  background: url('../img/tabar-iocn/crat.png') no-repeat  center  -69px;
   background-size: 25px;
 }
 
 .tab-crat-on{
-  background: url('/img/tabar-iocn/crat.png') no-repeat  center  6px;
+  background: url('../img/tabar-iocn/crat.png') no-repeat  center  6px;
   background-size: 25px;
 }
 
 
 .tab-msg-off {
-  background: url('/img/tabar-iocn/msg.png') no-repeat  center  -70px;
+  background: url('../img/tabar-iocn/msg.png') no-repeat  center  -70px;
   background-size: 25px;
 }
 
 .tab-msg-on{
-  background: url('/img/tabar-iocn/msg.png') no-repeat  center  7px;
+  background: url('../img/tabar-iocn/msg.png') no-repeat  center  7px;
   background-size: 25px;
 }
 
 .tab-me-off {
-  background: url('/img/tabar-iocn/me.png') no-repeat  center  -70px;
+  background: url('../img/tabar-iocn/me.png') no-repeat  center  -70px;
   background-size: 25px;
 }
 
 .tab-me-on{
-  background: url('/img/tabar-iocn/me.png') no-repeat  center  6px;
+  background: url('../img/tabar-iocn/me.png') no-repeat  center  6px;
   background-size: 25px;
 }
 
@@ -50,7 +50,7 @@
     left: 0px;
     width: 100%;
     height: 30px;
-    background:  #fff url('/img/tabar-iocn/home.png') no-repeat  center  -72px;
+    background:  #fff url('../img/tabar-iocn/home.png') no-repeat  center  -72px;
     background-size: 25px;
   }
 
@@ -83,7 +83,7 @@
       left: 0px;
       width: 100%;
       height: 30px;
-      background:#fff  url('/img/tabar-iocn/home.png') no-repeat  center  3.5px;
+      background:#fff  url('../img/tabar-iocn/home.png') no-repeat  center  3.5px;
       background-size: 25px;
     }
     &::before{

@@ -1,0 +1,131 @@
+<ion-view view-title="商品分类"  style='background:#feeb0b'  >
+
+      <ion-nav-buttons side="left"    class="button back-button buttons button-clear header-item">
+        <div class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.goodsclasslist')">
+        <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
+          <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
+          </div>
+      </ion-nav-buttons>
+      <ion-content    class='shopcrtboxbj'     overflow-scroll="false"  scrollbar-y="false"   >
+
+
+
+
+    <style>
+      .goodclaslsitioc .ion-ios-arrow-right:before{
+        font-size: 26px;
+  color: #a2a2a2;
+    }
+    </style>
+        <ion-list  can-swipe="true"
+         >
+  <ion-item ng-repeat="item in data"  class="goodclaslsitioc"    ng-click='godetial(item)' 
+            >
+    <p>{{item.cate_name}}</p>
+    <span style="position: absolute;top: 30%;right: 16px;"
+
+    >
+     <span style="    position: relative;top: -4px;">{{item.num}}</span>
+    <i class="ion-ios-arrow-right" style=""></i> </span>
+
+    <ion-option-button   style="color: #fff;background: #ff3636;"
+                       ng-click="del(item,$index)">
+
+    删除
+    </ion-option-button>
+
+
+
+
+  </ion-item>
+</ion-list>
+
+
+
+
+
+
+
+
+<!-- 选择商品分类 -->
+<script id="goodsClasadd.html" type="text/ng-template">
+<div class="modal">
+  <ion-header-bar  class="bar-positive item-input-inset  lb-main-title-search" >
+    <button  style="padding: 0px;" class="button button-icon "  >
+      添加分类
+    </button>
+    <h5 class="title"></h5>
+    <button class="button button-icon ion-android-close"  ng-click="goodsClasadd.hide()" >
+    </button>
+  </ion-header-bar>
+  <ion-content  overflow-scroll="false"  scrollbar-y="false"  style='background:#F5F5F4' >
+
+
+    <div class="list">
+      <div class="item item-input" >
+        <input type="text"  placeholder="分类名称"  ng-model='newc.classname'     style='padding-right:110px' maxlength='30'  >
+
+        <i class="ion-android-add"
+          ng-click='addnew()'
+
+          style="
+          position: absolute;
+          height: 100%;
+          display: inline-block;
+          padding: 0px 10px;
+          right: 0px;
+          top: 0px;
+          width: 50px;
+          text-align: center;
+          font-size: 25px;
+          border-left: 1px solid #bfbfbf;
+          line-height: 45px;
+          color:#6b3801
+          "
+        ></i>
+
+      </div>
+
+
+
+
+  </ion-content>
+</div>
+</script>
+
+
+
+      </ion-content>
+  <ion-footer-bar align-title="center" >
+    <div class="buttons">
+      <!--<button class="button">左侧按钮</button>-->
+    </div>
+
+    <div class="title"  ng-click="Add()" >
+      <div  style="
+                        height: 34px;
+                        line-height: 34px;
+                        background: transparent;
+                        font-weight: normal;
+                        margin-top: 5px;
+                        /*border: 1px solid #fe7e0b;*/
+                        border: none;
+                        border-radius: 5px;
+                        color: #fe7e0b;
+      " >
+        添加分类
+      </div>
+
+    </div>
+    <div class="buttons" >
+
+      <!--<button class="button">右侧按钮</button>-->
+
+    </div>
+  </ion-footer-bar>
+
+
+
+
+
+</ion-view>

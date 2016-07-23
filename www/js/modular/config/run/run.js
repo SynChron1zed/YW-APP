@@ -5,19 +5,38 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
 
 
   $ionicPlatform.ready(function() {
+
     $state.go('r.tab.Home');
+
+
+
+
+
+
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
       //ionic.Platform.isFullScreen = true;
       //Return event listener
         //uuid
-        var  locldevice  =    storage.getObject('device');
+
+      navigator.splashscreen.hide();
+      
+      // document.addEventListener("deviceready",  function () {
+      //   navigator.splashscreen.hide();
+      // }, false);
+
+
+
+
+
+      var  locldevice  =    storage.getObject('device');
         window.plugins.sim.getSimInfo(  function (result) {
         locldevice.phoneNumber  =result.phoneNumber;
         }, function(){});
         locldevice.uuid  = device.uuid;
         storage.setObject('device',locldevice)
+
 
 
     }else{
