@@ -1,5 +1,5 @@
 /**
- * Created by Administrator on 2016/7/21.
+ * Created by Administrator on 2016 /21.
  */
 Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout) {
 

@@ -1,0 +1,113 @@
+<ion-view    view-title=""    >
+  <ion-nav-bar class="bar-positive"    align-title="left" >
+    <ion-nav-buttons side="left">
+      <a   nav-direction="back"  href="/#/r/tab/HomPurchase"  class="button button-icon ion-ios-arrow-left">
+        订单列表
+      </a>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <a   nav-direction="back"  href=""  class="button button-icon  ">
+
+      </a>
+    </ion-nav-buttons>
+  </ion-nav-bar >
+  <ion-content  style="background: #F7F7F7;"   scrollbar-y="false"  >
+
+
+    <div class="paystate" >
+      <i class="ion-ios-checkmark"  ></i >  <span style="float: left;margin-left:5px;position: relative;top:10px;">支付成功</span>
+      <span style="display: block;clear: both"></span>
+    </div>
+
+    <div class="list cus-list   cus-listzzzsda" style="padding: 0px;border-top:1px solid #FFF3E7 !important;">
+      <label class="item item-input" style=" height: 35px;" >
+        <span class="input-label" style="color: #111">店铺名称</span> <div style="color: #444">{{shopbody.shop_name}}</div> </label>
+
+
+      <div class="item item-input"  style=" height: 35px;">
+        <span class="input-label" style="color: #111">单&nbsp;号</span><div style="color: #444">{{shopbody.order_basic_id}}</div>
+
+
+
+
+      </div>
+
+
+
+      <label class="item item-input" style=" height: 35px;" >
+        <span class="input-label" style="color: #111">状&nbsp;态</span>
+        <div style="color: #444">已付款</div>
+      </label>
+
+
+
+      <label class="item item-input" style=" height: 35px;">
+        <span class="input-label" style="color: #111">已付(￥)</span><div style="color: #444">{{shopbody.total_fee}}</div> </label>
+
+      <div class="item item-input" style=" height: 35px;">
+        <span class="input-label" style="color: #111">应付(￥)</span><div style="color: #444">{{shopbody.total_fee}}</div>
+
+
+
+
+      </div>
+
+      <label class="item item-input"  style=" height: 35px;">
+        <span class="input-label" style="color: #111">时间</span><div style="color: #444">{{ shopbody.create_date| date:"yyyy/MM/dd/" }}</div>
+      </label>
+    </div>
+
+
+
+    <div class="list">
+
+      <label class="item item-input">
+        <span class="input-label" style="
+          max-width: 138px;
+          width: 30%;color: #111"  >收货人</span>
+        <div style="color: #444">{{ shopbody.receiver_name}}</div>
+
+
+      </label>
+      <a     class="item item-icon-left item-icon-right" >
+        <i class="icon ion-iphone" style="color: #333"></i>
+        <span style="color: #666;font-size: 15px;"> {{shopbody.receiver_mobile}}</span>
+        <i class="icon ion-ios-telephone-outline" style="opacity: 0"></i>
+      </a>
+
+      <a    class="item item-icon-left item-icon-right" href="#">
+        <i class="icon ion-location"   style="color: #333" ></i>
+        <span style="color: #666;font-size: 15px;"> {{shopbody.receiver_province}}{{shopbody.receiver_city}}{{shopbody.receiver_region}}{{shopbody.receiver_street}}</span>
+        <i class="icon ion-ios-telephone-outline"  style="opacity: 0" ></i>
+      </a>
+
+
+    </div>
+    <div class="list" style="border-top: 1px solid  #E1E1E1;background-color: white"  >
+
+      <p    ng-if="!goodslsit.length"    style="border-bottom: 1px solid #ddd;height: 40px;line-height: 30px; padding-left:16px;padding-top:4px;color: #3A3A3A;font-size: 16px;">订单明细
+        <span style="float: right;font-size: 12px;margin-right: 15px">合计价格: <span style="color: rgb(254,143,37);">￥{{shopbody.total_fee}}</span></span>
+
+        <span style="float: right;font-size: 12px;margin-right: 15px">合计数量: <span style="color: rgb(254,143,37);">{{shopbody.goods_num}}</span></span>
+      </p>
+
+      <div >
+        <div style="    font-size: 16px;
+    padding-left: 15px;">{{shopbody.goods_name}}</div>
+        <div ><hr style="width: 90%;
+    "/></div><!--border-bottom: 2px dotted #e6b500;-->
+        <div style=" padding-left: 15px;">规格：标配；</div>
+        <div style="    padding-left: 15px;
+    padding-top: 5px;color: orange">{{shopbody.goods_price}}元 * {{shopbody.goods_num}}{{shopbody.goods_property}}</div>
+        <div ><hr style="width: 90%;"/></div>
+
+      </div>
+
+
+    </div>
+
+
+  </ion-content>
+
+</ion-view>
+
