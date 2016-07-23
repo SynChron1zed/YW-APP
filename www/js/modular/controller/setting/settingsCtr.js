@@ -2,7 +2,7 @@
  * Created by Why on 16/6/8.
  */
 
-Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout',function($scope,$ionicPopover, $ionicPopup,$timeout) {
+Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state',function($scope,$ionicPopover, $ionicPopup,$timeout,$state) {
 
 
   $scope.settings = {
@@ -20,6 +20,15 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
     };
    /* $scope.(".popup").addClass(".twoimage1")*/
   };
+
+  $scope.goadderss=function () {
+
+    $state.go('r.tab.Settingsaddress');
+  }
+
+  
+
+
 }])
 
   .controller('SettingsUserCtr',function($scope) {
