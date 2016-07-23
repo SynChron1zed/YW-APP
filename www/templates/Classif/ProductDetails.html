@@ -1,4 +1,4 @@
-<ion-view  hide-back-button="true"  view-title="商品详情"    hide-tabs="true"   >
+<ion-view  hide-back-button="true"  view-title="商品详情"   >
   <ion-nav-bar   class="bar-positive ">
     <ion-nav-buttons side="left">
       <a   nav-direction="back"  href="/#/r/tab/Classif"  class="button button-icon ion-ios-arrow-left">
@@ -16,55 +16,60 @@
 
     <ion-slide-box  class='homeSlidebox ClassifSlidebox' auto-play='true' >
       <ion-slide  ng-click='a1()' >
-        <img src="http://im5.tongbu.com/tbnews/201603/b08b3111-1.jpg?w=480,343&b=40" alt="">
+        <img src={{ClassifDetailsList.img_url}} alt="">
       </ion-slide>
       <ion-slide>
-        <img src="http://im5.tongbu.com/tbnews/201603/b08b3111-1.jpg?w=480,343&b=40" alt="">
+        <img src={{ClassifDetailsList.img_url}} alt="">
       </ion-slide>
       <ion-slide>
-        <img src="http://im5.tongbu.com/tbnews/201603/b08b3111-1.jpg?w=480,343&b=40" alt="">
+        <img src={{ClassifDetailsList.img_url}} alt="">
       </ion-slide>
     </ion-slide-box>
     <div class="classif-onedetais">
       <span class="">
-Apple MacBook Pro 13.3英寸笔记本电脑 银色(Core i5 处理器/8GB内存/)</span>
+{{ClassifDetailsList.goods_title}}</span>
     </div>
    <div class="classif-onemoney">
-     ￥ 1880
+    <div style="float: left;font-size: 16px;">￥ {{ClassifDetailsList.total_in_price }}</div> <div style="float: right;padding-right: 20px;color: #444">运费：{{ClassifDetailsList.express_fee}}</div> <div style="float: right;padding-right: 20px;color: #444">库存：{{ClassifDetailsList.total_in_number}}</div>
    </div>
+    <div style="height: 30px;background-color: white">
+      <img src="/img/classif/shoppic.png" style="       margin-left: 10px; width: 30px;">
+      <div style="    float: right;
+    padding-top: 5px;
+    padding-right: 9rem;">@{{ClassifDetailsList.goodsShop.shop_name}}</div>
+    </div>
     <div class="row classif-oneDetais">
-      <div class="col classif-rightborder" ng-class="{'Cone':isCone}" ng-click="Detailsone()">商品详情</div>
+     <!-- <div class="col classif-rightborder" ng-class="{'Cone':isCone}" ng-click="Detailsone()">商品详情</div>
       <div class="col classif-rightborder1" ng-class="{'Ctwo':isCtwo}" ng-click="Detailstwo()">商品尺码</div>
-      <div class="col classif-rightborder2" ng-class="{'Ctree':isCtree}" ng-click="Detailstree()">详情</div>
+      <div class="col classif-rightborder2" ng-class="{'Ctree':isCtree}" ng-click="Detailstree()">详情</div>-->
+      <div class="circle"><div style="margin-top: 18px;
+    color: white;
+    font-size: 13px;">商品详情</div></div>
 
     </div>
 
     <div class="classif-detailsone" >
      xxxxxxxxxxx
     </div>
-
-
     <div class="row classif-topborder">
-      <div class="col classif-topborder1" ><img src="../img/classif/wujiaoxing.png" style="width: 20px;"><div style="font-size: 15px;">收藏</div></div>
-      <div class="col col-40  classif-topborder2" ng-click="addcart()"><div style="font-size: 15px;color: white;padding: 10px">加入购物车</div></div>
-      <div class="col col-40 classif-topborder3" ng-click="modal.show()"><div style="font-size: 15px;color: white;padding: 10px">立即购买</div></div>
+      <div class="col  classif-topborder2" ng-click="addcart()"><div style="font-size: 15px;color: white;padding: 10px">加入购物车</div></div>
+      <div class="col  classif-topborder3" ng-click="modal.show()"><div style="font-size: 15px;color: white;padding: 10px">立即购买</div></div>
     </div>
-
 
   </ion-content>
 
 
   <script id="templates/modal.html" type="text/ng-template" >
-    <ion-modal-view style="margin-top:46%;">
-      <ion-content class="padding">
+    <ion-modal-view class="product-model">
+      <ion-content class="padding" scroll="false">
         <div class="row">
         <div  class="col" style="width: 100px">
-          <img src="http://im5.tongbu.com/tbnews/201603/b08b3111-1.jpg?w=480,343&b=40" alt="">
+          <img src={{ClassifDetailsList.img_url}} alt="">
 
         </div>
         <div class="col">
           <span class="">
-Apple MacBook Pro 13.3英寸笔记本电脑</span>
+{{ClassifDetailsList.goods_title}}</span>
           <div style="color: #a2a2a2;margin-top: 1rem;"> <span>请选择尺寸 颜色</span></div>
 
         </div>
@@ -84,25 +89,23 @@ Apple MacBook Pro 13.3英寸笔记本电脑</span>
         </div>
         <div>购物数量
           <button class="button button-small button-stable " style="    float: right;
-    background-color: #ddd;"><span style="font-size: 20px">+</span></button>
+    background-color: #ddd;" ng-click="addshop()"><span style="font-size: 20px">+</span></button>
 
-              <input disabled="disabled" type="text" value="1" style="float: right;width: 50px;text-align: center;border-bottom: 2px solid #ddd;
+              <input disabled="disabled" type="text" value={{Number}} style="float: right;width: 50px;text-align: center;border-bottom: 2px solid #ddd;
     border-top: 2px solid #ddd;">
 
           <button class="button button-small button-stable " style="    float: right;
-    background-color: #ddd;"><span style="font-size: 20px">-</span></button>
+    background-color: #ddd;" ng-click="delshop()"><span style="font-size: 20px">-</span></button>
 
         </div>
 
-
+          <button style="margin-top: 30px;;background-color: orange" class="button button-full button-positive" ng-click="ClassifConfirm(ClassifDetailsList.goods_basic_id,ClassifDetailsList.goodsShop.shop_id)">立即购买</button>
 
       </ion-content>
-      <div>
-        <button style="margin-top: 90%;background-color: orange" class="button button-full button-positive" ng-click="ClassifConfirm(ClassifDetailsList.goods_basic_id,ClassifDetailsList.goodsShop.shop_id)">立即购买</button>
-      </div>
 
     </ion-modal-view>
-
   </script>
 
 </ion-view>
+
+

@@ -1,7 +1,7 @@
 <ion-view view-title="">
   <ion-nav-bar   class="bar-positive ">
     <ion-nav-buttons side="left">
-      <a   nav-direction="back"  href="/#/r/tab/HomShopadmin"  class="button button-icon ion-ios-arrow-left">
+      <a   nav-direction="back" ng-click="backlistrotop()" class="button button-icon ion-ios-arrow-left">
         修改店铺简介
       </a>
     </ion-nav-buttons>
@@ -20,8 +20,7 @@
       <a class="item item-icon-left item-input-left" >
 
 
-          <textarea style="height: 2rem;width: 15rem" placeholder="设置店铺简介" ng-model="shopBname"  ng-change="newshopBname(shopBname)">
-1111111
+          <textarea style="height: 2rem;width: 15rem" placeholder="设置店铺简介" ng-model="shop.Name" >
           </textarea>
 
 

@@ -26,7 +26,8 @@
     </span>
       </ion-checkbox>
 
-      <a class="item item-icon-right item-one-left"  ng-repeat="item in addressList" ng-show="expressionA" ng-click="gainAdress(item)">
+      <a class="item item-icon-right item-one-left"  ng-repeat="item in addressList" ng-show="expressionA" >
+       <!-- ng-click="Gainadress(item.link_man,item.link_phone,item.province,item.city,item.region,item.street,item.zcode)"-->
 
         <span class="address-name ">{{item.link_man}}</span> <span class="address-number">{{item.link_phone}}</span><br/><span class="address">{{item.province}}{{item.city}}{{item.region}}{{item.street}} </span>
          <span class="select-chongzhi">

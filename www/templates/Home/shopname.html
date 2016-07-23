@@ -21,8 +21,8 @@
 
         <div>
 
-          <input type="text"  value="么么么么吗" class="input-color-usercolse" placeholder="设置店铺名称" ng-model="shopname"  ng-change="newshopname(shopname)" >
-          <div class="ion-close-circled ion-close-user"></div>
+          <input type="text"    class="input-color-usercolse" placeholder="设置店铺名称" ng-model="shop.name"  ng-change="newshopname(shop.name)" >
+          <div class="ion-close-circled ion-close-user" ng-click="clear()"  ng-if="showclear"></div>
         </div>
 
       </a>

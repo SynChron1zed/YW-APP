@@ -5,6 +5,8 @@
 Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout) {
   var pageNum = 0;
   var cateId = [];
+  $scope.imageshow=true;
+  $scope.imagehide =false;
 
   //商城分类
   $scope.ShoppingList=[];

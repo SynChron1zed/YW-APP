@@ -15,15 +15,19 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
     if(r){
       $scope.shopadmindata = (r.resp_data)
 
+      
+
 
     }
   });
 
 
   $scope.shopName = function (Classitem) {
-
     $state.go('r.tab.HomShopadminname', {Classitem: Classitem});
   };
+  $scope.shopBrief = function (Classitem) {
 
+    $state.go('r.tab.HomShopadminbrief', {Classitem: Classitem});
+  };
 
 }]);

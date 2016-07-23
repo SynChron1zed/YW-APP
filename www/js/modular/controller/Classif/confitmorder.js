@@ -8,18 +8,43 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
 
   var bascId = $stateParams.basicID;
   var shopId = $stateParams.shopID;
+  var Num = $stateParams.Num;
+  $scope.shopNum=Num
   var cartId = [];
 
   console.log(bascId)
   console.log(shopId)
 
   $scope.addressList=[]
+
+  Tools.getData({
+    "interface_number": "020205",
+    "client_type": window.platform,
+    "post_content": {
+      "token" : "",
+      "token_phone": "",
+      "goods_basic_id":bascId
+
+    }
+  },function(r){
+    if(r){
+
+      $scope.ClassifDetailsList = (r.resp_data.data);
+      console.log($scope.ClassifDetailsList)
+      var total = $scope.ClassifDetailsList.total_in_price * $scope.shopNum
+      $scope.TotalNum = total
+      console.log(total)
+    }
+  });
+
+
+
   //获取收货地址
   Tools.getData({
     "interface_number": "020505",
     "client_type": window.platform,
     "post_content": {
-      "token" : "{166EA93B-964B-9D39-0EE2-3A991BC364E0}",
+      "token" : "",
       "token_phone": ""
     }
   },function(r){
@@ -41,7 +66,7 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
     "interface_number": "020401",
     "client_type": window.platform,
     "post_content": {
-      "token" : "{166EA93B-964B-9D39-0EE2-3A991BC364E0}",
+      "token" : "",
       "token_phone": "",
       "shop_id": shopId,
       "sku_id": "1",
@@ -64,7 +89,7 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
       "interface_number": "020601",
       "client_type": window.platform,
       "post_content": {
-        "token" : "{166EA93B-964B-9D39-0EE2-3A991BC364E0}",
+        "token" : "",
         "token_phone": "",
         "cartIds": cartId,
         "addr_id": $scope.addressListone.addr_id ,

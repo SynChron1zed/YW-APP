@@ -11,11 +11,11 @@
       </a>
     </ion-nav-buttons>
   </ion-nav-bar>
-<ion-content scrollbar-y="false" style="background-color: #f3f3f3">
+<ion-content scrollbar-y="false" style="background-color: #f3f3f3"  >
   <div class="order-name" >
 
     <div class="order-name1">收货人:{{addressListone.link_man}}</div>
-    <div class="order-name2">{{addressListone.link_phone}}</div>
+    <div class="order-name2">手机号：{{addressListone.link_phone}}</div>
     <div class="order-name3 ">收货地址: {{addressListone.province}}{{addressListone.city}}{{addressListone.region}}{{addressListone.street}}</div>
     <img src="../img/classif/right.png" class="order-name4">
   </div>
@@ -24,28 +24,33 @@
 
 
 
-    <a class="item item-icon-left item-input-left" style="    height: 5rem;">
+    <a class="item item-icon-left item-input-left" style="    height: 7rem;">
 
-      <div>
-        <img src="/img/classif/macair.png" style="width: 5rem">
+
+        <img src={{ClassifDetailsList.img_url}} style="width: 5rem">
         <div class=" ion-close-sex"></div>
-      </div>
+
+
+          <span style="float: right;font-size: 15px;margin-right: 5rem;margin-top: 0.2rem">
+{{ClassifDetailsList.goods_title}}</span>
+        <div style="    color: #a2a2a2;
+    margin-top: -2rem;
+    float: right;
+    font-size: 13px;
+    margin-right: 5.5rem;"> <span>规格：标配</span></div>
+      <div style="font-size: 13px;color: orange;">￥ {{ClassifDetailsList.total_in_price }}</div>
+      <div style="font-size: 8px;">运费：{{ClassifDetailsList.express_fee}}</div>
+      <div style="    float: right;
+    margin-top: -1rem;">X{{shopNum}}</div>
+
 
     </a>
+
     <a class="item item-icon-left item-input-left" >
 
       <div>
 
-       配送方式 免邮
-        <div class="ion-close-sex"></div>
-      </div>
-
-    </a>
-    <a class="item item-icon-left item-input-left" >
-
-      <div>
-
-        买家留言：<input class="input-color-usercolse">
+       <input style="width: 100%" placeholder="请填写你和卖家达成的一致要求，或留言">
         <div class=" ion-close-sex"></div>
       </div>
 
@@ -55,8 +60,8 @@
   </div>
 
 
-  <div class="row classif-topborder ">
-    <div class="col col-60 " ><div style="font-size: 15px;color: orange;padding: 10px;margin-right: 90px">合计：150</div></div>
+  <div class="row classif-topborder confit-model ">
+    <div class="col col-60 " ><div style="font-size: 15px;color: orange;padding: 9px;margin-right: 90px">合计：{{TotalNum}}</div></div>
     <div class="col classif-topborder3" ng-click="orderquery()"><div style="font-size: 15px;color: white;padding: 10px">确认</div></div>
   </div>
 
