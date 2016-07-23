@@ -17,7 +17,7 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
     if(r){
 
       $scope.ClassifDetailsList = (r.resp_data.data);
-console.log($scope.ClassifDetailsList.shop_id)
+       console.log($scope.ClassifDetailsList)
 
     }
   });
@@ -30,10 +30,24 @@ console.log($scope.ClassifDetailsList.shop_id)
     $scope.modal = modal;
   });
 
+  $scope.Number=1;
+  $scope.addshop = function () {
+    $scope.Number+=1
+  }
+  $scope.delshop = function () {
+
+    if($scope.Number<=1){
+      $scope.Number=1
+    }else{
+      $scope.Number-=1
+    }
+
+  }
+
   $scope.ClassifConfirm=function (basic,shop) {
-   
+
     $scope.modal.hide();
-    $state.go('r.tab.confirmOrder',{basicID:basic,shopID:shop});
+    $state.go('r.tab.confirmOrder',{basicID:basic,shopID:shop,Num:$scope.Number});
 
   };
   $scope.isCone=true;
@@ -55,13 +69,15 @@ console.log($scope.ClassifDetailsList.shop_id)
   };
 
 
+
+
   //加入购物车
   $scope.addcart=function () {
     Tools.getData({
       "interface_number": "020401",
       "client_type": window.platform,
       "post_content": {
-        "token": "{166EA93B-964B-9D39-0EE2-3A991BC364E0}",
+        "token": "",
         "token_phone": "",
         "shop_id": "9",
         "sku_id": "1",
@@ -79,6 +95,10 @@ console.log($scope.ClassifDetailsList.shop_id)
 
       }
     });
-  }
+  };
+
+
+
+
 
 }]);

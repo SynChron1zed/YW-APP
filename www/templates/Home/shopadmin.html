@@ -33,11 +33,11 @@
         </div>
 
       </a>
-      <a class="item item-icon-right item-input-left" ui-sref="r.tab.HomShopadminbrief" ng-repeat="item in shopadmindata">
+      <a class="item item-icon-right item-input-left" ng-click="shopBrief(item.description)"  ng-repeat="item in shopadmindata">
 
         <div>
           店铺简介
-          <span style="float: right;font-size: 15px;color: #444">{{item.description}}</span>
+          <span style="float: right;font-size: 15px;color: #444;text-overflow: ellipsis;max-width: 65%;overflow: hidden;display: inline-block;">{{item.description}}</span>
           <div class=" ion-close-sex"></div>
                <span class="select-chongzhi">
      <i id="icon-right" class="icon ion-ios-arrow-right"></i>

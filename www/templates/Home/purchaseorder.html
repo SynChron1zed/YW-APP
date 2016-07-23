@@ -12,9 +12,94 @@
     </ion-nav-buttons>
   </ion-nav-bar>
 
-  <ion-content  style="background: #F7F7F7;overflow: hidden;"  overflow-scroll="true"  scroll="false"  >
+  <ion-content  style="background: #F7F7F7;overflow: hidden;height: 370px" overflow-scroll="true"  scroll="false"    >
+
+    <div class="coutms" >
+      <div  ng-class="{'active':all}"   ng-click="alls()"    >全&nbsp;部</div>
+      <div  ng-class="{'active':dfk}"   ng-click="dfks()"   >待发货</div>
+      <div  ng-class="{'active':dfc}"   ng-click="dfcs()"   >待收货</div>
+      <div  ng-class="{'active':dfh}"   ng-click="dfns()" >已完成</div>
+    </div>
+    <ion-scroll class="Hphone"  style="overflow-y:hidden;"   scrollbar-y="false"   >
+
+      <ion-refresher pulling-text="刷新" on-refresh="calssifloadMore(true)"   ></ion-refresher>
 
 
+      <!--////显示的那个 tab  自己控制-->
+      <div >
+        <div class="ordersList-one" ng-repeat="item in SalesList">
+
+          <div class="sales-name" >
+            <div style="float: left">{{item.shop_name}}</div>
+
+            <div ng-switch="{{item.post_status}}">
+              <div style="float: right"ng-switch-when="1" >已付款</div>
+              <div style="float: right" ng-switch-when="2">已发货</div>
+              <div style="float: right" ng-switch-when="3">已收货</div>
+              <div style="float: right" ng-switch-when="4">交易完成</div>
+              <div style="float: right" ng-switch-when="5">已退货</div>
+            </div>
+
+
+          </div>
+
+
+            <div  style="float: left">
+              <img style="width: 100px;padding-left: 10px;margin-top: 5px" src="/img/classif/macair.png">
+            </div>
+            <div class="msg">
+              <p >{{item.goods_name}}</p>
+              <p>规格：标配</p>
+            </div>
+
+
+          <div class="list " style="margin-top: 4rem;"   >
+
+            <a class="item item-icon-right item-input-left  " style="height: 30px;padding: 6px" >
+
+
+                <P style="font-size: 6px;
+    color: black;">
+                  共计{{item.goods_num }}件商品 &nbsp;合计:{{item.total_fee}}
+                </P>
+
+
+            </a>
+            <a class="item item-icon-right item-input-left"  style="height: 30px;padding: 6px">
+
+              <div>
+                <p style="font-size: 6px;
+    color: black;">
+                  订单编号:  {{item.odid}}
+                </p>
+              </div>
+
+            </a>
+
+            <a class="item item-icon-right item-input-left"  style="height: 50px;padding: 6px">
+
+              <div style="float: right;padding: 2px"  >
+                <button ng-click="purchaseorde(item.odid)" class="button button-small button-stabl"  style="width: 60px; border: 1px solid orange;">详&nbsp;情</button>
+              </div>
+
+            </a>
+
+
+          </div>
+
+
+          <div style="height: 1px"></div>
+        </div>
+      </div>
+
+
+
+
+      <ion-infinite-scroll ng-if="downlistloadmor" style="height: 60px;line-height: 60px;margin-bottom:40px;text-align: center" on-infinite="customcucdownlisloadMore()" distance="1%" ></ion-infinite-scroll>
+      <!--  <p ng-if="!downlistloadmor" style="height: 90px;line-height: 90px;margin-bottom:40px;text-align: center;color:#999" >没有更多了!</p>
+  -->
+
+    </ion-scroll>
 
 
 

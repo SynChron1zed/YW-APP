@@ -6,6 +6,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
   $ionicNativeTransitionsProvider.setDefaultOptions({
     duration: 405, // in milliseconds (ms), default 400,
+    duration: 401, // in milliseconds (ms), default 400,
     slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
     iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
     androiddelay: -1, // same as above but for Android, default -1
@@ -112,8 +113,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
        //   "type": "flip",
        //   "direction": "up"
        // },
-       cache: false,
-       onEnter: function(fromStateServ,$ionicHistory) {
+      onEnter: function(fromStateServ,$ionicHistory) {
           fromStateServ.saveHisty($ionicHistory,'r.login')
         },
        onExit:function(fromStateServ){
@@ -126,6 +126,8 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
        }
     })
+       
+
     //注册
     .state('r.register',{
       url: '/register',
@@ -133,7 +135,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       //   "type": "flip",
       //   "direction": "up"
       // },
-
        views: {
         'rootview': {
           templateUrl: 'templates/login/register.html',
@@ -291,7 +292,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
     //店铺简介
     .state('r.tab.HomShopadminbrief',{
-      url: '/HomShopadminbrief',
+      url: '/HomShopadminbrief/:Classitem',
       views: {
         'Home': {
           templateUrl: 'templates/Home/shopbriefing.html',
@@ -310,9 +311,27 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+    //销售订单详情
+    .state('r.tab.Homordersbody',{
+      url: '/HomOrdersBody/:basicID',
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/ordersbody.html',
+          controller: 'ordersbodyCtr'
+        }
+      }
+    })
 
-
-
+    //采购订单详情
+    .state('r.tab.HomPurordersbody',{
+      url: '/HomPurOrdersBody/:basicID',
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/purchasebody.html',
+          controller: 'purbodyCtr'
+        }
+      }
+    })
 
 
 
@@ -539,7 +558,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
   //setting  分类商品详情确认订单
     .state('r.tab.confirmOrder', {
-      url: '/r.tab.confirmOrder/:basicID/:shopID',
+      url: '/r.tab.confirmOrder/:basicID/:shopID/:Num',
       views: {
         'Classif': {
           templateUrl: 'templates/Classif/confitmorder.html',
@@ -569,7 +588,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
     //  添加编辑商品模块
     .state('r.goodsEdit', {
       url: '/goodsEdit?state:&id:',
@@ -579,35 +597,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           params:{'state':null,id:null},
           templateUrl: 'templates/goods/Edit.html',
           controller: 'goodsEditCtr'
-        }
-      }
-    })
-
-
-    //商品分类
-    .state('r.goodsclasslist', {
-      url: '/goodsclasslist',
-      onEnter: function(fromStateServ,$ionicHistory) {
-        fromStateServ.saveHisty($ionicHistory,'r.goodsclasslist')
-      },
-      onExit:function(fromStateServ){
-        fromStateServ.removebackregistevent();
-      },
-      views: {
-        'rootview': {
-          templateUrl: 'templates/goods/Classlist.html',
-          controller: 'goodsclasslist'
-        }
-      }
-    })
-    // 商品分类详情
-    .state('r.goodsclassDetail', {
-      url: '/goodsclassDetail?title:&id:',
-      views: {
-        params:{'title':null,id:null},
-        'rootview': {
-          templateUrl: 'templates/goods/clasEdith.html',
-          controller: 'goodsclassDetail'
         }
       }
     })
@@ -627,3 +616,4 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
   $urlRouterProvider.otherwise('/r/tab/Home');
 
 }]);
+
