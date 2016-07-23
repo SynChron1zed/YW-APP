@@ -126,7 +126,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
        }
     })
-       
+
 
     //注册
     .state('r.register',{
@@ -312,7 +312,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
     //销售订单详情
-    .state('r.tab.Homordersbody',{
+    .state('r.tab.Homorderbody',{
       url: '/HomOrdersBody/:basicID',
       views: {
         'Home': {
@@ -321,6 +321,8 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+
+
 
     //采购订单详情
     .state('r.tab.HomPurordersbody',{

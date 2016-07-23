@@ -178,7 +178,7 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
 
   $scope.ordersbody= function (value) {
 
-    $state.go('r.tab.Homordersbody',{basicID:value});
+    $state.go('r.tab.Homorderbody',{basicID:value});
   }
   $scope.calssifloadMore = function (xxx) {
     $timeout(function () {
