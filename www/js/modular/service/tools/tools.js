@@ -18,7 +18,6 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   };
 
 
-
   //上传到七牛  图片单张
   var   sendqiniu_single  =  function (data,claback,key_header,next){
 
@@ -110,9 +109,10 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 
   var   hidelogin = function(){
 
-        $ionicLoading.hide();
-        //native.hidloading();
 
+            console.log(native) 
+            native.hidloading();
+            
   };
   var   getData  = function(data,Callback,errorCallback,sendType){
     data.client_type =   window.platform?window.platform:'ios';
@@ -121,6 +121,8 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 
 
     console.log(JSON.stringify(data))
+
+
     $http({
       url:window.Interactivehost,
       method:sendType?sendType:'POST',

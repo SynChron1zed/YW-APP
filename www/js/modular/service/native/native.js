@@ -161,13 +161,13 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
     //原生 加载条
     loading:function(text){
       
-      $ionicLoading.show({
-      template: '<ion-spinner icon="crescent" class="spinner-royal"></ion-spinner>',
-      //template: '<ion-spinner  icon="ripple" class="spinner-energized"  ></ion-spinner>',
-      delay:100
-      });
+      // $ionicLoading.show({
+      // template: '<ion-spinner icon="crescent" class="spinner-royal"></ion-spinner>',
+      // //template: '<ion-spinner  icon="ripple" class="spinner-energized"  ></ion-spinner>',
+      // delay:100
+      // });
 
-      return false;
+      
       if(window.ProgressIndicator){
         if(text){
           $cordovaProgress.showText(false, 100000, text)
@@ -184,12 +184,8 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
     },
     //隐藏加载条
     hidloading:function(){
-
-      $ionicLoading.hide();
-
-
-      return false;
-      if(window.ProgressIndicator){
+      
+    if(window.ProgressIndicator){
       $cordovaProgress.hide();
     }else{
       $ionicLoading.hide();

@@ -24,7 +24,7 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
     }
     //编辑goods分类      Edit product categories
     $scope.edithgoodsclassopen  = function (xx){
-
+      $scope.nowgoodid  = xx.goods_basic_id;
       
       $scope.edithgoodsclass.show();
       $timeout(function(){
@@ -82,7 +82,7 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
         Tools.getData({
            "interface_number": "030205",
           "post_content": {
-          "goods_id": "52",
+          "goods_id":$scope.nowgoodid,
           "cateIds":sendoption,
           }
         },function(r){
@@ -249,14 +249,29 @@ $scope.swatchtstate  = function (){
 
 
    if(goodsState.goods_basic_id){
+   
+      
+        
             angular.forEach($scope.datalist,function(r){
+
+           
+
                   if(r.goods_basic_id  == goodsState.goods_basic_id){
+         
                     r.goods_title  = goodsState.goods_title;
                     r.img_url  = goodsState.img_url;
                     r.activity_price  = goodsState.activity_price;
+
+
+                    $scope.$apply();
+                    
                   }
             })
-      } 
+      }
+
+      
+
+
       
 
       if(goodsState.Refresh){

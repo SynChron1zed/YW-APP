@@ -215,13 +215,13 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
     //原生 加载条
     loading:function(text){
       
-      $ionicLoading.show({
-      template: '<ion-spinner icon="crescent" class="spinner-royal"></ion-spinner>',
-      //template: '<ion-spinner  icon="ripple" class="spinner-energized"  ></ion-spinner>',
-      delay:100
-      });
+      // $ionicLoading.show({
+      // template: '<ion-spinner icon="crescent" class="spinner-royal"></ion-spinner>',
+      // //template: '<ion-spinner  icon="ripple" class="spinner-energized"  ></ion-spinner>',
+      // delay:100
+      // });
 
-      return false;
+      
       if(window.ProgressIndicator){
         if(text){
           $cordovaProgress.showText(false, 100000, text)
@@ -238,12 +238,8 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
     },
     //隐藏加载条
     hidloading:function(){
-
-      $ionicLoading.hide();
-
-
-      return false;
-      if(window.ProgressIndicator){
+      
+    if(window.ProgressIndicator){
       $cordovaProgress.hide();
     }else{
       $ionicLoading.hide();
@@ -276,58 +272,6 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
   }
 
 }]);
-
-/**
- * Created by Why on 16/6/6.
- */
-Server.factory('Chats', function() {
-  // Might use a resource here that returns a JSON array
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
-  }];
-
-  return {
-    all: function() {
-      return chats;
-    },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
-    },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
-        }
-      }
-      return null;
-    }
-  };
-});
-
 
 Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$timeout','$ionicNativeTransitions',function($state,$ionicViewSwitcher,$ionicHistory,$timeout,$ionicNativeTransitions){
     var box  = {
@@ -449,6 +393,58 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
 }])
 
 /**
+ * Created by Why on 16/6/6.
+ */
+Server.factory('Chats', function() {
+  // Might use a resource here that returns a JSON array
+  // Some fake testing data
+  var chats = [{
+    id: 0,
+    name: 'Ben Sparrow',
+    lastText: 'You on your way?',
+    face: 'img/ben.png'
+  }, {
+    id: 1,
+    name: 'Max Lynx',
+    lastText: 'Hey, it\'s me',
+    face: 'img/max.png'
+  }, {
+    id: 2,
+    name: 'Adam Bradleyson',
+    lastText: 'I should buy a boat',
+    face: 'img/adam.jpg'
+  }, {
+    id: 3,
+    name: 'Perry Governor',
+    lastText: 'Look at my mukluks!',
+    face: 'img/perry.png'
+  }, {
+    id: 4,
+    name: 'Mike Harrington',
+    lastText: 'This is wicked good ice cream.',
+    face: 'img/mike.png'
+  }];
+
+  return {
+    all: function() {
+      return chats;
+    },
+    remove: function(chat) {
+      chats.splice(chats.indexOf(chat), 1);
+    },
+    get: function(chatId) {
+      for (var i = 0; i < chats.length; i++) {
+        if (chats[i].id === parseInt(chatId)) {
+          return chats[i];
+        }
+      }
+      return null;
+    }
+  };
+});
+
+
+/**
  * Created by Why on 16/6/14.
  */
   //本地存储数据===================================
@@ -565,7 +561,6 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   };
 
 
-
   //上传到七牛  图片单张
   var   sendqiniu_single  =  function (data,claback,key_header,next){
 
@@ -657,9 +652,10 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 
   var   hidelogin = function(){
 
-        $ionicLoading.hide();
-        //native.hidloading();
 
+            console.log(native) 
+            native.hidloading();
+            
   };
   var   getData  = function(data,Callback,errorCallback,sendType){
     data.client_type =   window.platform?window.platform:'ios';
@@ -668,6 +664,8 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 
 
     console.log(JSON.stringify(data))
+
+
     $http({
       url:window.Interactivehost,
       method:sendType?sendType:'POST',
