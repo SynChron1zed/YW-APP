@@ -41,9 +41,9 @@ App.directive('draggable', function($document, $timeout) {
             var now = 0 ;
             ionic.onGesture('dragstart',function(e){
 
-                element[0].style.transitionDuration='0ms';
+                element[0].style.webkitTransitionDuration='0ms';
 
-                var position   = element[0].style.transform.replace('translateX(','').replace('px)','');
+                var position   = element[0].style.webkitTransform.replace('translateX(','').replace('px)','');
                 if(position !==  ''){
                     now  = parseInt(position);
                 }else{
@@ -51,21 +51,21 @@ App.directive('draggable', function($document, $timeout) {
                 }
             },element[0])
             ionic.onGesture('drag',function(e){
-                element[0].style.transform='translateX('+(parseInt(e.gesture.deltaX)+now)+'px)';
+                element[0].style.webkitTransform='translateX('+(parseInt(e.gesture.deltaX)+now)+'px)';
             },element[0])
 
             ionic.onGesture('dragend',function(e){
-                element[0].style.transitionDuration='200ms';
+                element[0].style.webkitTransitionDuration='200ms';
                 var  allleft  = element[0].offsetWidth - window.innerWidth;
-                var  endoption  =element[0].style.transform.replace('translateX(','').replace('px)','');
+                var  endoption  =element[0].style.webkitTransform.replace('translateX(','').replace('px)','');
                 if(endoption > 0){
-                    element[0].style.transform = 'translateX(0px)';
+                    element[0].style.webkitTransform = 'translateX(0px)';
                 }
                 else  if( Math.abs(endoption) >= allleft){
                     if(element[0].offsetWidth< window.innerWidth ){
-                        element[0].style.transform = 'translateX(0px)';
+                        element[0].style.webkitTransform = 'translateX(0px)';
                     } else{
-                        element[0].style.transform = 'translateX('+(-allleft)+'px)';
+                        element[0].style.webkitTransform = 'translateX('+(-allleft)+'px)';
                     }
                 }
             },element[0])
@@ -1386,6 +1386,13 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
 
 
 }]);
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('tabCtr',[function(){
+
+}])
 
 Ctr.controller('goodsclasslist',['$scope','fromStateServ','$timeout','Tools','native','$ionicModal','$state',function($scope,fromStateServ,$timeout,Tools,native,$ionicModal,$state){
 
@@ -3108,13 +3115,6 @@ $scope.swatchtstate  = function (){
 
 
 
-
-}])
-
-/**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('tabCtr',[function(){
 
 }])
 
