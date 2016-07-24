@@ -4,9 +4,9 @@
  */
 App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpProvider','$ionicNativeTransitionsProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider,$httpProvider,$ionicNativeTransitionsProvider){
 
+  
   $ionicNativeTransitionsProvider.setDefaultOptions({
     duration: 405, // in milliseconds (ms), default 400,
-    duration: 401, // in milliseconds (ms), default 400,
     slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
     iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
     androiddelay: -1, // same as above but for Android, default -1
@@ -602,6 +602,35 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+
+    //商品分类
+    .state('r.goodsclasslist', {
+      url: '/goodsclasslist',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.goodsclasslist')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/goods/Classlist.html',
+          controller: 'goodsclasslist'
+        }
+      }
+    })
+    // 商品分类详情
+    .state('r.goodsclassDetail', {
+      url: '/goodsclassDetail?title:&id:',
+      views: {
+        params:{'title':null,id:null},
+        'rootview': {
+          templateUrl: 'templates/goods/clasEdith.html',
+          controller: 'goodsclassDetail'
+        }
+      }
+    })
+
 
 
 

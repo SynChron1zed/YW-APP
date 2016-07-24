@@ -1,11 +1,49 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage) {
+Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory) {
+
+
+
+
+ //对安卓返回键的  特殊处理  tabs
+  $scope.$on('$ionicView.beforeEnter',function(){
+       window.androdzerofun  =  undefined
+       window.androdzerofun_parms  =undefined;
+       window.androdzerofun_clback  = undefined;
+    });
+
+
+
+
+
+
 
     $scope.a1 = function (){
       alert('1');
     };
+
+
+    //商品分类
+    $scope.goodsClass  = function (){
+
+
+
+      if(storage.getObject('UserInfo').user_id){
+      $scope.goModular('r.goodsclasslist')
+      }else{
+        $ionicPopup.confirm({
+          title:'您还没有登录！',
+          cancelText:'取消',
+          okText:'登陆'
+        }).then(function(r){
+              if(r){
+                $scope.goModular('r.login');
+              }
+        })
+      }
+
+    }
 
     //商品管理
     $scope.goodmsg =  function (){

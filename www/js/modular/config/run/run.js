@@ -1,9 +1,11 @@
 /**
  * Created by Why on 16/6/6.
  */
-App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,$ionicNativeTransitions,$timeout) {
+App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout','native',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,$ionicNativeTransitions,$timeout,native) {
+ 
 
-
+  
+  
   $ionicPlatform.ready(function() {
     $state.go('r.tab.Home');
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -12,12 +14,24 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
       //ionic.Platform.isFullScreen = true;
       //Return event listener
         //uuid
-        var  locldevice  =    storage.getObject('device');
+
+
+             setTimeout(function () {  
+                   navigator.splashscreen.hide();
+
+           }, 1000);  
+
+
+
+
+
+      var  locldevice  =    storage.getObject('device');
         window.plugins.sim.getSimInfo(  function (result) {
         locldevice.phoneNumber  =result.phoneNumber;
         }, function(){});
         locldevice.uuid  = device.uuid;
         storage.setObject('device',locldevice)
+
 
 
     }else{
