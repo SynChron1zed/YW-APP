@@ -36,7 +36,7 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
           }
         },function(r){
               if(r){  
-                console.log(r);
+              
                 $scope.goodsClasda  = r.resp_data.shop_cate;
               }
         })
@@ -97,13 +97,9 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
         })   
     }
 
-
-
-
-
     //商品上架  
     $scope.goodsup = function (b,index){
-         console.log(b.goods_basic_id);
+        
         goodsuprodow(b.goods_basic_id,function(r){
             Tools.rmArrin($scope.datalist,index)
         $scope.salestotin.up  =  parseInt($scope.salestotin.up)+1;
@@ -113,7 +109,7 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
     }
     //商品下架 
     $scope.goodsdown = function (b,index){
-        console.log(b.goods_basic_id);
+      
         goodsuprodow(b.goods_basic_id,function(r){
             Tools.rmArrin($scope.datalist,index)
             $scope.salestotin.up  = parseInt($scope.salestotin.up)-1;

@@ -5,6 +5,10 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
   
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
+
+    //页面的状态变化  请求
+    handtat();
+    
      if ($ionicHistory.backView()) {
        window.androdzerofun  = function(parm1,parm2){
          $ionicHistory.goBack();
@@ -228,19 +232,11 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
             console.log(r)
 
           })
-
-
-
-
-
-
         };
 
 
+     //window.stateChangeListen['r.tab.Shopping_Cart']  = handtat;
 
-
-
-     window.stateChangeListen['r.tab.Shopping_Cart']  = handtat;
-     handtat()
+     
 
 }])

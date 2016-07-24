@@ -5,6 +5,17 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 
 
 
+  //去查看店铺主页
+  $scope.shophome  =function (){
+
+      if(storage.getObject('UserInfo').shop_id){
+        fromStateServ.stateChange('r.Shophome',{id:storage.getObject('UserInfo').shop_id});  
+      }else{
+        native.task('还没有加入公司');
+      }
+         
+  }
+
 
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
@@ -12,9 +23,7 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
        window.androdzerofun_parms  =undefined;
        window.androdzerofun_clback  = undefined;
     });
-
-
-
+    
 
 
 

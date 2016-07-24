@@ -237,6 +237,12 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
 
+
+
+
+
+
+
     //慈善专区
     .state('r.tab.HomeCharitable',{
       url: '/HomeCharitable',
@@ -630,6 +636,25 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+
+    //店铺 home列表
+      .state('r.Shophome', {
+      url: '/Shophome?id:',      
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.Shophome')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },      
+      views: {
+        'rootview': {
+          params:{id:null},
+          templateUrl: 'templates/shop/home.html',
+          controller: 'shophomeCtr'
+        }
+      }
+    })
+    
 
 
 

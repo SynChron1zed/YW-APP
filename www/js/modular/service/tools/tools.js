@@ -121,22 +121,17 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       $timeout(function(){
                 hidelogin();
               },200);
-
       if(r.resp_code== '0000'){
-      
         Callback(r);
       }else{
-        
-
+        Callback(false);
         // Callback(false);
         // errorCallback?errorCallback(r):null;
         if(r.msg){
-          $ionicPopup.alert({
-            title: r.msg
-          });
+          
+           native.task(r.msg)
         }else{
            native.task('异常错误!')
-
         }
       }
     }).error(function(e){
@@ -144,8 +139,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       $timeout(function(){
         hidelogin();
       },200);
-      
-     
+      Callback(false); 
       native.task('网络错误,请确认网络连接!')
 
 

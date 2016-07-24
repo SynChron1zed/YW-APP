@@ -68,7 +68,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
          }
     },function(r){
          if(r){
-           console.log(r)
+           
               $scope.goods.systemClass   = r.resp_data.sys_cate;
               $scope.goods.catelist  = r.resp_data.shop_cate;
               $scope.systemparnslec();
@@ -139,14 +139,14 @@ $timeout(function(){
     var selectleng  = 0;
     var sselctname  =  undefined;
      angular.forEach($scope.goods.catelist,function(k){
-          console.log(k);
+          
           if(k.select){
             selectleng++;
             sselctname = k.cate_name;
           }
      });
 
-    console.log(selectleng);
+    
 
      if(selectleng == 0 ){
           $scope.goods.cateSelctItem    ='请选择分类';
@@ -323,7 +323,7 @@ $scope.chkefengmian  = function (c){
     })
   Tools.sendqiniu_queue(imguplist,function(r){
     angular.forEach(imgindex,function(v,key){
-      console.log(JSON.stringify(r))
+      
       $scope.goodspice[v].key  = r[key].key
     });
     claback()
@@ -371,7 +371,7 @@ $scope.save  = function (){
         }
       }
 
-     console.log($scope.goods)
+     
 
      var sys_catId  ='';
 
@@ -429,7 +429,7 @@ $scope.save  = function (){
 
             goodsState.activity_price  = r.resp_data.total_in_price;
             
-            console.log(goodsState)
+          
             
         
           native.task('保存成功!',3000)

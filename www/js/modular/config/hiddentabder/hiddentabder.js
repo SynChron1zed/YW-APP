@@ -6,9 +6,6 @@ App.directive('hideTabs',function($rootScope) {
             scope.$on('$ionicView.beforeEnter', function() {
                 scope.$watch(attributes.hideTabs, function(value){
                     $rootScope.hideTabs = true;
-                    
-
-
                 });
             });
             scope.$on('$ionicView.beforeLeave', function() {

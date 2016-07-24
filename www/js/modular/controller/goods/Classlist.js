@@ -27,7 +27,7 @@ Ctr.controller('goodsclasslist',['$scope','fromStateServ','$timeout','Tools','na
        },function(r){
          if(r){
 
-           console.log(r.resp_data)
+           
            if(!r.resp_data.num){
              r.resp_data.num  = 0;
            }
@@ -68,7 +68,7 @@ $scope.parenttitle     =   fromStateServ.getState('r.goodsclasslist').title;
       Tools.getData({"interface_number": "030201","post_content": {}},function(r){
         if(r){
           $scope.data  = r.resp_data;
-          console.log(r);
+          
         }
       })
     }, 200);
@@ -80,7 +80,7 @@ $scope.parenttitle     =   fromStateServ.getState('r.goodsclasslist').title;
   $scope.del  = function(s,ins){
         
 
-        console.log(s)
+        
       Tools.getData({
         "interface_number": "030203",
         "post_content": {

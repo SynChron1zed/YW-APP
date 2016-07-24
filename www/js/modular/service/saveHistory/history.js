@@ -75,40 +75,24 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
         },
         saveHisty:function ($histy,stateNa){
             var hostiy  = $histy.currentView();
-
             //注册安卓返回监听
             window.androdzerofun  =  box.backView;
             window.androdzerofun_parms  = stateNa;
             window.androdzerofun_clback  = window.anbackAndcals;
-
-
             //内部固化一个返回路径  (当第三方视图完全退出时 销毁)
             window.backtoinroot      =   box.backView;
             window.backtoinroot_parms  =  stateNa;
-
-
-
-
-
-
-
-
-
-            // var inc  = false;
-            // var overflow  = [];
-            // angular.forEach($ionicHistory.viewHistory().views,function(v,k){if(inc){overflow.push(k);}if(v.stateName  == stateNa){inc=true;}})
-            // angular.forEach(overflow,function (v){delete $ionicHistory.viewHistory().views[v];});
-
-            $timeout(function(){
-                $ionicHistory.clearHistory();
-            },50)
-
+            
             if(this.savestate){
                 this.savestate  = false;
                 box.data = {};
                 this.setState(stateNa,hostiy.stateName,hostiy.stateParams,hostiy.title,hostiy.viewId);
                 console.log(box.data)
             }
+
+
+
+
 
         }
 
