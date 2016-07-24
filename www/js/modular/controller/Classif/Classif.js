@@ -2,7 +2,25 @@
  * Created by Why on 16/6/8.
  */
 
-Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout) {
+Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$ionicHistory',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$ionicHistory) {
+
+
+
+ //对安卓返回键的  特殊处理  tabs
+  $scope.$on('$ionicView.beforeEnter',function(){
+     if ($ionicHistory.backView()) {
+       window.androdzerofun  = function(parm1,parm2){
+         $ionicHistory.goBack();
+       }
+       window.androdzerofun_parms  ='tabswtathing';
+       window.androdzerofun_clback  = 'nothing';
+     }
+    });
+
+
+
+
+
   var pageNum = 0;
   var cateId = [];
   $scope.imageshow=true;

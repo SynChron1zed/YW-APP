@@ -50,54 +50,28 @@ gulp.task('buildStyle',function(){
 
 //开发环境合并js  代码
 gulp.task('dev_appconfig',function(){
-  gulp.src('./www/js/modular/config/**/*.js')
+  gulp.src('./www/js/modular/**/*.js')
     .pipe(concat('app.js'))
     .pipe(gulp.dest('./www/js'))
 });
 
-gulp.task('dev_controllers',function(){
-  gulp.src('./www/js/modular/controller/**/*.js')
-    .pipe(concat('controllers.js'))
-    .pipe(gulp.dest('./www/js'))
-});
-gulp.task('dev_services',function(){
-  gulp.src('./www/js/modular/service/**/*.js')
-    .pipe(concat('services.js'))
-    .pipe(gulp.dest('./www/js'))
-});
+
 gulp.task('dev_buildJs',function(){
-  gulp.watch('./www/js/modular/config/**/*.js',['dev_appconfig']);
-  gulp.watch('./www/js/modular/controller/**/*.js',['dev_controllers']);
-  gulp.watch('./www/js/modular/service/**/*.js',['dev_services']);
+  gulp.watch('./www/js/modular/**/*.js',['dev_appconfig']);
 });
 
 
 
 //生产压缩js代码
 gulp.task('pdc_appconfig',function(){
-  gulp.src('./www/js/modular/config/**/*.js')
+  gulp.src('./www/js/modular/**/*.js')
     .pipe(concat('app.js'))
     .pipe(gulify())
     .pipe(gulp.dest('./www/js'))
 });
 
-gulp.task('pdc_controllers',function(){
-  gulp.src('./www/js/modular/controller/**/*.js')
-    .pipe(concat('controllers.js'))
-    .pipe(gulify())
-    .pipe(gulp.dest('./www/js'))
-});
-gulp.task('pdc_services',function(){
-  gulp.src('./www/js/modular/service/**/*.js')
-    .pipe(concat('services.js'))
-    .pipe(gulify())
-    .pipe(gulp.dest('./www/js'))
-});
-
 gulp.task('pdc_buildJs',function(){
-  gulp.watch('./www/js/modular/config/**/*.js',['pdc_appconfig']);
-  gulp.watch('./www/js/modular/controller/**/*.js',['pdc_controllers']);
-  gulp.watch('./www/js/modular/service/**/*.js',['pdc_services']);
+  gulp.watch('./www/js/modular/**/*.js',['pdc_appconfig']);
 });
 
 

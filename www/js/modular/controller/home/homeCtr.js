@@ -1,7 +1,18 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage) {
+Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory) {
+
+
+
+
+ //对安卓返回键的  特殊处理  tabs
+  $scope.$on('$ionicView.beforeEnter',function(){
+       window.androdzerofun  =  undefined
+       window.androdzerofun_parms  =undefined;
+       window.androdzerofun_clback  = undefined;
+    });
+
 
 
 
@@ -15,6 +26,8 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 
     //商品分类
     $scope.goodsClass  = function (){
+
+
 
       if(storage.getObject('UserInfo').user_id){
       $scope.goModular('r.goodsclasslist')

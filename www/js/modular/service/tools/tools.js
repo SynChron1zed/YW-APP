@@ -6,15 +6,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 
   //加在视图的加载效果http前调用
   var   showlogin = function() {
-
-
     native.loading();
-
-    // $ionicLoading.show({
-    //   //template: '<ion-spinner icon="crescent" class="spinner-royal"></ion-spinner>',
-    //   template: '<ion-spinner  icon="ripple" class="spinner-energized"  ></ion-spinner>',
-    //   delay:100
-    // });
   };
 
 
@@ -106,20 +98,16 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
        }
      })
    };
-
+      
   var   hidelogin = function(){
-
-
-            console.log(native) 
             native.hidloading();
-            
   };
   var   getData  = function(data,Callback,errorCallback,sendType){
     data.client_type =   window.platform?window.platform:'ios';
     data.post_content.token  = window.Token?window.Token:storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:'';
     data.post_content.token_phone  = window.token_phone?window.token_phone:storage.getObject('UserInfo').phone?storage.getObject('UserInfo').phone:'';
 
-
+    console.log('数据监控 ....')
     console.log(JSON.stringify(data))
 
 
@@ -147,9 +135,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
             title: r.msg
           });
         }else{
-          $ionicPopup.alert({
-            title: '异常错误!'
-          });
+           native.task('异常错误!')
 
         }
       }
@@ -159,9 +145,10 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
         hidelogin();
       },200);
       
-      $ionicPopup.alert({
-        title:'网络错误,请确认网络连接!'
-      });
+     
+      native.task('网络错误,请确认网络连接!')
+
+
     });
 
   };
