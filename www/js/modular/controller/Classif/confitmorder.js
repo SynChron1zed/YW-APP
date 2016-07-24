@@ -15,7 +15,16 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
   console.log(bascId)
   console.log(shopId)
 
-  $scope.addressList=[]
+  $scope.addressList=[];
+
+  $ionicModal.fromTemplateUrl('templates/addressmodal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.addressmodal = modal;
+    $scope.addressmodal.show();
+  });
+
+
 
   Tools.getData({
     "interface_number": "020205",
@@ -51,14 +60,26 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
     if(r){
 
       $scope.addressList= (r.resp_data.data)
-      for(var i = 0;i<$scope.addressList.length;i++){
+     /* for(var i = 0;i<$scope.addressList.length;i++){
         if($scope.addressList[i].is_default=="1"){
           $scope.addressListone = $scope.addressList[i]
         }
-      }
+      }*/
 
     }
   });
+
+  $scope.gainAdress = function (gain) {
+
+   $scope.adressid = gain;
+    console.log($scope.adressid)
+    for(var i = 0;i<$scope.addressList.length;i++){
+      if($scope.addressList[i].addr_id==$scope.adressid){
+        $scope.addressListone = $scope.addressList[i]
+      }
+    }
+
+  }
 
 
   //加入购物车
@@ -81,6 +102,8 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
 
     }
   });
+
+
 
   //确认订单
   $scope.orderquery = function () {

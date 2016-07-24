@@ -1,4 +1,4 @@
-<ion-view  hide-back-button="true"  view-title="商品详情"   >
+<ion-view  hide-tabs="true"   view-title="商品详情"   >
   <ion-nav-bar   class="bar-positive ">
     <ion-nav-buttons side="left">
       <a   nav-direction="back"  href="/#/r/tab/Classif"  class="button button-icon ion-ios-arrow-left">
@@ -51,12 +51,21 @@
     <div class="classif-detailsone" >
      xxxxxxxxxxx
     </div>
-    <div class="row classif-topborder">
-      <div class="col  classif-topborder2" ng-click="addcart()"><div style="font-size: 15px;color: white;padding: 10px">加入购物车</div></div>
-      <div class="col  classif-topborder3" ng-click="modal.show()"><div style="font-size: 15px;color: white;padding: 10px">立即购买</div></div>
-    </div>
+
 
   </ion-content>
+
+  <ion-footer-bar align-title="center" >
+    <div class="col  classif-topborder2" ng-click="gouwuchemodal.show()" style="text-align: -webkit-center;
+    height: 45px;
+    margin-top: -5px;
+    margin-left: -5px;"><div style="font-size: 15px;color: white;padding: 7px">加入购物车</div></div>
+    <div class="col  classif-topborder3" ng-click="modal.show()" style="text-align: -webkit-center;
+    height: 45px;
+    margin-top: -5px;
+    margin-right: -5px;"><div style="font-size: 15px;color: white;padding: 7px">立即购买</div></div>
+
+  </ion-footer-bar>
 
 
   <script id="templates/modal.html" type="text/ng-template" >
@@ -70,12 +79,12 @@
         <div class="col">
           <span class="">
 {{ClassifDetailsList.goods_title}}</span>
-          <div style="color: #a2a2a2;margin-top: 1rem;"> <span>请选择尺寸 颜色</span></div>
+          <div style="color: #a2a2a2;margin-top: 1rem;"> <span>请选择购买数量</span></div>
 
         </div>
         </div>
 
-        <div style="margin-top: -15px;">尺码
+      <!--  <div style="margin-top: -15px;">尺码
           <div class="row">
         <div class="col30 classif-chicun" >标准</div>
 
@@ -86,7 +95,7 @@
             <div class="col30 classif-chicun" >标准</div>
 
           </div>
-        </div>
+        </div>-->
         <div>购物数量
           <button class="button button-small button-stable " style="    float: right;
     background-color: #ddd;" ng-click="addshop()"><span style="font-size: 20px">+</span></button>
@@ -105,6 +114,56 @@
 
     </ion-modal-view>
   </script>
+
+
+  <!--购物车model-->
+  <script id="templates/gouwuchemodal.html" type="text/ng-template" >
+    <ion-modal-view class="product-model">
+      <ion-content class="padding" scroll="false">
+        <div class="row">
+          <div  class="col" style="width: 100px">
+            <img src={{ClassifDetailsList.img_url}} alt="">
+
+          </div>
+          <div class="col">
+          <span class="">
+{{ClassifDetailsList.goods_title}}</span>
+            <div style="color: #a2a2a2;margin-top: 1rem;"> <span>请选择购买数量</span></div>
+
+          </div>
+        </div>
+
+        <!--  <div style="margin-top: -15px;">尺码
+            <div class="row">
+          <div class="col30 classif-chicun" >标准</div>
+
+            </div>
+          </div>
+          <div>颜色
+            <div class="row">
+              <div class="col30 classif-chicun" >标准</div>
+
+            </div>
+          </div>-->
+        <div>购物数量
+          <button class="button button-small button-stable " style="    float: right;
+    background-color: #ddd;" ng-click="addshop()"><span style="font-size: 20px">+</span></button>
+
+          <input disabled="disabled" type="text" value={{Number}} style="float: right;width: 50px;text-align: center;border-bottom: 2px solid #ddd;
+    border-top: 2px solid #ddd;">
+
+          <button class="button button-small button-stable " style="    float: right;
+    background-color: #ddd;" ng-click="delshop()"><span style="font-size: 20px">-</span></button>
+
+        </div>
+
+        <button style="margin-top: 30px;;background-color: green" class="button button-full button-positive" ng-click="addcart()">加入购物车</button>
+
+      </ion-content>
+
+    </ion-modal-view>
+  </script>
+
 
 </ion-view>
 

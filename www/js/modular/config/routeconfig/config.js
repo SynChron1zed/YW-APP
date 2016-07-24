@@ -312,7 +312,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
     //销售订单详情
-    .state('r.tab.Homorderbody',{
+    .state('r.tab.Homordersbody',{
       url: '/HomOrdersBody/:basicID',
       views: {
         'Home': {
