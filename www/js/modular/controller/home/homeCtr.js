@@ -12,11 +12,9 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
         fromStateServ.stateChange('r.Shophome',{id:storage.getObject('UserInfo').shop_id});  
       }else{
         native.task('还没有加入公司');
-      }
-         
+      }      
   }
-
-
+    
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
        window.androdzerofun  =  undefined
