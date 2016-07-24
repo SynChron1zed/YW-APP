@@ -1,10 +1,6 @@
 <ion-view  hide-tabs="true"   view-title="商品详情"   >
-  <ion-nav-bar   class="bar-positive ">
-    <ion-nav-buttons side="left">
-      <a   nav-direction="back"  href="/#/r/tab/Classif"  class="button button-icon ion-ios-arrow-left">
 
-      </a>
-    </ion-nav-buttons>
+
     <ion-nav-buttons side="right">
       <a   nav-direction="back"  href=""  class="button button-icon ">
 
@@ -108,7 +104,7 @@
 
         </div>
 
-          <button style="margin-top: 30px;;background-color: orange" class="button button-full button-positive" ng-click="ClassifConfirm(ClassifDetailsList.goods_basic_id,ClassifDetailsList.goodsShop.shop_id)">立即购买</button>
+          <button style="margin-top: 30px;;background-color: orange" class="button button-full button-positive" ng-click="ClassifConfirm('r.confirmOrder',ClassifDetailsList.goods_basic_id,ClassifDetailsList.goodsShop.shop_id)">立即购买</button>
 
       </ion-content>
 

@@ -2,7 +2,7 @@
  * Created by Why on 16/6/8.
  */
 
-Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state','$ionicHistory',function($scope,$ionicPopover, $ionicPopup,$timeout,$state,$ionicHistory) {
+Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state','$ionicHistory','storage','fromStateServ','$ionicScrollDelegate',function($scope,$ionicPopover, $ionicPopup,$timeout,$state,$ionicHistory,storage,fromStateServ,$ionicScrollDelegate) {
 
 
 
@@ -17,7 +17,31 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
        window.androdzerofun_clback  = 'nothing';
      }
     });
+  $scope.$on('$stateChangeSuccess',function(){});
+  $scope.backView  = function(){
+    $scope.$ionicGoBack();
+  };
 
+  function handtat  (){
+
+
+
+    if(storage.getObject('UserInfo').user_id){
+      $scope.isShow = false;
+
+      $state.go('r.tab.Settings')
+
+
+    }else{
+      $scope.isShow = true;
+    }
+    $ionicScrollDelegate.scrollTop();
+  }
+
+  $scope.login  =  function(r){
+
+    fromStateServ.stateChange(r);
+  };
 
 
 
@@ -43,7 +67,8 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
   }
 
 
-
+  window.stateChangeListen['r.tab.Settings']  = handtat;
+  handtat()
 
 }])
 

@@ -1,7 +1,18 @@
 <ion-view view-title="个人中心"  hide-nav-bar="true"   style="overflow-x: hidden; overflow-y:visible;" scroll="false"   >
 
+
   <ion-content style="background: whitesmoke" scrollbar-y="false">
 
+    <div class="shopcartnologin" ng-show="isShow" >
+
+
+      <img src="./img/img3@x.png" alt="">
+      <button class="gotologin"    ng-click="login('r.login')" >登 陆</button>
+    </div>
+
+
+
+  <div class="setting-quanbu" ng-show="!isShow">
     <div style="height: 12.2rem;;background-color: yellow">
       <div id="header-images" class="homein-tabs-meun row">
         <div class="col">
@@ -102,9 +113,25 @@
 
       </div>
 
+
     </div>
+  <!--  <div style="    margin-top: 40px;
+    text-align: -webkit-center;">
+      <p>
+        <button class="button button-energized">退出登录</button>
+      </p>
+    </div>
+-->
+   <div style=" margin-top: 2rem;
+    margin-bottom: 5px;
+    height: 50px;
+    background-color: white;
+ " onclick="window.outlogin()"  ng-click="login('r.login')"  ><div style="text-align: -webkit-center;
+    padding-top: 15px;
+    font-size: 15px;
+    color: #ef473a;">退出登录</div></div>
 
-
+</div>
 
     <script  id="my-friend" type="text/ng-template" >
       <div style="height: 15rem;" ng-click="closePopup()">

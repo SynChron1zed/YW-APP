@@ -52,7 +52,7 @@ Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateSer
           "interface_number": "020501",
           "client_type": window.platform,
           "post_content": {
-            "token": "{EB5E2D45-AC28-1573-A39E-9F17DDE732BE}",
+            "token": "",
             "token_phone": "",
             "province": "湖南省",
             "city": "长沙市",
@@ -80,5 +80,26 @@ Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateSer
 
 
   }
+
+
+  //保存历史记录的方法  调用  上一次1 title  和返回方法
+  $scope.backtoprevView  =   fromStateServ.backView;
+
+  // //安卓返回键  对公共模块的返回
+  // $ionicPlatform.registerBackButtonAction(function (e) {
+  //    e.preventDefault();
+  //    $scope.backtoprevView('r.login');
+  //    return false;
+  //  }, 101);
+  $scope.$on('$stateChangeSuccess',function(){
+    debugger;
+    $scope.loginboj = {};
+    $scope.ing  = false;
+    $scope.parenttitle     =   fromStateServ.getState('r.addAddress').title;
+  });
+
+  $scope.backView  = function(){
+    $scope.$ionicGoBack();
+  };
 
 }]);

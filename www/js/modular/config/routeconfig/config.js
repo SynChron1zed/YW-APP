@@ -4,7 +4,7 @@
  */
 App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpProvider','$ionicNativeTransitionsProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider,$httpProvider,$ionicNativeTransitionsProvider){
 
-  
+
   $ionicNativeTransitionsProvider.setDefaultOptions({
     duration: 405, // in milliseconds (ms), default 400,
     slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
@@ -126,6 +126,8 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
        }
     })
+
+
 
 
     //注册
@@ -509,7 +511,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
 
     //setting  个人设置 管理收货地址 addadresss
-    .state('r.tab.Settingsaddaddress', {
+  /*  .state('r.tab.Settingsaddaddress', {
       url: '/Settings/address/add',
       views: {
         'setting': {
@@ -518,7 +520,30 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
 
       }
+    })*/
+
+    .state('r.addAddress', {
+      url: '/addAddress',
+      // nativeTransitions: {
+      //   "type": "flip",
+      //   "direction": "up"
+      // },
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.addAddress')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Setting/SettingsAddAddress.html',
+          controller: 'SettingsAddAddressCtr'
+        }
+      }
     })
+
+
+
     //setting  个人设置 管理收货地址 selectaddadresss
     .state('r.tab.SettingsSelectaddaddress', {
       url: '/Settings/address/add/select',
@@ -559,7 +584,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
   })
 
   //setting  分类商品详情确认订单
-    .state('r.tab.confirmOrder', {
+  /*  .state('r.tab.confirmOrder', {
       url: '/r.tab.confirmOrder/:basicID/:shopID/:Num',
       views: {
         'Classif': {
@@ -567,9 +592,29 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           controller: 'ConfirmOrderCtr'
         }
       }
+    })*/
+
+
+  //setting  分类商品详情确认订单
+    .state('r.confirmOrder', {
+      url: '/confirmOrder/:basicID/:shopID/:Num',
+      // nativeTransitions: {
+      //   "type": "flip",
+      //   "direction": "up"
+      // },
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.confirmOrder')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Classif/confitmorder.html',
+          controller: 'ConfirmOrderCtr'
+        }
+      }
     })
-
-
 
 
 

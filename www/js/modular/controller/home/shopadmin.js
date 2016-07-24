@@ -15,7 +15,7 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
     if(r){
       $scope.shopadmindata = (r.resp_data)
 
-      
+
 
 
     }
@@ -29,5 +29,59 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
 
     $state.go('r.tab.HomShopadminbrief', {Classitem: Classitem});
   };
+
+
+  $scope.goodspice  = [];
+
+  $scope.selectpir  = function (){
+
+    if($scope.goodspice.lenght >= 5){
+
+      return false;
+    }
+
+    Tools.chekpirc({
+      targetWidth:1500,
+    },function(r){
+      $scope.goodspice.push({
+        fengmian:false,
+        img:r,
+        news:true,
+        key:undefined
+      })
+    })
+  };
+
+  //图片上传
+  function  uploadimg (claback){
+    //待上传图片
+    var   imguplist = [];
+    //保存索引
+    var   imgindex = [];
+
+
+    if($scope.goodspice.length==0){
+
+      claback();
+      return  false;
+    }
+
+
+    angular.forEach($scope.goodspice,function(v,key){
+      if(v.news){
+        imguplist.push(v.img)
+        imgindex.push(key);
+      }
+    })
+    Tools.sendqiniu_queue(imguplist,function(r){
+      angular.forEach(imgindex,function(v,key){
+        console.log(JSON.stringify(r))
+        $scope.goodspice[v].key  = r[key].key
+      });
+      claback()
+    },'goods')
+  }
+
+
 
 }]);

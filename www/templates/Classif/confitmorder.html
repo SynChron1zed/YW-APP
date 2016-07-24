@@ -1,14 +1,11 @@
 <ion-view  hide-tabs="true"   view-title="确认订单"   >
-  <ion-nav-bar   class="bar-positive ">
-    <ion-nav-buttons side="left">
-      <a   nav-direction="back"  href="/#/r/tab/Classif"  class="button button-icon ion-ios-arrow-left">
-      </a>
-    </ion-nav-buttons>
+
+
     <ion-nav-buttons side="right">
       <a   nav-direction="back"  href=""  class="button button-icon ">
       </a>
     </ion-nav-buttons>
-  </ion-nav-bar>
+
 <ion-content scrollbar-y="false" style="background-color: #f3f3f3"  >
   <div class="order-name"  ng-click="addressmodal.show()">
     <div class="order-name1">收货人:{{addressListone.link_man}}</div>
@@ -98,12 +95,12 @@
           <ion-scroll    style="overflow-y:hidden;"  scrollbar-y="false" class="addressmodel"    >
           <div>
 
-          <ion-radio  ng-repeat="item in addressList"   ng-click="gainAdress(item.addr_id)">
+          <ion-radio  ng-repeat="item in addressList" ng-value="item.is_default" ng-model="data.clientSide"  ng-click="gainAdress(item.addr_id)">
             <span class="address-name ">{{item.link_man}}</span> <span class="address-number">{{item.link_phone}}</span><br/><span class="address">{{item.province}}{{item.city}}{{item.region}}{{item.street}} </span>
 
           </ion-radio>
 
-          <a class="item  item-icon-right item-one-left ion-ios-plus-outline" >
+          <a class="item  item-icon-right item-one-left ion-ios-plus-outline"  ng-click="addArddss('r.addAddress')">
 
              新增地址
            <span class="select-chongzhi">
@@ -124,6 +121,73 @@
     </ion-modal-view>
   </script>
 
+
+  <script id="templates/AddresModal.html" type="text/ng-template" >
+    <ion-modal-view class="address-model">
+      <ion-content class="padding"  >
+
+
+        <div class="list list-chongzhi" >
+
+
+          <a class="item item-icon-right item-one-left" style="    text-align: -webkit-center;
+    height: 50px;
+    margin-top: -30px;" >
+
+            收货地址
+
+
+          </a>
+
+          <a class="item item-icon-right item-one-left">
+            <!-- href=" /#/r/tab/Settings/address/add/select"-->
+            <!--<span class="address-name">请选择省市区</span>-->
+            <input placeholder="请选择省市区" class="input-color-usercolse">
+         <span class="select-chongzhi">
+     <i id="icon-right" class="icon ion-ios-arrow-right"></i>
+    </span>
+
+          </a>
+
+          <a class="item  item-icon-right item-one-left" >
+            <span class="address-name"><input ng-model="newaddress" ng-change="Addaddress(newaddress)" placeholder="请输入详细地址" class="input-color-usercolse"></span>   <span class="select-chongzhi">
+
+    </span>
+
+          </a>
+          <a class="item  item-icon-right item-one-left" >
+            <span class="address-name"><input ng-model="name"  ng-change="newname(name)" placeholder="请输入收货人姓名" class="input-color-usercolse"></span>   <span class="select-chongzhi">
+
+    </span>
+
+          </a>
+          <a class="item  item-icon-right item-one-left" >
+            <span class="address-name"><input ng-model="number" ng-change="newnumber(number)" placeholder="请输入收货人联系电话" class="input-color-usercolse"></span>   <span class="select-chongzhi">
+
+    </span>
+
+          </a>
+          <a class="item  item-icon-right item-one-left" >
+            <span class="address-name"><input ng-model="email" ng-change="newemail(email)" placeholder="请输入邮编" class="input-color-usercolse"></span>   <span class="select-chongzhi">
+
+    </span>
+
+          </a>
+
+          <a>
+            <span class="address-name"><ion-toggle  ng-model="pushNotification.checked" ng-change="pushNotificationChange()">设为默认地址</ion-toggle></span>
+
+          </a>
+
+
+
+
+        </div>
+
+      </ion-content>
+
+    </ion-modal-view>
+  </script>
 
 
 

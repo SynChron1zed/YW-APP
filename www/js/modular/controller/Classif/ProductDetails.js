@@ -53,10 +53,11 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
 
 
   //结算
-  $scope.ClassifConfirm=function (basic,shop) {
+  $scope.ClassifConfirm=function (r,basic,shop) {
 
     $scope.modal.hide();
-    $state.go('r.tab.confirmOrder',{basicID:basic,shopID:shop,Num:$scope.Number});
+    fromStateServ.stateChange(r,{basicID:basic,shopID:shop,Num:$scope.Number});
+   /* $state.go('r.tab.confirmOrder',{basicID:basic,shopID:shop,Num:$scope.Number});*/
 
   };
 

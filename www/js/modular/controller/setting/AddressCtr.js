@@ -2,7 +2,7 @@
  * Created by Administrator on 2016/7/5.
  */
 
-Ctr.controller('SettingsAddressCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
+Ctr.controller('SettingsAddressCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$ionicHistory',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$ionicHistory) {
   var arrs = [];
   $scope.addressList=[]
 
@@ -18,7 +18,7 @@ Ctr.controller('SettingsAddressCtr',['$scope','native','$state','fromStateServ',
     }
   },function(r){
     if(r){
-     
+
       $scope.addressList= (r.resp_data.data)
 
     }
@@ -111,6 +111,26 @@ Ctr.controller('SettingsAddressCtr',['$scope','native','$state','fromStateServ',
      }
      console.log(arrs)
    }
+  }
+  //对安卓返回键的  特殊处理  tabs
+  $scope.$on('$ionicView.beforeEnter',function(){
+    if ($ionicHistory.backView()) {
+      window.androdzerofun  = function(parm1,parm2){
+        $ionicHistory.goBack();
+      }
+      window.androdzerofun_parms  ='tabswtathing';
+      window.androdzerofun_clback  = 'nothing';
+    }
+  });
+
+  $scope.$on('$stateChangeSuccess',function(){});
+  $scope.backView  = function(){
+    $scope.$ionicGoBack();
+  };
+  //add
+  $scope.addArddss=function (r) {
+
+    fromStateServ.stateChange(r);
   }
 
  /* //修改地址获取值

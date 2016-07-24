@@ -1,19 +1,17 @@
 
-<ion-view view-title="管理收货地址">
-  <ion-nav-bar   class="bar-positive ">
-    <ion-nav-buttons side="left">
-      <a   nav-direction="back"  href="/#/r/tab/Settings"  class="button button-icon ion-ios-arrow-left">
+<ion-view hide-tabs="true" view-title="管理收货地址">
 
-      </a>
-    </ion-nav-buttons>
+
+
     <ion-nav-buttons side="right">
       <a   nav-direction="back"  href=""  class="button button-icon  "ng-click="deleteAdress(item)" >
           <img class="address-delete" src="./img/setting/icon_shanchu@3x.png">
       </a>
     </ion-nav-buttons>
-  </ion-nav-bar>
 
-  <ion-content style="background-color: whitesmoke">
+
+
+  <ion-content style="background-color: whitesmoke" scrollbar-y="false">
     <div class="list list-chongzhi" >
 
 
@@ -44,14 +42,16 @@
     </div>
 
 
-    <div class="please-frist">
 
-      <p><a href="/#/r/tab/Settings/address/add"><button id="address-please"class=" button button-energized "><span class="address-add">新增收货地址</span></button>
-      </a> </p>
 
-    </div>
 
   </ion-content>
+  <ion-footer-bar align-title="center" >
+    <div class="col  classif-topborder3"  ng-click="addArddss('r.addAddress')"  style="text-align: -webkit-center;
+    height: 45px;
+    margin-top: -5px;
+    margin-right: -5px; margin-left: -5px;"><div style="font-size: 15px;color: white;padding: 7px">新增收货地址</div></div>
 
+  </ion-footer-bar>
 </ion-view>
 

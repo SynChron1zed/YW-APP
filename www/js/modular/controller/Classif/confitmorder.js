@@ -60,11 +60,11 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
     if(r){
 
       $scope.addressList= (r.resp_data.data)
-     /* for(var i = 0;i<$scope.addressList.length;i++){
+      for(var i = 0;i<$scope.addressList.length;i++){
         if($scope.addressList[i].is_default=="1"){
           $scope.addressListone = $scope.addressList[i]
         }
-      }*/
+      }
 
     }
   });
@@ -80,6 +80,12 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
     }
 
   }
+
+
+
+  $scope.data = {
+    clientSide: "1"
+  };
 
 
   //加入购物车
@@ -109,14 +115,14 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
   $scope.orderquery = function () {
 
     Tools.getData({
-      "interface_number": "020601",
+      "interface_number": "020607",
       "client_type": window.platform,
       "post_content": {
         "token" : "",
         "token_phone": "",
-        "cartIds": cartId,
         "addr_id": $scope.addressListone.addr_id ,
-        "remark": ""
+        "remark": "",
+        "cartIds": cartId
       }
     },function(r){
       if(r!= 'error'){
@@ -129,7 +135,28 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
       }
     });
   }
+  $ionicModal.fromTemplateUrl('templates/AddresModal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.AddAdressemodal = modal;
+  });
+
+/*  $scope.AddAdress=function () {
+    $scope.addressmodal.hide();
+    $scope.AddAdressemodal.show()
+  }*/
+
+  $scope.addArddss=function (r) {
+
+    fromStateServ.stateChange(r);
+    $scope.addressmodal.hide();
+  }
+
+  function handtat  (){
 
 
+  }
 
+  window.stateChangeListen['r.tab.Classif']  = handtat;
+  handtat()
 }]);
