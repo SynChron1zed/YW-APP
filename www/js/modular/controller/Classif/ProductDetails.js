@@ -18,6 +18,7 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
 
       $scope.ClassifDetailsList = (r.resp_data.data);
        console.log($scope.ClassifDetailsList)
+      $scope.shopid= $scope.ClassifDetailsList.goodsShop.shop_id
 
     }
   });
@@ -28,6 +29,12 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal;
+  });
+
+  $ionicModal.fromTemplateUrl('templates/gouwuchemodal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.gouwuchemodal = modal;
   });
 
   $scope.Number=1;
@@ -44,12 +51,20 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
 
   }
 
+
+  //结算
   $scope.ClassifConfirm=function (basic,shop) {
 
     $scope.modal.hide();
     $state.go('r.tab.confirmOrder',{basicID:basic,shopID:shop,Num:$scope.Number});
 
   };
+
+
+
+
+
+
   $scope.isCone=true;
    $scope.Detailsone=function () {
        $scope.isCone=true;
@@ -79,10 +94,10 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
       "post_content": {
         "token": "",
         "token_phone": "",
-        "shop_id": "9",
+        "shop_id": $scope.shopid,
         "sku_id": "1",
         "goods_basic_id": Classitem,
-        "number": "1"
+        "number": $scope.Number
 
       }
     },function(r){
@@ -92,13 +107,16 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
           okText:'确认'
         })
 
-
+        $scope.gouwuchemodal.hide();
+        $scope.Number=1
       }
     });
   };
 
 
-
+  $scope.back  =  function (){
+    window.noNavtionsback(window.noNavtionsbackRootuer);
+  }
 
 
 }]);

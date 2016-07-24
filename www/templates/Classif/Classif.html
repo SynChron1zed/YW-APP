@@ -17,19 +17,19 @@
       </div>
     </ion-scroll>
 
-
+    <div>
+      <img src="/img/classif/banner@3x.png" alt="">
+    </div>
 
     <ion-scroll class="Hphone"  style="overflow-y:hidden;"   scrollbar-y="false"   >
 
-<div>
-  <img src="./img/classif/banner@3x.png" alt="" >
-</div>
+
       <ion-refresher pulling-text="刷新" on-refresh="calssifloadMore(true)"   ></ion-refresher>
     <div id="class-boder" class="classlist" >
       <div class=" classif-list " >
         <div class="classif-one" ng-repeat="item in ShoppingList" ng-click="proDetail(item.goods_basic_id)">
           <img src="{{item.img_url}}" ng-if="imageshow" alt="">
-          <img src="./img/classif/macair.png" ng-if="imagehide" alt=""><!--/img/classif/macair.png-->
+          <img src="/img/classif/macair.png" ng-if="imagehide" alt=""><!--/img/classif/macair.png-->
           <div>{{item.goods_title}}</div>
           <div class="classif-price">￥{{item.total_in_price}} <span class="classif-priceone">￥19999</span></div>
         </div>

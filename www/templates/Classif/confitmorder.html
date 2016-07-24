@@ -1,19 +1,16 @@
-<ion-view  hide-back-button="true"  view-title="确认订单"   >
+<ion-view  hide-tabs="true"   view-title="确认订单"   >
   <ion-nav-bar   class="bar-positive ">
     <ion-nav-buttons side="left">
       <a   nav-direction="back"  href="/#/r/tab/Classif"  class="button button-icon ion-ios-arrow-left">
-
       </a>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
       <a   nav-direction="back"  href=""  class="button button-icon ">
-
       </a>
     </ion-nav-buttons>
   </ion-nav-bar>
 <ion-content scrollbar-y="false" style="background-color: #f3f3f3"  >
-  <div class="order-name" >
-
+  <div class="order-name"  ng-click="addressmodal.show()">
     <div class="order-name1">收货人:{{addressListone.link_man}}</div>
     <div class="order-name2">手机号：{{addressListone.link_phone}}</div>
     <div class="order-name3 ">收货地址: {{addressListone.province}}{{addressListone.city}}{{addressListone.region}}{{addressListone.street}}</div>
@@ -22,15 +19,9 @@
 
   <div class="list " style="margin-top: 1rem" >
 
-
-
     <a class="item item-icon-left item-input-left" style="    height: 7rem;">
-
-
         <img src={{ClassifDetailsList.img_url}} style="width: 5rem">
         <div class=" ion-close-sex"></div>
-
-
           <span style="float: right;font-size: 15px;margin-right: 5rem;margin-top: 0.2rem">
 {{ClassifDetailsList.goods_title}}</span>
         <div style="    color: #a2a2a2;
@@ -42,8 +33,6 @@
       <div style="font-size: 8px;">运费：{{ClassifDetailsList.express_fee}}</div>
       <div style="    float: right;
     margin-top: -1rem;">X{{shopNum}}</div>
-
-
     </a>
 
     <a class="item item-icon-left item-input-left" >
@@ -56,16 +45,87 @@
 
     </a>
 
-
-  </div>
-
-
-  <div class="row classif-topborder confit-model ">
-    <div class="col col-60 " ><div style="font-size: 15px;color: orange;padding: 9px;margin-right: 90px">合计：{{TotalNum}}</div></div>
-    <div class="col classif-topborder3" ng-click="orderquery()"><div style="font-size: 15px;color: white;padding: 10px">确认</div></div>
   </div>
 
 </ion-content>
+  <ion-footer-bar align-title="center"        style="background:#fff;padding-right:0px;" >
+
+    <div style="
+    width: 76%;
+    line-height: 34px;;
+    font-size:14px;;
+    color: #FF9517;
+    " >合计：{{TotalNum}}</div>
+    <div
+
+
+      ng-click="orderquery()"
+      style="
+        width: 24%;
+    line-height: 44px;
+    background: #FF9517;
+    height: 44px;
+    position: absolute;
+    top: 0px;
+    text-align: center;
+    font-size: 15px;
+    color: #fff;
+    "  >
+      确定
+    </div>
+
+
+  </ion-footer-bar>
+
+  <script id="templates/addressmodal.html" type="text/ng-template" >
+    <ion-modal-view class="product-model">
+      <ion-content class="padding"  >
+
+
+        <div class="list list-chongzhi" >
+
+
+          <a class="item item-icon-right item-one-left" style="    text-align: -webkit-center;
+    height: 50px;
+    margin-top: -30px;" >
+
+           请选择收货地址
+
+
+          </a>
+
+
+          <ion-scroll    style="overflow-y:hidden;"  scrollbar-y="false" class="addressmodel"    >
+          <div>
+
+          <ion-radio  ng-repeat="item in addressList"   ng-click="gainAdress(item.addr_id)">
+            <span class="address-name ">{{item.link_man}}</span> <span class="address-number">{{item.link_phone}}</span><br/><span class="address">{{item.province}}{{item.city}}{{item.region}}{{item.street}} </span>
+
+          </ion-radio>
+
+          <a class="item  item-icon-right item-one-left ion-ios-plus-outline" >
+
+             新增地址
+           <span class="select-chongzhi">
+     <i id="icon-right" class="icon ion-ios-arrow-right"></i>
+    </span>
+
+          </a>
+
+
+
+          </div>
+          </ion-scroll>
+        </div>
+
+
+      </ion-content>
+
+    </ion-modal-view>
+  </script>
+
+
+
 
 </ion-view>
 
