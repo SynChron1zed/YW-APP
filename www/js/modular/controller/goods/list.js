@@ -243,33 +243,18 @@ $scope.swatchtstate  = function (){
 
   function  inlit (){
 
-
    if(goodsState.goods_basic_id){
-   
-      
-        
             angular.forEach($scope.datalist,function(r){
-
-           
-
-                  if(r.goods_basic_id  == goodsState.goods_basic_id){
-         
+                  if(r.goods_basic_id  == goodsState.goods_basic_id){        
                     r.goods_title  = goodsState.goods_title;
                     r.img_url  = goodsState.img_url;
                     r.activity_price  = goodsState.activity_price;
-
-
-                    $scope.$apply();
                     
                   }
             })
       }
 
       
-
-
-      
-
       if(goodsState.Refresh){
           goodsState.Refresh   =false;
           return  false;

@@ -12,9 +12,9 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 
   //上传到七牛  图片单张
   var   sendqiniu_single  =  function (data,claback,key_header,next){
-
+    
       var  piclen  =   '-1';
-      var  key  = Base64.encode(key_header+'_'+(storage.getObject('UserInfo').user_id?storage.getObject('UserInfo').user_id:'-1_')+'_'+(Date.parse(new Date()))+'.jpg');
+      var  key  = Base64.encode(key_header+'_'+(storage.getObject('UserInfo').user_id?storage.getObject('UserInfo').user_id:'-1_')+'_'+(Date.parse(new Date()))+(Math.random()*1000).toFixed(1)+'.jpg');
         data  = data.substring(data.indexOf(",")+1);
 
 
@@ -128,8 +128,10 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
         // Callback(false);
         // errorCallback?errorCallback(r):null;
         if(r.msg){
-          
-           native.task(r.msg)
+          $ionicPopup.alert({
+            title:r.msg,
+            okText:'确认'
+          })
         }else{
            native.task('异常错误!')
         }

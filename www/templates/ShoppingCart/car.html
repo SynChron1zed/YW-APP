@@ -3,7 +3,7 @@
     <ion-nav-back-button>
     </ion-nav-back-button>
   </ion-nav-bar>
-  <ion-content  class='shopcrtboxbj' overflow-scroll="false"   scrollbar-y="false"  >
+  <ion-content   lazy-scroll   class='shopcrtboxbj' overflow-scroll="false"   scrollbar-y="false"  >
 
 
 
@@ -34,14 +34,14 @@
 
                         <div class="goodsitem"  ng-repeat='(key , ss) in xx.goods_info' >
                             <div class="icons" ng-class="{'chekthis':ss.select}"  ng-click="chekthis(ss)" >
-
                                 <i class="  " ng-class="{'ion-ios-circle-outline':!ss.select,'ion-ios-checkmark':ss.select}"   ></i>
                                 <!-- ion-ios-checkmark -->
-
-
                             </div>
                             <div class="goodsimg">
-                                <img ng-src="{{ss.img_url?ss.img_url:'img/nopice.jpg'}}" alt="">
+                                <img                                
+                                    ng-src="{{'http://oap3nxgde.bkt.clouddn.com/'+ss.img_url+'?imageView2/1/w/200/h/200'}}" alt="" 
+
+                                 alt="">
                             </div>
                             <div class="goodsbasmsg  "   ng-class="{'edit':xx.edit}" >
                                 <h5

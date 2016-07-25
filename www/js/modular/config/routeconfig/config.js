@@ -276,16 +276,25 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
+
     //店铺管理
-    .state('r.tab.HomShopadmin',{
+    .state('r.HomShopadmin',{
       url: '/HomShopadmin',
+      onEnter: function(fromStateServ,$ionicHistory) {
+          fromStateServ.saveHisty($ionicHistory,'r.HomShopadmin')
+        },
+       onExit:function(fromStateServ){
+         fromStateServ.removebackregistevent();
+       },
       views: {
-        'Home': {
+        'rootview': {
           templateUrl: 'templates/Home/shopadmin.html',
           controller: 'shopadminCtr'
         }
       }
     })
+
+    
     //店铺name
     .state('r.tab.HomShopadminname',{
       url: '/HomShopadminname/:Classitem',

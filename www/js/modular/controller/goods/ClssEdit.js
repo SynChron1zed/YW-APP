@@ -328,7 +328,7 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
       $scope.scar =  function(){
         native.Barcode(function(r){
             $scope.searchobj.tiaomiao  =   r.text;
-            $scope.$apply();
+            
         });
       };
   $scope.selectsearchstat  = function (r,e){
@@ -393,7 +393,7 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
                     r.goods_title  = goodsState.goods_title;
                     r.img_url  = goodsState.img_url;
                     r.activity_price  = goodsState.activity_price;
-                    $scope.$apply();
+                    
                   }
             })
       } 

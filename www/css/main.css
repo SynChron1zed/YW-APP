@@ -134,6 +134,8 @@ img {
 
 .homeSlidebox {
   height: 7rem; }
+  .homeSlidebox .slider-slide img {
+    height: 7rem; }
   .homeSlidebox .slider-pager {
     bottom: 10px; }
     .homeSlidebox .slider-pager .slider-pager-page {

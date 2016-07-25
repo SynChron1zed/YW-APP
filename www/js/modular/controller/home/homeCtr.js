@@ -5,16 +5,9 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 
 
 
-  //去查看店铺主页
-  $scope.shophome  =function (){
 
-      if(storage.getObject('UserInfo').shop_id){
-        fromStateServ.stateChange('r.Shophome',{id:storage.getObject('UserInfo').shop_id});  
-      }else{
-        native.task('还没有加入公司');
-      }      
-  }
-    
+
+ 
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
        window.androdzerofun  =  undefined
@@ -27,7 +20,9 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 
 
     $scope.a1 = function (){
-      alert('1');
+  
+      $scope.goModular('r.Shophome',{id:'4'});
+
     };
 
 
@@ -42,7 +37,7 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
         $ionicPopup.confirm({
           title:'您还没有登录！',
           cancelText:'取消',
-          okText:'登陆'
+          okText:'登录'
         }).then(function(r){
               if(r){
                 $scope.goModular('r.login');
@@ -61,7 +56,7 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
       $ionicPopup.confirm({
         title:'您还没有登录！',
         cancelText:'取消',
-        okText:'登陆'
+        okText:'登录'
       }).then(function(r){
             if(r){
               $scope.goModular('r.login');
@@ -70,8 +65,8 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
     }
     }
 
-    $scope.goModular  =    function(r){
-        fromStateServ.stateChange(r);
+    $scope.goModular  =    function(r,p){
+        fromStateServ.stateChange(r,p);
     };
 
 
