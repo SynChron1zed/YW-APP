@@ -1,18 +1,20 @@
 <ion-view view-title="认证方式"  >
 
+              <ion-nav-bar   class="bar-positive ">
+
+                   <ion-nav-back-button class="button-clear"    style="font-size:14px;color:#6b3801"  ng-click="GoBackHome()" >
+                      <i class="icon ion-ios-arrow-left" style='#6b3801'  ></i> 返回
+                    </ion-nav-back-button>
 
 
- <ion-nav-back-button class="button-clear"
-    ng-click="GoBackHome()">
-    <i class="ion-arrow-left-c"></i> 返回
-  </ion-nav-back-button>
+                    <ion-nav-buttons side="right" >
+                        <a   nav-direction="forward"  ng-click="skip()"    class="button button-icon  ">
+                            跳过
+                        </a>
+                    </ion-nav-buttons>
+                    
+  </ion-nav-bar>
 
-  <ion-nav-buttons side="right"     class="button back-button buttons button-clear header-item">
-    <div class="button back-button buttons button-clear header-item"  ng-click="skip()"     >
-
-      <span class="previous-title"    >跳过</span></span>
-    </div>
-  </ion-nav-buttons>
     <ion-content  scrollbar-y="false"  overflow-scroll="false"  style="background: #f5f5f5" >
 
 

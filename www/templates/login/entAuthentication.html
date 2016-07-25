@@ -1,79 +1,108 @@
 <ion-view view-title="企业认证"  >
-  
-    <ion-content  scrollbar-y="false"  overflow-scroll="false"   style="background: #f2f2f2">
+
+  <ion-content  scrollbar-y="false"  overflow-scroll="false"   style="background: #f2f2f2">
 
 
-      <div class="registerlist">
-        <div>
-          <div class="lable">公司名称</div>
-          <div class="input">
-            <input type="password"  ng-model="password.Original"  placeholder="请输入你的公司名称">
-          </div>
+    <div class="registerlist">
+      <div>
+        <div class="lable">公司名称</div>
+        <div class="input">
+          <input type="password"  ng-model="from.compname"  placeholder="请输入你的公司名称">
         </div>
-
-        <div>
-          <div class="lable">营业执照</div>
-          <div class="input">
-
-            <input type="password"  ng-model="password.Repeat"  placeholder="填写营业执照注册号">
-
-          </div>
-        </div>
-
-
-        <div>
-          <div class="lable">组织机构</div>
-          <div class="input">
-
-            <input type="password"  ng-model="password.Repeat"  placeholder="填写组织机构代码证书">
-
-          </div>
-        </div>
-
-
       </div>
 
-     <p  style='
+      <div>
+        <div class="lable">营业执照</div>
+        <div class="input">
+
+          <input type="password"  ng-model="from.License"  placeholder="填写营业执照注册号">
+
+        </div>
+      </div>
+
+
+      <div>
+        <div class="lable">组织机构</div>
+        <div class="input">
+
+          <input type="password"  ng-model="from.mechanism"  placeholder="填写组织机构代码证书">
+
+        </div>
+      </div>
+
+
+    </div>
+
+    <p  style='
      font-size:14px;color:#777;height:40px;line-height:40px;;letter-spacing: 1px;text-indent: 20px;' > 请上传你公司的证件正面照片</p>
 
-      <div style='
+    <div style='
        width:90%;
        margin-left:5%;
       '>
-          <p style="font-size:14px;color:#333">营业执照</p>
-          <div style="
+      <p style="font-size:14px;color:#333">营业执照</p>
+
+      <div    ng-if="identity.Positive"  style="width:80%;margin: 0 auto;padding: 6px;border: 1px dashed #717070;position: relative"   >
+        <i  ng-click="rmPositive()"
+            class="ion-ios-close" style="position: absolute;
+              font-size: 30px;
+              top: -10px;
+              right: -6px;
+              color: red;
+              "></i>
+        <img     ng-src="{{identity.Positive}}"      alt="">
+      </div>
+
+
+      <div  ng-click="xuanzpirce()"   ng-if="!identity.Positive"   style="
           border: 1px dashed #9a9a9a;
           height: 80px;
           width: 80px;
           text-align:center;
           line-height:80px;
           ">
-          <i class="ion-ios-camera-outline"
-            style='font-size:50px;color:#525252'
-          ></i>
-          </div>
-          <p style="margin-top:10px;font-size:14px;color:#333">组织机构</p>
-          <div style="
+        <i class="ion-ios-camera-outline"
+           style='font-size:50px;color:#525252'
+        ></i>
+      </div>
+
+      <p style="margin-top:10px;font-size:14px;color:#333">组织机构</p>
+
+      <div    ng-if="identity.inverse"  style="width:80%;margin: 0 auto;padding: 6px;border: 1px dashed #717070;position: relative"   >
+        <i  ng-click="rminverse()"
+            class="ion-ios-close" style="position: absolute;
+              font-size: 30px;
+              top: -10px;
+              right: -6px;
+              color: red;
+              "></i>
+        <img     ng-src="{{identity.inverse}}"      alt="">
+      </div>
+
+      <div style="
           border: 1px dashed #9a9a9a;
           height: 80px;
           width: 80px;
           text-align:center;
           line-height:70px;
-          ">
-          <i class="ion-ios-camera-outline"
-            style='font-size:50px;color:#525252'
-          ></i>
-          </div>
-
-
+          "  ng-click="xuanzpirceinverse()"   ng-if="!identity.inverse"  >
+        <i class="ion-ios-camera-outline"
+           style='font-size:50px;color:#525252'
+        ></i>
       </div>
 
 
 
 
-    </ion-content>
 
-    <ion-footer-bar align-title="center"       ng-click='register()'   style="background:#fff" >
+    </div>
+
+
+
+
+  </ion-content>
+
+  <ion-footer-bar align-title="center"       ng-click='Submitaudit()'   style="background:#fff" >
     <h1 class="title" style="color:#5e5a29"   > 提 交 审 核 </h1>
   </ion-footer-bar>
 

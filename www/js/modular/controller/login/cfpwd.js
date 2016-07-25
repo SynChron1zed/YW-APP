@@ -1,7 +1,7 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('registercfpwdCtr',['$scope','$state','Tools','$stateParams','$ionicPopup','storage',function($scope,$state,Tools,$stateParams,$ionicPopup,storage){
+Ctr.controller('registercfpwdCtr',['$scope','$state','Tools','$stateParams','$ionicPopup','storage','$ionicHistory',function($scope,$state,Tools,$stateParams,$ionicPopup,storage,$ionicHistory){
 
 
 
@@ -40,8 +40,11 @@ Ctr.controller('registercfpwdCtr',['$scope','$state','Tools','$stateParams','$io
         window.Token  = r.resp_data.token;
         r.resp_data.user_info.token  = window.Token;
         storage.setObject('UserInfo',r.resp_data.user_info);
-        
         $state.go('r.selectAuth');
+
+        $ionicHistory.clearHistory();        
+
+
       }
     })
     return  false;

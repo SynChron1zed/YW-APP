@@ -1,68 +1,95 @@
 <ion-view view-title="个人认证"  >
-  
-    <ion-content  scrollbar-y="false"  overflow-scroll="false"   style="background: #f2f2f2">
 
-
-      <div class="registerlist">
-        <div>
-          <div class="lable">真实姓名</div>
-          <div class="input">
-            <input type="password"  ng-model="password.Original"  placeholder="请输入你的真实姓名">
-          </div>
+  <ion-content  scrollbar-y="false"  overflow-scroll="false"   style="background: #f2f2f2">
+    <div class="registerlist">
+      <div>
+        <div class="lable">真实姓名</div>
+        <div class="input">
+          <input type="text"  ng-model="form.name"  maxlength="20"  placeholder="请输入你的真实姓名">
         </div>
-
-        <div>
-          <div class="lable">身份证号</div>
-          <div class="input">
-
-            <input type="password"  ng-model="password.Repeat"  placeholder="身份证号码">
-
-          </div>
-        </div>
-
       </div>
 
-     <p  style='
-     font-size:14px;color:#777;height:40px;line-height:40px;;letter-spacing: 1px;text-indent: 20px;' > 请上传你的正反身份证照片</p>
+      <div>
+        <div class="lable">身份证号</div>
+        <div class="input">
 
-      <div style='
+          <input type="number"  ng-model="form.id"  maxlength="30" placeholder="身份证号码">
+
+        </div>
+      </div>
+
+    </div>
+
+    <p  style='
+      font-size:14px;color:#777;height:40px;line-height:40px;;letter-spacing: 1px;text-indent: 20px;' > 请上传你的正反身份证照片</p>
+    <div style='
        width:90%;
        margin-left:5%;
       '>
-          <p style="color:#333;font-size:14px">正面</p>
-          <div style="
+      <p style="color:#333;font-size:14px">正面</p>
+
+
+      <div    ng-if="identity.Positive"  style="width:80%;margin: 0 auto;padding: 6px;border: 1px dashed #717070;position: relative"   >
+        <i  ng-click="rmPositive()"
+            class="ion-ios-close" style="position: absolute;
+              font-size: 30px;
+              top: -10px;
+              right: -6px;
+              color: red;
+              "></i>
+        <img     ng-src="{{identity.Positive}}"      alt="">
+      </div>
+
+
+      <div  ng-click="xuanzpirce()"   ng-if="!identity.Positive"   style="
           border: 1px dashed #9a9a9a;
           height: 80px;
           width: 80px;
           text-align:center;
           line-height:80px;
           ">
-          <i class="ion-ios-camera-outline"
-            style='font-size:50px;color:#525252'
-          ></i>
-          </div>
-          <p style="margin-top:10px;color:#333;font-size:14px;">反面</p>
-          <div style="
+        <i class="ion-ios-camera-outline"
+           style='font-size:50px;color:#525252'
+        ></i>
+      </div>
+
+
+      <p style="margin-top:10px;color:#333;font-size:14px;">反面</p>
+
+      <div    ng-if="identity.inverse"  style="width:80%;margin: 0 auto;padding: 6px;border: 1px dashed #717070;position: relative"   >
+        <i  ng-click="rminverse()"
+            class="ion-ios-close" style="position: absolute;
+              font-size: 30px;
+              top: -10px;
+              right: -6px;
+              color: red;
+              "></i>
+        <img     ng-src="{{identity.inverse}}"      alt="">
+      </div>
+
+
+
+      <div style="
           border: 1px dashed #9a9a9a;
           height: 80px;
           width: 80px;
           text-align:center;
           line-height:70px;
-          ">
-          <i class="ion-ios-camera-outline"
-            style='font-size:50px;color:#525252'
-          ></i>
-          </div>
-
-
+          "  ng-click="xuanzpirceinverse()"   ng-if="!identity.inverse"  >
+        <i class="ion-ios-camera-outline"
+           style='font-size:50px;color:#525252'
+        ></i>
       </div>
 
 
+    </div>
 
 
-    </ion-content>
 
-    <ion-footer-bar align-title="center"       ng-click='register()'   style="background:#fff" >
+
+  </ion-content>
+
+  <ion-footer-bar align-title="center"       ng-click='Submitaudit()'   style="background:#fff" >
     <h1 class="title" style="color:#5e5a29"   > 提 交 审 核 </h1>
   </ion-footer-bar>
 

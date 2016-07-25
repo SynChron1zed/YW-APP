@@ -3,21 +3,14 @@
  */
 Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicViewSwitcher',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicViewSwitcher) {
 
-
-  
-
   //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
-
             console.log(fromStateServ.getState('r.HomShopadmin'))
             if(fromStateServ.getState('r.HomShopadmin')){
                 $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.HomShopadmin').title;
             }
-
   });
-
-
 
   //去查看店铺主页
   $scope.shophome  =function (){
