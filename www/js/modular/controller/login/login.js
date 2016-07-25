@@ -34,9 +34,16 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
         }
       },function(r){
         if(r){
+
+                 if(window.cordova){
+                  window.cordova.plugins.Keyboard.close();
+                }
+
+
               window.Token  = r.resp_data.token;
               r.resp_data.user_info.token  = window.Token;
               storage.setObject('UserInfo',r.resp_data.user_info);
+              $timeout(function(){
                     $scope.backtoprevView('r.login');
                     $timeout(function(){
                       $ionicPopup.alert({
@@ -44,6 +51,10 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
                         okText:'确认'
                       })
                     },400);
+
+
+              },400)
+                   
         }else{
           $scope.ing  = false;          
         }

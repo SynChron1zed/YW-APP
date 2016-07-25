@@ -2,13 +2,14 @@
  * Created by Why on 16/6/6.
  */
 App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout','native',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,$ionicNativeTransitions,$timeout,native) {
- 
-
-  
   
   $ionicPlatform.ready(function() {
     //$state.go('r.selectAuth');
     $state.go('r.tab.Home');
+
+
+
+   
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
@@ -19,6 +20,11 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
                    navigator.splashscreen.hide();
 
            }, 1000);  
+           
+      $rootScope.$on('$ionicView.beforeLeave',function(){
+          native.task('哈哈')      
+          window.cordova.plugins.Keyboard.close();
+      })
 
 
 

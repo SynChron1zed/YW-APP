@@ -161,7 +161,6 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
       content: '';
       clear: both;
     }
-
 }
 
 
@@ -238,6 +237,7 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
         color: #616160;
         .box.active{
           transform: translateX(0);
+          -webkit-transform: translateX(0%);
           opacity: 1;
         }
 

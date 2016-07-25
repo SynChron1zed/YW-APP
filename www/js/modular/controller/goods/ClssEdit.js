@@ -50,6 +50,10 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
     
     //删除商品
     $scope.delgoods =  function (targe,index){
+
+
+         //confirm
+
    $ionicPopup.confirm({
             title:'确定删除',
             okText:'确定',
@@ -312,12 +316,15 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
 
   //编辑
   $scope.edith  = function (r){
-    
 
     goodsState.goods_basic_id  = r.goods_basic_id;
     goodsState.goods_title  = r.goods_title;
     goodsState.img_url  = r.img_url;
     goodsState.activity_price  = r.activity_price;
+    goodsState.total_in_number  = r.total_in_number;
+
+
+
 
     $state.go('r.goodsEdit',{state:'edit',id:r.goods_basic_id});
   };
@@ -380,7 +387,6 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
       $scope.goodsfenle = modal;
     });
 
-
     //上下架数量统计
     $scope.salestotin  = {};
     $scope.salestotin.up  =0;
@@ -390,11 +396,12 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
 
       if(goodsState.goods_basic_id){
             angular.forEach($scope.datalist,function(r){
+              
                   if(r.goods_basic_id  == goodsState.goods_basic_id){
                     r.goods_title  = goodsState.goods_title;
                     r.img_url  = goodsState.img_url;
                     r.activity_price  = goodsState.activity_price;
-                    
+                    r.total_in_number  = goodsState.total_in_number;                    
                   }
             })
       } 

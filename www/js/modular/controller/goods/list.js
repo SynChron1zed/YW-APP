@@ -164,26 +164,18 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
 
           })
 
-
-
-
-
-
     }
-
-
-
 
 
 
 
   //编辑
   $scope.edith  = function (r){
-
     goodsState.goods_basic_id  = r.goods_basic_id;
     goodsState.goods_title  = r.goods_title;
     goodsState.img_url  = r.img_url;
     goodsState.activity_price  = r.activity_price;
+    r.total_in_number  = goodsState.total_in_number;     
 
     $state.go('r.goodsEdit',{state:'edit',id:r.goods_basic_id});
   };
@@ -249,6 +241,7 @@ $scope.swatchtstate  = function (){
                     r.goods_title  = goodsState.goods_title;
                     r.img_url  = goodsState.img_url;
                     r.activity_price  = goodsState.activity_price;
+                    r.total_in_number  = goodsState.total_in_number;     
                     
                   }
             })

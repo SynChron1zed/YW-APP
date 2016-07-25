@@ -85,6 +85,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
                 $scope.goods.Market_price =    parseFloat(r.resp_data.goodsInfo.retail_price);
                 $scope.goods.Platform_price =    parseFloat(r.resp_data.goodsInfo.activity_price);
                 $scope.goods.id  = r.resp_data.goodsInfo.goods_basic_id;
+                $scope.goods.Stock_number  =   r.resp_data.goodsInfo.total_in_number;
                 angular.forEach(r.resp_data.goodsInfo.arr_img,function (v){
                   var   c = undefined;
                   if(v  == r.resp_data.goodsInfo.img_url){
@@ -285,22 +286,25 @@ $scope.chkefengmian  = function (c){
 
   //选择图片
   $scope.selectpirce  = function (){
-
-    if($scope.goodspice.lenght >= 5){
-
+    var ss  = $scope.goodspice;    
+    if( Object.keys(ss).length >= 5 ){
+      native.task('最大上传5张图片');
       return false;
+    }else{
+
+          Tools.chekpirc({
+                targetWidth:1500,
+              },function(r){
+                  $scope.goodspice.push({
+                    fengmian:false,
+                    img:r,
+                    news:true,
+                    key:undefined
+                  })
+              })
     }
 
-      Tools.chekpirc({
-        targetWidth:1500,
-      },function(r){
-          $scope.goodspice.push({
-            fengmian:false,
-            img:r,
-            news:true,
-            key:undefined
-          })
-      })
+    
   };
 
   //图片上传
@@ -311,7 +315,7 @@ $scope.chkefengmian  = function (c){
     var   imgindex = [];
 
 
-    if($scope.goodspice.length==0){
+    if($scope.goodspice.length == 0){
 
       claback();
       return  false;
@@ -429,9 +433,8 @@ $scope.save  = function (){
             goodsState.goods_basic_id  = r.resp_data.goods_basic_Id;
             goodsState.goods_title  = r.resp_data.goods_title;
             goodsState.img_url  = window.qiniuimgHost+r.resp_data.img_url+'?imageView2/1/w/200/h/200';
-
             goodsState.activity_price  = r.resp_data.total_in_price;
-            
+            goodsState.total_in_number   = r.resp_data.total_in_number;
           
             
         
