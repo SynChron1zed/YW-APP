@@ -38,6 +38,9 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
   },function(r){
     if(r){
 
+      r.resp_data.data.img_url  =  window.qiniuimgHost+r.resp_data.data.img_url+'?imageView2/1/w/200/h/200';
+      r.resp_data.data.ctr  = false;
+
       $scope.ClassifDetailsList = (r.resp_data.data);
       console.log($scope.ClassifDetailsList)
       var total = $scope.ClassifDetailsList.total_in_price * $scope.shopNum
@@ -147,15 +150,41 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
   }*/
 
   $scope.addArddss=function (r) {
-
-    fromStateServ.stateChange(r);
-    $scope.addressmodal.hide();
+debugger;
+   /* fromStateServ.stateChange(r);
+    $scope.addressmodal.hide();*/
+    $state.go('r.addAddress',{dataAdd:1});
+    $scope.addressmodal.hide();;
   }
+
+
+  //保存历史记录的方法  调用  上一次1 title  和返回方法
+  $scope.backtoprevView  =   fromStateServ.backView;
+
+  // //安卓返回键  对公共模块的返回
+  // $ionicPlatform.registerBackButtonAction(function (e) {
+  //    e.preventDefault();
+  //    $scope.backtoprevView('r.login');
+  //    return false;
+  //  }, 101);
+  $scope.$on('$stateChangeSuccess',function(){
+    debugger;
+    $scope.loginboj = {};
+    $scope.ing  = false;
+    $scope.parenttitle     =   fromStateServ.getState('r.confirmOrder').title;
+  });
+
+  $scope.backView  = function(){
+    $scope.$ionicGoBack();
+  };
+
 
   function handtat  (){
 
 
   }
+
+
 
   window.stateChangeListen['r.tab.Classif']  = handtat;
   handtat()

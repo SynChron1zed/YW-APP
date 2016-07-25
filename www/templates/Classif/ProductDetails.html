@@ -1,12 +1,17 @@
 <ion-view  hide-tabs="true"   view-title="商品详情"   >
+  <ion-nav-buttons side="left"    class="button back-button buttons button-clear header-item">
+    <div class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.ClassifDetails')">
+      <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
+    </div>
+  </ion-nav-buttons>
 
 
     <ion-nav-buttons side="right">
       <a   nav-direction="back"  href=""  class="button button-icon ">
-
       </a>
     </ion-nav-buttons>
-  </ion-nav-bar>
+
 
   <ion-content  scrollbar-y="false"  style='background-color:#f3f3f3' >
 
@@ -69,7 +74,7 @@
       <ion-content class="padding" scroll="false">
         <div class="row">
         <div  class="col" style="width: 100px">
-          <img src={{ClassifDetailsList.img_url}} alt="">
+          <img src={{ClassifDetailsList.img_url}} alt="" style="width: 100px">
 
         </div>
         <div class="col">
@@ -104,7 +109,7 @@
 
         </div>
 
-          <button style="margin-top: 30px;;background-color: orange" class="button button-full button-positive" ng-click="ClassifConfirm('r.confirmOrder',ClassifDetailsList.goods_basic_id,ClassifDetailsList.goodsShop.shop_id)">立即购买</button>
+          <button style="margin-top: 30px;;background-color: orange" class="button button-full button-positive" ng-click="ClassifConfirm(ClassifDetailsList.goods_basic_id,ClassifDetailsList.goodsShop.shop_id)">立即购买</button>
 
       </ion-content>
 
@@ -118,7 +123,7 @@
       <ion-content class="padding" scroll="false">
         <div class="row">
           <div  class="col" style="width: 100px">
-            <img src={{ClassifDetailsList.img_url}} alt="">
+            <img src={{ClassifDetailsList.img_url}} alt="" style="width: 100px">
 
           </div>
           <div class="col">
