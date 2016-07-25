@@ -2,6 +2,8 @@
  * Created by Administrator on 2016/7/21.
  */
 Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicViewSwitcher',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicViewSwitcher) {
+
+
   
 
   //对安卓返回键的  特殊处理  tabs
@@ -9,7 +11,7 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
 
             console.log(fromStateServ.getState('r.HomShopadmin'))
             if(fromStateServ.getState('r.HomShopadmin')){
-                $scope.backtoprevView  =   fromStateServ.backView; 
+                $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.HomShopadmin').title;
             }
 
@@ -19,14 +21,14 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
 
   //去查看店铺主页
   $scope.shophome  =function (){
-      if(storage.getObject('UserInfo').shop_id){  
-        
+      if(storage.getObject('UserInfo').shop_id){
+
         $state.go('r.Shophome',{id:storage.getObject('UserInfo').shop_id})
       }else{
         native.task('还没有加入公司');
-      }      
+      }
   }
- 
+
 
 
   $scope.shopadmindata=[];
@@ -38,7 +40,7 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
       "token_phone": ""
     }
   },function(r){
-    if(r){      
+    if(r){
       $scope.shopadmindata = (r.resp_data)
 
 

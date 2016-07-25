@@ -95,7 +95,7 @@ App.directive('jfocus',function($rootScope,$parse) {
  */
 App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpProvider','$ionicNativeTransitionsProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider,$httpProvider,$ionicNativeTransitionsProvider){
 
-  
+
   $ionicNativeTransitionsProvider.setDefaultOptions({
     duration: 405, // in milliseconds (ms), default 400,
     slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
@@ -217,6 +217,8 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
        }
     })
+
+
 
 
     //注册
@@ -615,7 +617,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
 
     //setting  个人设置 管理收货地址 addadresss
-    .state('r.tab.Settingsaddaddress', {
+  /*  .state('r.tab.Settingsaddaddress', {
       url: '/Settings/address/add',
       views: {
         'setting': {
@@ -624,7 +626,30 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
 
       }
+    })*/
+
+    .state('r.addAddress', {
+      url: '/addAddress',
+      // nativeTransitions: {
+      //   "type": "flip",
+      //   "direction": "up"
+      // },
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.addAddress')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Setting/SettingsAddAddress.html',
+          controller: 'SettingsAddAddressCtr'
+        }
+      }
     })
+
+
+
     //setting  个人设置 管理收货地址 selectaddadresss
     .state('r.tab.SettingsSelectaddaddress', {
       url: '/Settings/address/add/select',
@@ -665,7 +690,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
   })
 
   //setting  分类商品详情确认订单
-    .state('r.tab.confirmOrder', {
+  /*  .state('r.tab.confirmOrder', {
       url: '/r.tab.confirmOrder/:basicID/:shopID/:Num',
       views: {
         'Classif': {
@@ -673,9 +698,29 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           controller: 'ConfirmOrderCtr'
         }
       }
+    })*/
+
+
+  //setting  分类商品详情确认订单
+    .state('r.confirmOrder', {
+      url: '/confirmOrder/:basicID/:shopID/:Num',
+      // nativeTransitions: {
+      //   "type": "flip",
+      //   "direction": "up"
+      // },
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.confirmOrder')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Classif/confitmorder.html',
+          controller: 'ConfirmOrderCtr'
+        }
+      }
     })
-
-
 
 
 
@@ -1255,10 +1300,11 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
 
 
   //结算
-  $scope.ClassifConfirm=function (basic,shop) {
+  $scope.ClassifConfirm=function (r,basic,shop) {
 
     $scope.modal.hide();
-    $state.go('r.tab.confirmOrder',{basicID:basic,shopID:shop,Num:$scope.Number});
+    fromStateServ.stateChange(r,{basicID:basic,shopID:shop,Num:$scope.Number});
+   /* $state.go('r.tab.confirmOrder',{basicID:basic,shopID:shop,Num:$scope.Number});*/
 
   };
 
@@ -1385,11 +1431,11 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
     if(r){
 
       $scope.addressList= (r.resp_data.data)
-     /* for(var i = 0;i<$scope.addressList.length;i++){
+      for(var i = 0;i<$scope.addressList.length;i++){
         if($scope.addressList[i].is_default=="1"){
           $scope.addressListone = $scope.addressList[i]
         }
-      }*/
+      }
 
     }
   });
@@ -1405,6 +1451,12 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
     }
 
   }
+
+
+
+  $scope.data = {
+    clientSide: "1"
+  };
 
 
   //加入购物车
@@ -1434,14 +1486,14 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
   $scope.orderquery = function () {
 
     Tools.getData({
-      "interface_number": "020601",
+      "interface_number": "020607",
       "client_type": window.platform,
       "post_content": {
         "token" : "",
         "token_phone": "",
-        "cartIds": cartId,
         "addr_id": $scope.addressListone.addr_id ,
-        "remark": ""
+        "remark": "",
+        "cartIds": cartId
       }
     },function(r){
       if(r!= 'error'){
@@ -1454,9 +1506,30 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
       }
     });
   }
+  $ionicModal.fromTemplateUrl('templates/AddresModal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.AddAdressemodal = modal;
+  });
+
+/*  $scope.AddAdress=function () {
+    $scope.addressmodal.hide();
+    $scope.AddAdressemodal.show()
+  }*/
+
+  $scope.addArddss=function (r) {
+
+    fromStateServ.stateChange(r);
+    $scope.addressmodal.hide();
+  }
+
+  function handtat  (){
 
 
+  }
 
+  window.stateChangeListen['r.tab.Classif']  = handtat;
+  handtat()
 }]);
 
 /**
@@ -3791,6 +3864,8 @@ Ctr.controller('homesearchCtr',['$scope','$state','$ionicHistory',function($scop
  * Created by Administrator on 2016/7/21.
  */
 Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicViewSwitcher',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicViewSwitcher) {
+
+
   
 
   //对安卓返回键的  特殊处理  tabs
@@ -3798,7 +3873,7 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
 
             console.log(fromStateServ.getState('r.HomShopadmin'))
             if(fromStateServ.getState('r.HomShopadmin')){
-                $scope.backtoprevView  =   fromStateServ.backView; 
+                $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.HomShopadmin').title;
             }
 
@@ -3808,14 +3883,14 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
 
   //去查看店铺主页
   $scope.shophome  =function (){
-      if(storage.getObject('UserInfo').shop_id){  
-        
+      if(storage.getObject('UserInfo').shop_id){
+
         $state.go('r.Shophome',{id:storage.getObject('UserInfo').shop_id})
       }else{
         native.task('还没有加入公司');
-      }      
+      }
   }
- 
+
 
 
   $scope.shopadmindata=[];
@@ -3827,10 +3902,10 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
       "token_phone": ""
     }
   },function(r){
-    if(r){      
+    if(r){
       $scope.shopadmindata = (r.resp_data)
 
-      
+
 
 
     }
@@ -3844,6 +3919,60 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
 
     $state.go('r.tab.HomShopadminbrief', {Classitem: Classitem});
   };
+
+
+  $scope.goodspice  = [];
+
+  $scope.selectpir  = function (){
+
+    if($scope.goodspice.lenght >= 5){
+
+      return false;
+    }
+
+    Tools.chekpirc({
+      targetWidth:1500,
+    },function(r){
+      $scope.goodspice.push({
+        fengmian:false,
+        img:r,
+        news:true,
+        key:undefined
+      })
+    })
+  };
+
+  //图片上传
+  function  uploadimg (claback){
+    //待上传图片
+    var   imguplist = [];
+    //保存索引
+    var   imgindex = [];
+
+
+    if($scope.goodspice.length==0){
+
+      claback();
+      return  false;
+    }
+
+
+    angular.forEach($scope.goodspice,function(v,key){
+      if(v.news){
+        imguplist.push(v.img)
+        imgindex.push(key);
+      }
+    })
+    Tools.sendqiniu_queue(imguplist,function(r){
+      angular.forEach(imgindex,function(v,key){
+        console.log(JSON.stringify(r))
+        $scope.goodspice[v].key  = r[key].key
+      });
+      claback()
+    },'goods')
+  }
+
+
 
 }]);
 
@@ -4386,13 +4515,16 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
                 $scope.$apply();
               },1000)
 
+            }else{
+              sctolthi  = true;
             }
+            
           },function(){
             sctolthi  = true;
           });
-
-
     }
+
+
   }
 
   //下一步
@@ -4614,7 +4746,7 @@ Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateSer
           "interface_number": "020501",
           "client_type": window.platform,
           "post_content": {
-            "token": "{EB5E2D45-AC28-1573-A39E-9F17DDE732BE}",
+            "token": "",
             "token_phone": "",
             "province": "湖南省",
             "city": "长沙市",
@@ -4643,13 +4775,32 @@ Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateSer
 
   }
 
+
+  //保存历史记录的方法  调用  上一次1 title  和返回方法
+  $scope.backtoprevView  =   fromStateServ.backView;
+  // //安卓返回键  对公共模块的返回
+  // $ionicPlatform.registerBackButtonAction(function (e) {
+  //    e.preventDefault();
+  //    $scope.backtoprevView('r.login');
+  //    return false;
+  //  }, 101);
+  $scope.$on('$stateChangeSuccess',function(){
+    $scope.loginboj = {};
+    $scope.ing  = false;
+    $scope.parenttitle     =   fromStateServ.getState('r.addAddress').title;
+  });
+
+  $scope.backView  = function(){
+    $scope.$ionicGoBack();
+  };
+
 }]);
 
 /**
  * Created by Administrator on 2016/7/5.
  */
 
-Ctr.controller('SettingsAddressCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
+Ctr.controller('SettingsAddressCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$ionicHistory',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$ionicHistory) {
   var arrs = [];
   $scope.addressList=[]
 
@@ -4665,7 +4816,7 @@ Ctr.controller('SettingsAddressCtr',['$scope','native','$state','fromStateServ',
     }
   },function(r){
     if(r){
-     
+
       $scope.addressList= (r.resp_data.data)
 
     }
@@ -4759,6 +4910,26 @@ Ctr.controller('SettingsAddressCtr',['$scope','native','$state','fromStateServ',
      console.log(arrs)
    }
   }
+  //对安卓返回键的  特殊处理  tabs
+  $scope.$on('$ionicView.beforeEnter',function(){
+    if ($ionicHistory.backView()) {
+      window.androdzerofun  = function(parm1,parm2){
+        $ionicHistory.goBack();
+      }
+      window.androdzerofun_parms  ='tabswtathing';
+      window.androdzerofun_clback  = 'nothing';
+    }
+  });
+
+  $scope.$on('$stateChangeSuccess',function(){});
+  $scope.backView  = function(){
+    $scope.$ionicGoBack();
+  };
+  //add
+  $scope.addArddss=function (r) {
+
+    fromStateServ.stateChange(r);
+  }
 
  /* //修改地址获取值
   $scope.gainAdress= function (item) {
@@ -4813,7 +4984,7 @@ Ctr.controller('SettingsUpdateCtr',function($scope) {
  * Created by Why on 16/6/8.
  */
 
-Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state','$ionicHistory',function($scope,$ionicPopover, $ionicPopup,$timeout,$state,$ionicHistory) {
+Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state','$ionicHistory','storage','fromStateServ','$ionicScrollDelegate',function($scope,$ionicPopover, $ionicPopup,$timeout,$state,$ionicHistory,storage,fromStateServ,$ionicScrollDelegate) {
 
 
 
@@ -4828,7 +4999,31 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
        window.androdzerofun_clback  = 'nothing';
      }
     });
+  $scope.$on('$stateChangeSuccess',function(){});
+  $scope.backView  = function(){
+    $scope.$ionicGoBack();
+  };
 
+  function handtat  (){
+
+
+
+    if(storage.getObject('UserInfo').user_id){
+      $scope.isShow = false;
+
+      $state.go('r.tab.Settings')
+
+
+    }else{
+      $scope.isShow = true;
+    }
+    $ionicScrollDelegate.scrollTop();
+  }
+
+  $scope.login  =  function(r){
+
+    fromStateServ.stateChange(r);
+  };
 
 
 
@@ -4854,7 +5049,8 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
   }
 
 
-
+  window.stateChangeListen['r.tab.Settings']  = handtat;
+  handtat()
 
 }])
 
@@ -5315,7 +5511,10 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
   /* window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';*/
  //window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
 
-   window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
+    window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
+	 //window.Interactivehost = 'http://192.168.0.56:1155/index.php?r=app/index'
+   
+
 
    window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';
   //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';

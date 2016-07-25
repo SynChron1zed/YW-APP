@@ -47,13 +47,16 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
                 $scope.$apply();
               },1000)
 
+            }else{
+              sctolthi  = true;
             }
+            
           },function(){
             sctolthi  = true;
           });
-
-
     }
+
+
   }
 
   //下一步
