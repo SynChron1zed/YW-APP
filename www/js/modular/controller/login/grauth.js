@@ -77,7 +77,8 @@ Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$io
         }
       },function(r){
         if(r){
-          native.task('认证已提交,个人中心查看审核进度!')
+          
+          native.task('认证已提交,个人中心查看审核进度!',4000)
           //需要支付会费
           if(r.resp_data.need_paid){
             $state.go('r.selectPaydues');
@@ -85,9 +86,9 @@ Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$io
             //返回原始入口页            
            
             $ionicViewSwitcher.nextDirection('back');
-            $ionicNativeTransitions.stateGo('r.tab.home',{}, {
+            $ionicNativeTransitions.stateGo('r.tab.Settings',{}, {
               "type": "slide",
-              "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
+              "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
               "duration": 400, // in milliseconds (ms), default 400
             });
             $timeout(function(){

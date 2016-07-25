@@ -9,10 +9,13 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
     //添加分类
     $scope.newclass  = {};
     $scope.addnewclass  = function(){
-      if($scope.newclass.name){
+            
+      console.log($scope.newclass)
+      if(!$scope.newclass.name){
         native.task('请填写分类名称');
         return false;
       }
+      
       Tools.showlogin();
       Tools.getData({
             "interface_number": "030204",

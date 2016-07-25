@@ -47,7 +47,7 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
               }
           })
     };
-
+    
     //删除商品
     $scope.delgoods =  function (targe,index){
    $ionicPopup.confirm({
@@ -228,6 +228,7 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
           if(iemin !=  $scope.selectitemin){
             $scope.customcucdownlisloadMore(true)
           }
+
           $scope.selectitemin  = 0;
           native.task('保存成功');
 

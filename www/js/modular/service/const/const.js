@@ -5,7 +5,6 @@
    //全局变量定义
   /* window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';*/
  //window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
-
     //window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
 	  window.Interactivehost = 'http://192.168.0.56:1155/index.php?r=app/index'
 
@@ -17,8 +16,7 @@
   // window.LocalCacheStatelist  =  {
   //   shopCart:'YES',
   // };
-
-
+  
   //路由改变监听  队列 处理事件
   window.stateChangeListen   ={};
   Server.factory('const',['$window','$ionicHistory','$timeout','$ionicNativeTransitions',function($window,$ionicHistory,$timeout,$ionicNativeTransitions){

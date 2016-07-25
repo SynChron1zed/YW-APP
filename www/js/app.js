@@ -820,51 +820,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
 /**
- * Created by Why on 16/6/12.
- */
-
-   //全局变量定义
-  /* window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';*/
- //window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
-
-    //window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
-	  window.Interactivehost = 'http://192.168.0.56:1155/index.php?r=app/index'
-
-   window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';
-  //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
-  //没有使用过度的返回页面的使用
-
-  //本地缓存   对象列表 定义
-  // window.LocalCacheStatelist  =  {
-  //   shopCart:'YES',
-  // };
-
-
-  //路由改变监听  队列 处理事件
-  window.stateChangeListen   ={};
-  Server.factory('const',['$window','$ionicHistory','$timeout','$ionicNativeTransitions',function($window,$ionicHistory,$timeout,$ionicNativeTransitions){
-      return{
-        haha:'哈哈'
-      }
-    }])
-    //商品编辑状态
-    .factory('goodsState',[function(){
-      return{
-         Refresh:false,
-         goods_basic_id:undefined,
-         goods_title:undefined,
-         img_url:undefined,
-         activity_price:undefined,
-      }
-    }])
-    .factory('loginregisterstate',[function(){
-      return{
-         Refresh:false,
-      }
-    }])
-    
-
-/**
  * Created by Why on 16/6/6.
  */
 App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout','native',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,$ionicNativeTransitions,$timeout,native) {
@@ -1129,6 +1084,49 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
   });
 
 }]);
+
+/**
+ * Created by Why on 16/6/12.
+ */
+
+   //全局变量定义
+  /* window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';*/
+ //window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
+    //window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
+	  window.Interactivehost = 'http://192.168.0.56:1155/index.php?r=app/index'
+
+   window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';
+  //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
+  //没有使用过度的返回页面的使用
+
+  //本地缓存   对象列表 定义
+  // window.LocalCacheStatelist  =  {
+  //   shopCart:'YES',
+  // };
+  
+  //路由改变监听  队列 处理事件
+  window.stateChangeListen   ={};
+  Server.factory('const',['$window','$ionicHistory','$timeout','$ionicNativeTransitions',function($window,$ionicHistory,$timeout,$ionicNativeTransitions){
+      return{
+        haha:'哈哈'
+      }
+    }])
+    //商品编辑状态
+    .factory('goodsState',[function(){
+      return{
+         Refresh:false,
+         goods_basic_id:undefined,
+         goods_title:undefined,
+         img_url:undefined,
+         activity_price:undefined,
+      }
+    }])
+    .factory('loginregisterstate',[function(){
+      return{
+         Refresh:false,
+      }
+    }])
+    
 
 /**
  * Created by Why on 16/6/10.
@@ -1418,196 +1416,6 @@ Server.factory('Chats', function() {
   };
 });
 
-
-Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$timeout','$ionicNativeTransitions',function($state,$ionicViewSwitcher,$ionicHistory,$timeout,$ionicNativeTransitions){
-    var box  = {
-        data: {},
-        savestate:false,
-        backView:function(tartg,clback){
-
-            $ionicViewSwitcher.nextDirection('back');
-            $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
-              "type": "slide",
-              "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
-              "duration": 400, // in milliseconds (ms), default 400
-            });
-            //$state.go(box.getState(tartg).fromState,box.getState(tartg).fromParams);
-            $timeout(function(){
-                // var inc  = false;
-                // var overflow  = [];
-                // angular.forEach($ionicHistory.viewHistory().views,function(v,k){
-                //   if(inc){  overflow.push(k); }
-                //   if(v.stateName  == tartg){ inc=true;  }} )
-                // angular.forEach(overflow,function (v){delete $ionicHistory.viewHistory().views[v];});
-                $ionicHistory.clearHistory();
-            },30);
-            $timeout(function () {
-              if(clback){
-                  clback()
-              }
-              window.backtoinroot  = undefined;
-              window.androdzerofun  =  undefined;
-              window.androdzerofun_parms  = undefined;
-              window.androdzerofun_clback  = undefined;
-              window.backtoinroot_parms  =  undefined;
-            }, 200);
-
-        },
-        setState: function(module, fromState, fromParams,title,viewid) {
-            this.data[module] = {
-                "fromState": fromState,
-                "fromParams": fromParams,
-                title:title,
-                viewId:viewid
-            };
-        },
-        getState: function(module) {
-            return this.data[module];
-        },
-        stateChange: function(stateName,parms,animation){
-
-            box.savestate = true;
-            //$ionicViewSwitcher.nextDirection(animation?animation:'forward');
-            // $ionicNativeTransitions.stateGo(stateName,parms,{
-            //     "type": "drawer",
-            //     "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
-            //     "duration": 1000 // in milliseconds (ms), default 400
-            // });
-          $ionicViewSwitcher.nextDirection('forward');
-          $ionicNativeTransitions.stateGo(stateName,parms, {
-            "type": "slide",
-            "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
-            "duration": 400, // in milliseconds (ms), default 400
-          });
-          
-        },
-        removebackregistevent:function(){
-            window.androdzerofun   =  undefined;
-        },        
-        saveHisty:function ($histy,stateNa){
-
-            if(this.savestate){
-                    var hostiy  = $histy.currentView();
-                   //注册安卓返回监听
-                    window.androdzerofun  =  box.backView;
-                    window.androdzerofun_parms  = stateNa;
-                    window.androdzerofun_clback  = window.anbackAndcals;
-                    //内部固化一个返回路径  (当第三方视图完全退出时 销毁)
-                    window.backtoinroot      =   box.backView;
-                    window.backtoinroot_parms  =  stateNa;
-
-                this.savestate  = false;
-                box.data = {};
-                this.setState(stateNa,hostiy.stateName,hostiy.stateParams,hostiy.title,hostiy.viewId);
-            }
-
-
-
-
-
-        }
-
-    };
-
-    return box;
-}])
-
-/**
- * Created by Why on 16/6/10.
- */
-  //本地存储数据===================================
-Server.factory('storage',['$window',function($window){
-    return{
-      //存储单个属性
-      set :function(key,value){
-        $window.localStorage[key]=value;
-      },
-      //读取单个属性
-      get:function(key,defaultValue){
-        return  $window.localStorage[key] || defaultValue;
-      },
-      //存储对象，以JSON格式存储
-      setObject:function(key,value){
-        $window.localStorage[key]=JSON.stringify(value);
-      },
-      //读取对象
-      getObject: function (key) {
-          return JSON.parse( $window.localStorage[key] || '{}'   );
-      }
-    }
-
-
-  }]);
-
-/**
- * Created by Why on 16/6/14.
- */
-  //本地存储数据===================================
-Server.factory('share',['$window','native',function($window,native){
-
-
-
-  //是否安装微信
-  function wechatishas  (sharego){
-    native.loading('启动微信...');
-    if($window.Wechat   ==  undefined  ){
-      native.hidloading()
-      native.alert('微信插件没有安装!');
-      return false;
-    }
-    $window.Wechat.isInstalled(function (installed) {
-      if(installed){
-        setTimeout(function(){
-          native.hidloading()
-          sharego();
-        },300)
-      }else{
-        native.alert('请安装,微信!')
-        native.hidloading()
-      }
-    }, function (reason) {
-      alert("Failed: " + reason);
-      native.hidloading()
-    });
-  }
-
-  return{
-    //微信分享
-    weichat:function(config){
-      wechatishas(function(){
-        window.Wechat.share({
-          message: {
-            title: "这是测试",
-            description: "易物app",
-            thumb: "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1903957143,479133575&fm=111&gp=0.jpg",
-            mediaTagName: "TEST-TAG-001",
-            messageExt: "易物",
-            messageAction: "<action>dotalist</action>",
-            media: {
-              type: window.Wechat.Type.LINK,
-              webpageUrl: "http://tech.qq.com/zt2012/tmtdecode/252.htm"
-            }
-          },
-          scene: window.Wechat.Scene.SESSION   // share to Timeline
-          //TIMELINE   盆友圈
-          //FAVORITE   收藏
-          //SESSION    微信聊天回话
-
-
-
-        }, function () {
-        }, function (reason) {
-          alert("Failed: " + reason);
-        });
-      })
-    }
-
-
-
-  }
-
-
-}]);
 
 /**
  * Created by Why on 16/6/10.
@@ -1952,6 +1760,169 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   }
 
 }]);
+
+/**
+ * Created by Why on 16/6/14.
+ */
+  //本地存储数据===================================
+Server.factory('share',['$window','native',function($window,native){
+
+
+
+  //是否安装微信
+  function wechatishas  (sharego){
+    native.loading('启动微信...');
+    if($window.Wechat   ==  undefined  ){
+      native.hidloading()
+      native.alert('微信插件没有安装!');
+      return false;
+    }
+    $window.Wechat.isInstalled(function (installed) {
+      if(installed){
+        setTimeout(function(){
+          native.hidloading()
+          sharego();
+        },300)
+      }else{
+        native.alert('请安装,微信!')
+        native.hidloading()
+      }
+    }, function (reason) {
+      alert("Failed: " + reason);
+      native.hidloading()
+    });
+  }
+
+  return{
+    //微信分享
+    weichat:function(config){
+      wechatishas(function(){
+        window.Wechat.share({
+          message: {
+            title: "这是测试",
+            description: "易物app",
+            thumb: "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1903957143,479133575&fm=111&gp=0.jpg",
+            mediaTagName: "TEST-TAG-001",
+            messageExt: "易物",
+            messageAction: "<action>dotalist</action>",
+            media: {
+              type: window.Wechat.Type.LINK,
+              webpageUrl: "http://tech.qq.com/zt2012/tmtdecode/252.htm"
+            }
+          },
+          scene: window.Wechat.Scene.SESSION   // share to Timeline
+          //TIMELINE   盆友圈
+          //FAVORITE   收藏
+          //SESSION    微信聊天回话
+
+
+
+        }, function () {
+        }, function (reason) {
+          alert("Failed: " + reason);
+        });
+      })
+    }
+
+
+
+  }
+
+
+}]);
+
+Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$timeout','$ionicNativeTransitions',function($state,$ionicViewSwitcher,$ionicHistory,$timeout,$ionicNativeTransitions){
+    var box  = {
+        data: {},
+        savestate:false,
+        backView:function(tartg,clback){
+
+            $ionicViewSwitcher.nextDirection('back');
+            $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
+              "type": "slide",
+              "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
+              "duration": 400, // in milliseconds (ms), default 400
+            });
+            //$state.go(box.getState(tartg).fromState,box.getState(tartg).fromParams);
+            $timeout(function(){
+                // var inc  = false;
+                // var overflow  = [];
+                // angular.forEach($ionicHistory.viewHistory().views,function(v,k){
+                //   if(inc){  overflow.push(k); }
+                //   if(v.stateName  == tartg){ inc=true;  }} )
+                // angular.forEach(overflow,function (v){delete $ionicHistory.viewHistory().views[v];});
+                $ionicHistory.clearHistory();
+            },30);
+            $timeout(function () {
+              if(clback){
+                  clback()
+              }
+              window.backtoinroot  = undefined;
+              window.androdzerofun  =  undefined;
+              window.androdzerofun_parms  = undefined;
+              window.androdzerofun_clback  = undefined;
+              window.backtoinroot_parms  =  undefined;
+            }, 200);
+
+        },
+        setState: function(module, fromState, fromParams,title,viewid) {
+            this.data[module] = {
+                "fromState": fromState,
+                "fromParams": fromParams,
+                title:title,
+                viewId:viewid
+            };
+        },
+        getState: function(module) {
+            return this.data[module];
+        },
+        stateChange: function(stateName,parms,animation){
+
+            box.savestate = true;
+            //$ionicViewSwitcher.nextDirection(animation?animation:'forward');
+            // $ionicNativeTransitions.stateGo(stateName,parms,{
+            //     "type": "drawer",
+            //     "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
+            //     "duration": 1000 // in milliseconds (ms), default 400
+            // });
+          $ionicViewSwitcher.nextDirection('forward');
+          $ionicNativeTransitions.stateGo(stateName,parms, {
+            "type": "slide",
+            "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
+            "duration": 400, // in milliseconds (ms), default 400
+          });
+          
+        },
+        removebackregistevent:function(){
+            window.androdzerofun   =  undefined;
+        },        
+        saveHisty:function ($histy,stateNa){
+
+            if(this.savestate){
+                    var hostiy  = $histy.currentView();
+                   //注册安卓返回监听
+                    window.androdzerofun  =  box.backView;
+                    window.androdzerofun_parms  = stateNa;
+                    window.androdzerofun_clback  = window.anbackAndcals;
+                    //内部固化一个返回路径  (当第三方视图完全退出时 销毁)
+                    window.backtoinroot      =   box.backView;
+                    window.backtoinroot_parms  =  stateNa;
+
+                this.savestate  = false;
+                box.data = {};
+                this.setState(stateNa,hostiy.stateName,hostiy.stateParams,hostiy.title,hostiy.viewId);
+            }
+
+
+
+
+
+        }
+
+    };
+
+    return box;
+}])
 
 /**
  * Created by Why on 16/6/8.
@@ -2399,6 +2370,13 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
   handtat()
 }]);
 
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('tabCtr',[function(){
+
+}])
+
 Ctr.controller('goodsclasslist',['$scope','fromStateServ','$timeout','Tools','native','$ionicModal','$state',function($scope,fromStateServ,$timeout,Tools,native,$ionicModal,$state){
 
 
@@ -2554,7 +2532,7 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
               }
           })
     };
-
+    
     //删除商品
     $scope.delgoods =  function (targe,index){
    $ionicPopup.confirm({
@@ -2735,6 +2713,7 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
           if(iemin !=  $scope.selectitemin){
             $scope.customcucdownlisloadMore(true)
           }
+
           $scope.selectitemin  = 0;
           native.task('保存成功');
 
@@ -3160,10 +3139,13 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
     //添加分类
     $scope.newclass  = {};
     $scope.addnewclass  = function(){
-      if($scope.newclass.name){
+            
+      console.log($scope.newclass)
+      if(!$scope.newclass.name){
         native.task('请填写分类名称');
         return false;
       }
+      
       Tools.showlogin();
       Tools.getData({
             "interface_number": "030204",
@@ -4116,13 +4098,6 @@ $scope.swatchtstate  = function (){
 
 
 
-
-}])
-
-/**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('tabCtr',[function(){
 
 }])
 
@@ -5121,7 +5096,7 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
       });
       return false;
     }
-    if( !$scope.from.License  || !$scope.from.mechanism ){
+    if( !$scope.from.License  || !$scope.from.mechanism  ||  !$scope.from.legal ){
       $ionicPopup.alert({
         title:'请填写完整基本信息',
         okText:'确认'
@@ -5140,6 +5115,7 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
         "interface_number": "000301",
         "post_content": {
           "company_type":"0",
+          legal:$scope.from.legal,
           "license": $scope.from.License,
           "certificate_no": $scope.from.mechanism,
           "license_img":f[0].hash,
@@ -5147,17 +5123,16 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
         }
       },function(r){
         if(r){
-          native.task('认证已提交,个人中心查看审核进度!')
+          native.task('认证已提交,个人中心查看审核进度!',4000)
           //需要支付会费
           if(r.resp_data.need_paid){
             $state.go('r.selectPaydues');
           }else{
             //返回原始入口页        
-
             $ionicViewSwitcher.nextDirection('back');
-            $ionicNativeTransitions.stateGo('r.tab.home',{}, {
+            $ionicNativeTransitions.stateGo('r.tab.Settings',{}, {
               "type": "slide",
-              "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
+              "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
               "duration": 400, // in milliseconds (ms), default 400
             });
             $timeout(function(){
@@ -5268,7 +5243,8 @@ Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$io
         }
       },function(r){
         if(r){
-          native.task('认证已提交,个人中心查看审核进度!')
+          
+          native.task('认证已提交,个人中心查看审核进度!',4000)
           //需要支付会费
           if(r.resp_data.need_paid){
             $state.go('r.selectPaydues');
@@ -5276,9 +5252,9 @@ Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$io
             //返回原始入口页            
            
             $ionicViewSwitcher.nextDirection('back');
-            $ionicNativeTransitions.stateGo('r.tab.home',{}, {
+            $ionicNativeTransitions.stateGo('r.tab.Settings',{}, {
               "type": "slide",
-              "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
+              "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
               "duration": 400, // in milliseconds (ms), default 400
             });
             $timeout(function(){
@@ -5634,6 +5610,14 @@ Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicVie
 /**
  * Created by Why on 16/6/8.
  */
+
+Ctr.controller('rootCtr',[function(){
+  
+}])
+
+/**
+ * Created by Why on 16/6/8.
+ */
 Ctr.controller('noticeCtr',['$scope','$ionicHistory',function($scope,$ionicHistory) {
 
 
@@ -5658,14 +5642,6 @@ Ctr.controller('noticeCtr',['$scope','$ionicHistory',function($scope,$ionicHisto
   .controller('noticeDetailCtr', ['$scope',function($scope) {
     
   }]);
-
-/**
- * Created by Why on 16/6/8.
- */
-
-Ctr.controller('rootCtr',[function(){
-  
-}])
 
 Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory){
 }])
@@ -6238,6 +6214,33 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
 
 
 }])
+/**
+ * Created by Why on 16/6/10.
+ */
+  //本地存储数据===================================
+Server.factory('storage',['$window',function($window){
+    return{
+      //存储单个属性
+      set :function(key,value){
+        $window.localStorage[key]=value;
+      },
+      //读取单个属性
+      get:function(key,defaultValue){
+        return  $window.localStorage[key] || defaultValue;
+      },
+      //存储对象，以JSON格式存储
+      setObject:function(key,value){
+        $window.localStorage[key]=JSON.stringify(value);
+      },
+      //读取对象
+      getObject: function (key) {
+          return JSON.parse( $window.localStorage[key] || '{}'   );
+      }
+    }
+
+
+  }]);
+
 /**
  * Created by Why on 16/6/8.
  */
