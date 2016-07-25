@@ -16,6 +16,11 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
   },function(r){
     if(r){
 
+
+      r.resp_data.data.img_url  =  window.qiniuimgHost+r.resp_data.data.img_url+'?imageView2/1/w/200/h/200';
+      r.resp_data.data.ctr  = false;
+
+
       $scope.ClassifDetailsList = (r.resp_data.data);
        console.log($scope.ClassifDetailsList)
       $scope.shopid= $scope.ClassifDetailsList.goodsShop.shop_id

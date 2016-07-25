@@ -52,23 +52,25 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
     "post_content": {
       "token" : "",
       "token_phone": "",
-      cateId:1,
+      "cateId":1,
       "page_num": 1,
-      "page_per":12
+      "page_per":6
     }
   },function(r){
+
     if(r){
-      if(r.resp_data.data.data.length==12){
+      if(r.resp_data.data.length==6){
         $scope.expression=true
       }else{
         $scope.expression=false
       }
+  
       angular.forEach(r.resp_data.data,function(c){
         c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
         c.ctr  = false;
       });
 
-      $scope.ShoppingList = (r.resp_data.data.data)
+      $scope.ShoppingList = (r.resp_data.data)
 
     }
   });
@@ -82,20 +84,25 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
      cateId= item.cate_id;
 
     Tools.getData({
-      "interface_number": "020103",
+      "interface_number": "020104",
       "client_type": window.platform,
       "post_content": {
         "token" : "",
         "token_phone": "",
-        "searchParam": {
-          "shop_cate_id": cateId
-        },
+        "cateId":cateId,
         "page_num": 1,
-        "page_per":12
+        "page_per":6
       }
     },function(r){
+
       if(r){
-        $scope.ShoppingList = (r.resp_data.data.data)
+
+        angular.forEach(r.resp_data.data,function(c){
+          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
+          c.ctr  = false;
+        });
+
+        $scope.ShoppingList = (r.resp_data.data)
 
       }
     });
@@ -106,7 +113,6 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
   };
 
 
-
   //翻页加载
    $scope.loadOlderStories=function (ddd) {
          pageNum +=1;
@@ -114,31 +120,39 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
          cateId=1
      }
        Tools.getData({
-         "interface_number": "020103",
+         "interface_number": "020104",
          "client_type": window.platform,
          "post_content": {
            "token": "",
            "token_phone": "",
-           "searchParam": {
-             "shop_cate_id":cateId
-           },
+           "cateId":cateId,
            "page_num": pageNum,
-           "page_per": 12
+           "page_per": 6
          }
        }, function (r) {
          if (r) {
-           if (r.resp_data.data.data.length == 0) {
+
+           angular.forEach(r.resp_data.data,function(c){
+             c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
+             c.ctr  = false;
+           });
+
+           if (r.resp_data.data.length == 0) {
              $scope.expression = false
+             $scope.ShoppingList=$scope.ShoppingList
+
            } else {
               if(pageNum==1){
-                r.resp_data.data.data=[];
+                r.resp_data.data=[];
               }
-             for(var i=0;i<r.resp_data.data.data.length;i++){
-               $scope.ShoppingList.push(r.resp_data.data.data[i])
+             for(var i=0;i<r.resp_data.data.length;i++){
+               $scope.ShoppingList.push(r.resp_data.data[i])
              }
            }
+
            $scope.$broadcast('scroll.infiniteScrollComplete');
          }
+
 
        });
 
