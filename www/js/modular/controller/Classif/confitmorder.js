@@ -38,6 +38,9 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
   },function(r){
     if(r){
 
+      r.resp_data.data.img_url  =  window.qiniuimgHost+r.resp_data.data.img_url+'?imageView2/1/w/200/h/200';
+      r.resp_data.data.ctr  = false;
+
       $scope.ClassifDetailsList = (r.resp_data.data);
       console.log($scope.ClassifDetailsList)
       var total = $scope.ClassifDetailsList.total_in_price * $scope.shopNum
