@@ -47,14 +47,12 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
 
 
   Tools.getData({
-    "interface_number": "020103",
+    "interface_number": "020104",
     "client_type": window.platform,
     "post_content": {
       "token" : "",
       "token_phone": "",
-      "searchParam": {
-        "shop_cate_id": 1
-      },
+      cateId:1,
       "page_num": 1,
       "page_per":12
     }
@@ -65,6 +63,11 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
       }else{
         $scope.expression=false
       }
+      angular.forEach(r.resp_data.data,function(c){
+        c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
+        c.ctr  = false;
+      });
+
       $scope.ShoppingList = (r.resp_data.data.data)
 
     }

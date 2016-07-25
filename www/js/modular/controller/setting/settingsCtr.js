@@ -22,6 +22,13 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
     $scope.$ionicGoBack();
   };
 
+  $scope.goadderss = function (r) {
+    debugger;
+    fromStateServ.stateChange(r);
+
+  };
+
+
   function handtat  (){
 
 

@@ -514,7 +514,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-    //setting  个人设置 管理收货地址
+   /* //setting  个人设置 管理收货地址
     .state('r.tab.Settingsaddress', {
       url: '/Settings/address',
       views: {
@@ -523,7 +523,29 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           controller: 'SettingsAddressCtr'
         }
       }
+    })*/
+
+    .state('r.settingAddress', {
+      url: '/settingAddress',
+      // nativeTransitions: {
+      //   "type": "flip",
+      //   "direction": "up"
+      // },
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.settingAddress')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Setting/SettingsAddress.html',
+          controller: 'SettingsAddressCtr'
+        }
+      }
     })
+
+
 
     //setting  个人设置 管理收货地址 addadresss
   /*  .state('r.tab.Settingsaddaddress', {
@@ -538,7 +560,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })*/
 
     .state('r.addAddress', {
-      url: '/addAddress',
+      url: '/addAddress/:dataAdd',
       // nativeTransitions: {
       //   "type": "flip",
       //   "direction": "up"

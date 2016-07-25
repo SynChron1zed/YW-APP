@@ -147,10 +147,11 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
   }*/
 
   $scope.addArddss=function (r) {
-
+debugger;
    /* fromStateServ.stateChange(r);
     $scope.addressmodal.hide();*/
-    $state.go('r.addAddress');
+    $state.go('r.addAddress',{dataAdd:1});
+    $scope.addressmodal.hide();;
   }
 
 

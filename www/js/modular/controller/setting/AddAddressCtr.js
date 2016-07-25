@@ -1,10 +1,11 @@
 /**
  * Created by Administrator on 2016/7/5.
  */
-Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
+Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams) {
   var Address =[],Name=[],Number=[],Email=[],Checked=[];
   $scope.pushNotification = { checked: true};
-
+  var dataadd = $stateParams.dataAdd
+    console.log(dataadd);
   //默认
   $scope.pushNotificationChange = function() {
 
