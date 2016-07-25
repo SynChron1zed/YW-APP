@@ -6,16 +6,12 @@
   <ion-content   lazy-scroll   class='shopcrtboxbj' overflow-scroll="false"   scrollbar-y="false"  >
 
 
-
       <div class="shopcartnologin" ng-show="isShow">
           <img src="./img/img3@x.png" alt="">
-          <button class="gotologin"    ng-click="login('r.login')" >登 陆</button>
+          <button class="gotologin"    ng-click="login('r.login')" >登 录</button>
       </div>
 
-
         <div class="shopcartBOXLIST"  ng-show="!isShow"  >
-
-
                 <div class="shopitem"  ng-repeat='(xxkey,xx)  in shopcartdata'  >
 
                     <div class="shoptitle">
@@ -141,6 +137,7 @@
     text-align: center;
     font-size: .6rem;
     color: #fff;
+    right:0px;
     "  >
       结算
     </div>

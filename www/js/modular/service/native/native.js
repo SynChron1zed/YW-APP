@@ -41,7 +41,7 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
       $cordovaDialogs.beep(number);
     },
     //调用摄像头
-    Camera :function(config,Callback){
+    Camera :function(config,Callback,errCallback){
       //config 可以传空对象
       var options = {
         quality: config.quality?config.quality:50, //图片的压缩质量  0-100  默认50
@@ -89,6 +89,8 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
         var  data = "data:image/jpeg;base64," + imageData;
         Callback(data,imageData);
       }, function(err) {
+        $cordovaToast.show('获取图片错误',1000,animte?animte:'bottom');
+        errCallback();
         // error
         //this.alert(err,'信息','确认')
 

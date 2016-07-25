@@ -4,18 +4,21 @@
 
 
     <div class="registerlist">
-      <div>
-        <div class="lable">公司名称</div>
+
+
+   <div>
+        <div class="lable">法人</div>
         <div class="input">
-          <input type="password"  ng-model="from.compname"  placeholder="请输入你的公司名称">
+          <input type="text"  ng-model="from.legal"  placeholder="填写法人姓名">
         </div>
       </div>
+
 
       <div>
         <div class="lable">营业执照</div>
         <div class="input">
 
-          <input type="password"  ng-model="from.License"  placeholder="填写营业执照注册号">
+          <input type="text"  ng-model="from.License"  placeholder="填写营业执照注册号">
 
         </div>
       </div>
@@ -25,7 +28,7 @@
         <div class="lable">组织机构</div>
         <div class="input">
 
-          <input type="password"  ng-model="from.mechanism"  placeholder="填写组织机构代码证书">
+          <input type="text"  ng-model="from.mechanism"  placeholder="填写组织机构代码证书">
 
         </div>
       </div>
@@ -70,7 +73,7 @@
 
       <div    ng-if="identity.inverse"  style="width:80%;margin: 0 auto;padding: 6px;border: 1px dashed #717070;position: relative"   >
         <i  ng-click="rminverse()"
-            class="ion-ios-close" style="position: absolute;
+            class="ion-ios-close"  style="position: absolute;
               font-size: 30px;
               top: -10px;
               right: -6px;

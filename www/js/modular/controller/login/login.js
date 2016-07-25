@@ -1,7 +1,7 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatform','$state','Tools','$ionicPopup','storage','$timeout',function($ionicHistory,$scope,fromStateServ,$ionicPlatform,$state,Tools,$ionicPopup,storage,$timeout){
+Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatform','$state','Tools','$ionicPopup','storage','$timeout','loginregisterstate',function($ionicHistory,$scope,fromStateServ,$ionicPlatform,$state,Tools,$ionicPopup,storage,$timeout,loginregisterstate){
 
   //处理登录
   $scope.loginboj  = {};
@@ -79,9 +79,9 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
     $scope.$ionicGoBack();
   };
   
-  
   $scope.register  =  function (){
       if(!$scope.ing){
+            loginregisterstate.Refresh   =  true;
             $state.go('r.register');
       }
   }
