@@ -1,16 +1,21 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup){
+Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native){
 
-
-
+  
+   //对安卓返回键的  特殊处理  tabs
+  $scope.$on('$ionicView.beforeEnter',function(){
+    if(loginregisterstate.Refresh){
+        $scope.registbasinfo  = {};
+        loginregisterstate.Refresh  = false;
+    }  
+  });
 
 
   $scope.registbasinfo  = {};
   $scope.nextvercode =  60;
   $scope.vercodeing  = false;
-  $scope.$on('$stateChangeSuccess',function(){});
   $scope.backView  = function(){
     $scope.$ionicGoBack();
   };
@@ -35,6 +40,7 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
             }
           },function(r){
             if(r){
+              native.task('发送成功');
               $scope.vercodeing  = true;
               $scope.nextvercode =  60;
               var   time  = setInterval(function(){
@@ -114,6 +120,10 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
       }
     },function(r){
     if(r){
+        if(window.cordova){
+            window.cordova.plugins.Keyboard.close();
+        }
+
 
         $state.go('r.registercfpwd',{phone:r.resp_data.phone})
     }

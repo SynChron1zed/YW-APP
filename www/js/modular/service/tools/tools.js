@@ -68,7 +68,6 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   };
   //选择图片  提供相机  和  相册功能
    var  chekpirc    = function (cofnig,claback){
-
      if(!typeof   cofnig  == 'object' || !cofnig){
        cofnig = {};
      }
@@ -77,25 +76,33 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
        buttonLabels:['相册'],
        addDestructiveButtonWithLabel:'拍照'
      },function(r){
+
        if(r==1) {
-         cofnig.quality?cofnig.quality:0;
+         
+         cofnig.quality?cofnig.quality:50;
          cofnig.allowEdit?cofnig.allowEdit:false;
          native.Camera(cofnig,function(r){
            //base64 回调
            claback(r)
+         },function(){
          });
        }else if(r==2){
-
-         cofnig.quality?cofnig.quality:0;
+         cofnig.quality?cofnig.quality:50;
          cofnig.allowEdit?cofnig.allowEdit:false;
          cofnig.sourceType  =  Camera.PictureSourceType.SAVEDPHOTOALBUM;
          native.Camera(cofnig,function(r){
-           //base64 回调
+           //base64 回调           
            claback(r);
+         },function(){
          });
        }else{
          native.task('取消');
        }
+
+
+
+
+
      })
    };
       
@@ -128,10 +135,9 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
         // Callback(false);
         // errorCallback?errorCallback(r):null;
         if(r.msg){
-          $ionicPopup.alert({
-            title:r.msg,
-            okText:'确认'
-          })
+
+          native.task(r.msg);
+
         }else{
            native.task('异常错误!')
         }

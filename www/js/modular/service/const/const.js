@@ -8,8 +8,7 @@
 
     //window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
 	  window.Interactivehost = 'http://192.168.0.56:1155/index.php?r=app/index'
-  
-  
+
    window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';
   //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
   //没有使用过度的返回页面的使用
@@ -27,6 +26,7 @@
         haha:'哈哈'
       }
     }])
+    //商品编辑状态
     .factory('goodsState',[function(){
       return{
          Refresh:false,
@@ -34,6 +34,11 @@
          goods_title:undefined,
          img_url:undefined,
          activity_price:undefined,
-         
       }
     }])
+    .factory('loginregisterstate',[function(){
+      return{
+         Refresh:false,
+      }
+    }])
+    

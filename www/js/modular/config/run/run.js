@@ -7,16 +7,14 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
   
   
   $ionicPlatform.ready(function() {
-
-    //$state.go('r.tab.Home');
+    //$state.go('r.selectAuth');
+    $state.go('r.tab.Home');
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
       //ionic.Platform.isFullScreen = true;
       //Return event listener
         //uuid
-
-
              setTimeout(function () {  
                    navigator.splashscreen.hide();
 

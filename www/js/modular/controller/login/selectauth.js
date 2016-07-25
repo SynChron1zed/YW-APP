@@ -2,9 +2,7 @@
  * Created by Why on 16/6/8.
  */
 Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher','$state','$timeout','$ionicNativeTransitions',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher,$state,$timeout,$ionicNativeTransitions){
-
-
-
+  
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
       //注册安卓返回的处理
@@ -27,6 +25,7 @@ Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicVie
       window.androdzerofun_clback  =    function(){
         $ionicHistory.clearHistory();
       };
+
       $scope.GoBackHome =  function(){
           window.androdzerofun(window.androdzerofun_parms,window.androdzerofun_clback);
       }
