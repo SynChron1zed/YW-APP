@@ -820,6 +820,51 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
 /**
+ * Created by Why on 16/6/12.
+ */
+
+   //全局变量定义
+  /* window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';*/
+ //window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
+
+    //window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
+	  window.Interactivehost = 'http://192.168.0.56:1155/index.php?r=app/index'
+
+   window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';
+  //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
+  //没有使用过度的返回页面的使用
+
+  //本地缓存   对象列表 定义
+  // window.LocalCacheStatelist  =  {
+  //   shopCart:'YES',
+  // };
+
+
+  //路由改变监听  队列 处理事件
+  window.stateChangeListen   ={};
+  Server.factory('const',['$window','$ionicHistory','$timeout','$ionicNativeTransitions',function($window,$ionicHistory,$timeout,$ionicNativeTransitions){
+      return{
+        haha:'哈哈'
+      }
+    }])
+    //商品编辑状态
+    .factory('goodsState',[function(){
+      return{
+         Refresh:false,
+         goods_basic_id:undefined,
+         goods_title:undefined,
+         img_url:undefined,
+         activity_price:undefined,
+      }
+    }])
+    .factory('loginregisterstate',[function(){
+      return{
+         Refresh:false,
+      }
+    }])
+    
+
+/**
  * Created by Why on 16/6/6.
  */
 App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout','native',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,$ionicNativeTransitions,$timeout,native) {
@@ -828,16 +873,14 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
   
   
   $ionicPlatform.ready(function() {
-
-    //$state.go('r.tab.Home');
+    //$state.go('r.selectAuth');
+    $state.go('r.tab.Home');
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
       //ionic.Platform.isFullScreen = true;
       //Return event listener
         //uuid
-
-
              setTimeout(function () {  
                    navigator.splashscreen.hide();
 
@@ -1088,46 +1131,6 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
 }]);
 
 /**
- * Created by Why on 16/6/12.
- */
-
-   //全局变量定义
-  /* window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';*/
- //window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
-
-    //window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
-	  window.Interactivehost = 'http://192.168.0.56:1155/index.php?r=app/index'
-  
-  
-   window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';
-  //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
-  //没有使用过度的返回页面的使用
-
-  //本地缓存   对象列表 定义
-  // window.LocalCacheStatelist  =  {
-  //   shopCart:'YES',
-  // };
-
-
-  //路由改变监听  队列 处理事件
-  window.stateChangeListen   ={};
-  Server.factory('const',['$window','$ionicHistory','$timeout','$ionicNativeTransitions',function($window,$ionicHistory,$timeout,$ionicNativeTransitions){
-      return{
-        haha:'哈哈'
-      }
-    }])
-    .factory('goodsState',[function(){
-      return{
-         Refresh:false,
-         goods_basic_id:undefined,
-         goods_title:undefined,
-         img_url:undefined,
-         activity_price:undefined,
-         
-      }
-    }])
-
-/**
  * Created by Why on 16/6/10.
  */
 //推送的方法类封装
@@ -1184,7 +1187,7 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
       $cordovaDialogs.beep(number);
     },
     //调用摄像头
-    Camera :function(config,Callback){
+    Camera :function(config,Callback,errCallback){
       //config 可以传空对象
       var options = {
         quality: config.quality?config.quality:50, //图片的压缩质量  0-100  默认50
@@ -1232,6 +1235,8 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
         var  data = "data:image/jpeg;base64," + imageData;
         Callback(data,imageData);
       }, function(err) {
+        $cordovaToast.show('获取图片错误',1000,animte?animte:'bottom');
+        errCallback();
         // error
         //this.alert(err,'信息','确认')
 
@@ -1508,6 +1513,33 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
 }])
 
 /**
+ * Created by Why on 16/6/10.
+ */
+  //本地存储数据===================================
+Server.factory('storage',['$window',function($window){
+    return{
+      //存储单个属性
+      set :function(key,value){
+        $window.localStorage[key]=value;
+      },
+      //读取单个属性
+      get:function(key,defaultValue){
+        return  $window.localStorage[key] || defaultValue;
+      },
+      //存储对象，以JSON格式存储
+      setObject:function(key,value){
+        $window.localStorage[key]=JSON.stringify(value);
+      },
+      //读取对象
+      getObject: function (key) {
+          return JSON.parse( $window.localStorage[key] || '{}'   );
+      }
+    }
+
+
+  }]);
+
+/**
  * Created by Why on 16/6/14.
  */
   //本地存储数据===================================
@@ -1580,33 +1612,6 @@ Server.factory('share',['$window','native',function($window,native){
 /**
  * Created by Why on 16/6/10.
  */
-  //本地存储数据===================================
-Server.factory('storage',['$window',function($window){
-    return{
-      //存储单个属性
-      set :function(key,value){
-        $window.localStorage[key]=value;
-      },
-      //读取单个属性
-      get:function(key,defaultValue){
-        return  $window.localStorage[key] || defaultValue;
-      },
-      //存储对象，以JSON格式存储
-      setObject:function(key,value){
-        $window.localStorage[key]=JSON.stringify(value);
-      },
-      //读取对象
-      getObject: function (key) {
-          return JSON.parse( $window.localStorage[key] || '{}'   );
-      }
-    }
-
-
-  }]);
-
-/**
- * Created by Why on 16/6/10.
- */
 //小工具方法类
 Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup','storage','native',function($window,$ionicLoading,$http,$timeout,$ionicPopup,storage,native){
 
@@ -1674,7 +1679,6 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   };
   //选择图片  提供相机  和  相册功能
    var  chekpirc    = function (cofnig,claback){
-
      if(!typeof   cofnig  == 'object' || !cofnig){
        cofnig = {};
      }
@@ -1683,25 +1687,33 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
        buttonLabels:['相册'],
        addDestructiveButtonWithLabel:'拍照'
      },function(r){
+
        if(r==1) {
-         cofnig.quality?cofnig.quality:0;
+         
+         cofnig.quality?cofnig.quality:50;
          cofnig.allowEdit?cofnig.allowEdit:false;
          native.Camera(cofnig,function(r){
            //base64 回调
            claback(r)
+         },function(){
          });
        }else if(r==2){
-
-         cofnig.quality?cofnig.quality:0;
+         cofnig.quality?cofnig.quality:50;
          cofnig.allowEdit?cofnig.allowEdit:false;
          cofnig.sourceType  =  Camera.PictureSourceType.SAVEDPHOTOALBUM;
          native.Camera(cofnig,function(r){
-           //base64 回调
+           //base64 回调           
            claback(r);
+         },function(){
          });
        }else{
          native.task('取消');
        }
+
+
+
+
+
      })
    };
       
@@ -1734,10 +1746,9 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
         // Callback(false);
         // errorCallback?errorCallback(r):null;
         if(r.msg){
-          $ionicPopup.alert({
-            title:r.msg,
-            okText:'确认'
-          })
+
+          native.task(r.msg);
+
         }else{
            native.task('异常错误!')
         }
@@ -2387,13 +2398,6 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
   window.stateChangeListen['r.tab.Classif']  = handtat;
   handtat()
 }]);
-
-/**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('tabCtr',[function(){
-
-}])
 
 Ctr.controller('goodsclasslist',['$scope','fromStateServ','$timeout','Tools','native','$ionicModal','$state',function($scope,fromStateServ,$timeout,Tools,native,$ionicModal,$state){
 
@@ -4116,6 +4120,13 @@ $scope.swatchtstate  = function (){
 }])
 
 /**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('tabCtr',[function(){
+
+}])
+
+/**
  * Created by Administrator on 2016/7/13.
  */
 Ctr.controller('chariCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup',function($scope,native,$state,fromStateServ,Tools,$ionicPopup) {
@@ -5004,7 +5015,7 @@ Ctr.controller('tasteCtr',['$scope','native','$state','fromStateServ','Tools','$
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('registercfpwdCtr',['$scope','$state','Tools','$stateParams','$ionicPopup','storage','$ionicHistory',function($scope,$state,Tools,$stateParams,$ionicPopup,storage,$ionicHistory){
+Ctr.controller('registercfpwdCtr',['$scope','$state','Tools','$stateParams','$ionicPopup','storage','$ionicHistory','native',function($scope,$state,Tools,$stateParams,$ionicPopup,storage,$ionicHistory,native){
 
 
 
@@ -5044,8 +5055,8 @@ Ctr.controller('registercfpwdCtr',['$scope','$state','Tools','$stateParams','$io
         r.resp_data.user_info.token  = window.Token;
         storage.setObject('UserInfo',r.resp_data.user_info);
         $state.go('r.selectAuth');
-
-        $ionicHistory.clearHistory();        
+        $scope.password  = {};
+        native.task('注册成功！')
 
 
       }
@@ -5062,7 +5073,7 @@ Ctr.controller('registercfpwdCtr',['$scope','$state','Tools','$stateParams','$io
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher','Tools','$ionicPopup',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher,Tools,$ionicPopup){
+Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher','Tools','$ionicPopup','$timeout','native','$ionicNativeTransitions','storage','$state',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher,Tools,$ionicPopup,$timeout,native,$ionicNativeTransitions,storage,$state){
 
 
   //身份证  图片对象
@@ -5074,6 +5085,8 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
   $scope.xuanzpirce  = function(){
     Tools.chekpirc({},function(r){
       $scope.identity.Positive  = r;
+      
+      
     });
     // Tools.sendqiniu_single($scope.c,function(r){
     //   if(r){
@@ -5084,7 +5097,11 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
 
   $scope.xuanzpirceinverse   =  function (){
     Tools.chekpirc({},function(r){
+
       $scope.identity.inverse  = r;
+      
+      
+
     });
   }
   
@@ -5104,14 +5121,57 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
       });
       return false;
     }
-    if(!$scope.from.compname   ||  !$scope.from.License  || !$scope.from.mechanism ){
+    if( !$scope.from.License  || !$scope.from.mechanism ){
       $ionicPopup.alert({
         title:'请填写完整基本信息',
         okText:'确认'
       });
       return false;
     }
-    //发送请求
+
+    Tools.showlogin();
+       //发送图片到期牛
+    Tools.sendqiniu_queue([
+      $scope.identity.Positive,
+      $scope.identity.inverse
+    ],function(f){
+
+    Tools.getData({
+        "interface_number": "000301",
+        "post_content": {
+          "company_type":"0",
+          "license": $scope.from.License,
+          "certificate_no": $scope.from.mechanism,
+          "license_img":f[0].hash,
+          "certificate_img":f[1].hash
+        }
+      },function(r){
+        if(r){
+          native.task('认证已提交,个人中心查看审核进度!')
+          //需要支付会费
+          if(r.resp_data.need_paid){
+            $state.go('r.selectPaydues');
+          }else{
+            //返回原始入口页        
+
+            $ionicViewSwitcher.nextDirection('back');
+            $ionicNativeTransitions.stateGo('r.tab.home',{}, {
+              "type": "slide",
+              "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
+              "duration": 400, // in milliseconds (ms), default 400
+            });
+            $timeout(function(){
+              $ionicHistory.clearHistory();
+            },100)
+
+
+          }
+        }
+
+
+      });
+
+    },'auth_'+(storage.getObject('UserInfo').company_id)+'_')
 
     
 
@@ -5132,7 +5192,7 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher','native','$ionicActionSheet','Tools','$ionicPopup','storage','$state',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher,native,$ionicActionSheet,Tools,$ionicPopup,storage,$state){
+Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher','native','$ionicActionSheet','Tools','$ionicPopup','storage','$state','$ionicNativeTransitions','$timeout',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher,native,$ionicActionSheet,Tools,$ionicPopup,storage,$state,$ionicNativeTransitions,$timeout){
 
 
   $scope.$on('$stateChangeSuccess',function(){});
@@ -5189,7 +5249,8 @@ Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$io
       });
       return false;
     }
-
+    
+    Tools.showlogin();
     //发送图片到期牛
     Tools.sendqiniu_queue([
       $scope.identity.Positive,
@@ -5207,13 +5268,24 @@ Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$io
         }
       },function(r){
         if(r){
-
+          native.task('认证已提交,个人中心查看审核进度!')
           //需要支付会费
           if(r.resp_data.need_paid){
             $state.go('r.selectPaydues');
           }else{
-            //返回原始入口页
-            window.backtoinroot(window.backtoinroot_parms);
+            //返回原始入口页            
+           
+            $ionicViewSwitcher.nextDirection('back');
+            $ionicNativeTransitions.stateGo('r.tab.home',{}, {
+              "type": "slide",
+              "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
+              "duration": 400, // in milliseconds (ms), default 400
+            });
+            $timeout(function(){
+              $ionicHistory.clearHistory();
+            },100)
+        
+            
           }
 
 
@@ -5231,7 +5303,7 @@ Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$io
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatform','$state','Tools','$ionicPopup','storage','$timeout',function($ionicHistory,$scope,fromStateServ,$ionicPlatform,$state,Tools,$ionicPopup,storage,$timeout){
+Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatform','$state','Tools','$ionicPopup','storage','$timeout','loginregisterstate',function($ionicHistory,$scope,fromStateServ,$ionicPlatform,$state,Tools,$ionicPopup,storage,$timeout,loginregisterstate){
 
   //处理登录
   $scope.loginboj  = {};
@@ -5309,9 +5381,9 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
     $scope.$ionicGoBack();
   };
   
-  
   $scope.register  =  function (){
       if(!$scope.ing){
+            loginregisterstate.Refresh   =  true;
             $state.go('r.register');
       }
   }
@@ -5321,16 +5393,21 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup){
+Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native){
 
-
-
+  
+   //对安卓返回键的  特殊处理  tabs
+  $scope.$on('$ionicView.beforeEnter',function(){
+    if(loginregisterstate.Refresh){
+        $scope.registbasinfo  = {};
+        loginregisterstate.Refresh  = false;
+    }  
+  });
 
 
   $scope.registbasinfo  = {};
   $scope.nextvercode =  60;
   $scope.vercodeing  = false;
-  $scope.$on('$stateChangeSuccess',function(){});
   $scope.backView  = function(){
     $scope.$ionicGoBack();
   };
@@ -5355,6 +5432,7 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
             }
           },function(r){
             if(r){
+              native.task('发送成功');
               $scope.vercodeing  = true;
               $scope.nextvercode =  60;
               var   time  = setInterval(function(){
@@ -5434,6 +5512,10 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
       }
     },function(r){
     if(r){
+        if(window.cordova){
+            window.cordova.plugins.Keyboard.close();
+        }
+
 
         $state.go('r.registercfpwd',{phone:r.resp_data.phone})
     }
@@ -5449,22 +5531,51 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('selectPayduesctr',['$scope','$state','Tools',function($scope,$state,Tools){
-
-        console.log('xxxx');
-        $scope.skip  =  function (){
-          window.backtoinroot(window.backtoinroot_parms);
-        }
+Ctr.controller('selectPayduesctr',['$scope','$state','Tools','$ionicViewSwitcher','$ionicNativeTransitions','$timeout','$ionicHistory',function($scope,$state,Tools,$ionicViewSwitcher,$ionicNativeTransitions,$timeout,$ionicHistory){
   
+
+
+   //对安卓返回键的  特殊处理  tabs
+  $scope.$on('$ionicView.beforeEnter',function(){
+      //注册安卓返回的处理
+      window.androdzerofun  =  function(ba,com){
+          $ionicViewSwitcher.nextDirection('back');
+                $ionicNativeTransitions.stateGo(ba,{},{
+                  "type": "slide",
+                  "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
+                  "duration": 400, // in milliseconds (ms), default 400
+                });
+              $timeout(function(){
+                  com();
+                  window.androdzerofun  =   undefined;
+                  window.androdzerofun_parms  =   undefined;
+                  window.androdzerofun_clback  =   undefined;
+              },200)
+      };
+      window.androdzerofun_parms  =    'r.tab.Home';
+      window.androdzerofun_clback  =    function(){
+        $ionicHistory.clearHistory();
+      };
+      
+      $scope.GoBackHome =  function(){
+          window.androdzerofun(window.androdzerofun_parms,window.androdzerofun_clback);
+      }
+  })
+
+
+
+
+
+
+
+
 }]);
 
 /**
  * Created by Why on 16/6/8.
  */
 Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher','$state','$timeout','$ionicNativeTransitions',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher,$state,$timeout,$ionicNativeTransitions){
-
-
-
+  
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
       //注册安卓返回的处理
@@ -5487,6 +5598,7 @@ Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicVie
       window.androdzerofun_clback  =    function(){
         $ionicHistory.clearHistory();
       };
+
       $scope.GoBackHome =  function(){
           window.androdzerofun(window.androdzerofun_parms,window.androdzerofun_clback);
       }
@@ -5547,15 +5659,15 @@ Ctr.controller('noticeCtr',['$scope','$ionicHistory',function($scope,$ionicHisto
     
   }]);
 
-Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory){
-}])
-
 /**
  * Created by Why on 16/6/8.
  */
 
 Ctr.controller('rootCtr',[function(){
   
+}])
+
+Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory){
 }])
 
 /**
