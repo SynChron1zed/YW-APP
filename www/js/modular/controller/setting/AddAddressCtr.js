@@ -69,7 +69,7 @@ Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateSer
               title: '添加成功!',
               okText: '确认'
             });
-            $state.go('r.tab.Settingsaddress');
+
           }
         });
 

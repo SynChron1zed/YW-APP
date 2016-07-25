@@ -296,7 +296,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-    
+
     //店铺name
     .state('r.tab.HomShopadminname',{
       url: '/HomShopadminname/:Classitem',
@@ -587,7 +587,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
   //setting  分类商品详情
-  .state('r.tab.ClassifDetails', {
+/*  .state('r.tab.ClassifDetails', {
     url: '/r.tab.ClassifDetails/:Classitem',
     views: {
       'Classif': {
@@ -596,7 +596,25 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
 
     }
-  })
+  })*/
+
+    .state('r.ClassifDetails', {
+      url: '/ClassifDetails/:Classitem',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.ClassifDetails')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Classif/ProductDetails.html',
+          controller: 'ClassifDetailsCtr'
+        }
+      }
+    })
+
+
 
   //setting  分类商品详情确认订单
   /*  .state('r.tab.confirmOrder', {
@@ -693,13 +711,13 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     //店铺 home列表
       .state('r.Shophome', {
-      url: '/Shophome?id:',      
+      url: '/Shophome?id:',
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.Shophome')
       },
       onExit:function(fromStateServ){
         fromStateServ.removebackregistevent();
-      },      
+      },
       views: {
         'rootview': {
           params:{id:null},
@@ -708,7 +726,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    
+
 
 
 

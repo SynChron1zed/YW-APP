@@ -24,6 +24,11 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
   });
 
 
+  $scope.$on('$stateChangeSuccess',function(){});
+  $scope.backView  = function(){
+    $scope.$ionicGoBack();
+  };
+
 
   $ionicModal.fromTemplateUrl('templates/modal.html', {
     scope: $scope
@@ -53,14 +58,31 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
 
 
   //结算
-  $scope.ClassifConfirm=function (r,basic,shop) {
+  $scope.ClassifConfirm=function (basic,shop) {
 
     $scope.modal.hide();
-    fromStateServ.stateChange(r,{basicID:basic,shopID:shop,Num:$scope.Number});
-   /* $state.go('r.tab.confirmOrder',{basicID:basic,shopID:shop,Num:$scope.Number});*/
+   /* fromStateServ.stateChange(r,{basicID:basic,shopID:shop,Num:$scope.Number});*/
+    $state.go('r.confirmOrder',{basicID:basic,shopID:shop,Num:$scope.Number});
 
   };
 
+
+
+
+ //商品详情模块
+  //保存历史记录的方法  调用  上一次1 title  和返回方法
+  $scope.backtoprevView  =   fromStateServ.backView;
+
+  $scope.$on('$stateChangeSuccess',function(){
+    debugger;
+    $scope.loginboj = {};
+    $scope.ing  = false;
+    $scope.parenttitle     =   fromStateServ.getState('r.ClassifDetails').title;
+  });
+
+  $scope.backView  = function(){
+    $scope.$ionicGoBack();
+  };
 
 
 

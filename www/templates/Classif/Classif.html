@@ -27,7 +27,7 @@
       <ion-refresher pulling-text="刷新" on-refresh="calssifloadMore(true)"   ></ion-refresher>
     <div id="class-boder" class="classlist" >
       <div class=" classif-list " >
-        <div class="classif-one" ng-repeat="item in ShoppingList" ng-click="proDetail(item.goods_basic_id)">
+        <div class="classif-one" ng-repeat="item in ShoppingList" ng-click="proDetail('r.ClassifDetails',item.goods_basic_id)">
           <img src="{{item.img_url}}" ng-if="imageshow" alt="">
           <img src="/img/classif/macair.png" ng-if="imagehide" alt=""><!--/img/classif/macair.png-->
           <div>{{item.goods_title}}</div>

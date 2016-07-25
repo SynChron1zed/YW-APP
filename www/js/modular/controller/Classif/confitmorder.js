@@ -148,14 +148,39 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
 
   $scope.addArddss=function (r) {
 
-    fromStateServ.stateChange(r);
-    $scope.addressmodal.hide();
+   /* fromStateServ.stateChange(r);
+    $scope.addressmodal.hide();*/
+    $state.go('r.addAddress');
   }
+
+
+  //保存历史记录的方法  调用  上一次1 title  和返回方法
+  $scope.backtoprevView  =   fromStateServ.backView;
+
+  // //安卓返回键  对公共模块的返回
+  // $ionicPlatform.registerBackButtonAction(function (e) {
+  //    e.preventDefault();
+  //    $scope.backtoprevView('r.login');
+  //    return false;
+  //  }, 101);
+  $scope.$on('$stateChangeSuccess',function(){
+    debugger;
+    $scope.loginboj = {};
+    $scope.ing  = false;
+    $scope.parenttitle     =   fromStateServ.getState('r.confirmOrder').title;
+  });
+
+  $scope.backView  = function(){
+    $scope.$ionicGoBack();
+  };
+
 
   function handtat  (){
 
 
   }
+
+
 
   window.stateChangeListen['r.tab.Classif']  = handtat;
   handtat()

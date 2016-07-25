@@ -26,7 +26,7 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
   $scope.imageshow=true;
   $scope.imagehide =false;
 
-  
+
   //商城分类
   $scope.ShoppingList=[];
     Tools.getData({
@@ -98,9 +98,8 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
     });
   };
 
-  $scope.proDetail = function (Classitem) {
-
-    $state.go('r.tab.ClassifDetails', {Classitem: Classitem});
+  $scope.proDetail = function (r,Classitem) {
+    fromStateServ.stateChange(r,{Classitem: Classitem});
   };
 
 
