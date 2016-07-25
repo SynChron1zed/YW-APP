@@ -239,6 +239,12 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
 
+
+
+
+
+
+
     //慈善专区
     .state('r.tab.HomeCharitable',{
       url: '/HomeCharitable',
@@ -272,16 +278,25 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
+
     //店铺管理
-    .state('r.tab.HomShopadmin',{
+    .state('r.HomShopadmin',{
       url: '/HomShopadmin',
+      onEnter: function(fromStateServ,$ionicHistory) {
+          fromStateServ.saveHisty($ionicHistory,'r.HomShopadmin')
+        },
+       onExit:function(fromStateServ){
+         fromStateServ.removebackregistevent();
+       },
       views: {
-        'Home': {
+        'rootview': {
           templateUrl: 'templates/Home/shopadmin.html',
           controller: 'shopadminCtr'
         }
       }
     })
+
+    
     //店铺name
     .state('r.tab.HomShopadminname',{
       url: '/HomShopadminname/:Classitem',
@@ -675,6 +690,25 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+
+    //店铺 home列表
+      .state('r.Shophome', {
+      url: '/Shophome?id:',      
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.Shophome')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },      
+      views: {
+        'rootview': {
+          params:{id:null},
+          templateUrl: 'templates/shop/home.html',
+          controller: 'shophomeCtr'
+        }
+      }
+    })
+    
 
 
 

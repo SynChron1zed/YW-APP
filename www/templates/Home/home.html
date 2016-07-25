@@ -24,33 +24,23 @@
 
 
 
-
-
   <ion-content  overflow-scroll="false"   scrollbar-y="false"   style='background-color:#f3f3f3' >
 
 
 
-      
-      <div>
-
-        <div draggable  style="height:200px">
-          dsadsadsadsadsadsa
-        </div>
-        
-    </div>
       
 
 
 
     <ion-slide-box  class='homeSlidebox' auto-play='true' >
       <ion-slide  ng-click='a1()' >
-        <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=653512095,3542345981&fm=116&gp=0.jpg" alt="">
+        <img ng-src="{{'http://oap3nxgde.bkt.clouddn.com/ad_index_1.jpg?imageView2/1/w/828/h/362'}}" alt="">
       </ion-slide>
       <ion-slide>
-        <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=259052611,3453628770&fm=116&gp=0.jpg" alt="">
+        <img  ng-src="{{'http://oap3nxgde.bkt.clouddn.com/ad_index_2.jpg?imageView2/1/w/828/h/362'}}"alt="">
       </ion-slide>
       <ion-slide>
-        <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1916822059,1992012518&fm=116&gp=0.jpg" alt="">
+        <img  ng-src="{{'http://oap3nxgde.bkt.clouddn.com/ad_index_3.jpg?imageView2/1/w/828/h/362'}}"alt="">
       </ion-slide>
     </ion-slide-box>
     <div class="homein-tabs-meun row">
@@ -79,10 +69,14 @@
           <img src="./img/homepage/iconfont-diqiu@3x.png" alt="">
           <p>销售订单</p>
         </div>
-        <div class="col col-33" ui-sref="r.tab.HomShopadmin">
+
+
+        <div class="col col-33"   ng-click="goModular('r.HomShopadmin')" >
           <img src="./img/homepage/iconfont-shangchengxiton@3x.png" alt="">
           <p>店铺管理</p>
         </div>
+
+
         <div class="col col-33" ui-sref="r.tab.HomPurchase">
           <img src="./img/homepage/icon_procurement@3x.png" alt="">
           <p>采购订单</p>

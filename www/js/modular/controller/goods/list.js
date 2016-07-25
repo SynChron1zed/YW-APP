@@ -36,7 +36,7 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
           }
         },function(r){
               if(r){  
-                console.log(r);
+              
                 $scope.goodsClasda  = r.resp_data.shop_cate;
               }
         })
@@ -97,13 +97,9 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
         })   
     }
 
-
-
-
-
     //商品上架  
     $scope.goodsup = function (b,index){
-         console.log(b.goods_basic_id);
+        
         goodsuprodow(b.goods_basic_id,function(r){
             Tools.rmArrin($scope.datalist,index)
         $scope.salestotin.up  =  parseInt($scope.salestotin.up)+1;
@@ -113,7 +109,7 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
     }
     //商品下架 
     $scope.goodsdown = function (b,index){
-        console.log(b.goods_basic_id);
+      
         goodsuprodow(b.goods_basic_id,function(r){
             Tools.rmArrin($scope.datalist,index)
             $scope.salestotin.up  = parseInt($scope.salestotin.up)-1;
@@ -247,33 +243,18 @@ $scope.swatchtstate  = function (){
 
   function  inlit (){
 
-
    if(goodsState.goods_basic_id){
-   
-      
-        
             angular.forEach($scope.datalist,function(r){
-
-           
-
-                  if(r.goods_basic_id  == goodsState.goods_basic_id){
-         
+                  if(r.goods_basic_id  == goodsState.goods_basic_id){        
                     r.goods_title  = goodsState.goods_title;
                     r.img_url  = goodsState.img_url;
                     r.activity_price  = goodsState.activity_price;
-
-
-                    $scope.$apply();
                     
                   }
             })
       }
 
       
-
-
-      
-
       if(goodsState.Refresh){
           goodsState.Refresh   =false;
           return  false;

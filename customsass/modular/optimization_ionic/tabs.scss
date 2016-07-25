@@ -139,6 +139,12 @@ img{
 //首页滑动样式
 .homeSlidebox{
     height:7rem;
+
+    .slider-slide{
+      img{
+        height: 7rem;
+      }
+    }
     .slider-pager{
       bottom: 10px;
       .slider-pager-page{

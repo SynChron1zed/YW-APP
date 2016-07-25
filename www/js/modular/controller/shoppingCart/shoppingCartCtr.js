@@ -2,11 +2,13 @@
  * Created by Why on 16/6/8.
  */
 Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$rootScope','$ionicPopup','$ionicHistory',function($scope,fromStateServ,storage,Tools,$rootScope,$ionicPopup,$ionicHistory){
-
-
+  
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
-   
+
+    //页面的状态变化  请求
+    handtat();
+    
      if ($ionicHistory.backView()) {
        window.androdzerofun  = function(parm1,parm2){
          $ionicHistory.goBack();
@@ -20,13 +22,10 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
 
 
       $scope.login  =  function(r){
-
-
             fromStateServ.stateChange(r);
       };
       $scope.shopcartdata  =[];
       $scope.TotalPrice  = '0.00';
-
 
   //统计总价
   $scope.Total  =function (){
@@ -44,7 +43,6 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
 
       //请求购物数据  整体刷新
       $scope.doRefresh  =  function (){
-
            Tools.getData({
              "interface_number": "020402",
              "post_content": {}
@@ -234,19 +232,11 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
             console.log(r)
 
           })
-
-
-
-
-
-
         };
 
 
+     //window.stateChangeListen['r.tab.Shopping_Cart']  = handtat;
 
-
-
-     window.stateChangeListen['r.tab.Shopping_Cart']  = handtat;
-     handtat()
+     
 
 }])

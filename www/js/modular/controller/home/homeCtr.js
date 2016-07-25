@@ -6,21 +6,23 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 
 
 
+
+ 
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
        window.androdzerofun  =  undefined
        window.androdzerofun_parms  =undefined;
        window.androdzerofun_clback  = undefined;
     });
-
-
-
+    
 
 
 
 
     $scope.a1 = function (){
-      alert('1');
+  
+      $scope.goModular('r.Shophome',{id:'4'});
+
     };
 
 
@@ -35,7 +37,7 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
         $ionicPopup.confirm({
           title:'您还没有登录！',
           cancelText:'取消',
-          okText:'登陆'
+          okText:'登录'
         }).then(function(r){
               if(r){
                 $scope.goModular('r.login');
@@ -54,7 +56,7 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
       $ionicPopup.confirm({
         title:'您还没有登录！',
         cancelText:'取消',
-        okText:'登陆'
+        okText:'登录'
       }).then(function(r){
             if(r){
               $scope.goModular('r.login');
@@ -63,8 +65,8 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
     }
     }
 
-    $scope.goModular  =    function(r){
-        fromStateServ.stateChange(r);
+    $scope.goModular  =    function(r,p){
+        fromStateServ.stateChange(r,p);
     };
 
 

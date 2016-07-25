@@ -5,6 +5,14 @@
 Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicModal','$stateParams','$ionicScrollDelegate','$state','goodsState','$ionicPopup',function($scope,$timeout,native,Tools,$ionicModal,$stateParams,$ionicScrollDelegate,$state,goodsState,$ionicPopup){
 
 
+
+
+
+
+
+    
+
+
     //商品上架  
     $scope.goodsup = function (b,index){
          
@@ -238,12 +246,19 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
 
   }
 
+
+
+
+
+  //选择商品的select 搜搜没有做
+  
   //选择列表的数据
   $scope.selectgoodslit  =[];
   $scope.selectgoodslitpag  =1;
   $scope.selectgoodslitloadmoer  =  false;
-
   $scope.selectitemin  = 0;
+
+
 
   $scope.selectgoodsloadmoer = function (){
       Tools.getData({
@@ -313,7 +328,7 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
       $scope.scar =  function(){
         native.Barcode(function(r){
             $scope.searchobj.tiaomiao  =   r.text;
-            $scope.$apply();
+            
         });
       };
   $scope.selectsearchstat  = function (r,e){
@@ -378,7 +393,7 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
                     r.goods_title  = goodsState.goods_title;
                     r.img_url  = goodsState.img_url;
                     r.activity_price  = goodsState.activity_price;
-                    $scope.$apply();
+                    
                   }
             })
       } 
