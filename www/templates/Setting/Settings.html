@@ -1,4 +1,4 @@
-<ion-view view-title="个人中心"  hide-nav-bar="true"   style="overflow-x: hidden; overflow-y:visible;" scroll="false"   >
+<ion-view view-title="个人中心"    style="overflow-x: hidden; overflow-y:visible;" scroll="false"   >
   <ion-content style="background: whitesmoke"   overflow-scroll="false"   scrollbar-y="false"   >
 
 
@@ -12,16 +12,23 @@
                      <img  class="userheaderimg"  ng-src="{{Userinfo.imgheader}}" alt="">
                      <img  class="sex" ng-src="{{Userinfo.sex}}" alt="">
               </div>
-              
+
               <div class="basinfo">
-                      <h5 class="username">用户名</h5>
+
+                      <h5 class="username"  ng-show='Userinfo.login'  > {{Userinfo.name}}</h5>
+                      <p  ng-show='!Userinfo.login'>
+                        还没有登录！
+                        </p>
+
               </div>
         </div>
     </div>
 
+
+
     <div class="user-integral">
         <div>  <img src="./img/icon_integral@3x.png"  style="width:.9rem;height:.9rem"  alt="">
-            <span> 积分 2141</span>
+            <span> 积分 {{Userinfo.integral}}</span>
           </div>
         <div>  <img src="./img/icon_top-up.png" alt=""   style="margin-top:-.55rem" >
          <span>充值积分</span> </div>
@@ -34,7 +41,7 @@
 
 
 
-   <label class="item ">
+   <label class="item " ng-click='Personalsetting()' >
        <img src="./img/icon_management.png" alt="">
           个人信息设置
                 <i class="ion-ios-arrow-right">  </i>
@@ -97,7 +104,7 @@
 
 
 
-   <div class="outologin">
+   <div class="outologin"  ng-click="outlogin()"      ng-show='Userinfo.login'    > 
           退出
    </div>
 

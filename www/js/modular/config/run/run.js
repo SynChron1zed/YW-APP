@@ -11,12 +11,11 @@ $ionicNativeTransitions,$timeout,native) {
               window.Token   = undefined;
               window.token_phone   = undefined;
               storage.setObject('UserInfo',{
-                    real_name:'还没有登录',
+                    real_name:'还没有登录!',
                     avatar:window.defaultUserheader,
                     integral:'0.00',
-                    sex:0,       
-                })
-                
+                    sex:'./img/icon_man@3x.png',       
+                })   
                 if(Callback){
                     Callback();
                 }                                   
@@ -36,7 +35,7 @@ $ionicNativeTransitions,$timeout,native) {
           real_name:'还没有登录',
           avatar:window.defaultUserheader,
           integral:'0.00',
-          sex:0,                    
+          sex:'./img/icon_man@3x.png',                    
       })      
     }
 
