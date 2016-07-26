@@ -238,7 +238,6 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
   }
 
 
-  window.stateChangeListen['r.tab.Classif']  = handtat;
 
-  handtat()
+ 
 }]);
