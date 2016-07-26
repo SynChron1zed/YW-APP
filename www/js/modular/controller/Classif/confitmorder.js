@@ -167,12 +167,12 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
   //    $scope.backtoprevView('r.login');
   //    return false;
   //  }, 101);
-  $scope.$on('$stateChangeSuccess',function(){
-    
+ /* $scope.$on('$stateChangeSuccess',function(){
+    debugger;
     $scope.loginboj = {};
     $scope.ing  = false;
     $scope.parenttitle     =   fromStateServ.getState('r.confirmOrder').title;
-  });
+  });*/
 
   $scope.backView  = function(){
     $scope.$ionicGoBack();
