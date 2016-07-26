@@ -73,6 +73,7 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
   //结算
   $scope.ClassifConfirm=function (basic,shop) {
 
+
     $scope.modal.hide();
    /* fromStateServ.stateChange(r,{basicID:basic,shopID:shop,Num:$scope.Number});*/
     $state.go('r.confirmOrder',{basicID:basic,shopID:shop,Num:$scope.Number});
@@ -161,7 +162,8 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
 
 
   $scope.gouwuche = function () {
-    $ionicBackdrop.retain();
+    
+   /* $ionicBackdrop.retain();*/
    /* $timeout(function() {    //默认让它1秒后消失
       $ionicBackdrop.release();
     }, 1000);*/

@@ -205,6 +205,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+      
     // home  主页
     .state('r.tab.Home',{
       url: '/Home',
