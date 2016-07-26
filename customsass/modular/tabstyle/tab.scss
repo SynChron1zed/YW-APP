@@ -361,12 +361,7 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
         content: '';
         clear: both;
       }
-
-
     }
-
-
-
 
   }
 
@@ -374,4 +369,77 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
 
 .input-label{
   width: 25%;
+}
+.ge-center-header {
+  height: 8.5rem;
+  background: rgba(253,233,4,1);
+}
+
+.userheader{
+    padding-top: 2rem;
+    margin:  0 auto;
+    .imgbox{
+      width: 116px;
+      height: 116px;
+      margin:  0 auto;
+      position: relative;
+      background: rgba(255,255,255,0.8);
+      border-radius: 50%;
+      .userheaderimg{
+        position: absolute;
+        height: 108px;
+        width: 108px;
+        border-radius:50%;
+        margin: 4px;        
+      }
+      .sex{
+        position: absolute;
+        right: 0px;
+        height: 32px;
+        width: 32px;
+      }
+    }
+
+    .basinfo{
+          h5{  
+            margin:  0   auto;
+            width: 70%;
+            margin:  0 auto;
+            height: 1.4rem;
+            line-height: 1.4rem;
+            text-align: center;
+            font-weight: 500;
+            color:rgb(105, 99, 17);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+    }
+}
+
+.user-integral{
+  height: 2rem;
+  line-height: 2rem;
+  background: rgb(234, 214, 4);
+  box-shadow: 2px -1px 1px 0px rgba(255, 255, 255, 0.05);
+  display: flex;
+  >div{
+    flex: 1;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    img{
+      width: 1rem;
+      height:1rem;
+      position: absolute;
+      top: 50%;      
+      margin-top: -.5rem;
+      left:1.5rem;
+      display: inline-block
+      }
+
+
+  }
+
 }

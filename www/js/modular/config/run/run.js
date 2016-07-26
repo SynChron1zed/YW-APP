@@ -5,9 +5,8 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
   
   $ionicPlatform.ready(function() {
     //$state.go('r.selectAuth');
-
     $state.go('r.tab.Home');
-    
+
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
