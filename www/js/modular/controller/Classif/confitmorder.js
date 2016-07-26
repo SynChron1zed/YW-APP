@@ -10,7 +10,7 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
   var shopId = $stateParams.shopID;
   var Num = $stateParams.Num;
 
-
+  $scope.gobackdata =true
 
   $scope.shopNum=Num
   var cartId = [];
@@ -29,7 +29,7 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
 
 
   if(bascId==""){
-    debugger;
+
     cartId = shopId
 
     //结算购物车
@@ -236,8 +236,23 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
 
 
   }
+  debugger;
 
 
+  //商品详情模块
+  //保存历史记录的方法  调用  上一次1 title  和返回方法
+  $scope.backtoprevView  =   fromStateServ.backView;
 
- 
+  $scope.$on('$stateChangeSuccess',function(){
+debugger;
+    $scope.loginboj = {};
+    $scope.ing  = false;
+    $scope.parenttitle     =   fromStateServ.getState('r.confirmOrder').title;
+  });
+
+  $scope.backView  = function(){
+    $scope.$ionicGoBack();
+  };
+
+
 }]);
