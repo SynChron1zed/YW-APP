@@ -13,7 +13,7 @@
     </ion-nav-buttons>
 
 
-  <ion-content  scrollbar-y="false"  style='background-color:#f3f3f3' >
+  <ion-content  scrollbar-y="false"  style='background-color:#f3f3f3;z-index: 1' ng-click="closemodel()" >
 
     <ion-slide-box  class='homeSlidebox ClassifSlidebox' auto-play='true' >
       <ion-slide  ng-click='a1()' >
@@ -57,7 +57,7 @@
   </ion-content>
 
   <ion-footer-bar align-title="center" >
-    <div class="col  classif-topborder2" ng-click="gouwuchemodal.show()" style="text-align: -webkit-center;
+    <div class="col  classif-topborder2" ng-click="gouwuche()" style="text-align: -webkit-center;
     height: 45px;
     margin-top: -5px;
     margin-left: -5px;"><div style="font-size: 15px;color: white;padding: 7px">加入购物车</div></div>
@@ -119,8 +119,8 @@
 
   <!--购物车model-->
   <script id="templates/gouwuchemodal.html" type="text/ng-template" >
-    <ion-modal-view class="product-model">
-      <ion-content class="padding" scroll="false">
+    <ion-modal-view class="product-model"  style="z-index:11">
+      <ion-content class="padding" scroll="false" >
         <div class="row">
           <div  class="col" style="width: 100px">
             <img src={{ClassifDetailsList.img_url}} alt="" style="width: 100px">

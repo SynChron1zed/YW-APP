@@ -9,11 +9,14 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
   var bascId = $stateParams.basicID;
   var shopId = $stateParams.shopID;
   var Num = $stateParams.Num;
+
+
+
   $scope.shopNum=Num
   var cartId = [];
-
   console.log(bascId)
   console.log(shopId)
+
 
   $scope.addressList=[];
 
@@ -25,29 +28,97 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
   });
 
 
+  if(bascId==""){
+    debugger;
+    cartId = shopId
 
-  Tools.getData({
-    "interface_number": "020205",
-    "client_type": window.platform,
-    "post_content": {
-      "token" : "",
-      "token_phone": "",
-      "goods_basic_id":bascId
+    //结算购物车
+    Tools.getData({
+      "interface_number": "020601",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": "",
+        "cartIds": cartId
 
-    }
-  },function(r){
-    if(r){
+      }
+    },function(r){
+      if(r){
 
-      r.resp_data.data.img_url  =  window.qiniuimgHost+r.resp_data.data.img_url+'?imageView2/1/w/200/h/200';
-      r.resp_data.data.ctr  = false;
+        angular.forEach(r.resp_data.goodsInfo,function(c){
+          c.shop_img =  window.qiniuimgHost+c.shop_img+'?imageView2/1/w/200/h/200';
+          c.ctr  = false;
+        });
 
-      $scope.ClassifDetailsList = (r.resp_data.data);
-      console.log($scope.ClassifDetailsList)
-      var total = $scope.ClassifDetailsList.total_in_price * $scope.shopNum
-      $scope.TotalNum = total
-      console.log(total)
-    }
-  });
+        $scope.ClassifDetailsList = (r.resp_data.goodsInfo);
+        console.log($scope.ClassifDetailsList)
+
+
+      /*  var total = $scope.ClassifDetailsList.total_in_price * $scope.shopNum
+        $scope.TotalNum = total
+        console.log(total)*/
+      }
+    });
+
+  }else{
+
+
+
+    //商品详情
+    Tools.getData({
+      "interface_number": "020205",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": "",
+        "goods_basic_id":bascId
+
+      }
+    },function(r){
+      if(r){
+
+        r.resp_data.data.img_url  =  window.qiniuimgHost+r.resp_data.data.img_url+'?imageView2/1/w/200/h/200';
+        r.resp_data.data.ctr  = false;
+
+        $scope.ClassifDetailsList = (r.resp_data);
+        console.log($scope.ClassifDetailsList)
+        var total = $scope.ClassifDetailsList.total_in_price * $scope.shopNum
+        $scope.TotalNum = total
+        console.log(total)
+      }
+    });
+
+
+    //加入购物车
+    Tools.getData({
+      "interface_number": "020401",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": "",
+        "shop_id": shopId,
+        "sku_id": "1",
+        "goods_basic_id": bascId ,
+        "number": "1"
+      }
+    },function(r){
+      if(r){
+
+        cartId= (r.resp_data.cart_id)
+
+      }
+    });
+
+
+  }
+
+
+
+
+
+
+
+
 
 
 
@@ -91,26 +162,9 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
   };
 
 
-  //加入购物车
-  Tools.getData({
-    "interface_number": "020401",
-    "client_type": window.platform,
-    "post_content": {
-      "token" : "",
-      "token_phone": "",
-      "shop_id": shopId,
-      "sku_id": "1",
-      "goods_basic_id": bascId ,
-      "number": "1"
-    }
-  },function(r){
-    if(r){
-
-      cartId= (r.resp_data.cart_id)
 
 
-    }
-  });
+
 
 
 

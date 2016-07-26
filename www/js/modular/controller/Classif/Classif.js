@@ -2,7 +2,7 @@
  * Created by Why on 16/6/8.
  */
 
-Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$ionicHistory','$ionicScrollDelegate',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$ionicHistory,$ionicScrollDelegate) {
+Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$ionicHistory','$ionicScrollDelegate','$ionicBackdrop',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$ionicHistory,$ionicScrollDelegate,$ionicBackdrop) {
 
 
 
@@ -136,6 +136,7 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
   };
 
   $scope.proDetail = function (r,Classitem) {
+
     fromStateServ.stateChange(r,{Classitem: Classitem});
   };
 
@@ -198,6 +199,14 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
 
   };
 
+
+  //阴影层
+  $scope.action = function() {
+    $ionicBackdrop.retain();
+    $timeout(function() {    //默认让它1秒后消失
+      $ionicBackdrop.release();
+    }, 1000);
+  };
 
 
 

@@ -17,20 +17,26 @@
 
   <div class="list " style="margin-top: 1rem" >
 
-    <a class="item item-icon-left item-input-left" style="    height: 7rem;">
-        <img src={{ClassifDetailsList.img_url}} style="width: 5rem">
+    <a class="item item-icon-left item-input-left" style="    height: 7rem;" ng-repeat="item in ClassifDetailsList">
+
+
+      <div >
+
+        <img src={{item.shop_img}} style="width: 3rem">
         <div class=" ion-close-sex"></div>
-          <span style="float: right;font-size: 15px;margin-right: 5rem;margin-top: 0.2rem">
-{{ClassifDetailsList.goods_title}}</span>
+          <span style="float: right;font-size: 15px;margin-right: 7rem;margin-top: 0.2rem">
+                {{item.goods.goods_title}}</span>
         <div style="    color: #a2a2a2;
-    margin-top: -2rem;
+
     float: right;
     font-size: 13px;
     margin-right: 5.5rem;"> <span>规格：标配</span></div>
-      <div style="font-size: 13px;color: orange;">￥ {{ClassifDetailsList.total_in_price }}</div>
-      <div style="font-size: 8px;">运费：{{ClassifDetailsList.express_fee}}</div>
+      <div style="font-size: 13px;color: orange;">￥ {{item.goods.total_in_price }}</div>
+      <div style="font-size: 8px;">运费：{{item.goods.express_fee}}</div>
       <div style="    float: right;
-    margin-top: -1rem;">X{{shopNum}}</div>
+    margin-top: -1rem;">X{{item.goods.total_in_number}}</div>
+
+      </div>
     </a>
 
     <a class="item item-icon-left item-input-left" >
@@ -53,7 +59,7 @@
     line-height: 34px;;
     font-size:14px;;
     color: #FF9517;
-    " >合计：{{TotalNum}}</div>
+    " >合计：{{item.goods.express_fee}}</div>
     <div
 
 
