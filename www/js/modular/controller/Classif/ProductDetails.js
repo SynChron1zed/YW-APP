@@ -47,7 +47,7 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
   }).then(function(modal) {
     $scope.modal = modal;
   });
-
+  
   $ionicModal.fromTemplateUrl('templates/gouwuchemodal.html', {
     scope: $scope,
    /* backdropClickToClose:false*/

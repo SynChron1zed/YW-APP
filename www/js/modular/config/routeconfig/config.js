@@ -115,7 +115,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       onEnter: function(fromStateServ,$ionicHistory) {
           fromStateServ.saveHisty($ionicHistory,'r.login')
         },
-       onExit:function(fromStateServ){                  
+       onExit:function(fromStateServ){
          fromStateServ.removebackregistevent();
        },
        views: {
@@ -417,8 +417,14 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
 
       //setting  个人设置 个人资料修改
-    .state('r.tab.SettingsUpdate', {      
+    .state('r.tab.SettingsUpdate', {
       url: '/Settings/update',
+      onEnter: function() {
+        window.noNavtionsbackRootuer   = 'r.tab.Settings';
+      },
+      onExit:function(){
+        window.noNavtionsbackRootuer   =   undefined;
+      },
       views: {
         'setting': {
           templateUrl: 'templates/Setting/SettingsUpdate.html',
@@ -453,7 +459,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-  
+
     //setting  个人设置 个人资料修改 用户名修改
     .state('r.tab.SettingsUpdateUsername', {
       url: '/Settings/update/username',
