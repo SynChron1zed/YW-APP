@@ -3,33 +3,37 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
         data: {},
         savestate:false,
         backView:function(tartg,clback){
-
+            
             $ionicViewSwitcher.nextDirection('back');
-            $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
-              "type": "slide",
-              "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
-              "duration": 400, // in milliseconds (ms), default 400
-            });
-            //$state.go(box.getState(tartg).fromState,box.getState(tartg).fromParams);
-            $timeout(function(){
-                // var inc  = false;
-                // var overflow  = [];
-                // angular.forEach($ionicHistory.viewHistory().views,function(v,k){
-                //   if(inc){  overflow.push(k); }
-                //   if(v.stateName  == tartg){ inc=true;  }} )
-                // angular.forEach(overflow,function (v){delete $ionicHistory.viewHistory().views[v];});
-                $ionicHistory.clearHistory();
-            },30);
+             if(window.cordova  && cordova.plugins.Keyboard.isVisible){
+                window.cordova.plugins.Keyboard.close();
+                $timeout(function(){
+                            $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
+                                        "type": "slide",
+                                        "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
+                                        "duration": 400, // in milliseconds (ms), default 400
+                                        });
+                },90)
+            }else{
+                $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
+                            "type": "slide",
+                            "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
+                            "duration": 400, // in milliseconds (ms), default 400
+                            });
+            }
             $timeout(function () {
               if(clback){
                   clback()
               }
+
+
               window.backtoinroot  = undefined;
               window.androdzerofun  =  undefined;
               window.androdzerofun_parms  = undefined;
               window.androdzerofun_clback  = undefined;
               window.backtoinroot_parms  =  undefined;
-            }, 200);
+              $ionicHistory.clearHistory();
+            }, 100);
 
         },
         setState: function(module, fromState, fromParams,title,viewid) {

@@ -5,24 +5,20 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
   
   $ionicPlatform.ready(function() {
     //$state.go('r.selectAuth');
+
     $state.go('r.tab.Home');
-
-
-
-   
+    
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
       //ionic.Platform.isFullScreen = true;
       //Return event listener
-        //uuid
-             setTimeout(function () {  
-                   navigator.splashscreen.hide();
-
+      //uuid
+      setTimeout(function () {  
+          navigator.splashscreen.hide();
            }, 1000);  
-           
+      //回退之前  退出键盘
       $rootScope.$on('$ionicView.beforeLeave',function(){
-          native.task('哈哈')      
           window.cordova.plugins.Keyboard.close();
       })
 
