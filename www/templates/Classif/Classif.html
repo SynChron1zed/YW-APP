@@ -5,7 +5,7 @@
   </ion-nav-bar>
 
 
-  <ion-content style="background: white;overflow: hidden;" overflow-scroll="true"  scroll="false"  >
+  <ion-content style="background: white;overflow: hidden;"overflow-scroll="false"  scrollbar-y="false"  >
 
 
 
@@ -20,10 +20,17 @@
     <div>
       <img src={{Citysd.qiniu_key}} alt="" style="width: 100px;">
     </div>
-   
-    <ion-scroll class="Hphone"  style="overflow-y:hidden;"   scrollbar-y="false"   >
 
-      <ion-refresher pulling-text="刷新" on-refresh="calssifloadMore(true)"   ></ion-refresher>
+    <ion-scroll  delegate-handle="list"
+                lazy-scroll
+                overflow-scroll="false"
+                scrollbar-y="false"
+                style="width: 100%;
+                     overflow:hidden
+                     "
+                ng-style="caklateheight"   >
+
+      <ion-refresher spinner="ios"  pulling-text="刷新" on-refresh="calssifloadMores(true)"   ></ion-refresher>
     <div id="class-boder" class="classlist" >
       <div class=" classif-list " >
         <div class="classif-one" ng-repeat="item in ShoppingList" ng-click="proDetail('r.ClassifDetails',item.goods_basic_id)">
@@ -36,7 +43,7 @@
 
     </div>
 
-    <ion-infinite-scroll  ng-if="expression" on-infinite="loadOlderStories()"  distance="1%"  style="height: 60px;line-height: 60px;margin-bottom:40px;text-align: center" > </ion-infinite-scroll>
+    <ion-infinite-scroll  ng-if="expression" style="height: 100px;line-height: 40px;margin-bottom:100px;text-align: center" spinner="dots" on-infinite="loadOlderStories()"  distance="1%"  > </ion-infinite-scroll>
       <div ng-if="newexpression" style="line-height: 90px;margin-bottom:40px;text-align: center;color:#999" >没有更多了!</div>
     </ion-scroll>
 

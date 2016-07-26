@@ -182,14 +182,14 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
         "cartIds": cartId
       }
     },function(r){
-      if(r!= 'error'){
+      if(r= 'success'){
         $ionicPopup.alert({
-          title:'确认成功!',
+          title:"确认成功",
           okText:'确认'
-        })
 
-
+      });
       }
+
     });
   }
   $ionicModal.fromTemplateUrl('templates/AddresModal.html', {
