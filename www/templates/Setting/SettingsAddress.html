@@ -1,6 +1,13 @@
 
 <ion-view hide-tabs="true" view-title="管理收货地址">
 
+  <ion-nav-buttons side="left"    class="button back-button buttons button-clear header-item">
+    <div class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.settingAddress')">
+      <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;">个人中心</i>
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
+    </div>
+  </ion-nav-buttons>
+
 
 
     <ion-nav-buttons side="right">
@@ -47,7 +54,7 @@
 
   </ion-content>
   <ion-footer-bar align-title="center" >
-    <div class="col  classif-topborder3"  ng-click="addArddss('r.addAddress')"  style="text-align: -webkit-center;
+    <div class="col  classif-topborder3"  ng-click="addArddss()"  style="text-align: -webkit-center;
     height: 45px;
     margin-top: -5px;
     margin-right: -5px; margin-left: -5px;"><div style="font-size: 15px;color: white;padding: 7px">新增收货地址</div></div>

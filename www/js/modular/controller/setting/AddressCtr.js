@@ -6,6 +6,7 @@ Ctr.controller('SettingsAddressCtr',['$scope','native','$state','fromStateServ',
   var arrs = [];
   $scope.addressList=[]
 
+
   //获取收货地址
 
   Tools.getData({
@@ -112,35 +113,30 @@ Ctr.controller('SettingsAddressCtr',['$scope','native','$state','fromStateServ',
      console.log(arrs)
    }
   }
-  //对安卓返回键的  特殊处理  tabs
-  $scope.$on('$ionicView.beforeEnter',function(){
-    if ($ionicHistory.backView()) {
-      window.androdzerofun  = function(parm1,parm2){
-        $ionicHistory.goBack();
-      }
-      window.androdzerofun_parms  ='tabswtathing';
-      window.androdzerofun_clback  = 'nothing';
-    }
+
+//商品详情模块
+  //保存历史记录的方法  调用  上一次1 title  和返回方法
+  $scope.backtoprevView  =   fromStateServ.backView;
+
+  $scope.$on('$stateChangeSuccess',function(){
+
+    $scope.loginboj = {};
+    $scope.ing  = false;
+    $scope.parenttitle     =   fromStateServ.getState('r.ClassifDetails').title;
   });
 
-  $scope.$on('$stateChangeSuccess',function(){});
   $scope.backView  = function(){
     $scope.$ionicGoBack();
   };
-  //add
-  $scope.addArddss=function (r) {
 
-    fromStateServ.stateChange(r);
+
+  //add
+  $scope.addArddss=function () {
+
+    $state.go('r.addAddress')
   }
 
- /* //修改地址获取值
-  $scope.gainAdress= function (item) {
 
-
-  console.log(item);
-    $state.go('r.tab.SettingsUpdateAdress', {item:item});
-
-  }*/
 
 
 }]);
