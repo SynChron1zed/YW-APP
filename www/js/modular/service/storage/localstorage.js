@@ -15,7 +15,7 @@ Server.factory('storage',['$window',function($window){
       //存储对象，以JSON格式存储
       setObject:function(key,value){
         $window.localStorage[key]=JSON.stringify(value);
-      },
+      },      
       //读取对象
       getObject: function (key) {
           return JSON.parse( $window.localStorage[key] || '{}'   );

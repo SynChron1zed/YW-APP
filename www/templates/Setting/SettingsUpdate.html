@@ -1,70 +1,43 @@
 <ion-view view-title="编辑个人信息"    hide-tabs="true"  >
-
-  <ion-nav-bar   class="bar-positive ">
-    <ion-nav-buttons side="left">
-
-      <a   nav-direction="back" onclick="window.noNavtionsback(window.noNavtionsbackRootuer)"  class="button button-icon ion-ios-arrow-left">
-
-      </a>
-    </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-      <a   nav-direction="back"    class="button button-icon ">
-
-      </a>
-    </ion-nav-buttons>
-  </ion-nav-bar>
+  <ion-content style="background-color: whitesmoke"   overflow-scroll="false"   scrollbar-y="false"        >
 
 
-  <ion-content style="background-color: whitesmoke">
-    <div class="list list-chongzhi" >
+    <div class="list   gerenlist-icon" style="margin-top:20px;">
 
-      <a class="item  item-icon-right  item-one-left" href="#" style="height: 70px">
-<div style="margin-top: 10px;">我的头像</div>
+        <label class="item"   style="width:100%;margin-left:0px;line-height: 40px;"  >
 
-        <img class="item-weixin-headimage"  src="./img/icon_weixin.png">
-          <span class="select-chongzhi">
-           <i id="icon-right" class="icon ion-ios-arrow-right"></i>
-    </span>
-      </a>
+            <img  ng-src="{{header}}"  style="right: 10%;width: 50px;height: 50px;border-radius: 50%;left: initial;top: 50%;margin-top: -25px;"    alt="">
+                我的头像
+                <i class="ion-ios-arrow-right"></i>
 
-      <a class="item item-icon-right item-one-left" href="/#/r/tab/Settings/update/sex">
+          </label>
 
-        性别
-         <span class="select-chongzhi">
-     <i id="icon-right" class="icon ion-ios-arrow-right"></i>
-    </span>
+      <label class="item"   style="width:100%;margin-left:0px"  >
+                性别
+                <i class="ion-ios-arrow-right"></i>
+          </label>
 
-      </a>
+          <label class="item"   style="width:100%;margin-left:0px"  >
+                用户名
+                <i class="ion-ios-arrow-right"></i>
+          </label>
 
-      <a class="item  item-icon-right item-one-left" href="/#/r/tab/Settings/update/username">
-
-        用户名
-           <span class="select-chongzhi">
-     <i id="icon-right" class="icon ion-ios-arrow-right"></i>
-    </span>
-
-      </a>
-
-      <a class="item  item-icon-right item-one-left" href="/#/r/tab/Settings/update/qq">
-
-        QQ号码
-           <span class="select-chongzhi">
-     <i id="icon-right" class="icon ion-ios-arrow-right"></i>
-    </span>
-
-      </a>
-
-      <a class="item  item-icon-right item-one-left" href="/#/r/tab/Settings/update/password" style="margin-top: 20px">
-
-       修改密码
-           <span class="select-chongzhi">
-     <i id="icon-right" class="icon ion-ios-arrow-right"></i>
-    </span>
-
-      </a>
-
-
+          
     </div>
+
+
+    <div class="list   gerenlist-icon" style="margin-top:20px;">
+
+        <label class="item"   style="width:100%;margin-left:0px"  >
+                QQ号码
+                <i class="ion-ios-arrow-right"></i>
+          </label>
+            <label class="item"   style="width:100%;margin-left:0px"  >
+                修改密码
+                <i class="ion-ios-arrow-right"></i>
+          </label>
+    </div>
+
 
   </ion-content>
 

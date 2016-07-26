@@ -8,7 +8,6 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
 
     //页面的状态变化  请求
     handtat();
-    
      if ($ionicHistory.backView()) {
        window.androdzerofun  = function(parm1,parm2){
          $ionicHistory.goBack();
@@ -17,10 +16,7 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
        window.androdzerofun_clback  = 'nothing';
      }
     });
-
-
-
-
+    
       $scope.login  =  function(r){
             fromStateServ.stateChange(r);
       };
@@ -222,16 +218,11 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
           }
           //选中的商品
           shopcartOrder  = shopcartOrder.substring(0,shopcartOrder.length-1);
-          Tools.getData({
-            "interface_number": "020601",
-            "post_content": {
-              cartIds:shopcartOrder
-            }
-          },function(r){
+          //fromStateServ.stateChange(r);
 
-            console.log(r)
+          //这里去 确认订单    
 
-          })
+
         };
 
 

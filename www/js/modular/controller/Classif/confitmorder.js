@@ -173,7 +173,6 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
     $scope.ing  = false;
     $scope.parenttitle     =   fromStateServ.getState('r.confirmOrder').title;
   });*/
-
   $scope.backView  = function(){
     $scope.$ionicGoBack();
   };

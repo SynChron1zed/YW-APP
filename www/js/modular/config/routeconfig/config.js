@@ -23,7 +23,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     direction: 'right'
   });
 
-
   //post  auto    transfromition  to  json
   ! function ($httpProvider) {
     // Use x-www-form-urlencoded Content-Type
@@ -405,8 +404,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
 
-
-
     //setting  个人设置
     .state('r.tab.Settings', {
       nativeTransitions: null,
@@ -418,6 +415,19 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+
+      //setting  个人设置 个人资料修改
+    .state('r.tab.SettingsUpdate', {      
+      url: '/Settings/update',
+      views: {
+        'setting': {
+          templateUrl: 'templates/Setting/SettingsUpdate.html',
+          controller: 'SettingsUpdateCtr'
+        }
+      }
+    })
+
+
 
 
 
@@ -443,23 +453,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-    //setting  个人设置 个人资料修改
-    .state('r.tab.SettingsUpdate', {
-      onEnter: function() {
-        window.noNavtionsbackRootuer   = 'r.tab.Settings';
-      },
-      onExit:function(){
-        window.noNavtionsbackRootuer   =   undefined;
-      },
-      url: '/Settings/update',
-      views: {
-        'setting': {
-          templateUrl: 'templates/Setting/SettingsUpdate.html',
-          controller: 'SettingsUpdateCtr'
-        }
-      }
-    })
-
+  
     //setting  个人设置 个人资料修改 用户名修改
     .state('r.tab.SettingsUpdateUsername', {
       url: '/Settings/update/username',
@@ -649,8 +643,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })*/
 
-
-  //setting  分类商品详情确认订单
+    //setting  分类商品详情确认订单
     .state('r.confirmOrder', {
       url: '/confirmOrder/:basicID/:shopID/:Num',
       // nativeTransitions: {
