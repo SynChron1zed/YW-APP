@@ -218,7 +218,10 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
           }
           //选中的商品
           shopcartOrder  = shopcartOrder.substring(0,shopcartOrder.length-1);
-          //fromStateServ.stateChange(r);
+          fromStateServ.stateChange('r.confirmOrder',{basicID:'',shopID:shopcartOrder,Num:''});
+
+          
+
 
           //这里去 确认订单    
 
