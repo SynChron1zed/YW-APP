@@ -23,12 +23,11 @@
 
     <ion-scroll class="Hphone"  style="overflow-y:hidden;"   scrollbar-y="false"   >
 
-
       <ion-refresher pulling-text="刷新" on-refresh="calssifloadMore(true)"   ></ion-refresher>
     <div id="class-boder" class="classlist" >
       <div class=" classif-list " >
         <div class="classif-one" ng-repeat="item in ShoppingList" ng-click="proDetail('r.ClassifDetails',item.goods_basic_id)">
-          <img image-lazy-src="{{item.img_url}}" alt="" image-lazy-distance-from-bottom-to-load="100" >
+          <img image-lazy-src="{{item.img_url}}" alt="" image-lazy-distance-from-bottom-to-load="100" style="margin-top: 5px;">
 
           <div>{{item.goods_title}}</div>
           <div class="classif-price">￥{{item.total_in_price}} <span class="classif-priceone"></span></div>
@@ -38,9 +37,9 @@
     </div>
 
     <ion-infinite-scroll  ng-if="expression" on-infinite="loadOlderStories()"  distance="1%"  style="height: 60px;line-height: 60px;margin-bottom:40px;text-align: center" > </ion-infinite-scroll>
-      <!--<div ng-if="!expression" style="height: 90px;line-height: 90px;margin-bottom:40px;text-align: center;color:#999" >没有更多了!</div>
--->
+      <div ng-if="newexpression" style="line-height: 90px;margin-bottom:40px;text-align: center;color:#999" >没有更多了!</div>
     </ion-scroll>
 
   </ion-content>
+
 </ion-view>
