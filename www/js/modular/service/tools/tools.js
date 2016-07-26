@@ -12,13 +12,12 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 
   //上传到七牛  图片单张
   var   sendqiniu_single  =  function (data,claback,key_header,next){
-    
+
+   
+
       var  piclen  =   '-1';
       var  key  = Base64.encode(key_header+'_'+(storage.getObject('UserInfo').user_id?storage.getObject('UserInfo').user_id:'-1_')+'_'+(Date.parse(new Date()))+(Math.random()*1000).toFixed(1)+'.jpg');
         data  = data.substring(data.indexOf(",")+1);
-
-
-
 
         var pic =data;
         var url = 'http://upload.qiniu.com/putb64/'+piclen+'/key/'+key;
@@ -50,22 +49,34 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 
   //上传到七牛  图片多张队列
   var   sendqiniu_queue  =  function (data,claback,key_header){
-      var   index  =  -1;
-      var   reslf  = [];
-      !function  run (){
-        index++;
-        if(index>=data.length){
-          claback(reslf);
-          return false;
-        }else{
-          sendqiniu_single(data[index],function (r){
-            reslf.push(r);
-            run();
-          },key_header)
-        }
-      }();
+    getData({
+          "interface_number": "000002",
+          "client_type": "ios",
+          "post_content": {}
+        },function(r){
+          if(r){
+            storage.setObject('qiniu',r.resp_data);
 
+                  var   index  =  -1;
+                  var   reslf  = [];
+                  !function  run (){
+                    index++;
+                    if(index>=data.length){
+                      claback(reslf);
+                      return false;
+                    }else{
+                      sendqiniu_single(data[index],function (r){
+                        reslf.push(r);
+                        run();
+                      },key_header)
+                    }
+                  }();
+          }else{
+            native.task('获取图片Token失败！');
+          }
+        });
   };
+  
   //选择图片  提供相机  和  相册功能
    var  chekpirc    = function (cofnig,claback){
      if(!typeof   cofnig  == 'object' || !cofnig){

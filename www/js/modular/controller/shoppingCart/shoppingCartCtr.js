@@ -235,7 +235,7 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
         };
 
 
-     //window.stateChangeListen['r.tab.Shopping_Cart']  = handtat;
+    
 
      
 

@@ -1,11 +1,50 @@
 /**
  * Created by Why on 16/6/6.
  */
-App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout','native',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,$ionicNativeTransitions,$timeout,native) {
+App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout','native',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,
+$ionicNativeTransitions,$timeout,native) {
+
+
+          //退出登录
+              window.outlogin  = function(Callback){
+
+              window.Token   = undefined;
+              window.token_phone   = undefined;
+              storage.setObject('UserInfo',{
+                    real_name:'还没有登录',
+                    avatar:window.defaultUserheader,
+                    integral:'0.00',
+                    sex:0,       
+                })
+                
+                if(Callback){
+                    Callback();
+                }                                   
+
+            };
+
   
   $ionicPlatform.ready(function() {
     //$state.go('r.selectAuth');
     $state.go('r.tab.Home');
+
+
+    //初始化    用户信息
+    if(!storage.getObject('UserInfo').user_id){
+      //没有登录写入   默认基本  信息
+      storage.setObject('UserInfo',{
+          real_name:'还没有登录',
+          avatar:window.defaultUserheader,
+          integral:'0.00',
+          sex:0,                    
+      })      
+    }
+
+  
+      
+            
+
+
 
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -17,13 +56,6 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
           navigator.splashscreen.hide();
            }, 1000);  
       //回退之前  退出键盘
-      $rootScope.$on('$ionicView.beforeLeave',function(){
-          window.cordova.plugins.Keyboard.close();
-      })
-
-
-
-
 
       var  locldevice  =    storage.getObject('device');
         window.plugins.sim.getSimInfo(  function (result) {
@@ -32,12 +64,9 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
         locldevice.uuid  = device.uuid;
         storage.setObject('device',locldevice)
 
-
-
     }else{
         //这里是浏览器写的是固定的值
         //uuid
-
         var     locldevice  =    storage.getObject('device');
                 locldevice.phoneNumber  ='13517437500';
                 locldevice.uuid  =   'dsadsa-dsad-12321sad-das' ;
@@ -45,34 +74,9 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
         var     locjPush  =    storage.getObject('jPush');
                 locjPush.RegistrationID =  'janiokq-text-jpush';
                 storage.setObject('jPush',locjPush);
-
     }
 
     if (window.StatusBar) {StatusBar.styleDefault();}
-
-
-
-
-
-
-
-
-
-    $rootScope.$on('$stateChangeSuccess',function(event, toState, toParams, fromState, fromParams){
-      //console.log(JSON.stringify(toState.name));
-      //console.log(JSON.stringify(fromState.name));
-      angular.forEach(window.stateChangeListen,function(value,key){
-        if(key  == toState.name){
-          value();
-        }
-      })
-      //handtat();
-
-
-    });
-
-
-
 
       window.noNavtionsback =  function (rooter,parmgs){
         $ionicNativeTransitions.stateGo(rooter,parmgs,{
@@ -86,16 +90,7 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
         },300)
       };
 
-      //退出登录
-      window.outlogin  = function(Callback){
-        window.Token   = undefined;
-        window.token_phone   = undefined;
-        storage.setObject('UserInfo',{})
-        if(Callback){
-        Callback();
-        }
-      };
-
+    
 
 
     //初始读取toke =  phone  初始化登录状态
@@ -104,36 +99,6 @@ App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$locat
     window.Token_phone  =  userinfo.phone?userinfo.phone:undefined;
 
 
-
-
-
-
-
-
-
-
-    // console.log('r');
-    // if(!storage.getObject('UserInfo').user_id){
-    //   //没有登录 处理缓存 （跟新数据） 更新队列记录状态
-    //   storage.set('LocalCacheState',window.LocalCacheStatelist)
-    // }
-
-
-    Tools.getData({
-      "interface_number": "000002",
-      "client_type": "ios",
-      "post_content": {}
-    },function(r){
-      if(r){
-        storage.setObject('qiniu',r.resp_data);
-      }
-    });
-
-
-
-    $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
-      //console.log($ionicHistory.viewHistory())
-    });
 
     function showConfirm() {
       var confirmPopup = $ionicPopup.confirm({
