@@ -402,9 +402,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-
-
-
     //setting  个人设置
     .state('r.tab.Settings', {
       nativeTransitions: null,
@@ -414,9 +411,8 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           templateUrl: 'templates/Setting/Settings.html',
           controller: 'settingsCtr'
         }
-      }
+      }      
     })
-
       //setting  个人设置 个人资料修改
     .state('r.tab.SettingsUpdate', {
       url: '/Settings/update',
@@ -454,8 +450,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
-
+ 
     //setting  个人设置 个人资料修改 用户名修改
     .state('r.tab.SettingsUpdateUsername', {
       url: '/Settings/update/username',
@@ -469,6 +464,12 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     //setting  个人设置 个人资料修改 sex
     .state('r.tab.SettingsSexUsername', {
+      onEnter: function() {
+        window.noNavtionsbackRootuer   = 'r.tab.SettingsSexUsername';
+      },
+      onExit:function(){
+        window.noNavtionsbackRootuer   =   undefined;
+      },
       url: '/Settings/update/sex',
       views: {
         'setting': {

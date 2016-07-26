@@ -10,18 +10,18 @@
                 <i class="ion-ios-arrow-right"></i>
 
           </label>
-
-      <label class="item"   style="width:100%;margin-left:0px"  >
+          
+      <label class="item"   ng-click='sexgo()'    style="width:100%;margin-left:0px"  >
                 性别      
                 <i class="ion-ios-arrow-right"></i>
-                <span style="float: right;margin-right: 10px;display: inline-block;max-width: 50%;overflow: hidden;text-overflow: ellipsis;" >男</span>
+                <span style="float: right;margin-right: 10px;display: inline-block;max-width: 50%;overflow: hidden;text-overflow: ellipsis;" >{{sex}}</span>
 
           </label>
           
           <label class="item"   style="width:100%;margin-left:0px"  >
                 用户名
                 <i class="ion-ios-arrow-right"></i>
-                <span style="float: right;margin-right: 10px;display: inline-block;max-width: 50%;overflow: hidden;text-overflow: ellipsis;" >姓名</span>
+                <span style="float: right;margin-right: 10px;display: inline-block;max-width: 50%;overflow: hidden;text-overflow: ellipsis;" >{{real_name}}</span>
           </label>
     </div>
 
@@ -31,7 +31,7 @@
         <label class="item"   style="width:100%;margin-left:0px"  >
                 QQ号码
                 <i class="ion-ios-arrow-right"></i>
-                <span style="float: right;margin-right: 10px;display: inline-block;max-width: 50%;overflow: hidden;text-overflow: ellipsis;" >2274113382</span>
+                <span style="float: right;margin-right: 10px;display: inline-block;max-width: 50%;overflow: hidden;text-overflow: ellipsis;" >{{qq}}</span>
           </label>
             <label class="item"   style="width:100%;margin-left:0px"  >
                 修改密码

@@ -8,12 +8,11 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   var   showlogin = function() {
     native.loading();
   };
-
-
+  
   //上传到七牛  图片单张
   var   sendqiniu_single  =  function (data,claback,key_header,next){
 
-   
+
 
       var  piclen  =   '-1';
       var  key  = Base64.encode(key_header+'_'+(storage.getObject('UserInfo').user_id?storage.getObject('UserInfo').user_id:'-1_')+'_'+(Date.parse(new Date()))+(Math.random()*1000).toFixed(1)+'.jpg');
@@ -76,7 +75,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
           }
         });
   };
-  
+
   //选择图片  提供相机  和  相册功能
    var  chekpirc    = function (cofnig,claback){
      if(!typeof   cofnig  == 'object' || !cofnig){
@@ -89,7 +88,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
      },function(r){
 
        if(r==1) {
-         
+
          cofnig.quality?cofnig.quality:50;
          cofnig.allowEdit?cofnig.allowEdit:false;
          native.Camera(cofnig,function(r){
@@ -102,7 +101,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
          cofnig.allowEdit?cofnig.allowEdit:false;
          cofnig.sourceType  =  Camera.PictureSourceType.SAVEDPHOTOALBUM;
          native.Camera(cofnig,function(r){
-           //base64 回调           
+           //base64 回调
            claback(r);
          },function(){
          });
@@ -116,7 +115,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 
      })
    };
-      
+
   var   hidelogin = function(){
             native.hidloading();
   };
@@ -126,7 +125,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     data.post_content.token_phone  = window.token_phone?window.token_phone:storage.getObject('UserInfo').phone?storage.getObject('UserInfo').phone:'';
 
     console.log('数据监控 ....')
-    console.log(JSON.stringify(data))
+    console.log(JSON.stringify(data));
 
 
     $http({
@@ -141,7 +140,12 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
               },200);
       if(r.resp_code== '0000'){
         Callback(r);
-      }else{
+      } else if(r.resp_code== '0001'){
+            native.task(r.msg,3000);
+
+
+
+      }  else{
         Callback(false);
         // Callback(false);
         // errorCallback?errorCallback(r):null;
@@ -158,7 +162,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       $timeout(function(){
         hidelogin();
       },200);
-      Callback(false); 
+      Callback(false);
       native.task('网络错误,请确认网络连接!')
 
 
