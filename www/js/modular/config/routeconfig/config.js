@@ -205,7 +205,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-      
+
     // home  主页
     .state('r.tab.Home',{
       url: '/Home',
@@ -433,11 +433,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
-
-
-
-
     //setting  个人设置 客户反馈
     .state('r.tab.SettingsUser', {
       url: '/Settings/user',
