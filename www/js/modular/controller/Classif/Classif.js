@@ -27,6 +27,7 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
   $scope.imagehide =false;
   $scope.newexpression=false
 
+  $scope.expression=true
   //商城分类
   $scope.ShoppingList=[];
     Tools.getData({
@@ -62,16 +63,13 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
         c.qiniu_key  =  window.qiniuimgHost+c.qiniu_key+'?imageView2/1/w/200/h/200';
 
       });
-
-
       $scope.Citysd = (r.resp_data[0])
 
 
     }
   });
 
-
-  Tools.getData({
+ /* Tools.getData({
     "interface_number": "020104",
     "client_type": window.platform,
     "post_content": {
@@ -100,7 +98,7 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
       $scope.ShoppingList = (r.resp_data.data)
 
     }
-  });
+  });*/
 
 
   //点击分类
@@ -142,11 +140,16 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
 
 
   //翻页加载
-   $scope.loadOlderStories=function (ddd) {
+   $scope.loadOlderStories=function (type) {
+     
          pageNum +=1;
         if(cateId==""){
          cateId=1
      }
+
+
+
+
        Tools.getData({
          "interface_number": "020104",
          "client_type": window.platform,
@@ -193,6 +196,7 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
    };
 
   $scope.calssifloadMore = function (xxx) {
+
     $timeout(function () {
       $scope.$broadcast('scroll.refreshComplete');
     }, 600);
@@ -208,6 +212,24 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
     }, 1000);
   };
 
+
+
+  $scope.caklateheight  = {};
+  function   caklatehe  (){
+    if(window.platform  == 'ios'){
+      $scope.caklateheight  = {
+        height:window.innerHeight-(64+44+20)+'px'
+      }
+    }else{
+      $scope.caklateheight  = {
+        height:window.innerHeight-(44+44+20)+'px'
+      }
+    }
+  };
+  caklatehe();
+  $timeout(function(){
+    caklatehe();
+  },600)
 
 
 }]);
