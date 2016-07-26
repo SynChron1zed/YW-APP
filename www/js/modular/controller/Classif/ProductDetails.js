@@ -79,7 +79,7 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
   $scope.backtoprevView  =   fromStateServ.backView;
 
   $scope.$on('$stateChangeSuccess',function(){
-    debugger;
+   
     $scope.loginboj = {};
     $scope.ing  = false;
     $scope.parenttitle     =   fromStateServ.getState('r.ClassifDetails').title;

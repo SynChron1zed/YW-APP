@@ -17,13 +17,10 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
        window.androdzerofun_clback  = 'nothing';
      }
     });
-  $scope.$on('$stateChangeSuccess',function(){});
-  $scope.backView  = function(){
-    $scope.$ionicGoBack();
-  };
+
 
   $scope.goadderss = function (r) {
-    debugger;
+
     fromStateServ.stateChange(r);
 
   };
@@ -68,10 +65,7 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
    /* $scope.(".popup").addClass(".twoimage1")*/
   };
 
-  $scope.goadderss=function () {
 
-    $state.go('r.tab.Settingsaddress');
-  }
 
 
   window.stateChangeListen['r.tab.Settings']  = handtat;

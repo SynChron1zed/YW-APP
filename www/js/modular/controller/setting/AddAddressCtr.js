@@ -2,7 +2,7 @@
  * Created by Administrator on 2016/7/5.
  */
 Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams) {
-  var Address =[],Name=[],Number=[],Email=[],Checked=[];
+  var Address =[],Name=[],Number=[],Email=[],Checked=1;
   $scope.pushNotification = { checked: true};
   var dataadd = $stateParams.dataAdd
     console.log(dataadd);
@@ -62,7 +62,7 @@ Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateSer
             "zcode": Email,
             "link_man": Name,
             "link_phone":Number,
-            "is_default": 0
+            "is_default": Checked
           }
         },function(r){
           if(r){
@@ -70,6 +70,8 @@ Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateSer
               title: '添加成功!',
               okText: '确认'
             });
+
+
 
           }
         });
