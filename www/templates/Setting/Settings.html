@@ -1,153 +1,36 @@
 <ion-view view-title="个人中心"  hide-nav-bar="true"   style="overflow-x: hidden; overflow-y:visible;" scroll="false"   >
-  
-  <ion-content style="background: whitesmoke" scrollbar-y="false">
+  <ion-content style="background: whitesmoke"   overflow-scroll="false"   scrollbar-y="false"   >
 
-    <div class="shopcartnologin" ng-show="isShow" >
 
-      <img src="./img/img3@x.png" alt="">
-      <button class="gotologin"    ng-click="login('r.login')" >登 录</button>
+    <div class="ge-center-header">
+
+
+
+        <div class="userheader">
+
+              <div class="imgbox">
+                     <img  class="userheaderimg"  ng-src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1889250223,3195298994&fm=116&gp=0.jpg" alt="">
+                     <img  class="sex" ng-src="./img/icon_man@3x.png" alt="">
+              </div>
+
+              <div class="basinfo">
+                      <h5 class="username">用户名</h5>
+              </div>
+        </div>    
+    </div>
+
+    <div class="user-integral">
+
+        <div>  <img src="./img/icon_integral@3x.png" alt="">
+            <span> 积分 2141</span>  
+          </div>        
+        <div>  <img src="./img/icon_top-up.png" alt=""> 
+         <span>充值</span> </div>
+
     </div>
 
 
-
-  <div class="setting-quanbu" ng-show="!isShow">
-    <div style="height: 12.2rem;;background-color: yellow">
-      <div id="header-images" class="homein-tabs-meun row">
-        <div class="col">
-          <a    ><img style="width: 5rem" src="./img/icon_Head portrait.png" alt=""></a>
-          <img class="boy-girl" src="./img/icon_women.png">
-          <p>少来勾搭</p>
-        </div>
-      </div>
-
-
-      <div class="row " style="margin-top: 6.8rem;">
-        <a class="col jifen-head" href="#" ><img class="col foot-image" src="./img/icon_integral@3x.png">积分600</a>
-
-        <a class="col jifen-head" href="/#/r/tab/Settings/recharge"><img class="col foot-jifen" src="./img/icon_top-up.png">充值</a>
-      </div>
-
-    </div>
-    <div class="foot-color">
-      <div class="shuxian"></div>
-    </div>
-    <div class="content has-header ionic-pseudo has-top">
-      <table style="    position: absolute;">
-        <tr>
-          <th><img class="cotent-image" src="./img/icon_company.png"></th>
-
-        </tr>
-        <tr>
-          <td><img class="cotent-image" src="./img/icon_management.png"></td>
-
-        </tr>
-        <tr>
-          <td><img class="cotent-image" src="./img/icon_code.png"></td>
-
-        </tr>
-        <tr>
-          <td><img class="cotent-image" src="./img/icon_share.png"></td>
-
-        </tr>
-        <tr>
-          <td><img class="cotent-image" src="./img/icon_feedback.png"></td>
-
-        </tr>
-        <tr>
-          <td><img class="cotent-image" src="./img/icon_update.png"></td>
-
-        </tr>
-        <tr>
-          <td><img class="cotent-image" src="./img/icon_About.png"></td>
-
-        </tr>
-      </table>
-
-      <div class="list">
-
-        <a class="item item-icon-left item-icon-right item-height">
-
-          <div>管理企业信息</div>
-
-          <i id="icon-right" class="icon ion-ios-arrow-right"></i>
-        </a>
-
-        <a class="item item-icon-left item-icon-right item-height" ng-click="goadderss('r.settingAddress')">
-
-          <div> 管理收货地址</div>
-          <i id="icon-right" class="icon ion-ios-arrow-right"></i>
-        </a>
-
-        <a class="item item-icon-left item-icon-right item-height"  ng-click="showPopup()" >
-
-          <div> 我的二维码</div>
-          <i id="icon-right" class="icon ion-ios-arrow-right"></i>
-        </a>
-
-
-        <a class="item item-icon-left item-icon-right item-height" href="/#/r/tab/Settings/friends">
-
-          <div> 分享好友</div>
-          <i id="icon-right" class="icon ion-ios-arrow-right"></i>
-        </a>
-
-        <a class="item item-icon-left item-icon-right item-height" href="/#/r/tab/Settings/user">
-
-          <div> 用户反馈</div>
-          <i id="icon-right" class="icon ion-ios-arrow-right"></i>
-        </a>
-
-        <a class="item item-icon-left item-icon-right item-height" >
-
-          <div> 版本更新</div>
-          <i id="icon-right" class="icon ion-ios-arrow-right"></i>
-        </a>
-
-        <a class="item item-icon-left item-icon-right item-height" >
-
-          <div> 关于我们</div>
-          <i id="icon-right" class="icon ion-ios-arrow-right"></i>
-        </a>
-
-      </div>
-
-
-    </div>
-  <!--  <div style="    margin-top: 40px;
-    text-align: -webkit-center;">
-      <p>
-        <button class="button button-energized">退出登录</button>
-      </p>
-    </div>
--->
-   <div style=" margin-top: 2rem;
-    margin-bottom: 5px;
-    height: 50px;
-    background-color: white;
- " onclick="window.outlogin()"  ng-click="login('r.login')"  ><div style="text-align: -webkit-center;
-    padding-top: 15px;
-    font-size: 15px;
-    color: #ef473a;">退出登录</div></div>
-
-</div>
-
-    <script  id="my-friend" type="text/ng-template" >
-      <div style="height: 15rem;" ng-click="closePopup()">
-        <div class="homein-tabs-meun row">
-          <div class="col">
-            <img style=" width: 4rem;margin-left: -110px;margin-top: -20px;" src="./img/icon_Head portrait.png" alt="">
-            <img class="boy-girl" src="./img/icon_women.png">
-            <p>少来勾搭</p>
-            <img style="width: 5rem" src="./img/222.png" alt="">
-            <p>扫一扫二维码，加我为好友</p>
-          </div>
-
-        </div>
-
-      </div>
-    </script>
-
-
+    
 
   </ion-content>
 </ion-view>

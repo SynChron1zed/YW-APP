@@ -116,7 +116,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       onEnter: function(fromStateServ,$ionicHistory) {
           fromStateServ.saveHisty($ionicHistory,'r.login')
         },
-       onExit:function(fromStateServ){
+       onExit:function(fromStateServ){                  
          fromStateServ.removebackregistevent();
        },
        views: {

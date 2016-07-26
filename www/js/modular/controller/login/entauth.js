@@ -71,8 +71,8 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
           legal:$scope.from.legal,
           "license": $scope.from.License,
           "certificate_no": $scope.from.mechanism,
-          "license_img":f[0].hash,
-          "certificate_img":f[1].hash
+          "license_img":f[0].key,
+          "certificate_img":f[1].key
         }
       },function(r){
         if(r){

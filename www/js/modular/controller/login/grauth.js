@@ -72,8 +72,8 @@ Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$io
           "company_type":"1",
           "card_no":$scope.form.id+"",
           name:$scope.form.name,
-          "card_front_img":f[0].hash,
-          "card_back_img":f[1].hash
+          "card_front_img":f[0].key,
+          "card_back_img":f[1].key
         }
       },function(r){
         if(r){

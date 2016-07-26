@@ -33,6 +33,7 @@
          goods_title:undefined,
          img_url:undefined,
          activity_price:undefined,
+         total_in_number:undefined
       }
     }])
     
