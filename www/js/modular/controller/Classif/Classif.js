@@ -38,12 +38,37 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
       }
     },function(r){
       if(r){
-        $scope.Citysd = (r.resp_data)
-        $scope.selectedItem = $scope.Citysd[0];
+        $scope.Citysddd = (r.resp_data)
+        $scope.selectedItem = $scope.Citysddd[0];
 
       }
     });
 
+
+  //广告位
+
+  Tools.getData({
+    "interface_number": "050401",
+    "client_type": window.platform,
+    "post_content": {
+      "token" : "",
+      "token_phone": "",
+      "type": "2", //分类
+    }
+  },function(r){
+    if(r){
+
+      angular.forEach(r.resp_data,function(c){
+        c.qiniu_key  =  window.qiniuimgHost+c.qiniu_key+'?imageView2/1/w/200/h/200';
+
+      });
+
+
+      $scope.Citysd = (r.resp_data[0])
+
+
+    }
+  });
 
 
   Tools.getData({

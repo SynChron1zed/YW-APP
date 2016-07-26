@@ -11,14 +11,14 @@
 
     <ion-scroll direction="x" style="overflow-x:hidden;" scrollbar-x="false" >
       <div  class=" row class-every" >
-        <div class="col" ng-click="shoppingsList(item)" ng-repeat="item in Citysd ">
+        <div class="col" ng-click="shoppingsList(item)" ng-repeat="item in Citysddd ">
           <div class="col-30 bottom-xian " ng-class="{true:'yellowC',false:'yellowA'}[item==selectedItem]" ><nobr>{{ item.itemcats_name }}</nobr></div>
         </div>
       </div>
     </ion-scroll>
 
     <div>
-      <img src="/img/classif/banner@3x.png" alt="">
+      <img src={{Citysd.qiniu_key}} alt="" style="width: 100px;">
     </div>
 
     <ion-scroll class="Hphone"  style="overflow-y:hidden;"   scrollbar-y="false"   >
