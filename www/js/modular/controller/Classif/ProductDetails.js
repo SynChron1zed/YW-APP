@@ -1,8 +1,15 @@
 /**
  * Created by Administrator on 2016/7/18.
  */
-Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$ionicModal',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$ionicModal) {
+Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$ionicModal','$ionicBackdrop','$timeout',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$ionicModal,$ionicBackdrop,$timeout) {
   var Classitem = $stateParams.Classitem;
+
+
+
+  $scope.closemodel=function () {
+    alert(1)
+  }
+
 
   Tools.getData({
     "interface_number": "020205",
@@ -42,7 +49,8 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
   });
 
   $ionicModal.fromTemplateUrl('templates/gouwuchemodal.html', {
-    scope: $scope
+    scope: $scope,
+   /* backdropClickToClose:false*/
   }).then(function(modal) {
     $scope.gouwuchemodal = modal;
   });
@@ -79,7 +87,7 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
   $scope.backtoprevView  =   fromStateServ.backView;
 
   $scope.$on('$stateChangeSuccess',function(){
-   
+
     $scope.loginboj = {};
     $scope.ing  = false;
     $scope.parenttitle     =   fromStateServ.getState('r.ClassifDetails').title;
@@ -116,6 +124,7 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
 
   //加入购物车
   $scope.addcart=function () {
+
     Tools.getData({
       "interface_number": "020401",
       "client_type": window.platform,
@@ -136,15 +145,38 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
         })
 
         $scope.gouwuchemodal.hide();
+        $ionicBackdrop.release();
         $scope.Number=1
       }
     });
   };
 
 
+
+
   $scope.back  =  function (){
     window.noNavtionsback(window.noNavtionsbackRootuer);
   }
+
+
+
+  $scope.gouwuche = function () {
+    $ionicBackdrop.retain();
+   /* $timeout(function() {    //默认让它1秒后消失
+      $ionicBackdrop.release();
+    }, 1000);*/
+
+    $scope.gouwuchemodal.show();
+
+  }
+
+  //阴影层
+  $scope.action = function() {
+    $ionicBackdrop.retain();
+    $timeout(function() {    //默认让它1秒后消失
+      $ionicBackdrop.release();
+    }, 1000);
+  };
 
 
 }]);
