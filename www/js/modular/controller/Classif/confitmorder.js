@@ -12,6 +12,9 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
 
   $scope.gobackdata =true
 
+  $scope.dataexpersse = true
+  $scope.dataexperss = false
+
   $scope.shopNum=Num
   var cartId = [];
   console.log(bascId)
@@ -29,7 +32,8 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
 
 
   if(bascId==""){
-
+    $scope.dataexpersse = false
+    $scope.dataexperss = true
     cartId = shopId
 
     //结算购物车
@@ -44,6 +48,7 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
       }
     },function(r){
       if(r){
+        debugger;
 
         angular.forEach(r.resp_data.goodsInfo,function(c){
           c.shop_img =  window.qiniuimgHost+c.shop_img+'?imageView2/1/w/200/h/200';
@@ -62,7 +67,8 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
 
   }else{
 
-
+    $scope.dataexpersse = true
+    $scope.dataexperss = false
 
     //商品详情
     Tools.getData({
@@ -77,10 +83,12 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
     },function(r){
       if(r){
 
+
+
         r.resp_data.data.img_url  =  window.qiniuimgHost+r.resp_data.data.img_url+'?imageView2/1/w/200/h/200';
         r.resp_data.data.ctr  = false;
 
-        $scope.ClassifDetailsList = (r.resp_data);
+        $scope.ClassifDetailsList = (r.resp_data.data);
         console.log($scope.ClassifDetailsList)
         var total = $scope.ClassifDetailsList.total_in_price * $scope.shopNum
         $scope.TotalNum = total
@@ -188,6 +196,7 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
           okText:'确认'
 
       });
+        $state.go('r.HomPurchase');
       }
 
     });
@@ -236,15 +245,15 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
 
 
   }
-  debugger;
 
 
-  //商品详情模块
+
+/*  //商品详情模块
   //保存历史记录的方法  调用  上一次1 title  和返回方法
   $scope.backtoprevView  =   fromStateServ.backView;
 
   $scope.$on('$stateChangeSuccess',function(){
-debugger;
+
     $scope.loginboj = {};
     $scope.ing  = false;
     $scope.parenttitle     =   fromStateServ.getState('r.confirmOrder').title;
@@ -252,7 +261,10 @@ debugger;
 
   $scope.backView  = function(){
     $scope.$ionicGoBack();
-  };
+  };*/
+
+
+
 
 
 }]);

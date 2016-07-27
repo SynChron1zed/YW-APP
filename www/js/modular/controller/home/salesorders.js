@@ -8,6 +8,10 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
 
 
   $scope.SalesList = [];
+  var pageNum = 0;
+  $scope.newexpression=false
+  $scope.expression=true
+
   Tools.getData({
     "interface_number": "020701",
     "client_type": window.platform,
@@ -32,6 +36,61 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
 
     }
   });
+
+
+  //翻页加载
+  $scope.loadOlderStories=function (type) {
+
+    pageNum +=1;
+    if(cateId==""){
+      cateId=1
+    }
+
+
+    Tools.getData({
+      "interface_number": "020701",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": "",
+        "status": "",
+        "page_num": 1,
+        "page_per":10
+      }
+    }, function (r) {
+      if (r) {
+debugger;
+        angular.forEach(r.resp_data.data,function(c){
+          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
+          c.ctr  = false;
+        });
+
+        if (r.resp_data.data.length == 0) {
+          $scope.expression = false
+          $scope.newexpression=true
+          $scope.ShoppingList=$scope.ShoppingList
+
+        } else {
+          $scope.newexpression=false
+          if(pageNum==1){
+            r.resp_data.data=[];
+          }
+          for(var i=0;i<r.resp_data.data.length;i++){
+            $scope.ShoppingList.push(r.resp_data.data[i])
+          }
+        }
+        $timeout(function () {
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        }, 600);
+
+      }
+
+
+    });
+
+
+
+  };
 
 
 
@@ -186,6 +245,24 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
     }, 600);
 
   };
+
+
+  $scope.caklateheight  = {};
+  function   caklatehe  (){
+    if(window.platform  == 'ios'){
+      $scope.caklateheight  = {
+        height:window.innerHeight-(64+44+30)+'px'
+      }
+    }else{
+      $scope.caklateheight  = {
+        height:window.innerHeight-(44+44+30)+'px'
+      }
+    }
+  };
+  caklatehe();
+  $timeout(function(){
+    caklatehe();
+  },600)
 
 }]);
 

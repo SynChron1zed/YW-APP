@@ -7,20 +7,23 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 
 
 
- 
+
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
        window.androdzerofun  =  undefined
        window.androdzerofun_parms  =undefined;
        window.androdzerofun_clback  = undefined;
     });
-    
 
 
+$scope.gosales=function (r) {
+
+  fromStateServ.stateChange(r);
+}
 
 
     $scope.a1 = function (){
-  
+
       $scope.goModular('r.Shophome',{id:'4'});
 
     };

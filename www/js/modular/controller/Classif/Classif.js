@@ -141,7 +141,7 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
 
   //翻页加载
    $scope.loadOlderStories=function (type) {
-     
+
          pageNum +=1;
         if(cateId==""){
          cateId=1
@@ -218,11 +218,11 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
   function   caklatehe  (){
     if(window.platform  == 'ios'){
       $scope.caklateheight  = {
-        height:window.innerHeight-(64+44+20)+'px'
+        height:window.innerHeight-(64+44+30)+'px'
       }
     }else{
       $scope.caklateheight  = {
-        height:window.innerHeight-(44+44+20)+'px'
+        height:window.innerHeight-(44+44+30)+'px'
       }
     }
   };
@@ -230,6 +230,7 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
   $timeout(function(){
     caklatehe();
   },600)
+
 
 
 }]);

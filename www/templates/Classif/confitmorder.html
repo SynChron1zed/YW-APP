@@ -4,7 +4,7 @@
   <ion-nav-buttons side="left"    class="button back-button buttons button-clear header-item">
     <div class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.confirmOrder')">
 
-   <!--   <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;" ng-if="gobackdata"></i>-->
+    <!--  <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;" ng-if="gobackdata"></i>-->
       <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
     </div>
   </ion-nav-buttons>
@@ -27,10 +27,10 @@
 
   <div class="list " style="margin-top: 1rem" >
 
-    <a class="item item-icon-left item-input-left" style="    height: 7rem;" ng-repeat="item in ClassifDetailsList">
+    <a class="item item-icon-left item-input-left" style="    height: 7rem;" ng-repeat="item in ClassifDetailsList"  ng-if="dataexperss">
 
 
-      <div >
+
 
         <img src={{item.shop_img}} style="width: 3rem">
         <div class=" ion-close-sex"></div>
@@ -46,8 +46,27 @@
       <div style="    float: right;
     margin-top: -1rem;">X{{item.goods.total_in_number}}</div>
 
-      </div>
+
+
+
     </a>
+    <a class="item item-icon-left item-input-left" style="    height: 7rem;" ng-if="dataexpersse">
+      <img src={{ClassifDetailsList.img_url}} style="width: 5rem">
+      <div class=" ion-close-sex"></div>
+          <span style="float: right;font-size: 15px;margin-right: 5rem;margin-top: 0.2rem">
+{{ClassifDetailsList.goods_title}}</span>
+      <div style="    color: #a2a2a2;
+    margin-top: -2rem;
+    float: right;
+    font-size: 13px;
+    margin-right: 5.5rem;"> <span>规格：标配</span></div>
+      <div style="font-size: 13px;color: orange;">￥ {{ClassifDetailsList.total_in_price }}</div>
+      <div style="font-size: 8px;">运费：{{ClassifDetailsList.express_fee}}</div>
+      <div style="    float: right;
+    margin-top: -1rem;">X{{shopNum}}</div>
+    </a>
+
+
 
     <a class="item item-icon-left item-input-left" >
 
@@ -109,8 +128,15 @@
           </a>
 
 
-          <ion-scroll    style="overflow-y:hidden;"  scrollbar-y="false" class="addressmodel"    >
-          <div>
+          <ion-scroll  delegate-handle="list"
+                       lazy-scroll
+                       overflow-scroll="false"
+                       scrollbar-y="false"
+                       style="width: 100%;
+                     overflow:hidden
+                     "
+                       class="addressmodel   ><!--class="addressmodel"-->
+            <div>
 
           <ion-radio  ng-repeat="item in addressList" ng-value="item.is_default" ng-model="data.clientSide"  ng-click="gainAdress(item.addr_id)">
             <span class="address-name ">{{item.link_man}}</span> <span class="address-number">{{item.link_phone}}</span><br/><span class="address">{{item.province}}{{item.city}}{{item.region}}{{item.street}} </span>
@@ -126,10 +152,10 @@
 
           </a>
 
-
-
           </div>
           </ion-scroll>
+
+
         </div>
 
 
@@ -139,72 +165,6 @@
   </script>
 
 
-  <script id="templates/AddresModal.html" type="text/ng-template" >
-    <ion-modal-view class="address-model">
-      <ion-content class="padding"  >
-
-
-        <div class="list list-chongzhi" >
-
-
-          <a class="item item-icon-right item-one-left" style="    text-align: -webkit-center;
-    height: 50px;
-    margin-top: -30px;" >
-
-            收货地址
-
-
-          </a>
-
-          <a class="item item-icon-right item-one-left">
-            <!-- href=" /#/r/tab/Settings/address/add/select"-->
-            <!--<span class="address-name">请选择省市区</span>-->
-            <input placeholder="请选择省市区" class="input-color-usercolse">
-         <span class="select-chongzhi">
-     <i id="icon-right" class="icon ion-ios-arrow-right"></i>
-    </span>
-
-          </a>
-
-          <a class="item  item-icon-right item-one-left" >
-            <span class="address-name"><input ng-model="newaddress" ng-change="Addaddress(newaddress)" placeholder="请输入详细地址" class="input-color-usercolse"></span>   <span class="select-chongzhi">
-
-    </span>
-
-          </a>
-          <a class="item  item-icon-right item-one-left" >
-            <span class="address-name"><input ng-model="name"  ng-change="newname(name)" placeholder="请输入收货人姓名" class="input-color-usercolse"></span>   <span class="select-chongzhi">
-
-    </span>
-
-          </a>
-          <a class="item  item-icon-right item-one-left" >
-            <span class="address-name"><input ng-model="number" ng-change="newnumber(number)" placeholder="请输入收货人联系电话" class="input-color-usercolse"></span>   <span class="select-chongzhi">
-
-    </span>
-
-          </a>
-          <a class="item  item-icon-right item-one-left" >
-            <span class="address-name"><input ng-model="email" ng-change="newemail(email)" placeholder="请输入邮编" class="input-color-usercolse"></span>   <span class="select-chongzhi">
-
-    </span>
-
-          </a>
-
-          <a>
-            <span class="address-name"><ion-toggle  ng-model="pushNotification.checked" ng-change="pushNotificationChange()">设为默认地址</ion-toggle></span>
-
-          </a>
-
-
-
-
-        </div>
-
-      </ion-content>
-
-    </ion-modal-view>
-  </script>
 
 
 

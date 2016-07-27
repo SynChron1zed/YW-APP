@@ -318,7 +318,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-    //采购订单
+  /*  //采购订单
     .state('r.tab.HomPurchase',{
       url: '/HomPurchase',
       views: {
@@ -327,7 +327,32 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           controller: 'purchaseorderCtr'
         }
       }
+    })*/
+
+
+    //采购订单
+    .state('r.HomPurchase', {
+      url: '/HomPurchase',
+      // nativeTransitions: {
+      //   "type": "flip",
+      //   "direction": "up"
+      // },
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.HomPurchase')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Home/purchaseorder.html',
+          controller: 'purchaseorderCtr'
+        }
+      }
     })
+
+
+
     //销售订单详情
     .state('r.tab.Homordersbody',{
       url: '/HomOrdersBody/:basicID',

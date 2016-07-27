@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2016/7/5.
  */
-Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams) {
+Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$timeout',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$timeout) {
   var Address =[],Name=[],Number=[],Email=[],Checked=1;
   $scope.pushNotification = { checked: true};
   var dataadd = $stateParams.dataAdd
@@ -65,15 +65,18 @@ Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateSer
             "is_default": Checked
           }
         },function(r){
-          if(r){
-            $ionicPopup.alert({
-              title: '添加成功!',
-              okText: '确认'
-            });
+
+          $timeout(function(){
+            $state.go('r.addAddress',{dataAdd:1})
+            $timeout(function(){
+              $ionicPopup.alert({
+                title:'登录成功!',
+                okText:'确认'
+              })
+            },400);
 
 
-
-          }
+          },400)
         });
 
       } else {
