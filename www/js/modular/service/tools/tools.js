@@ -2,7 +2,7 @@
  * Created by Why on 16/6/10.
  */
 //小工具方法类
-Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup','storage','native',function($window,$ionicLoading,$http,$timeout,$ionicPopup,storage,native){
+Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup','storage','native','$ionicHistory','$state',function($window,$ionicLoading,$http,$timeout,$ionicPopup,storage,native,$ionicHistory,$state){
 
   //加在视图的加载效果http前调用
   var   showlogin = function() {
@@ -119,14 +119,14 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       
   var   hidelogin = function(){
             native.hidloading();
-  };
+  };  
   var   getData  = function(data,Callback,errorCallback,sendType){
     data.client_type =   window.platform?window.platform:'ios';
     data.post_content.token  = window.Token?window.Token:storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:'';
     data.post_content.token_phone  = window.token_phone?window.token_phone:storage.getObject('UserInfo').phone?storage.getObject('UserInfo').phone:'';
 
     console.log('数据监控 ....')
-    console.log(JSON.stringify(data))
+    console.log(JSON.stringify(data));
 
 
     $http({
@@ -141,7 +141,16 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
               },200);
       if(r.resp_code== '0000'){
         Callback(r);
-      }else{
+      } else if(r.resp_code ==  '0001' ){
+
+            window.outlogin(function(){              
+              $state.go('r.tab.Home');
+              $timeout(function(){
+                  $ionicHistory.clearHistory();
+              },40)                            
+              native.task(r.msg,3000);
+            })
+      }  else{
         Callback(false);
         // Callback(false);
         // errorCallback?errorCallback(r):null;

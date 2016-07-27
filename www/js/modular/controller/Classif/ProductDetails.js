@@ -41,18 +41,15 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
 
 
   $ionicModal.fromTemplateUrl('templates/modal.html', {
-
     scope: $scope
   }).then(function(modal) {
-
     $scope.modal = modal;
   });
-
+  
   $ionicModal.fromTemplateUrl('templates/gouwuchemodal.html', {
     scope: $scope,
    /* backdropClickToClose:false*/
   }).then(function(modal) {
-
     $scope.gouwuchemodal = modal;
   });
 
@@ -163,9 +160,8 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
 
 
   $scope.gouwuche = function () {
-
-
-    $ionicBackdrop.retain();
+    
+   /* $ionicBackdrop.retain();*/
    /* $timeout(function() {    //默认让它1秒后消失
       $ionicBackdrop.release();
     }, 1000);*/
@@ -173,18 +169,6 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
     $scope.gouwuchemodal.show();
 
   }
-  if( $scope.gouwuchemodal){
-
-  }
-
-  $scope.$on('$destroy', function() {
-   alert(1)
-  });
-
-  $scope.closemodel=function () {
-    alert(1)
-  }
-
 
   //阴影层
   $scope.action = function() {

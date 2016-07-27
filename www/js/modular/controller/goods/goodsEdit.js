@@ -414,7 +414,7 @@ $scope.save  = function (){
          "total_in_number": $scope.goods.Stock_number?$scope.goods.Stock_number:0,
          "arr_img":imglist.length?imglist:[],
          "cateIds": cartlist.length?cartlist:'',
-         "desc": $scope.goodsDesc?$scope.goodsDesc:''
+         "desc": $scope.goods.goodsDesc?$scope.goods.goodsDesc:''
           }
     };
 

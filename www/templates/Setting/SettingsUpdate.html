@@ -10,30 +10,31 @@
                 <i class="ion-ios-arrow-right"></i>
 
           </label>
-
-      <label class="item"   style="width:100%;margin-left:0px"  >
+          
+      <label class="item"   ng-click='sexgo()'    style="width:100%;margin-left:0px"  >
                 性别      
                 <i class="ion-ios-arrow-right"></i>
-                <span style="float: right;margin-right: 10px;display: inline-block;max-width: 50%;overflow: hidden;text-overflow: ellipsis;" >男</span>
+                <span style="float: right;margin-right: 10px;display: inline-block;max-width: 50%;overflow: hidden;text-overflow: ellipsis;" >{{sex}}</span>
 
           </label>
-          
+
           <label class="item"   style="width:100%;margin-left:0px"  >
-                用户名
+                真实姓名
                 <i class="ion-ios-arrow-right"></i>
-                <span style="float: right;margin-right: 10px;display: inline-block;max-width: 50%;overflow: hidden;text-overflow: ellipsis;" >姓名</span>
+                <span style="float: right;margin-right: 10px;display: inline-block;max-width: 50%;overflow: hidden;text-overflow: ellipsis;" >{{real_name}}</span>
           </label>
     </div>
 
 
-    <div class="list   gerenlist-icon" style="margin-top:20px;">
 
-        <label class="item"   style="width:100%;margin-left:0px"  >
+    <div class="list   gerenlist-icon" style="margin-top:20px;">
+        <div class="item"   ng-click='qqc()'   style="width:100%;margin-left:0px"  >
                 QQ号码
                 <i class="ion-ios-arrow-right"></i>
-                <span style="float: right;margin-right: 10px;display: inline-block;max-width: 50%;overflow: hidden;text-overflow: ellipsis;" >2274113382</span>
-          </label>
-            <label class="item"   style="width:100%;margin-left:0px"  >
+                <span style="float: right;margin-right: 10px;display: inline-block;max-width: 50%;overflow: hidden;text-overflow: ellipsis;" >{{qq}}</span>
+          </div>
+          
+            <label class="item"   ng-click="resetPwd()"   style="width:100%;margin-left:0px"  >
                 修改密码
                 <i class="ion-ios-arrow-right"></i>
           </label>

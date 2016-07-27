@@ -427,9 +427,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-
-
-
     //setting  个人设置
     .state('r.tab.Settings', {
       nativeTransitions: null,
@@ -439,18 +436,11 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           templateUrl: 'templates/Setting/Settings.html',
           controller: 'settingsCtr'
         }
-      }
+      }      
     })
-
       //setting  个人设置 个人资料修改
     .state('r.tab.SettingsUpdate', {
       url: '/Settings/update',
-      onEnter: function() {
-        window.noNavtionsbackRootuer   = 'r.tab.Settings';
-      },
-      onExit:function(){
-        window.noNavtionsbackRootuer   =   undefined;
-      },
       views: {
         'setting': {
           templateUrl: 'templates/Setting/SettingsUpdate.html',
@@ -479,8 +469,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
-
+ 
     //setting  个人设置 个人资料修改 用户名修改
     .state('r.tab.SettingsUpdateUsername', {
       url: '/Settings/update/username',
@@ -494,6 +483,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     //setting  个人设置 个人资料修改 sex
     .state('r.tab.SettingsSexUsername', {
+  
       url: '/Settings/update/sex',
       views: {
         'setting': {
@@ -502,6 +492,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+    
     //setting  个人设置 个人资料修改 QQ
     .state('r.tab.SettingsQQ', {
       url: '/Settings/update/qq',
