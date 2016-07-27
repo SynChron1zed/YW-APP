@@ -270,6 +270,9 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
 
   };
 
+
+ 
+
 }]);
 
 

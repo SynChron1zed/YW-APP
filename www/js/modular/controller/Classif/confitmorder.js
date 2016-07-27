@@ -15,6 +15,7 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
 
   $scope.dataexpersse = true
   $scope.dataexperss = false
+  $scope.gouwuchedata = false
 
   $scope.shopNum=Num
   var cartId = [];
@@ -25,7 +26,8 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
   $scope.addressList=[];
 
   $ionicModal.fromTemplateUrl('templates/addressmodal.html', {
-    scope: $scope
+    scope: $scope,
+  backdropClickToClose:false
   }).then(function(modal) {
     $scope.addressmodal = modal;
     $scope.addressmodal.show();
@@ -33,10 +35,12 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
 
 
   if(bascId==""){
+    $ionicBackdrop.retain();
     $scope.dataexpersse = false
     $scope.dataexperss = true
     cartId = shopId;
     $scope.TotalNum =Num;
+    $scope.gouwuchedata =true;
     //结算购物车
     Tools.getData({
       "interface_number": "020601",
@@ -239,12 +243,12 @@ $scope.deletedizhi=function () {
  }
 
 
-
-/*  //商品详情模块
+/*//商品详情模块
   //保存历史记录的方法  调用  上一次1 title  和返回方法
   $scope.backtoprevView  =   fromStateServ.backView;
 
   $scope.$on('$stateChangeSuccess',function(){
+    debugger;
 
     $scope.loginboj = {};
     $scope.ing  = false;
