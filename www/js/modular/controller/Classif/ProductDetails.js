@@ -41,14 +41,15 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
 
 
   $ionicModal.fromTemplateUrl('templates/modal.html', {
-    scope: $scope
+    scope: $scope,
+    backdropClickToClose:false
   }).then(function(modal) {
     $scope.modal = modal;
   });
-  
+
   $ionicModal.fromTemplateUrl('templates/gouwuchemodal.html', {
     scope: $scope,
-   /* backdropClickToClose:false*/
+    backdropClickToClose:false
   }).then(function(modal) {
     $scope.gouwuchemodal = modal;
   });
@@ -160,13 +161,33 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
 
 
   $scope.gouwuche = function () {
-    
-   /* $ionicBackdrop.retain();*/
-   /* $timeout(function() {    //默认让它1秒后消失
-      $ionicBackdrop.release();
-    }, 1000);*/
+
+
+    $ionicBackdrop.retain();
 
     $scope.gouwuchemodal.show();
+
+  };
+  $scope.dingdan = function () {
+
+
+    $ionicBackdrop.retain();
+
+    $scope.modal.show();
+
+  };
+
+
+
+
+  $scope.deletegouwuche=function () {
+    $ionicBackdrop.release();
+    $scope.gouwuchemodal.hide();
+
+  }
+  $scope.deletedingdan=function () {
+    $ionicBackdrop.release();
+    $scope.modal.hide()
 
   }
 
