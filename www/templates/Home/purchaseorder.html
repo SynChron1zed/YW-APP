@@ -1,13 +1,12 @@
-<ion-view view-title="采购订单">
+<ion-view  hide-tabs="true"  view-title="采购订单">
 
 
 
 
-  <ion-nav-buttons side="left"    class="button back-button buttons button-clear header-item">
-    <div class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.HomPurchase')">
-      <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
-      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
-    </div>
+  <ion-nav-buttons side="left" >
+
+    <button ng-if="datacaigou" ng-click="$ionicGoBack()" class="button back-button buttons  button-clear header-item"><i class="icon ion-ios-arrow-left"></i>首页
+    </button>
   </ion-nav-buttons>
 
 
@@ -110,8 +109,8 @@
 
 
 
-      <ion-infinite-scroll  ng-if="expression" style="height: 100px;line-height: 40px;margin-bottom:100px;text-align: center" spinner="dots" on-infinite="loadOlderStories()"  distance="1%"  > </ion-infinite-scroll>
-      <div ng-if="newexpression" style="line-height: 90px;margin-bottom:40px;text-align: center;color:#999" >没有更多了!</div>
+      <ion-infinite-scroll  ng-if="expression" style="height: 10px;line-height: 40px;margin-bottom:30px;text-align: center" spinner="dots" on-infinite="loadOlderStories()"  distance="1%"  > </ion-infinite-scroll>
+      <div ng-if="newexpression" style="line-height: 30px;margin-bottom:20px;text-align: center;color:#999" >没有更多了!</div>
 
     </ion-scroll>
 

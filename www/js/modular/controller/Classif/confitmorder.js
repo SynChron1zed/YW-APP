@@ -10,6 +10,7 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
   var shopId = $stateParams.shopID;
   var Num = $stateParams.Num;
 
+
   $scope.gobackdata =true
 
   $scope.dataexpersse = true
@@ -34,8 +35,8 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
   if(bascId==""){
     $scope.dataexpersse = false
     $scope.dataexperss = true
-    cartId = shopId
-
+    cartId = shopId;
+    $scope.TotalNum =Num;
     //结算购物车
     Tools.getData({
       "interface_number": "020601",
@@ -48,7 +49,7 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
       }
     },function(r){
       if(r){
-        debugger;
+
 
         angular.forEach(r.resp_data.goodsInfo,function(c){
           c.shop_img =  window.qiniuimgHost+c.shop_img+'?imageView2/1/w/200/h/200';
@@ -57,6 +58,8 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
 
         $scope.ClassifDetailsList = (r.resp_data.goodsInfo);
         console.log($scope.ClassifDetailsList)
+
+
 
 
       /*  var total = $scope.ClassifDetailsList.total_in_price * $scope.shopNum
@@ -116,6 +119,8 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
 
       }
     });
+
+
 
 
   }
@@ -196,7 +201,7 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
           okText:'确认'
 
       });
-        $state.go('r.HomPurchase');
+        $state.go('r.HomPurchase',{datacaigou:1});
       }
 
     });
@@ -220,31 +225,6 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
     $scope.addressmodal.hide();;
   }
 
-
-  //保存历史记录的方法  调用  上一次1 title  和返回方法
-  $scope.backtoprevView  =   fromStateServ.backView;
-
-  // //安卓返回键  对公共模块的返回
-  // $ionicPlatform.registerBackButtonAction(function (e) {
-  //    e.preventDefault();
-  //    $scope.backtoprevView('r.login');
-  //    return false;
-  //  }, 101);
- /* $scope.$on('$stateChangeSuccess',function(){
-    debugger;
-    $scope.loginboj = {};
-    $scope.ing  = false;
-    $scope.parenttitle     =   fromStateServ.getState('r.confirmOrder').title;
-  });*/
-  $scope.backView  = function(){
-    $scope.$ionicGoBack();
-  };
-
-
-  function handtat  (){
-
-
-  }
 
 
 

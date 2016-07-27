@@ -12,7 +12,7 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
   $scope.newexpression=false
   $scope.expression=true
 
-  Tools.getData({
+/*  Tools.getData({
     "interface_number": "020701",
     "client_type": window.platform,
     "post_content": {
@@ -35,16 +35,13 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
       $scope.post_status=[];
 
     }
-  });
+  });*/
 
 
   //翻页加载
   $scope.loadOlderStories=function (type) {
 
     pageNum +=1;
-    if(cateId==""){
-      cateId=1
-    }
 
 
     Tools.getData({
@@ -54,12 +51,12 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
         "token" : "",
         "token_phone": "",
         "status": "",
-        "page_num": 1,
+        "page_num": pageNum,
         "page_per":10
       }
     }, function (r) {
       if (r) {
-debugger;
+
         angular.forEach(r.resp_data.data,function(c){
           c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
           c.ctr  = false;
@@ -68,15 +65,13 @@ debugger;
         if (r.resp_data.data.length == 0) {
           $scope.expression = false
           $scope.newexpression=true
-          $scope.ShoppingList=$scope.ShoppingList
+          $scope.SalesList=$scope.SalesList
 
         } else {
           $scope.newexpression=false
-          if(pageNum==1){
-            r.resp_data.data=[];
-          }
+
           for(var i=0;i<r.resp_data.data.length;i++){
-            $scope.ShoppingList.push(r.resp_data.data[i])
+            $scope.SalesList.push(r.resp_data.data[i])
           }
         }
         $timeout(function () {
@@ -122,6 +117,7 @@ debugger;
           $scope.expression=true
         }else{
           $scope.expression=false
+          $scope.newexpression=true
         }
         $scope.SalesList = (r.resp_data.data)
         console.log($scope.SalesList)
@@ -156,6 +152,7 @@ debugger;
           $scope.expression=true
         }else{
           $scope.expression=false
+          $scope.newexpression=true
         }
         $scope.SalesList = (r.resp_data.data)
         console.log($scope.SalesList)
@@ -189,6 +186,7 @@ debugger;
           $scope.expression=true
         }else{
           $scope.expression=false
+          $scope.newexpression=true
         }
         $scope.SalesList = (r.resp_data.data)
         console.log($scope.SalesList)
@@ -224,6 +222,7 @@ debugger;
           $scope.expression=true
         }else{
           $scope.expression=false
+          $scope.newexpression=true
         }
         $scope.SalesList = (r.resp_data.data)
         console.log($scope.SalesList)
@@ -251,11 +250,11 @@ debugger;
   function   caklatehe  (){
     if(window.platform  == 'ios'){
       $scope.caklateheight  = {
-        height:window.innerHeight-(64+44+30)+'px'
+        height:window.innerHeight-(64+41)+'px'
       }
     }else{
       $scope.caklateheight  = {
-        height:window.innerHeight-(44+44+30)+'px'
+        height:window.innerHeight-(44+41)+'px'
       }
     }
   };
@@ -263,6 +262,13 @@ debugger;
   $timeout(function(){
     caklatehe();
   },600)
+
+  $scope.calssifloadMore = function (xxx) {
+    $timeout(function () {
+      $scope.$broadcast('scroll.refreshComplete');
+    }, 600);
+
+  };
 
 }]);
 

@@ -2,7 +2,7 @@
  * Created by Why on 16/6/8.
  */
 Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$rootScope','$ionicPopup','$ionicHistory',function($scope,fromStateServ,storage,Tools,$rootScope,$ionicPopup,$ionicHistory){
-  
+
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
 
@@ -16,7 +16,7 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
        window.androdzerofun_clback  = 'nothing';
      }
     });
-    
+
       $scope.login  =  function(r){
             fromStateServ.stateChange(r);
       };
@@ -216,21 +216,22 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
 
             return false;
           }
+          
           //选中的商品
           shopcartOrder  = shopcartOrder.substring(0,shopcartOrder.length-1);
-          fromStateServ.stateChange('r.confirmOrder',{basicID:'',shopID:shopcartOrder,Num:''});
-
-          
+          fromStateServ.stateChange('r.confirmOrder',{basicID:'',shopID:shopcartOrder,Num:$scope.TotalPrice});
 
 
-          //这里去 确认订单    
+
+
+          //这里去 确认订单
 
 
         };
 
 
-    
 
-     
+
+
 
 }])
