@@ -229,9 +229,11 @@ $scope.deletedizhi=function () {
     $scope.addressmodal.hide();*/
     $state.go('r.addAddress',{dataAdd:1});
     $scope.addressmodal.hide();;
+    $ionicBackdrop.release();
+
   }
  $scope.addressmodaldelete =function () {
-  
+
    $ionicBackdrop.retain();
    $scope.addressmodal.show()
  }
