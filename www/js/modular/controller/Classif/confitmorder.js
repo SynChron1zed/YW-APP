@@ -4,7 +4,7 @@
 /**
  * Created by Administrator on 2016/7/18.
  */
-Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$ionicModal',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$ionicModal) {
+Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$ionicModal','$ionicBackdrop',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$ionicModal,$ionicBackdrop) {
 
   var bascId = $stateParams.basicID;
   var shopId = $stateParams.shopID;
@@ -207,11 +207,17 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
     });
   }
   $ionicModal.fromTemplateUrl('templates/AddresModal.html', {
-    scope: $scope
+    scope: $scope,
+    backdropClickToClose:false
   }).then(function(modal) {
     $scope.AddAdressemodal = modal;
   });
 
+$scope.deletedizhi=function () {
+
+  $ionicBackdrop.release();
+  $scope.addressmodal.hide();
+}
 /*  $scope.AddAdress=function () {
     $scope.addressmodal.hide();
     $scope.AddAdressemodal.show()
@@ -224,7 +230,11 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
     $state.go('r.addAddress',{dataAdd:1});
     $scope.addressmodal.hide();;
   }
-
+ $scope.addressmodaldelete =function () {
+  
+   $ionicBackdrop.retain();
+   $scope.addressmodal.show()
+ }
 
 
 
