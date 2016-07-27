@@ -332,7 +332,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     //采购订单
     .state('r.HomPurchase', {
-      url: '/HomPurchase/:datacaigou',
+      url: '/HomPurchase',
       // nativeTransitions: {
       //   "type": "flip",
       //   "direction": "up"
@@ -436,7 +436,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           templateUrl: 'templates/Setting/Settings.html',
           controller: 'settingsCtr'
         }
-      }      
+      }
     })
       //setting  个人设置 个人资料修改
     .state('r.tab.SettingsUpdate', {
@@ -469,7 +469,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
- 
+    
     //setting  个人设置 个人资料修改 用户名修改
     .state('r.tab.SettingsUpdateUsername', {
       url: '/Settings/update/username',
@@ -483,7 +483,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     //setting  个人设置 个人资料修改 sex
     .state('r.tab.SettingsSexUsername', {
-  
+
       url: '/Settings/update/sex',
       views: {
         'setting': {
@@ -492,7 +492,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    
+
     //setting  个人设置 个人资料修改 QQ
     .state('r.tab.SettingsQQ', {
       url: '/Settings/update/qq',
@@ -777,10 +777,11 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
+    
   //收货地址添加编辑
     .state('r.AddressEdith', {
       url: '/AddressEdith?id:',
+      cache:false,
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.AddressEdith')
       },

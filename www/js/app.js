@@ -868,10 +868,11 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
+    
   //收货地址添加编辑
     .state('r.AddressEdith', {
       url: '/AddressEdith?id:',
+      cache:false,
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.AddressEdith')
       },
@@ -1573,6 +1574,7 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
   var shopId = $stateParams.shopID;
   var Num = $stateParams.Num;
 
+
   $scope.gobackdata =true
 
   $scope.dataexpersse = true
@@ -1597,8 +1599,8 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
   if(bascId==""){
     $scope.dataexpersse = false
     $scope.dataexperss = true
-    cartId = shopId
-
+    cartId = shopId;
+    $scope.TotalNum =Num;
     //结算购物车
     Tools.getData({
       "interface_number": "020601",
@@ -1611,7 +1613,7 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
       }
     },function(r){
       if(r){
-        debugger;
+
 
         angular.forEach(r.resp_data.goodsInfo,function(c){
           c.shop_img =  window.qiniuimgHost+c.shop_img+'?imageView2/1/w/200/h/200';
@@ -1620,6 +1622,8 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
 
         $scope.ClassifDetailsList = (r.resp_data.goodsInfo);
         console.log($scope.ClassifDetailsList)
+
+
 
 
       /*  var total = $scope.ClassifDetailsList.total_in_price * $scope.shopNum
@@ -1679,6 +1683,8 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
 
       }
     });
+
+
 
 
   }
@@ -1759,7 +1765,7 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
           okText:'确认'
 
       });
-        $state.go('r.HomPurchase');
+        $state.go('r.HomPurchase',{datacaigou:1});
       }
 
     });
@@ -1783,31 +1789,6 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
     $scope.addressmodal.hide();;
   }
 
-
-  //保存历史记录的方法  调用  上一次1 title  和返回方法
-  $scope.backtoprevView  =   fromStateServ.backView;
-
-  // //安卓返回键  对公共模块的返回
-  // $ionicPlatform.registerBackButtonAction(function (e) {
-  //    e.preventDefault();
-  //    $scope.backtoprevView('r.login');
-  //    return false;
-  //  }, 101);
- /* $scope.$on('$stateChangeSuccess',function(){
-    debugger;
-    $scope.loginboj = {};
-    $scope.ing  = false;
-    $scope.parenttitle     =   fromStateServ.getState('r.confirmOrder').title;
-  });*/
-  $scope.backView  = function(){
-    $scope.$ionicGoBack();
-  };
-
-
-  function handtat  (){
-
-
-  }
 
 
 
@@ -3799,16 +3780,19 @@ Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools',
 /**
  * Created by Administrator on 2016 /21.
  */
-Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout) {
+Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$stateParams',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$stateParams) {
+  $scope.datacaigou=true
 
-
+  var bascId = $stateParams.datacaigou;
   $scope.ShoppingList = [];
   $scope.newexpression=false
 
   $scope.expression=true
 
   var pageNum = 0;
-
+if(bascId==1){
+  $scope.datacaigou=false
+}
  /* Tools.getData({
     "interface_number": "020702",
     "client_type": window.platform,
@@ -3862,9 +3846,10 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
           c.ctr  = false;
         });
 
-        if (r.resp_data.data.length < 10) {
 
-          $scope.ShoppingList=r.resp_data.data
+        if (r.resp_data.data.length ==0) {
+
+          $scope.ShoppingList=$scope.ShoppingList;
           $scope.expression = false
           $scope.newexpression=true
 
@@ -3917,7 +3902,9 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
           $scope.expression=true
         }else{
           $scope.expression=false
+          $scope.newexpression=true
         }
+
         angular.forEach(r.resp_data.data,function(c){
           c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
           c.ctr  = false;
@@ -3954,6 +3941,7 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
           $scope.expression=true
         }else{
           $scope.expression=false
+          $scope.newexpression=true
         }
         angular.forEach(r.resp_data.data,function(c){
           c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
@@ -3991,6 +3979,7 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
           $scope.expression=true
         }else{
           $scope.expression=false
+          $scope.newexpression=true
         }
         angular.forEach(r.resp_data.data,function(c){
           c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
@@ -4030,6 +4019,7 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
           $scope.expression=true
         }else{
           $scope.expression=false
+          $scope.newexpression=true
         }
         angular.forEach(r.resp_data.data,function(c){
           c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
@@ -4060,11 +4050,11 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
   function   caklatehe  (){
     if(window.platform  == 'ios'){
       $scope.caklateheight  = {
-        height:window.innerHeight-(64+44+30)+'px'
+        height:window.innerHeight-(64+41)+'px'
       }
     }else{
       $scope.caklateheight  = {
-        height:window.innerHeight-(44+44+30)+'px'
+        height:window.innerHeight-(44+41)+'px'
       }
     }
   };
@@ -4072,8 +4062,7 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
   $timeout(function(){
     caklatehe();
   },600)
-
-
+/*
   //商品详情模块
   //保存历史记录的方法  调用  上一次1 title  和返回方法
   $scope.backtoprevView  =   fromStateServ.backView;
@@ -4087,7 +4076,7 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
 
   $scope.backView  = function(){
     $scope.$ionicGoBack();
-  };
+  };*/
 
 }]);
 
@@ -4105,7 +4094,7 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
   $scope.newexpression=false
   $scope.expression=true
 
-  Tools.getData({
+/*  Tools.getData({
     "interface_number": "020701",
     "client_type": window.platform,
     "post_content": {
@@ -4128,16 +4117,13 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
       $scope.post_status=[];
 
     }
-  });
+  });*/
 
 
   //翻页加载
   $scope.loadOlderStories=function (type) {
 
     pageNum +=1;
-    if(cateId==""){
-      cateId=1
-    }
 
 
     Tools.getData({
@@ -4147,12 +4133,12 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
         "token" : "",
         "token_phone": "",
         "status": "",
-        "page_num": 1,
+        "page_num": pageNum,
         "page_per":10
       }
     }, function (r) {
       if (r) {
-debugger;
+
         angular.forEach(r.resp_data.data,function(c){
           c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
           c.ctr  = false;
@@ -4161,15 +4147,13 @@ debugger;
         if (r.resp_data.data.length == 0) {
           $scope.expression = false
           $scope.newexpression=true
-          $scope.ShoppingList=$scope.ShoppingList
+          $scope.SalesList=$scope.SalesList
 
         } else {
           $scope.newexpression=false
-          if(pageNum==1){
-            r.resp_data.data=[];
-          }
+
           for(var i=0;i<r.resp_data.data.length;i++){
-            $scope.ShoppingList.push(r.resp_data.data[i])
+            $scope.SalesList.push(r.resp_data.data[i])
           }
         }
         $timeout(function () {
@@ -4215,6 +4199,7 @@ debugger;
           $scope.expression=true
         }else{
           $scope.expression=false
+          $scope.newexpression=true
         }
         $scope.SalesList = (r.resp_data.data)
         console.log($scope.SalesList)
@@ -4249,6 +4234,7 @@ debugger;
           $scope.expression=true
         }else{
           $scope.expression=false
+          $scope.newexpression=true
         }
         $scope.SalesList = (r.resp_data.data)
         console.log($scope.SalesList)
@@ -4282,6 +4268,7 @@ debugger;
           $scope.expression=true
         }else{
           $scope.expression=false
+          $scope.newexpression=true
         }
         $scope.SalesList = (r.resp_data.data)
         console.log($scope.SalesList)
@@ -4317,6 +4304,7 @@ debugger;
           $scope.expression=true
         }else{
           $scope.expression=false
+          $scope.newexpression=true
         }
         $scope.SalesList = (r.resp_data.data)
         console.log($scope.SalesList)
@@ -4344,11 +4332,11 @@ debugger;
   function   caklatehe  (){
     if(window.platform  == 'ios'){
       $scope.caklateheight  = {
-        height:window.innerHeight-(64+44+30)+'px'
+        height:window.innerHeight-(64+41)+'px'
       }
     }else{
       $scope.caklateheight  = {
-        height:window.innerHeight-(44+44+30)+'px'
+        height:window.innerHeight-(44+41)+'px'
       }
     }
   };
@@ -4356,6 +4344,13 @@ debugger;
   $timeout(function(){
     caklatehe();
   },600)
+
+  $scope.calssifloadMore = function (xxx) {
+    $timeout(function () {
+      $scope.$broadcast('scroll.refreshComplete');
+    }, 600);
+
+  };
 
 }]);
 
@@ -5417,7 +5412,7 @@ Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateSer
   }
 
 
-  //保存历史记录的方法  调用  上一次1 title  和返回方法
+  /*//保存历史记录的方法  调用  上一次1 title  和返回方法
   $scope.backtoprevView  =   fromStateServ.backView;
   // //安卓返回键  对公共模块的返回
   // $ionicPlatform.registerBackButtonAction(function (e) {
@@ -5433,11 +5428,11 @@ Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateSer
 
   $scope.backView  = function(){
     $scope.$ionicGoBack();
-  };
+  };*/
 
 }]);
 
-Ctr.controller('AddresslistCtr',['$scope','fromStateServ','Tools',function($scope,fromStateServ,Tools){
+Ctr.controller('AddresslistCtr',['$scope','fromStateServ','Tools','native','$state',function($scope,fromStateServ,Tools,native,$state){
 
   $scope.showtitle   = false;
   //对安卓返回键的  特殊处理  tabs
@@ -5479,10 +5474,28 @@ Ctr.controller('AddresslistCtr',['$scope','fromStateServ','Tools',function($scop
     $scope.swatch  = function(){
         if($scope.edith){
                 //删除
+                    var relf  = [];
                     angular.forEach($scope.datalist,function(s){
                                 if(s.select){
+                                  relf.push(s.addr_id);  
                                 }     
                         })
+                        if(relf.length){
+                            Tools.getData({
+                            "interface_number": "020504",
+                                "post_content": {
+                                    "addr_id":relf                                    
+                                }
+                            },function(r){
+                                if(r){
+                                angular.forEach(relf,function(s){
+                                        Tools.rmArrin($scope.datalist,parseInt(s))
+                                }) 
+
+                                            native.task('删除成功!')
+                                }  
+                            })
+                        } 
         }
         $scope.showdelt  = !$scope.showdelt; 
         $scope.edith   =  !$scope.edith;  
@@ -5495,16 +5508,29 @@ $scope.adderedit  = function(tar){
 $scope.selectthi  = function(tar){
     tar.select   = !tar.select; 
 }
+
+
+
+//添加地址
+$scope.addreder   =  function(){
+    $state.go('r.AddressEdith')
+}
+
+
 }])
 
 
-.controller('AddressEdithCtr',['$scope','Tools','$stateParams','fromStateServ',function($scope,Tools,$stateParams,fromStateServ){
+.controller('AddressEdithCtr',['$scope','Tools','$stateParams','fromStateServ','$ionicModal','$timeout',function($scope,Tools,$stateParams,fromStateServ,$ionicModal,$timeout){
 
 
- $scope.title = '添加地址';
+ 
  $scope.showtitle   = false;
   //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
+
+            console.log(fromStateServ.getState('r.AddressEdith'))
+
+
             if(fromStateServ.getState('r.AddressEdith')){
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView; 
@@ -5512,10 +5538,66 @@ $scope.selectthi  = function(tar){
             }else{
                 $scope.showtitle  = false;
             }
-        
-        inlite();
 
     });
+
+    
+
+
+            $scope.addrs  = {};
+            if($stateParams.id){
+                $scope.title = '编辑地址';
+            }else{
+                $scope.title = '添加地址';
+            }
+
+
+        $scope.cityall  = window.city;
+
+        $scope.openselectprovince  =  function(){
+            Tools.showlogin();
+            $scope.shenfeng  = [];
+            angular.forEach($scope.cityall,function(sheng){
+                
+                    console.log(sheng)
+
+            })    
+
+
+            $timeout(function(){
+                Tools.hidelogin();
+                $scope.sheng.show();
+            },300)
+            
+            
+        }
+
+
+
+        $scope.$on('$destroy', function() {
+            $scope.sheng.remove();
+        });
+
+        $ionicModal.fromTemplateUrl('sheng.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.sheng = modal;
+        });
+
+        
+
+
+        
+
+
+
+
+
+
+
+
+
     
 
 }])
@@ -6192,7 +6274,7 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
  * Created by Why on 16/6/8.
  */
 Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$rootScope','$ionicPopup','$ionicHistory',function($scope,fromStateServ,storage,Tools,$rootScope,$ionicPopup,$ionicHistory){
-  
+
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
 
@@ -6206,7 +6288,7 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
        window.androdzerofun_clback  = 'nothing';
      }
     });
-    
+
       $scope.login  =  function(r){
             fromStateServ.stateChange(r);
       };
@@ -6406,24 +6488,75 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
 
             return false;
           }
+          
           //选中的商品
           shopcartOrder  = shopcartOrder.substring(0,shopcartOrder.length-1);
-          fromStateServ.stateChange('r.confirmOrder',{basicID:'',shopID:shopcartOrder,Num:''});
-
-          
+          fromStateServ.stateChange('r.confirmOrder',{basicID:'',shopID:shopcartOrder,Num:$scope.TotalPrice});
 
 
-          //这里去 确认订单    
+
+
+          //这里去 确认订单
 
 
         };
 
 
-    
 
-     
+
+
 
 }])
+
+/**
+ * Created by Why on 16/6/12.
+ */
+
+   //全局变量定义
+  /* window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';*/
+  //  window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
+
+    //window.Interactivehost  = 'http://192.168.0.56:1155/index.php?r=app/index';
+	  window.Interactivehost = 'http://192.168.0.56:1155/index.php?r=app/index';
+    
+    window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';
+  //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
+  //没有使用过度的返回页面的使用
+
+  //本地缓存   对象列表 定义
+  // window.LocalCacheStatelist  =  {
+  //   shopCart:'YES',
+  // };
+
+  window.defaultUserheader  =  './img/sys_male.jpg';
+
+
+
+  Server.factory('const',['$window','$ionicHistory','$timeout','$ionicNativeTransitions',function($window,$ionicHistory,$timeout,$ionicNativeTransitions){
+      return{
+        haha:'哈哈'
+      }
+    }])
+
+    //商品编辑状态
+    .factory('goodsState',[function(){
+      return{
+         Refresh:false,
+         goods_basic_id:undefined,
+         goods_title:undefined,
+         img_url:undefined,
+         activity_price:undefined,
+         total_in_number:undefined
+      }
+    }])
+
+
+    .factory('loginregisterstate',[function(){
+      return{
+         Refresh:false,
+      }
+    }])
+
 
 /**
  * Created by Why on 16/6/10.
@@ -6714,56 +6847,6 @@ Server.factory('Chats', function() {
 });
 
 
-/**
- * Created by Why on 16/6/12.
- */
-
-   //全局变量定义
-  /* window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';*/
-    //window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
-
-    window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
-	 // window.Interactivehost = 'http://192.168.0.56:1155/index.php?r=app/index'
-
-   window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';
-  //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
-  //没有使用过度的返回页面的使用
-
-  //本地缓存   对象列表 定义
-  // window.LocalCacheStatelist  =  {
-  //   shopCart:'YES',
-  // };
-  
-  window.defaultUserheader  =  './img/sys_male.jpg';
-  
-
-
-  Server.factory('const',['$window','$ionicHistory','$timeout','$ionicNativeTransitions',function($window,$ionicHistory,$timeout,$ionicNativeTransitions){
-      return{
-        haha:'哈哈'
-      }
-    }])
-
-    //商品编辑状态
-    .factory('goodsState',[function(){
-      return{
-         Refresh:false,
-         goods_basic_id:undefined,
-         goods_title:undefined,
-         img_url:undefined,
-         activity_price:undefined,
-         total_in_number:undefined
-      }
-    }])
-    
-    
-    .factory('loginregisterstate',[function(){
-      return{
-         Refresh:false,
-      }
-    }])
-
-
 Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$timeout','$ionicNativeTransitions',function($state,$ionicViewSwitcher,$ionicHistory,$timeout,$ionicNativeTransitions){
     var box  = {
         data: {},
@@ -6929,6 +7012,33 @@ Server.factory('share',['$window','native',function($window,native){
 
 
 }]);
+
+/**
+ * Created by Why on 16/6/10.
+ */
+  //本地存储数据===================================
+Server.factory('storage',['$window',function($window){
+    return{
+      //存储单个属性
+      set :function(key,value){
+        $window.localStorage[key]=value;
+      },
+      //读取单个属性
+      get:function(key,defaultValue){
+        return  $window.localStorage[key] || defaultValue;
+      },
+      //存储对象，以JSON格式存储
+      setObject:function(key,value){
+        $window.localStorage[key]=JSON.stringify(value);
+      },      
+      //读取对象
+      getObject: function (key) {
+          return JSON.parse( $window.localStorage[key] || '{}'   );
+      }
+    }
+
+
+  }]);
 
 /**
  * Created by Why on 16/6/10.
@@ -7293,30 +7403,3 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   }
 
 }]);
-
-/**
- * Created by Why on 16/6/10.
- */
-  //本地存储数据===================================
-Server.factory('storage',['$window',function($window){
-    return{
-      //存储单个属性
-      set :function(key,value){
-        $window.localStorage[key]=value;
-      },
-      //读取单个属性
-      get:function(key,defaultValue){
-        return  $window.localStorage[key] || defaultValue;
-      },
-      //存储对象，以JSON格式存储
-      setObject:function(key,value){
-        $window.localStorage[key]=JSON.stringify(value);
-      },      
-      //读取对象
-      getObject: function (key) {
-          return JSON.parse( $window.localStorage[key] || '{}'   );
-      }
-    }
-
-
-  }]);
