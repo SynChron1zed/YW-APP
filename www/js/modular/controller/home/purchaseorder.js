@@ -14,31 +14,7 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
 if(bascId==1){
   $scope.datacaigou=false
 }
- /* Tools.getData({
-    "interface_number": "020702",
-    "client_type": window.platform,
-    "post_content": {
-      "token" : "",
-      "token_phone": "",
-      "status": "",
-      "page_num": 1,
-      "page_per":10
-    }
-  },function(r){
-    if(r){
-      if(r.resp_data.data.length==10){
-        $scope.expression=true
-      }else{
-        $scope.expression=false
-      }
-      $scope.SalesList = (r.resp_data.data)
-      console.log($scope.SalesList)
 
-
-
-
-    }
-  });*/
 
   //翻页加载
   $scope.loadOlderStories=function (type) {
@@ -283,8 +259,9 @@ if(bascId==1){
   $timeout(function(){
     caklatehe();
   },600)
-/*
-  //商品详情模块
+
+
+  /*//商品详情模块
   //保存历史记录的方法  调用  上一次1 title  和返回方法
   $scope.backtoprevView  =   fromStateServ.backView;
 
