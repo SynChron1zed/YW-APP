@@ -88,7 +88,7 @@ Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateSer
   }
 
 
-  //保存历史记录的方法  调用  上一次1 title  和返回方法
+  /*//保存历史记录的方法  调用  上一次1 title  和返回方法
   $scope.backtoprevView  =   fromStateServ.backView;
   // //安卓返回键  对公共模块的返回
   // $ionicPlatform.registerBackButtonAction(function (e) {
@@ -104,6 +104,6 @@ Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateSer
 
   $scope.backView  = function(){
     $scope.$ionicGoBack();
-  };
+  };*/
 
 }]);

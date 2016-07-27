@@ -1,16 +1,12 @@
-<ion-view view-title="">
-  <ion-nav-bar   class="bar-positive ">
-    <ion-nav-buttons side="left">
-      <a   nav-direction="back"  href="/#/r/tab/Home"  class="button button-icon ion-ios-arrow-left">
-        订单列表
-      </a>
-    </ion-nav-buttons>
+<ion-view  hide-tabs="true"  view-title="销售订单">
+
+
     <ion-nav-buttons side="right">
       <a   nav-direction="back"  href=""  class="button button-icon ion-ios-search-strong ">
 
       </a>
     </ion-nav-buttons>
-  </ion-nav-bar>
+
 
   <ion-content  style="background: #F7F7F7;overflow: hidden;" overflow-scroll="false"  scrollbar-y="false"    >
 
@@ -101,8 +97,8 @@
 
 
 
-      <ion-infinite-scroll  ng-if="expression" style="height: 100px;line-height: 40px;margin-bottom:100px;text-align: center" spinner="dots" on-infinite="loadOlderStories()"  distance="1%"  > </ion-infinite-scroll>
-      <div ng-if="newexpression" style="line-height: 90px;margin-bottom:40px;text-align: center;color:#999" >没有更多了!</div>
+      <ion-infinite-scroll  ng-if="expression" style="height: 10px;line-height: 40px;margin-bottom:30px;text-align: center" spinner="dots" on-infinite="loadOlderStories()"  distance="1%"  > </ion-infinite-scroll>
+      <div ng-if="newexpression" style="line-height: 30px;margin-bottom:20px;text-align: center;color:#999" >没有更多了!</div>
 
     </ion-scroll>
 
