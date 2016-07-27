@@ -4,7 +4,7 @@
 /**
  * Created by Administrator on 2016/7/13.
  */
-Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout) {
+Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$ionicScrollDelegate',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$ionicScrollDelegate) {
 
 
   $scope.SalesList = [];
@@ -12,30 +12,6 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
   $scope.newexpression=false
   $scope.expression=true
 
-/*  Tools.getData({
-    "interface_number": "020701",
-    "client_type": window.platform,
-    "post_content": {
-      "token" : "",
-      "token_phone": "",
-      "status": "",
-      "page_num": 1,
-      "page_per":10
-    }
-  },function(r){
-    if(r){
-      if(r.resp_data.data.length==10){
-        $scope.expression=true
-      }else{
-        $scope.expression=false
-      }
-      $scope.SalesList = (r.resp_data.data)
-       console.log($scope.SalesList)
-   ;
-      $scope.post_status=[];
-
-    }
-  });*/
 
 
   //翻页加载
@@ -120,6 +96,7 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
           $scope.newexpression=true
         }
         $scope.SalesList = (r.resp_data.data)
+        $ionicScrollDelegate.scrollTop();
         console.log($scope.SalesList)
 
 
@@ -155,6 +132,7 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
           $scope.newexpression=true
         }
         $scope.SalesList = (r.resp_data.data)
+        $ionicScrollDelegate.scrollTop();
         console.log($scope.SalesList)
 
         $scope.post_status=[];
@@ -189,6 +167,7 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
           $scope.newexpression=true
         }
         $scope.SalesList = (r.resp_data.data)
+        $ionicScrollDelegate.scrollTop();
         console.log($scope.SalesList)
 
         $scope.post_status=[];
@@ -225,6 +204,7 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
           $scope.newexpression=true
         }
         $scope.SalesList = (r.resp_data.data)
+        $ionicScrollDelegate.scrollTop();
         console.log($scope.SalesList)
 
         $scope.post_status=[];
@@ -271,7 +251,7 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
   };
 
 
- 
+
 
 }]);
 

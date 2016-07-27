@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2016 /21.
  */
-Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$stateParams',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$stateParams) {
+Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$stateParams','$ionicScrollDelegate',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$stateParams,$ionicScrollDelegate) {
   $scope.datacaigou=true
 
   var bascId = $stateParams.datacaigou;
@@ -12,7 +12,9 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
 
   var pageNum = 0;
 if(bascId==1){
+
   $scope.datacaigou=false
+
 }
 
 
@@ -106,6 +108,7 @@ if(bascId==1){
           c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
           c.ctr  = false;
         });
+        $ionicScrollDelegate.scrollTop();
         $scope.ShoppingList = (r.resp_data.data)
         console.log($scope.SalesList)
 
@@ -144,6 +147,7 @@ if(bascId==1){
           c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
           c.ctr  = false;
         });
+        $ionicScrollDelegate.scrollTop();
         $scope.ShoppingList = (r.resp_data.data)
         console.log($scope.SalesList)
 
@@ -182,6 +186,7 @@ if(bascId==1){
           c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
           c.ctr  = false;
         });
+        $ionicScrollDelegate.scrollTop();
         $scope.ShoppingList = (r.resp_data.data)
         console.log($scope.SalesList)
 
@@ -222,6 +227,7 @@ if(bascId==1){
           c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
           c.ctr  = false;
         });
+        $ionicScrollDelegate.scrollTop();
         $scope.ShoppingList= (r.resp_data.data)
         console.log($scope.SalesList)
 

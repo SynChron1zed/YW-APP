@@ -3,14 +3,17 @@
  */
 Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicViewSwitcher',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicViewSwitcher) {
 
+
   //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
+    Initial  ();
             console.log(fromStateServ.getState('r.HomShopadmin'))
             if(fromStateServ.getState('r.HomShopadmin')){
                 $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.HomShopadmin').title;
             }
   });
+
 
   //去查看店铺主页
   $scope.shophome  =function (){
@@ -29,18 +32,39 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
     "interface_number": "010101",
     "client_type": window.platform,
     "post_content": {
-      "token" : "{166EA93B-964B-9D39-0EE2-3A991BC364E0}",
+      "token" : "",
       "token_phone": ""
     }
   },function(r){
     if(r){
       $scope.shopadmindata = (r.resp_data)
 
-
-
-
     }
   });
+
+  function  Initial  (){
+
+    Tools.getData({
+      "interface_number": "010101",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": ""
+      }
+    },function(r){
+      if(r){
+        $scope.shopadmindata = (r.resp_data)
+
+      }
+    });
+
+    
+
+
+
+  }
+
+
 
 
   $scope.shopName = function (Classitem) {
