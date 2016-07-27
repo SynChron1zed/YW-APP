@@ -39,7 +39,7 @@ Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateSer
 
   // 保存地址
   $scope.keepaddress = function () {
-
+debugger;
     var confirmPopup = $ionicPopup.confirm({
       title: '确定要保存该地址吗？',
       template: '',
@@ -67,17 +67,20 @@ Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateSer
         },function(r){
 
           $timeout(function(){
-            $state.go('r.addAddress',{dataAdd:1})
+
             $timeout(function(){
               $ionicPopup.alert({
                 title:'登录成功!',
                 okText:'确认'
               })
+
             },400);
 
 
           },400)
+
         });
+        $state.go('r.addAddress')
 
       } else {
         console.log('You are not sure');
