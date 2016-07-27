@@ -14,15 +14,15 @@ $ionicNativeTransitions,$timeout,native) {
                     real_name:'还没有登录!',
                     avatar:window.defaultUserheader,
                     integral:'0.00',
-                    sex:'./img/icon_man@3x.png',       
-                })   
+                    sex:'./img/icon_man@3x.png',
+                })
                 if(Callback){
                     Callback();
-                }                                   
+                }
 
             };
 
-  
+
   $ionicPlatform.ready(function() {
     //$state.go('r.selectAuth');
     $state.go('r.tab.Home');
@@ -35,13 +35,13 @@ $ionicNativeTransitions,$timeout,native) {
           real_name:'还没有登录',
           avatar:window.defaultUserheader,
           integral:'0.00',
-          sex:'./img/icon_man@3x.png',                    
-      })      
+          sex:'./img/icon_man@3x.png',
+      })
     }
 
-  
-      
-            
+
+
+
 
 
 
@@ -51,9 +51,9 @@ $ionicNativeTransitions,$timeout,native) {
       //ionic.Platform.isFullScreen = true;
       //Return event listener
       //uuid
-      setTimeout(function () {  
+      setTimeout(function () {
           navigator.splashscreen.hide();
-           }, 1000);  
+           }, 1000);
       //回退之前  退出键盘
 
       var  locldevice  =    storage.getObject('device');
@@ -89,7 +89,7 @@ $ionicNativeTransitions,$timeout,native) {
         },300)
       };
 
-    
+
 
 
     //初始读取toke =  phone  初始化登录状态
@@ -132,12 +132,13 @@ $ionicNativeTransitions,$timeout,native) {
             window.androdzerofun(window.androdzerofun_parms,window.androdzerofun_clback);
           return false;
         }
-
+      
      // Is there a page to go back to?
      if (JSON.stringify($location.path()) == '/r/tab/Home' ) {
        showConfirm();
      } else if ($ionicHistory.backView()) {
        $rootScope.$ionicGoBack();
+
      } else {
        // This is the last page: Show confirmation popup
        showConfirm();
