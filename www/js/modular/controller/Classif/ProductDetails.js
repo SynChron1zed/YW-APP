@@ -4,13 +4,10 @@
 Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$ionicModal','$ionicBackdrop','$timeout',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$ionicModal,$ionicBackdrop,$timeout) {
   var Classitem = $stateParams.Classitem;
 
-
-
   $scope.closemodel=function () {
     alert(1)
   }
-
-
+  
   Tools.getData({
     "interface_number": "020205",
     "client_type": window.platform,

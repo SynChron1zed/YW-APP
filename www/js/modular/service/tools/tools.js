@@ -2,17 +2,18 @@
  * Created by Why on 16/6/10.
  */
 //小工具方法类
-Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup','storage','native',function($window,$ionicLoading,$http,$timeout,$ionicPopup,storage,native){
+Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup','storage','native','$ionicHistory','$state',function($window,$ionicLoading,$http,$timeout,$ionicPopup,storage,native,$ionicHistory,$state){
 
   //加在视图的加载效果http前调用
   var   showlogin = function() {
     native.loading();
   };
-  
+
+
   //上传到七牛  图片单张
   var   sendqiniu_single  =  function (data,claback,key_header,next){
 
-
+   
 
       var  piclen  =   '-1';
       var  key  = Base64.encode(key_header+'_'+(storage.getObject('UserInfo').user_id?storage.getObject('UserInfo').user_id:'-1_')+'_'+(Date.parse(new Date()))+(Math.random()*1000).toFixed(1)+'.jpg');
@@ -75,7 +76,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
           }
         });
   };
-
+  
   //选择图片  提供相机  和  相册功能
    var  chekpirc    = function (cofnig,claback){
      if(!typeof   cofnig  == 'object' || !cofnig){
@@ -88,7 +89,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
      },function(r){
 
        if(r==1) {
-
+         
          cofnig.quality?cofnig.quality:50;
          cofnig.allowEdit?cofnig.allowEdit:false;
          native.Camera(cofnig,function(r){
@@ -101,7 +102,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
          cofnig.allowEdit?cofnig.allowEdit:false;
          cofnig.sourceType  =  Camera.PictureSourceType.SAVEDPHOTOALBUM;
          native.Camera(cofnig,function(r){
-           //base64 回调
+           //base64 回调           
            claback(r);
          },function(){
          });
@@ -115,10 +116,10 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 
      })
    };
-
+      
   var   hidelogin = function(){
             native.hidloading();
-  };
+  };  
   var   getData  = function(data,Callback,errorCallback,sendType){
     data.client_type =   window.platform?window.platform:'ios';
     data.post_content.token  = window.Token?window.Token:storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:'';
@@ -140,11 +141,15 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
               },200);
       if(r.resp_code== '0000'){
         Callback(r);
-      } else if(r.resp_code== '0001'){
-            native.task(r.msg,3000);
+      } else if(r.resp_code ==  '0001' ){
 
-
-
+            window.outlogin(function(){              
+              $state.go('r.tab.Home');
+              $timeout(function(){
+                  $ionicHistory.clearHistory();
+              },40)                            
+              native.task(r.msg,3000);
+            })
       }  else{
         Callback(false);
         // Callback(false);
@@ -162,7 +167,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       $timeout(function(){
         hidelogin();
       },200);
-      Callback(false);
+      Callback(false); 
       native.task('网络错误,请确认网络连接!')
 
 

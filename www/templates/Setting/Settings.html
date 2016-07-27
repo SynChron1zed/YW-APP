@@ -1,4 +1,4 @@
-<ion-view view-title="个人中心"    style="overflow-x: hidden; overflow-y:visible;" scroll="false"   >
+<ion-view view-title="个人中心"   hide-nav-bar="true"   style="overflow-x: hidden; overflow-y:visible;" scroll="false"   >
   <ion-content style="background: whitesmoke"   overflow-scroll="false"   scrollbar-y="false"   >
 
 
@@ -62,7 +62,7 @@
       </label>
 
 
-    <label class="item ">
+    <label class="item "  ng-click="showco()"  >
         <img src="./img/icon_code.png" alt="">
           我的二维码
                 <i class="ion-ios-arrow-right">  </i>
@@ -103,10 +103,46 @@
 
 
 
-   <div class="outologin"  ng-click="outlogin()"      ng-show='Userinfo.login'    >
+   <div class="outologin"  style="margin:0px;"   ng-click="outlogin()"      ng-show='Userinfo.login'    >
           退出
    </div>
 
+
+    <div style="height:2rem"></div>
+
+
+      <style>
+            .coustim-code.active{
+              z-index:999 !important;
+            }
+            .coustim-code.active   >div{
+              opacity:1 !important;    
+            }
+      </style>
+
+
+  <div class="madtansition  action-sheet-backdrop  coustim-code " 
+     style="z-index:-1"
+    id="ahseetparn"       ng-click='closecustomenu()'
+    
+    ng-class="{'active':opencustomenuatts}" 
+   >
+    <div   style="    margin: 0 auto;
+    opacity:0;    
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    left: 50%;
+    margin-left: -100px;
+    top: 50%;
+    margin-top: -200px;" >
+      <img   ng-src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1889250223,3195298994&fm=116&gp=0.jpg"  alt="">
+    </div>
+
+
+
+
+  </div>
 
 
 

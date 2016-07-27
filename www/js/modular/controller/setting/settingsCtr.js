@@ -18,9 +18,9 @@ function   login   (){
             fromStateServ.stateChange('r.login');
         }
       })
-}
-$scope.getMdl   =      fromStateServ.stateChange;
+};
 
+$scope.getMdl   =      fromStateServ.stateChange;
 $scope.Personalsetting  = function (){
    if(!storage.getObject('UserInfo').user_id){
         login();
@@ -90,7 +90,8 @@ var   userone = storage.getObject('UserInfo');
       if(user.sex  =='0'){
         $scope.Userinfo.sex  =  './img/icon_man@3x.png';
       }else{
-        $scope.Userinfo.sex  =  'icon_women.png';
+        $scope.Userinfo.sex  =  './img/icon_women.png';
+
       }
       $scope.Userinfo.login  = true;
       $scope.Userinfo.name  = user.real_name;
@@ -109,18 +110,27 @@ var   userone = storage.getObject('UserInfo');
       $scope.Userinfo.sex  =     user.sex;
       $scope.Userinfo.login  = false;
       $scope.Userinfo.integral    = user.integral
-    }
-      
-
-
-
-   
-
-
-
+    }   
   }
 
+        $scope.opencustomenuatts  = false;
 
+        $scope.showco  =   function  () {
+
+              window.document.querySelector('#ahseetparn').style.zIndex  =  '2';
+              $scope.opencustomenuatts   = true;
+        } 
+
+         $scope.closecustomenu  =   function  () {
+              $scope.opencustomenuatts   = false;
+              setTimeout(function(){
+                  window.document.querySelector('#ahseetparn').style.zIndex  =  '-1';
+              },400)
+            }
+            
+         $scope.$on('$ionicView.beforeLeave',function(){
+           $scope.closecustomenu();
+         })
 
 
 
