@@ -332,7 +332,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     //采购订单
     .state('r.HomPurchase', {
-      url: '/HomPurchase/:datacaigou',
+      url: '/HomPurchase',
       // nativeTransitions: {
       //   "type": "flip",
       //   "direction": "up"
@@ -426,7 +426,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
+      
     //setting  个人设置
     .state('r.tab.Settings', {
       nativeTransitions: null,
@@ -469,7 +469,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
+    
     //setting  个人设置 个人资料修改 用户名修改
     .state('r.tab.SettingsUpdateUsername', {
       url: '/Settings/update/username',
@@ -759,6 +759,45 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+
+
+    //收货地址
+    .state('r.Addresslist', {
+      url: '/Addresslist',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.Addresslist')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Setting/addr/SettingsAddress.html',
+          controller: 'AddresslistCtr'
+        }
+      }
+    })
+    
+  //收货地址添加编辑
+    .state('r.AddressEdith', {
+      url: '/AddressEdith?id:',
+      cache:false,
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.AddressEdith')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+             params:{id:null},
+          templateUrl: 'templates/Setting/addr/AddressEdithCtr.html',
+          controller: 'AddressEdithCtr'
+        }
+      }
+    })
+
+
 
 
 

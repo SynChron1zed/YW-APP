@@ -3,6 +3,8 @@
  */
 
 Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state','$ionicHistory','storage','fromStateServ','$ionicScrollDelegate','Tools',function($scope,$ionicPopover, $ionicPopup,$timeout,$state,$ionicHistory,storage,fromStateServ,$ionicScrollDelegate,Tools) {
+  
+
 
 
 
@@ -31,6 +33,17 @@ $scope.Personalsetting  = function (){
 
 }
 
+$scope.addermge  = function(){
+
+    if(!storage.getObject('UserInfo').user_id){
+        login();
+   }else{
+
+        $scope.getMdl('r.Addresslist')
+       
+
+   }
+}
 
 
 
@@ -80,7 +93,6 @@ var   userone = storage.getObject('UserInfo');
   //初始  信息
   function  Initial  (){
 
-
     var   user = storage.getObject('UserInfo');
     if(user.user_id){
       //登录了        
@@ -110,23 +122,22 @@ var   userone = storage.getObject('UserInfo');
       $scope.Userinfo.sex  =     user.sex;
       $scope.Userinfo.login  = false;
       $scope.Userinfo.integral    = user.integral
-    }   
-  }
+      }   
+    }
 
         $scope.opencustomenuatts  = false;
         $scope.showco  =   function  () {
         if(!storage.getObject('UserInfo').user_id){
               login();
         }else{
-          
+
            Tools.getData({
               "interface_number": "050201",
               "post_content": {      
               }
            },function (r) {
                   if(r){
-
-                        console.log(r);
+                            console.log(r);
                             $scope.opencustomenuatts   = true;
                   }
            })

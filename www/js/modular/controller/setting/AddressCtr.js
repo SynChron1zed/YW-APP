@@ -3,9 +3,13 @@
  */
 
 Ctr.controller('SettingsAddressCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$ionicHistory',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$ionicHistory) {
+
+
+
+
+
   var arrs = [];
   $scope.addressList=[]
-
 
   //获取收货地址
 
@@ -118,8 +122,7 @@ Ctr.controller('SettingsAddressCtr',['$scope','native','$state','fromStateServ',
   //保存历史记录的方法  调用  上一次1 title  和返回方法
   $scope.backtoprevView  =   fromStateServ.backView;
 
-  $scope.$on('$stateChangeSuccess',function(){
-
+  $scope.$on('$ionicView.beforeEnter',function(){    
     $scope.loginboj = {};
     $scope.ing  = false;
     $scope.parenttitle     =   fromStateServ.getState('r.ClassifDetails').title;
