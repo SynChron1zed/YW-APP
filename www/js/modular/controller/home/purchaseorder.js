@@ -53,7 +53,7 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
         "token" : "",
         "token_phone": "",
         "status": "",
-        "page_num": 1,
+        "page_num": pageNum,
         "page_per":10
       }
     },function (r) {

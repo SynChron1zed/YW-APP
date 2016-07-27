@@ -9,17 +9,17 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
     //添加分类
     $scope.newclass  = {};
     $scope.addnewclass  = function(){
-            
+
       console.log($scope.newclass)
       if(!$scope.newclass.name){
         native.task('请填写分类名称');
         return false;
       }
-      
+
       Tools.showlogin();
       Tools.getData({
             "interface_number": "030204",
-          "post_content": {        
+          "post_content": {
           "cate_name":$scope.newclass.name,
           "goodsIds":[]
         }
@@ -29,7 +29,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
               $scope.newclass.name  = undefined;
               native.task('分类添加成功');
         }
-        
+
 
       })
 
@@ -71,7 +71,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
          }
     },function(r){
          if(r){
-           
+
               $scope.goods.systemClass   = r.resp_data.sys_cate;
               $scope.goods.catelist  = r.resp_data.shop_cate;
               $scope.systemparnslec();
@@ -143,14 +143,14 @@ $timeout(function(){
     var selectleng  = 0;
     var sselctname  =  undefined;
      angular.forEach($scope.goods.catelist,function(k){
-          
+
           if(k.select){
             selectleng++;
             sselctname = k.cate_name;
           }
      });
 
-    
+
 
      if(selectleng == 0 ){
           $scope.goods.cateSelctItem    ='请选择分类';
@@ -286,7 +286,7 @@ $scope.chkefengmian  = function (c){
 
   //选择图片
   $scope.selectpirce  = function (){
-    var ss  = $scope.goodspice;    
+    var ss  = $scope.goodspice;
     if( Object.keys(ss).length >= 5 ){
       native.task('最大上传5张图片');
       return false;
@@ -304,7 +304,7 @@ $scope.chkefengmian  = function (c){
               })
     }
 
-    
+
   };
 
   //图片上传
@@ -330,7 +330,7 @@ $scope.chkefengmian  = function (c){
     })
   Tools.sendqiniu_queue(imguplist,function(r){
     angular.forEach(imgindex,function(v,key){
-      
+
       $scope.goodspice[v].key  = r[key].key
     });
     claback()
@@ -378,7 +378,7 @@ $scope.save  = function (){
         }
       }
 
-     
+
 
      var sys_catId  ='';
 
@@ -435,11 +435,11 @@ $scope.save  = function (){
             goodsState.img_url  = window.qiniuimgHost+r.resp_data.img_url+'?imageView2/1/w/200/h/200';
             goodsState.activity_price  = r.resp_data.total_in_price;
             goodsState.total_in_number   = r.resp_data.total_in_number;
-          
-            
-        
+
+
+
           native.task('保存成功!',3000)
-          
+
           $timeout(function(){
               $rootScope.$ionicGoBack();
           },300)
@@ -470,6 +470,7 @@ $scope.save  = function (){
 
 
   if($stateParams.state){
+
     $scope.title  = '商品编辑';
     $scope.state  = '保存';
     $scope.goods.edit  = true;

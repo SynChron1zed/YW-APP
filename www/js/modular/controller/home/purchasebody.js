@@ -50,8 +50,7 @@ Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools',
   $scope.backView  = function(){
     $scope.$ionicGoBack();
   };
-
-
+  $scope.title="订单详情";
 
 
 }]);
