@@ -5,8 +5,9 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
         backView:function(tartg,clback){
           $ionicViewSwitcher.nextDirection('back');
           
-          if(window.cordova  && window.cordova.plugins.Keyboard.isVisible){
-                    window.cordova.plugins.Keyboard.close();
+          if(window.cordova  ){
+                    if(window.cordova.plugins.Keyboard.isVisible){
+                        window.cordova.plugins.Keyboard.close();
                     $timeout(function(){
                       $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
                         "type": "slide",
@@ -14,6 +15,7 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                         "duration": 400, // in milliseconds (ms), default 400
                       });
                     },300)
+                    }
                   }else{
                     $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
                       "type": "slide",
@@ -21,7 +23,7 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                       "duration": 400, // in milliseconds (ms), default 400
                     });
                   }
-
+                  
                     $timeout(function () {
                     if(clback){
                         clback()

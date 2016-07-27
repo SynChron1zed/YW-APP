@@ -13,6 +13,762 @@ var  Ctr = angular.module('starter.controllers', []);
 
 var  Server = angular.module('starter.services', []);
 
+/**
+ * Created by Why on 16/6/6.
+ * testtt11111111222222222222222222222222
+ */
+App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpProvider','$ionicNativeTransitionsProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider,$httpProvider,$ionicNativeTransitionsProvider){
+
+
+  $ionicNativeTransitionsProvider.setDefaultOptions({
+    duration: 405, // in milliseconds (ms), default 400,
+    slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
+    iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
+    androiddelay: -1, // same as above but for Android, default -1
+    winphonedelay: -1, // same as above but for Windows Phone, default -1,
+    fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
+    fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
+    triggerTransitionEvent: '$ionicView.afterEnter', // internal ionic-native-transitions option
+    backInOppositeDirection: false // Takes over default back transition and state back transition to use the opposite direction transition to go back
+  }).setDefaultTransition({
+    type: 'slide',
+    direction: 'left'
+  }).setDefaultBackTransition({
+    type: 'slide',
+    direction: 'right'
+  });
+
+  //post  auto    transfromition  to  json
+  ! function ($httpProvider) {
+    // Use x-www-form-urlencoded Content-Type
+    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+    var param = function(obj) {
+      var query = '', name, value, fullSubName, subName, subValue, innerObj, i;
+      for(name in obj) {
+        value = obj[name];
+        if(value instanceof Array) {
+          for(i=0; i<value.length; ++i) {
+            subValue = value[i];
+            fullSubName = name + '[' + i + ']';
+            innerObj = {};
+            innerObj[fullSubName] = subValue;
+            query += param(innerObj) + '&';
+          }
+        }
+        else if(value instanceof Object) {
+          for(subName in value) {
+            subValue = value[subName];
+            fullSubName = name + '[' + subName + ']';
+            innerObj = {};
+            innerObj[fullSubName] = subValue;
+            query += param(innerObj) + '&';
+          }
+        }
+        else if(value !== undefined && value !== null)
+          query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+      }
+
+      return query.length ? query.substr(0, query.length - 1) : query;
+    };
+    $httpProvider.defaults.transformRequest = [function(data) {
+      //return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+      var text=angular.toJson(data);
+      return angular.isObject(data) && String(data) !== '[object File]' ? ('post_string='+text) : data;
+    }];
+  }($httpProvider);
+  //android toolbar position reset
+  $ionicConfigProvider.platform.android.views.maxCache(3);
+  $ionicConfigProvider.platform.android.tabs.position('bottom');
+  $ionicConfigProvider.platform.ios.tabs.position('bottom');
+  $ionicConfigProvider.platform.ios.tabs.style('standard');
+  $ionicConfigProvider.platform.android.tabs.style('standard');
+  $ionicConfigProvider.platform.ios.navBar.alignTitle('center');
+  $ionicConfigProvider.platform.android.navBar.alignTitle('center');
+  //this is  setting  back  icon
+  $ionicConfigProvider.platform.ios.backButton.previousTitleText('').icon('ion-ios-arrow-left');
+  $ionicConfigProvider.platform.android.backButton.previousTitleText('').icon('ion-ios-arrow-left');
+
+
+  $ionicConfigProvider.platform.ios.views.transition('ios');
+  $ionicConfigProvider.platform.android.views.transition('android');
+  // Ionic uses AngularUI Router which uses the concept of states
+  // Learn more here: https://github.com/angular-ui/ui-router
+  // Set up the various states which the app can be in.
+  // Each state's controller can be found in controllers.js
+  $stateProvider
+  // setup an abstract state for the tabs directive
+  //底部导航栏
+
+
+    .state('r',{
+      url: "/r",
+      abstract: true,
+      nativeTransitions: null,
+      templateUrl: "templates/root/root.html",
+    })
+
+    .state('r.tab', {
+      url: '/tab',
+      nativeTransitions: null,
+      abstract: true,
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Navigation_tab/tabs.html',
+          controller: 'tabCtr'
+        }
+      }
+    })
+    //公告模块挂载
+
+    //登录
+     .state('r.login', {
+      url: '/login',
+       // nativeTransitions: {
+       //   "type": "flip",
+       //   "direction": "up"
+       // },
+      onEnter: function(fromStateServ,$ionicHistory) {
+          fromStateServ.saveHisty($ionicHistory,'r.login')
+        },
+       onExit:function(fromStateServ){
+         fromStateServ.removebackregistevent();
+       },
+       views: {
+        'rootview': {
+          templateUrl: 'templates/login/login.html',
+          controller: 'loginCtr'
+        }
+       }
+    })
+
+
+
+
+    //注册
+    .state('r.register',{
+      url: '/register',
+      // nativeTransitions: {
+      //   "type": "flip",
+      //   "direction": "up"
+      // },
+       views: {
+        'rootview': {
+          templateUrl: 'templates/login/register.html',
+          controller: 'registerCtr'
+        }
+       }
+    })
+    //输入密码
+    .state('r.registercfpwd',{
+      url: '/registercfpwd?phone:',
+      views: {
+        'rootview': {
+          params:{phone:null},
+          templateUrl: 'templates/login/registercfpwd.html',
+          controller: 'registercfpwdCtr'
+        }
+      }
+    })
+    //选择认证
+      .state('r.selectAuth',{
+        url: '/selectAuth',
+        views: {
+          'rootview': {
+            templateUrl: 'templates/login/selectAuth.html',
+            controller: 'selectAuthctr'
+          }
+        }
+      })
+
+    //个人认证
+     .state('r.grAuthentication',{
+        url: '/grAuthentication',
+        views: {
+          'rootview': {
+            templateUrl: 'templates/login/grAuthentication.html',
+            controller: 'grAuthenticationctr'
+          }
+        }
+      })
+    //企业认证
+      .state('r.entAuthentication',{
+        url: '/entAuthentication',
+        views: {
+          'rootview': {
+            templateUrl: 'templates/login/entAuthentication.html',
+            controller: 'entAuthenticationctr'
+          }
+        }
+      })
+      .state('r.selectPaydues',{
+        url: '/selectPaydues',
+        views: {
+          'rootview': {
+            templateUrl: 'templates/login/selectPaydues.html',
+            controller: 'selectPayduesctr'
+          }
+        }
+      })
+    //分类
+    .state('r.tab.Classif', {
+      url: '/Classif',
+      nativeTransitions: null,
+      views: {
+        'Classif': {
+          templateUrl: 'templates/Classif/Classif.html',
+          controller: 'Classif'
+        }
+      }
+    })
+
+    // home  主页
+    .state('r.tab.Home',{
+      url: '/Home',
+      nativeTransitions: null,
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/home.html',
+          controller: 'homeCtr'
+        }
+      }
+    })
+    .state('r.tab.HomeSearch',{
+      onEnter: function() {
+        window.noNavtionsbackRootuer   = 'r.tab.Home';
+      },
+      onExit:function(){
+        window.noNavtionsbackRootuer   =   undefined;
+      },
+      url: '/HomeSearch',
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/search.html',
+          controller: 'homesearchCtr'
+        }
+      }
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //慈善专区
+    .state('r.tab.HomeCharitable',{
+      url: '/HomeCharitable',
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/charitable.html',
+          controller: 'chariCtr'
+        }
+      }
+    })
+
+    //体验专区
+    .state('r.tab.HomTaste',{
+      url: '/HomeTaste',
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/taste.html',
+          controller: 'tasteCtr'
+        }
+      }
+    })
+
+    //销售订单
+    .state('r.tab.HomSales',{
+      url: '/HomeSales',
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/salesorders.html',
+          controller: 'salesCtr'
+        }
+      }
+    })
+
+
+    //店铺管理
+    .state('r.HomShopadmin',{
+      url: '/HomShopadmin',
+      onEnter: function(fromStateServ,$ionicHistory) {
+          fromStateServ.saveHisty($ionicHistory,'r.HomShopadmin')
+        },
+       onExit:function(fromStateServ){
+         fromStateServ.removebackregistevent();
+       },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Home/shopadmin.html',
+          controller: 'shopadminCtr'
+        }
+      }
+    })
+
+
+    //店铺name
+    .state('r.tab.HomShopadminname',{
+      url: '/HomShopadminname/:Classitem',
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/shopname.html',
+          controller: 'shopnameCtr'
+        }
+      }
+    })
+    //店铺简介
+    .state('r.tab.HomShopadminbrief',{
+      url: '/HomShopadminbrief/:Classitem',
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/shopbriefing.html',
+          controller: 'shopbriefingCtr'
+        }
+      }
+    })
+
+    //采购订单
+    .state('r.tab.HomPurchase',{
+      url: '/HomPurchase',
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/purchaseorder.html',
+          controller: 'purchaseorderCtr'
+        }
+      }
+    })
+    //销售订单详情
+    .state('r.tab.Homordersbody',{
+      url: '/HomOrdersBody/:basicID',
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/ordersbody.html',
+          controller: 'ordersbodyCtr'
+        }
+      }
+    })
+
+
+
+    //采购订单详情
+    .state('r.tab.HomPurordersbody',{
+      url: '/HomPurOrdersBody/:basicID',
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/purchasebody.html',
+          controller: 'purbodyCtr'
+        }
+      }
+    })
+
+
+
+    // Shopping Cart 购物车
+    .state('r.tab.Shopping_Cart',{
+      nativeTransitions: null,
+      url: '/ShoppingCart',
+      views: {
+        'Shopping-Cart': {
+          templateUrl: 'templates/ShoppingCart/car.html',
+          controller: 'shoppingCartCtr'
+        }
+      }
+    })
+
+    .state('r.tab.Shopping_Cart.msg',{
+      url: '/msg',
+      views: {
+        'Shopping-Cart': {
+          templateUrl: 'templates/ShoppingCart/msg.html',
+          controller: 'shoppingcartmsg'
+        }
+      }
+    })
+
+
+
+    // Notice   通知
+    .state('r.tab.Notice',{
+      nativeTransitions: null,
+      url: '/Notice',
+      views: {
+        'notice': {
+          templateUrl: 'templates/Notice/NoticeList.html',
+          controller: 'noticeCtr'
+        }
+      }
+    })
+
+
+    // Notice Detail  通知详情
+    .state('r.tab.NoticeDetail', {
+      url: '/NoticeDetail/:chatId',
+      views: {
+        'notice': {
+          templateUrl: 'templates/Notice/NoticeDetail.html',
+          controller: 'noticeDetailCtr'
+        }
+      }
+    })
+
+    //setting  个人设置
+    .state('r.tab.Settings', {
+      nativeTransitions: null,
+      url: '/Settings',
+      views: {
+        'setting': {
+          templateUrl: 'templates/Setting/Settings.html',
+          controller: 'settingsCtr'
+        }
+      }      
+    })
+      //setting  个人设置 个人资料修改
+    .state('r.tab.SettingsUpdate', {
+      url: '/Settings/update',
+      views: {
+        'setting': {
+          templateUrl: 'templates/Setting/SettingsUpdate.html',
+          controller: 'SettingsUpdateCtr'
+        }
+      }
+    })
+    //setting  个人设置 客户反馈
+    .state('r.tab.SettingsUser', {
+      url: '/Settings/user',
+      views: {
+        'setting': {
+          templateUrl: 'templates/Setting/SettingsUser.html',
+          controller: 'SettingsUserCtr'
+        }
+      }
+    })
+
+    //setting  个人设置 充值
+    .state('r.tab.SettingsRecharge', {
+      url: '/Settings/recharge',
+      views: {
+        'setting': {
+          templateUrl: 'templates/Setting/SettingsRecharge.html',
+          controller: 'SettingsRechargeCtr'
+        }
+      }
+    })
+ 
+    //setting  个人设置 个人资料修改 用户名修改
+    .state('r.tab.SettingsUpdateUsername', {
+      url: '/Settings/update/username',
+      views: {
+        'setting': {
+          templateUrl: 'templates/Setting/SettingsUpdateUsername.html',
+          controller: 'SettingsUpdateUsernameCtr'
+        }
+      }
+    })
+
+    //setting  个人设置 个人资料修改 sex
+    .state('r.tab.SettingsSexUsername', {
+  
+      url: '/Settings/update/sex',
+      views: {
+        'setting': {
+          templateUrl: 'templates/Setting/SettingsUpdateSex.html',
+          controller: 'SettingsUpdateSexCtr'
+        }
+      }
+    })
+    
+    //setting  个人设置 个人资料修改 QQ
+    .state('r.tab.SettingsQQ', {
+      url: '/Settings/update/qq',
+      views: {
+        'setting': {
+          templateUrl: 'templates/Setting/SettingsUpdateQQ.html',
+          controller: 'SettingsUpdateQQCtr'
+        }
+      }
+    })
+
+    //setting  个人设置 个人资料修改 password
+    .state('r.tab.SettingsPassword', {
+      url: '/Settings/update/password',
+      views: {
+        'setting': {
+          templateUrl: 'templates/Setting/SettingsUpdatePassword.html',
+          controller: 'SettingsUpdatePasswordCtr'
+        }
+      }
+    })
+
+    //setting  个人设置 分享好友
+    .state('r.tab.Settingsfriends', {
+      url: '/Settings/friends',
+      views: {
+        'setting': {
+          templateUrl: 'templates/Setting/SettingsFriends.html',
+          controller: 'SettingsFriendsCtr'
+        }
+      }
+    })
+
+   /* //setting  个人设置 管理收货地址
+    .state('r.tab.Settingsaddress', {
+      url: '/Settings/address',
+      views: {
+        'setting': {
+          templateUrl: 'templates/Setting/SettingsAddress.html',
+          controller: 'SettingsAddressCtr'
+        }
+      }
+    })*/
+
+    .state('r.settingAddress', {
+      url: '/settingAddress',
+      // nativeTransitions: {
+      //   "type": "flip",
+      //   "direction": "up"
+      // },
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.settingAddress')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Setting/SettingsAddress.html',
+          controller: 'SettingsAddressCtr'
+        }
+      }
+    })
+
+
+
+    //setting  个人设置 管理收货地址 addadresss
+  /*  .state('r.tab.Settingsaddaddress', {
+      url: '/Settings/address/add',
+      views: {
+        'setting': {
+          templateUrl: 'templates/Setting/SettingsAddAddress.html',
+          controller: 'SettingsAddAddressCtr'
+        }
+
+      }
+    })*/
+
+    .state('r.addAddress', {
+      url: '/addAddress/:dataAdd',
+      // nativeTransitions: {
+      //   "type": "flip",
+      //   "direction": "up"
+      // },
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.addAddress')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Setting/SettingsAddAddress.html',
+          controller: 'SettingsAddAddressCtr'
+        }
+      }
+    })
+
+
+
+    //setting  个人设置 管理收货地址 selectaddadresss
+    .state('r.tab.SettingsSelectaddaddress', {
+      url: '/Settings/address/add/select',
+      views: {
+        'setting': {
+          templateUrl: 'templates/Setting/SettingsSelectAddAddress.html',
+          controller: 'SettingsSelectCtr'
+        }
+      }
+    })
+
+
+
+
+    //setting  个人设置 更新管理收货地址
+  .state('r.tab.SettingsUpdateAdress', {
+    url: '/r.tab.SettingsUpdateAdress/:item',
+    views: {
+      'setting': {
+        templateUrl: 'templates/Setting/UpdateAddress.html',
+        controller: 'UpdateaddressCtr'
+      }
+
+    }
+  })
+
+
+  //setting  分类商品详情
+/*  .state('r.tab.ClassifDetails', {
+    url: '/r.tab.ClassifDetails/:Classitem',
+    views: {
+      'Classif': {
+        templateUrl: 'templates/Classif/ProductDetails.html',
+        controller: 'ClassifDetailsCtr'
+      }
+
+    }
+  })*/
+
+    .state('r.ClassifDetails', {
+      url: '/ClassifDetails/:Classitem',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.ClassifDetails')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Classif/ProductDetails.html',
+          controller: 'ClassifDetailsCtr'
+        }
+      }
+    })
+
+
+
+  //setting  分类商品详情确认订单
+  /*  .state('r.tab.confirmOrder', {
+      url: '/r.tab.confirmOrder/:basicID/:shopID/:Num',
+      views: {
+        'Classif': {
+          templateUrl: 'templates/Classif/confitmorder.html',
+          controller: 'ConfirmOrderCtr'
+        }
+      }
+    })*/
+
+    //setting  分类商品详情确认订单
+    .state('r.confirmOrder', {
+      url: '/confirmOrder/:basicID/:shopID/:Num',
+      // nativeTransitions: {
+      //   "type": "flip",
+      //   "direction": "up"
+      // },
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.confirmOrder')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Classif/confitmorder.html',
+          controller: 'ConfirmOrderCtr'
+        }
+      }
+    })
+
+
+
+
+    //商品管理模块
+    .state('r.listofgoods', {
+      url: '/listofgoods',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.listofgoods')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/goods/list.html',
+          controller: 'listofgoodsCtr'
+        }
+      }
+    })
+    //  添加编辑商品模块
+    .state('r.goodsEdit', {
+      url: '/goodsEdit?state:&id:',
+      cache: false,
+      views: {
+        'rootview': {
+          params:{'state':null,id:null},
+          templateUrl: 'templates/goods/Edit.html',
+          controller: 'goodsEditCtr'
+        }
+      }
+    })
+
+    //商品分类
+    .state('r.goodsclasslist', {
+      url: '/goodsclasslist',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.goodsclasslist')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/goods/Classlist.html',
+          controller: 'goodsclasslist'
+        }
+      }
+    })
+    // 商品分类详情
+    .state('r.goodsclassDetail', {
+      url: '/goodsclassDetail?title:&id:',
+      views: {
+        params:{'title':null,id:null},
+        'rootview': {
+          templateUrl: 'templates/goods/clasEdith.html',
+          controller: 'goodsclassDetail'
+        }
+      }
+    })
+
+    //店铺 home列表
+      .state('r.Shophome', {
+      url: '/Shophome?id:',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.Shophome')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          params:{id:null},
+          templateUrl: 'templates/shop/home.html',
+          controller: 'shophomeCtr'
+        }
+      }
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/r/tab/Home');
+
+}]);
+
+
 //hidden  tabs  directive
 App.directive('hideTabs',function($rootScope) {
     return {
@@ -319,6 +1075,691 @@ $ionicNativeTransitions,$timeout,native) {
   });
 
 }]);
+
+/**
+ * Created by Why on 16/6/8.
+ */
+
+Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$ionicHistory','$ionicScrollDelegate','$ionicBackdrop',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$ionicHistory,$ionicScrollDelegate,$ionicBackdrop) {
+
+
+
+ //对安卓返回键的  特殊处理  tabs
+  $scope.$on('$ionicView.beforeEnter',function(){
+     if ($ionicHistory.backView()) {
+       window.androdzerofun  = function(parm1,parm2){
+         $ionicHistory.goBack();
+       }
+       window.androdzerofun_parms  ='tabswtathing';
+       window.androdzerofun_clback  = 'nothing';
+     }
+    });
+
+
+
+
+
+  var pageNum = 0;
+  var cateId = [];
+  $scope.imageshow=true;
+  $scope.imagehide =false;
+  $scope.newexpression=false
+
+  $scope.expression=true
+  //商城分类
+  $scope.ShoppingList=[];
+    Tools.getData({
+      "interface_number": "020101",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": ""
+      }
+    },function(r){
+      if(r){
+        $scope.Citysddd = (r.resp_data)
+        $scope.selectedItem = $scope.Citysddd[0];
+
+      }
+    });
+
+
+  //广告位
+
+  Tools.getData({
+    "interface_number": "050401",
+    "client_type": window.platform,
+    "post_content": {
+      "token" : "",
+      "token_phone": "",
+      "type": "2", //分类
+    }
+  },function(r){
+    if(r){
+
+      angular.forEach(r.resp_data,function(c){
+        c.qiniu_key  =  window.qiniuimgHost+c.qiniu_key+'?imageView2/1/w/200/h/200';
+
+      });
+      $scope.Citysd = (r.resp_data[0])
+
+
+    }
+  });
+
+ /* Tools.getData({
+    "interface_number": "020104",
+    "client_type": window.platform,
+    "post_content": {
+      "token" : "",
+      "token_phone": "",
+      "cateId":1,
+      "page_num": 1,
+      "page_per":10
+    }
+  },function(r){
+
+    if(r){
+      if(r.resp_data.data.length==10){
+        $scope.expression=true
+
+      }else{
+        $scope.expression=false
+
+      }
+
+      angular.forEach(r.resp_data.data,function(c){
+        c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
+        c.ctr  = false;
+      });
+
+      $scope.ShoppingList = (r.resp_data.data)
+
+    }
+  });*/
+
+
+  //点击分类
+  $scope.shoppingsList=function (item) {
+    $scope.expression = true;
+    pageNum = 0
+    $scope.selectedItem = item;
+     cateId= item.cate_id;
+
+    Tools.getData({
+      "interface_number": "020104",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": "",
+        "cateId":cateId,
+        "page_num": 1,
+        "page_per":10
+      }
+    },function(r){
+
+      if(r){
+
+        angular.forEach(r.resp_data.data,function(c){
+          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
+          c.ctr  = false;
+        });
+        $ionicScrollDelegate.scrollTop();
+        $scope.ShoppingList = (r.resp_data.data)
+
+      }
+    });
+  };
+
+  $scope.proDetail = function (r,Classitem) {
+
+    fromStateServ.stateChange(r,{Classitem: Classitem});
+  };
+
+
+  //翻页加载
+   $scope.loadOlderStories=function (type) {
+     
+         pageNum +=1;
+        if(cateId==""){
+         cateId=1
+     }
+
+
+
+
+       Tools.getData({
+         "interface_number": "020104",
+         "client_type": window.platform,
+         "post_content": {
+           "token": "",
+           "token_phone": "",
+           "cateId":cateId,
+           "page_num": pageNum,
+           "page_per": 10
+         }
+       }, function (r) {
+         if (r) {
+
+           angular.forEach(r.resp_data.data,function(c){
+             c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
+             c.ctr  = false;
+           });
+
+           if (r.resp_data.data.length == 0) {
+             $scope.expression = false
+             $scope.newexpression=true
+             $scope.ShoppingList=$scope.ShoppingList
+
+           } else {
+             $scope.newexpression=false
+              if(pageNum==1){
+                r.resp_data.data=[];
+              }
+             for(var i=0;i<r.resp_data.data.length;i++){
+               $scope.ShoppingList.push(r.resp_data.data[i])
+             }
+           }
+           $timeout(function () {
+             $scope.$broadcast('scroll.infiniteScrollComplete');
+           }, 600);
+
+         }
+
+
+       });
+
+
+
+   };
+
+  $scope.calssifloadMore = function (xxx) {
+
+    $timeout(function () {
+      $scope.$broadcast('scroll.refreshComplete');
+    }, 600);
+
+  };
+
+
+  //阴影层
+  $scope.action = function() {
+    $ionicBackdrop.retain();
+    $timeout(function() {    //默认让它1秒后消失
+      $ionicBackdrop.release();
+    }, 1000);
+  };
+
+
+
+  $scope.caklateheight  = {};
+  function   caklatehe  (){
+    if(window.platform  == 'ios'){
+      $scope.caklateheight  = {
+        height:window.innerHeight-(64+44+20)+'px'
+      }
+    }else{
+      $scope.caklateheight  = {
+        height:window.innerHeight-(44+44+20)+'px'
+      }
+    }
+  };
+  caklatehe();
+  $timeout(function(){
+    caklatehe();
+  },600)
+
+
+}]);
+
+
+/**
+ * Created by Administrator on 2016/7/18.
+ */
+Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$ionicModal','$ionicBackdrop','$timeout',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$ionicModal,$ionicBackdrop,$timeout) {
+  var Classitem = $stateParams.Classitem;
+
+  $scope.closemodel=function () {
+    alert(1)
+  }
+  
+  Tools.getData({
+    "interface_number": "020205",
+    "client_type": window.platform,
+    "post_content": {
+      "token" : "",
+      "token_phone": "",
+      "goods_basic_id": Classitem
+
+    }
+  },function(r){
+    if(r){
+
+
+      r.resp_data.data.img_url  =  window.qiniuimgHost+r.resp_data.data.img_url+'?imageView2/1/w/200/h/200';
+      r.resp_data.data.ctr  = false;
+
+
+      $scope.ClassifDetailsList = (r.resp_data.data);
+       console.log($scope.ClassifDetailsList)
+      $scope.shopid= $scope.ClassifDetailsList.goodsShop.shop_id
+
+    }
+  });
+
+
+  $scope.$on('$stateChangeSuccess',function(){});
+  $scope.backView  = function(){
+    $scope.$ionicGoBack();
+  };
+
+
+  $ionicModal.fromTemplateUrl('templates/modal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+  
+  $ionicModal.fromTemplateUrl('templates/gouwuchemodal.html', {
+    scope: $scope,
+   /* backdropClickToClose:false*/
+  }).then(function(modal) {
+    $scope.gouwuchemodal = modal;
+  });
+
+  $scope.Number=1;
+  $scope.addshop = function () {
+    $scope.Number+=1
+  }
+  $scope.delshop = function () {
+
+    if($scope.Number<=1){
+      $scope.Number=1
+    }else{
+      $scope.Number-=1
+    }
+
+  }
+
+
+  //结算
+  $scope.ClassifConfirm=function (basic,shop) {
+
+
+    $scope.modal.hide();
+   /* fromStateServ.stateChange(r,{basicID:basic,shopID:shop,Num:$scope.Number});*/
+    $state.go('r.confirmOrder',{basicID:basic,shopID:shop,Num:$scope.Number});
+
+  };
+
+
+
+
+ //商品详情模块
+  //保存历史记录的方法  调用  上一次1 title  和返回方法
+  $scope.backtoprevView  =   fromStateServ.backView;
+
+  $scope.$on('$stateChangeSuccess',function(){
+
+    $scope.loginboj = {};
+    $scope.ing  = false;
+    $scope.parenttitle     =   fromStateServ.getState('r.ClassifDetails').title;
+  });
+
+  $scope.backView  = function(){
+    $scope.$ionicGoBack();
+  };
+
+
+
+
+
+  $scope.isCone=true;
+   $scope.Detailsone=function () {
+       $scope.isCone=true;
+     $scope.isCtwo=false;
+     $scope.isCtree=false;
+ };
+  $scope.Detailstwo=function () {
+    $scope.isCone=false;
+    $scope.isCtwo=true;
+    $scope.isCtree=false;
+  };
+  $scope.Detailstree=function () {
+
+    $scope.isCone=false;
+    $scope.isCtwo=false;
+    $scope.isCtree=true;
+  };
+
+
+
+
+  //加入购物车
+  $scope.addcart=function () {
+
+    Tools.getData({
+      "interface_number": "020401",
+      "client_type": window.platform,
+      "post_content": {
+        "token": "",
+        "token_phone": "",
+        "shop_id": $scope.shopid,
+        "sku_id": "1",
+        "goods_basic_id": Classitem,
+        "number": $scope.Number
+
+      }
+    },function(r){
+      if(r!= 'error'){
+        $ionicPopup.alert({
+          title:'添加成功!',
+          okText:'确认'
+        })
+
+        $scope.gouwuchemodal.hide();
+        $ionicBackdrop.release();
+        $scope.Number=1
+      }
+    });
+  };
+
+
+
+
+  $scope.back  =  function (){
+    window.noNavtionsback(window.noNavtionsbackRootuer);
+  }
+
+
+
+  $scope.gouwuche = function () {
+    
+   /* $ionicBackdrop.retain();*/
+   /* $timeout(function() {    //默认让它1秒后消失
+      $ionicBackdrop.release();
+    }, 1000);*/
+
+    $scope.gouwuchemodal.show();
+
+  }
+
+  //阴影层
+  $scope.action = function() {
+    $ionicBackdrop.retain();
+    $timeout(function() {    //默认让它1秒后消失
+      $ionicBackdrop.release();
+    }, 1000);
+  };
+
+
+}]);
+
+/**
+ * Created by Administrator on 2016/7/18.
+ */
+/**
+ * Created by Administrator on 2016/7/18.
+ */
+Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$ionicModal',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$ionicModal) {
+
+  var bascId = $stateParams.basicID;
+  var shopId = $stateParams.shopID;
+  var Num = $stateParams.Num;
+
+  $scope.gobackdata =true
+
+  $scope.shopNum=Num
+  var cartId = [];
+  console.log(bascId)
+  console.log(shopId)
+
+
+  $scope.addressList=[];
+
+  $ionicModal.fromTemplateUrl('templates/addressmodal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.addressmodal = modal;
+    $scope.addressmodal.show();
+  });
+
+
+  if(bascId==""){
+
+    cartId = shopId
+
+    //结算购物车
+    Tools.getData({
+      "interface_number": "020601",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": "",
+        "cartIds": cartId
+
+      }
+    },function(r){
+      if(r){
+
+        angular.forEach(r.resp_data.goodsInfo,function(c){
+          c.shop_img =  window.qiniuimgHost+c.shop_img+'?imageView2/1/w/200/h/200';
+          c.ctr  = false;
+        });
+
+        $scope.ClassifDetailsList = (r.resp_data.goodsInfo);
+        console.log($scope.ClassifDetailsList)
+
+
+      /*  var total = $scope.ClassifDetailsList.total_in_price * $scope.shopNum
+        $scope.TotalNum = total
+        console.log(total)*/
+      }
+    });
+
+  }else{
+
+
+
+    //商品详情
+    Tools.getData({
+      "interface_number": "020205",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": "",
+        "goods_basic_id":bascId
+
+      }
+    },function(r){
+      if(r){
+
+        r.resp_data.data.img_url  =  window.qiniuimgHost+r.resp_data.data.img_url+'?imageView2/1/w/200/h/200';
+        r.resp_data.data.ctr  = false;
+
+        $scope.ClassifDetailsList = (r.resp_data);
+        console.log($scope.ClassifDetailsList)
+        var total = $scope.ClassifDetailsList.total_in_price * $scope.shopNum
+        $scope.TotalNum = total
+        console.log(total)
+      }
+    });
+
+
+    //加入购物车
+    Tools.getData({
+      "interface_number": "020401",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": "",
+        "shop_id": shopId,
+        "sku_id": "1",
+        "goods_basic_id": bascId ,
+        "number": "1"
+      }
+    },function(r){
+      if(r){
+
+        cartId= (r.resp_data.cart_id)
+
+      }
+    });
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+  //获取收货地址
+  Tools.getData({
+    "interface_number": "020505",
+    "client_type": window.platform,
+    "post_content": {
+      "token" : "",
+      "token_phone": ""
+    }
+  },function(r){
+    if(r){
+
+      $scope.addressList= (r.resp_data.data)
+      for(var i = 0;i<$scope.addressList.length;i++){
+        if($scope.addressList[i].is_default=="1"){
+          $scope.addressListone = $scope.addressList[i]
+        }
+      }
+
+    }
+  });
+
+  $scope.gainAdress = function (gain) {
+
+   $scope.adressid = gain;
+    console.log($scope.adressid)
+    for(var i = 0;i<$scope.addressList.length;i++){
+      if($scope.addressList[i].addr_id==$scope.adressid){
+        $scope.addressListone = $scope.addressList[i]
+      }
+    }
+
+  }
+
+
+
+  $scope.data = {
+    clientSide: "1"
+  };
+
+
+
+
+
+
+
+
+  //确认订单
+  $scope.orderquery = function () {
+
+    Tools.getData({
+      "interface_number": "020607",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": "",
+        "addr_id": $scope.addressListone.addr_id ,
+        "remark": "",
+        "cartIds": cartId
+      }
+    },function(r){
+      if(r= 'success'){
+        $ionicPopup.alert({
+          title:"确认成功",
+          okText:'确认'
+
+      });
+      }
+
+    });
+  }
+  $ionicModal.fromTemplateUrl('templates/AddresModal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.AddAdressemodal = modal;
+  });
+
+/*  $scope.AddAdress=function () {
+    $scope.addressmodal.hide();
+    $scope.AddAdressemodal.show()
+  }*/
+
+  $scope.addArddss=function (r) {
+
+   /* fromStateServ.stateChange(r);
+    $scope.addressmodal.hide();*/
+    $state.go('r.addAddress',{dataAdd:1});
+    $scope.addressmodal.hide();;
+  }
+
+
+  //保存历史记录的方法  调用  上一次1 title  和返回方法
+  $scope.backtoprevView  =   fromStateServ.backView;
+
+  // //安卓返回键  对公共模块的返回
+  // $ionicPlatform.registerBackButtonAction(function (e) {
+  //    e.preventDefault();
+  //    $scope.backtoprevView('r.login');
+  //    return false;
+  //  }, 101);
+ /* $scope.$on('$stateChangeSuccess',function(){
+    debugger;
+    $scope.loginboj = {};
+    $scope.ing  = false;
+    $scope.parenttitle     =   fromStateServ.getState('r.confirmOrder').title;
+  });*/
+  $scope.backView  = function(){
+    $scope.$ionicGoBack();
+  };
+
+
+  function handtat  (){
+
+
+  }
+  debugger;
+
+
+  //商品详情模块
+  //保存历史记录的方法  调用  上一次1 title  和返回方法
+  $scope.backtoprevView  =   fromStateServ.backView;
+
+  $scope.$on('$stateChangeSuccess',function(){
+debugger;
+    $scope.loginboj = {};
+    $scope.ing  = false;
+    $scope.parenttitle     =   fromStateServ.getState('r.confirmOrder').title;
+  });
+
+  $scope.backView  = function(){
+    $scope.$ionicGoBack();
+  };
+
+
+}]);
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('tabCtr',[function(){
+
+}])
 
 Ctr.controller('goodsclasslist',['$scope','fromStateServ','$timeout','Tools','native','$ionicModal','$state',function($scope,fromStateServ,$timeout,Tools,native,$ionicModal,$state){
 
@@ -4038,13 +5479,13 @@ $scope.save  = function (){
       native.task('请填写完整信息')
       return  false;
     }
-
+    
     Tools.getData({
        "interface_number": "050303",
        "post_content": {
-        "old_password": $scope.msg.jiumimi,
-        "new_password": $scope.msg.newmima,
-        "confirm_password": $scope.msg.chormima,
+        "old_password": window.md5($scope.msg.jiumimi),
+        "new_password": window.md5($scope.msg.newmima) ,
+        "confirm_password": window.md5($scope.msg.chormima),
     }
     },function(r){
           if(r){      
@@ -4180,20 +5621,38 @@ var   userone = storage.getObject('UserInfo');
   }
 
         $scope.opencustomenuatts  = false;
-
         $scope.showco  =   function  () {
+        if(!storage.getObject('UserInfo').user_id){
+              login();
+        }else{
+          
+           Tools.getData({
+              "interface_number": "050201",
+              "post_content": {      
+              }
+           },function (r) {
+                  if(r){
 
-              window.document.querySelector('#ahseetparn').style.zIndex  =  '2';
-              $scope.opencustomenuatts   = true;
+                        console.log(r);
+                            $scope.opencustomenuatts   = true;
+                  }
+           })
+              
+   }
+
+
+
+
+
+
+     
         } 
 
          $scope.closecustomenu  =   function  () {
               $scope.opencustomenuatts   = false;
-              setTimeout(function(){
-                  window.document.querySelector('#ahseetparn').style.zIndex  =  '-1';
-              },400)
+                  
             }
-            
+
          $scope.$on('$ionicView.beforeLeave',function(){
            $scope.closecustomenu();
          })
@@ -4632,1447 +6091,6 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
 
 
 /**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('tabCtr',[function(){
-
-}])
-
-/**
- * Created by Why on 16/6/6.
- * testtt11111111222222222222222222222222
- */
-App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpProvider','$ionicNativeTransitionsProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider,$httpProvider,$ionicNativeTransitionsProvider){
-
-
-  $ionicNativeTransitionsProvider.setDefaultOptions({
-    duration: 405, // in milliseconds (ms), default 400,
-    slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
-    iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
-    androiddelay: -1, // same as above but for Android, default -1
-    winphonedelay: -1, // same as above but for Windows Phone, default -1,
-    fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
-    fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
-    triggerTransitionEvent: '$ionicView.afterEnter', // internal ionic-native-transitions option
-    backInOppositeDirection: false // Takes over default back transition and state back transition to use the opposite direction transition to go back
-  }).setDefaultTransition({
-    type: 'slide',
-    direction: 'left'
-  }).setDefaultBackTransition({
-    type: 'slide',
-    direction: 'right'
-  });
-
-  //post  auto    transfromition  to  json
-  ! function ($httpProvider) {
-    // Use x-www-form-urlencoded Content-Type
-    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-    var param = function(obj) {
-      var query = '', name, value, fullSubName, subName, subValue, innerObj, i;
-      for(name in obj) {
-        value = obj[name];
-        if(value instanceof Array) {
-          for(i=0; i<value.length; ++i) {
-            subValue = value[i];
-            fullSubName = name + '[' + i + ']';
-            innerObj = {};
-            innerObj[fullSubName] = subValue;
-            query += param(innerObj) + '&';
-          }
-        }
-        else if(value instanceof Object) {
-          for(subName in value) {
-            subValue = value[subName];
-            fullSubName = name + '[' + subName + ']';
-            innerObj = {};
-            innerObj[fullSubName] = subValue;
-            query += param(innerObj) + '&';
-          }
-        }
-        else if(value !== undefined && value !== null)
-          query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
-      }
-
-      return query.length ? query.substr(0, query.length - 1) : query;
-    };
-    $httpProvider.defaults.transformRequest = [function(data) {
-      //return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
-      var text=angular.toJson(data);
-      return angular.isObject(data) && String(data) !== '[object File]' ? ('post_string='+text) : data;
-    }];
-  }($httpProvider);
-  //android toolbar position reset
-  $ionicConfigProvider.platform.android.views.maxCache(3);
-  $ionicConfigProvider.platform.android.tabs.position('bottom');
-  $ionicConfigProvider.platform.ios.tabs.position('bottom');
-  $ionicConfigProvider.platform.ios.tabs.style('standard');
-  $ionicConfigProvider.platform.android.tabs.style('standard');
-  $ionicConfigProvider.platform.ios.navBar.alignTitle('center');
-  $ionicConfigProvider.platform.android.navBar.alignTitle('center');
-  //this is  setting  back  icon
-  $ionicConfigProvider.platform.ios.backButton.previousTitleText('').icon('ion-ios-arrow-left');
-  $ionicConfigProvider.platform.android.backButton.previousTitleText('').icon('ion-ios-arrow-left');
-
-
-  $ionicConfigProvider.platform.ios.views.transition('ios');
-  $ionicConfigProvider.platform.android.views.transition('android');
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
-  $stateProvider
-  // setup an abstract state for the tabs directive
-  //底部导航栏
-
-
-    .state('r',{
-      url: "/r",
-      abstract: true,
-      nativeTransitions: null,
-      templateUrl: "templates/root/root.html",
-    })
-
-    .state('r.tab', {
-      url: '/tab',
-      nativeTransitions: null,
-      abstract: true,
-      views: {
-        'rootview': {
-          templateUrl: 'templates/Navigation_tab/tabs.html',
-          controller: 'tabCtr'
-        }
-      }
-    })
-    //公告模块挂载
-
-    //登录
-     .state('r.login', {
-      url: '/login',
-       // nativeTransitions: {
-       //   "type": "flip",
-       //   "direction": "up"
-       // },
-      onEnter: function(fromStateServ,$ionicHistory) {
-          fromStateServ.saveHisty($ionicHistory,'r.login')
-        },
-       onExit:function(fromStateServ){
-         fromStateServ.removebackregistevent();
-       },
-       views: {
-        'rootview': {
-          templateUrl: 'templates/login/login.html',
-          controller: 'loginCtr'
-        }
-       }
-    })
-
-
-
-
-    //注册
-    .state('r.register',{
-      url: '/register',
-      // nativeTransitions: {
-      //   "type": "flip",
-      //   "direction": "up"
-      // },
-       views: {
-        'rootview': {
-          templateUrl: 'templates/login/register.html',
-          controller: 'registerCtr'
-        }
-       }
-    })
-    //输入密码
-    .state('r.registercfpwd',{
-      url: '/registercfpwd?phone:',
-      views: {
-        'rootview': {
-          params:{phone:null},
-          templateUrl: 'templates/login/registercfpwd.html',
-          controller: 'registercfpwdCtr'
-        }
-      }
-    })
-    //选择认证
-      .state('r.selectAuth',{
-        url: '/selectAuth',
-        views: {
-          'rootview': {
-            templateUrl: 'templates/login/selectAuth.html',
-            controller: 'selectAuthctr'
-          }
-        }
-      })
-
-    //个人认证
-     .state('r.grAuthentication',{
-        url: '/grAuthentication',
-        views: {
-          'rootview': {
-            templateUrl: 'templates/login/grAuthentication.html',
-            controller: 'grAuthenticationctr'
-          }
-        }
-      })
-    //企业认证
-      .state('r.entAuthentication',{
-        url: '/entAuthentication',
-        views: {
-          'rootview': {
-            templateUrl: 'templates/login/entAuthentication.html',
-            controller: 'entAuthenticationctr'
-          }
-        }
-      })
-      .state('r.selectPaydues',{
-        url: '/selectPaydues',
-        views: {
-          'rootview': {
-            templateUrl: 'templates/login/selectPaydues.html',
-            controller: 'selectPayduesctr'
-          }
-        }
-      })
-    //分类
-    .state('r.tab.Classif', {
-      url: '/Classif',
-      nativeTransitions: null,
-      views: {
-        'Classif': {
-          templateUrl: 'templates/Classif/Classif.html',
-          controller: 'Classif'
-        }
-      }
-    })
-
-    // home  主页
-    .state('r.tab.Home',{
-      url: '/Home',
-      nativeTransitions: null,
-      views: {
-        'Home': {
-          templateUrl: 'templates/Home/home.html',
-          controller: 'homeCtr'
-        }
-      }
-    })
-    .state('r.tab.HomeSearch',{
-      onEnter: function() {
-        window.noNavtionsbackRootuer   = 'r.tab.Home';
-      },
-      onExit:function(){
-        window.noNavtionsbackRootuer   =   undefined;
-      },
-      url: '/HomeSearch',
-      views: {
-        'Home': {
-          templateUrl: 'templates/Home/search.html',
-          controller: 'homesearchCtr'
-        }
-      }
-    })
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //慈善专区
-    .state('r.tab.HomeCharitable',{
-      url: '/HomeCharitable',
-      views: {
-        'Home': {
-          templateUrl: 'templates/Home/charitable.html',
-          controller: 'chariCtr'
-        }
-      }
-    })
-
-    //体验专区
-    .state('r.tab.HomTaste',{
-      url: '/HomeTaste',
-      views: {
-        'Home': {
-          templateUrl: 'templates/Home/taste.html',
-          controller: 'tasteCtr'
-        }
-      }
-    })
-
-    //销售订单
-    .state('r.tab.HomSales',{
-      url: '/HomeSales',
-      views: {
-        'Home': {
-          templateUrl: 'templates/Home/salesorders.html',
-          controller: 'salesCtr'
-        }
-      }
-    })
-
-
-    //店铺管理
-    .state('r.HomShopadmin',{
-      url: '/HomShopadmin',
-      onEnter: function(fromStateServ,$ionicHistory) {
-          fromStateServ.saveHisty($ionicHistory,'r.HomShopadmin')
-        },
-       onExit:function(fromStateServ){
-         fromStateServ.removebackregistevent();
-       },
-      views: {
-        'rootview': {
-          templateUrl: 'templates/Home/shopadmin.html',
-          controller: 'shopadminCtr'
-        }
-      }
-    })
-
-
-    //店铺name
-    .state('r.tab.HomShopadminname',{
-      url: '/HomShopadminname/:Classitem',
-      views: {
-        'Home': {
-          templateUrl: 'templates/Home/shopname.html',
-          controller: 'shopnameCtr'
-        }
-      }
-    })
-    //店铺简介
-    .state('r.tab.HomShopadminbrief',{
-      url: '/HomShopadminbrief/:Classitem',
-      views: {
-        'Home': {
-          templateUrl: 'templates/Home/shopbriefing.html',
-          controller: 'shopbriefingCtr'
-        }
-      }
-    })
-
-    //采购订单
-    .state('r.tab.HomPurchase',{
-      url: '/HomPurchase',
-      views: {
-        'Home': {
-          templateUrl: 'templates/Home/purchaseorder.html',
-          controller: 'purchaseorderCtr'
-        }
-      }
-    })
-    //销售订单详情
-    .state('r.tab.Homordersbody',{
-      url: '/HomOrdersBody/:basicID',
-      views: {
-        'Home': {
-          templateUrl: 'templates/Home/ordersbody.html',
-          controller: 'ordersbodyCtr'
-        }
-      }
-    })
-
-
-
-    //采购订单详情
-    .state('r.tab.HomPurordersbody',{
-      url: '/HomPurOrdersBody/:basicID',
-      views: {
-        'Home': {
-          templateUrl: 'templates/Home/purchasebody.html',
-          controller: 'purbodyCtr'
-        }
-      }
-    })
-
-
-
-    // Shopping Cart 购物车
-    .state('r.tab.Shopping_Cart',{
-      nativeTransitions: null,
-      url: '/ShoppingCart',
-      views: {
-        'Shopping-Cart': {
-          templateUrl: 'templates/ShoppingCart/car.html',
-          controller: 'shoppingCartCtr'
-        }
-      }
-    })
-
-    .state('r.tab.Shopping_Cart.msg',{
-      url: '/msg',
-      views: {
-        'Shopping-Cart': {
-          templateUrl: 'templates/ShoppingCart/msg.html',
-          controller: 'shoppingcartmsg'
-        }
-      }
-    })
-
-
-
-    // Notice   通知
-    .state('r.tab.Notice',{
-      nativeTransitions: null,
-      url: '/Notice',
-      views: {
-        'notice': {
-          templateUrl: 'templates/Notice/NoticeList.html',
-          controller: 'noticeCtr'
-        }
-      }
-    })
-
-
-    // Notice Detail  通知详情
-    .state('r.tab.NoticeDetail', {
-      url: '/NoticeDetail/:chatId',
-      views: {
-        'notice': {
-          templateUrl: 'templates/Notice/NoticeDetail.html',
-          controller: 'noticeDetailCtr'
-        }
-      }
-    })
-
-    //setting  个人设置
-    .state('r.tab.Settings', {
-      nativeTransitions: null,
-      url: '/Settings',
-      views: {
-        'setting': {
-          templateUrl: 'templates/Setting/Settings.html',
-          controller: 'settingsCtr'
-        }
-      }      
-    })
-      //setting  个人设置 个人资料修改
-    .state('r.tab.SettingsUpdate', {
-      url: '/Settings/update',
-      views: {
-        'setting': {
-          templateUrl: 'templates/Setting/SettingsUpdate.html',
-          controller: 'SettingsUpdateCtr'
-        }
-      }
-    })
-    //setting  个人设置 客户反馈
-    .state('r.tab.SettingsUser', {
-      url: '/Settings/user',
-      views: {
-        'setting': {
-          templateUrl: 'templates/Setting/SettingsUser.html',
-          controller: 'SettingsUserCtr'
-        }
-      }
-    })
-
-    //setting  个人设置 充值
-    .state('r.tab.SettingsRecharge', {
-      url: '/Settings/recharge',
-      views: {
-        'setting': {
-          templateUrl: 'templates/Setting/SettingsRecharge.html',
-          controller: 'SettingsRechargeCtr'
-        }
-      }
-    })
- 
-    //setting  个人设置 个人资料修改 用户名修改
-    .state('r.tab.SettingsUpdateUsername', {
-      url: '/Settings/update/username',
-      views: {
-        'setting': {
-          templateUrl: 'templates/Setting/SettingsUpdateUsername.html',
-          controller: 'SettingsUpdateUsernameCtr'
-        }
-      }
-    })
-
-    //setting  个人设置 个人资料修改 sex
-    .state('r.tab.SettingsSexUsername', {
-  
-      url: '/Settings/update/sex',
-      views: {
-        'setting': {
-          templateUrl: 'templates/Setting/SettingsUpdateSex.html',
-          controller: 'SettingsUpdateSexCtr'
-        }
-      }
-    })
-    
-    //setting  个人设置 个人资料修改 QQ
-    .state('r.tab.SettingsQQ', {
-      url: '/Settings/update/qq',
-      views: {
-        'setting': {
-          templateUrl: 'templates/Setting/SettingsUpdateQQ.html',
-          controller: 'SettingsUpdateQQCtr'
-        }
-      }
-    })
-
-    //setting  个人设置 个人资料修改 password
-    .state('r.tab.SettingsPassword', {
-      url: '/Settings/update/password',
-      views: {
-        'setting': {
-          templateUrl: 'templates/Setting/SettingsUpdatePassword.html',
-          controller: 'SettingsUpdatePasswordCtr'
-        }
-      }
-    })
-
-    //setting  个人设置 分享好友
-    .state('r.tab.Settingsfriends', {
-      url: '/Settings/friends',
-      views: {
-        'setting': {
-          templateUrl: 'templates/Setting/SettingsFriends.html',
-          controller: 'SettingsFriendsCtr'
-        }
-      }
-    })
-
-   /* //setting  个人设置 管理收货地址
-    .state('r.tab.Settingsaddress', {
-      url: '/Settings/address',
-      views: {
-        'setting': {
-          templateUrl: 'templates/Setting/SettingsAddress.html',
-          controller: 'SettingsAddressCtr'
-        }
-      }
-    })*/
-
-    .state('r.settingAddress', {
-      url: '/settingAddress',
-      // nativeTransitions: {
-      //   "type": "flip",
-      //   "direction": "up"
-      // },
-      onEnter: function(fromStateServ,$ionicHistory) {
-        fromStateServ.saveHisty($ionicHistory,'r.settingAddress')
-      },
-      onExit:function(fromStateServ){
-        fromStateServ.removebackregistevent();
-      },
-      views: {
-        'rootview': {
-          templateUrl: 'templates/Setting/SettingsAddress.html',
-          controller: 'SettingsAddressCtr'
-        }
-      }
-    })
-
-
-
-    //setting  个人设置 管理收货地址 addadresss
-  /*  .state('r.tab.Settingsaddaddress', {
-      url: '/Settings/address/add',
-      views: {
-        'setting': {
-          templateUrl: 'templates/Setting/SettingsAddAddress.html',
-          controller: 'SettingsAddAddressCtr'
-        }
-
-      }
-    })*/
-
-    .state('r.addAddress', {
-      url: '/addAddress/:dataAdd',
-      // nativeTransitions: {
-      //   "type": "flip",
-      //   "direction": "up"
-      // },
-      onEnter: function(fromStateServ,$ionicHistory) {
-        fromStateServ.saveHisty($ionicHistory,'r.addAddress')
-      },
-      onExit:function(fromStateServ){
-        fromStateServ.removebackregistevent();
-      },
-      views: {
-        'rootview': {
-          templateUrl: 'templates/Setting/SettingsAddAddress.html',
-          controller: 'SettingsAddAddressCtr'
-        }
-      }
-    })
-
-
-
-    //setting  个人设置 管理收货地址 selectaddadresss
-    .state('r.tab.SettingsSelectaddaddress', {
-      url: '/Settings/address/add/select',
-      views: {
-        'setting': {
-          templateUrl: 'templates/Setting/SettingsSelectAddAddress.html',
-          controller: 'SettingsSelectCtr'
-        }
-      }
-    })
-
-
-
-
-    //setting  个人设置 更新管理收货地址
-  .state('r.tab.SettingsUpdateAdress', {
-    url: '/r.tab.SettingsUpdateAdress/:item',
-    views: {
-      'setting': {
-        templateUrl: 'templates/Setting/UpdateAddress.html',
-        controller: 'UpdateaddressCtr'
-      }
-
-    }
-  })
-
-
-  //setting  分类商品详情
-/*  .state('r.tab.ClassifDetails', {
-    url: '/r.tab.ClassifDetails/:Classitem',
-    views: {
-      'Classif': {
-        templateUrl: 'templates/Classif/ProductDetails.html',
-        controller: 'ClassifDetailsCtr'
-      }
-
-    }
-  })*/
-
-    .state('r.ClassifDetails', {
-      url: '/ClassifDetails/:Classitem',
-      onEnter: function(fromStateServ,$ionicHistory) {
-        fromStateServ.saveHisty($ionicHistory,'r.ClassifDetails')
-      },
-      onExit:function(fromStateServ){
-        fromStateServ.removebackregistevent();
-      },
-      views: {
-        'rootview': {
-          templateUrl: 'templates/Classif/ProductDetails.html',
-          controller: 'ClassifDetailsCtr'
-        }
-      }
-    })
-
-
-
-  //setting  分类商品详情确认订单
-  /*  .state('r.tab.confirmOrder', {
-      url: '/r.tab.confirmOrder/:basicID/:shopID/:Num',
-      views: {
-        'Classif': {
-          templateUrl: 'templates/Classif/confitmorder.html',
-          controller: 'ConfirmOrderCtr'
-        }
-      }
-    })*/
-
-    //setting  分类商品详情确认订单
-    .state('r.confirmOrder', {
-      url: '/confirmOrder/:basicID/:shopID/:Num',
-      // nativeTransitions: {
-      //   "type": "flip",
-      //   "direction": "up"
-      // },
-      onEnter: function(fromStateServ,$ionicHistory) {
-        fromStateServ.saveHisty($ionicHistory,'r.confirmOrder')
-      },
-      onExit:function(fromStateServ){
-        fromStateServ.removebackregistevent();
-      },
-      views: {
-        'rootview': {
-          templateUrl: 'templates/Classif/confitmorder.html',
-          controller: 'ConfirmOrderCtr'
-        }
-      }
-    })
-
-
-
-
-    //商品管理模块
-    .state('r.listofgoods', {
-      url: '/listofgoods',
-      onEnter: function(fromStateServ,$ionicHistory) {
-        fromStateServ.saveHisty($ionicHistory,'r.listofgoods')
-      },
-      onExit:function(fromStateServ){
-        fromStateServ.removebackregistevent();
-      },
-      views: {
-        'rootview': {
-          templateUrl: 'templates/goods/list.html',
-          controller: 'listofgoodsCtr'
-        }
-      }
-    })
-    //  添加编辑商品模块
-    .state('r.goodsEdit', {
-      url: '/goodsEdit?state:&id:',
-      cache: false,
-      views: {
-        'rootview': {
-          params:{'state':null,id:null},
-          templateUrl: 'templates/goods/Edit.html',
-          controller: 'goodsEditCtr'
-        }
-      }
-    })
-
-    //商品分类
-    .state('r.goodsclasslist', {
-      url: '/goodsclasslist',
-      onEnter: function(fromStateServ,$ionicHistory) {
-        fromStateServ.saveHisty($ionicHistory,'r.goodsclasslist')
-      },
-      onExit:function(fromStateServ){
-        fromStateServ.removebackregistevent();
-      },
-      views: {
-        'rootview': {
-          templateUrl: 'templates/goods/Classlist.html',
-          controller: 'goodsclasslist'
-        }
-      }
-    })
-    // 商品分类详情
-    .state('r.goodsclassDetail', {
-      url: '/goodsclassDetail?title:&id:',
-      views: {
-        params:{'title':null,id:null},
-        'rootview': {
-          templateUrl: 'templates/goods/clasEdith.html',
-          controller: 'goodsclassDetail'
-        }
-      }
-    })
-
-    //店铺 home列表
-      .state('r.Shophome', {
-      url: '/Shophome?id:',
-      onEnter: function(fromStateServ,$ionicHistory) {
-        fromStateServ.saveHisty($ionicHistory,'r.Shophome')
-      },
-      onExit:function(fromStateServ){
-        fromStateServ.removebackregistevent();
-      },
-      views: {
-        'rootview': {
-          params:{id:null},
-          templateUrl: 'templates/shop/home.html',
-          controller: 'shophomeCtr'
-        }
-      }
-    })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/r/tab/Home');
-
-}]);
-
-
-/**
- * Created by Why on 16/6/8.
- */
-
-Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$ionicHistory','$ionicScrollDelegate','$ionicBackdrop',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$ionicHistory,$ionicScrollDelegate,$ionicBackdrop) {
-
-
-
- //对安卓返回键的  特殊处理  tabs
-  $scope.$on('$ionicView.beforeEnter',function(){
-     if ($ionicHistory.backView()) {
-       window.androdzerofun  = function(parm1,parm2){
-         $ionicHistory.goBack();
-       }
-       window.androdzerofun_parms  ='tabswtathing';
-       window.androdzerofun_clback  = 'nothing';
-     }
-    });
-
-
-
-
-
-  var pageNum = 0;
-  var cateId = [];
-  $scope.imageshow=true;
-  $scope.imagehide =false;
-  $scope.newexpression=false
-
-  $scope.expression=true
-  //商城分类
-  $scope.ShoppingList=[];
-    Tools.getData({
-      "interface_number": "020101",
-      "client_type": window.platform,
-      "post_content": {
-        "token" : "",
-        "token_phone": ""
-      }
-    },function(r){
-      if(r){
-        $scope.Citysddd = (r.resp_data)
-        $scope.selectedItem = $scope.Citysddd[0];
-
-      }
-    });
-
-
-  //广告位
-
-  Tools.getData({
-    "interface_number": "050401",
-    "client_type": window.platform,
-    "post_content": {
-      "token" : "",
-      "token_phone": "",
-      "type": "2", //分类
-    }
-  },function(r){
-    if(r){
-
-      angular.forEach(r.resp_data,function(c){
-        c.qiniu_key  =  window.qiniuimgHost+c.qiniu_key+'?imageView2/1/w/200/h/200';
-
-      });
-      $scope.Citysd = (r.resp_data[0])
-
-
-    }
-  });
-
- /* Tools.getData({
-    "interface_number": "020104",
-    "client_type": window.platform,
-    "post_content": {
-      "token" : "",
-      "token_phone": "",
-      "cateId":1,
-      "page_num": 1,
-      "page_per":10
-    }
-  },function(r){
-
-    if(r){
-      if(r.resp_data.data.length==10){
-        $scope.expression=true
-
-      }else{
-        $scope.expression=false
-
-      }
-
-      angular.forEach(r.resp_data.data,function(c){
-        c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
-        c.ctr  = false;
-      });
-
-      $scope.ShoppingList = (r.resp_data.data)
-
-    }
-  });*/
-
-
-  //点击分类
-  $scope.shoppingsList=function (item) {
-    $scope.expression = true;
-    pageNum = 0
-    $scope.selectedItem = item;
-     cateId= item.cate_id;
-
-    Tools.getData({
-      "interface_number": "020104",
-      "client_type": window.platform,
-      "post_content": {
-        "token" : "",
-        "token_phone": "",
-        "cateId":cateId,
-        "page_num": 1,
-        "page_per":10
-      }
-    },function(r){
-
-      if(r){
-
-        angular.forEach(r.resp_data.data,function(c){
-          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
-          c.ctr  = false;
-        });
-        $ionicScrollDelegate.scrollTop();
-        $scope.ShoppingList = (r.resp_data.data)
-
-      }
-    });
-  };
-
-  $scope.proDetail = function (r,Classitem) {
-
-    fromStateServ.stateChange(r,{Classitem: Classitem});
-  };
-
-
-  //翻页加载
-   $scope.loadOlderStories=function (type) {
-     
-         pageNum +=1;
-        if(cateId==""){
-         cateId=1
-     }
-
-
-
-
-       Tools.getData({
-         "interface_number": "020104",
-         "client_type": window.platform,
-         "post_content": {
-           "token": "",
-           "token_phone": "",
-           "cateId":cateId,
-           "page_num": pageNum,
-           "page_per": 10
-         }
-       }, function (r) {
-         if (r) {
-
-           angular.forEach(r.resp_data.data,function(c){
-             c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
-             c.ctr  = false;
-           });
-
-           if (r.resp_data.data.length == 0) {
-             $scope.expression = false
-             $scope.newexpression=true
-             $scope.ShoppingList=$scope.ShoppingList
-
-           } else {
-             $scope.newexpression=false
-              if(pageNum==1){
-                r.resp_data.data=[];
-              }
-             for(var i=0;i<r.resp_data.data.length;i++){
-               $scope.ShoppingList.push(r.resp_data.data[i])
-             }
-           }
-           $timeout(function () {
-             $scope.$broadcast('scroll.infiniteScrollComplete');
-           }, 600);
-
-         }
-
-
-       });
-
-
-
-   };
-
-  $scope.calssifloadMore = function (xxx) {
-
-    $timeout(function () {
-      $scope.$broadcast('scroll.refreshComplete');
-    }, 600);
-
-  };
-
-
-  //阴影层
-  $scope.action = function() {
-    $ionicBackdrop.retain();
-    $timeout(function() {    //默认让它1秒后消失
-      $ionicBackdrop.release();
-    }, 1000);
-  };
-
-
-
-  $scope.caklateheight  = {};
-  function   caklatehe  (){
-    if(window.platform  == 'ios'){
-      $scope.caklateheight  = {
-        height:window.innerHeight-(64+44+20)+'px'
-      }
-    }else{
-      $scope.caklateheight  = {
-        height:window.innerHeight-(44+44+20)+'px'
-      }
-    }
-  };
-  caklatehe();
-  $timeout(function(){
-    caklatehe();
-  },600)
-
-
-}]);
-
-
-/**
- * Created by Administrator on 2016/7/18.
- */
-Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$ionicModal','$ionicBackdrop','$timeout',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$ionicModal,$ionicBackdrop,$timeout) {
-  var Classitem = $stateParams.Classitem;
-
-  $scope.closemodel=function () {
-    alert(1)
-  }
-  
-  Tools.getData({
-    "interface_number": "020205",
-    "client_type": window.platform,
-    "post_content": {
-      "token" : "",
-      "token_phone": "",
-      "goods_basic_id": Classitem
-
-    }
-  },function(r){
-    if(r){
-
-
-      r.resp_data.data.img_url  =  window.qiniuimgHost+r.resp_data.data.img_url+'?imageView2/1/w/200/h/200';
-      r.resp_data.data.ctr  = false;
-
-
-      $scope.ClassifDetailsList = (r.resp_data.data);
-       console.log($scope.ClassifDetailsList)
-      $scope.shopid= $scope.ClassifDetailsList.goodsShop.shop_id
-
-    }
-  });
-
-
-  $scope.$on('$stateChangeSuccess',function(){});
-  $scope.backView  = function(){
-    $scope.$ionicGoBack();
-  };
-
-
-  $ionicModal.fromTemplateUrl('templates/modal.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-  
-  $ionicModal.fromTemplateUrl('templates/gouwuchemodal.html', {
-    scope: $scope,
-   /* backdropClickToClose:false*/
-  }).then(function(modal) {
-    $scope.gouwuchemodal = modal;
-  });
-
-  $scope.Number=1;
-  $scope.addshop = function () {
-    $scope.Number+=1
-  }
-  $scope.delshop = function () {
-
-    if($scope.Number<=1){
-      $scope.Number=1
-    }else{
-      $scope.Number-=1
-    }
-
-  }
-
-
-  //结算
-  $scope.ClassifConfirm=function (basic,shop) {
-
-
-    $scope.modal.hide();
-   /* fromStateServ.stateChange(r,{basicID:basic,shopID:shop,Num:$scope.Number});*/
-    $state.go('r.confirmOrder',{basicID:basic,shopID:shop,Num:$scope.Number});
-
-  };
-
-
-
-
- //商品详情模块
-  //保存历史记录的方法  调用  上一次1 title  和返回方法
-  $scope.backtoprevView  =   fromStateServ.backView;
-
-  $scope.$on('$stateChangeSuccess',function(){
-
-    $scope.loginboj = {};
-    $scope.ing  = false;
-    $scope.parenttitle     =   fromStateServ.getState('r.ClassifDetails').title;
-  });
-
-  $scope.backView  = function(){
-    $scope.$ionicGoBack();
-  };
-
-
-
-
-
-  $scope.isCone=true;
-   $scope.Detailsone=function () {
-       $scope.isCone=true;
-     $scope.isCtwo=false;
-     $scope.isCtree=false;
- };
-  $scope.Detailstwo=function () {
-    $scope.isCone=false;
-    $scope.isCtwo=true;
-    $scope.isCtree=false;
-  };
-  $scope.Detailstree=function () {
-
-    $scope.isCone=false;
-    $scope.isCtwo=false;
-    $scope.isCtree=true;
-  };
-
-
-
-
-  //加入购物车
-  $scope.addcart=function () {
-
-    Tools.getData({
-      "interface_number": "020401",
-      "client_type": window.platform,
-      "post_content": {
-        "token": "",
-        "token_phone": "",
-        "shop_id": $scope.shopid,
-        "sku_id": "1",
-        "goods_basic_id": Classitem,
-        "number": $scope.Number
-
-      }
-    },function(r){
-      if(r!= 'error'){
-        $ionicPopup.alert({
-          title:'添加成功!',
-          okText:'确认'
-        })
-
-        $scope.gouwuchemodal.hide();
-        $ionicBackdrop.release();
-        $scope.Number=1
-      }
-    });
-  };
-
-
-
-
-  $scope.back  =  function (){
-    window.noNavtionsback(window.noNavtionsbackRootuer);
-  }
-
-
-
-  $scope.gouwuche = function () {
-    
-   /* $ionicBackdrop.retain();*/
-   /* $timeout(function() {    //默认让它1秒后消失
-      $ionicBackdrop.release();
-    }, 1000);*/
-
-    $scope.gouwuchemodal.show();
-
-  }
-
-  //阴影层
-  $scope.action = function() {
-    $ionicBackdrop.retain();
-    $timeout(function() {    //默认让它1秒后消失
-      $ionicBackdrop.release();
-    }, 1000);
-  };
-
-
-}]);
-
-/**
- * Created by Administrator on 2016/7/18.
- */
-/**
- * Created by Administrator on 2016/7/18.
- */
-Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$ionicModal',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$ionicModal) {
-
-  var bascId = $stateParams.basicID;
-  var shopId = $stateParams.shopID;
-  var Num = $stateParams.Num;
-
-  $scope.gobackdata =true
-
-  $scope.shopNum=Num
-  var cartId = [];
-  console.log(bascId)
-  console.log(shopId)
-
-
-  $scope.addressList=[];
-
-  $ionicModal.fromTemplateUrl('templates/addressmodal.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.addressmodal = modal;
-    $scope.addressmodal.show();
-  });
-
-
-  if(bascId==""){
-
-    cartId = shopId
-
-    //结算购物车
-    Tools.getData({
-      "interface_number": "020601",
-      "client_type": window.platform,
-      "post_content": {
-        "token" : "",
-        "token_phone": "",
-        "cartIds": cartId
-
-      }
-    },function(r){
-      if(r){
-
-        angular.forEach(r.resp_data.goodsInfo,function(c){
-          c.shop_img =  window.qiniuimgHost+c.shop_img+'?imageView2/1/w/200/h/200';
-          c.ctr  = false;
-        });
-
-        $scope.ClassifDetailsList = (r.resp_data.goodsInfo);
-        console.log($scope.ClassifDetailsList)
-
-
-      /*  var total = $scope.ClassifDetailsList.total_in_price * $scope.shopNum
-        $scope.TotalNum = total
-        console.log(total)*/
-      }
-    });
-
-  }else{
-
-
-
-    //商品详情
-    Tools.getData({
-      "interface_number": "020205",
-      "client_type": window.platform,
-      "post_content": {
-        "token" : "",
-        "token_phone": "",
-        "goods_basic_id":bascId
-
-      }
-    },function(r){
-      if(r){
-
-        r.resp_data.data.img_url  =  window.qiniuimgHost+r.resp_data.data.img_url+'?imageView2/1/w/200/h/200';
-        r.resp_data.data.ctr  = false;
-
-        $scope.ClassifDetailsList = (r.resp_data);
-        console.log($scope.ClassifDetailsList)
-        var total = $scope.ClassifDetailsList.total_in_price * $scope.shopNum
-        $scope.TotalNum = total
-        console.log(total)
-      }
-    });
-
-
-    //加入购物车
-    Tools.getData({
-      "interface_number": "020401",
-      "client_type": window.platform,
-      "post_content": {
-        "token" : "",
-        "token_phone": "",
-        "shop_id": shopId,
-        "sku_id": "1",
-        "goods_basic_id": bascId ,
-        "number": "1"
-      }
-    },function(r){
-      if(r){
-
-        cartId= (r.resp_data.cart_id)
-
-      }
-    });
-
-
-  }
-
-
-
-
-
-
-
-
-
-
-
-  //获取收货地址
-  Tools.getData({
-    "interface_number": "020505",
-    "client_type": window.platform,
-    "post_content": {
-      "token" : "",
-      "token_phone": ""
-    }
-  },function(r){
-    if(r){
-
-      $scope.addressList= (r.resp_data.data)
-      for(var i = 0;i<$scope.addressList.length;i++){
-        if($scope.addressList[i].is_default=="1"){
-          $scope.addressListone = $scope.addressList[i]
-        }
-      }
-
-    }
-  });
-
-  $scope.gainAdress = function (gain) {
-
-   $scope.adressid = gain;
-    console.log($scope.adressid)
-    for(var i = 0;i<$scope.addressList.length;i++){
-      if($scope.addressList[i].addr_id==$scope.adressid){
-        $scope.addressListone = $scope.addressList[i]
-      }
-    }
-
-  }
-
-
-
-  $scope.data = {
-    clientSide: "1"
-  };
-
-
-
-
-
-
-
-
-  //确认订单
-  $scope.orderquery = function () {
-
-    Tools.getData({
-      "interface_number": "020607",
-      "client_type": window.platform,
-      "post_content": {
-        "token" : "",
-        "token_phone": "",
-        "addr_id": $scope.addressListone.addr_id ,
-        "remark": "",
-        "cartIds": cartId
-      }
-    },function(r){
-      if(r= 'success'){
-        $ionicPopup.alert({
-          title:"确认成功",
-          okText:'确认'
-
-      });
-      }
-
-    });
-  }
-  $ionicModal.fromTemplateUrl('templates/AddresModal.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.AddAdressemodal = modal;
-  });
-
-/*  $scope.AddAdress=function () {
-    $scope.addressmodal.hide();
-    $scope.AddAdressemodal.show()
-  }*/
-
-  $scope.addArddss=function (r) {
-
-   /* fromStateServ.stateChange(r);
-    $scope.addressmodal.hide();*/
-    $state.go('r.addAddress',{dataAdd:1});
-    $scope.addressmodal.hide();;
-  }
-
-
-  //保存历史记录的方法  调用  上一次1 title  和返回方法
-  $scope.backtoprevView  =   fromStateServ.backView;
-
-  // //安卓返回键  对公共模块的返回
-  // $ionicPlatform.registerBackButtonAction(function (e) {
-  //    e.preventDefault();
-  //    $scope.backtoprevView('r.login');
-  //    return false;
-  //  }, 101);
- /* $scope.$on('$stateChangeSuccess',function(){
-    debugger;
-    $scope.loginboj = {};
-    $scope.ing  = false;
-    $scope.parenttitle     =   fromStateServ.getState('r.confirmOrder').title;
-  });*/
-  $scope.backView  = function(){
-    $scope.$ionicGoBack();
-  };
-
-
-  function handtat  (){
-
-
-  }
-  debugger;
-
-
-  //商品详情模块
-  //保存历史记录的方法  调用  上一次1 title  和返回方法
-  $scope.backtoprevView  =   fromStateServ.backView;
-
-  $scope.$on('$stateChangeSuccess',function(){
-debugger;
-    $scope.loginboj = {};
-    $scope.ing  = false;
-    $scope.parenttitle     =   fromStateServ.getState('r.confirmOrder').title;
-  });
-
-  $scope.backView  = function(){
-    $scope.$ionicGoBack();
-  };
-
-
-}]);
-
-/**
  * Created by Why on 16/6/10.
  */
 //推送的方法类封装
@@ -6368,8 +6386,9 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
         backView:function(tartg,clback){
           $ionicViewSwitcher.nextDirection('back');
           
-          if(window.cordova  && window.cordova.plugins.Keyboard.isVisible){
-                    window.cordova.plugins.Keyboard.close();
+          if(window.cordova  ){
+                    if(window.cordova.plugins.Keyboard.isVisible){
+                        window.cordova.plugins.Keyboard.close();
                     $timeout(function(){
                       $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
                         "type": "slide",
@@ -6377,6 +6396,7 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                         "duration": 400, // in milliseconds (ms), default 400
                       });
                     },300)
+                    }
                   }else{
                     $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
                       "type": "slide",
@@ -6384,7 +6404,7 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                       "duration": 400, // in milliseconds (ms), default 400
                     });
                   }
-
+                  
                     $timeout(function () {
                     if(clback){
                         clback()

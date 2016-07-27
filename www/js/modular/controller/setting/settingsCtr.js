@@ -114,20 +114,38 @@ var   userone = storage.getObject('UserInfo');
   }
 
         $scope.opencustomenuatts  = false;
-
         $scope.showco  =   function  () {
+        if(!storage.getObject('UserInfo').user_id){
+              login();
+        }else{
+          
+           Tools.getData({
+              "interface_number": "050201",
+              "post_content": {      
+              }
+           },function (r) {
+                  if(r){
 
-              window.document.querySelector('#ahseetparn').style.zIndex  =  '2';
-              $scope.opencustomenuatts   = true;
+                        console.log(r);
+                            $scope.opencustomenuatts   = true;
+                  }
+           })
+              
+   }
+
+
+
+
+
+
+     
         } 
 
          $scope.closecustomenu  =   function  () {
               $scope.opencustomenuatts   = false;
-              setTimeout(function(){
-                  window.document.querySelector('#ahseetparn').style.zIndex  =  '-1';
-              },400)
+                  
             }
-            
+
          $scope.$on('$ionicView.beforeLeave',function(){
            $scope.closecustomenu();
          })

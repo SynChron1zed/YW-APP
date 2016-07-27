@@ -162,13 +162,13 @@ $scope.save  = function (){
       native.task('请填写完整信息')
       return  false;
     }
-
+    
     Tools.getData({
        "interface_number": "050303",
        "post_content": {
-        "old_password": $scope.msg.jiumimi,
-        "new_password": $scope.msg.newmima,
-        "confirm_password": $scope.msg.chormima,
+        "old_password": window.md5($scope.msg.jiumimi),
+        "new_password": window.md5($scope.msg.newmima) ,
+        "confirm_password": window.md5($scope.msg.chormima),
     }
     },function(r){
           if(r){      

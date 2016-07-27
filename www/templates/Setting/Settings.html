@@ -111,38 +111,43 @@
     <div style="height:2rem"></div>
 
 
-      <style>
-            .coustim-code.active{
-              z-index:999 !important;
-            }
-            .coustim-code.active   >div{
-              opacity:1 !important;    
-            }
+
+
+
+ <style>
+
+        .showcoder.active{
+
+              opacity: 1 !important;
+              z-index: 9999 !important;
+        }
       </style>
 
 
-  <div class="madtansition  action-sheet-backdrop  coustim-code " 
-     style="z-index:-1"
-    id="ahseetparn"       ng-click='closecustomenu()'
-    
-    ng-class="{'active':opencustomenuatts}" 
-   >
-    <div   style="    margin: 0 auto;
-    opacity:0;    
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    left: 50%;
-    margin-left: -100px;
-    top: 50%;
-    margin-top: -200px;" >
-      <img   ng-src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1889250223,3195298994&fm=116&gp=0.jpg"  alt="">
-    </div>
+
+      <div class="madtansition  action-sheet-backdrop  coustim-code   showcoder"   id="ahseetparnercode"       ng-click='closecustomenu()'
+           style="display:flex !important;background: rgba(0,0,0,0.7) !important;
+            opacity: 0;
+            z-index: -1;
+           "
+           ng-class="{'active':opencustomenuatts}"   >
+        <div style="text-align:center">
+          <img   ng-src="sdsad"
 
 
+                 style="    width: 16em;
+              height: 16em;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              margin-left: -8em;
+              margin-top: -8em;"
+
+                 alt="">
+        </div>
+      </div>
 
 
-  </div>
 
 
 
