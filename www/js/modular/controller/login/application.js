@@ -7,7 +7,7 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('applicationCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$stateParams','$ionicModal','$ionicNativeTransitions','$timeout',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$stateParams,$ionicModal,$ionicNativeTransitions,$timeout){
+Ctr.controller('applicationCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$stateParams','$ionicModal','$ionicNativeTransitions','$timeout','$ionicHistory',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$stateParams,$ionicModal,$ionicNativeTransitions,$timeout,$ionicHistory){
 
   $scope.Id = $stateParams.companyID;
 
@@ -73,9 +73,10 @@ Ctr.controller('applicationCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
   $scope.shenhe=function () {
 
     $scope.modalapp.hide();
+    $ionicHistory.goBack(-2);
     //$rootScope.$ionicGoBack();
-      window.androdzerofun  =  function(ba,com){
-       
+    /*  window.androdzerofun  =  function(ba,com){
+
         $ionicViewSwitcher.nextDirection('back');
         $ionicNativeTransitions.stateGo(ba,{},{
           "type": "slide",
@@ -90,7 +91,7 @@ Ctr.controller('applicationCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
         },200)
       };
 
-      window.androdzerofun(window.androdzerofun_parms,window.androdzerofun_clback);
+      window.androdzerofun(window.androdzerofun_parms,window.androdzerofun_clback);*/
   }
 
 $scope.title = "提交申请信息"

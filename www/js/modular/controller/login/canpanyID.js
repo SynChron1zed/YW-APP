@@ -40,9 +40,10 @@ Ctr.controller('canpanyCtr',['$scope','$rootScope','$ionicViewSwitcher','$state'
           $timeout(function() {
             popup.close(); // 3秒后关闭弹窗
           }, 800);*/
-          native.task('验证成功！')
+
 
           $state.go('r.application',{companyID:$scope.id});
+          native.task('验证成功！')
         }else{
           $ionicPopup.alert({
             title:"验证公司ID失败！",
