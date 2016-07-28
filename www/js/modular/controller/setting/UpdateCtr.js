@@ -33,13 +33,14 @@ Ctr.controller('SettingsUpdateCtr',['$scope','storage','Tools','native','$state'
                   }
             },function(s){
               if(s){
+
                       var reif = storage.getObject('UserInfo');
                       reif.avatar  =f[0].key;
                       storage.setObject('UserInfo',reif);
-
                       $scope.header =r;
-                      $scope.$apply();
+                      //$scope.$apply();
                       native.task('修改头像成功');
+                      
               }
             })
           },'user_img')

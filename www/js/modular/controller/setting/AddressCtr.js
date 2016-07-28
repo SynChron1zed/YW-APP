@@ -44,14 +44,17 @@ Ctr.controller('SettingsAddressCtr',['$scope','native','$state','fromStateServ',
         $scope.expression = false;
         $scope.expressionA = true;
       }else{
-      var confirmPopup = $ionicPopup.confirm({
-        title: '确定要删除选中地址吗？',
-        template: '',
-        okText:'确定',
-        cancelText:'取消'
-      });
-      confirmPopup.then(function(res) {
-        if(res) {
+
+
+
+
+
+
+
+  native.confirm('确定要删除选中地址吗？','删除地址',['确定','取消'],function(c){
+        if(c  == 1){
+
+
 
           Tools.getData({
           "interface_number": "020504",
@@ -87,11 +90,9 @@ Ctr.controller('SettingsAddressCtr',['$scope','native','$state','fromStateServ',
             });
           }, 1000);
 
-        } else {
-          console.log('You are not sure');
         }
-      });
-
+       });
+       
       }
 
     }else{

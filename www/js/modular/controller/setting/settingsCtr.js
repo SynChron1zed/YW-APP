@@ -2,23 +2,26 @@
  * Created by Why on 16/6/8.
  */
 
-Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state','$ionicHistory','storage','fromStateServ','$ionicScrollDelegate','Tools',function($scope,$ionicPopover, $ionicPopup,$timeout,$state,$ionicHistory,storage,fromStateServ,$ionicScrollDelegate,Tools) {
+Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state','$ionicHistory','storage','fromStateServ','$ionicScrollDelegate','Tools','native',function($scope,$ionicPopover, $ionicPopup,$timeout,$state,$ionicHistory,storage,fromStateServ,$ionicScrollDelegate,Tools,native) {
   
 
-
-
+$scope.userfanhui  = function () {
+  $state.go('r.tab.SettingsUser')
+}
 
 
 //切换到登录   login 
 function   login   (){
-        $ionicPopup.confirm({
-        title: '<strong>你还没有登录</strong>',
-        okText: '登录',        
-        cancelText: '取消'        
-      }).then(function(aa){
-        if(aa){
-            fromStateServ.stateChange('r.login');
-        }
+
+
+      native.confirm('该操作需要登录','你还没有登录',['登录','取消'],function(c){
+
+
+        if(c  == 1){
+          fromStateServ.stateChange('r.login');
+          }
+
+        
       })
 };
 
@@ -61,26 +64,22 @@ $scope.addermge  = function(){
      }
     });
 
-  
-
   $scope.outlogin  =   function (){
-       $ionicPopup.confirm({
-        title: '<strong>退出登录?</strong>',
-        template: '你确定要退出当前用户吗?',
-        okText: '登出',
-        cancelText: '取消'
-      }).then(function(aa){
-            if(aa){
+
+
+
+   native.confirm('你确定要退出当前用户吗','退出登录',['登出','取消'],function(c){
+
+        if(c  == 1){
                   window.outlogin(function(){
                     $timeout(function(){
                         Initial();
                     },30)
-                      
-                      })                      
-            }
+                      })    
+          }
       })
   };
-
+  
 
 var   userone = storage.getObject('UserInfo');
       $scope.Userinfo = {};
@@ -126,24 +125,15 @@ var   userone = storage.getObject('UserInfo');
     }
 
         $scope.opencustomenuatts  = false;
+
         $scope.showco  =   function  () {
-        if(!storage.getObject('UserInfo').user_id){
+          var uil   = storage.getObject('UserInfo');
+        if(!uil.user_id){
               login();
         }else{
-
-           Tools.getData({
-              "interface_number": "050201",
-              "post_content": {      
-              }
-           },function (r) {
-                  if(r){
-                            console.log(r);
-                            $scope.opencustomenuatts   = true;
-                  }
-           })
-              
-   }
-
+          $scope.shopid  = 'http://pan.baidu.com/share/qrcode?w=400&h=400&url='+uil.shop_id;
+          $scope.opencustomenuatts   = true;
+        }
 
 
 
@@ -153,14 +143,16 @@ var   userone = storage.getObject('UserInfo');
         } 
 
          $scope.closecustomenu  =   function  () {
-              $scope.opencustomenuatts   = false;
-                  
+              $scope.opencustomenuatts   = false;     
             }
-
+            
          $scope.$on('$ionicView.beforeLeave',function(){
            $scope.closecustomenu();
          })
 
 
 
-  }]);
+  }])
+  .controller('SettingsUserCtr',['$scope',function($scope){
+
+  }])

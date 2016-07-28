@@ -1,21 +1,36 @@
-<ion-view view-title="用户反馈">
-  <ion-nav-bar   class="bar-positive ">
-    <ion-nav-buttons side="left">
-      <a   nav-direction="back"  href="/#/r/tab/Settings"  class="button button-icon ion-ios-arrow-left">
+<ion-view view-title="用户反馈"     hide-tabs="true"   >
 
-      </a>
-    </ion-nav-buttons>
     <ion-nav-buttons side="right">
       <a   nav-direction="back"  href="/#/r/tab/Settings"  class="button button-icon ">
         提交
       </a>
     </ion-nav-buttons>
-  </ion-nav-bar>
-  <ion-content style="background-color: whitesmoke" >
-     <div>
-       <textarea class="advice" placeholder="请输入您的反馈意见（500字）"></textarea>
-       <input class="advice-Nb" type="text" placeholder="请留下您的手机号/QQ/邮箱">
-     </div>
+        
+  <ion-content style="background-color: whitesmoke" overflow-scroll="false"   scrollbar-y="false"  >
+  
+
+<div class="list">
+      <label class="item item-input">
+
+      <input type="text" placeholder="QQ">
+      
+    </label>
+</div>
+
+<div class="list">
+
+
+
+
+    <label class="item item-input">
+          <textarea placeholder="留言反馈"  maxlength="300"   style="min-height:250px"  ></textarea>
+    </label>
+        
+    </div>
+
+
+
+
 
 
   </ion-content>

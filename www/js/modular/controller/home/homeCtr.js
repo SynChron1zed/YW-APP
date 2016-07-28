@@ -32,20 +32,16 @@ $scope.gosales=function (r) {
     //商品分类
     $scope.goodsClass  = function (){
 
-
-
       if(storage.getObject('UserInfo').user_id){
       $scope.goModular('r.goodsclasslist')
       }else{
-        $ionicPopup.confirm({
-          title:'您还没有登录！',
-          cancelText:'取消',
-          okText:'登录'
-        }).then(function(r){
-              if(r){
-                $scope.goModular('r.login');
-              }
-        })
+
+        native.confirm('该操作需要登录','您还没有登录',['登录','取消'],function(c){
+          if(c  == 1){
+            $scope.goModular('r.login');
+          }          
+        });
+
       }
 
     }
@@ -56,15 +52,14 @@ $scope.gosales=function (r) {
     if(storage.getObject('UserInfo').user_id){
     $scope.goModular('r.listofgoods')
     }else{
-      $ionicPopup.confirm({
-        title:'您还没有登录！',
-        cancelText:'取消',
-        okText:'登录'
-      }).then(function(r){
-            if(r){
-              $scope.goModular('r.login');
-            }
-      })
+      
+        native.confirm('该操作需要登录','您还没有登录',['登录','取消'],function(c){
+          if(c  == 1){
+            $scope.goModular('r.login');
+          }          
+        });
+
+
     }
     }
 

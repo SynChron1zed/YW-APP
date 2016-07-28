@@ -16,8 +16,10 @@
 
                     <div class="shoptitle">
                         <div class="shopimg">
-                               <img ng-src="{{xx.shop_img?xx.shop_img:'img/nopice.jpg'}}" alt="">
+                               <img ng-src="{{'http://oap3nxgde.bkt.clouddn.com/'+xx.shop_img+'?imageView2/1/w/200/h/200'}}" alt="">
                         </div>
+
+
 
                         <div class="shoptile">
                             <span>{{xx.shop_name}}</span>
@@ -109,7 +111,7 @@
       <i
         ng-class="{'ion-ios-circle-outline':!selectall,'ion-ios-checkmark':selectall}"
         class="ion-ios-circle-outline" style="font-size: 1.05rem;
-      float: left;margin-right: 4px;
+      float: left;margin-right: 6px;
       color: #b4b4b4;
       "></i>
       全选

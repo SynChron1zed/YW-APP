@@ -45,17 +45,12 @@ Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$io
 
 
     if(!$scope.identity.Positive || !$scope.identity.inverse){
-      $ionicPopup.alert({
-        title:'请上传审核照片',
-        okText:'确认'
-      });
+
+      native.task('请上传审核照片')
       return false;
     }
-    if(!$scope.form.id ||  !$scope.form.name ){
-      $ionicPopup.alert({
-        title:'请填写完审核信息',
-        okText:'确认'
-      });
+    if(!$scope.form.id ||  !$scope.form.name ){      
+      native.task('请填写完审核信息')
       return false;
     }
     

@@ -1,24 +1,20 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatform','$state','Tools','$ionicPopup','storage','$timeout','loginregisterstate',function($ionicHistory,$scope,fromStateServ,$ionicPlatform,$state,Tools,$ionicPopup,storage,$timeout,loginregisterstate){
+Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatform','$state','Tools','$ionicPopup','storage','$timeout','loginregisterstate','native',function($ionicHistory,$scope,fromStateServ,$ionicPlatform,$state,Tools,$ionicPopup,storage,$timeout,loginregisterstate,native){
 
   //处理登录
   $scope.loginboj  = {};
 
   $scope.loginhan  = function (){
       if(!$scope.loginboj.userName){
-         $ionicPopup.alert({
-           title:'请输入用户名!',
-           okText:'确认'
-         });
+
+        native.task('请输入用户名');
         return false;
       }
       if(!$scope.loginboj.Pwd){
-        $ionicPopup.alert({
-          title:'请输入密码!',
-          okText:'确认'
-        });
+
+        native.task('请输入密码');
         return false;
       }
       $scope.ing  = true;
@@ -47,10 +43,7 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
               $timeout(function(){
                     $scope.backtoprevView('r.login');
                     $timeout(function(){
-                      $ionicPopup.alert({
-                        title:'登录成功!',
-                        okText:'确认'
-                      })
+                      native.task('登录成功');
                     },400);
 
 

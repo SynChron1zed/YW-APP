@@ -40,15 +40,12 @@ Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateSer
   // 保存地址
   $scope.keepaddress = function () {
 
-    var confirmPopup = $ionicPopup.confirm({
-      title: '确定要保存该地址吗？',
-      template: '',
-      okText:'确定',
-      cancelText:'取消'
-    });
 
-    confirmPopup.then(function(res) {
-      if(res) {
+  native.confirm('确定要保存该地址吗？','保存地址',['确定','取消'],function(c){
+          if(c  == 1){
+            
+
+        
         Tools.getData({
           "interface_number": "020501",
           "client_type": window.platform,
@@ -65,18 +62,12 @@ Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateSer
             "is_default": Checked
           }
         },function(r){
-
           $state.go('r.addAddress')
-
         });
 
 
-      } else {
-        console.log('You are not sure');
-      }
-    });
-
-
+  }          
+        });
   }
 
 

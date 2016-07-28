@@ -50,16 +50,10 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
     
     //删除商品
     $scope.delgoods =  function (targe,index){
+      
+   native.confirm('你确定删除该商品?','删除商品?',['确定','取消'],function(c){
+            if(c  == 1){
 
-
-         //confirm
-
-   $ionicPopup.confirm({
-            title:'确定删除',
-            okText:'确定',
-            cancelText:'取消'
-          }).then(function(s){
-              if(s){
           Tools.showlogin();
           Tools.getData({
              "interface_number": "030108",
@@ -80,11 +74,8 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
           );
 
 
-              }
-
+             }
           })
-
-
     }
 
 
