@@ -34,6 +34,7 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
         }
       },function(r){
         if(r){
+          debugger;
 
                  if(window.cordova){
                   window.cordova.plugins.Keyboard.close();
@@ -101,6 +102,11 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
   $scope.renzhen=function () {
 
     $state.go('r.canpany');
+  }
+
+  $scope.password=function () {
+
+    $state.go('r.passwordold');
   }
 
 

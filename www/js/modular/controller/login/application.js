@@ -75,6 +75,7 @@ Ctr.controller('applicationCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
     $scope.modalapp.hide();
     //$rootScope.$ionicGoBack();
       window.androdzerofun  =  function(ba,com){
+       
         $ionicViewSwitcher.nextDirection('back');
         $ionicNativeTransitions.stateGo(ba,{},{
           "type": "slide",

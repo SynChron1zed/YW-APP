@@ -1,7 +1,7 @@
 <ion-view view-title="登录"  style='background:#feeb0b'  >
 
 
-  <ion-nav-buttons side="left"    class="button back-button buttons button-clear header-item">
+  <ion-nav-buttons   side="left"    class="button back-button buttons button-clear header-item">
     <div class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.login')">
       <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
       <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
@@ -59,7 +59,7 @@
       <div style="float: left;
     text-decoration: underline;
     padding-top: 1.5rem;
-    padding-left: 2rem;  color: #a2a2a2 ;    font-size: 13px;" class="loginbutton"   ng-class="{'hidenlo':ing}" >忘记密码</div>
+    padding-left: 2rem;  color: #a2a2a2 ;    font-size: 13px;" ng-click="password()" class="loginbutton"   ng-class="{'hidenlo':ing}" >忘记密码</div>
 
 
       <div style="    float: right;

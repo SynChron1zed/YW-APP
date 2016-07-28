@@ -175,7 +175,20 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-
+    //申请信息
+    .state('r.passwordold',{
+      url: '/passwordold',
+      // nativeTransitions: {
+      //   "type": "flip",
+      //   "direction": "up"
+      // },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/login/password.html',
+          controller: 'passwordoldCtr'
+        }
+      }
+    })
 
 
     //输入密码

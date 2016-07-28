@@ -32,15 +32,15 @@ Ctr.controller('canpanyCtr',['$scope','$rootScope','$ionicViewSwitcher','$state'
 
 
         if(r.msg== "success"){
-       var popup =   $ionicPopup.alert({
+   /*    var popup =   $ionicPopup.alert({
             title:"验证成功",
             okText:'确认'
 
           });
           $timeout(function() {
             popup.close(); // 3秒后关闭弹窗
-          }, 800);
-
+          }, 800);*/
+          native.task('验证成功！')
 
           $state.go('r.application',{companyID:$scope.id});
         }else{
@@ -50,7 +50,7 @@ Ctr.controller('canpanyCtr',['$scope','$rootScope','$ionicViewSwitcher','$state'
 
 
           });
-          
+
         }
 
 
