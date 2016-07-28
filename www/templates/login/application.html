@@ -1,0 +1,101 @@
+<ion-view view-title="{{title}}"  >
+
+
+
+  <ion-nav-buttons side="right"    class="button back-button buttons button-clear header-item">
+    <div class="button back-button buttons button-clear header-item"   ng-click="next()"    >
+      <span class="previous-title"     >完成</span></span>
+
+    </div>
+  </ion-nav-buttons>
+  <ion-content  scrollbar-y="false"  overflow-scroll="false"   style="background: #f2f2f2"  scroll="false">
+   <!-- <div class="list "  style="    margin-top: 1rem;">
+
+
+
+      <a class="item item-icon-left item-input-left" >
+
+        <div>
+
+          <input type="text"    class="input-color-usercolse" placeholder="请填写您的真实姓名" ng-model="nameID"  ng-change="newshopname(nameID)" >
+          <div class="ion-close-circled ion-close-user" ng-click="clear()"  ng-if="showclear"></div>
+        </div>
+
+      </a>
+
+      <a class="item item-icon-left item-input-left" >
+
+        <div>
+
+          <input type="text"    class="input-color-usercolse" placeholder="请输入您的手机号码" ng-model="phoneID"  ng-change="phoneshopname(phoneID)" >
+          <div class="ion-close-circled ion-close-user" ng-click="clear()"  ng-if="showclear"></div>
+        </div>
+
+      </a>
+
+    </div>-->
+
+
+    <div  class="registerlist" style="    background: #fff;
+    margin-top: .6rem;
+    padding-left: 10px;">
+
+      <div>
+
+        <div >
+          <input style="width: 100%" type="text"  ng-model="nameID"  ng-change="newshopname(nameID)"  placeholder="请填写您的真实姓名">
+        </div>
+      </div>
+
+
+
+      <div>
+
+        <div >
+          <input style="width: 100%" type="text"  placeholder="请输入您的手机号码" ng-model="phoneID"  ng-change="phoneshopname(phoneID)">
+        </div>
+      </div>
+
+
+
+
+    </div>
+
+
+  </ion-content>
+
+  <script id="templates/my-modal.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-content>
+
+        <div class="login-header-imgbox">
+          <div class="imgbox"  ng-class="{'goin':ing}" >
+            <img src="./img/classif/xiaolian.png" alt="">
+          </div>
+        </div>
+
+
+        <div style="text-align: -webkit-center;
+    font-size: 20px;
+    color: orange;"><span >成功提交申请，待申请成功后，使用短信（账号，密码）登录</span></div>
+
+       <!-- <div class="content has-header" style="    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 6rem;" ng-click="shenhe()">
+          <button class="button button-full button-energized">返回</button>
+
+        </div>-->
+
+
+        <button    ng-click="shenhe()"   class="  loginbutton button button-block button-positive block-botton"
+                   style="margin-top:6.4rem"
+        >返回</button>
+
+      </ion-content>
+    </ion-modal-view>
+  </script>
+
+
+</ion-view>
+
+
