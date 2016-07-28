@@ -30,7 +30,7 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
         }
       },function(r){
         if(r){
-          debugger;
+          
 
                  if(window.cordova){
                   window.cordova.plugins.Keyboard.close();

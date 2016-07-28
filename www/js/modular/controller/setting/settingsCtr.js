@@ -3,14 +3,14 @@
  */
 
 Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state','$ionicHistory','storage','fromStateServ','$ionicScrollDelegate','Tools','native',function($scope,$ionicPopover, $ionicPopup,$timeout,$state,$ionicHistory,storage,fromStateServ,$ionicScrollDelegate,Tools,native) {
-  
+
 
 $scope.userfanhui  = function () {
   $state.go('r.tab.SettingsUser')
 }
 
 
-//切换到登录   login 
+//切换到登录   login
 function   login   (){
 
 
@@ -21,12 +21,13 @@ function   login   (){
           fromStateServ.stateChange('r.login');
           }
 
-        
+
       })
 };
 
 $scope.getMdl   =      fromStateServ.stateChange;
 $scope.Personalsetting  = function (){
+
    if(!storage.getObject('UserInfo').user_id){
         login();
    }else{
@@ -42,19 +43,30 @@ $scope.addermge  = function(){
         login();
    }else{
 
-        $scope.getMdl('r.Addresslist')
-       
+        $scope.getMdl('r.Addresslist');
+
 
    }
 }
 
+  $scope.integral  = function(){
 
+
+    if(!storage.getObject('UserInfo').user_id){
+      login();
+    }else{
+
+      $state.go('r.tab.SettingOne');
+
+
+    }
+  }
 
 
 
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
-    Initial();    
+    Initial();
      if ($ionicHistory.backView()) {
        window.androdzerofun  = function(parm1,parm2){
          $ionicHistory.goBack();
@@ -75,15 +87,15 @@ $scope.addermge  = function(){
                     $timeout(function(){
                         Initial();
                     },30)
-                      })    
+                      })
           }
       })
   };
-  
+
 
 var   userone = storage.getObject('UserInfo');
       $scope.Userinfo = {};
-      $scope.Userinfo.imgheader  = userone.avatar  ;  
+      $scope.Userinfo.imgheader  = userone.avatar  ;
       $scope.Userinfo.sex  =     userone.sex
       $scope.Userinfo.login  = false;
       $scope.Userinfo.integral    = userone.integral;
@@ -94,7 +106,7 @@ var   userone = storage.getObject('UserInfo');
 
     var   user = storage.getObject('UserInfo');
     if(user.user_id){
-      //登录了        
+      //登录了
       $scope.Userinfo = {};
       $scope.Userinfo.imgheader  =  window.qiniuimgHost+user.avatar+'?imageView2/1/w/300/h/300';
       //哈哈哈
@@ -117,11 +129,11 @@ var   userone = storage.getObject('UserInfo');
     }else{
       //没有登录
       $scope.Userinfo = {};
-      $scope.Userinfo.imgheader  = user.avatar  ;  
+      $scope.Userinfo.imgheader  = user.avatar  ;
       $scope.Userinfo.sex  =     user.sex;
       $scope.Userinfo.login  = false;
       $scope.Userinfo.integral    = user.integral
-      }   
+      }
     }
 
         $scope.opencustomenuatts  = false;
@@ -139,13 +151,13 @@ var   userone = storage.getObject('UserInfo');
 
 
 
-     
-        } 
+
+        }
 
          $scope.closecustomenu  =   function  () {
-              $scope.opencustomenuatts   = false;     
+              $scope.opencustomenuatts   = false;
             }
-            
+
          $scope.$on('$ionicView.beforeLeave',function(){
            $scope.closecustomenu();
          })

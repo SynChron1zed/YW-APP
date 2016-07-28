@@ -45,12 +45,8 @@ Ctr.controller('canpanyCtr',['$scope','$rootScope','$ionicViewSwitcher','$state'
           $state.go('r.application',{companyID:$scope.id});
           native.task('验证成功！')
         }else{
-          $ionicPopup.alert({
-            title:"验证公司ID失败！",
-            okText:'请重新输入'
 
-
-          });
+          return false
 
         }
 
