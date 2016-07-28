@@ -1,11 +1,8 @@
 @font-face {font-family: 'extends';
-  src: url('../fonts/extends/iconfont.eot'); /* IE9*/
-  src: url('../fonts/extends/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  src: url('../fonts/extends/iconfont.svg#iconfont') format('svg'),/* iOS 4.1- */ 
   url('../fonts/extends/iconfont.woff') format('woff'), /* chrome、firefox */
   url('../fonts/extends/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-  url('../fonts/extends/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
 }
-
 .extends{
   font-family:"extends" !important;
   font-size:16px;font-style:normal;
@@ -13,15 +10,11 @@
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
 }
-
 @font-face {font-family: 'shoping';
-  src: url('../fonts/shopionic/iconfont.eot'); /* IE9*/
-  src: url('../fonts/shopionic/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  src:  url('../fonts/shopionic/iconfont.svg#iconfont') format('svg'),/* iOS 4.1- */ 
   url('../fonts/shopionic/iconfont.woff') format('woff'), /* chrome、firefox */
   url('../fonts/shopionic/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-  url('../fonts/shopionic/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
 }
-
 .shoping{
   font-family:"shoping" !important;
   font-size:20px;font-style:normal;
