@@ -17,9 +17,8 @@
   // window.LocalCacheStatelist  =  {
   //   shopCart:'YES',
   // };
-
   window.defaultUserheader  =  './img/sys_male.jpg';
-    
+  
   Server.factory('const',['$window','$ionicHistory','$timeout','$ionicNativeTransitions',function($window,$ionicHistory,$timeout,$ionicNativeTransitions){
       return{
         haha:'哈哈'
@@ -44,4 +43,16 @@
          Refresh:false,
       }
     }])
-
+    .factory('adderupdatastat',[function(){
+      return{
+          id:false,
+          linkname:undefined,
+          phone:undefined,
+          city:undefined,
+          province:undefined,
+          region:undefined,
+          street:undefined,
+          is_default:undefined,
+      }
+    }])
+    

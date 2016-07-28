@@ -16,7 +16,7 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
       //title       输出标题
       //buttontext  按钮文字
         $cordovaDialogs.alert(content?content:'',title?title:'信息',buttontext?buttontext:'取消')
-
+        
     },
     //原生confirm
     confirm:function(content,title,buttons,Callback){

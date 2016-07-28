@@ -26,10 +26,8 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
 
           sctolthi  = false;
           if(!$scope.registbasinfo.phone){
-            $ionicPopup.alert({
-              title:'请填写手机号码!',
-              okText:'确认'
-            });
+
+            native.task('请填写手机号码!');
             sctolthi  = true;
             return false;
           };
@@ -69,43 +67,25 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
   $scope.next =  function (){
 
     if(!$scope.registbasinfo.phone){
-      $ionicPopup.alert({
-          title:'请输入手机号码!',
-          okText:'确认'
-      })
+      native.task('请输入手机号码!');
       return  false;
     }else  if(!Tools.reg.USPhone($scope.registbasinfo.phone)) {
-      $ionicPopup.alert({
-        title:'请输入正确的手机号码!',
-        okText:'确认'
-      });
+      native.task('请输入正确的手机号码!');
       return  false;
     }
     if(!$scope.registbasinfo.Vercode){
-      $ionicPopup.alert({
-        title:'请输入验证码!',
-        okText:'确认'
-      })
-      return  false;
-    }else  if(!Tools.reg.negative($scope.registbasinfo.Vercode)) {
-      $ionicPopup.alert({
-        title:'请输入正确的验证码!',
-        okText:'确认'
-      })
+      native.task('请输入验证码!');
       return  false;
     }
+
     if(!$scope.registbasinfo.CorporateName){
-      $ionicPopup.alert({
-        title:'请输入公司名称!',
-        okText:'确认'
-      })
+
+      native.task('请输入公司名称!');
       return  false;
     }
     if(!$scope.registbasinfo.userName){
-      $ionicPopup.alert({
-        title:'请输入姓名!',
-        okText:'确认'
-      });
+      
+      native.task('请输入姓名!');
       return  false;
     }
     //交互

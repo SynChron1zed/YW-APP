@@ -43,17 +43,12 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
   $scope.Submitaudit  = function (){
 
     if(!$scope.identity.Positive || !$scope.identity.inverse){
-      $ionicPopup.alert({
-        title:'请上传审核照片',
-        okText:'确认'
-      });
+
+      native.task('请上传审核照片')
       return false;
     }
     if( !$scope.from.License  || !$scope.from.mechanism  ||  !$scope.from.legal ){
-      $ionicPopup.alert({
-        title:'请填写完整基本信息',
-        okText:'确认'
-      });
+      native.task('请填写完整基本信息');
       return false;
     }
 

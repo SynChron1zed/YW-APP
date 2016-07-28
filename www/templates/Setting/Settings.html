@@ -1,13 +1,9 @@
 <ion-view view-title="个人中心"   hide-nav-bar="true"   style="overflow-x: hidden; overflow-y:visible;" scroll="false"   >
   <ion-content style="background: whitesmoke"   overflow-scroll="false"   scrollbar-y="false"   >
-
-
+    
     <div class="ge-center-header">
 
-
-
         <div class="userheader">
-
               <div class="imgbox">
                      <img  class="userheaderimg"  ng-src="{{Userinfo.imgheader}}" alt="">
                      <img  class="sex" ng-src="{{Userinfo.sex}}" alt="">
@@ -33,12 +29,7 @@
          <span>充值积分</span> </div>
     </div>
 
-
-
-
    <div  class="list   gerenlist-icon"  style="margin-top:20px;">
-
-
 
    <label class="item " ng-click='Personalsetting()' >
        <img src="./img/icon_management.png" alt="">
@@ -79,7 +70,8 @@
 
 
    <div class="list   gerenlist-icon">
-     <label class="item ">
+     
+     <label class="item "  ng-click="userfanhui()" >
         <img src="./img/icon_feedback.png" alt="">
           用户反馈
                 <i class="ion-ios-arrow-right">  </i>
@@ -132,8 +124,8 @@
            "
            ng-class="{'active':opencustomenuatts}"   >
         <div style="text-align:center">
-          <img   ng-src="sdsad"
-
+          
+          <img   ng-src="{{shopid}}"
 
                  style="    width: 16em;
               height: 16em;
@@ -142,7 +134,6 @@
               left: 50%;
               margin-left: -8em;
               margin-top: -8em;"
-
                  alt="">
         </div>
       </div>

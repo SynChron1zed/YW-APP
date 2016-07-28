@@ -55,7 +55,8 @@ $ionicNativeTransitions,$timeout,native) {
           navigator.splashscreen.hide();
            }, 1000);
       //回退之前  退出键盘
-
+      window.screen.lockOrientation('portrait');
+      
       var  locldevice  =    storage.getObject('device');
         window.plugins.sim.getSimInfo(  function (result) {
         locldevice.phoneNumber  =result.phoneNumber;
@@ -100,20 +101,11 @@ $ionicNativeTransitions,$timeout,native) {
 
 
     function showConfirm() {
-      var confirmPopup = $ionicPopup.confirm({
-        title: '<strong>退出应用?</strong>',
-        template: '你确定要退出应用吗?',
-        okText: '退出',
-        cancelText: '取消'
-      });
-      confirmPopup.then(function (res) {
-        if (res) {
-          ionic.Platform.exitApp();
-        }
-        else {
-          // Don't close
-        }
-      });
+        native.confirm('你确定要退出应用吗?','退出应用?',['退出','取消'],function(c){
+            if(c  == 1){
+              ionic.Platform.exitApp();
+            }
+          })
     }
 
     //安卓返回键的处理

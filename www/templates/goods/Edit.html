@@ -42,14 +42,14 @@
             style="padding-right:40px;"
              placeholder="条码">
           </div>
-
-          <div class="item" style="padding: 8px 10px;overflow: visible; " ng-model="airplaneMode"   ng-if="!edith_isfictitious"  >
+          <!--<div class="item" style="padding: 8px 10px;overflow: visible; " ng-model="airplaneMode"   ng-if="!edith_isfictitious"  >
                     <span style="display: inline-block;height: 40px;line-height: 40px;">
                     是否属于虚拟产品!
                     </span>
             <label   style="float: right;position: relative;top: 4px;" class="toggle disable-user-behavior">
               <input type="checkbox" ng-model="goods.is_virtual"     ng-disabled='goods.edit'   class="ng-untouched ng-valid ng-dirty ng-valid-parse" value="on" style=""><div class="track"><div class="handle"></div></div></label>
-          </div>
+          </div>-->
+
         </div>
 
 
@@ -64,13 +64,7 @@
                                  white-space: nowrap;
                                  margin-left:-4px;
     '  ng-options="x.cate_id as  x.itemcats_name  for x in  goods.systemClass"   style="padding-left:0px;"   ng-model="goods.systemSelect"   ng-change='systemparnslec()'   >
-
-
             </select>
-
-
-
-
 
             <select    ng-if='goods.systemchidSelct'   style='    padding-left: 0px;
                                  background: transparent;
@@ -80,17 +74,16 @@
                                      margin-left:-4px;
         '  ng-options="x.cate_id as  x.itemcats_name  for x in  goods.systemchidlist"   style="padding-left:0px;"   ng-model="goods.systemchidSelct"    ng-change='chidselect()' >
             </select>
-
-
-
           </div>
 
           <div class="item item-input" style="border-top:1px solid #ddd;background:#fff !important"  ng-click='goodclass.show()'
-
            >
+
             <span class="input-label">店铺分类</span>
             <input style="background:#fff"    ng-model="goods.cateSelctItem"    type="text" value="设置商铺所属分类"   readonly    >
           </div>
+
+
 
 
           <div class="item item-input"     >
@@ -98,15 +91,58 @@
             <input type="number" placeholder="￥0.00"  maxlength="6"  ng-model="goods.Market_price" >
           </div>
 
-
           <div class="item item-input"     >
             <span class="input-label">平台价 <span style="color: red">*</span></span>
             <input type="number" placeholder="￥0.00"    ng-model="goods.Platform_price" >
           </div>
-
-
-
           </div>
+
+                <ion-list   >
+                    <h5 style="background: #fff;text-indent:20px;margin: 0;padding: 10px 4px;font-weight: normal;font-size:15px;border-top: 1px solid #DDD">添加商品规格:</h5>
+                    <div class="item   lastitemnoborer"     >
+                        <div class="item-attrs-good" >
+                            <section class="attrname">
+                                <span ng-repeat="z in c.sku"  ng-if="z">{{z.prop_value}}&nbsp;</span>
+                            </section>
+
+                            <del class="delattritm" >
+                                  <i class="ion-android-remove-circle"  ng-click="delattritem(attrsprices,c.index)" ></i>
+                            </del>
+
+                            <ul class="attrlist" >
+                                <li> <span>条码
+                                 <i  class="extends"  ng-click="ScanskuItem(c)"   style="margin-top: 4px;margin-left:10px;color:#87C0E8;font-size: 25px;">&#xe62e;
+                                 </i>
+                                </span> <input type="text" placeholder="请扫入条码" ng-model="c.msg.tiaoma"  > </li>
+                                <li> <span>零售价<i style="color: red"> *</i></span> <input type="text"  maxlength='9'  ng-model="c.msg.retail_price"    placeholder="￥0.00" >  </li>
+                                <li> <span>进货价<i style="color:red"> &nbsp;</i></span> <input type="text"    ng-model="c.msg.Wholesale_price"    maxlength='9'    placeholder="￥0.00" >  </li>
+                                
+
+                            </ul>
+                        </div>
+                    </div>
+
+                </ion-list>
+
+
+
+                <div class="list " ng-show="!edithasexpansion" style="">
+                        <div class="item" style="border-top: 1px solid #ddd;     padding-top: 4px;padding-bottom: 8px;">
+                            <div  ng-if="!goods.edit"  ng-click="openattslist();"  style="float:left;color: #666;display:inline-block;width:50%;height: 30px;line-height: 30px;text-align: center">
+                               <i class="ion-plus" style="position: relative;top:1px;font-size: 20px"></i> 添加商品规格
+                            </div>
+                            <div  ng-if="goods.edit"  ng-click="openattslist();"  style="float:left;color:#666;display:inline-block;width:50%;height: 30px;line-height: 30px;text-align: center">
+                                <i class="ion-android-options" style="font-size:20px;position: relative;top:2px;"></i> 编辑商品规格
+                            </div>
+
+                            <div  ng-click="openlistset()"  style="color:#666;display:inline-block;width:50%;height: 30px;line-height: 30px;text-align: center">
+                                <i class="ion-link" style="font-size: 28px;position: relative;top:4px"></i> 批量设置
+                            </div>
+                        </div>
+                </div>
+
+
+
 
 
         <div class="list">

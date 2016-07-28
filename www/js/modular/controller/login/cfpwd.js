@@ -12,17 +12,12 @@ Ctr.controller('registercfpwdCtr',['$scope','$state','Tools','$stateParams','$io
   $scope.next =  function (){
 
   if(!$scope.password.Original || !$scope.password.Repeat)  {
-    $ionicPopup.alert({
-      title:'请填写密码!',
-      okText:'确认'
-    });
+
+    native.task('请填写密码!');
     return false;
   }
     if(!Tools.reg.equal($scope.password.Original,$scope.password.Repeat) ){
-      $ionicPopup.alert({
-        title:'密码不一致!',
-        okText:'确认'
-      });
+      native.task('密码不一致!');
       return false;
     };
 
