@@ -143,6 +143,54 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
        }
     })
+
+
+    //认证公司ID
+    .state('r.canpany',{
+      url: '/canpany',
+      // nativeTransitions: {
+      //   "type": "flip",
+      //   "direction": "up"
+      // },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/login/canpanyID.html',
+          controller: 'canpanyCtr'
+        }
+      }
+    })
+
+     //申请信息
+    .state('r.application',{
+      url: '/application/:companyID',
+      // nativeTransitions: {
+      //   "type": "flip",
+      //   "direction": "up"
+      // },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/login/application.html',
+          controller: 'applicationCtr'
+        }
+      }
+    })
+
+    //申请信息
+    .state('r.passwordold',{
+      url: '/passwordold',
+      // nativeTransitions: {
+      //   "type": "flip",
+      //   "direction": "up"
+      // },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/login/password.html',
+          controller: 'passwordoldCtr'
+        }
+      }
+    })
+
+
     //输入密码
     .state('r.registercfpwd',{
       url: '/registercfpwd?phone:',
@@ -426,7 +474,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-      
+
     //setting  个人设置
     .state('r.tab.Settings', {
       nativeTransitions: null,
@@ -469,7 +517,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    
+
     //setting  个人设置 个人资料修改 用户名修改
     .state('r.tab.SettingsUpdateUsername', {
       url: '/Settings/update/username',
@@ -777,7 +825,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    
+
   //收货地址添加编辑
     .state('r.AddressEdith', {
       url: '/AddressEdith?id:',

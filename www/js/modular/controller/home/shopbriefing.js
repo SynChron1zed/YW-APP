@@ -3,6 +3,10 @@
  */
 Ctr.controller('shopbriefingCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$timeout',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$timeout) {
 
+
+
+
+
   var Name = [];
   var oldName = $stateParams.Classitem
   $scope.shop = {};

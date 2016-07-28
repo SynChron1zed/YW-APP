@@ -1,16 +1,19 @@
-<ion-view view-title="">
-  <ion-nav-bar   class="bar-positive ">
-    <ion-nav-buttons side="left">
-      <a   nav-direction="back"  href="/#/r/tab/HomShopadmin"  class="button button-icon ion-ios-arrow-left">
-        修改店铺名称
-      </a>
-    </ion-nav-buttons>
+<ion-view view-title="修改">
+
+
+  <ion-nav-buttons side="left" >
+
+    <button   ng-click="$ionicGoBack()" class="button back-button buttons  button-clear header-item"><i class="icon ion-ios-arrow-left"></i>店铺管理
+    </button>
+  </ion-nav-buttons>
+
+
     <ion-nav-buttons side="right" >
       <a   nav-direction="back"   class="button button-icon " ng-click="queryname()">
         保存
       </a>
     </ion-nav-buttons>
-  </ion-nav-bar>
+
 
   <ion-content  style="background: #F7F7F7;overflow: hidden;"  overflow-scroll="true"  scroll="false"  >
     <div class="list " >

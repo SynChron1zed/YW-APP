@@ -5,7 +5,7 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
 
   //处理登录
   $scope.loginboj  = {};
-  
+
   $scope.loginhan  = function (){
       if(!$scope.loginboj.userName){
 
@@ -30,6 +30,7 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
         }
       },function(r){
         if(r){
+          debugger;
 
                  if(window.cordova){
                   window.cordova.plugins.Keyboard.close();
@@ -47,12 +48,12 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
 
 
               },400)
-                   
+
         }else{
-          $scope.ing  = false;          
+          $scope.ing  = false;
         }
 
-      
+
 
 
       },function(){
@@ -63,10 +64,10 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
       })
   };
 
-  
+
   //保存历史记录的方法  调用  上一次1 title  和返回方法
   $scope.backtoprevView  =   fromStateServ.backView;
-  
+
   // //安卓返回键  对公共模块的返回
   // $ionicPlatform.registerBackButtonAction(function (e) {
   //    e.preventDefault();
@@ -74,6 +75,7 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
   //    return false;
   //  }, 101);
   $scope.$on('$stateChangeSuccess',function(){
+
       $scope.loginboj = {};
       $scope.ing  = false;
       $scope.parenttitle     =   fromStateServ.getState('r.login').title;
@@ -82,12 +84,24 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
   $scope.backView  = function(){
     $scope.$ionicGoBack();
   };
-  
+
   $scope.register  =  function (){
       if(!$scope.ing){
             loginregisterstate.Refresh   =  true;
             $state.go('r.register');
       }
   }
+
+  $scope.renzhen=function () {
+
+    $state.go('r.canpany');
+  }
+
+  $scope.password=function () {
+
+    $state.go('r.passwordold');
+  }
+
+
 
 }])
