@@ -542,3 +542,98 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
 .item .item-content.activated {
 background-color: #fff;
 }
+
+
+.item-attrs-good{
+  width: 98%;padding:10px;
+  margin:  0 auto;
+  border: 1px solid #ccc;
+  position: relative;
+  min-height: 60px;
+  padding-top: 10px;
+  .attrname {
+    display: inline-block;;
+    background: #fff;
+    padding:4px;
+    position: absolute;
+    top:-15px;
+    max-width:80%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .delattritm {
+    display:inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    background: #fff;
+    position: absolute;
+    right: -19px;
+    top: 50%;
+    margin-top: -20px;
+    text-align: center;
+    i{
+      font-size: 36px;
+      color: #FF5959;
+    }
+  }
+
+  .attrlist {
+    &:after{
+      content: '';
+      display: block;
+      clear:both;}
+      li {
+        min-height: 34px;
+        height: 34px;
+        select {
+          -webkit-appearance:none;
+          -moz-appearance: none;
+          appearance: none;
+          position: relative;
+          height: 37px;
+          top: 0;
+          bottom: 0;
+          padding: 0 48px 0 16px;
+          max-width: 34%;
+          border: none;
+          background: #fff;
+          color: #333;
+          text-indent: .01px;
+          text-overflow: '';
+          white-space: nowrap;
+          font-size: 14px;
+          cursor: pointer;
+          direction: rtl;
+          padding-left:5px;
+        }
+        .arrow {
+          display: inline-block;
+          position: relative;
+          &:before{
+            position: absolute;
+            top: 50%;
+            right: 16px;
+            margin-top: -8px;
+            width: 0;
+            height: 0;
+            border-top: 5px solid;
+            border-right: 5px solid transparent;
+            border-left: 5px solid transparent;
+            color: #999;
+            content: "";
+            pointer-events: none;
+          }
+        }
+        span {
+          height: 34px;line-height: 34px;
+          display: inline-block;
+          width: 22%;
+          float: left;
+        }
+        input {margin:0;width: 68%;float: left;margin-left:1%;}
+      }
+
+  }
+}

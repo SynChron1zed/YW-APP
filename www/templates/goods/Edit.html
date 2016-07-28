@@ -110,14 +110,14 @@
                             </del>
 
                             <ul class="attrlist" >
-                                <li> <span>条码
-                                 <i  class="extends"  ng-click="ScanskuItem(c)"   style="margin-top: 4px;margin-left:10px;color:#87C0E8;font-size: 25px;">&#xe62e;
-                                 </i>
-                                </span> <input type="text" placeholder="请扫入条码" ng-model="c.msg.tiaoma"  > </li>
-                                <li> <span>零售价<i style="color: red"> *</i></span> <input type="text"  maxlength='9'  ng-model="c.msg.retail_price"    placeholder="￥0.00" >  </li>
-                                <li> <span>进货价<i style="color:red"> &nbsp;</i></span> <input type="text"    ng-model="c.msg.Wholesale_price"    maxlength='9'    placeholder="￥0.00" >  </li>
-                                
+                        
 
+
+                                <li> <span>市场价<i style="color: red"> &nbsp;</i></span> <input type="text"  maxlength='9'  ng-model="c.msg.retail_price"    placeholder="￥0.00" >  </li>
+                                <li> <span>平台价<i style="color:red"> &nbsp;</i></span> <input type="text"    ng-model="c.msg.Wholesale_price"    maxlength='9'    placeholder="￥0.00" >  </li>
+                                <li> <span>平台价<i style="color:red"> &nbsp;</i></span> <input type="number"    ng-model="c.msg.Wholesale_price"    maxlength='9'    placeholder="库存数" >  </li>
+                              
+                              
                             </ul>
                         </div>
                     </div>
@@ -128,15 +128,22 @@
 
                 <div class="list " ng-show="!edithasexpansion" style="">
                         <div class="item" style="border-top: 1px solid #ddd;     padding-top: 4px;padding-bottom: 8px;">
-                            <div  ng-if="!goods.edit"  ng-click="openattslist();"  style="float:left;color: #666;display:inline-block;width:50%;height: 30px;line-height: 30px;text-align: center">
-                               <i class="ion-plus" style="position: relative;top:1px;font-size: 20px"></i> 添加商品规格
+                            <div  ng-if="!goods.edit"  ng-click="openattslist();"  style="position: relative;;float:left;color: #666;display:inline-block;width:50%;height: 30px;line-height: 30px;text-align: center">
+
+
+                               <i class="ion-plus" style="top:1px;font-size: 20px"></i> 添加规格
                             </div>
-                            <div  ng-if="goods.edit"  ng-click="openattslist();"  style="float:left;color:#666;display:inline-block;width:50%;height: 30px;line-height: 30px;text-align: center">
-                                <i class="ion-android-options" style="font-size:20px;position: relative;top:2px;"></i> 编辑商品规格
+                            <div  ng-if="goods.edit"  ng-click="openattslist();"  style="position: relative;;float:left;color:#666;display:inline-block;width:50%;height: 30px;line-height: 30px;text-align: center">
+
+                                <p><i class="ion-android-options" style="font-size:20px;float:left"> </i> 编辑规格</p>
+
                             </div>
 
-                            <div  ng-click="openlistset()"  style="color:#666;display:inline-block;width:50%;height: 30px;line-height: 30px;text-align: center">
-                                <i class="ion-link" style="font-size: 28px;position: relative;top:4px"></i> 批量设置
+                            <div  ng-click="openlistset()"  style="position: relative;;color:#666;display:inline-block;width:50%;height: 30px;line-height: 30px;text-align: center">
+
+                                <p><i class="ion-link" style="font-size: 28px;float:left"></i>批量设置</p>
+
+
                             </div>
                         </div>
                 </div>
@@ -194,16 +201,18 @@
             height: 40px;
             width: 30px;
           }
+
           .pushgoodphost.fengmian  .kinlh {
-            display: inline-block;
-            width: 30px;
-            height: 40px;
-            background: #fff;
-            top: -4px;
-            position: absolute;
-            left: 0px;
-            transform: rotateZ(45deg);
-            -webkit-transform: rotateZ(45deg);
+                  display: inline-block;
+                  width: 34px;
+                  height: 13px;
+                  background: #fff;
+                  top: 11px;
+                  left: 10px;
+                  position: absolute;
+                  left: 3px;
+                  transform: rotateZ(-45deg);
+                  -webkit-transform: rotateZ(-45deg);
           }
 
           .pushgoodphost .ion-close-circled{
