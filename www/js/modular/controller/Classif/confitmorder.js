@@ -199,6 +199,7 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
         "cartIds": cartId
       }
     },function(r){
+     
       if(r= 'success'){
         $ionicPopup.alert({
           title:"确认成功",
