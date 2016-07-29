@@ -3,6 +3,13 @@
  */
 //调用原生方法类
 Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaActionSheet','$cordovaAppVersion','$cordovaBadge','$cordovaBarcodeScanner','$cordovaToast','$cordovaProgress','$cordovaCalendar','$ionicLoading',function($window,$cordovaCamera,$cordovaDialogs,$cordovaActionSheet,$cordovaAppVersion,$cordovaBadge,$cordovaBarcodeScanner,$cordovaToast,$cordovaProgress,$cordovaCalendar,$ionicLoading){
+  //跟新方法
+
+
+
+
+
+
   return{
     ref:this,
     //原生输出
@@ -16,7 +23,7 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
       //title       输出标题
       //buttontext  按钮文字
         $cordovaDialogs.alert(content?content:'',title?title:'信息',buttontext?buttontext:'取消')
-        
+
     },
     //原生confirm
     confirm:function(content,title,buttons,Callback){
@@ -162,14 +169,14 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
     },
     //原生 加载条
     loading:function(text){
-      
+
       // $ionicLoading.show({
       // template: '<ion-spinner icon="crescent" class="spinner-royal"></ion-spinner>',
       // //template: '<ion-spinner  icon="ripple" class="spinner-energized"  ></ion-spinner>',
       // delay:100
       // });
 
-      
+
       if(window.ProgressIndicator){
         if(text){
           $cordovaProgress.showText(false, 100000, text)
@@ -186,7 +193,7 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
     },
     //隐藏加载条
     hidloading:function(){
-      
+
     if(window.ProgressIndicator){
       $cordovaProgress.hide();
     }else{

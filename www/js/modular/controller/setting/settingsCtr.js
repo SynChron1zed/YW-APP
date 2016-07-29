@@ -5,6 +5,8 @@
 Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state','$ionicHistory','storage','fromStateServ','$ionicScrollDelegate','Tools','native',function($scope,$ionicPopover, $ionicPopup,$timeout,$state,$ionicHistory,storage,fromStateServ,$ionicScrollDelegate,Tools,native) {
   
 
+
+
 $scope.userfanhui  = function () {
   $state.go('r.tab.SettingsUser')
 }
@@ -12,8 +14,6 @@ $scope.userfanhui  = function () {
 
 //切换到登录   login 
 function   login   (){
-
-
       native.confirm('该操作需要登录','你还没有登录',['登录','取消'],function(c){
 
 
@@ -48,12 +48,20 @@ $scope.addermge  = function(){
    }
 }
 
+$scope.updateAPP  =  function () {
+    window.updateAPP();  
+}
 
 
 
 
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
+
+    if(window.platform  !== 'ios'){
+      $scope.update  =  true;
+    }
+    
     Initial();    
      if ($ionicHistory.backView()) {
        window.androdzerofun  = function(parm1,parm2){
