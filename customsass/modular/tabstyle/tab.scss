@@ -637,3 +637,34 @@ background-color: #fff;
 
   }
 }
+
+
+
+
+.sliderbox-right {
+  -webkit-transition:all  400ms;
+  display: block;
+  z-index: 999;
+  background: #fff;
+  height: 100%;
+  position: absolute;
+  width: 70%;
+  top: 44px;
+  right: 0px;
+  border-left: 1px solid #ddd;
+  padding-left: 1%;
+  box-shadow:-2px 2px 11px rgba(12, 12, 12, 0.18);
+  transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+}
+
+.sliderbox-right.active{
+  -webkit-transform: translateX(0%);
+  transform: translateX(0%);
+}
+
+
+.checkbox input:checked+.checkbox-icon:before, .checkbox input:checked:before {
+    background: #fe7e0b;
+    border-color: #fe7e0b;
+}

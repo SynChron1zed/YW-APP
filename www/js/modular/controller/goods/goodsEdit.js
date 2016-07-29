@@ -2,20 +2,208 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','native','Tools','$ionicPopup','$ionicModal','$rootScope','goodsState',function($scope,$timeout,$state,$stateParams,native,Tools,$ionicPopup,$ionicModal,$rootScope,goodsState){
+Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','native','Tools','$ionicPopup','$ionicModal','$rootScope','goodsState','$ionicScrollDelegate',function($scope,$timeout,$state,$stateParams,native,Tools,$ionicPopup,$ionicModal,$rootScope,goodsState,$ionicScrollDelegate){
+
+
+
+
+        $scope.savesku  = function(){
+
+
+          console.log($scope.goods.skuSpe);
+
+          angular.forEach($scope.goods.skuSpe,function(ff){
+              if(ff.select){
+
+                
+              }
+          })
+          //console.log($scope)
+
+          //var   handata  = Tools.descartes($scope.goods.skuSpe);
+          //console.log(handata);
+
+
+        };
+
+
+
+
+
+        $scope.sublistaddnew  = {};
+        $scope.appenattributobj  =   function(){
+        if($scope.sublistaddnew.prop_value){
+
+         var  poid  = undefined;
+          angular.forEach($scope.goods.skuSpe,function(ss,kyein){
+                 if(ss.chekd){
+                   poid =  ss.goods_prop_id
+                 }                 
+               })
+
+          Tools.getData({
+            "interface_number":"030305",
+            "post_content":{
+              "goods_prop_id":poid,
+              "prop_value":$scope.sublistaddnew.prop_value
+            }
+        },function(r){
+            if(r){
+
+               r.resp_data.select  = false;
+
+               //$scope.subattrslist.unshift(r.resp_data);
+
+               var   inde  = undefined;
+               angular.forEach($scope.goods.skuSpe,function(ss,kyein){
+                 if(ss.chekd){                                     
+                   inde = kyein;
+                 }                 
+               })
+
+              $scope.goods.skuSpe[inde].child.unshift(r.resp_data);
+            }
+
+
+            $scope.sublistaddnew.prop_value   = undefined;
+
+            debugger
+
+          })
+
+
+        }else{
+          native.task('请输入属性名');
+        }
+    }
+
+
+    $scope.addnewskukey  =  function(){
+          native.prompt('','添加新规格',['添加','取消'],'',function(result){
+                if(result.buttonIndex  == 1){
+                      if(result.input1 ==''  ||  result.input1 == undefined){
+                        native.task('请填写规格名');
+                        return false;
+                      }else{
+                        Tools.getData({
+                           "interface_number": "030304",
+                              "post_content": {
+                              "prop_name":result.input1,
+                            }
+                        },function(r){
+                                  r.resp_data.chekd  = false;
+                                  r.resp_data.select  = false;
+                                   $scope.goods.skuSpe.unshift(r.resp_data);
+                        })
+
+                      }
+                
+                }
+
+          })
+
+    }
+
+
+  $scope.canlshowright  = function(){
+      $scope.showchildnode  = false;
+  }
+
+  $scope.sublistchekselect   = function(s,ll){
+        var  ff   = true;
+        angular.forEach(s,function(f){
+              if(f.select){
+                   ff  = false;
+              }
+        })
+
+        if($scope.goods.edit){
+          if(ff){
+            ll.select   = true;
+            native.task('编辑状态下必须至少选中一个属性!')
+            return  false;
+          }
+        }else{
+          if(ff){
+                angular.forEach($scope.goods.skuSpe,function(ff){
+                        if(ff.chekd){
+                            ff.select  = false;
+                        }
+                })
+          }else{
+             angular.forEach($scope.goods.skuSpe,function(ff){
+                        if(ff.chekd){
+                            ff.select  = true;
+                        }
+                })
+          }
+        }
+
+
+
+
+  }
+  
+  $scope.subattrslist  = [];
+
+
+  $scope.showmichild   =  function (targe){
+
+            angular.forEach($scope.goods.skuSpe,function(ha){
+                      ha.chekd  = false;
+              });
+              targe.chekd  = true;
+              $scope.showchildnode  = true;
+              if(targe.child){
+                $scope.subattrslist  = targe.child;
+              }else{
+              Tools.showlogin();
+              Tools.getData({
+                "interface_number": "030303",
+                "post_content": {
+                    "goods_id": $scope.goods.edit?$scope.goods.id:'',
+                    "goods_prop_id": targe.goods_prop_id,
+                  }
+              },function(r){
+                $ionicScrollDelegate.$getByHandle('childlistsku').scrollTop();
+                if(r){
+
+                   targe.child   = r.resp_data;
+                   $scope.subattrslist  = r.resp_data;
+
+                }
+              })
+
+
+              }
+
+
+            
+
+  }
+
+
+
+
+
+
+  //规格属性编辑
+  $scope.openattslist  = function(){
+      $scope.sku.show();
+  }
+
+
 
 
 
     //添加分类
     $scope.newclass  = {};
     $scope.addnewclass  = function(){
-
       console.log($scope.newclass)
       if(!$scope.newclass.name){
         native.task('请填写分类名称');
         return false;
       }
-
       Tools.showlogin();
       Tools.getData({
             "interface_number": "030204",
@@ -43,6 +231,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
     //商城分类对象
     $scope.$on('$destroy', function() {
       $scope.goodclass.remove();
+      $scope.sku.remove();
     });
 
     $ionicModal.fromTemplateUrl('goodclass.html', {
@@ -51,6 +240,19 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
     }).then(function(modal) {
       $scope.goodclass = modal;
     });
+
+
+
+    $ionicModal.fromTemplateUrl('sku.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.sku = modal;
+    });
+
+
+
+
 
   //构建商品对象  基本信息
   $scope.goods = {};
@@ -76,6 +278,18 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
               $scope.goods.catelist  = r.resp_data.shop_cate;
               $scope.systemparnslec();
               //$scope.goods.Stock_number  =
+              $scope.hassku  = false;
+
+              
+              angular.forEach(r.resp_data.prop,function(ha){
+                      ha.chekd  = false;
+                      if(ha.select){
+                            $scope.hassku =  true;
+                      }
+              });
+
+              $scope.goods.skuSpe  =  r.resp_data.prop;
+
               $scope.chengselect();
               if($scope.goods.edit){
                 $scope.goods.barcode =   r.resp_data.goodsInfo.barcode;
@@ -87,6 +301,12 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
                 $scope.goods.id  = r.resp_data.goodsInfo.goods_basic_id;
                 $scope.goods.Stock_number  =   r.resp_data.goodsInfo.total_in_number;
                 $scope.goods.goodsDesc     =  r.resp_data.goodsInfo.total_in_number;
+
+
+
+
+
+
                 angular.forEach(r.resp_data.goodsInfo.arr_img,function (v){
                   var   c = undefined;
                   if(v  == r.resp_data.goodsInfo.img_url){
@@ -462,16 +682,10 @@ $scope.save  = function (){
 
       }
     })
-
   })
-
-
-
 }
 
-
   if($stateParams.state){
-
     $scope.title  = '商品编辑';
     $scope.state  = '保存';
     $scope.goods.edit  = true;
@@ -481,8 +695,21 @@ $scope.save  = function (){
     $scope.state  = '发布';
   }
 
-
-
-
+  $scope.scoptopheihgt  = {};
+  function gehiehgt (){    
+      if(window.platform  == 'ios'){
+            $scope.scoptopheihgt  ={
+              height:(window.innerHeight-64-80)+'px'
+            }
+      }else{
+           $scope.scoptopheihgt = {
+              height:(window.innerHeight-44-80)+'px'
+            }
+      }
+  }
+  gehiehgt();
+  $timeout(function(){
+    gehiehgt();
+  },500)
 
 }]);

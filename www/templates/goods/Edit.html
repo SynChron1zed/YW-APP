@@ -42,6 +42,9 @@
             style="padding-right:40px;"
              placeholder="条码">
           </div>
+
+
+          
           <!--<div class="item" style="padding: 8px 10px;overflow: visible; " ng-model="airplaneMode"   ng-if="!edith_isfictitious"  >
                     <span style="display: inline-block;height: 40px;line-height: 40px;">
                     是否属于虚拟产品!
@@ -86,12 +89,12 @@
 
 
 
-          <div class="item item-input"     >
+          <div class="item item-input"   ng-show="!hassku"   >
             <span class="input-label">市场价 <span style="color: red">*</span></span>
             <input type="number" placeholder="￥0.00"  maxlength="6"  ng-model="goods.Market_price" >
           </div>
 
-          <div class="item item-input"     >
+          <div class="item item-input"   ng-show="!hassku"      >
             <span class="input-label">平台价 <span style="color: red">*</span></span>
             <input type="number" placeholder="￥0.00"    ng-model="goods.Platform_price" >
           </div>
@@ -102,48 +105,45 @@
                     <div class="item   lastitemnoborer"     >
                         <div class="item-attrs-good" >
                             <section class="attrname">
-                                <span ng-repeat="z in c.sku"  ng-if="z">{{z.prop_value}}&nbsp;</span>
+                                <span >规格名称&nbsp;</span>
+
                             </section>
 
                             <del class="delattritm" >
-                                  <i class="ion-android-remove-circle"  ng-click="delattritem(attrsprices,c.index)" ></i>
+                                  <i class="ion-android-remove-circle"  ng-click="" ></i>
                             </del>
-
                             <ul class="attrlist" >
-                        
+                                <li> <span>市场价<i style="color: red"> &nbsp;</i></span> <input type="number"      placeholder="￥0.00" >  </li>
+                                <li> <span>平台价<i style="color:red"> &nbsp;</i></span> <input type="number"       placeholder="￥0.00" >  </li>
+                                <li> <span>库存<i style="color:red"> &nbsp;</i></span> <input type="number"         placeholder="库存数" >  </li>
 
-
-                                <li> <span>市场价<i style="color: red"> &nbsp;</i></span> <input type="text"  maxlength='9'  ng-model="c.msg.retail_price"    placeholder="￥0.00" >  </li>
-                                <li> <span>平台价<i style="color:red"> &nbsp;</i></span> <input type="text"    ng-model="c.msg.Wholesale_price"    maxlength='9'    placeholder="￥0.00" >  </li>
-                                <li> <span>平台价<i style="color:red"> &nbsp;</i></span> <input type="number"    ng-model="c.msg.Wholesale_price"    maxlength='9'    placeholder="库存数" >  </li>
-                              
-                              
                             </ul>
                         </div>
                     </div>
-
                 </ion-list>
 
-
-
                 <div class="list " ng-show="!edithasexpansion" style="">
-                        <div class="item" style="border-top: 1px solid #ddd;     padding-top: 4px;padding-bottom: 8px;">
-                            <div  ng-if="!goods.edit"  ng-click="openattslist();"  style="position: relative;;float:left;color: #666;display:inline-block;width:50%;height: 30px;line-height: 30px;text-align: center">
+                        <div class="item" style="border-top: 1px solid #ddd;     padding-top: 4px;padding-bottom:4px;">
+                          
+                            <div    ng-show="!goods.edit"   ng-click="openattslist();"  style="position: relative;;float:left;color: #666;display:inline-block;width:50%;height: 30px;line-height: 30px;text-align: center">
+                              <span   style="clear: both;position:absolute;left: 50%;margin-left: -25%;" >
+                                      <i class="ion-plus" style="float:left;font-size: 21px;position: relative;top:0px;left: -6px;"></i>
+                                      <span  style="float:left" > 添加规格</span>
+                               </span>
+                            </div>    
 
-
-                               <i class="ion-plus" style="top:1px;font-size: 20px"></i> 添加规格
-                            </div>
-                            <div  ng-if="goods.edit"  ng-click="openattslist();"  style="position: relative;;float:left;color:#666;display:inline-block;width:50%;height: 30px;line-height: 30px;text-align: center">
-
-                                <p><i class="ion-android-options" style="font-size:20px;float:left"> </i> 编辑规格</p>
-
+                            <div  ng-click="openattslist();"   ng-show="goods.edit"     style="position: relative;;float:left;color:#666;display:inline-block;width:50%;height: 30px;line-height: 30px;text-align: center">
+                                <span     style="    clear: both;position:absolute;left: 50%;margin-left: -25%;" >
+                                      <i class="ion-android-options" style="float:left;font-size: 20px;position: relative;top: 1px;left: -5px;"> </i>
+                                      <span style="float:left">编辑规格</span>
+                                </span>
                             </div>
 
                             <div  ng-click="openlistset()"  style="position: relative;;color:#666;display:inline-block;width:50%;height: 30px;line-height: 30px;text-align: center">
-
-                                <p><i class="ion-link" style="font-size: 28px;float:left"></i>批量设置</p>
-
-
+                              <span   style="clear: both;position:absolute;left: 50%;margin-left: -25%;" >
+                                <i class="ion-link" style="float:left;font-size: 26px;position: relative;top: 1px;left: -5px;"></i>
+                                <span  style="float:left" >批量设置</span>
+                                </span>
                             </div>
                         </div>
                 </div>
@@ -151,9 +151,8 @@
 
 
 
-
         <div class="list">
-          <div class="item item-input"     >
+          <div class="item item-input"   ng-show="!hassku"     >
             <span class="input-label">库存 </span>
             <input type="number"  placeholder="库存数"    ng-model="goods.Stock_number" >
           </div>
@@ -316,26 +315,6 @@
                   color:#6b3801
                   "
                 ></i>
-                <!-- <i
-             ng-click='swatchdetial()'
-
-                    style="
-                    color:#6b3801;
-                    position: absolute;
-                    height: 100%;
-                    display: inline-block;
-                    padding: 0px 10px;
-                    right: 0px;
-                    top: 0px;
-                    width: 50px;
-                    text-align: center;
-                    font-size: 25px;
-                    border-left: 1px solid #bfbfbf;
-                    line-height: 45px;
-                    "
-
-                 class="ion-android-more-vertical"></i> -->
-
               </div>
 
 
@@ -389,6 +368,120 @@
 
           </div>
         </script>
+
+
+
+
+
+
+
+
+
+
+ <script id="sku.html" type="text/ng-template">
+          <div class="modal">
+                      <ion-header-bar  class="bar-positive item-input-inset  lb-main-title-search" >
+                        <button  style="padding: 0px;" class="button button-icon "  >
+                          规格属性
+                        </button>
+                        <h5 class="title"></h5>
+                        <button class="button button-icon"  ng-click="savesku()" >
+                          完成
+                        </button>
+
+
+                      </ion-header-bar>
+          <div class="sliderbox-right  " ng-class="{'active':showchildnode}"    >
+
+                <p style=" margin: 0px;height: 30px;line-height: 30px;text-indent: 10px;color: #4e4e4e;background: #fff;border-bottom: 1px solid #ddd;">选 择 属 性  </p>
+
+                  <div class="list"  style="margin-bottom:1px;" >
+                      <div class="itme" style="border-bottom: 1px solid #ddd;">
+                          <input   ng-model="sublistaddnew.prop_value" style="
+                              margin: 0px;
+              display: inline-block;
+              width: 70%;
+              height: 45px;
+              line-height: 45px;
+                          " type="text" placeholder="请输入需要添加的属性名" >
+                          <button   ng-click="appenattributobj()"   style="
+                              border-radius: 0px;
+                              color: #6f3d01;
+                              background:rgb(254, 235, 11);
+                              margin: 0;
+                              width: 28%;
+                              margin-top: -1px;
+                          " class="button">添加</button>
+                      </div>
+
+                  </div>
+
+                  <ion-scroll ng-style="{{scoptopheihgt}}"   delegate-handle="childlistsku"     overflow-scroll="false"  scrollbar-y="false"   >
+                  <div class="list">
+                      <ion-checkbox    ng-repeat="li  in subattrslist "   ng-click="sublistchekselect(subattrslist,li)"  ng-model="li.select"  style="border: none"  >
+                          {{li.prop_value}}
+                      </ion-checkbox>
+                  </div>
+        </ion-scroll>
+    </div>
+
+  <ion-content  on-swipe-right="canlshowright()"     overflow-scroll="false"  scrollbar-y="false"   class='shopcrtboxbj' >
+
+
+            <style>
+                  .skuitemthi.select {background:#e6e6e6;}
+                  .skuitemthi {
+                    padding-left: 10px;
+                    transition: all 200ms;
+                    -webkit-transition: all 200ms;
+                  }
+                  .skuitemthi.active{
+                    padding-left: 44px;
+                  }
+                  .chek{
+                    position: absolute;font-size: 30px;top: 50%;margin-top: -16px;left: 10px;color: #bfbfbf;
+                    transition: all 200ms;
+                    -webkit-transition: all 200ms;
+                    opacity: 0;
+                    }
+                    .chek.active{
+                          opacity: 1;
+                      }
+              </style>
+
+              <div class="list" style="margin:0px ;"  ng-click="addnewskukey()"  >
+                    <div class="item"  style="padding-top: 10px;padding-bottom: 10px;" >添加新规格属性</div>
+              </div>
+              <p style="margin:0px;height:30px;line-height:30px;    text-indent: 10px;color: #4e4e4e;">选择规格</p>
+
+                          <ion-list>
+
+                            <ion-item ng-repeat="item in goods.skuSpe"   ng-show='{{      goods.edit?item.select?true:false :true     }}'   ng-click="showmichild(item)"   ng-class="{'select':item.chekd,'active':item.select}"  
+                            class="icon-left  skuitemthi"  >
+                                    <i  class="chek ion-ios-checkmark"  style="color:#fe7e0b"  ng-class="{'active':item.select}"     style=""></i>
+                                    <p>{{item.prop_name}}</p>
+
+                            </ion-item>
+
+
+
+                        </ion-list>
+
+
+
+
+
+
+            </ion-content>
+
+          </div>
+        </script>
+
+
+
+
+
+
 
 
 

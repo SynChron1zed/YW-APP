@@ -281,6 +281,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       }
       return myNewObj;
     },
+
     //笛卡尔积  操作
     descartes:function(list) {
 //parent上一级索引;count指针计数
@@ -290,7 +291,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       var pIndex = null;
       var tempCount = 0;
       var temp = [];
-
+      
 //根据参数列生成指针对象
       for(var index in list)
       {
