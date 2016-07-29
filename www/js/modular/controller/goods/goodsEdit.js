@@ -86,6 +86,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
                 $scope.goods.Platform_price =    parseFloat(r.resp_data.goodsInfo.activity_price);
                 $scope.goods.id  = r.resp_data.goodsInfo.goods_basic_id;
                 $scope.goods.Stock_number  =   r.resp_data.goodsInfo.total_in_number;
+                $scope.goods.goodsDesc     =  r.resp_data.goodsInfo.total_in_number;
                 angular.forEach(r.resp_data.goodsInfo.arr_img,function (v){
                   var   c = undefined;
                   if(v  == r.resp_data.goodsInfo.img_url){
