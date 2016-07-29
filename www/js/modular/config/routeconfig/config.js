@@ -286,10 +286,52 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
 
+    // home  最新动态
+    .state('r.homeNews', {
+      url: '/homeNews',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.homeNews')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Home/newNews.html',
+          controller: 'NewnewsCtr'
+        }
+      }
+    })
 
 
+    // home  最新动态详情
+ /*   .state('r.tab.homeNewsContent',{
+      url: '/homeNewsContent',
+      nativeTransitions: null,
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/newsContent.html',
+          controller: 'newsContentCtr'
+        }
+      }
+    })*/
 
 
+    .state('r.homeNewsContent', {
+      url: '/homeNewsContent/:postID',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.homeNewsContent')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Home/newsContent.html',
+          controller: 'newsContentCtr'
+        }
+      }
+    })
 
 
 
@@ -668,7 +710,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
   })
 
 
-    
+
 
 
   //setting  个人设置 邀请好友
