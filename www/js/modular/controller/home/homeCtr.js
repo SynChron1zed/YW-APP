@@ -39,7 +39,7 @@ $scope.gosales=function (r) {
         native.confirm('该操作需要登录','您还没有登录',['登录','取消'],function(c){
           if(c  == 1){
             $scope.goModular('r.login');
-          }          
+          }
         });
 
       }
@@ -52,11 +52,11 @@ $scope.gosales=function (r) {
     if(storage.getObject('UserInfo').user_id){
     $scope.goModular('r.listofgoods')
     }else{
-      
+
         native.confirm('该操作需要登录','您还没有登录',['登录','取消'],function(c){
           if(c  == 1){
             $scope.goModular('r.login');
-          }          
+          }
         });
 
 
@@ -96,6 +96,16 @@ $scope.gosales=function (r) {
 
     }
   });
+
+
+
+  //最新动态
+  $scope.Newnews = function (r) {
+
+
+    fromStateServ.stateChange(r);
+  };
+
 
 
 }]);

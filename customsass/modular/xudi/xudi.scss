@@ -630,3 +630,55 @@ background-color: #ffd21c;
 
 
 .modal-backdrop,.modal-backdrop-bg{position:fixed;top:0;left:0;z-index:11;width:100%;height:100%}
+
+.news-yiyu{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  max-width: 90%;
+  font-weight: 500;
+}
+
+
+
+
+.yiyutwo{
+  overflow: hidden;
+  display: -webkit-box;
+  max-width: 87%;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: #a2a2a2;
+  font-size: 14px;
+  margin-top: 5px;
+}
+.news-time{
+  font-size: .1rem;
+  color: #a2a2a2;
+  margin-top: 7px;
+  position: absolute;
+}
+.newsC-img{
+  width: 100%;
+  height: 180px;
+  margin-top: 10px;
+}
+.newsC-img2{
+  width: 96%;
+  height: 100%;
+  margin-left: 2%;
+}
+.newsC-text{
+  margin-top: 1rem;
+  text-align: -webkit-center;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-size: 25px;
+}
+
+.newsC-content{
+  margin-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
