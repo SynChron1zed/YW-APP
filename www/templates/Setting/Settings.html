@@ -1,6 +1,6 @@
 <ion-view view-title="个人中心"   hide-nav-bar="true"   style="overflow-x: hidden; overflow-y:visible;" scroll="false"   >
   <ion-content style="background: whitesmoke"   overflow-scroll="false"   scrollbar-y="false"   >
-    
+
     <div class="ge-center-header">
 
         <div class="userheader">
@@ -60,17 +60,18 @@
      </label>
 
 
-       <label class="item ">
+       <label class="item " ng-click="integral()">
         <img src="./img/icon_share.png" alt="">
-          分享好友
-                <i class="ion-ios-arrow-right">  </i>
+          分享好友<span style="    margin-left: 6rem;position: absolute;
+    color: #aaa;">奖励积分</span>
+         <i class="ion-ios-arrow-right">  </i>
      </label>
    </div>
 
 
 
    <div class="list   gerenlist-icon">
-     
+
      <label class="item "  ng-click="userfanhui()" >
         <img src="./img/icon_feedback.png" alt="">
           用户反馈
@@ -124,7 +125,7 @@
            "
            ng-class="{'active':opencustomenuatts}"   >
         <div style="text-align:center">
-          
+
           <img   ng-src="{{shopid}}"
 
                  style="    width: 16em;

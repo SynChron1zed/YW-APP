@@ -668,6 +668,22 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
   })
 
 
+    
+
+
+  //setting  个人设置 邀请好友
+    .state('r.tab.SettingOne', {
+      url: '/Settings/SettingOne',
+      views: {
+        'setting': {
+          templateUrl: 'templates/Setting/Settinginvite.html',
+          controller: 'SettinginviteCtr'
+        }
+
+      }
+    })
+
+
   //setting  分类商品详情
 /*  .state('r.tab.ClassifDetails', {
     url: '/r.tab.ClassifDetails/:Classitem',

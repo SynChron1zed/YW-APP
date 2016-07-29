@@ -51,7 +51,7 @@ Ctr.controller('passwordoldCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
 
 
 
-  }
+  };
 
 
 
@@ -105,6 +105,7 @@ Ctr.controller('passwordoldCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
 
   //交互
   Tools.getData({
+
     "interface_number": "050305",
     "post_content": {
       "token": "",
@@ -115,6 +116,7 @@ Ctr.controller('passwordoldCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
       "verify_code":$scope.registbasinfo.Vercode
     }
   },function(r){
+   
     if(r.msg== "success"){
 
       $rootScope.$ionicGoBack();
