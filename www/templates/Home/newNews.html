@@ -1,0 +1,60 @@
+<ion-view view-title="最新动态"  >
+  <ion-nav-buttons side="left"    class="button back-button buttons button-clear header-item">
+    <div class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.homeNews')">
+      <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
+    </div>
+  </ion-nav-buttons>
+
+
+
+  <ion-content  scrollbar-y="false"  overflow-scroll="false"   style="background: white"  >
+
+    <ion-scroll  delegate-handle="list"
+                 lazy-scroll
+                 overflow-scroll="false"
+                 scrollbar-y="false"
+                 style="width: 100%;
+                     overflow:hidden
+                     "
+                 ng-style="caklateheight"  >
+      <ion-refresher spinner="ios"  pulling-text="刷新" on-refresh="loadOlderStories(true)"   ></ion-refresher>
+
+    <div class="list   gerenlist-icon" style="">
+
+      <label class=""   style=""  ng-repeat="item in newsList"  ng-click="newsContent(item.article_id)" >
+        <div class="row" style="height: 100px;    border-bottom: 1px solid #ccc;" >
+          <div  class="col" style="width: 100px">
+            <img src="{{item.qiniu_key}}"  style="width: 95%;
+    height: 80px;">
+
+          </div>
+
+          <div class="col col-60">
+            <span class="news-yiyu">{{item.title}}</span>
+            <span class="yiyutwo">{{item.abstract}}</span>
+            <span class="news-time">{{item.add_time | date:"yyyy-MM-dd HH:mm:ss" }}</span>
+
+            <i class="ion-ios-arrow-right" style="    float: right;
+    font-size: 20px;
+    margin-top: -30px;
+    color: #a2a2a2;"></i>
+
+          </div>
+          </div>
+      </label>
+    </div>
+
+      <ion-infinite-scroll  ng-if="expression" style="height: 20px;line-height: 40px;margin-bottom:20px;text-align: center" spinner="dots" on-infinite="loadOlderStories()"  distance="1%"  > </ion-infinite-scroll>
+      <div ng-if="newexpression" style="line-height: 90px;margin-bottom:40px;text-align: center;color:#999" >没有更多了!</div>
+
+</ion-scroll>
+
+
+  </ion-content>
+
+
+
+</ion-view>
+
+
