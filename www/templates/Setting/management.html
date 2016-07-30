@@ -1,0 +1,76 @@
+<ion-view hide-tabs="true" view-title="员工管理"  >
+
+
+  <ion-nav-buttons side="right"    class="button back-button buttons button-clear header-item">
+    <div class="button back-button buttons button-clear header-item"   ng-click="next()"    >
+      <span class="previous-title"     ></span></span>
+
+    </div>
+  </ion-nav-buttons>
+  <ion-content  scrollbar-y="false"  overflow-scroll="false"   style="background: #f2f2f2"  >
+
+
+    <ion-scroll  delegate-handle="list"
+                 lazy-scroll
+                 overflow-scroll="false"
+                 scrollbar-y="false"
+                 style="width: 100%;
+                     overflow:hidden
+                     "
+                 ng-style="caklateheight"  >
+      <ion-refresher spinner="ios"  pulling-text="刷新" on-refresh="loadOlderStories(true)"   ></ion-refresher>
+
+      <div class="list   gerenlist-icon" style="">
+
+
+        <div class="row" style="height: 60px;    border-bottom: 1px solid #ccc;" ng-repeat="item in newsList" >
+          <div  class="col " style="width: 100px">
+            <div style="    font-size: 15px;
+    margin-top: 15px">{{item.user.real_name}}</div>
+
+          </div>
+
+          <div class="col ">
+            <button ng-click="deleteCompany(item.user.user_id,$index)" class="button button-small  button-balanced " style="    min-width: 41px;
+    float: right;
+    margin-top: 10px;
+    background-color: #a2a2a2">离职</button>
+
+            <button class="button button-small  button-balanced" style="    min-width: 41px;
+    float: right;
+    margin-top: 10px;
+    color: #333;
+    background-color: #feeb0b;
+    margin-right: 4%;" ng-click="agreeSize(item.user.user_id,$index)">移交</button>
+
+            <button ng-click="recharge(item.user.user_id)" class="button button-small  button-balanced " style="    min-width: 41px;
+    float: right;
+    margin-right: 4%;
+    margin-top: 10px;
+    background-color: #ef473a;" >充值</button>
+
+
+          </div>
+
+
+
+
+
+        </div>
+
+      </div>
+
+      <ion-infinite-scroll  ng-if="expression" style="height: 20px;line-height: 40px;margin-bottom:20px;text-align: center" spinner="dots" on-infinite="loadOlderStories()"  distance="1%"  > </ion-infinite-scroll>
+      <div ng-if="!expression" style="line-height: 90px;margin-bottom:40px;text-align: center;color:#999" >没有更多了!</div>
+
+    </ion-scroll>
+
+
+  </ion-content>
+
+
+
+</ion-view>
+
+
+
