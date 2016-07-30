@@ -1,0 +1,102 @@
+<ion-view hide-tabs="true" view-title="公司设置"  >
+
+
+  <ion-nav-buttons side="right"    class="button back-button buttons button-clear header-item">
+    <div class="button back-button buttons button-clear header-item"   ng-click="next()"    >
+      <span class="previous-title"     ></span></span>
+
+    </div>
+  </ion-nav-buttons>
+  <ion-content  scrollbar-y="false"  overflow-scroll="false"   style="background: white"  >
+    <div>
+      <div style="height: 8rem;background-color: #333">
+          <div style="  color: white;   font-size: 12px;
+    margin-top: 4.5rem;
+    position: absolute;    float: left;
+    margin-left: 25px;">公司ID：{{companyID}}</div>
+        <div style="    color: white;
+    font-size: 22px;
+    float: left;
+    margin-top: 6rem;margin-left: 25px;"> {{companyName}}</div>
+
+      </div>
+
+      <div  class="list   gerenlist-icon"  style="" ng-if="newexpression">
+
+        <label id = "companyInstall" class="item " ng-click='goManagement()' >
+
+          <span>员工管理</span>
+          <i class="ion-ios-arrow-right">  </i>
+        </label>
+
+
+
+        <label id = "companyInstall"  class="item companyInstall" ng-click="companyInstall()">
+
+          <span>公司账号充值</span>
+          <span style="float: right;color: #a2a2a2">{{invite}}积分</span>
+
+        </label>
+
+
+        <label id = "companyInstall" ng-if="expression" class="item companyInstall "   >
+
+          <span>认证信息</span>
+          <div style="float: right">   <button  class="button button-small  button-balanced " style="background-color: #e42112;" >{{autName}}</button>
+
+</div>
+        </label>
+
+        <label id = "companyInstall" ng-if="!expression" class="item companyInstall "  ng-click="Unauthorized()"  >
+
+          <span>认证信息</span>
+          <div style="float: right">   <button  class="button button-small  button-balanced " style="    background-color: #a2a2a2;
+    color: black;" >{{autName}}</button>
+
+          </div>
+        </label>
+
+
+        </div>
+
+    </div>
+
+
+
+
+  </ion-content>
+
+
+  <ion-footer-bar align-title="center"style="background-color: whitesmoke;"  >
+    <div class="buttons">
+      <!--<button class="button">左侧按钮</button>-->
+    </div>
+
+    <div class="title"  ng-click="deleteCompany()"  >
+      <div  style="
+                        height: 34px;
+                        line-height: 34px;
+                        background: transparent;
+                        font-weight: normal;
+                        margin-top: 5px;
+                        /*border: 1px solid #fe7e0b;*/
+                        border: none;
+                        border-radius: 5px;
+                        color: #fe7e0b;
+      " >
+        解除公司绑定
+      </div>
+
+    </div>
+    <div class="buttons" >
+
+      <!--<button class="button">右侧按钮</button>-->
+
+    </div>
+  </ion-footer-bar>
+
+
+</ion-view>
+
+
+
