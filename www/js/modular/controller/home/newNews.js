@@ -7,64 +7,62 @@
  */
 Ctr.controller('NewnewsCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','fromStateServ',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,fromStateServ){
 
-  var pageNum = 0;
-  $scope.newexpression=false
+
+
   $scope.newsList =[]
   $scope.expression=true
 
 
   $scope.loadOlderStories=function (type) {
 
-    if(type==true){
-      pageNum=0;
-      $scope.newexpression=false
-      $scope.newsList =[]
-      $scope.expression=true
-
-    }
-
-    pageNum +=1;
-    Tools.getData({
+    var sendoption  = {
       "interface_number": "020003",
       "client_type": window.platform,
       "post_content": {
         "token":"",
-        "token_phone": "",
-        "page_num":pageNum,
-        "page_per": 10
-
+        "token_phone": ""
       }
-    }, function (r) {
-      if (r) {
+    };
+
+    if(type){
+      sendoption.post_content.page_num  = $scope.page_number  = 1;
+    }else{
+      sendoption.post_content.page_num  = $scope.page_number;
+    }
 
 
+    Tools.getData(sendoption,function(r){
+      if(r){
+
+        if(r.resp_data.nextPage  == 0 ){
+          $scope.expression  = false;
+          $scope.page_number  =1;
+        }else{
+          $scope.expression  = true;
+          $scope.page_number  =r.resp_data.nextPage;
+        }
         angular.forEach(r.resp_data.data,function(c){
           c.qiniu_key  =  window.qiniuimgHost+c.qiniu_key+'?imageView2/1/w/200/h/200';
 
         });
 
-        if (r.resp_data.data.length == 0  ) {
-          $scope.expression = false
-          $scope.newexpression=true
-          $scope.newsList = $scope.newsList;
-
-        } else {
-          $scope.newexpression=false
-          for(var i=0;i<r.resp_data.data.length;i++){
-            $scope.newsList.push(r.resp_data.data[i])
-          }
-
-       /*   if(r.resp_data.nextPage==0){
-            $scope.expression = false
-            $scope.newexpression=true
-          }*/
+        if(type){
+          $scope.newsList  = r.resp_data.data;
+        }else{
+          angular.forEach(r.resp_data.data,function(c){
+            $scope.newsList.push(c);
+          });
         }
-        $timeout(function () {
-          $scope.$broadcast('scroll.infiniteScrollComplete');
-          $scope.$broadcast('scroll.refreshComplete');
-        }, 600);
+
+
+
+
       }
+      $scope.$broadcast('scroll.refreshComplete');
+      $scope.$broadcast('scroll.infiniteScrollComplete');
     });
+
+
   };
 
 

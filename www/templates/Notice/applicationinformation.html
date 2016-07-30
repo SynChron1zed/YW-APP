@@ -1,0 +1,68 @@
+<ion-view hide-tabs="true" view-title="申请消息"  >
+
+
+  <ion-nav-buttons side="right"    class="button back-button buttons button-clear header-item">
+    <div class="button back-button buttons button-clear header-item"   ng-click="next()"    >
+      <span class="previous-title"     ></span></span>
+
+    </div>
+  </ion-nav-buttons>
+  <ion-content  scrollbar-y="false"  overflow-scroll="false"   style="background: #f2f2f2"  >
+
+
+    <ion-scroll  delegate-handle="list"
+                 lazy-scroll
+                 overflow-scroll="false"
+                 scrollbar-y="false"
+                 style="width: 100%;
+                     overflow:hidden
+                     "
+                 ng-style="caklateheight"  >
+      <ion-refresher spinner="ios"  pulling-text="刷新" on-refresh="loadOlderStories(true)"   ></ion-refresher>
+
+      <div class="list   gerenlist-icon" style="">
+
+
+          <div class="row" style="height: 60px;    border-bottom: 1px solid #ccc;"ng-repeat="item in newsList" >
+            <div  class="col col-60" style="width: 100px">
+              <div>{{item.user.real_name}}</div>
+              <div style="font-size: 13px;
+    color: #a2a2a2;
+    margin-top: 5px;">申请加入公司</div>
+            </div>
+
+            <div class="col ">
+              <button class="button button-small  button-balanced" style="    min-width: 55px;
+    float: right;
+
+    margin-top: 10px;color: #333;
+    background-color: #feeb0b;" ng-click="agreeSize(item.user.user_id,$index)">同意</button>
+
+
+
+            </div>
+
+            <div class="col">
+
+              <button ng-click="refuseOne(item.user.user_id,$index)" class="button button-small  button-balanced " style="    min-width: 55px;
+    float: right;
+    margin-right: 3%;
+    margin-top: 10px;background-color: #ef473a;" >拒绝</button>
+            </div>
+          </div>
+
+      </div>
+
+      <ion-infinite-scroll  ng-if="expression" style="height: 20px;line-height: 40px;margin-bottom:20px;text-align: center" spinner="dots" on-infinite="loadOlderStories()"  distance="1%"  > </ion-infinite-scroll>
+      <div ng-if="!expression" style="line-height: 90px;margin-bottom:40px;text-align: center;color:#999" >没有更多了!</div>
+
+    </ion-scroll>
+
+
+  </ion-content>
+
+
+
+</ion-view>
+
+

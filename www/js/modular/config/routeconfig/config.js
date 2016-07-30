@@ -505,6 +505,18 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
+    // Notice   员工审核消息
+    .state('r.tab.information',{
+      nativeTransitions: null,
+      url: '/information',
+      views: {
+        'notice': {
+          templateUrl: 'templates/Notice/applicationinformation.html',
+          controller: 'informationCtr'
+        }
+      }
+    })
+
 
     // Notice Detail  通知详情
     .state('r.tab.NoticeDetail', {

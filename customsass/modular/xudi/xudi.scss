@@ -641,8 +641,6 @@ background-color: #ffd21c;
 }
 
 
-
-
 .yiyutwo{
   overflow: hidden;
   display: -webkit-box;
@@ -654,7 +652,7 @@ background-color: #ffd21c;
   margin-top: 5px;
 }
 .news-time{
-  font-size: .1rem;
+  font-size: 7px;
   color: #a2a2a2;
   margin-top: 7px;
   position: absolute;
@@ -681,4 +679,11 @@ background-color: #ffd21c;
   margin-top: 20px;
   padding-left: 10px;
   padding-right: 10px;
+}
+.popup-body {
+  padding: 10px;
+  overflow: auto;
+  text-align: -webkit-center;
+  font-size: 15px;
+  color: #e42112;
 }
