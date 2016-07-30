@@ -88,7 +88,7 @@ Ctr.controller('informationCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
   },600)
 
   $scope.agreeSize = function(value,index) {
-    debugger;
+  
     var confirmPopup = $ionicPopup.confirm({
    /*   buttons:[{text:"取消"},{text:"确认"}],*/
       title: '同意申请人加入公司?',
@@ -97,7 +97,7 @@ Ctr.controller('informationCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
 
     });
     confirmPopup.then(function(res) {
-      debugger;
+    
       if(res) {
         Tools.getData({
           "interface_number": "000401",
@@ -109,7 +109,7 @@ Ctr.controller('informationCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
           }
 
         },function(r){
-          debugger;
+       
 
 
           if(r.msg== "success"){
@@ -136,13 +136,13 @@ Ctr.controller('informationCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
 
 
   $scope.refuseOne = function(value,index) {
-    debugger;
+  
     var confirmPopup = $ionicPopup.confirm({
      /* buttons:[{text:"取消"},{text:"确认"}],*/
       template: '拒绝申请人加入公司?'
     });
     confirmPopup.then(function(res) {
-      debugger;
+     
       if(res) {
 
         Tools.getData({
@@ -155,7 +155,7 @@ Ctr.controller('informationCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
           }
 
         },function(r){
-          debugger;
+        
 
           if(r.msg== "success"){
             Tools.rmArrin($scope.newsList,index);
