@@ -4,6 +4,10 @@ Ctr.controller('goodsclasslist',['$scope','fromStateServ','$timeout','Tools','na
 
 
 
+
+
+
+
  $scope.godetial  = function (r){
 
    $state.go('r.goodsclassDetail',{title:r.cate_name,id:r.cate_id})
@@ -92,14 +96,6 @@ $scope.parenttitle     =   fromStateServ.getState('r.goodsclasslist').title;
             native.task('删除成功');
         }
       })
-
-
-
-
   }
+}])
 
-
-
-
-
-}]);

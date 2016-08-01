@@ -267,7 +267,6 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
       },function (r){
         $scope.$broadcast('scroll.infiniteScrollComplete');
            if(r){
-
                 if(r.resp_data.nextPage  == 0){
                   $scope.selectgoodslitloadmoer  =  false;
                   $scope.selectgoodslitpag   =1;
@@ -275,17 +274,17 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
                   $scope.selectgoodslitloadmoer  =  true;
                   $scope.selectgoodslitpag   =r.resp_data.nextPage;
                 }
-
                 angular.forEach(r.resp_data.data,function(c){
-
                   if(c.select){ $scope.selectitemin ++; }
                   c.img_url   =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200',
                   $scope.selectgoodslit.push(c);
-
                 })
-
-
+           }else{
+             $scope.selectgoodslitloadmoer  =  true;
            }
+
+
+
       })
 
   }

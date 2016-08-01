@@ -937,9 +937,35 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-
-
-
+  //收货地址添加编辑
+    .state('r.Productdetails', {
+      url: '/Productdetails?id:',
+      cache:false,
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.Productdetails')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          params:{id:null},
+          templateUrl: 'templates/goods/Productdetails.html',
+          controller: 'ProductdetailsCtr'          
+        }
+      }
+    })       
+    //确认订单
+    .state('r.ConfirmorderZf', {
+          url: '/ConfirmorderZf',          
+          views: {
+            'rootview': {
+              templateUrl: 'templates/goods/comf.html',
+              controller: 'ConfirmorderZfctr'
+            }
+          }
+        })
+        
 
 
 

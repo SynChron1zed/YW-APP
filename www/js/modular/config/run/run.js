@@ -212,8 +212,8 @@ $ionicNativeTransitions,$timeout,native) {
     if(window.platform  !== 'ios'){
       window.updateAPP();
     }
-        
   });
+  
   window.updateAPP  =  function(){
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {

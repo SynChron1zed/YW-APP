@@ -18,18 +18,16 @@
     </ion-nav-buttons>
     <!--</ion-header-bar>-->
 </ion-nav-bar>
-
-
-
   <ion-content  overflow-scroll="false"   scrollbar-y="false"   style='background-color:#f3f3f3' >
 
 
+      <div ng-click="goodsdetila()" style="height:100px;">
+      dsadsa
+      </div>  
 
 
 
-
-
-    <ion-slide-box  class='homeSlidebox' auto-play='true' >
+    <ion-slide-box  class='homeSlidebox' auto-play='true'  does-continue="true" >
       <ion-slide  ng-click='a1()' >
         <img ng-src="{{'http://oap3nxgde.bkt.clouddn.com/ad_index_1.jpg?imageView2/1/w/828/h/362'}}" alt="">
       </ion-slide>
@@ -62,19 +60,19 @@
 
     <div class="homebox">
       <div class="row ">
-        <div class="col col-33" ui-sref="r.tab.HomSales" >
+        <div class="col col-33" ng-click="xiaoshouorder()" >
           <img src="./img/homepage/iconfont-diqiu@3x.png" alt="">
           <p>销售订单</p>
         </div>
 
 
-        <div class="col col-33"   ng-click="goModular('r.HomShopadmin')" >
+        <div class="col col-33"   ng-click="shomsge()" >
           <img src="./img/homepage/iconfont-shangchengxiton@3x.png" alt="">
           <p>店铺管理</p>
         </div>
 
 
-        <div class="col col-33" ng-click="gosales('r.HomPurchase')">
+        <div class="col col-33" ng-click="caigoudindan1()">
           <img src="./img/homepage/icon_procurement@3x.png" alt="">
           <p>采购订单</p>
         </div>

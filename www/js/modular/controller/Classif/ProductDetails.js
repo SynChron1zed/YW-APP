@@ -38,8 +38,7 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
   $scope.backView  = function(){
     $scope.$ionicGoBack();
   };
-
-
+  
   $ionicModal.fromTemplateUrl('templates/modal.html', {
     scope: $scope,
     backdropClickToClose:false

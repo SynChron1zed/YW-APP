@@ -319,11 +319,9 @@ $scope.swatchtstate  = function (){
           $scope.downlistloadmor  = true;
           $scope.page_number  = 1;
           $scope.datalist  = [];
-
-
     }
-
   }
+
   $scope.right =  function (){
     if($scope.liststate){
       $ionicScrollDelegate.$getByHandle('list').scrollTop();
@@ -333,7 +331,6 @@ $scope.swatchtstate  = function (){
       $scope.datalist  = [];
     }
   }
-
 
   $scope.closectr  =   function (){
       angular.forEach($scope.datalist,function(c){
@@ -418,11 +415,12 @@ $scope.swatchtstate  = function (){
                        $scope.datalist.push(c);
                    });
                  }
+          }else{
 
-
-
+            $scope.downlistloadmor  = false;
 
           }
+          
           $scope.$broadcast('scroll.refreshComplete');
           $scope.$broadcast('scroll.infiniteScrollComplete');
     })
