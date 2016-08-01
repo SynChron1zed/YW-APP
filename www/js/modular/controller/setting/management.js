@@ -106,49 +106,56 @@ Ctr.controller('managementCtr',['$scope','$rootScope','$ionicViewSwitcher','$sta
       return false;
     }
 
-    var confirmPopup = $ionicPopup.confirm({
 
-    title: '确定对员工离职?',
+    $ionicPopup.show({
+
+      title: '确定对员工离职?',
+
+      scope: $scope,
+      buttons: [
+        { text: '取消' },
+        {
+          text: '<b>确认</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            console.log(1)
+
+            Tools.getData({
+              "interface_number": "000402",
+              "post_content": {
+                "token":"",
+                "token_phone": "",
+                "userId": value,
+                "isSelf":"2"
+              }
+
+            },function(r){
 
 
-  });
-    confirmPopup.then(function(res) {
 
-      if(res) {
-        Tools.getData({
-          "interface_number": "000402",
-          "post_content": {
-            "token":"",
-            "token_phone": "",
-            "userId": value,
-            "isSelf":"2"
+              if(r.msg== "success"){
+                Tools.rmArrin($scope.newsList,index);
+                native.task('操作成功');
+
+              }else{
+
+                return false
+
+              }
+
+
+            });
+
+
           }
 
-        },function(r){
 
-
-
-          if(r.msg== "success"){
-            Tools.rmArrin($scope.newsList,index);
-            native.task('操作成功');
-
-          }else{
-
-            return false
-
-          }
-
-
-        });
-
-        console.log('You are sure');
-      } else {
-
-        console.log('You are not sure');
-      }
+        },
+      ]
     });
 
-  }
+
+  };
 
 
 $scope.recharge = function (value) {
@@ -226,7 +233,7 @@ $scope.recharge = function (value) {
           type: 'button-positive',
           onTap: function(e) {
             console.log(1)
-            
+
             Tools.getData({
              "interface_number": "000403",
              "post_content": {
@@ -301,100 +308,6 @@ $scope.recharge = function (value) {
       $scope.Userinfo.integral    = user.integral
     }
   };
-
-
-/*
-
-  $scope.agreeSize = function(value,index) {
-
-    var confirmPopup = $ionicPopup.confirm({
-      /!*   buttons:[{text:"取消"},{text:"确认"}],*!/
-      title: '同意申请人加入公司?',
-      oktext:"确认",
-      canltext:"取消"
-
-    });
-    confirmPopup.then(function(res) {
-
-      if(res) {
-        Tools.getData({
-          "interface_number": "000401",
-          "post_content": {
-            "token":"",
-            "token_phone": "",
-            "userId": value,
-            "isPass": "1"
-          }
-
-        },function(r){
-
-
-
-          if(r.msg== "success"){
-            Tools.rmArrin($scope.newsList,index);
-            native.task('成功');
-
-          }else{
-
-            return false
-
-          }
-
-
-        });
-
-        console.log('You are sure');
-      } else {
-
-        console.log('You are not sure');
-      }
-    });
-  };
-
-
-
-  $scope.refuseOne = function(value,index) {
-
-    var confirmPopup = $ionicPopup.confirm({
-      /!* buttons:[{text:"取消"},{text:"确认"}],*!/
-      template: '拒绝申请人加入公司?'
-    });
-    confirmPopup.then(function(res) {
-
-      if(res) {
-
-        Tools.getData({
-          "interface_number": "000401",
-          "post_content": {
-            "token":"",
-            "token_phone": "",
-            "userId": value,
-            "isPass": "0"
-          }
-
-        },function(r){
-
-
-          if(r.msg== "success"){
-            Tools.rmArrin($scope.newsList,index);
-            native.task('成功');
-
-          }else{
-
-            return false
-
-          }
-
-
-        });
-
-        console.log('You are sure');
-      } else {
-        console.log('You are not sure');
-      }
-    });
-  };
-*/
 
 
 

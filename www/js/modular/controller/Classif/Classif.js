@@ -21,7 +21,7 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
 
 
 
-  var pageNum = 0;
+
   var cateId = 1;
   $scope.imageshow=true;
   $scope.imagehide =false;

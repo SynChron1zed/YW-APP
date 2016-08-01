@@ -88,93 +88,108 @@ Ctr.controller('informationCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
   },600)
 
   $scope.agreeSize = function(value,index) {
-  
-    var confirmPopup = $ionicPopup.confirm({
-   /*   buttons:[{text:"取消"},{text:"确认"}],*/
+
+    $ionicPopup.show({
+
       title: '同意申请人加入公司?',
-      oktext:"确认",
-      canltext:"取消"
 
-    });
-    confirmPopup.then(function(res) {
-    
-      if(res) {
-        Tools.getData({
-          "interface_number": "000401",
-          "post_content": {
-            "token":"",
-            "token_phone": "",
-            "userId": value,
-            "isPass": "1"
+      scope: $scope,
+      buttons: [
+        { text: '取消' },
+        {
+          text: '<b>确认</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            console.log(1)
+
+            Tools.getData({
+              "interface_number": "000401",
+              "post_content": {
+                "token":"",
+                "token_phone": "",
+                "userId": value,
+                "isPass": "1"
+              }
+
+            },function(r){
+
+
+
+              if(r.msg== "success"){
+                Tools.rmArrin($scope.newsList,index);
+                native.task('成功');
+
+              }else{
+
+                return false
+
+              }
+
+
+            });
+
+
           }
 
-        },function(r){
-       
 
-
-          if(r.msg== "success"){
-            Tools.rmArrin($scope.newsList,index);
-            native.task('成功');
-
-          }else{
-
-            return false
-
-          }
-
-
-        });
-
-        console.log('You are sure');
-      } else {
-
-        console.log('You are not sure');
-      }
+        },
+      ]
     });
+
   };
 
 
 
   $scope.refuseOne = function(value,index) {
-  
-    var confirmPopup = $ionicPopup.confirm({
-     /* buttons:[{text:"取消"},{text:"确认"}],*/
-      template: '拒绝申请人加入公司?'
-    });
-    confirmPopup.then(function(res) {
-     
-      if(res) {
 
-        Tools.getData({
-          "interface_number": "000401",
-          "post_content": {
-            "token":"",
-            "token_phone": "",
-            "userId": value,
-            "isPass": "0"
+
+    $ionicPopup.show({
+
+      title: '拒绝申请人加入公司?',
+
+      scope: $scope,
+      buttons: [
+        { text: '取消' },
+        {
+          text: '<b>确认</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            console.log(1)
+
+            Tools.getData({
+              "interface_number": "000401",
+              "post_content": {
+                "token":"",
+                "token_phone": "",
+                "userId": value,
+                "isPass": "0"
+              }
+
+            },function(r){
+
+
+              if(r.msg== "success"){
+                Tools.rmArrin($scope.newsList,index);
+                native.task('成功');
+
+              }else{
+
+                return false
+
+              }
+
+
+            });
+
+
           }
 
-        },function(r){
-        
 
-          if(r.msg== "success"){
-            Tools.rmArrin($scope.newsList,index);
-            native.task('成功');
-
-          }else{
-
-            return false
-
-          }
-
-
-        });
-
-        console.log('You are sure');
-      } else {
-        console.log('You are not sure');
-      }
+        },
+      ]
     });
+
+    
   };
 
 
