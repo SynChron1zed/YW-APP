@@ -289,6 +289,25 @@ debugger;
   },600)
 
 
+  $scope.newcaklateheight  = {};
+  function   newcaklatehe  (){
+   
+    if(window.platform  == 'ios'){
+      $scope.newcaklateheight  = {
+        width:window.innerWidth+'px'
+      }
+    }else{
+      $scope.newcaklateheight  = {
+        width:window.innerWidth+'px'
+      }
+    }
+  };
+  newcaklatehe();
+  $timeout(function(){
+    newcaklatehe();
+  },600)
+
+
 
 }]);
 
