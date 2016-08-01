@@ -5,7 +5,51 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 
 
 
+  $scope.xiaoshouorder = function () {
+    
+     if(storage.getObject('UserInfo').user_id){
+      $state.go('r.tab.HomSales');
+      }else{
+        native.confirm('该操作需要登录','您还没有登录',['登录','取消'],function(c){
+          if(c  == 1){
+            $scope.goModular('r.login');
+          }
+        });
+      }
 
+  }
+
+  $scope.caigoudindan1  =function () {
+
+     if(storage.getObject('UserInfo').user_id){
+      $scope.gosales('r.HomPurchase');
+      }else{
+        native.confirm('该操作需要登录','您还没有登录',['登录','取消'],function(c){
+          if(c  == 1){
+            $scope.goModular('r.login');
+          }
+        });
+      }
+  }
+
+
+  $scope.shomsge  =function () {
+     if(storage.getObject('UserInfo').user_id){
+      $scope.gosales('r.HomShopadmin');
+      }else{
+        native.confirm('该操作需要登录','您还没有登录',['登录','取消'],function(c){
+          if(c  == 1){
+            $scope.goModular('r.login');
+          }
+        });
+      }
+  }
+
+
+  //商品详情
+  $scope.goodsdetila  =  function () {
+    $scope.goModular('r.Productdetails',{id:192});
+  }
 
 
  //对安卓返回键的  特殊处理  tabs
@@ -15,9 +59,7 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
        window.androdzerofun_clback  = undefined;
     });
 
-
 $scope.gosales=function (r) {
-
   fromStateServ.stateChange(r);
 }
 

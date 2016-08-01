@@ -8,6 +8,24 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   var   showlogin = function() {
     native.loading();
   };
+  
+    function  clone  (myObj){
+      if(typeof(myObj) != 'object') return myObj;
+      if(myObj == null) return myObj;
+      if(  myObj instanceof Array ){
+        var myNewObj = new Array();
+        for(var i in myObj){
+          myNewObj[i] = clone(myObj[i]);
+        }
+      }else{
+        var myNewObj = new Object();
+        for(var i in myObj){
+          myNewObj[i] = clone(myObj[i]);
+        }
+      }
+      return myNewObj;
+    }
+
 
   //上传到七牛  图片单张
   var   sendqiniu_single  =  function (data,claback,key_header,next){
@@ -265,23 +283,9 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       }
     },
     //克隆对象
-    clone:function (myObj){
-      if(typeof(myObj) != 'object') return myObj;
-      if(myObj == null) return myObj;
-      if(  myObj instanceof Array ){
-        var myNewObj = new Array();
-        for(var i in myObj){
-          myNewObj[i] = clone(myObj[i]);
-        }
-      }else{
-        var myNewObj = new Object();
-        for(var i in myObj){
-          myNewObj[i] = clone(myObj[i]);
-        }
-      }
-      return myNewObj;
-    },
 
+
+    clone:clone,
     //笛卡尔积  操作
     descartes:function(list) {
 //parent上一级索引;count指针计数
@@ -291,7 +295,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       var pIndex = null;
       var tempCount = 0;
       var temp = [];
-      
+
 //根据参数列生成指针对象
       for(var index in list)
       {

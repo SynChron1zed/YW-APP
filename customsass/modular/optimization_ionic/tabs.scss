@@ -142,7 +142,8 @@ img{
 
     .slider-slide{
       img{
-        height: 7rem;
+        min-height: 7rem;
+        width: 100%;
       }
     }
     .slider-pager{
@@ -380,4 +381,19 @@ ion-view{
 .bar .button.button-clear .icon:before, .bar .button.button-clear.icon:before, .bar .button.button-clear.icon-left:before, .bar .button.button-clear.icon-right:before, .bar button.button-clear .icon:before, .bar button.button-clear.icon:before, .bar button.button-clear.icon-left:before, .bar button.button-clear.icon-right:before{
   font-size: 28px !important;
   line-height: 34px !important;
+}
+
+.gooddetilslidbox{
+      .slider-slide {
+          img{
+            width: 100%;
+            min-height: 16rem;
+
+          }
+      }
+
+}
+
+.slider-pager .slider-pager-page.active{
+      opacity: .6;
 }

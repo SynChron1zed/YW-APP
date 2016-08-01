@@ -2,27 +2,280 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','native','Tools','$ionicPopup','$ionicModal','$rootScope','goodsState','$ionicScrollDelegate',function($scope,$timeout,$state,$stateParams,native,Tools,$ionicPopup,$ionicModal,$rootScope,goodsState,$ionicScrollDelegate){
+Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','native','Tools','$ionicPopup','$ionicModal','$rootScope','goodsState','$ionicScrollDelegate','$ionicActionSheet',function($scope,$timeout,$state,$stateParams,native,Tools,$ionicPopup,$ionicModal,$rootScope,goodsState,$ionicScrollDelegate,$ionicActionSheet){
 
 
 
 
+
+
+
+
+    //删除规格属性的方法
+    $scope.delattritem  = function(obj,index){
+      //维护skulist
+      //记录该条sku是否没有依赖则完全删除
+
+      if($scope.goods.edit){
+        //编辑状态下最少要保留一个
+        if(obj.length==1){
+          native.task('编辑状态下最少要保留一条属性规格!');
+          return  false;
+        }
+      }
+
+    native.confirm('删除是不可撤销的操作是否继续？','删除属性规格',['删除','取消'],function(c){
+                  if(c  == 1){
+
+                  if($scope.attrsprices.length == 1){
+                    $scope.attrsprices = [];
+                    $scope.goodsexpandc  =false;
+                  }else{
+                    $scope.goodsexpandc  =true;
+                  }
+                        var destroylist  = [];
+                        angular.forEach(obj,function(key,inz){
+                          if(index == inz){
+                            angular.forEach(key.sku,function(skuitem,skuindex){
+                              var  nwobj  = {};
+                              nwobj.name =  skuitem;
+                              nwobj.repeat = 0;
+                              angular.forEach(obj,function(kl,i){
+                                angular.forEach(kl.sku,function(sub_sku,lin){
+                                  if(sub_sku.goods_prop_id  ==  skuitem.goods_prop_id ){
+                                    //哈哈
+                                    if( sub_sku.prop_value == skuitem.prop_value ){
+                                      //蛋筒
+                                      nwobj.repeat++;
+                                    }
+                                  }
+                                })
+                              });
+                              destroylist.push(nwobj)
+                            })
+                          }
+                        });
+                        angular.forEach(destroylist,function(key){
+                          if(key.repeat ==1){
+                            var parentID =   key.name.goods_prop_id;
+                            var  sku_value =  key.name.prop_value;
+                            angular.forEach($scope.attslist,function(attslist){
+                              if(attslist.goods_prop_id  == parentID ){
+                                var  parentisselet = false;
+                                angular.forEach(attslist.propValue,function(sub_attslist,indx){
+                                  if(sub_attslist.prop_value  == sku_value ){
+                                    sub_attslist.select = false;
+                                  }
+                                  if(sub_attslist.select){
+                                    parentisselet = true;
+                                  }
+                                });
+                                if(parentisselet){
+                                  attslist.select = true;
+                                }else{
+                                  attslist.select = false;
+                                }
+                              }
+                            })
+                          }
+                        });
+                        Tools.rmArrin(obj,index);
+                        //更新索引
+                        angular.forEach(obj,function(l,inz){
+                          l.index=inz;
+                        });
+                           if($scope.attrsprices.length){
+                                $scope.hassku  = true;
+                            }else{
+                              $scope.hassku  = false;
+
+                            }
+
+                      
+                    
+
+
+                  }
+              })
+
+
+     
+      
+    };
+    
+    
+    
+
+
+    //批量设置价格
+    $scope.openlistset  = function (){
+      if($scope.attrsprices.length>0){
+        // 显示操作表
+        var  funlist   =  [
+            { text: '市场价' },
+            { text: '平台价' },
+            { text: '库存' },
+          ];
+        $ionicActionSheet.show({
+          buttons:funlist,
+          titleText: '选择需要批量设置的属性',
+          cancelText: '取消',
+          buttonClicked: function(index) {
+          
+            if(index != 4 && index != 5 ){
+              //打开输入框
+              $ionicPopup.prompt({
+                title:'输入批量设置的数量!',
+                inputType:'number',
+                inputPlaceholder:'请输入数量',
+                okText:'确认',
+                cancelText:'取消'
+              }).then(function(res){
+                var resulf =null;
+                if(index==0){
+                  //进货价
+                  resulf = 'retail_price';
+                }
+                if(index ==1){
+                  //零售价
+                  resulf = 'activity_price';
+                }
+                if(index ==2){
+                  //批发价
+                  resulf = 'number';
+                }
+                angular.forEach($scope.attrsprices,function(key){
+                  key.msg[resulf] = res
+                });
+              });
+            };
+
+            return true;
+          }
+        });
+      }else{
+
+        native.task('请添加至少一个,商品的规格属性!');
+
+
+      }
+    };
+
+        
+        $scope.attrsprices  = [];
         $scope.savesku  = function(){
-
-
-          console.log($scope.goods.skuSpe);
-
+          $scope.attrsprices  = [];
+          var   cheklist   = [];
           angular.forEach($scope.goods.skuSpe,function(ff){
               if(ff.select){
+                    var  chillist  = [];                
+                    angular.forEach(ff.child,function(ssz){
 
-                
+                      if(ssz.select){
+                         chillist.push({
+                                        goods_prop_id:ff.goods_prop_id,
+                                        prop_name:ff.prop_name,
+                                        prop_value:ssz.prop_value,
+                                        prop_value_id:ssz.prop_value_id,
+                                        start:false                                        
+                         });
+                      }
+                    });
+                    cheklist.push(chillist);
               }
+          });
+
+            var   msgint  ={
+              retail_price:undefined,
+              activity_price:undefined,
+              number:undefined,
+            };            
+
+          var   c  = Tools.descartes(cheklist);
+          var  ref = [];
+          for(var o = 0; o< c.length;o++){
+            var newobj = {};
+            newobj.sku = c[o];
+            newobj.index = ref.length;
+            ref.push(newobj)
+          }
+
+      angular.forEach($scope.attrsprices,function(kin){
+        angular.forEach(ref,function(ls){
+          if( kin.sku[0].goods_prop_id  ==  ls.sku[0].goods_prop_id  &&  kin.sku[0].prop_value_id  ==   ls.sku[0].prop_value_id  ){
+            ls.msg = kin.msg;
+            if(kin.local_sku_id){
+              ls.msg.local_sku_id = kin.local_sku_id;
+            }
+
+          }
+        })
+      });
+
+      if($scope.attrsprices.length==0){
+        $scope.attrsprices = Tools.clone(ref);
+      }else{
+        //length不对直接对比条数进行删除
+        if(ref.length != $scope.attrsprices.length){
+          if(ref.length>$scope.attrsprices.length){
+            //这里是生成的数据大于源有的
+            angular.forEach(ref,function(key,index){
+              if($scope.attrsprices[index] == undefined){
+
+                key.msg =Tools.clone(msgint);
+                key.index = $scope.attrsprices.length;
+              }else{
+
+                key.msg = Tools.clone($scope.attrsprices[index].msg);
+                if($scope.attrsprices[index].local_sku_id){
+                  key.msg.local_sku_id  =  $scope.attrsprices[index].local_sku_id;
+                }
+              }
+            });
+            $scope.attrsprices  =Tools.clone(ref);
+          }else if(ref.length<$scope.attrsprices.length){
+            angular.forEach($scope.attrsprices,function(key,inc){
+              if(ref[inc] == undefined){
+                delete  $scope.attrsprices[inc];
+                $scope.attrsprices.length = $scope.attrsprices.length-1;
+              }else{
+                key.sku = Tools.clone(ref[inc].sku);
+              }
+            })
+          }
+        }else{
+          angular.forEach($scope.attrsprices,function(key,inc){
+            key.sku  = Tools.clone(ref[inc].sku);
           })
-          //console.log($scope)
+        }
+      }
+      if($scope.attrsprices.length!=0){
+        $scope.goodsexpandc  =true;
+      }else  if($scope.attrsprices.length==0){
+        $scope.goodsexpandc  =false;
+      }
+      
+      angular.forEach($scope.attrsprices,function(kin){
+        if(kin.msg){
+        }else{
+          kin.msg = Tools.clone(msgint);
+        }
+      });
 
-          //var   handata  = Tools.descartes($scope.goods.skuSpe);
-          //console.log(handata);
+        if($scope.attrsprices.length){
+              $scope.hassku  = true;
+        }else{
+          $scope.hassku  = false;
 
+        }
+
+
+
+        
+
+
+        $scope.sku.hide();
+        
 
         };
 
@@ -272,40 +525,35 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
             "goods_id": $stateParams.id?$stateParams.id:'',
          }
     },function(r){
-         if(r){
-
+         if(r){           
               $scope.goods.systemClass   = r.resp_data.sys_cate;
               $scope.goods.catelist  = r.resp_data.shop_cate;
               $scope.systemparnslec();
               //$scope.goods.Stock_number  =
               $scope.hassku  = false;
 
-              
               angular.forEach(r.resp_data.prop,function(ha){
                       ha.chekd  = false;
                       if(ha.select){
                             $scope.hassku =  true;
                       }
               });
-
               $scope.goods.skuSpe  =  r.resp_data.prop;
-
               $scope.chengselect();
+              $scope.goods.skuinfo  = [];
+
               if($scope.goods.edit){
                 $scope.goods.barcode =   r.resp_data.goodsInfo.barcode;
                 $scope.goods.freight_price =   parseFloat(r.resp_data.goodsInfo.express_fee);
                 $scope.goods.is_virtual  =     r.resp_data.goodsInfo.is_virtual?true:false;
                 $scope.goods.title =     r.resp_data.goodsInfo.goods_title;
-                $scope.goods.Market_price =    parseFloat(r.resp_data.goodsInfo.retail_price);
-                $scope.goods.Platform_price =    parseFloat(r.resp_data.goodsInfo.activity_price);
+
+                
+
                 $scope.goods.id  = r.resp_data.goodsInfo.goods_basic_id;
-                $scope.goods.Stock_number  =   r.resp_data.goodsInfo.total_in_number;
+                
                 $scope.goods.goodsDesc     =  r.resp_data.goodsInfo.total_in_number;
-
-
-
-
-
+                $scope.goods.skuinfo  =  r.resp_data.skuInfo;
 
                 angular.forEach(r.resp_data.goodsInfo.arr_img,function (v){
                   var   c = undefined;
@@ -326,6 +574,58 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
                   }
                   $scope.goodspice.push(c);
                 })
+
+                if($scope.hassku){
+                  //还原sku
+                  angular.forEach($scope.goods.skuinfo,function(ff){
+
+                          var skuin   = [];
+                          var skuid  =  ff.properties.split(";");
+                          var skuname  =  ff.properties_name.split(";");
+                             skuname.length  =  skuname.length-1;
+                             skuid.length  =  skuid.length-1;
+                             
+                            angular.forEach(skuid,function(skulitem,skuinde){
+                            var   idhan  =  skulitem.split(':');
+                            var   namhan   = skuname[skuinde].split(':');
+                            
+
+
+                            skuin.push({
+                              goods_prop_id:idhan[0],
+                              prop_value_id:idhan[1],
+                              prop_name:namhan[0],
+                              prop_value:namhan[1],
+                            })
+
+                          })
+
+
+                        $scope.attrsprices.push({
+                          index:$scope.attrsprices.length,
+                          msg:{
+                            activity_price:ff.activity_price,
+                            number:ff.quantity,
+                            retail_price:ff.retail_price,
+                            local_sku_id:ff.local_sku_id
+                          },
+                          sku:skuin
+                        })
+                  })
+
+                  console.log($scope.attrsprices);
+
+                    
+
+
+
+                }else{
+                  $scope.goods.Market_price    =      parseFloat($scope.goods.skuinfo[0].retail_price);
+                  $scope.goods.Platform_price  =    parseFloat($scope.goods.skuinfo[0].activity_price);
+                  $scope.goods.Stock_number    =     parseFloat($scope.goods.skuinfo[0].quantity);
+                }
+
+                
 
 
 
@@ -570,14 +870,6 @@ $scope.save  = function (){
     native.task('请填写条码!')
     return  false;
   }
-  if(!$scope.goods.Market_price){
-    native.task('请填写市场价!')
-    return  false;
-  }
-  if(!$scope.goods.Platform_price){
-    native.task('请填写平台价!')
-    return  false;
-  }
 
   native.loading();
   uploadimg(function(){
@@ -618,7 +910,63 @@ $scope.save  = function (){
       }
     })
 
+    var sku = [];
+    if($scope.attrsprices.length == 0){
 
+        if(!$scope.goods.Market_price){
+          native.task('请填写市场价!')
+          native.hidloading();
+          return  false;
+        }
+        if(!$scope.goods.Platform_price){
+          native.task('请填写平台价!')
+          native.hidloading();
+          return  false;
+        }
+
+        var loid  =undefined;
+
+        if($scope.goods.skuinfo.length){
+              loid =   $scope.goods.skuinfo[0].local_sku_id;
+        }
+        
+        sku.push({
+          activity_price:$scope.goods.Platform_price,
+          retail_price:$scope.goods.Market_price,
+          properties:'',                    
+          quantity:$scope.goods.freight_price?$scope.goods.freight_price:'0',
+          local_sku_id:loid,
+
+        })
+    }else{
+
+      var  bitian  = true;
+      angular.forEach($scope.attrsprices,function(fff){
+          if(!fff.msg.activity_price   || !fff.msg.retail_price){
+             bitian  = false;
+          }
+          var skuid  = '';
+          angular.forEach(fff.sku,function(xxx){
+                skuid+=xxx.goods_prop_id+':'+xxx.prop_value_id+';';
+          })
+          sku.push({
+          activity_price:fff.msg.activity_price,
+          retail_price:fff.msg.retail_price,
+          properties:skuid,                    
+          quantity:fff.msg.number?fff.msg.number:'0',
+          local_sku_id:fff.msg.local_sku_id?fff.msg.local_sku_id:''
+        })
+      })
+
+      if(!bitian){
+        native.task('请填写完整价格信息!');
+        native.hidloading();
+        return false;
+      }
+
+
+
+    }   
 
 
     var sendoption  =  {
@@ -628,14 +976,13 @@ $scope.save  = function (){
          "sys_cate_id":sys_catId,
          "barcode": $scope.goods.barcode,
          "express_fee": $scope.goods.freight_price?$scope.goods.freight_price:0,
-         "is_virtual": $scope.goods.is_virtual?'1':'0',
-         "retail_price": $scope.goods.Market_price,
-         "activity_price":  $scope.goods.Platform_price,
          "img_url": fenmiangtuimg?fenmiangtuimg:'',
-         "total_in_number": $scope.goods.Stock_number?$scope.goods.Stock_number:0,
          "arr_img":imglist.length?imglist:[],
          "cateIds": cartlist.length?cartlist:'',
-         "desc": $scope.goods.goodsDesc?$scope.goods.goodsDesc:''
+         "desc": $scope.goods.goodsDesc?$scope.goods.goodsDesc:'',
+          total_in_number:'',
+          total_in_price:'',
+          skuInfo:sku,
           }
     };
 
