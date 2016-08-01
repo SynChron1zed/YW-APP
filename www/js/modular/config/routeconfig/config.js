@@ -957,7 +957,13 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })       
     //确认订单
     .state('r.ConfirmorderZf', {
-          url: '/ConfirmorderZf',          
+          url: '/ConfirmorderZf',         
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.ConfirmorderZf')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      }, 
           views: {
             'rootview': {
               templateUrl: 'templates/goods/comf.html',
