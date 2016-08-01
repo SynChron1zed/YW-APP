@@ -1,35 +1,48 @@
-<ion-view view-title="慈善专区">
-  <ion-nav-bar   class="bar-positive ">
-    <ion-nav-buttons side="left">
-      <a   nav-direction="back"  href="/#/r/tab/Home"  class="button button-icon ion-ios-arrow-left">
+<ion-view  hide-tabs="true" view-title="慈善专区">
 
-      </a>
-    </ion-nav-buttons>
+
     <ion-nav-buttons side="right">
       <a   nav-direction="back"  href=""  class="button button-icon ">
 
       </a>
     </ion-nav-buttons>
-  </ion-nav-bar>
 
-  <ion-content style="background-color: whitesmoke" >
+
+  <ion-content style="background-color: whitesmoke;overflow: hidden;" overflow-scroll="false"  scrollbar-y="false" >
 
     <div>
-      <img src="./img/classif/banner@3x.png" alt="">
+      <img  ng-src="{{'http://oap3nxgde.bkt.clouddn.com/ad_index_2.jpg?imageView2/1/w/828/h/362'}}"alt="">
     </div>
     <div class=" taste-names">慈善商品</div>
     <div class=" row"><hr class="taste-hengxian"/></div>
 
 
+
+    <ion-scroll  delegate-handle="list"
+                 lazy-scroll
+                 overflow-scroll="false"
+                 scrollbar-y="false"
+                 style="width: 100%;
+                     overflow:hidden
+                     "
+                 ng-style="caklateheight"   >
+
+      <ion-refresher spinner="ios"  pulling-text="刷新" on-refresh="loadOlderStories(true)"   ></ion-refresher>
     <div id="class-boder" class="classlist" >
       <div class=" charitable-list " >
-        <div class="charitable-one" ng-repeat="item in Charitable" >
-          <img src="./img/classif/macair.png" alt="">
-          <div style="margin-top: 15px">{{item.goods_title}}</div>
+        <div class="charitable-one" ng-repeat="item in ShoppingList" >
+          <img  style="width: 100px;margin-top: 5px" src={{item.img_url}} alt="">
+          <div style="margin-top: 5px">{{item.goods_title}}</div>
           <div class="classif-price">￥{{item.total_in_price}} <span class="classif-priceone">￥19999</span></div>
         </div>
       </div>
     </div>
+
+      <ion-infinite-scroll  ng-if="expression" style="height: 20px;line-height: 40px;margin-bottom:20px;text-align: center" spinner="dots" on-infinite="loadOlderStories()"  distance="1%"  > </ion-infinite-scroll>
+      <div ng-if="!expression" style="line-height: 90px;margin-bottom:40px;text-align: center;color:#999" >没有更多了!</div>
+
+    </ion-scroll>
+
 
   </ion-content>
 </ion-view>

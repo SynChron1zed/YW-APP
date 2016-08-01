@@ -6,11 +6,12 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('managementCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize','storage',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize,storage){
+Ctr.controller('managementCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize','storage','fromStateServ',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize,storage,fromStateServ){
 
   $scope.newsList =[]
   $scope.expression=true;
   $scope.userid = storage.getObject('UserInfo').user_id;
+  $scope.integralnew = $stateParams.integral;
 
   //加载
   $scope.loadOlderStories=function (type) {
@@ -105,57 +106,66 @@ Ctr.controller('managementCtr',['$scope','$rootScope','$ionicViewSwitcher','$sta
       return false;
     }
 
-    var confirmPopup = $ionicPopup.confirm({
 
-    title: '确定对员工离职?',
+    $ionicPopup.show({
+
+      title: '确定对员工离职?',
+
+      scope: $scope,
+      buttons: [
+        { text: '取消' },
+        {
+          text: '<b>确认</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            console.log(1)
+
+            Tools.getData({
+              "interface_number": "000402",
+              "post_content": {
+                "token":"",
+                "token_phone": "",
+                "userId": value,
+                "isSelf":"2"
+              }
+
+            },function(r){
 
 
-  });
-    confirmPopup.then(function(res) {
 
-      if(res) {
-        Tools.getData({
-          "interface_number": "000402",
-          "post_content": {
-            "token":"",
-            "token_phone": "",
-            "userId": value,
-            "isSelf":"2"
+              if(r.msg== "success"){
+                Tools.rmArrin($scope.newsList,index);
+                native.task('操作成功');
+
+              }else{
+
+                return false
+
+              }
+
+
+            });
+
+
           }
 
-        },function(r){
 
-
-
-          if(r.msg== "success"){
-            Tools.rmArrin($scope.newsList,index);
-            native.task('操作成功');
-
-          }else{
-
-            return false
-
-          }
-
-
-        });
-
-        console.log('You are sure');
-      } else {
-
-        console.log('You are not sure');
-      }
+        },
+      ]
     });
 
-  }
+
+  };
 
 
 $scope.recharge = function (value) {
 
+  $scope.data={}
+
   $ionicPopup.show({
-    template: '<input type="text" ng-model="data.wifi">',
+    template: '<input type="text" ng-model="data.integral">',
     title: '充值积分',
-    subTitle: '请输入充值积分数量<br>（余额：1000）',
+    subTitle: '请输入充值积分数量<br>（余额：'+$scope.integralnew+'）',
     scope: $scope,
     buttons: [
       { text: '取消' },
@@ -163,114 +173,141 @@ $scope.recharge = function (value) {
         text: '<b>确认</b>',
         type: 'button-positive',
         onTap: function(e) {
-          if (!$scope.data.wifi) {
+
+
+          if (!$scope.data.integral) {
             // 不允许用户关闭，除非输入 wifi 密码
             e.preventDefault();
           } else {
-            return $scope.data.wifi;
+            console.log($scope.data.integral)
+           $scope.integrals =  $scope.data.integral;
+            Tools.getData({
+              "interface_number": "000404",
+              "post_content": {
+                "token":"",
+                "token_phone": "",
+                "staffId":value,
+                "integral":$scope.integrals
+
+              }
+
+            },function(r){
+
+
+              if(r.msg== "success"){
+                $scope.integralnew =   parseInt($scope.integralnew) - parseInt($scope.integrals)
+                native.task('充值成功');
+              }
+
+
+
+            });
+
           }
+
+          console.log(e)
         }
       },
     ]
   });
 
+
+
+
+
 }
 
 
+  $scope.handed = function (value) {
+    $scope.data={}
+
+    $ionicPopup.show({
+
+      title: '移交管理员',
+      subTitle: '移交权限需要重新登录，且本次操作不可逆，请确认是否移交?',
+      scope: $scope,
+      buttons: [
+        { text: '取消' },
+        {
+          text: '<b>确认</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            console.log(1)
+
+            Tools.getData({
+             "interface_number": "000403",
+             "post_content": {
+             "token":"",
+             "token_phone": "",
+             "userId":value
+
+             }
+
+             },function(r){
+
+             if(r.msg== "success"){
+
+             window.outlogin(function(){
+             $timeout(function(){
+             Initial();
+             },30)
+             })
+
+               $state.go('r.tab.Settings');
+
+             }
 
 
-/*
 
-  $scope.agreeSize = function(value,index) {
+             });
 
-    var confirmPopup = $ionicPopup.confirm({
-      /!*   buttons:[{text:"取消"},{text:"确认"}],*!/
-      title: '同意申请人加入公司?',
-      oktext:"确认",
-      canltext:"取消"
 
+
+
+
+          }
+
+
+        },
+      ]
     });
-    confirmPopup.then(function(res) {
 
-      if(res) {
-        Tools.getData({
-          "interface_number": "000401",
-          "post_content": {
-            "token":"",
-            "token_phone": "",
-            "userId": value,
-            "isPass": "1"
-          }
+  }
 
-        },function(r){
+//初始  信息
+  function  Initial  (){
 
+    var   user = storage.getObject('UserInfo');
+    if(user.user_id){
+      //登录了
+      $scope.Userinfo = {};
+      $scope.Userinfo.imgheader  =  window.qiniuimgHost+user.avatar+'?imageView2/1/w/300/h/300';
+      //哈哈哈
+      if(user.sex  =='0'){
+        $scope.Userinfo.sex  =  './img/icon_man@3x.png';
+      }else{
+        $scope.Userinfo.sex  =  './img/icon_women.png';
 
-
-          if(r.msg== "success"){
-            Tools.rmArrin($scope.newsList,index);
-            native.task('成功');
-
-          }else{
-
-            return false
-
-          }
-
-
-        });
-
-        console.log('You are sure');
-      } else {
-
-        console.log('You are not sure');
       }
-    });
+      $scope.Userinfo.login  = true;
+      $scope.Userinfo.name  = user.real_name;
+      Tools.getData({
+        "interface_number": "050300",
+        "post_content": {}
+      },function(r) {
+        if(r){
+          $scope.Userinfo.integral   =     r.resp_data.integral;
+        }
+      })
+    }else{
+      //没有登录
+      $scope.Userinfo = {};
+      $scope.Userinfo.imgheader  = user.avatar  ;
+      $scope.Userinfo.sex  =     user.sex;
+      $scope.Userinfo.login  = false;
+      $scope.Userinfo.integral    = user.integral
+    }
   };
-
-
-
-  $scope.refuseOne = function(value,index) {
-
-    var confirmPopup = $ionicPopup.confirm({
-      /!* buttons:[{text:"取消"},{text:"确认"}],*!/
-      template: '拒绝申请人加入公司?'
-    });
-    confirmPopup.then(function(res) {
-
-      if(res) {
-
-        Tools.getData({
-          "interface_number": "000401",
-          "post_content": {
-            "token":"",
-            "token_phone": "",
-            "userId": value,
-            "isPass": "0"
-          }
-
-        },function(r){
-
-
-          if(r.msg== "success"){
-            Tools.rmArrin($scope.newsList,index);
-            native.task('成功');
-
-          }else{
-
-            return false
-
-          }
-
-
-        });
-
-        console.log('You are sure');
-      } else {
-        console.log('You are not sure');
-      }
-    });
-  };
-*/
 
 
 

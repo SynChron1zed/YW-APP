@@ -1,25 +1,29 @@
-<ion-view view-title="消息" >
+<ion-view  view-title="消息" >
 
 
   <ion-content style="background: #f2f2f2;" overflow-scroll="false"   scrollbar-y="false"  >
 
+    <div class="shopcartnologin" ng-show="isShow">
+      <img src="./img/img3@x.png" alt="">
+      <button class="gotologin"    ng-click="login('r.login')" >登 录</button>
+    </div>
 
-    <ion-list  class="msg-list">
+    <ion-list  class="msg-list" ng-show="!isShow" >
       <ion-item class="item-remove-animate item-avatar item-icon-right"    >
         <img style="border-radius: 0px;" src="./img/msg/wuliu.jpg" >
         <h2>交易物流消息</h2>
-        <p class="subborder">222</p>
+        <p class="subborder"> &nbsp</p>
       </ion-item>
 
       <ion-item class="item-remove-animate item-avatar item-icon-right"    >
         <img  style="border-radius: 0px;" src="./img/msg/liwu.jpg" >
         <h2>易物活动</h2>
-        <p class="subborder">222</p>
+        <p class="subborder"> &nbsp</p>
       </ion-item>
 
-      <ion-item class="item-remove-animate item-avatar item-icon-right"  ng-click="application()"   >
-        <img  style="border-radius: 0px;" src="./img/msg/liwu.jpg" >
-        <h2>员工申请审核</h2>
+      <ion-item class="item-remove-animate item-avatar item-icon-right"  ng-click="application()"  ng-if="expression" >
+        <img  style="border-radius: 0px;" src="./img/classif/icon_shengqingjilv@3x.png" >
+        <h2 >员工申请审核</h2>
 
         <div style="    width: 20px;
     height: 20px;

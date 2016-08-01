@@ -65,10 +65,15 @@ $scope.updateAPP  =  function () {
   }
 
   $scope.companyInstall=function () {
-   
+
+    if(!storage.getObject('UserInfo').user_id){
+
+      login();
+    }else{
+      $state.go('r.tab.companyInstall');
+    }
 
 
-    $state.go('r.tab.companyInstall');
   }
 
 

@@ -21,8 +21,8 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
 
 
 
-  var pageNum = 0;
-  var cateId = [];
+
+  var cateId = 1;
   $scope.imageshow=true;
   $scope.imagehide =false;
   $scope.newexpression=false
@@ -69,6 +69,65 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
     }
   });
 
+  $scope.loadOlderStories=function (type) {
+
+    var sendoption  = {
+      "interface_number": "020104",
+      "client_type": window.platform,
+      "post_content": {
+        "token": "",
+        "token_phone": "",
+        "cateId": cateId,
+      }
+
+    };
+
+    if(type){
+      sendoption.post_content.page_num  = $scope.page_number  = 1;
+    }else{
+      sendoption.post_content.page_num  = $scope.page_number;
+    }
+
+
+    Tools.getData(sendoption,function(r){
+      if(r){
+
+        if(r.resp_data.nextPage  == 0 ){
+          $scope.expression  = false;
+          $scope.page_number  =1;
+        }else{
+          $scope.expression  = true;
+          $scope.page_number  =r.resp_data.nextPage;
+        }
+        angular.forEach(r.resp_data.data,function(c){
+          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
+
+        });
+
+        if(type){
+          $scope.ShoppingList  = r.resp_data.data;
+        }else{
+          angular.forEach(r.resp_data.data,function(c){
+            $scope.ShoppingList.push(c);
+          });
+        }
+
+
+
+
+      }
+      $scope.$broadcast('scroll.refreshComplete');
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    });
+
+
+  };
+
+
+
+
+
+
  /* Tools.getData({
     "interface_number": "020104",
     "client_type": window.platform,
@@ -105,10 +164,12 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
   $scope.shoppingsList=function (item) {
     $scope.expression = true;
     pageNum = 0
+    $scope.ShoppingList=[];
     $scope.selectedItem = item;
      cateId= item.cate_id;
+    $ionicScrollDelegate.scrollTop();
 
-    Tools.getData({
+/*    Tools.getData({
       "interface_number": "020104",
       "client_type": window.platform,
       "post_content": {
@@ -119,19 +180,21 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
         "page_per":10
       }
     },function(r){
-
+debugger;
       if(r){
 
         angular.forEach(r.resp_data.data,function(c){
           c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
           c.ctr  = false;
         });
-        $ionicScrollDelegate.scrollTop();
+
         $scope.ShoppingList = (r.resp_data.data)
 
       }
-    });
+    });*/
   };
+
+
 
   $scope.proDetail = function (r,Classitem) {
 
@@ -139,7 +202,7 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
   };
 
 
-  //翻页加载
+/*  //翻页加载
    $scope.loadOlderStories=function (type) {
 
          pageNum +=1;
@@ -193,15 +256,9 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
 
 
 
-   };
+   };*/
 
-  $scope.calssifloadMore = function (xxx) {
 
-    $timeout(function () {
-      $scope.$broadcast('scroll.refreshComplete');
-    }, 600);
-
-  };
 
 
   //阴影层
@@ -218,11 +275,11 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
   function   caklatehe  (){
     if(window.platform  == 'ios'){
       $scope.caklateheight  = {
-        height:window.innerHeight-(64+44+30)+'px'
+        height:window.innerHeight-(64+166)+'px'
       }
     }else{
       $scope.caklateheight  = {
-        height:window.innerHeight-(44+44+30)+'px'
+        height:window.innerHeight-(44+166)+'px'
       }
     }
   };
