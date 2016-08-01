@@ -9,7 +9,7 @@
 
 
 
-    <ion-scroll direction="x" style="overflow-x:hidden;" scrollbar-x="false" >
+    <ion-scroll direction="x" style="overflow-x:hidden;" scrollbar-x="false" ng-style="newcaklateheight" >
       <div  class=" row class-every" >
         <div class="col" ng-click="shoppingsList(item)" ng-repeat="item in Citysddd ">
           <div class="col-30 bottom-xian " ng-class="{true:'yellowC',false:'yellowA'}[item==selectedItem]" ><nobr>{{ item.itemcats_name }}</nobr></div>
