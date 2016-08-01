@@ -954,11 +954,18 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           controller: 'ProductdetailsCtr'          
         }
       }
-    })
-
-
-
-
+    })       
+    //确认订单
+    .state('r.ConfirmorderZf', {
+          url: '/ConfirmorderZf',          
+          views: {
+            'rootview': {
+              templateUrl: 'templates/goods/comf.html',
+              controller: 'ConfirmorderZfctr'
+            }
+          }
+        })
+        
 
 
 
