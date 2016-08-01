@@ -7,15 +7,32 @@
 Ctr.controller('companyInstallCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','storage',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,storage){
 
 
+
   $scope.expression = true;
   $scope.newexpression =true;
 $scope.companyID = storage.getObject('UserInfo').company_id;
   $scope.companyName = storage.getObject('UserInfo').company_name;
   $scope.adminer = storage.getObject('UserInfo').is_admin;
+  $scope.userid = storage.getObject('UserInfo').user_id;
 
-  if($scope.adminer != "1"){
+
+
+  //对安卓返回键的  特殊处理  tabs
+  $scope.$on('$ionicView.beforeEnter',function(){
+
+    Initial ();
+
+  });
+
+
+  if($scope.adminer == "1"){
+    $scope.newexpression = true
+  }else {
     $scope.newexpression = false
   }
+
+
+function Initial() {
 
   Tools.getData({
     "interface_number": "000405",
@@ -28,7 +45,7 @@ $scope.companyID = storage.getObject('UserInfo').company_id;
   },function(r){
 
     if(r.msg== "success"){
-     $scope.auth =r.resp_data.is_auth;
+      $scope.auth =r.resp_data.is_auth;
       if($scope.auth=="0"){
         $scope.autName="未认证"
         $scope.expression = false;
@@ -42,7 +59,7 @@ $scope.companyID = storage.getObject('UserInfo').company_id;
       }
 
 
-      $scope.invite =r.resp_data.is_invite
+      $scope.integral =r.resp_data.integral
 
     }else{
 
@@ -53,12 +70,106 @@ $scope.companyID = storage.getObject('UserInfo').company_id;
 
   });
 
+}
+
+
+
+
+
+
 $scope.Unauthorized=function () {
   alert('前往认证页面')
 }
 
-$scope.goManagement = function () {
-  $state.go('r.tab.management')
+$scope.goManagement = function (value) {
+  $state.go('r.tab.management',{integral:value})
 }
+
+  //解除绑定
+$scope.deleteCompany=function () {
+
+if($scope.adminer == "0"){
+
+  $ionicPopup.alert({
+    title:"请先移交管理员！",
+    okText:'确定'
+
+  });
+  return false;
+}else {
+
+  Tools.getData({
+    "interface_number": "000402",
+    "post_content": {
+      "token":"",
+      "token_phone": "",
+      "userId": $scope.userid,
+      "isSelf":"1"
+    }
+
+  },function(r){
+
+    if(r.msg== "success"){
+
+      native.task('解绑成功');
+      window.outlogin(function(){
+        $timeout(function(){
+          newInitial();
+        },30)
+      })
+
+      $state.go('r.tab.Settings');
+    }else{
+
+      return false
+
+    }
+
+
+  });
+
+
+}
+
+
+}
+
+  //初始  信息
+  function  newInitial  (){
+
+    var   user = storage.getObject('UserInfo');
+    if(user.user_id){
+      //登录了
+      $scope.Userinfo = {};
+      $scope.Userinfo.imgheader  =  window.qiniuimgHost+user.avatar+'?imageView2/1/w/300/h/300';
+      //哈哈哈
+      if(user.sex  =='0'){
+        $scope.Userinfo.sex  =  './img/icon_man@3x.png';
+      }else{
+        $scope.Userinfo.sex  =  './img/icon_women.png';
+
+      }
+      $scope.Userinfo.login  = true;
+      $scope.Userinfo.name  = user.real_name;
+      Tools.getData({
+        "interface_number": "050300",
+        "post_content": {}
+      },function(r) {
+        if(r){
+          $scope.Userinfo.integral   =     r.resp_data.integral;
+        }
+      })
+    }else{
+      //没有登录
+      $scope.Userinfo = {};
+      $scope.Userinfo.imgheader  = user.avatar  ;
+      $scope.Userinfo.sex  =     user.sex;
+      $scope.Userinfo.login  = false;
+      $scope.Userinfo.integral    = user.integral
+    }
+  };
+
+
+
 
 }]);

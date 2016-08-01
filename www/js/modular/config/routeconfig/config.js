@@ -749,9 +749,9 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-    //setting  个人设置 邀请好友
+    //setting  个人设置
     .state('r.tab.management', {
-      url: '/Settings/management',
+      url: '/Settings/management/:integral',
       views: {
         'setting': {
           templateUrl: 'templates/Setting/management.html',

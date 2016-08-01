@@ -1,21 +1,17 @@
-<ion-view view-title="体验专区">
-  <ion-nav-bar   class="bar-positive ">
-    <ion-nav-buttons side="left">
-      <a   nav-direction="back"  href="/#/r/tab/Home"  class="button button-icon ion-ios-arrow-left">
+<ion-view  hide-tabs="true" view-title="体验专区">
 
-      </a>
-    </ion-nav-buttons>
+
     <ion-nav-buttons side="right">
       <a   nav-direction="back"  href=""  class="button button-icon ">
 
       </a>
     </ion-nav-buttons>
-  </ion-nav-bar>
+
 
   <ion-content style="background-color: whitesmoke" >
 
     <div>
-      <img src="./img/classif/banner@3x.png" alt="">
+      <img  ng-src="{{'http://oap3nxgde.bkt.clouddn.com/ad_index_3.jpg?imageView2/1/w/828/h/362'}}"alt="">
     </div>
 
     <div class=" taste-names">推荐商品</div>
@@ -25,7 +21,7 @@
     <div id="class-boder" class="classlist" >
       <div class=" charitable-list " >
         <div class="charitable-one" ng-repeat="item in Taste" >
-          <img src="./img/classif/macair.png" alt="">
+          <img src={{ss}} alt="">
           <div style="margin-top: 15px">{{item.goods_title}}</div>
           <div class="classif-price">￥{{item.total_in_price}} <span class="classif-priceone">￥19999</span></div>
         </div>

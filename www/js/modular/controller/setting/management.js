@@ -6,11 +6,12 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('managementCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize','storage',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize,storage){
+Ctr.controller('managementCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize','storage','fromStateServ',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize,storage,fromStateServ){
 
   $scope.newsList =[]
   $scope.expression=true;
   $scope.userid = storage.getObject('UserInfo').user_id;
+  $scope.integralnew = $stateParams.integral;
 
   //加载
   $scope.loadOlderStories=function (type) {
@@ -152,10 +153,12 @@ Ctr.controller('managementCtr',['$scope','$rootScope','$ionicViewSwitcher','$sta
 
 $scope.recharge = function (value) {
 
+  $scope.data={}
+
   $ionicPopup.show({
-    template: '<input type="text" ng-model="data.wifi">',
+    template: '<input type="text" ng-model="data.integral">',
     title: '充值积分',
-    subTitle: '请输入充值积分数量<br>（余额：1000）',
+    subTitle: '请输入充值积分数量<br>（余额：'+$scope.integralnew+'）',
     scope: $scope,
     buttons: [
       { text: '取消' },
@@ -163,20 +166,141 @@ $scope.recharge = function (value) {
         text: '<b>确认</b>',
         type: 'button-positive',
         onTap: function(e) {
-          if (!$scope.data.wifi) {
+
+
+          if (!$scope.data.integral) {
             // 不允许用户关闭，除非输入 wifi 密码
             e.preventDefault();
           } else {
-            return $scope.data.wifi;
+            console.log($scope.data.integral)
+           $scope.integrals =  $scope.data.integral;
+            Tools.getData({
+              "interface_number": "000404",
+              "post_content": {
+                "token":"",
+                "token_phone": "",
+                "staffId":value,
+                "integral":$scope.integrals
+
+              }
+
+            },function(r){
+
+
+              if(r.msg== "success"){
+                $scope.integralnew =   parseInt($scope.integralnew) - parseInt($scope.integrals)
+                native.task('充值成功');
+              }
+
+
+
+            });
+
           }
+
+          console.log(e)
         }
       },
     ]
   });
 
+
+
+
+
 }
 
 
+  $scope.handed = function (value) {
+    $scope.data={}
+
+    $ionicPopup.show({
+
+      title: '移交管理员',
+      subTitle: '移交权限需要重新登录，且本次操作不可逆，请确认是否移交?',
+      scope: $scope,
+      buttons: [
+        { text: '取消' },
+        {
+          text: '<b>确认</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            console.log(1)
+            
+            Tools.getData({
+             "interface_number": "000403",
+             "post_content": {
+             "token":"",
+             "token_phone": "",
+             "userId":value
+
+             }
+
+             },function(r){
+
+             if(r.msg== "success"){
+
+             window.outlogin(function(){
+             $timeout(function(){
+             Initial();
+             },30)
+             })
+
+               $state.go('r.tab.Settings');
+
+             }
+
+
+
+             });
+
+
+
+
+
+          }
+
+
+        },
+      ]
+    });
+
+  }
+
+//初始  信息
+  function  Initial  (){
+
+    var   user = storage.getObject('UserInfo');
+    if(user.user_id){
+      //登录了
+      $scope.Userinfo = {};
+      $scope.Userinfo.imgheader  =  window.qiniuimgHost+user.avatar+'?imageView2/1/w/300/h/300';
+      //哈哈哈
+      if(user.sex  =='0'){
+        $scope.Userinfo.sex  =  './img/icon_man@3x.png';
+      }else{
+        $scope.Userinfo.sex  =  './img/icon_women.png';
+
+      }
+      $scope.Userinfo.login  = true;
+      $scope.Userinfo.name  = user.real_name;
+      Tools.getData({
+        "interface_number": "050300",
+        "post_content": {}
+      },function(r) {
+        if(r){
+          $scope.Userinfo.integral   =     r.resp_data.integral;
+        }
+      })
+    }else{
+      //没有登录
+      $scope.Userinfo = {};
+      $scope.Userinfo.imgheader  = user.avatar  ;
+      $scope.Userinfo.sex  =     user.sex;
+      $scope.Userinfo.login  = false;
+      $scope.Userinfo.integral    = user.integral
+    }
+  };
 
 
 /*
