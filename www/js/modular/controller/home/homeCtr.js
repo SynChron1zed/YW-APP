@@ -3,12 +3,15 @@
  */
 Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory) {
   $scope.jindian  =  function () {
-
+    
         native.Barcode(function (rr) {
-          
-          console.log(rr);
+          if(!rr.cancelled){
+                if(rr.text){
+                    $scope.goModular('r.Shophome',{id:rr});
+                }
+          }
 
-          $scope.goModular('r.Shophome',{id:rr});
+          
         })
   };
 
