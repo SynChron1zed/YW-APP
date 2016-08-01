@@ -211,14 +211,11 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
             native.task('请选择结算的商品');
             return false;
           }
-          //选中的商品
+            //选中的商品
             shopcartOrder  = shopcartOrder.substring(0,shopcartOrder.length-1);
             buyConfirmorde.cart   =shopcartOrder;
             fromStateServ.stateChange('r.ConfirmorderZf');
-          
-          //这里去 确认订单          
-
-
+            //这里去 确认订单          
         };
 
 

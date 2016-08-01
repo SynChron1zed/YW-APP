@@ -13,383 +13,6 @@ var  Server = angular.module('starter.services', []);
 
 var  Ctr = angular.module('starter.controllers', []);
 
-//hidden  tabs  directive
-App.directive('hideTabs',function($rootScope) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attributes) {
-            scope.$on('$ionicView.beforeEnter', function() {
-                scope.$watch(attributes.hideTabs, function(value){
-                    $rootScope.hideTabs = true;
-                });
-            });
-            scope.$on('$ionicView.beforeLeave', function() {
-                $rootScope.hideTabs = false;
-            });
-        }
-    };
-});
-
-//drag  left right box   directive
-App.directive('draggable', function($document, $timeout) {
-    return {
-        restrict :  'A',
-        link:function(scope, element, attr) {
-            var now = 0 ;
-            ionic.onGesture('dragstart',function(e){
-
-                element[0].style.webkitTransitionDuration='0ms';
-
-                var position   = element[0].style.webkitTransform.replace('translateX(','').replace('px)','');
-                if(position !==  ''){
-                    now  = parseInt(position);
-                }else{
-                    now  =0;
-                }
-            },element[0])
-            ionic.onGesture('drag',function(e){
-                element[0].style.webkitTransform='translateX('+(parseInt(e.gesture.deltaX)+now)+'px)';
-            },element[0])
-
-            ionic.onGesture('dragend',function(e){
-                element[0].style.webkitTransitionDuration='200ms';
-                var  allleft  = element[0].offsetWidth - window.innerWidth;
-                var  endoption  =element[0].style.webkitTransform.replace('translateX(','').replace('px)','');
-                if(endoption > 0){
-                    element[0].style.webkitTransform = 'translateX(0px)';
-                }
-                else  if( Math.abs(endoption) >= allleft){
-                    if(element[0].offsetWidth< window.innerWidth ){
-                        element[0].style.webkitTransform = 'translateX(0px)';
-                    } else{
-                        element[0].style.webkitTransform = 'translateX('+(-allleft)+'px)';
-                    }
-                }
-            },element[0])
-        }
-    }
-})
-
-App.directive('jfocus',function($rootScope,$parse) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attributes) {
-            setTimeout(function(){
-                element[0].focus()
-
-                if(ionic.Platform.isAndroid()){
-                    window.cordova.plugins.Keyboard.show();
-                }
-
-            },800)
-
-        }
-
-
-    };
-});
-
-/**
- * Created by Why on 16/6/6.
- */
-App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout','native',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,
-$ionicNativeTransitions,$timeout,native) {
-
-
-
-
-
-  //$cordovaProgress.showBar(true, 50000);
-
-  //退出登录
-              window.outlogin  = function(Callback){
-
-              window.Token   = undefined;
-              window.token_phone   = undefined;
-              storage.setObject('UserInfo',{
-                    real_name:'还没有登录!',
-                    avatar:window.defaultUserheader,
-                    integral:'0.00',
-                    sex:'./img/icon_man@3x.png',
-                })
-                if(Callback){
-                    Callback();
-                }
-
-            };
-
-
-  $ionicPlatform.ready(function() {
-    //$state.go('r.selectAuth');
-    $state.go('r.tab.Home');
-
-
-    //初始化    用户信息
-    if(!storage.getObject('UserInfo').user_id){
-      //没有登录写入   默认基本  信息
-      storage.setObject('UserInfo',{
-          real_name:'还没有登录',
-          avatar:window.defaultUserheader,
-          integral:'0.00',
-          sex:'./img/icon_man@3x.png',
-      })
-    }
-
-
-
-
-
-    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
-      ionic.Platform.isFullScreen = true;
-
-
-
-      //Return event listener
-      //uuid
-      setTimeout(function () {
-          navigator.splashscreen.hide();
-           }, 1000);
-      //回退之前  退出键盘
-      window.screen.lockOrientation('portrait');
-
-      var  locldevice  =    storage.getObject('device');
-        window.plugins.sim.getSimInfo(  function (result) {
-        locldevice.phoneNumber  =result.phoneNumber;
-        }, function(){});
-        locldevice.uuid  = device.uuid;
-        storage.setObject('device',locldevice)
-
-    }else{
-        //这里是浏览器写的是固定的值
-        //uuid
-        var     locldevice  =    storage.getObject('device');
-                locldevice.phoneNumber  ='13517437500';
-                locldevice.uuid  =   'dsadsa-dsad-12321sad-das' ;
-                storage.setObject('device',locldevice);
-        var     locjPush  =    storage.getObject('jPush');
-                locjPush.RegistrationID =  'janiokq-text-jpush';
-                storage.setObject('jPush',locjPush);
-    }
-
-    if (window.StatusBar) {StatusBar.styleDefault();}
-
-      window.noNavtionsback =  function (rooter,parmgs){
-        $ionicNativeTransitions.stateGo(rooter,parmgs,{
-          "type": "slide",
-          "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
-          "duration": 300, // in milliseconds (ms), default 400
-        });
-
-        $timeout(function(){
-          $ionicHistory.clearHistory();
-        },300)
-      };
-
-
-
-
-    //初始读取toke =  phone  初始化登录状态
-    var userinfo  = storage.getObject('UserInfo');
-    window.Token  =  userinfo.token?userinfo.token:undefined;
-    window.Token_phone  =  userinfo.phone?userinfo.phone:undefined;
-
-
-
-    function showConfirm() {
-        native.confirm('你确定要退出应用吗?','退出应用?',['退出','取消'],function(c){
-            if(c  == 1){
-              ionic.Platform.exitApp();
-            }
-          })
-    }
-
-
-
-    //安卓返回键的处理
-    $ionicPlatform.registerBackButtonAction(function (e) {
-      e.preventDefault();
-      
-
-      //返回一个没有使用  原始过度的页面
-      if(window.noNavtionsbackRootuer){
-        window.noNavtionsback(window.noNavtionsbackRootuer);
-        return false;
-      }
-
-    //执行一个零时的 处理函数
-        if(window.androdzerofun){
-            window.androdzerofun(window.androdzerofun_parms,window.androdzerofun_clback);
-          return false;
-        }
-
-     // Is there a page to go back to?
-     if (JSON.stringify($location.path()) == '/r/tab/Home' ) {
-       showConfirm();
-     } else if ($ionicHistory.backView()) {
-       $rootScope.$ionicGoBack();
-
-     } else {
-       // This is the last page: Show confirmation popup
-       showConfirm();
-     }
-     return false;
-   }, 100);
-
-
-
-
-
-
-
-    $window.platform = window.platform = ionic.Platform.platform();
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-
-
-    //极光推送  初始初始化
-    window.plugins.jPushPlugin.init();
-    //调试模式
-    //window.plugins.jPushPlugin.setDebugMode(true);
-
-    //获取极光推送注册id
-    window.plugins.jPushPlugin.getRegistrationID( function(data) {
-      try {
-        var  locjPush  =    storage.getObject('jPush');
-        locjPush.RegistrationID =  data;
-        storage.setObject('jPush',locjPush);
-      } catch(exception) {
-        console.log(exception,'发生了错误');
-      }
-    });
-
-    //极光推送事件处理
-    //极光数据处理  兼容ios  安卓平台  剥离数据
-    var bestripped  =  function(data){
-      var result = {};
-      if(device.platform == "Android") {
-        result.title = data.alert;
-        result.value = data.extras["cn.jpusdroid.EXTRA"];
-      }else{
-        var iosVlue  ={};
-        angular.forEach(data,function(value,key){
-          if(key  !=='aps' || key  !=='_j_msgid'){
-            iosVlue[key] = value;
-          }
-        })
-        result.title = data.aps.alert;
-        result.value = iosVlue;
-      }
-      return  result;
-    };
-
-
-    //点击通知的处理
-    var onOpenNotification  = function(){
-      var alertContent  =  bestripped(window.plugins.jPushPlugin.openNotification);
-      //推送的附带对象 数据 直接访问
-      //window.plugins.jPushPlugin.openNotification
-      alert(' 点击事件');
-    };
-
-    window.document.addEventListener("jpush.openNotification", onOpenNotification, true);
-    //收到推送 事件  触发
-    window.document.addEventListener("jpush.receiveNotification", function(){
-      var alertContent  =  bestripped(window.plugins.jPushPlugin.openNotification);
-      alert('收到时间');
-    }, true);
-
-    if(window.platform  !== 'ios'){
-      window.updateAPP();
-    }
-  });
-  
-  window.updateAPP  =  function(){
-    document.addEventListener("deviceready", onDeviceReady, false);
-    function onDeviceReady() {
-    }
-    if(window.cordova){
-      window.cordova.getAppVersion.getVersionNumber(function (version) {
-        Tools.showlogin();
-        Tools.getData({
-          "interface_number": "050204",
-          "post_content": {
-            ver_id:version
-          }
-        },function(r){
-          if(r){
-            if(r.resp_data.data.new){
-               native.confirm('检查到有新的版本更新','升级易物宜得？',['更新','取消'],function(c){
-                  if(c  == 1){
-                    updataAp(r.resp_data.data.downloadUrl);      
-                  }
-              })
-            }else{
-              native.task('当前是最新版本!');
-            }
-          }
-        })
-      });
-    }else{
-      alert('当前环境无法更新APP!');
-    }
-  };
-  function  updataAp   (downloadUrl){
-                cordova.plugin.pDialog.init({
-                  theme: 'HOLO_DARK',
-                  title: '更新app',
-                  message : '正在从服务获取最新数据!',
-                  progressStyle: 'HORIZONTAL'
-                })
-            var  filpath  =  cordova.file. externalCacheDirectory+'updata.apk';
-            var fileTransfer = new FileTransfer();
-            fileTransfer.onprogress = function(progressEvent) {
-                      if (progressEvent.lengthComputable) {
-                      var loding   =  progressEvent.loaded/progressEvent.total;
-                          cordova.plugin.pDialog.setProgress(  parseInt((loding*100).toFixed(0)) );
-                          if(loding  == 1){
-                              cordova.plugin.pDialog.dismiss();
-                                cordova.plugins.fileOpener2.open(
-                                      filpath, 
-                                      'application/vnd.android.package-archive', 
-                                      {
-                                          error : function(){
-                                              native.task('APP安装失败');      
-                                          }, 
-                                          success : function(){            
-                                          } 
-                                      } 
-                                  );
-                                  native.task('APP更新完毕,正在安装');                                
-                          }                          
-                      } else {
-                        native.task('网络连接中断....')
-                      }
-          };
-          fileTransfer.download(
-                          downloadUrl,
-                          filpath,
-                          function(entry) {
-                              console.log("download complete: " + entry.toURL());
-                          },
-                          function(error) {
-                              console.log("download error source " + error.source);
-                              console.log("download error target " + error.target);
-                              console.log("upload error code" + error.code);
-                          },                          
-                          false,
-                          {}
-                      )
-  }
-
-
-
-
-
-
-}]);
-
 /**
  * Created by Why on 16/6/6.
  * testtt11111111222222222222222222222222
@@ -1381,6 +1004,378 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 }]);
 
+
+/**
+ * Created by Why on 16/6/6.
+ */
+App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout','native',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,
+$ionicNativeTransitions,$timeout,native) {
+  
+  //$cordovaProgress.showBar(true, 50000);
+  //退出登录
+              window.outlogin  = function(Callback){
+
+              window.Token   = undefined;
+              window.token_phone   = undefined;
+              storage.setObject('UserInfo',{
+                    real_name:'还没有登录!',
+                    avatar:window.defaultUserheader,
+                    integral:'0.00',
+                    sex:'./img/icon_man@3x.png',
+                })
+                if(Callback){
+                    Callback();
+                }
+
+            };
+
+
+  $ionicPlatform.ready(function() {
+    //$state.go('r.selectAuth');
+    $state.go('r.tab.Home');
+
+
+    //初始化    用户信息
+    if(!storage.getObject('UserInfo').user_id){
+      //没有登录写入   默认基本  信息
+      storage.setObject('UserInfo',{
+          real_name:'还没有登录',
+          avatar:window.defaultUserheader,
+          integral:'0.00',
+          sex:'./img/icon_man@3x.png',
+      })
+    }
+
+
+
+
+
+    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      cordova.plugins.Keyboard.disableScroll(true);
+      ionic.Platform.isFullScreen = true;
+
+
+
+      //Return event listener
+      //uuid
+      setTimeout(function () {
+          navigator.splashscreen.hide();
+           }, 1000);
+      //回退之前  退出键盘
+      window.screen.lockOrientation('portrait');
+
+      var  locldevice  =    storage.getObject('device');
+        window.plugins.sim.getSimInfo(  function (result) {
+        locldevice.phoneNumber  =result.phoneNumber;
+        }, function(){});
+        locldevice.uuid  = device.uuid;
+        storage.setObject('device',locldevice)
+
+    }else{
+        //这里是浏览器写的是固定的值
+        //uuid
+        var     locldevice  =    storage.getObject('device');
+                locldevice.phoneNumber  ='13517437500';
+                locldevice.uuid  =   'dsadsa-dsad-12321sad-das' ;
+                storage.setObject('device',locldevice);
+        var     locjPush  =    storage.getObject('jPush');
+                locjPush.RegistrationID =  'janiokq-text-jpush';
+                storage.setObject('jPush',locjPush);
+    }
+
+    if (window.StatusBar) {StatusBar.styleDefault();}
+
+      window.noNavtionsback =  function (rooter,parmgs){
+        $ionicNativeTransitions.stateGo(rooter,parmgs,{
+          "type": "slide",
+          "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
+          "duration": 300, // in milliseconds (ms), default 400
+        });
+
+        $timeout(function(){
+          $ionicHistory.clearHistory();
+        },300)
+      };
+
+
+
+
+    //初始读取toke =  phone  初始化登录状态
+    var userinfo  = storage.getObject('UserInfo');
+    window.Token  =  userinfo.token?userinfo.token:undefined;
+    window.Token_phone  =  userinfo.phone?userinfo.phone:undefined;
+
+
+
+    function showConfirm() {
+        native.confirm('你确定要退出应用吗?','退出应用?',['退出','取消'],function(c){
+            if(c  == 1){
+              ionic.Platform.exitApp();
+            }
+          })
+    }
+
+
+
+    //安卓返回键的处理
+    $ionicPlatform.registerBackButtonAction(function (e) {
+      e.preventDefault();
+
+
+      //返回一个没有使用  原始过度的页面
+      if(window.noNavtionsbackRootuer){
+        window.noNavtionsback(window.noNavtionsbackRootuer);
+        return false;
+      }
+
+    //执行一个零时的 处理函数
+        if(window.androdzerofun){
+            window.androdzerofun(window.androdzerofun_parms,window.androdzerofun_clback);
+          return false;
+        }
+
+     // Is there a page to go back to?
+     if (JSON.stringify($location.path()) == '/r/tab/Home' ) {
+       showConfirm();
+     } else if ($ionicHistory.backView()) {
+       $rootScope.$ionicGoBack();
+
+     } else {
+       // This is the last page: Show confirmation popup
+       showConfirm();
+     }
+     return false;
+   }, 100);
+
+
+
+
+
+
+
+    $window.platform = window.platform = ionic.Platform.platform();
+    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+    // for form inputs)
+
+
+    //极光推送  初始初始化
+    window.plugins.jPushPlugin.init();
+    //调试模式
+    //window.plugins.jPushPlugin.setDebugMode(true);
+
+    //获取极光推送注册id
+    window.plugins.jPushPlugin.getRegistrationID( function(data) {
+      try {
+        var  locjPush  =    storage.getObject('jPush');
+        locjPush.RegistrationID =  data;
+        storage.setObject('jPush',locjPush);
+      } catch(exception) {
+        console.log(exception,'发生了错误');
+      }
+    });
+
+    //极光推送事件处理
+    //极光数据处理  兼容ios  安卓平台  剥离数据
+    var bestripped  =  function(data){
+      var result = {};
+      if(device.platform == "Android") {
+        result.title = data.alert;
+        result.value = data.extras["cn.jpusdroid.EXTRA"];
+      }else{
+        var iosVlue  ={};
+        angular.forEach(data,function(value,key){
+          if(key  !=='aps' || key  !=='_j_msgid'){
+            iosVlue[key] = value;
+          }
+        })
+        result.title = data.aps.alert;
+        result.value = iosVlue;
+      }
+      return  result;
+    };
+
+
+    //点击通知的处理
+    var onOpenNotification  = function(){
+      var alertContent  =  bestripped(window.plugins.jPushPlugin.openNotification);
+      //推送的附带对象 数据 直接访问
+      //window.plugins.jPushPlugin.openNotification
+      alert(' 点击事件');
+    };
+
+    window.document.addEventListener("jpush.openNotification", onOpenNotification, true);
+    //收到推送 事件  触发
+    window.document.addEventListener("jpush.receiveNotification", function(){
+      var alertContent  =  bestripped(window.plugins.jPushPlugin.openNotification);
+      alert('收到时间');
+    }, true);
+
+    if(window.platform  !== 'ios'){
+      window.updateAPP();
+    }
+  });
+
+  window.updateAPP  =  function(){
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+    }
+    if(window.cordova){
+      window.cordova.getAppVersion.getVersionNumber(function (version) {
+        Tools.showlogin();
+        Tools.getData({
+          "interface_number": "050204",
+          "post_content": {
+            ver_id:version
+          }
+        },function(r){
+          if(r){
+            if(r.resp_data.data.new){
+               native.confirm('检查到有新的版本更新','升级易物宜得？',['更新','取消'],function(c){
+                  if(c  == 1){
+                    updataAp(r.resp_data.data.downloadUrl);
+                  }
+              })
+            }else{
+              native.task('当前是最新版本!');
+            }
+          }
+        })
+      });
+    }else{
+      alert('当前环境无法更新APP!');
+    }
+  };
+  function  updataAp   (downloadUrl){
+                cordova.plugin.pDialog.init({
+                  theme: 'HOLO_DARK',
+                  title: '更新app',
+                  message : '正在从服务获取最新数据!',
+                  progressStyle: 'HORIZONTAL'
+                })
+            var  filpath  =  cordova.file. externalCacheDirectory+'updata.apk';
+            var fileTransfer = new FileTransfer();
+            fileTransfer.onprogress = function(progressEvent) {
+                      if (progressEvent.lengthComputable) {
+                      var loding   =  progressEvent.loaded/progressEvent.total;
+                          cordova.plugin.pDialog.setProgress(  parseInt((loding*100).toFixed(0)) );
+                          if(loding  == 1){
+                              cordova.plugin.pDialog.dismiss();
+                                cordova.plugins.fileOpener2.open(
+                                      filpath,
+                                      'application/vnd.android.package-archive',
+                                      {
+                                          error : function(){
+                                              native.task('APP安装失败');
+                                          },
+                                          success : function(){
+                                          }
+                                      }
+                                  );
+                                  native.task('APP更新完毕,正在安装');
+                          }
+                      } else {
+                        native.task('网络连接中断....')
+                      }
+          };
+          fileTransfer.download(
+                          downloadUrl,
+                          filpath,
+                          function(entry) {
+                              console.log("download complete: " + entry.toURL());
+                          },
+                          function(error) {
+                              console.log("download error source " + error.source);
+                              console.log("download error target " + error.target);
+                              console.log("upload error code" + error.code);
+                          },
+                          false,
+                          {}
+                      )
+  }
+
+
+
+
+
+
+}]);
+
+//hidden  tabs  directive
+App.directive('hideTabs',function($rootScope) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attributes) {
+            scope.$on('$ionicView.beforeEnter', function() {
+                scope.$watch(attributes.hideTabs, function(value){
+                    $rootScope.hideTabs = true;
+                });
+            });
+            scope.$on('$ionicView.beforeLeave', function() {
+                $rootScope.hideTabs = false;
+            });
+        }
+    };
+});
+
+//drag  left right box   directive
+App.directive('draggable', function($document, $timeout) {
+    return {
+        restrict :  'A',
+        link:function(scope, element, attr) {
+            var now = 0 ;
+            ionic.onGesture('dragstart',function(e){
+
+                element[0].style.webkitTransitionDuration='0ms';
+
+                var position   = element[0].style.webkitTransform.replace('translateX(','').replace('px)','');
+                if(position !==  ''){
+                    now  = parseInt(position);
+                }else{
+                    now  =0;
+                }
+            },element[0])
+            ionic.onGesture('drag',function(e){
+                element[0].style.webkitTransform='translateX('+(parseInt(e.gesture.deltaX)+now)+'px)';
+            },element[0])
+
+            ionic.onGesture('dragend',function(e){
+                element[0].style.webkitTransitionDuration='200ms';
+                var  allleft  = element[0].offsetWidth - window.innerWidth;
+                var  endoption  =element[0].style.webkitTransform.replace('translateX(','').replace('px)','');
+                if(endoption > 0){
+                    element[0].style.webkitTransform = 'translateX(0px)';
+                }
+                else  if( Math.abs(endoption) >= allleft){
+                    if(element[0].offsetWidth< window.innerWidth ){
+                        element[0].style.webkitTransform = 'translateX(0px)';
+                    } else{
+                        element[0].style.webkitTransform = 'translateX('+(-allleft)+'px)';
+                    }
+                }
+            },element[0])
+        }
+    }
+})
+
+App.directive('jfocus',function($rootScope,$parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attributes) {
+            setTimeout(function(){
+                element[0].focus()
+
+                if(ionic.Platform.isAndroid()){
+                    window.cordova.plugins.Keyboard.show();
+                }
+
+            },800)
+
+        }
+
+
+    };
+});
 
 /**
  * Created by Why on 16/6/12.
@@ -6347,11 +6342,17 @@ Ctr.controller('chariCtr',['$scope','native','$state','fromStateServ','Tools','$
  * Created by Why on 16/6/8.
  */
 Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory) {
+  $scope.jindian  =  function () {
 
+        native.Barcode(function (rr) {
+          
+          console.log(rr);
 
+          $scope.goModular('r.Shophome',{id:rr});
+        })
+  };
 
-  $scope.xiaoshouorder = function () {
-    
+  $scope.xiaoshouorder = function () {  
      if(storage.getObject('UserInfo').user_id){
       $state.go('r.tab.HomSales');
       }else{
@@ -10623,17 +10624,14 @@ var   userone = storage.getObject('UserInfo');
 
 
 
-Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state','fromStateServ','$ionicScrollDelegate',function($scope,$timeout,Tools,$stateParams,$state,fromStateServ,$ionicScrollDelegate){
-     
+Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state','fromStateServ','$ionicScrollDelegate','$rootScope',function($scope,$timeout,Tools,$stateParams,$state,fromStateServ,$ionicScrollDelegate,$rootScope){
+
    $scope.title  ='店铺';
-
-
    $scope.showtitle   = false;
   //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
             
-            
-
+    
             if(fromStateServ.getState('r.Shophome')){
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView; 
@@ -10641,11 +10639,11 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
             }else{
                 $scope.showtitle  = false;
             }
-            
+
             $timeout(function(){
                         inlit();
-            },400)             
-    });
+            },400)
+    });    
 
     var   inlit  = function (){
                 Tools.getData({ "interface_number": "030201",
@@ -10662,12 +10660,23 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
                             $scope.shop_info = r.resp_data.shop_info;                            
                             $scope.shop_info.img_header  = window.qiniuimgHost+$scope.shop_info.img_header+'?imageView2/2/w/800';
                             $scope.shop_info.img_shop  =  window.qiniuimgHost+$scope.shop_info.img_shop+'?imageView2/2/w/200';
-
-
                             $ionicScrollDelegate.$getByHandle('goodslistshop').scrollTop();
                             $scope.goodlistdata = [];
                             $scope.pagnumber = 1;
                             $scope.loadermoer = true;                  
+                        }else{
+
+                                    if(fromStateServ.getState('r.Shophome')){
+                                        fromStateServ.backView('r.Shophome') 
+                                        }else{
+
+                                                $rootScope.$ionicGoBack();
+
+                                         }
+
+
+
+
                         }
                 })
     };
@@ -10978,14 +10987,11 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
             native.task('请选择结算的商品');
             return false;
           }
-          //选中的商品
+            //选中的商品
             shopcartOrder  = shopcartOrder.substring(0,shopcartOrder.length-1);
             buyConfirmorde.cart   =shopcartOrder;
             fromStateServ.stateChange('r.ConfirmorderZf');
-          
-          //这里去 确认订单          
-
-
+            //这里去 确认订单          
         };
 
 

@@ -2,11 +2,17 @@
  * Created by Why on 16/6/8.
  */
 Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory) {
+  $scope.jindian  =  function () {
 
+        native.Barcode(function (rr) {
+          
+          console.log(rr);
 
+          $scope.goModular('r.Shophome',{id:rr});
+        })
+  };
 
-  $scope.xiaoshouorder = function () {
-    
+  $scope.xiaoshouorder = function () {  
      if(storage.getObject('UserInfo').user_id){
       $state.go('r.tab.HomSales');
       }else{
