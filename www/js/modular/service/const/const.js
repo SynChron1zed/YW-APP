@@ -9,6 +9,7 @@
     //window.Interactivehost =  'http://app.ywyde.com/index.php?r=app/index';
 
 
+
     window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';
   //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
   //没有使用过度的返回页面的使用

@@ -29,7 +29,7 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
     angular.forEach($scope.shopcartdata,function(v){
       angular.forEach(v.goods_info,function(value){
         if(value.select){
-          $scope.TotalPrice += parseFloat(value.total_in_price)*parseInt(value.number);
+          $scope.TotalPrice += parseFloat(value.activity_price)*parseInt(value.number);
         }
       })
     });

@@ -184,6 +184,32 @@ var   userone = storage.getObject('UserInfo');
 
 
   }])
-  .controller('SettingsUserCtr',['$scope',function($scope){
+  .controller('SettingsUserCtr',['$scope','Tools','$rootScope','native',function($scope,Tools,$rootScope,native){
+    $scope.fankui  = {};
+    //$rootScope.$ionicGoBack();
+
+    $scope.submitfankui  = function(){
+      if(!$scope.fankui.qq  ||  !$scope.fankui.make){
+          native.task('请填写反馈信息')
+          return false;
+      }
+      Tools.showlogin();
+      Tools.getData({
+          "interface_number": "050202",
+          "post_content": {
+            "suggest":$scope.fankui.make,
+            "contact_way":$scope.fankui.qq
+            }
+      },function(r){
+        if(r){
+            $rootScope.$ionicGoBack();
+            native.task('反馈成功，感谢你的意见',2000);
+        }
+      })
+
+
+
+
+    }
 
   }])

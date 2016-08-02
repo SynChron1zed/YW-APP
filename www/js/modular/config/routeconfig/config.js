@@ -553,6 +553,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     //setting  个人设置 客户反馈
     .state('r.tab.SettingsUser', {
       url: '/Settings/user',
+      cache:false,
       views: {
         'setting': {
           templateUrl: 'templates/Setting/SettingsUser.html',
