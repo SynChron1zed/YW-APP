@@ -358,14 +358,8 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
 
     //销售订单
-    .state('r.HomSales',{
+    .state('r.tab.HomSales',{
       url: '/HomeSales',
-       onEnter: function(fromStateServ,$ionicHistory) {
-        fromStateServ.saveHisty($ionicHistory,'r.HomSales')
-      },
-      onExit:function(fromStateServ){
-        fromStateServ.removebackregistevent();
-      },
       views: {
         'Home': {
           templateUrl: 'templates/Home/salesorders.html',
