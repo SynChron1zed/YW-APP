@@ -15,11 +15,9 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
        window.androdzerofun_parms   ='tabswtathing';
        window.androdzerofun_clback  = 'nothing';
      }
-
+    
      if(shopcartbactitle.state){
-
        $scope.showtitle  = true;
-
        $scope.backv    =function (){
          $rootScope.$ionicGoBack();
        }
