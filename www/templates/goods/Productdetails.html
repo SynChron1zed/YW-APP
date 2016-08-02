@@ -1,0 +1,218 @@
+<ion-view view-title="商品详情"  style='background:#feeb0b' >
+
+  <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
+    <div    ng-if='showtitle'  class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.Productdetails')">
+      <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
+    </div>
+  </ion-nav-buttons>
+
+  <ion-content     style="background: #f9f9f9;"   scrollbar-y="false"  overflow-scroll="false"   >
+    <ion-slide-box   ng-if="goods.goodsInfo.img"   style="height:16rem"  class='gooddetilslidbox'  auto-play='true' >
+      <ion-slide   ng-repeat="ff  in goods.goodsInfo.img" >
+        <img ng-src="{{ff}}" alt="">
+      </ion-slide>
+    </ion-slide-box>
+
+    <div class="goodstitle-detial">
+        <span>
+           {{goods.goodsInfo.goods_title}}
+        </span>
+    </div>
+
+    <div class="goodpirce">
+                <div class="left"></div>
+                <div class="content">
+                    <span style="position: relative;left: 4px;">￥</span>
+                    {{goods.goodsInfo.total_in_price}}                                
+                    </div>
+                <div class="right"></div>
+    </div>
+    
+          <div class="basemasg">
+                <div><label for="">运费 :</label> <span>￥</span>
+                    {{goods.goodsInfo.express_fee}}              </div>
+                <div><label for="">库存 :</label> <span>{{goods.goodsInfo.total_in_number}}
+                </span> 件</div>
+            </div>
+
+
+            <div class="dianpumsg"   ng-click="goshop()" >
+                    <div class="bas" style="    background: #fff;height: 1.7rem;">
+                        <div class="shopname" style="color: #404040">  <i class="shoping">&#xe61b;</i> {{goods.shopInfo.shop_name}}</div>
+                        <div>  进入店铺  <i class="ion-ios-arrow-right"></i> </div>
+                    </div>
+            </div>
+
+
+
+
+
+            <div class="gooddetailmsg">
+                <div class="ti">
+                    商品详情
+                </div>
+                <div class="content" style="padding: .4rem 0">
+                      {{goods.goodsInfo.goodsDesc.description}}
+                                    </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </ion-content>
+
+
+
+
+
+
+    <!--//set模块-->
+    <div class="action-sheet-backdrop cutom-sheet"    ng-click="closetallcationvalue()"   id='cutom_sheet'   style="overflow: visible;
+
+    "  ng-class="{'active':setallcationstate}"    >
+        <div class="action-sheet-wrapper "   ng-class="{'action-sheet-up':setallcationstate}" style="overflow: visible"   >
+
+            <div class="action-sheet"  " style="width: 100%;margin: 0px;border-radius: 0px;overflow:visible">
+
+                <div class="action-sheet-group action-sheet-options   Custom-menu" 
+                ng-click="stopporp($event)"
+                style="background: #fff;overflow: visible;margin: 0px;border-radius: 0px;"  >
+                    <div style="width:94%;margin-left:3%;position:relative">
+
+        
+
+                      <div style="width: 100%;padding:0px;height:3.5rem;padding-top: 6px; border-bottom: 1px solid #F1EEEE;">
+
+
+                        <div
+                        style="width: 26%;float:left; display: flex !important;flex: 1;justify-content: center;align-items: center;
+                overflow: visible;position: relative;top: -2px;
+                "
+                          class="danontgimg" >
+                          <img style='    position: absolute;
+                        border: 1px solid #ddd;
+                        padding: 2px;
+                        background: #fff;
+                        top:-1rem;'
+      ng-src="{{goods.goodsInfo.img_url}}" alt="">
+                        </div>
+                            <div style="width:72%;float: right">
+                                <h5 style="
+                                    font-weight: normal;
+                                    height: 3.2rem;
+                                    margin: 0px;
+                                    flex-basis: 1px;
+                                    display: -webkit-box;
+                                    -webkit-line-clamp: 4;
+                                    -webkit-box-orient: vertical;
+                                    word-wrap: break-word;
+                                    line-height: 19px;
+                                    color: #464646;
+                                    overflow: hidden
+                                ">{{goods.goodsInfo.goods_title}}</h5>
+                            </div>
+                            <span style="display: inline-block;clear: both"></span>
+                        </div>
+
+                        <div class="showgoodmsxxx " ng-class="{'showselectgoodsmsgheight':showstockprice}" >
+                            库存总数: <span style="color:rgb(254,143,37);">{{goodskumsg.stock_num}}</span>
+                             <span style="float: right"  ng-click='eidtprice(goodskumsg)' >平台价: <span style="color:rgb(254,143,37) ">{{goodskumsg.price}}</span>
+                             </span>
+                        </div>
+
+
+                        <ion-scroll style="max-height:200px"   overflow-scroll="false"  scrollbar-y="false"  >
+                            <div class="showsku_stock_number">
+                                <div class="skuitem"   ng-repeat="ji  in showskudata" >
+                                    <h5 style="font-size:14px;font-weight: normal;
+                                    margin:4px 0px;
+                                    ">{{ji.parentname}}</h5>
+                                    <div style="display: block;width: 100%;">
+                                        <span   class="searhcchekitmeskut"  ng-repeat="xin  in ji.attrbute" ng-click="chekdskucombination(ji,xin)"  ng-class="{'active':xin.active,'disable':xin.disable}"      >{{xin.subname}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ion-scroll>
+                        
+                        <div class="adbutton">
+                                <div   ng-click="addnumber()" >+</div>
+                                <input    ng-model="selectsku.number"  readonly  style="background:#fff"  type="text">
+                                <div  ng-click="removeumber()"  >-</div>
+                        </div>            
+                            <button  ng-show='!selectsku.state'   style="
+                                width: 106%;
+                                background: #21BD00;
+                                border: none;
+                                color: #fff;
+                                font-size: 16px;
+                                font-weight: 400;
+                                height: 40px;
+                                margin-left: -3%;
+                                border-radius: 0px
+                            "    ng-click="addoactionlistimte()"   >
+                                加入购物车
+                            </button>
+                                 <button  ng-show='selectsku.state'   style="
+                                width: 106%;
+                                background: #FF9F04;
+                                border: none;
+                                color: #fff;
+                                font-size: 16px;
+                                font-weight: 400;
+                                height: 40px;
+                                margin-left: -3%;
+                                border-radius: 0px
+                            "      ng-click="addoactionlistimte()"    >
+                                立即购买
+                            </button>
+
+                      <div class="onkeyborderz"  ng-class="{'active':onkeyboar}">
+                      </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+
+
+  <ion-footer-bar  class="goodsdetilfooterbar"   >
+
+    <div class="goshopchart" ng-click="gouwuche()"   >
+      <i class="shoping"   style="font-size: 20px;text-align: center;margin-left: -10px;" >&#xe611;</i> 
+      <p style="top:-6px;" >购物车</p>
+    </div>
+
+    <div class="goshopchart"  ng-click="goshop()"   >
+      <i class="shoping" style="    font-size: 20px;text-align: center;margin-left: -10px;">&#xe61b;</i> 
+      <p style="top:-6px;">店铺</p>
+    </div>
+    
+    <div class="addjoinshopcar"  ng-click="addjoinshopcart()"  >加入购物车</div>
+    <div class="buy"    ng-click="lijibuy()"  >立即购买</div>
+
+  </ion-footer-bar>
+</ion-view>

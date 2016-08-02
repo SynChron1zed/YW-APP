@@ -1,0 +1,225 @@
+<ion-view view-title="确认订单"  style='background:#feeb0b'    >
+
+
+        <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
+          <div    ng-if='showtitle'  class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.ConfirmorderZf')">
+            <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
+            <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
+          </div>
+        </ion-nav-buttons>
+        
+
+  
+      <ion-content    class='shopcrtboxbj'     overflow-scroll="false"  scrollbar-y="false"   >
+      <div style="height:20px;"></div>
+    
+
+      <div class="addermsg"  ng-click="addjoinshopcart()" >
+
+                <div class="contact">
+
+                    <div>收货人: <span> {{info.address.link_man}}</span> </div>
+                    <div>手机号: <span>{{info.address.link_phone}}</span> </div>
+
+                </div>
+                <div class="adderdetail">
+                    <div>
+
+                        <span>收货地址:</span> &nbsp;{{info.address.province+' '+info.address.city+' '+info.address.region+' '+info.address.street}}</div>                        
+                        <i class="ion-ios-arrow-right"  style="    font-size: 36px;position: absolute;right: 0px;top: 50%;margin-top: -30px;color: #a5a5a5;" ></i>
+                </div>
+            </div>
+            
+
+            <div class="comfis" style="margin-bottom: 0px">
+                        <div class="shop_item"  ng-repeat="fffs  in info.goods" >
+
+
+
+                            <div class="shoptitl">
+                                <img  ng-src="{{fffs.shop_img}}" alt="">
+                                {{fffs.shop_name}}</div>
+
+                            <div class="item"  ng-repeat="sss  in  fffs.goods_info"   style="height: 6rem;
+                                                                border-bottom: none;
+                                                            ">
+                                    <img class="goodimg" ng-src="{{sss.img_url}}" alt="">
+
+                                    <div class="goodsmsg">
+
+                                        <div class="title">{{sss.goods_title}}</div>
+                                        <div class="sku">{{sss.prop}}</div>
+                                        <div class="prieNumber">
+                                            <div>
+
+                                                <span>￥</span>
+                                                <dfn>{{sss.activity_price}}</dfn>
+                                                                                            </div>
+                                            <div class="ctrnumber">
+                                                X&nbsp;{{sss.number}}
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div style="    display: inline-block;
+    position: absolute;
+    white-space: nowrap;
+    left: .9rem;
+    font-size: .55rem;
+    bottom: .3rem;">
+                                        运费:&nbsp;{{sss.express_fee}}                                 </div>
+
+                                </div>
+
+                            <div class="liuyan1" style="margin-top: 2rem;margin: 0;padding: 0;display: flex;    margin-bottom: 1rem;">
+                                <input style="width: 100%;resize: none;outline: none;font-size: .56rem;margin: 0;padding: 10px 5%;" 
+                                  ng-model="fffs.make"
+                                 id="" placeholder="请填写你和卖家达成一致的要求,或留言">
+                            </div>
+                        </div>
+                        
+            </div>
+
+
+
+
+
+      </ion-content>
+
+      <ion-footer-bar  style="padding:0px;"  >
+        <div  style="
+          width:100%;
+          height:44px;
+          line-height:44px;
+          font-size:15px;
+        "  >
+        <div
+        style="width: 70%;float: left;
+            text-indent: 10px;
+            color:#ff6e01 
+        "  
+         > 合计  <span>￥{{info.total_pricy}}</span> </div>
+
+        <div
+
+        ng-click="comorder()"
+         style="float: left;
+    text-align: center;
+    width: 30%;
+    background: #fc8800;
+    color: #fff;
+    letter-spacing: 4px;
+    " >确认订单</div >
+          
+        </div>
+
+      </ion-footer-bar>
+
+
+
+
+
+
+
+    <!--//set模块-->
+    <div class="action-sheet-backdrop cutom-sheet"    ng-click="closetallcationvalue()"   id='cutom_sheet'   style="overflow: visible;
+
+    "  ng-class="{'active':setallcationstate}"    >
+        <div class="action-sheet-wrapper "   ng-class="{'action-sheet-up':setallcationstate}" style="overflow: visible"   >
+
+            <div class="action-sheet"  " style="width: 100%;margin: 0px;border-radius: 0px;overflow:visible">
+
+                <div class="action-sheet-group action-sheet-options   Custom-menu" 
+                ng-click="stopporp($event)"
+                style="background: #fff;overflow: visible;margin: 0px;border-radius: 0px;"  >
+                    <div style="width:94%;margin-left:3%;position:relative">
+                      <div style="
+                      font-size: 16px;
+                      text-align: center;
+                      height: 40px;
+                      line-height: 40px;
+                      color: #2b2b2b;"
+                      >
+                        选择收货地址
+                      </div>
+                        <ion-scroll   style="max-height:200px"       overflow-scroll="false"  scrollbar-y="false"   >
+
+                          <style>
+                            .comfiradderlist  .item .item-content{
+                              padding-top:10px;
+                              padding-bottom:10px;
+                            }
+                            
+                            .comfiradderlist .ion-ios-checkmark{
+                              color:#ff7d01 !Important;
+                            }
+                            /*.comfiradderlist  .item:first-child {
+                                  border-top: 1px solid;
+                            }*/
+                          </style>
+
+                                    <ion-list     can-swipe="true"  class="comfiradderlist" style="    overflow: visible;"   >
+                                            <ion-item ng-repeat="item in  addlist "  style="    overflow: visible;"  ng-click="chikethi(item)"  >
+                                              <i class=""
+                                                ng-class="{'ion-ios-circle-outline':!item.active,'ion-ios-checkmark':item.active}"
+
+                                                style=" color:#afafaf;position: absolute;font-size: 26px;left: 3px;top: 50%;margin-top: -10px;"
+                                               ></i>
+                                              <h5 style="padding-left: 20px;
+                                                  font-size: 14px;
+                                                  font-weight: normal;
+                                              "   >{{item.link_man}} <span style="float:right">{{item.link_phone}}</span></h5>
+                                              <p style="    padding-left: 20px;">{{item.province+' '+item.city+' '+item.region+' '+item.street}}</p>
+
+                                              <ion-option-button class="button-assertive"
+                                                                ng-click="editadder(item)">                                                                
+                                                <div style="font-size: 15px;text-align: center;width:100%;
+                                                color:#fff;                                        
+                                                ">
+                                                  编辑
+                                                </div>
+                                              </ion-option-button>
+                                          
+                                            </ion-item>
+                                            
+
+
+                                </ion-list>
+
+
+
+                        </ion-scroll>
+
+                      <div   ng-click="addadder()"  style="    height: 40px;font-size: 14px;line-height: 40px;" >
+                              <i class="ion-ios-plus-outline" style="float: left;font-size: 24px;margin-right: 10px;"  ></i>   添加收货地址
+                      </div>
+
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+</ion-view>

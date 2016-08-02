@@ -418,8 +418,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })*/
-
-
+    
     //采购订单
     .state('r.HomPurchase', {
       url: '/HomPurchase',

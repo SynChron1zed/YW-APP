@@ -3,6 +3,7 @@
  */
 Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$rootScope','$ionicPopup','$ionicHistory','native','buyConfirmorde','$stateParams','shopcartbactitle',function($scope,fromStateServ,storage,Tools,$rootScope,$ionicPopup,$ionicHistory,native,buyConfirmorde,$stateParams,shopcartbactitle){
 
+
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
     //页面的状态变化  请求
@@ -15,10 +16,9 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
        window.androdzerofun_parms   ='tabswtathing';
        window.androdzerofun_clback  = 'nothing';
      }
-
+    
      if(shopcartbactitle.state){
        $scope.showtitle  = true;
-
        $scope.backv    =function (){
          $rootScope.$ionicGoBack();
        }
@@ -28,16 +28,19 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
        }
        window.androdzerofun_parms   ='tabswtathing';
        window.androdzerofun_clback  = 'nothing';
+
+
      }else{
         $scope.showtitle  = false;
      }
+
     });
-        
-    $scope.$on('$ionicView.beforeLeave',function(){ 
+
+    $scope.$on('$ionicView.beforeLeave',function(){
       window.androdzerofun  = undefined;
       $scope.showtitle  = false;
       shopcartbactitle.state  =  false;
-      
+
     })
 
 
@@ -231,7 +234,7 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
                 shopcartOrder += value.cart_id+','
               }
             })
-          });          
+          });
           if(nogoods){
             native.task('请选择结算的商品');
             return false;
@@ -240,7 +243,7 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
             shopcartOrder  = shopcartOrder.substring(0,shopcartOrder.length-1);
             buyConfirmorde.cart   =shopcartOrder;
             fromStateServ.stateChange('r.ConfirmorderZf');
-            //这里去 确认订单          
+            //这里去 确认订单
         };
 
 
