@@ -1,0 +1,80 @@
+<ion-view   style='background:#feeb0b'  view-title="收货地址管理"  >
+
+
+
+  <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
+    <div    ng-if='showtitle'  class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.Addresslist')">
+      <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
+    </div>
+  </ion-nav-buttons>
+
+  <ion-nav-buttons    side="right"         class="button back-button buttons button-clear header-item">
+    <div ng-click="swatch()"   class="button back-button buttons button-clear header-item  button-icon"  >
+      <span  ng-show='!edith' >编辑</span>
+      <span  ng-show='edith' >删除</span>  
+      
+    </div>
+  </ion-nav-buttons>
+
+  <ion-content           overflow-scroll="false"   scrollbar-y="false"     style="background: #f5f5f5;"       >
+
+      <style>
+      .adderlistnoe .item-content{
+        padding-top:7px;
+        padding-bottom:7px;
+      }
+      .adderlistnoe .ion-ios-checkmark{
+        color:#ff8909 !important; 
+      }
+    </style>  
+
+    <ion-list    show-delete="showdelt"   >
+
+
+                  <ion-item ng-repeat="ff in datalist" class="adderlistnoe" style="  " >
+                      <div   ng-click="adderedit(ff)"  >
+                      <p style="margin:0px;    color: #343434;font-size: 16px;margin-bottom: 8px;">{{ff.link_man}}    <span style="float:right">{{ff.link_phone}}</span> </p>
+                      <p style="margin:0px;">{{ff.province+" "+ff.city+" "+ff.region+"     "+ff.street}}</p>
+                      <i  style="position: absolute;right: 16px;top: 50%;margin-top: -10px;font-size: 28px;color: #bdbdbd;" class="ion-ios-arrow-right"></i>
+                      </div>
+                      <ion-delete-button  ng-click="selectthi(ff)"  ng-class="{'ion-ios-circle-outline':!ff.select,'ion-ios-checkmark':ff.select}"    class="ion-ios-circle-outline"  style="color:#989898"   >
+                      </ion-delete-button>
+
+                      <div  ng-show="ff.is_default"
+                        
+                               style="display: inline-block;
+                                      position: absolute;
+                                      right: 24px;
+                                      top: 50%;
+                                      margin-top: -10px;
+                                      color: red;
+                                      border: 1px solid red;
+                                      font-size: 14px;
+                                      padding: 0px 6px;
+                                      letter-spacing: 3px;
+                                      transform: rotateZ(-35deg);
+                                      -webkit-transform: rotateZ(-35deg);
+                                      opacity: 0.8;
+                                      text-align: center;" > 默认 </div>
+                      
+
+
+
+                </ion-item>
+
+    </ion-list>
+
+
+
+
+
+      
+  </ion-content>
+<ion-footer-bar  ng-click="addreder()"  style="background:#fea80b;color:#fff;" >
+  <h5 style="    width: 100%;line-height: 34px;text-align: center;margin:0px;color: #fff;letter-spacing: 2px;">
+    添加收货地址
+  </h5>
+</ion-footer-bar>
+
+</ion-view>

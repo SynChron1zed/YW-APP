@@ -552,7 +552,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
 
                 $scope.goods.id  = r.resp_data.goodsInfo.goods_basic_id;
                 
-                $scope.goods.goodsDesc     =  r.resp_data.goodsInfo.total_in_number;
+                $scope.goods.goodsDesc     =  r.resp_data.goodsInfo.desc;
                 $scope.goods.skuinfo  =  r.resp_data.skuInfo;
 
                 angular.forEach(r.resp_data.goodsInfo.arr_img,function (v){
