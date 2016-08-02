@@ -21,6 +21,7 @@ Ctr.controller('SettingsUpdateCtr',['$scope','storage','Tools','native','$state'
           $scope.qq  =   userin.qq;          
   });
   $scope.Headportrait   =  function(){
+
         Tools.chekpirc({
           allowEdit:true
         },function(r){
@@ -29,7 +30,7 @@ Ctr.controller('SettingsUpdateCtr',['$scope','storage','Tools','native','$state'
             Tools.getData({
                 "interface_number": "050306",
                 "post_content": {
-                      "avatar":f[0].key,
+                      "img_shop":f[0].key,
                   }
             },function(s){
               if(s){
