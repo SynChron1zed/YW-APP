@@ -22,6 +22,9 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 
   $scope.xiaoshouorder = function () {
 
+ 
+
+    
      if(storage.getObject('UserInfo').user_id){
 
         if($scope.select.home[0].xiaoshou[4]=="1"){
@@ -95,9 +98,6 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
   $scope.caigoudindan1  =function () {
 
      if(storage.getObject('UserInfo').user_id){
-
-
-
       $scope.gosales('r.HomPurchase');
       }else{
         native.confirm('该操作需要登录','您还没有登录',['登录','取消'],function(c){

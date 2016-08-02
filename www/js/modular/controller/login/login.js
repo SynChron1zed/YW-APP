@@ -1,7 +1,7 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatform','$state','Tools','$ionicPopup','storage','$timeout','loginregisterstate','native',function($ionicHistory,$scope,fromStateServ,$ionicPlatform,$state,Tools,$ionicPopup,storage,$timeout,loginregisterstate,native){
+Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatform','$state','Tools','$ionicPopup','storage','$timeout','loginregisterstate','native','$rootScope',function($ionicHistory,$scope,fromStateServ,$ionicPlatform,$state,Tools,$ionicPopup,storage,$timeout,loginregisterstate,native,$rootScope){
 
   //处理登录
   $scope.loginboj  = {};
@@ -41,10 +41,24 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
               r.resp_data.user_info.token  = window.Token;
               storage.setObject('UserInfo',r.resp_data.user_info);
               $timeout(function(){
-                    $scope.backtoprevView('r.login');
+
+
+                if(fromStateServ.getState('r.login')){
+     $scope.backtoprevView('r.login');
                     $timeout(function(){
                       native.task('登录成功');
                     },400);
+
+                }else{
+                    $rootScope.$ionicGoBack();
+                      $timeout(function(){
+                      native.task('登录成功');
+                    },400);
+
+                  
+                }
+
+               
 
 
               },400)
@@ -74,12 +88,28 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
   //    $scope.backtoprevView('r.login');
   //    return false;
   //  }, 101);
+
+  $scope.$on('$ionicView.beforeEnter',function(){
+
+            if(fromStateServ.getState('r.login')){
+                $scope.showtitle  = true;
+                $scope.parenttitle     =   fromStateServ.getState('r.login').title;
+                $scope.ing  = false;
+            }else{
+
+                $scope.showtitle  = false;
+
+            }
+
+            $scope.loginboj = {};
+    });    
+
+
   $scope.$on('$stateChangeSuccess',function(){
 
-      $scope.loginboj = {};
-      $scope.ing  = false;
-      $scope.parenttitle     =   fromStateServ.getState('r.login').title;
   });
+
+
 
   $scope.backView  = function(){
     $scope.$ionicGoBack();

@@ -358,8 +358,14 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
 
     //销售订单
-    .state('r.tab.HomSales',{
+    .state('r.HomSales',{
       url: '/HomeSales',
+       onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.HomSales')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
       views: {
         'Home': {
           templateUrl: 'templates/Home/salesorders.html',
@@ -472,9 +478,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     // Shopping Cart 购物车
     .state('r.tab.Shopping_Cart',{
       nativeTransitions: null,
-      url: '/ShoppingCart',
+      url: '/ShoppingCart?state:',
       views: {
         'Shopping-Cart': {
+          params:{'state':null},
           templateUrl: 'templates/ShoppingCart/car.html',
           controller: 'shoppingCartCtr'
         }
@@ -903,7 +910,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     //店铺 home列表
       .state('r.Shophome', {
-      url: '/Shophome?id:',
+      url: '/Shophome?id:&ref:',
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.Shophome')
       },
@@ -912,7 +919,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       },
       views: {
         'rootview': {
-          params:{id:null},
+          params:{id:null,ref:null},
           templateUrl: 'templates/shop/home.html',
           controller: 'shophomeCtr'
         }
@@ -956,9 +963,9 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-  //收货地址添加编辑
+  //商品详情
     .state('r.Productdetails', {
-      url: '/Productdetails?id:',
+      url: '/Productdetails?id:&inside:',
       cache:false,
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.Productdetails')
@@ -968,7 +975,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       },
       views: {
         'rootview': {
-          params:{id:null},
+          params:{id:null,inside:null},
           templateUrl: 'templates/goods/Productdetails.html',
           controller: 'ProductdetailsCtr'          
         }

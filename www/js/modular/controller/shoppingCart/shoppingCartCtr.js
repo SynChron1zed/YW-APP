@@ -1,21 +1,50 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$rootScope','$ionicPopup','$ionicHistory','native','buyConfirmorde',function($scope,fromStateServ,storage,Tools,$rootScope,$ionicPopup,$ionicHistory,native,buyConfirmorde){
+Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$rootScope','$ionicPopup','$ionicHistory','native','buyConfirmorde','$stateParams','shopcartbactitle',function($scope,fromStateServ,storage,Tools,$rootScope,$ionicPopup,$ionicHistory,native,buyConfirmorde,$stateParams,shopcartbactitle){
 
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
-
     //页面的状态变化  请求
-    handtat();
+      handtat();
      if ($ionicHistory.backView()) {
        window.androdzerofun  = function(parm1,parm2){
          $ionicHistory.goBack();
+
        }
-       window.androdzerofun_parms  ='tabswtathing';
+       window.androdzerofun_parms   ='tabswtathing';
        window.androdzerofun_clback  = 'nothing';
      }
+
+     if(shopcartbactitle.state){
+       $scope.showtitle  = true;
+
+       $scope.backv    =function (){
+         $rootScope.$ionicGoBack();
+       }
+
+        window.androdzerofun  = function(parm1,parm2){
+         $rootScope.$ionicGoBack();
+       }
+       window.androdzerofun_parms   ='tabswtathing';
+       window.androdzerofun_clback  = 'nothing';
+     }else{
+        $scope.showtitle  = false;
+     }
     });
+        
+    $scope.$on('$ionicView.beforeLeave',function(){ 
+      window.androdzerofun  = undefined;
+      $scope.showtitle  = false;
+      shopcartbactitle.state  =  false;
+      
+    })
+
+
+
+
+
+
 
       $scope.login  =  function(r){
             fromStateServ.stateChange(r);
@@ -35,7 +64,6 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
     });
     $scope.TotalPrice   = $scope.TotalPrice.toFixed(2);
   };
-
 
       //请求购物数据  整体刷新
       $scope.doRefresh  =  function (){
@@ -73,8 +101,8 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
       function handtat  (){
         if(storage.getObject('UserInfo').user_id){
             $scope.isShow = false;
-
             $scope.doRefresh();
+            $scope.Total();
         }else{
           $scope.isShow = true;
         }
@@ -105,12 +133,9 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
           },function(r){
             if(r){
               Tools.hidelogin();
-
                 console.log(r)
             }
           })
-
-
 
         }
       };

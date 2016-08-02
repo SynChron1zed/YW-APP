@@ -1,7 +1,25 @@
 <ion-view view-title="购物车">
   <ion-nav-bar   class="bar-positive ">
-    <ion-nav-back-button>
-    </ion-nav-back-button>
+
+
+<ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
+
+    <div    ng-if='showtitle'  class="button back-button buttons button-clear header-item"   ng-click="backv()">
+        
+      <i  ng-if='showtitle'  class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;color:#6b3801"></i>
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title"
+      style="    display:block;
+        color:#6b3801;
+      "
+      >返回</span></span>
+
+    </div>
+
+
+  </ion-nav-buttons>
+  
+
+
   </ion-nav-bar>
   <ion-content   lazy-scroll   class='shopcrtboxbj' overflow-scroll="false"   scrollbar-y="false"  >
 

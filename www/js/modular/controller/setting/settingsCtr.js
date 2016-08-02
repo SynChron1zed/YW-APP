@@ -193,34 +193,23 @@ var   userone = storage.getObject('UserInfo');
           }
 
         }
-
-
-
-
-
-
+        
         }
-
          $scope.closecustomenu  =   function  () {
               $scope.opencustomenuatts   = false;
             }
-
          $scope.$on('$ionicView.beforeLeave',function(){
            $scope.closecustomenu();
          })
-
-
-
   }])
   .controller('SettingsUserCtr',['$scope','Tools','$rootScope','native',function($scope,Tools,$rootScope,native){
     $scope.fankui  = {};
     //$rootScope.$ionicGoBack();
-
     $scope.submitfankui  = function(){
       if(!$scope.fankui.qq  ||  !$scope.fankui.make){
           native.task('请填写反馈信息')
           return false;
-      }
+      }      
       Tools.showlogin();
       Tools.getData({
           "interface_number": "050202",

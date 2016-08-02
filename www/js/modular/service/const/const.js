@@ -42,11 +42,11 @@
 //验证状态
   .factory('selectArr',['storage',function(storage){
     return{
-      userid:storage.getObject('UserInfo').user_id,//是否登录
-      isadmin:storage.getObject('UserInfo').is_admin,//是否管理员
-      iscampany:storage.getObject('UserInfo').company_id,//是否加入公司
-      authstatus:storage.getObject('UserInfo').auth_status,//是否认证状态
-      needpaid:storage.getObject('UserInfo').need_paid,//是否缴纳保证金
+      userid:storage.getObject('UserInfo').user_id,
+      isadmin:storage.getObject('UserInfo').is_admin,
+      iscampany:storage.getObject('UserInfo').company_id,
+      authstatus:storage.getObject('UserInfo').auth_status,
+      needpaid:storage.getObject('UserInfo').need_paid,
       selectarrs:[storage.getObject('UserInfo').user_id,storage.getObject('UserInfo').is_admin,storage.getObject('UserInfo').company_id,storage.getObject('UserInfo').auth_status,storage.getObject('UserInfo').need_paid]
 
     }
@@ -91,5 +91,5 @@
       return{
       }
     }])
-
-
+    
+    
