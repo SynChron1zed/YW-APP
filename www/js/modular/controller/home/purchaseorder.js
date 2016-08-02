@@ -1,7 +1,61 @@
 /**
  * Created by Administrator on 2016 /21.
  */
-Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$stateParams','$ionicScrollDelegate',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$stateParams,$ionicScrollDelegate) {
+Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$stateParams','$ionicScrollDelegate','$ionicHistory','$ionicNativeTransitions',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$stateParams,$ionicScrollDelegate,$ionicHistory,$ionicNativeTransitions) {
+
+
+
+
+
+  $scope.$on('$ionicView.beforeEnter',function(){
+
+            if(fromStateServ.getState('r.HomPurchase')){
+                $scope.showtitle  = true;
+                $scope.backtoprevView  =   fromStateServ.backView; 
+                $scope.parenttitle     =   fromStateServ.getState('r.HomPurchase').title;
+            }else{
+                $scope.showtitle  = false;
+
+                  $scope.backv    =function (){
+
+                          $ionicNativeTransitions.stateGo('r.tab.Home',{}, {
+                              "type": "slide",
+                              "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
+                              "duration": 400, // in milliseconds (ms), default 400
+                            });
+
+                            $timeout(function(){
+                              $ionicHistory.clearHistory();
+                            },100)
+                    }
+
+                window.androdzerofun  = function(parm1,parm2){
+                          $ionicNativeTransitions.stateGo('r.tab.Home',{}, {
+                              "type": "slide",
+                              "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
+                              "duration": 400, // in milliseconds (ms), default 400
+                            });
+
+                            $timeout(function(){
+                              $ionicHistory.clearHistory();
+                            },100)
+                }
+                  window.androdzerofun_parms   ='tabswtathing';
+                  window.androdzerofun_clback  = 'nothing';
+
+            }
+    });    
+
+     $scope.$on('$ionicView.beforeLeave',function(){
+            window.androdzerofun   =undefined;
+    })
+
+
+
+    
+
+
+
   $scope.datacaigou=true
 
   var bascId = $stateParams.datacaigou;

@@ -9,9 +9,6 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
 
 
 
-
-
-
   $scope.SalesList = [];
   var pageNum = 0;
   $scope.newexpression=false
