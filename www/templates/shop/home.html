@@ -1,20 +1,14 @@
 <ion-view style='background:#feeb0b'  >
 
-
-
   <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
-
-
     <div    ng-if='showtitle'  class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.Shophome')">
       <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
       <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
     </div>
-
-
   </ion-nav-buttons>
   
 
-  
+
    <ion-nav-title>
     {{title}}
   </ion-nav-title>
@@ -29,7 +23,9 @@
             <div class="imgbox">
                 <img ng-src="{{shop_info.img_shop}}" alt="">
             </div>
-            <h5 style="overflow: hidden;text-overflow: ellipsis;">{{shop_info.shop_name}}</h5>
+            
+            <h5 style="overflow: hidden;text-overflow: ellipsis;margin: 0px;margin-top: 10px;
+            ">{{shop_info.shop_name}}</h5>
             <p >{{shop_info.description}}</p>
         </div>
       </div>

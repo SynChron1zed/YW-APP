@@ -43,7 +43,7 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
       }
   }
 
-
+  
   $scope.shomsge  =function () {
      if(storage.getObject('UserInfo').user_id){
       $scope.gosales('r.HomShopadmin');
