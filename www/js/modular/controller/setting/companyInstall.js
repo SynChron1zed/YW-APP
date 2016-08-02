@@ -53,7 +53,6 @@ function Initial() {
         $scope.autName="审核中"
       }else if($scope.auth=="2"){
         $scope.autName="审核通过";
-
       }else if($scope.auth=="3"){
         $scope.autName="审核失败"
       }
@@ -176,7 +175,7 @@ if($scope.adminer == "0"){
   $scope.backtoprevView  =   fromStateServ.backView;
 
   $scope.$on('$stateChangeSuccess',function(){
-debugger;
+
     $scope.loginboj = {};
     $scope.ing  = false;
     $scope.parenttitle     =   fromStateServ.getState('r.companyInstall').title;
