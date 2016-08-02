@@ -1049,3 +1049,128 @@ background-color: #fff;
 }
   
   
+  .comfis {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+.comfis .shoptitl {
+    background: #fff;
+    height: 1.6rem;
+    line-height: 1.6rem;
+    width: 100%;
+    padding: 0px 5%;
+    font-size: .55rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    position: relative;
+}
+
+.comfis .shoptitl img {
+    width: 1rem;
+    float: left;
+    margin-top: .3rem;
+    margin-right: .2rem;
+}
+.comfis .shoptitl:after {
+    content: '';
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    height: 1px;
+    display: block;
+    background: #ddd;
+    left: 0;
+}
+.comfis .item {
+    margin: .3rem 0px;
+    position: relative;
+    width: 100%;
+    padding: .3rem 5%;
+    height: 5rem;
+    background: #fff;
+}
+.comfis .item:before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    bottom: 0px;
+    background: #ddd;
+    position: absolute;
+}
+.comfis .item>.goodimg {
+    width: 3.5rem;
+    height: 3.5rem;
+    padding: 2px;
+    border: 1px solid #ddd;
+    float: left;
+}
+
+.comfis .item .goodsmsg {
+    float: left;
+    width: 10.3rem;
+    margin-left: .3rem;
+    font-size: .55rem;
+}
+.comfis .item .goodsmsg .title {
+    color: #373758;
+    line-height: 1.45;
+    height: 2.4rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+    color: #35352F;
+    margin-bottom: .1rem;
+}
+.comfis .item .goodsmsg .sku {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+    height: 1rem;
+    line-height: 1rem;
+    color: #4b566a;
+}
+.comfis .item .goodsmsg .prieNumber {
+    width: 14.5rem;
+    height: 1.3rem;
+    line-height: 1.2rem;
+    position: absolute;
+    left: 5%;
+}
+.comfis .item .goodsmsg .prieNumber>div:nth-child(1) {
+    color: #FF5E0C;
+    font-weight: bold;
+    font-size: .62rem;
+}
+.comfis .item .goodsmsg .prieNumber>div {
+    float: left;
+    display: inline-block;
+    height: 1.3rem;
+}
+
+
+.comfis .item .goodsmsg .prieNumber>div:nth-child(1) span {
+    float: left;
+    position: relative;
+    top: .04rem;
+}
+.comfis .item .goodsmsg .prieNumber>div:nth-child(1) dfn {
+    font-style: normal;
+}
+.comfis .item .goodsmsg .prieNumber>div:nth-child(2) {
+    float: right;
+}
+.comfis .item .goodsmsg .prieNumber:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.comfis .item:after {
+    content: '';
+    display: block;
+    clear: both;
+}

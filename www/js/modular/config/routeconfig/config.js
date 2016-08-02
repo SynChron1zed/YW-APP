@@ -553,6 +553,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     //setting  个人设置 客户反馈
     .state('r.tab.SettingsUser', {
       url: '/Settings/user',
+      cache:false,
       views: {
         'setting': {
           templateUrl: 'templates/Setting/SettingsUser.html',
@@ -969,13 +970,19 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         'rootview': {
           params:{id:null},
           templateUrl: 'templates/goods/Productdetails.html',
-          controller: 'ProductdetailsCtr'
+          controller: 'ProductdetailsCtr'          
         }
       }
-    })
+    })       
     //确认订单
     .state('r.ConfirmorderZf', {
-          url: '/ConfirmorderZf',
+          url: '/ConfirmorderZf',         
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.ConfirmorderZf')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      }, 
           views: {
             'rootview': {
               templateUrl: 'templates/goods/comf.html',
@@ -983,7 +990,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
             }
           }
         })
-
+        
 
 
 

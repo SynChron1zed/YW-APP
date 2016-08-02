@@ -1,7 +1,7 @@
 <ion-view view-title="用户反馈"     hide-tabs="true"   >
 
     <ion-nav-buttons side="right">
-      <a   nav-direction="back"  href="/#/r/tab/Settings"  class="button button-icon ">
+      <a   ng-click="submitfankui()"  class="button button-icon ">
         提交
       </a>
     </ion-nav-buttons>
@@ -12,7 +12,7 @@
 <div class="list">
       <label class="item item-input">
 
-      <input type="text" placeholder="QQ">
+      <input type="text"    ng-model="fankui.qq"  placeholder="QQ">
       
     </label>
 </div>
@@ -23,7 +23,7 @@
 
 
     <label class="item item-input">
-          <textarea placeholder="留言反馈"  maxlength="300"   style="min-height:250px"  ></textarea>
+          <textarea placeholder="留言反馈"     ng-model="fankui.make"    maxlength="300"   style="min-height:250px"  ></textarea>
     </label>
         
     </div>

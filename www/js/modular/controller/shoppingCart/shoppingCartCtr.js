@@ -1,7 +1,7 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$rootScope','$ionicPopup','$ionicHistory','native',function($scope,fromStateServ,storage,Tools,$rootScope,$ionicPopup,$ionicHistory,native){
+Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$rootScope','$ionicPopup','$ionicHistory','native','buyConfirmorde',function($scope,fromStateServ,storage,Tools,$rootScope,$ionicPopup,$ionicHistory,native,buyConfirmorde){
 
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
@@ -29,7 +29,7 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
     angular.forEach($scope.shopcartdata,function(v){
       angular.forEach(v.goods_info,function(value){
         if(value.select){
-          $scope.TotalPrice += parseFloat(value.total_in_price)*parseInt(value.number);
+          $scope.TotalPrice += parseFloat(value.activity_price)*parseInt(value.number);
         }
       })
     });
@@ -211,13 +211,11 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
             native.task('请选择结算的商品');
             return false;
           }
-
-          //选中的商品
-          shopcartOrder  = shopcartOrder.substring(0,shopcartOrder.length-1);
-          fromStateServ.stateChange('r.confirmOrder',{basicID:'',shopID:shopcartOrder,Num:$scope.TotalPrice});
-          //这里去 确认订单          
-
-
+            //选中的商品
+            shopcartOrder  = shopcartOrder.substring(0,shopcartOrder.length-1);
+            buyConfirmorde.cart   =shopcartOrder;
+            fromStateServ.stateChange('r.ConfirmorderZf');
+            //这里去 确认订单          
         };
 
 

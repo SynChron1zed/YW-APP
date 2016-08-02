@@ -19,7 +19,7 @@
   // };
   window.defaultUserheader  =  './img/sys_male.jpg';
 
-  Server.factory('const',['$window','$ionicHistory','$timeout','$ionicNativeTransitions','storage',function($window,$ionicHistory,$timeout,$ionicNativeTransitions,storage){
+  Server.factory('const',['$window','$ionicHistory','$timeout','$ionicNativeTransitions',function($window,$ionicHistory,$timeout,$ionicNativeTransitions){
       return{
         haha:'哈哈'
       }
@@ -74,4 +74,9 @@
       return{
       }
     }])
-
+    .factory('comforderlistadder',[function(){
+      return{
+      }
+    }])
+    
+    

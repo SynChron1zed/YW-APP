@@ -3,13 +3,8 @@
  */
 App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout','native',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,
 $ionicNativeTransitions,$timeout,native) {
-
-
-
-
-
+  
   //$cordovaProgress.showBar(true, 50000);
-
   //退出登录
               window.outlogin  = function(Callback){
 
@@ -119,7 +114,7 @@ $ionicNativeTransitions,$timeout,native) {
     //安卓返回键的处理
     $ionicPlatform.registerBackButtonAction(function (e) {
       e.preventDefault();
-      
+
 
       //返回一个没有使用  原始过度的页面
       if(window.noNavtionsbackRootuer){
@@ -213,7 +208,7 @@ $ionicNativeTransitions,$timeout,native) {
       window.updateAPP();
     }
   });
-  
+
   window.updateAPP  =  function(){
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
@@ -231,7 +226,7 @@ $ionicNativeTransitions,$timeout,native) {
             if(r.resp_data.data.new){
                native.confirm('检查到有新的版本更新','升级易物宜得？',['更新','取消'],function(c){
                   if(c  == 1){
-                    updataAp(r.resp_data.data.downloadUrl);      
+                    updataAp(r.resp_data.data.downloadUrl);
                   }
               })
             }else{
@@ -260,18 +255,18 @@ $ionicNativeTransitions,$timeout,native) {
                           if(loding  == 1){
                               cordova.plugin.pDialog.dismiss();
                                 cordova.plugins.fileOpener2.open(
-                                      filpath, 
-                                      'application/vnd.android.package-archive', 
+                                      filpath,
+                                      'application/vnd.android.package-archive',
                                       {
                                           error : function(){
-                                              native.task('APP安装失败');      
-                                          }, 
-                                          success : function(){            
-                                          } 
-                                      } 
+                                              native.task('APP安装失败');
+                                          },
+                                          success : function(){
+                                          }
+                                      }
                                   );
-                                  native.task('APP更新完毕,正在安装');                                
-                          }                          
+                                  native.task('APP更新完毕,正在安装');
+                          }
                       } else {
                         native.task('网络连接中断....')
                       }
@@ -286,7 +281,7 @@ $ionicNativeTransitions,$timeout,native) {
                               console.log("download error source " + error.source);
                               console.log("download error target " + error.target);
                               console.log("upload error code" + error.code);
-                          },                          
+                          },
                           false,
                           {}
                       )
