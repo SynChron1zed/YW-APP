@@ -275,11 +275,11 @@ debugger;
   function   caklatehe  (){
     if(window.platform  == 'ios'){
       $scope.caklateheight  = {
-        height:window.innerHeight-(64+166)+'px'
+        height:window.innerHeight-(64+216)+'px'
       }
     }else{
       $scope.caklateheight  = {
-        height:window.innerHeight-(44+166)+'px'
+        height:window.innerHeight-(44+216)+'px'
       }
     }
   };
@@ -291,7 +291,7 @@ debugger;
 
   $scope.newcaklateheight  = {};
   function   newcaklatehe  (){
-   
+
     if(window.platform  == 'ios'){
       $scope.newcaklateheight  = {
         width:window.innerWidth+'px'

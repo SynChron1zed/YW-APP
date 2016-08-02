@@ -628,8 +628,26 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-    //setting  个人设置 分享好友
-    .state('r.tab.companyInstall', {
+    //setting  个人设置 企业设置
+    .state('r.companyInstall',{
+      url: '/companyInstall',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.companyInstall')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Setting/companyInstall.html',
+          controller: 'companyInstallCtr'
+        }
+      }
+    })
+
+
+
+/*    .state('r.tab.companyInstall', {
       url: '/Settings/companyInstall',
       views: {
         'setting': {
@@ -637,7 +655,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           controller: 'companyInstallCtr'
         }
       }
-    })
+    })*/
 
 
    /* //setting  个人设置 管理收货地址
@@ -951,13 +969,13 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         'rootview': {
           params:{id:null},
           templateUrl: 'templates/goods/Productdetails.html',
-          controller: 'ProductdetailsCtr'          
+          controller: 'ProductdetailsCtr'
         }
       }
-    })       
+    })
     //确认订单
     .state('r.ConfirmorderZf', {
-          url: '/ConfirmorderZf',          
+          url: '/ConfirmorderZf',
           views: {
             'rootview': {
               templateUrl: 'templates/goods/comf.html',
@@ -965,7 +983,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
             }
           }
         })
-        
+
 
 
 

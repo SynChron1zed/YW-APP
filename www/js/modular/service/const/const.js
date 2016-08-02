@@ -19,7 +19,7 @@
   // };
   window.defaultUserheader  =  './img/sys_male.jpg';
 
-  Server.factory('const',['$window','$ionicHistory','$timeout','$ionicNativeTransitions',function($window,$ionicHistory,$timeout,$ionicNativeTransitions){
+  Server.factory('const',['$window','$ionicHistory','$timeout','$ionicNativeTransitions','storage',function($window,$ionicHistory,$timeout,$ionicNativeTransitions,storage){
       return{
         haha:'哈哈'
       }
@@ -36,6 +36,21 @@
          total_in_number:undefined
       }
     }])
+
+
+
+//验证状态
+  .factory('selectArr',['storage',function(storage){
+    return{
+      userid:storage.getObject('UserInfo').user_id,
+      isadmin:storage.getObject('UserInfo').is_admin,
+      iscampany:storage.getObject('UserInfo').company_id,
+      authstatus:storage.getObject('UserInfo').auth_status,
+      needpaid:storage.getObject('UserInfo').need_paid,
+      selectarrs:[storage.getObject('UserInfo').user_id,storage.getObject('UserInfo').is_admin,storage.getObject('UserInfo').company_id,storage.getObject('UserInfo').auth_status,storage.getObject('UserInfo').need_paid]
+
+    }
+  }])
 
 
     .factory('loginregisterstate',[function(){
@@ -59,5 +74,4 @@
       return{
       }
     }])
-    
-    
+
