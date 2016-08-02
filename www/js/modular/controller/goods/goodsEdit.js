@@ -934,9 +934,8 @@ $scope.save  = function (){
           activity_price:$scope.goods.Platform_price,
           retail_price:$scope.goods.Market_price,
           properties:'',                    
-          quantity:$scope.goods.freight_price?$scope.goods.freight_price:'0',
+          quantity:$scope.goods.Stock_number?$scope.goods.Stock_number:'0',
           local_sku_id:loid,
-
         })
     }else{
 

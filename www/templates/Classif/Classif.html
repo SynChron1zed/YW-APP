@@ -33,7 +33,14 @@
       <ion-refresher spinner="ios"  pulling-text="刷新" on-refresh="loadOlderStories(true)"   ></ion-refresher>
     <div id="class-boder" class="classlist" >
       <div class=" classif-list " >
-        <div class="classif-one" ng-repeat="item in ShoppingList" ng-click="proDetail('r.ClassifDetails',item.goods_basic_id)">
+        <div class="classif-one" ng-repeat="item in ShoppingList"
+        
+        
+         ng-click="goodsdetail(item)"
+
+         >
+
+
           <img image-lazy-src="{{item.img_url}}" alt="" image-lazy-distance-from-bottom-to-load="100" style="margin-top: 5px;">
 
           <div>{{item.goods_title}}</div>

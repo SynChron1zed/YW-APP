@@ -7,6 +7,11 @@
 Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$ionicScrollDelegate',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$ionicScrollDelegate) {
 
 
+
+
+
+
+
   $scope.SalesList = [];
   var pageNum = 0;
   $scope.newexpression=false
@@ -247,8 +252,11 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
     $timeout(function () {
       $scope.$broadcast('scroll.refreshComplete');
     }, 600);
-
   };
+
+
+
+
 
 
 

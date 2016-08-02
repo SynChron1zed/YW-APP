@@ -6,6 +6,11 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
 
 
 
+
+    $scope.goodsdetail  = function(r){
+        fromStateServ.stateChange('r.Productdetails',{id:r.goods_basic_id});
+    }
+
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
      if ($ionicHistory.backView()) {

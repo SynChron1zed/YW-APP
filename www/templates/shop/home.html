@@ -9,6 +9,8 @@
     </div>
   </ion-nav-buttons>
   
+
+  
    <ion-nav-title>
     {{title}}
   </ion-nav-title>
@@ -28,8 +30,9 @@
         </div>
       </div>
 
-      <div class="shopclaslist" style="white-space: nowrap;overflow: hidden;">         
-              <div draggable >
+      <div class="shopclaslist" style="white-space: nowrap;overflow: hidden;">
+        
+            <div draggable  style="display: inline-block;" >
                 <div class="listitme"     ng-repeat="ss in shopclasslist"  ng-click="swatchclass(ss)"  ng-class="{'active':ss.select}">
                   {{ss.cate_name}}
                 </div>
@@ -40,12 +43,11 @@
 
     <ion-scroll   delegate-handle="goodslistshop"   lazy-scroll   ng-style='goodslisthe'      overflow-scroll="false"   scrollbar-y="false"     >
 
-          <div class="shopgoodslit"  ng-repeat="ff in goodlistdata" >
+          <div class="shopgoodslit"  ng-repeat="ff in goodlistdata"   ng-click="gogoodsdetial(ff)"  >
             <img image-lazy-src="{{ff.img_url}}" alt="" image-lazy-distance-from-bottom-to-load="100" >
             <p style="height:40px;padding:0px 4px;">{{ff.goods_title}}</p>
             <p><span>￥{{ff.activity_price}}</span>  <del>{{'￥'+ff.activity_price}}</del></p>
 
-            
             </div>
 
 
