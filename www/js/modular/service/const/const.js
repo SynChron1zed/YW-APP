@@ -42,15 +42,28 @@
 //验证状态
   .factory('selectArr',['storage',function(storage){
     return{
-      userid:storage.getObject('UserInfo').user_id,
-      isadmin:storage.getObject('UserInfo').is_admin,
-      iscampany:storage.getObject('UserInfo').company_id,
-      authstatus:storage.getObject('UserInfo').auth_status,
-      needpaid:storage.getObject('UserInfo').need_paid,
+      userid:storage.getObject('UserInfo').user_id,//是否登录
+      isadmin:storage.getObject('UserInfo').is_admin,//是否管理员
+      iscampany:storage.getObject('UserInfo').company_id,//是否加入公司
+      authstatus:storage.getObject('UserInfo').auth_status,//是否认证状态
+      needpaid:storage.getObject('UserInfo').need_paid,//是否缴纳保证金
       selectarrs:[storage.getObject('UserInfo').user_id,storage.getObject('UserInfo').is_admin,storage.getObject('UserInfo').company_id,storage.getObject('UserInfo').auth_status,storage.getObject('UserInfo').need_paid]
 
     }
   }])
+
+  //模块权限
+    .factory('ModuleArr',['storage',function(storage){ //登录 0，管理员 1，认证 2，诚信金3，加入公司4 1代表需要验证 0代表不需要验证
+      return{
+
+           setting:[{address:[1,0,0,0,0]},{two:[1,0,0,0,1]},{friends:[1,0,0,0,0]},{user:[0,0,0,0,0]},{we:[0,0,0,0,0]},{qiyesz1:[1,0,0,0,1],qiyesz2:[1,1,1,1,1]},{gerensz:[1,0,0,0,0]}],
+           claasif:[0,0,0,0,0],
+           shoppingcar:[1,0,0,0,0],
+           shop:[{shopone:[0,0,0,0,0]},{addcar:[1,0,0,0,0]},{buy:[1,0,0,0,0]}],
+           home:[{xiaoshou:[1,1,1,1,1]},{caigou:[1,0,0,0,0]},{jiaoyiliuchen:[0,0,0,0,0]},{dongtai:[0,0,0,0,0]},{tiyan:[0,0,0,0,0]},{cishan:[0,0,0,0,0]},{dianpuguanli:[1,1,1,1,1]},{shangpingunali:[1,1,1,1,1]},{shangpingfenlei:[1,1,1,1,1]}]
+      }
+    }])
+
 
 
     .factory('loginregisterstate',[function(){
@@ -78,5 +91,5 @@
       return{
       }
     }])
-    
-    
+
+

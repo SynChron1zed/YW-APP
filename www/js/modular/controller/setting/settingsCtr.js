@@ -2,10 +2,13 @@
  * Created by Why on 16/6/8.
  */
 
-Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state','$ionicHistory','storage','fromStateServ','$ionicScrollDelegate','Tools','native',function($scope,$ionicPopover, $ionicPopup,$timeout,$state,$ionicHistory,storage,fromStateServ,$ionicScrollDelegate,Tools,native) {
+Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state','$ionicHistory','storage','fromStateServ','$ionicScrollDelegate','Tools','native','selectArr',function($scope,$ionicPopover, $ionicPopup,$timeout,$state,$ionicHistory,storage,fromStateServ,$ionicScrollDelegate,Tools,native,selectArr) {
 
 
-$scope.userfanhui  = function () {
+  $scope.judge =selectArr.selectarrs;
+
+
+  $scope.userfanhui  = function () {
   $state.go('r.tab.SettingsUser')
 }
 
@@ -70,8 +73,19 @@ $scope.updateAPP  =  function () {
 
       login();
     }else{
-      
-      $scope.getMdl('r.companyInstall')
+    
+
+      if(!$scope.judge[2]){
+
+        $ionicPopup.alert({
+          title:"请先申请加入公司！",
+          okText:'确定'
+
+        });
+      }else {
+
+        $scope.getMdl('r.companyInstall')
+      }
     }
 
 
@@ -161,10 +175,23 @@ var   userone = storage.getObject('UserInfo');
         $scope.showco  =   function  () {
           var uil   = storage.getObject('UserInfo');
         if(!uil.user_id){
+
               login();
+
         }else{
-          $scope.shopid  = 'http://pan.baidu.com/share/qrcode?w=400&h=400&url='+uil.shop_id;
-          $scope.opencustomenuatts   = true;
+
+          if(!$scope.judge[2]){
+
+            $ionicPopup.alert({
+              title:"请先申请加入公司！",
+              okText:'确定'
+
+            });
+          }else{
+            $scope.shopid  = 'http://pan.baidu.com/share/qrcode?w=400&h=400&url='+uil.shop_id;
+            $scope.opencustomenuatts   = true;
+          }
+
         }
 
 
