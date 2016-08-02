@@ -33,7 +33,7 @@ Ctr.controller('tasteCtr',['$scope','native','$state','fromStateServ','Tools','$
 
     Tools.getData(sendoption,function(r){
       if(r){
-debugger;
+
         if(r.resp_data.nextPage  == 0 ){
           $scope.expression  = false;
           $scope.page_number  =1;

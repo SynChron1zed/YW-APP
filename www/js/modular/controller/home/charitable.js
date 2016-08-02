@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2016/7/13.
  */
-Ctr.controller('chariCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$ionicHistory','$ionicScrollDelegate','$ionicBackdrop',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$ionicHistory,$ionicScrollDelegate,$ionicBackdrop) {
+Ctr.controller('chariCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$ionicHistory','$ionicScrollDelegate','$ionicBackdrop','selectArr',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$ionicHistory,$ionicScrollDelegate,$ionicBackdrop,selectArr) {
 
 
 
@@ -9,6 +9,7 @@ Ctr.controller('chariCtr',['$scope','native','$state','fromStateServ','Tools','$
   //商城分类
   $scope.ShoppingList=[];
 
+var a = selectArr.selectarrs;
 
   $scope.loadOlderStories=function (type) {
 

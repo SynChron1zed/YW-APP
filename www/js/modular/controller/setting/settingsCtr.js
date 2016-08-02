@@ -70,7 +70,8 @@ $scope.updateAPP  =  function () {
 
       login();
     }else{
-      $state.go('r.tab.companyInstall');
+      
+      $scope.getMdl('r.companyInstall')
     }
 
 
