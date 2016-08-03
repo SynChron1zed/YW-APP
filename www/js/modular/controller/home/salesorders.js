@@ -367,7 +367,7 @@ $scope.query =function () {
 
   $scope.backtoprevView  =   fromStateServ.backView;
   $scope.$on('$stateChangeSuccess',function(){
-    debugger;
+   
     $scope.loginboj = {};
     $scope.ing  = false;
     $scope.parenttitle     =   fromStateServ.getState('r.HomSales').title;

@@ -117,8 +117,8 @@ $scope.showlogistics  =  function () {
 
                   });
                 }else{
-                  fromStateServ.stateChange(r);
-                 
+                  fromStateServ.stateChange('r.HomSales');
+
 
                 }
               }
