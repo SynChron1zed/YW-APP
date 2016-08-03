@@ -56,10 +56,16 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
                 $scope.closetallcationvalue();
                 $timeout(function () {
                   //去确认订单
+
                   buyConfirmorde.shop_id  = $scope.goods.shopInfo.shop_id;
                   buyConfirmorde.sku_id  =  $scope.selectsku.skuid;
+
+
                   buyConfirmorde.goods_basic_id  =  $scope.goods.goodsInfo.goods_basic_id;
                   buyConfirmorde.number  =  $scope.selectsku.number;
+
+                  console.log($scope.selectsku,'沙龙的拉升的萨克的萨克拉的卡拉上课了') 
+
                   Tools.hidelogin();
                   $state.go('r.ConfirmorderZf')
 
@@ -179,6 +185,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
 
    $scope.chekdskucombination  = function (parentobj,nowobj){
 
+
       // this  state  is
       $scope.showstockprice = false;
       if(!nowobj.disable){
@@ -218,8 +225,16 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
             $scope.goodskuimte_attrbutsmsg.local_sku_id =key.baseinfo.local_sku_id;
             $scope.goodskumsg.stock_num  = key.baseinfo.stockNum;
             $scope.goodskuimte_attrbutsmsg.expar  = $scope.expar;
+
+
+            
             $scope.selectsku.skuid =   key.baseinfo.local_sku_id;
             $scope.selectsku.price =   key.baseinfo.activity_price;
+
+
+
+
+            
             $scope.goodskuimte_attrbutsmsg.price =key.baseinfo.activity_price;
             $scope.goodskumsg.price   =   key.baseinfo.activity_price
 
@@ -263,6 +278,9 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
               $scope.goodskuimte_attrbutsmsg.local_sku_id =key.baseinfo.local_sku_id;
               $scope.goodskumsg.stock_num  = key.baseinfo.stockNum;
               $scope.goodskuimte_attrbutsmsg.expar  = $scope.expar;
+
+              
+
               $scope.selectsku.skuid =   key.baseinfo.local_sku_id;
               $scope.selectsku.price =   key.baseinfo.activity_price;
 
@@ -305,6 +323,10 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
                   
                   $scope.goodskuimte_attrbutsmsg.local_sku_id =key.local_sku_id;
                   $scope.goodskumsg.stock_num  = key.stockNum;
+
+
+                  
+
                   $scope.selectsku.skuid =   key.local_sku_id;
                   $scope.selectsku.price =   key.activity_price;
 
@@ -462,11 +484,13 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
                   $scope.goodskuimte_attrbutsmsg.local_sku_id =key.baseinfo.local_sku_id;
                   $scope.goodskumsg.stock_num  = key.baseinfo.stockNum;
 
-                  
-                
 
+                  
                   $scope.selectsku.skuid =   key.baseinfo.local_sku_id;
                   $scope.selectsku.price =   key.baseinfo.activity_price;
+
+
+
 
 
                   $scope.goodskuimte_attrbutsmsg.expar  = $scope.expar;
@@ -585,8 +609,9 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
                         //  $scope.goodskuimte_attrbutsmsg.price =  key.baseinfo.retail_price;
                         //  $scope.goodskumsg.price   =   key.baseinfo.retail_price
                         //}
-
-
+                        
+                        $scope.selectsku.skuid =   key.baseinfo.local_sku_id;
+                        $scope.selectsku.price =   key.baseinfo.activity_price;
                         //零售价
                         $scope.goodskuimte_attrbutsmsg.price =  key.baseinfo.retail_price;
                         $scope.goodskumsg.price   =   key.baseinfo.retail_price
@@ -670,7 +695,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
   }
 
   $scope.lijibuy  = function () {
-            $scope.setallcationstate = true;
+              $scope.setallcationstate = true;
              $scope.selectsku.number  =1;
              $scope.selectsku.state  =  true;
   }

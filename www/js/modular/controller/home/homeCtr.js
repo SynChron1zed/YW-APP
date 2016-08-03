@@ -8,10 +8,9 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 
 //查看物流
 $scope.showlogistics  =  function () {
-
       //160719000024
-      $scope.goModular('r.Logistics',{id:'160715000053'});
-
+      //160715000053
+      //$scope.goModular('r.Logistics',{id:'160719000024'});
 }
 
 

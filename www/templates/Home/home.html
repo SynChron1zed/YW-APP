@@ -11,9 +11,7 @@
       <a   nav-direction="forward" ng-click="goModular('r.login')"  class="button button-icon ion-ios-location-outline location-headers home-location">
         <p>全国</p>
       </a>
-    </ion-nav-buttons>-->
-
-
+    </ion-nav-buttons>-->    
     <ion-nav-buttons side="right">
       <button class="button button-icon  ion-ios-search-strong"  ui-sref="r.tab.HomeSearch"  ></button>
     </ion-nav-buttons>
@@ -21,13 +19,11 @@
 </ion-nav-bar>
   <ion-content  overflow-scroll="false"   scrollbar-y="false"   style='background-color:#f3f3f3' >
 
-
-
-    <ion-slide-box    ng-if='guankao'  class='homeSlidebox' auto-play='true'  does-continue="true" >
-      <ion-slide   ng-repeat="ss   in  guankao"   ng-click="gogunal(ss)"   >
-        <img ng-src="{{ss.qiniu_key}}" alt="">
-      </ion-slide>
-    </ion-slide-box>
+      <ion-slide-box    ng-if='guankao'  class='homeSlidebox' auto-play='true'  does-continue="true" >
+        <ion-slide   ng-repeat="ss   in  guankao"   ng-click="gogunal(ss)"   >
+          <img ng-src="{{ss.qiniu_key}}" alt="">
+        </ion-slide>
+      </ion-slide-box>
 
 
 
