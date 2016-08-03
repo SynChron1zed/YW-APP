@@ -25,7 +25,7 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
     //编辑goods分类      Edit product categories
     $scope.edithgoodsclassopen  = function (xx){
       $scope.nowgoodid  = xx.goods_basic_id;
-      
+
       $scope.edithgoodsclass.show();
       $timeout(function(){
         Tools.showlogin();
@@ -35,15 +35,15 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
               "goods_id": xx.goods_basic_id,
           }
         },function(r){
-              if(r){  
-              
+              if(r){
+
                 $scope.goodsClasda  = r.resp_data.shop_cate;
               }
         })
       },400)
     };
 
-    //edit goods class data 
+    //edit goods class data
     $scope.goodsClasda  = [];
     $scope.newgoodsclass = {};
     $scope.newgoodsclass.name =undefined;
@@ -56,13 +56,13 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
         Tools.showlogin();
         Tools.getData({
            "interface_number": "030204",
-          "post_content": {        
+          "post_content": {
           "cate_name":$scope.newgoodsclass.name,
           "goodsIds":[]
         }
         },function(r){
               if(r){
-                $scope.goodsClasda.unshift(r.resp_data);  
+                $scope.goodsClasda.unshift(r.resp_data);
                 native.task('添加成功');
               }
         })
@@ -76,7 +76,7 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
             if(c.select){
                 sendoption.push(c.cate_id)
             }
-            
+
         })
 
         Tools.getData({
@@ -88,18 +88,18 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
         },function(r){
               $timeout(function(){
                $scope.goodsClasda = [];
-               $scope.newgoodsclass.name =undefined; 
+               $scope.newgoodsclass.name =undefined;
               },300)
               if(r){
                 $scope.edithgoodsclass.hide();
                 native.task('保存成功');
               }
-        })   
+        })
     }
 
-    //商品上架  
+    //商品上架
     $scope.goodsup = function (b,index){
-        
+
         goodsuprodow(b.goods_basic_id,function(r){
             Tools.rmArrin($scope.datalist,index)
         $scope.salestotin.up  =  parseInt($scope.salestotin.up)+1;
@@ -107,9 +107,9 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
             native.task('上架成功');
         })
     }
-    //商品下架 
+    //商品下架
     $scope.goodsdown = function (b,index){
-      
+
         goodsuprodow(b.goods_basic_id,function(r){
             Tools.rmArrin($scope.datalist,index)
             $scope.salestotin.up  = parseInt($scope.salestotin.up)-1;
@@ -123,7 +123,7 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
             "interface_number": "030107",
             "post_content": {
             "goodsId": par,
-            "status":$scope.liststate?0:1 
+            "status":$scope.liststate?0:1
             }
           },function(r){
               if(r){
@@ -143,12 +143,12 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
                 Tools.getData({
                   "interface_number": "030108",
                   "post_content": {
-                    "goodsId":targe.goods_basic_id 
+                    "goodsId":targe.goods_basic_id
                   }
                 },function(r){
                     if(r){
                       if(!$scope.liststate){
-                        $scope.salestotin.down =  parseInt($scope.salestotin.down) -1; 
+                        $scope.salestotin.down =  parseInt($scope.salestotin.down) -1;
                       }else{
                         $scope.salestotin.up =  parseInt($scope.salestotin.up) -1;
                       }
@@ -171,7 +171,7 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
     goodsState.goods_title  = r.goods_title;
     goodsState.img_url  = r.img_url;
     goodsState.activity_price  = r.activity_price;
-    r.total_in_number  = goodsState.total_in_number;     
+    r.total_in_number  = goodsState.total_in_number;
 
     $state.go('r.goodsEdit',{state:'edit',id:r.goods_basic_id});
   };
@@ -233,17 +233,17 @@ $scope.swatchtstate  = function (){
 
    if(goodsState.goods_basic_id){
             angular.forEach($scope.datalist,function(r){
-                  if(r.goods_basic_id  == goodsState.goods_basic_id){        
+                  if(r.goods_basic_id  == goodsState.goods_basic_id){
                     r.goods_title  = goodsState.goods_title;
                     r.img_url  = goodsState.img_url;
                     r.activity_price  = goodsState.activity_price;
-                    r.total_in_number  = goodsState.total_in_number;     
-                    
+                    r.total_in_number  = goodsState.total_in_number;
+
                   }
             })
       }
 
-      
+
       if(goodsState.Refresh){
           goodsState.Refresh   =false;
           return  false;
@@ -314,6 +314,7 @@ $scope.swatchtstate  = function (){
   $scope.liststate  =  true;
   $scope.left =  function (){
     if(!$scope.liststate){
+      debugger;
           $ionicScrollDelegate.$getByHandle('list').scrollTop();
           $scope.liststate  =  true;
           $scope.downlistloadmor  = true;
@@ -323,6 +324,7 @@ $scope.swatchtstate  = function (){
   }
 
   $scope.right =  function (){
+    debugger;
     if($scope.liststate){
       $ionicScrollDelegate.$getByHandle('list').scrollTop();
       $scope.liststate  =  false;
@@ -347,6 +349,7 @@ $scope.swatchtstate  = function (){
 
 
   $scope.customcucdownlisloadMore  =  function (type){
+    debugger;
       var sendoption  = {
         "interface_number": "030104",
        "post_content": {
@@ -420,7 +423,7 @@ $scope.swatchtstate  = function (){
             $scope.downlistloadmor  = false;
 
           }
-          
+
           $scope.$broadcast('scroll.refreshComplete');
           $scope.$broadcast('scroll.infiniteScrollComplete');
     })

@@ -359,11 +359,21 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     //销售订单
     .state('r.tab.HomSales',{
-      url: '/HomeSales',
+      url: '/HomeSales/:dataNum',
       views: {
         'Home': {
           templateUrl: 'templates/Home/salesorders.html',
           controller: 'salesCtr'
+        }
+      }
+    })
+
+    .state('r.tab.delivery',{
+      url: '/delivery/:odId/:Num',
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/delivery.html',
+          controller: 'deliveryCtr'
         }
       }
     })
@@ -418,7 +428,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })*/
-    
+
     //采购订单
     .state('r.HomPurchase', {
       url: '/HomPurchase',
@@ -970,19 +980,19 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         'rootview': {
           params:{id:null,inside:null},
           templateUrl: 'templates/goods/Productdetails.html',
-          controller: 'ProductdetailsCtr'          
+          controller: 'ProductdetailsCtr'
         }
       }
-    })       
+    })
     //确认订单
     .state('r.ConfirmorderZf', {
-          url: '/ConfirmorderZf',         
+          url: '/ConfirmorderZf',
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.ConfirmorderZf')
       },
       onExit:function(fromStateServ){
         fromStateServ.removebackregistevent();
-      }, 
+      },
           views: {
             'rootview': {
               templateUrl: 'templates/goods/comf.html',
@@ -990,7 +1000,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
             }
           }
         })
-        
+
 
 
 

@@ -4,66 +4,107 @@
 /**
  * Created by Administrator on 2016/7/13.
  */
-Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$ionicScrollDelegate',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$ionicScrollDelegate) {
+Ctr.controller('salesCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize','$ionicScrollDelegate','$ionicModal','$ionicHistory',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize,$ionicScrollDelegate,$ionicModal,$ionicHistory){
 
 
-
+  $scope.expression=true;
+   $scope.dataNew = false
 
   $scope.SalesList = [];
-  var pageNum = 0;
-  $scope.newexpression=false
-  $scope.expression=true
+  $scope.statusData = ""
+  $scope.datanum =  $stateParams.dataNum;
+  $scope.$on('$ionicView.beforeEnter',function(){
+
+    //页面的状态变化  请求
 
 
+    if ($ionicHistory.backView().forwardViewId) {
+      window.androdzerofun  = function(parm1,parm2){
+        $ionicHistory.goBack();
+      }
+      window.androdzerofun_parms  ='tabswtathing';
+      window.androdzerofun_clback  = 'nothing';
+    }
+  });
 
-  //翻页加载
+  $scope.dataLeft = function (value,num,index) {
+
+    $scope.Odid = value;
+    $scope.Num = num
+    $scope.index = index
+
+    $scope.newmodal.show();
+
+
+  }
+
+  //加载
   $scope.loadOlderStories=function (type) {
-
-    pageNum +=1;
-
-
-    Tools.getData({
+debugger;
+   /* if(type=="2"){
+      return false
+    }*/
+    var sendoption  = {
       "interface_number": "020701",
       "client_type": window.platform,
       "post_content": {
-        "token" : "",
+        "token":"",
         "token_phone": "",
-        "status": "",
-        "page_num": pageNum,
-        "page_per":10
+        "status": $scope.statusData
       }
-    }, function (r) {
-      if (r) {
+    };
+
+    if(type){
+      sendoption.post_content.page_num  = $scope.page_number  = 1;
+    }else{
+      sendoption.post_content.page_num  = $scope.page_number;
+    }
+
+
+    Tools.getData(sendoption,function(r){
+      if(r){
+debugger;
+
+        if(r.resp_data.nextPage  == 0 ){
+          $scope.expression  = false;
+          $scope.page_number  =1;
+        }else{
+          $scope.expression  = true;
+          $scope.page_number  =r.resp_data.nextPage;
+        }
+
 
         angular.forEach(r.resp_data.data,function(c){
-          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
-          c.ctr  = false;
+
+          c.pic_path  =  window.qiniuimgHost+c.pic_path +'?imageView2/1/w/200/h/200';
+         /* if(c.post_status=="1"){
+            $scope.dataNew = true;
+          }else{
+            $scope.dataNew = false
+          }*/
         });
 
-        if (r.resp_data.data.length == 0) {
-          $scope.expression = false
-          $scope.newexpression=true
-          $scope.SalesList=$scope.SalesList
 
-        } else {
-          $scope.newexpression=false
-
-          for(var i=0;i<r.resp_data.data.length;i++){
-            $scope.SalesList.push(r.resp_data.data[i])
-          }
+        if(type){
+          $scope.SalesList  = r.resp_data.data;
+        }else{
+          angular.forEach(r.resp_data.data,function(c){
+            $scope.SalesList.push(c);
+          });
         }
-        $timeout(function () {
-          $scope.$broadcast('scroll.infiniteScrollComplete');
-        }, 600);
+
+
+
 
       }
-
-
+      $scope.$broadcast('scroll.refreshComplete');
+      $scope.$broadcast('scroll.infiniteScrollComplete');
     });
 
 
-
   };
+
+
 
 
 
@@ -74,145 +115,65 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
 
   //全部
   $scope.alls = function  (){
+    $scope.dataNew = false
     $scope.all = true;
     $scope.dfk = false;
     $scope.dfc = false;
     $scope.dfh = false;
-
-    Tools.getData({
-      "interface_number": "020701",
-      "client_type": window.platform,
-      "post_content": {
-        "token" : "",
-        "token_phone": "",
-        "status": "",
-        "page_num": 1,
-        "page_per":10
-      }
-    },function(r){
-      if(r){
-        if(r.resp_data.data.length==10){
-          $scope.expression=true
-        }else{
-          $scope.expression=false
-          $scope.newexpression=true
-        }
-        $scope.SalesList = (r.resp_data.data)
-        $ionicScrollDelegate.scrollTop();
-        console.log($scope.SalesList)
+    $scope.statusData = "";
+    $scope.SalesList = [];
+    $ionicScrollDelegate.scrollTop();
+    $scope.page_number=1;
+    $scope.loadOlderStories();
 
 
-        $scope.post_status=[];
-
-      }
-    });
 
   };
   //待发货
   $scope.dfks =  function  (){
+    debugger;
+    $scope.dataNew = false
     $scope.all = false;
     $scope.dfk = true;
     $scope.dfc = false;
     $scope.dfh = false;
+    $scope.statusData = "1";
+    $scope.SalesList = [];
+    $ionicScrollDelegate.scrollTop();
+    $scope.page_number=1;
+    $scope.loadOlderStories();
 
-    Tools.getData({
-      "interface_number": "020701",
-      "client_type": window.platform,
-      "post_content": {
-        "token" : "",
-        "token_phone": "",
-        "status": "1",
-        "page_num": 1,
-        "page_per":10
-      }
-    },function(r){
-      if(r){
-        if(r.resp_data.data.length==10){
-          $scope.expression=true
-        }else{
-          $scope.expression=false
-          $scope.newexpression=true
-        }
-        $scope.SalesList = (r.resp_data.data)
-        $ionicScrollDelegate.scrollTop();
-        console.log($scope.SalesList)
 
-        $scope.post_status=[];
-
-      }
-    });
   };
 
   //待收货
   $scope.dfcs = function  (){
+    $scope.dataNew = false
     $scope.all = false;
     $scope.dfk = false;
     $scope.dfc = true;
     $scope.dfh = false;
-
-    Tools.getData({
-      "interface_number": "020701",
-      "client_type": window.platform,
-      "post_content": {
-        "token" : "",
-        "token_phone": "",
-        "status": "2",
-        "page_num": 1,
-        "page_per":10
-      }
-    },function(r){
-      if(r){
-        if(r.resp_data.data.length==10){
-          $scope.expression=true
-        }else{
-          $scope.expression=false
-          $scope.newexpression=true
-        }
-        $scope.SalesList = (r.resp_data.data)
-        $ionicScrollDelegate.scrollTop();
-        console.log($scope.SalesList)
-
-        $scope.post_status=[];
-
-      }
-    });
+    $scope.statusData = '2';
+    $scope.SalesList = [];
+    $scope.loadOlderStories();
+    $ionicScrollDelegate.scrollTop();
 
   };
 
 
   //已完成
   $scope.dfns = function  (){
+    $scope.dataNew = false
     $scope.all = false;
     $scope.dfk = false;
     $scope.dfc = false;
     $scope.dfh = true;
+    $scope.statusData = "3";
+    $scope.SalesList = [];
+    $scope.page_number=1;
+    $scope.loadOlderStories();
+    $ionicScrollDelegate.scrollTop();
 
-    Tools.getData({
-      "interface_number": "020701",
-      "client_type": window.platform,
-      "post_content": {
-        "token" : "",
-        "token_phone": "",
-        "status": "4",
-        "page_num": 1,
-        "page_per":10
-      }
-    },function(r){
-      if(r){
-        if(r.resp_data.data.length==10){
-          $scope.expression=true
-        }else{
-          $scope.expression=false
-          $scope.newexpression=true
-        }
-        $scope.SalesList = (r.resp_data.data)
-        $ionicScrollDelegate.scrollTop();
-        console.log($scope.SalesList)
-
-        $scope.post_status=[];
-
-      }
-    });
 
   };
 
@@ -245,13 +206,140 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
     caklatehe();
   },600)
 
-  $scope.calssifloadMore = function (xxx) {
-    $timeout(function () {
-      $scope.$broadcast('scroll.refreshComplete');
-    }, 600);
-  };
+
+  $ionicModal.fromTemplateUrl('templates/newModal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.newmodal = modal;
+  });
 
 
+  $scope.newQuery= function () {
+    debugger;
+
+    $scope.modal.hide()
+    $scope.newmodal.show();
+  }
+  $scope.queryTwo =function () {
+    $scope.newmodal.hide();
+    $scope.dfks();
+  }
+
+  //物流单号
+
+  $scope.deliveryList = function () {
+    $scope.newmodal.hide();
+
+
+
+      $scope.modal.show();
+
+
+    Tools.getData({
+      "interface_number": "020704",
+      "post_content": {
+        "token":"",
+        "token_phone": "",
+
+
+      }
+
+    },function(r){
+
+
+      debugger;
+
+      if(r.msg== "success"){
+
+        $scope.SalesList  = r.resp_data;
+
+      }else{
+
+        return false
+
+      }
+
+
+    });
+
+
+
+
+
+
+  }
+
+
+  $ionicModal.fromTemplateUrl('templates/modal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+$scope.query =function () {
+  $scope.modal.hide();
+  $scope.newmodal.show();
+}
+
+  $scope.goods = []
+  $scope.SalesList=[]
+  ///扫码
+  $scope.Barcode =  function(){
+    native.Barcode(function(r){
+      $scope.goods.barcode   =  r.text;
+      $scope.$apply();
+    });
+  }
+
+
+  $scope.data = [];
+
+  $scope.data.clientSide
+
+
+
+
+  $scope.deliveryNew=function () {
+
+    if(!$scope.data.clientSide){
+      native.task('请选择物流!')
+      return  false;
+    }
+    if(!$scope.goods.barcode){
+      native.task('请填写单号!')
+      return  false;
+    }
+
+
+    Tools.getData({
+      "interface_number": "020706",
+      "post_content": {
+        "token":"",
+        "token_phone": "",
+        "orderId":$scope.Odid,
+        "logistCompanyId": $scope.data.clientSide.logistics_company_id,
+        "logistCompanyName": $scope.data.clientSide.logistics_company_name,
+        "mailNo": $scope.goods.barcode
+
+      }
+
+    },function(r){
+
+      if(r.msg== "success"){
+
+        $scope.newmodal.hide();
+        $scope.dfks();
+
+      }else{
+
+        return false
+
+      }
+
+
+    });
+
+  }
 
 
 

@@ -19,7 +19,7 @@
 
 
     <div    ng-if='showtitle'  class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.HomPurchase')"  >
-        
+
       <i  ng-if='showtitle'  class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;color:#6b3801"></i>
       <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title"
       style="    display:block;
@@ -32,10 +32,10 @@
 
           </ion-nav-buttons>
 
-                    
+
   </ion-nav-bar>
 
-  
+
 
 
   <ion-nav-buttons side="right">
@@ -53,16 +53,16 @@
       <div  ng-class="{'active':dfc}"   ng-click="dfcs()"   >待收货</div>
       <div  ng-class="{'active':dfh}"   ng-click="dfns()" >已完成</div>
     </div>
-    <ion-scroll delegate-handle="list"
-                lazy-scroll
-                overflow-scroll="false"
-                scrollbar-y="false"
-                style="width: 100%;
+
+    <ion-scroll  delegate-handle="list"
+                 lazy-scroll
+                 overflow-scroll="false"
+                 scrollbar-y="false"
+                 style="width: 100%;
                      overflow:hidden
                      "
-                ng-style="caklateheight"    >
-
-      <ion-refresher pulling-text="刷新" on-refresh="calssifloadMore(true)"   ></ion-refresher>
+                 ng-style="caklateheight"  >
+      <ion-refresher spinner="ios"  pulling-text="刷新" on-refresh="loadOlderStories(true)"   ></ion-refresher>
 
 
       <!--////显示的那个 tab  自己控制-->
@@ -83,14 +83,30 @@
 
           </div>
 
+          <div class="row" style="height: 20px;   " >
+            <div  class="col" style="width: 100px">
+              <img src="{{item.pic_path}}"  style="width: 95%;
+    height: 80px;">
 
-            <div  style="float: left">
-              <img style="width: 100px;padding-left: 10px;margin-top: 5px" image-lazy-src="{{item.img_url}}" image-lazy-distance-from-bottom-to-load="100">
             </div>
-            <div class="msg">
-              <p >{{item.goods_name}}</p>
-              <p>规格：标配</p>
+
+            <div class="col col-60">
+              <span class="news-yiyu">{{item.goods_name}}</span>
+              <span class="yiyutwoONE">{{item.goods_property}}</span>
+
             </div>
+          </div>
+
+
+
+            <!--<div  style="float: left">-->
+              <!--<img style="width: 100px;padding-left: 10px;margin-top: 5px" image-lazy-src="{{item.pic_path}}" image-lazy-distance-from-bottom-to-load="100">-->
+            <!--</div>-->
+
+            <!--<div class="msg">-->
+              <!--<div>{{item.goods_name}}</div>-->
+              <!--<div>{{item.goods_property}}</div>-->
+            <!--</div>-->
 
 
           <div class="list " style="margin-top: 4rem;"   >
@@ -119,6 +135,8 @@
             <a class="item item-icon-right item-input-left"  style="height: 50px;padding: 6px">
 
               <div style="float: right;padding: 2px"  >
+                <button  ng-click="dataLeft(item.odid,item.order_basic_id,$index)"  ng-if="item.post_status==2"  class="button button-small button-stabl"  style="width: 60px; border: 1px solid #33cd5f;"><p style="color:#28a54c">收&nbsp;货</p></button>
+
                 <button ng-click="purchaseorde(item.odid)" class="button button-small button-stabl"  style="width: 60px; border: 1px solid orange;">详&nbsp;情</button>
               </div>
 
@@ -134,14 +152,18 @@
 
 
 
-      <ion-infinite-scroll  ng-if="expression" style="height: 10px;line-height: 40px;margin-bottom:30px;text-align: center" spinner="dots" on-infinite="loadOlderStories()"  distance="1%"  > </ion-infinite-scroll>
-      <div ng-if="newexpression" style="line-height: 30px;margin-bottom:20px;text-align: center;color:#999" >没有更多了!</div>
+      <ion-infinite-scroll  ng-if="expression" style="height: 20px;line-height: 40px;margin-bottom:20px;text-align: center" spinner="dots" on-infinite="loadOlderStories()"  distance="1%"  > </ion-infinite-scroll>
+      <div ng-if="!expression" style="line-height: 90px;margin-bottom:40px;text-align: center;color:#999" >没有更多了!</div>
+
 
     </ion-scroll>
 
 
 
   </ion-content>
+
+
+
 </ion-view>
 
 
