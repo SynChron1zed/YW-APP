@@ -1,61 +1,59 @@
 <ion-view  hide-back-button="true"  view-title="分类" >
 
-  <ion-nav-bar   class="bar-positive ">
-
-  </ion-nav-bar>
-
-
-  <ion-content style="background: white;overflow: hidden;"overflow-scroll="false"  scrollbar-y="false"  >
+  <ion-content   scroll="false"   scrollbar-y="false"   style="background:rgb(245, 245, 245)"     >
 
 
 
-    <ion-scroll direction="x" style="overflow-x:hidden;" scrollbar-x="false" ng-style="newcaklateheight" >
-      <div  class=" row class-every" >
-        <div class="col" ng-click="shoppingsList(item)" ng-repeat="item in Citysddd ">
-          <div class="col-30 bottom-xian " ng-class="{true:'yellowC',false:'yellowA'}[item==selectedItem]" ><nobr>{{ item.itemcats_name }}</nobr></div>
-        </div>
-      </div>
-    </ion-scroll>
+    <style>
+      .casdawwwwww  .listitme.active::after{
+            bottom: 0px !important;
+            background:#ffa900 !important;
+      }
+    </style>
 
-    <div>
-      <img src={{Citysd.qiniu_key}} alt="" style="    width: 100%;
-    height: 145px;">
-    </div>
-
-    <ion-scroll  delegate-handle="list"
-                lazy-scroll
-                overflow-scroll="false"
-                scrollbar-y="false"
-                style="width: 100%;
-                     overflow:hidden
-                     "
-                ng-style="caklateheight"   >
-
-      <ion-refresher spinner="ios"  pulling-text="刷新" on-refresh="loadOlderStories(true)"   ></ion-refresher>
-    <div id="class-boder" class="classlist" >
-      <div class=" classif-list " >
-        <div class="classif-one" ng-repeat="item in ShoppingList"
-        
-        
-         ng-click="goodsdetail(item)"
-
-         >
+         <div class="shopclaslist  casdawwwwww"   style="white-space: nowrap;overflow: hidden;    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.1);z-index: 9999;position: relative;
+         ">        
+            <div draggable  style="display: inline-block;" >
+                <div class="listitme"    ng-repeat="item in claslist "   ng-click="swatch(item)"   ng-class="{'active':item.select}"   >
+                  {{item.itemcats_name }}
+                </div>
+              </div>
+      </div>  
 
 
-          <img image-lazy-src="{{item.img_url}}" alt="" image-lazy-distance-from-bottom-to-load="100" style="margin-top: 5px;">
 
-          <div>{{item.goods_title}}</div>
-          <div class="classif-price">￥{{item.total_in_price}} <span class="classif-priceone"></span></div>
-        </div>
-      </div>
 
-    </div>
 
-      <ion-infinite-scroll  ng-if="expression" style="height: 20px;line-height: 40px;margin-bottom:20px;text-align: center" spinner="dots" on-infinite="loadOlderStories()"  distance="1%"  > </ion-infinite-scroll>
-      <div ng-if="!expression" style="line-height: 90px;margin-bottom:40px;text-align: center;color:#999" >没有更多了!</div>
 
-    </ion-scroll>
+  <ion-scroll  overflow-scroll="false"    delegate-handle="small"    scrollbar-y="false"   lazy-scroll   ng-style="scorllheader"    >
+
+    <ion-slide-box    ng-if='guankao'  class='homeSlidebox' auto-play='true'  does-continue="true" >
+      <ion-slide   ng-repeat="ss   in  guankao"   ng-click="gogunal(ss)"   >
+        <img ng-src="{{ss.qiniu_key}}" alt="">
+      </ion-slide>
+    </ion-slide-box>
+
+          <div class="shopgoodslit"  style="    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.03)"   ng-repeat="ff in goodlist"    ng-click="goodsdetail(ff)"  >
+            <img image-lazy-src="{{ff.img_url}}" alt="" image-lazy-distance-from-bottom-to-load="10"     >
+                  <p style="height:40px;padding:0px 4px;">{{ff.goods_title}}</p>
+                  <p><span style="color:#f16902">￥{{ff.total_in_price}}</span></p>
+            </div>
+
+
+
+
+          <ion-infinite-scroll ng-if="loadermoer"      style="height: 40px;line-height: 40px;margin-bottom:10px;text-align: center"   spinner="dots"      on-infinite="customcucdownlisloadMore()" distance="1%" ></ion-infinite-scroll>
+          <p ng-if="!loadermoer" style="height: 40px;line-height: 40px;margin-bottom:10px;text-align: center;color:#999" >没有更多了!</p>
+              
+
+  </ion-scroll>
+
+
+
+
+
+  
+  
 
   </ion-content>
-
 </ion-view>

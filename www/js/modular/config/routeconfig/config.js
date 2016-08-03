@@ -388,20 +388,24 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
     //店铺name
-    .state('r.tab.HomShopadminname',{
-      url: '/HomShopadminname/:Classitem',
+    .state('r.HomShopadminname',{
+      url: '/HomShopadminname?nowname:',
       views: {
-        'Home': {
+        'rootview': {
+          params:{nowname:null},
           templateUrl: 'templates/Home/shopname.html',
           controller: 'shopnameCtr'
         }
       }
     })
+
+
     //店铺简介
-    .state('r.tab.HomShopadminbrief',{
-      url: '/HomShopadminbrief/:Classitem',
+    .state('r.HomShopadminbrief',{
+      url: '/HomShopadminbrief?nowdec:',
       views: {
-        'Home': {
+        'rootview': {
+          params:{nowdec:null},
           templateUrl: 'templates/Home/shopbriefing.html',
           controller: 'shopbriefingCtr'
         }
@@ -418,7 +422,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })*/
-    
+
     //采购订单
     .state('r.HomPurchase', {
       url: '/HomPurchase',
@@ -949,7 +953,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       },
       views: {
         'rootview': {
-             params:{id:null},
+          params:{id:null},
           templateUrl: 'templates/Setting/addr/AddressEdithCtr.html',
           controller: 'AddressEdithCtr'
         }
@@ -990,6 +994,26 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
             }
           }
         })
+
+    //查看物流
+    .state('r.Logistics',{
+      url: '/Logistics',
+      cache:false,
+      onEnter: function(fromStateServ,$ionicHistory) {
+          fromStateServ.saveHisty($ionicHistory,'r.Logistics')
+        },
+       onExit:function(fromStateServ){
+         fromStateServ.removebackregistevent();
+       },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Home/logistics.html',
+          controller: 'LogisticsCtr'
+        }
+      }
+    })
+
+
         
 
 

@@ -23,7 +23,7 @@ Ctr.controller('newsContentCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
 
     if(r.msg== "success"){
 
-      r.resp_data.qiniu_key  =  window.qiniuimgHost+r.resp_data.qiniu_key +'?imageView2/1/w/200/h/200';
+      r.resp_data.qiniu_key  =  window.qiniuimgHost+r.resp_data.qiniu_key +'?imageView2/2/w/200/h/200';
       $scope.newsList = r.resp_data
 
       $scope.myHtml=r.resp_data.content

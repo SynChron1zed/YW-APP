@@ -3,6 +3,52 @@
  */
 Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','ModuleArr',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,ModuleArr) {
 
+
+
+
+//查看物流
+$scope.showlogistics  =  function () {
+
+      //160719000024
+      $scope.goModular('r.Logistics',{id:'160715000053'});
+
+}
+
+
+  $scope.goshopin =  function (tart) {
+      $scope.goModular('r.Shophome',{id:tart.shop.shop_id});
+  }
+  //广告位
+  Tools.getData({
+        "interface_number": "050401",
+        "post_content": {
+        "type": "0",
+        }
+    },function(r){
+      if(r){
+            angular.forEach(r.resp_data,function(fff){
+                fff.qiniu_key  =  window.qiniuimgHost+fff.qiniu_key+'?imageView2/2/w/828/h/362';
+            })
+            $scope.guankao   =   r.resp_data;
+      }
+    })  
+
+    $scope.gogunal  =  function(item){
+       if(item.request_type  == '1'){
+          fromStateServ.stateChange('r.homeNewsContent',{postID:item.request_id});
+       }else  if(item.request_type  == '2'){
+         fromStateServ.stateChange('r.Shophome',{id:item.request_id});
+       }else  if(item.request_type  == '3'){
+          fromStateServ.stateChange('r.Productdetails',{id:item.request_id});
+       }else{
+         native.task('活动暂未开始');
+       }
+    }
+
+
+
+
+
   $scope.judge =selectArr.selectarrs;
   $scope.select = ModuleArr
 
@@ -185,11 +231,6 @@ $scope.gosales=function (r) {
 }
 
 
-    $scope.a1 = function (){
-
-      $scope.goModular('r.Shophome',{id:'4'});
-
-    };
 
 
     //商品分类

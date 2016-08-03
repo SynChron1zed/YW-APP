@@ -72,8 +72,9 @@ $scope.updateAPP  =  function () {
     if(!storage.getObject('UserInfo').user_id){
 
       login();
+
     }else{
-    
+
 
       if(!$scope.judge[2]){
 
@@ -142,7 +143,7 @@ var   userone = storage.getObject('UserInfo');
     if(user.user_id){
       //登录了
       $scope.Userinfo = {};
-      $scope.Userinfo.imgheader  =  window.qiniuimgHost+user.avatar+'?imageView2/1/w/300/h/300';
+      $scope.Userinfo.imgheader  =  window.qiniuimgHost+user.avatar+'?imageView2/2/w/300/h/300';
       //哈哈哈
       if(user.sex  =='0'){
         $scope.Userinfo.sex  =  './img/icon_man@3x.png';
@@ -193,7 +194,7 @@ var   userone = storage.getObject('UserInfo');
           }
 
         }
-        
+
         }
          $scope.closecustomenu  =   function  () {
               $scope.opencustomenuatts   = false;
@@ -209,7 +210,7 @@ var   userone = storage.getObject('UserInfo');
       if(!$scope.fankui.qq  ||  !$scope.fankui.make){
           native.task('请填写反馈信息')
           return false;
-      }      
+      }
       Tools.showlogin();
       Tools.getData({
           "interface_number": "050202",

@@ -95,7 +95,7 @@ if(bascId==1){
       if (r) {
 
         angular.forEach(r.resp_data.data,function(c){
-          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
+          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/2/w/200/h/200';
           c.ctr  = false;
         });
 
@@ -159,7 +159,7 @@ if(bascId==1){
         }
 
         angular.forEach(r.resp_data.data,function(c){
-          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
+          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/2/w/200/h/200';
           c.ctr  = false;
         });
         $ionicScrollDelegate.scrollTop();
@@ -198,7 +198,7 @@ if(bascId==1){
           $scope.newexpression=true
         }
         angular.forEach(r.resp_data.data,function(c){
-          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
+          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/2/w/200/h/200';
           c.ctr  = false;
         });
         $ionicScrollDelegate.scrollTop();
@@ -237,7 +237,7 @@ if(bascId==1){
           $scope.newexpression=true
         }
         angular.forEach(r.resp_data.data,function(c){
-          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
+          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/2/w/200/h/200';
           c.ctr  = false;
         });
         $ionicScrollDelegate.scrollTop();
@@ -278,7 +278,7 @@ if(bascId==1){
           $scope.newexpression=true
         }
         angular.forEach(r.resp_data.data,function(c){
-          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
+          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/2/w/200/h/200';
           c.ctr  = false;
         });
         $ionicScrollDelegate.scrollTop();

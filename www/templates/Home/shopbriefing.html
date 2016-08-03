@@ -1,29 +1,20 @@
-<ion-view view-title="修改">
-
-
-  <ion-nav-buttons side="left" >
-
-    <button   ng-click="$ionicGoBack()" class="button back-button buttons  button-clear header-item"><i class="icon ion-ios-arrow-left"></i>店铺管理
-    </button>
-  </ion-nav-buttons>
-
+<ion-view view-title="修改店铺简介">
 
     <ion-nav-buttons side="right" >
-      <a   nav-direction="back"   class="button button-icon " ng-click="querybriefing()">
+      <a     class="button button-icon " ng-click="querybriefing()">
         保存
       </a>
     </ion-nav-buttons>
 
 
   <ion-content  style="background: #F7F7F7;overflow: hidden;"  overflow-scroll="true"  scroll="false"  >
+
+
     <div class="list " >
 
-
-
       <a class="item item-icon-left item-input-left" >
-
-
-          <textarea style="height: 2rem;width: 15rem" placeholder="设置店铺简介" ng-model="shop.Name" >
+        
+          <textarea style="height: 2rem;width: 15rem" placeholder="设置店铺简介" maxlength="40"   ng-model="shop.dec"  >
           </textarea>
 
 

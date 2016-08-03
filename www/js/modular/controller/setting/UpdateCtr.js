@@ -11,7 +11,7 @@ Ctr.controller('SettingsUpdateCtr',['$scope','storage','Tools','native','$state'
 
   $scope.$on('$ionicView.beforeEnter',function(){
           var userin  =  storage.getObject('UserInfo');
-          $scope.header  =    window.qiniuimgHost+userin.avatar+'?imageView2/1/w/130/h/130';
+          $scope.header  =    window.qiniuimgHost+userin.avatar+'?imageView2/2/w/130/h/130';
           $scope.real_name  =    userin.real_name;
           if(userin.sex  == '0'){
             $scope.sex     =  '男';

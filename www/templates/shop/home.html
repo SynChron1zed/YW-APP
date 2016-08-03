@@ -13,7 +13,7 @@
     {{title}}
   </ion-nav-title>
 
-  <ion-content           overflow-scroll="false"   scrollbar-y="false"     style="background: #f5f5f5;overflow:hidden; overflow-y:visible;"       >
+  <ion-content      lazy-scroll     overflow-scroll="false"   scrollbar-y="false"     style="background: #f5f5f5;overflow:hidden; overflow-y:visible;"       >
 
 
 
@@ -41,13 +41,12 @@
 
 
 
-    <ion-scroll   delegate-handle="goodslistshop"   lazy-scroll   ng-style='goodslisthe'      overflow-scroll="false"   scrollbar-y="false"     >
+    
 
           <div class="shopgoodslit"  ng-repeat="ff in goodlistdata"   ng-click="gogoodsdetial(ff)"  >
             <img image-lazy-src="{{ff.img_url}}" alt="" image-lazy-distance-from-bottom-to-load="100" >
-            <p style="height:40px;padding:0px 4px;">{{ff.goods_title}}</p>
-            <p><span>￥{{ff.activity_price}}</span>  <del>{{'￥'+ff.activity_price}}</del></p>
-
+                  <p style="height:40px;padding:0px 4px;">{{ff.goods_title}}</p>
+                  <p><span style="color:#f16902">￥{{ff.total_in_price}}</span></p>
             </div>
 
 
@@ -57,7 +56,7 @@
           <ion-infinite-scroll ng-if="loadermoer"      style="height: 40px;line-height: 40px;margin-bottom:10px;text-align: center"   spinner="dots"      on-infinite="customcucdownlisloadMore()" distance="1%" ></ion-infinite-scroll>
           <p ng-if="!loadermoer" style="height: 40px;line-height: 40px;margin-bottom:10px;text-align: center;color:#999" >没有更多了!</p>
               
-    </ion-scroll>
+  
 
 
 

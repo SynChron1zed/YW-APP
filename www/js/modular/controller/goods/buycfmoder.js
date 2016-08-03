@@ -15,14 +15,25 @@ $scope.comorder  =function () {
            carids+= aaa.cart_id+',';
         })
     })
-
      carids  =    carids.substring(carids.lastIndexOf(','),'')
+     
+     var shopin  ={};
+     angular.forEach($scope.info.goods,function(aaa){
+            var inde  =  parseInt(aaa.shop_id);
+            shopin[inde]  = aaa.make?aaa.make:'';
+
+     })
+
+     console.log(shopin)
+
     Tools.getData({
          "interface_number": "020607",
          "post_content": {
             "addr_id": $scope.info.address.addr_id,
-            "remark": $scope.info.make?$scope.info.make:'',
+            "remark": shopin,
             "cartIds":carids
+
+
         }
     },function (r) {
         if(r){
@@ -130,9 +141,9 @@ $scope.comorder  =function () {
                                     
                                      
                                     angular.forEach($scope.info.goods,function(ssz){
-                                        ssz.shop_img   = window.qiniuimgHost+ssz.shop_img+'?imageView2/1/w/50/h/50';
+                                        ssz.shop_img   = window.qiniuimgHost+ssz.shop_img+'?imageView2/2/w/50/h/50';
                                         angular.forEach(ssz.goods_info,function(gooitem){
-                                            gooitem.img_url   =   window.qiniuimgHost+gooitem.img_url+'?imageView2/1/w/200/h/200';
+                                            gooitem.img_url   =   window.qiniuimgHost+gooitem.img_url+'?imageView2/2/w/200/h/200';
                                           })
                                     })
 
@@ -163,9 +174,9 @@ $scope.comorder  =function () {
                                     $scope.info.total_pricy  = $scope.info.total_pricy.toFixed(2);
 
                                     angular.forEach($scope.info.goods,function(ssz){
-                                        ssz.shop_img   = window.qiniuimgHost+ssz.shop_img+'?imageView2/1/w/50/h/50';
+                                        ssz.shop_img   = window.qiniuimgHost+ssz.shop_img+'?imageView2/2/w/50/h/50';
                                         angular.forEach(ssz.goods_info,function(gooitem){
-                                            gooitem.img_url   =   window.qiniuimgHost+gooitem.img_url+'?imageView2/1/w/200/h/200';
+                                            gooitem.img_url   =   window.qiniuimgHost+gooitem.img_url+'?imageView2/2/w/200/h/200';
                                           })
                                     })
 

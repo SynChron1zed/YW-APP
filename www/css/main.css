@@ -134,7 +134,7 @@ img {
 .homeSlidebox {
   height: 7rem; }
   .homeSlidebox .slider-slide img {
-    min-height: 7rem;
+    height: 7rem;
     width: 100%; }
   .homeSlidebox .slider-pager {
     bottom: 10px; }
@@ -314,7 +314,7 @@ ion-view {
 
 .gooddetilslidbox .slider-slide img {
   width: 100%;
-  min-height: 16rem; }
+  height: 16rem; }
 
 .slider-pager .slider-pager-page.active {
   opacity: .6; }

@@ -36,7 +36,7 @@ Ctr.controller('salesCtr',['$scope','native','$state','fromStateServ','Tools','$
       if (r) {
 
         angular.forEach(r.resp_data.data,function(c){
-          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
+          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/2/w/200/h/200';
           c.ctr  = false;
         });
 

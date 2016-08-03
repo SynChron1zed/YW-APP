@@ -90,8 +90,14 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
 
           }else{
           //加入购物车
-
           Tools.showlogin();
+
+      
+
+          
+
+
+
           Tools.getData({
              "interface_number": "020401",
               "post_content": {
@@ -102,7 +108,13 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
               }
           },function (r) {
               if(r){
+
+
+                  $scope.closetallcationvalue();
                   native.task('加入购物成功');
+
+
+
               }
           })
 
@@ -167,10 +179,6 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
 
    $scope.chekdskucombination  = function (parentobj,nowobj){
 
-
-
-
-
       // this  state  is
       $scope.showstockprice = false;
       if(!nowobj.disable){
@@ -185,7 +193,9 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
           nowobj.active  =true;
         }
 
-        //Only one
+      
+
+        //Only one    
         if($scope.skugroup.length == 1 &&  $scope.skugroup[0].sku_strand.length == 1){
           angular.forEach($scope.skugroup,function(key) {
             if (nowobj.active) {
@@ -208,12 +218,8 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
             $scope.goodskuimte_attrbutsmsg.local_sku_id =key.baseinfo.local_sku_id;
             $scope.goodskumsg.stock_num  = key.baseinfo.stockNum;
             $scope.goodskuimte_attrbutsmsg.expar  = $scope.expar;
-
-
             $scope.selectsku.skuid =   key.baseinfo.local_sku_id;
             $scope.selectsku.price =   key.baseinfo.activity_price;
-
-
             $scope.goodskuimte_attrbutsmsg.price =key.baseinfo.activity_price;
             $scope.goodskumsg.price   =   key.baseinfo.activity_price
 
@@ -257,11 +263,8 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
               $scope.goodskuimte_attrbutsmsg.local_sku_id =key.baseinfo.local_sku_id;
               $scope.goodskumsg.stock_num  = key.baseinfo.stockNum;
               $scope.goodskuimte_attrbutsmsg.expar  = $scope.expar;
-
-                    $scope.selectsku.skuid =   key.baseinfo.local_sku_id;
-                  $scope.selectsku.price =   key.baseinfo.activity_price;
-      
-
+              $scope.selectsku.skuid =   key.baseinfo.local_sku_id;
+              $scope.selectsku.price =   key.baseinfo.activity_price;
 
               //零售价统一
               $scope.goodskuimte_attrbutsmsg.price =key.baseinfo.activity_price;
@@ -275,13 +278,72 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
 
           });
           return false;
+        }        
+        //是所有属性只有一个
+
+        if(Object.keys($scope.goods.basicData).length  == 1){
+
+          var  activelistxx  =[];
+          angular.forEach($scope.showskudata,function(key){
+            angular.forEach(key.attrbute,function(subkey){
+              if(subkey.disable == false  &&  subkey.active){
+                var  nowactiveimte = {};
+                nowactiveimte.parentId =  key.parentId;
+                nowactiveimte.attrsbute  = subkey.subid;
+                activelistxx.push(nowactiveimte);
+              }
+            })
+          });
+          if($scope.showskudata.length   ==  activelistxx.length){
+            
+                  $scope.goodskuimte_attrbutsmsg = {};
+                 angular.forEach($scope.goods.basicData,function(key){
+
+                  $scope.showstockprice = true;
+
+                  $scope.goodskuimte_attrbutsmsg.skuname = key.name;
+                  
+                  $scope.goodskuimte_attrbutsmsg.local_sku_id =key.local_sku_id;
+                  $scope.goodskumsg.stock_num  = key.stockNum;
+                  $scope.selectsku.skuid =   key.local_sku_id;
+                  $scope.selectsku.price =   key.activity_price;
+
+                  $scope.goodskuimte_attrbutsmsg.price =  key.activity_price;
+                  $scope.goodskumsg.price   =   key.activity_price;
+
+
+                 });
+
+              
+
+
+
+
+
+
+          }
+
+
+
+
+
+
+
+          return  false;
         }
 
 
 
 
-        if($scope.keyslist.length == 2){
 
+
+
+
+
+
+
+          
+        if($scope.keyslist.length == 2){
 
           var  activelistxx  =[];
           angular.forEach($scope.showskudata,function(key){
@@ -306,6 +368,9 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
                   ishasactive  =true;
                 }
               });
+
+              ///ishasactive   = false;
+
               if(!ishasactive){
                 var  relyon  =false;
                 angular.forEach($scope.skugroup,function(key){
@@ -330,8 +395,13 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
                   }
                 });
 
+                
+                
+                
                 if(!relyon){
+                      
                   if(activelistxx.length==2){
+                    
                     isover  =  true;
                   }
                   kksub.active  = false;
@@ -386,18 +456,17 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
                       $scope.goodskuimte_attrbutsmsg.skustockinfo = valure;
                     }
                   });
+
                   $scope.goodskuimte_attrbutsmsg.skuname = key.baseinfo.name;
                   $scope.goodskuimte_attrbutsmsg.goods_title = $scope.goodskubaseinfo.goods_title;
                   $scope.goodskuimte_attrbutsmsg.local_sku_id =key.baseinfo.local_sku_id;
                   $scope.goodskumsg.stock_num  = key.baseinfo.stockNum;
 
-
+                  
+                
 
                   $scope.selectsku.skuid =   key.baseinfo.local_sku_id;
                   $scope.selectsku.price =   key.baseinfo.activity_price;
-
-
-
 
 
                   $scope.goodskuimte_attrbutsmsg.expar  = $scope.expar;
@@ -419,6 +488,15 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
 
           return false;
         }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -461,7 +539,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
                   $scope.showstockprice = false;
                 }else{
                   $scope.showstockprice = false;
-                  Tools.Arrayremove(back,0);
+                  Tools.rmArrin(back,0);
                   if(back.length  == key.sku_strand.length-1){
                     if(activelist.length  == key.sku_strand.length){
                       var  compare = [];
@@ -563,6 +641,29 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
 
   $scope.addjoinshopcart  = function () {
 
+            if(Object.keys($scope.goods.basicData).length  == 1){
+                      Tools.showlogin();
+                      var  skuid =  undefined;
+                      angular.forEach($scope.goods.basicData,function(xxx){
+                          skuid  = xxx.local_sku_id;
+                      })
+                      Tools.getData({
+                        "interface_number": "020401",
+                          "post_content": {
+                              "shop_id": $scope.goods.shopInfo.shop_id,
+                              "sku_id": skuid,
+                              "goods_basic_id":$scope.goods.goodsInfo.goods_basic_id,
+                              "number":1
+                          }
+                      },function (r){
+                          if(r){
+                              native.task('加入购物成功');
+                          }
+                      })
+            return false;
+            }
+
+
             $scope.setallcationstate = true;
              $scope.selectsku.number  =1;
              $scope.selectsku.state  =  false;
@@ -583,9 +684,16 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView; 
                 $scope.parenttitle     =   fromStateServ.getState('r.Productdetails').title;
+              
+
             }else{
                 $scope.showtitle  = false;
             }     
+
+              if(!$scope.parenttitle){
+                $scope.parenttitle  = '返回';
+                }
+                
                 inlit();
             
 
@@ -614,16 +722,16 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
 
               if(!r.resp_data.goodsInfo.img.length){
                   var   width  =  window.innerWidth*2;
-                  r.resp_data.goodsInfo.img[0]  =    window.qiniuimgHost+r.resp_data.goodsInfo.img_url+'?imageView2/1/w/'+width+'/h/'+width; ;
+                  r.resp_data.goodsInfo.img[0]  =    window.qiniuimgHost+r.resp_data.goodsInfo.img_url+'?imageView2/2/w/'+width+'/h/'+width; ;
               }else{
 
                   angular.forEach(r.resp_data.goodsInfo.img,function (fff,index) {
                         var   width  =  window.innerWidth*2;
-                        r.resp_data.goodsInfo.img[index]     =  window.qiniuimgHost+fff+'?imageView2/1/w/'+width+'/h/'+width;
+                        r.resp_data.goodsInfo.img[index]     =  window.qiniuimgHost+fff+'?imageView2/2/w/'+width+'/h/'+width;
                     });
               }
               
-              r.resp_data.goodsInfo.img_url =  window.qiniuimgHost+ r.resp_data.goodsInfo.img_url + '?imageView2/1/w/150/h/150';
+              r.resp_data.goodsInfo.img_url =  window.qiniuimgHost+ r.resp_data.goodsInfo.img_url + '?imageView2/2/w/150/h/150';
 
               
               

@@ -90,7 +90,7 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
         var  data = "data:image/jpeg;base64," + imageData;
         Callback(data,imageData);
       }, function(err) {
-        $cordovaToast.show('获取图片错误',1000,animte?animte:'bottom');
+        $cordovaToast.show('获取图片错误',1000,'bottom');
         errCallback();
         // error
         //this.alert(err,'信息','确认')
@@ -154,7 +154,7 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
       //msg     消息主题   必传
       //time    消失时间  毫秒数  默认 1000
       //animte  动画方式   'top', 'center', 'bottom'
-      $cordovaToast.show(msg,time?time:1000,animte?animte:'bottom')
+      $cordovaToast.show(msg,time?time:3000,animte?animte:'bottom')
       .then(function(success) {
           // success
         }, function (error) {

@@ -560,14 +560,14 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
                   if(v  == r.resp_data.goodsInfo.img_url){
                     c   = {
                       fengmian:true,
-                      img:window.qiniuimgHost+v+'?imageView2/1/w/200/h/200',
+                      img:window.qiniuimgHost+v+'?imageView2/2/w/200/h/200',
                       news:false,
                       key:v
                     };
                   }else{
                     c   = {
                       fengmian:false,
-                      img:window.qiniuimgHost+v+'?imageView2/1/w/200/h/200',
+                      img:window.qiniuimgHost+v+'?imageView2/2/w/200/h/200',
                       news:false,
                       key:v
                     };
@@ -999,7 +999,7 @@ $scope.save  = function (){
 
             goodsState.goods_basic_id  = r.resp_data.goods_basic_Id;
             goodsState.goods_title  = r.resp_data.goods_title;
-            goodsState.img_url  = window.qiniuimgHost+r.resp_data.img_url+'?imageView2/1/w/200/h/200';
+            goodsState.img_url  = window.qiniuimgHost+r.resp_data.img_url+'?imageView2/2/w/200/h/200';
             goodsState.activity_price  = r.resp_data.total_in_price;
             goodsState.total_in_number   = r.resp_data.total_in_number;
 
