@@ -359,11 +359,21 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     //销售订单
     .state('r.tab.HomSales',{
-      url: '/HomeSales',
+      url: '/HomeSales/:dataNum',
       views: {
         'Home': {
           templateUrl: 'templates/Home/salesorders.html',
           controller: 'salesCtr'
+        }
+      }
+    })
+
+    .state('r.tab.delivery',{
+      url: '/delivery/:odId/:Num',
+      views: {
+        'Home': {
+          templateUrl: 'templates/Home/delivery.html',
+          controller: 'deliveryCtr'
         }
       }
     })

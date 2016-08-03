@@ -71,60 +71,74 @@ if(bascId==1){
 
 }
 
+  $scope.statusData = ""
+  $scope.expression=true;
+  $scope.dataNew = false
 
-  //翻页加载
+  $scope.ShoppingList = [];
+
+  //加载
   $scope.loadOlderStories=function (type) {
 
-    pageNum +=1;
-
-
-
-
-
-    Tools.getData({
+    var sendoption  = {
       "interface_number": "020702",
       "client_type": window.platform,
       "post_content": {
-        "token" : "",
+        "token":"",
         "token_phone": "",
-        "status": "",
-        "page_num": pageNum,
-        "page_per":10
+        "status": $scope.statusData
       }
-    },function (r) {
-      if (r) {
+    };
 
-        angular.forEach(r.resp_data.data,function(c){
-          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/2/w/200/h/200';
-          c.ctr  = false;
-        });
+    if(type){
+      sendoption.post_content.page_num  = $scope.page_number  = 1;
+    }else{
+      sendoption.post_content.page_num  = $scope.page_number;
+    }
 
 
-        if (r.resp_data.data.length ==0) {
+    Tools.getData(sendoption,function(r){
+      if(r){
 
-          $scope.ShoppingList=$scope.ShoppingList;
-          $scope.expression = false
-          $scope.newexpression=true
 
-        } else {
-          $scope.newexpression=false
-
-          for(var i=0;i<r.resp_data.data.length;i++){
-            $scope.ShoppingList.push(r.resp_data.data[i])
-          }
+        if(r.resp_data.nextPage  == 0 ){
+          $scope.expression  = false;
+          $scope.page_number  =1;
+        }else{
+          $scope.expression  = true;
+          $scope.page_number  =r.resp_data.nextPage;
         }
-        $timeout(function () {
-          $scope.$broadcast('scroll.infiniteScrollComplete');
-        }, 600);
+
+
+          angular.forEach(r.resp_data.data,function(c){
+            c.pic_path  =  window.qiniuimgHost+c.pic_path +'?imageView2/1/w/200/h/200';
+            if(c.post_status=="2"){
+              $scope.dataNew = true
+            }
+
+          });
+
+
+        if(type){
+          $scope.ShoppingList  = r.resp_data.data;
+        }else{
+          angular.forEach(r.resp_data.data,function(c){
+            $scope.ShoppingList.push(c);
+          });
+        }
 
       }
-
-
+      $scope.$broadcast('scroll.refreshComplete');
+      $scope.$broadcast('scroll.infiniteScrollComplete');
     });
 
 
-
   };
+
+
+
+
+
 
 
   $scope.all = true;
@@ -138,16 +152,19 @@ if(bascId==1){
     $scope.dfk = false;
     $scope.dfc = false;
     $scope.dfh = false;
-
-    Tools.getData({
+    $scope.ShoppingList=[];
+    $scope.statusData = "";
+    $scope.loadOlderStories();
+    $ionicScrollDelegate.scrollTop();
+    /*Tools.getData({
       "interface_number": "020702",
       "client_type": window.platform,
       "post_content": {
         "token" : "",
         "token_phone": "",
-        "status": "",
+        "status": $scope.statusData,
         "page_num": 1,
-        "page_per":10
+
       }
     },function(r){
       if(r){
@@ -159,7 +176,7 @@ if(bascId==1){
         }
 
         angular.forEach(r.resp_data.data,function(c){
-          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/2/w/200/h/200';
+          c.pic_path  =  window.qiniuimgHost+c.pic_path +'?imageView2/1/w/200/h/200';
           c.ctr  = false;
         });
         $ionicScrollDelegate.scrollTop();
@@ -169,7 +186,7 @@ if(bascId==1){
         $scope.post_status=[];
 
       }
-    });
+    });*/
 
   };
   //待发货
@@ -178,16 +195,19 @@ if(bascId==1){
     $scope.dfk = true;
     $scope.dfc = false;
     $scope.dfh = false;
-
-    Tools.getData({
+    $scope.statusData = "1";
+    $scope.ShoppingList=[];
+    $scope.loadOlderStories();
+    $ionicScrollDelegate.scrollTop();
+   /* Tools.getData({
       "interface_number": "020702",
       "client_type": window.platform,
       "post_content": {
         "token" : "",
         "token_phone": "",
-        "status": "1",
+        "status": $scope.statusData,
         "page_num": 1,
-        "page_per":10
+
       }
     },function(r){
       if(r){
@@ -198,7 +218,7 @@ if(bascId==1){
           $scope.newexpression=true
         }
         angular.forEach(r.resp_data.data,function(c){
-          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/2/w/200/h/200';
+          c.pic_path  =  window.qiniuimgHost+c.pic_path +'?imageView2/1/w/200/h/200';
           c.ctr  = false;
         });
         $ionicScrollDelegate.scrollTop();
@@ -208,7 +228,7 @@ if(bascId==1){
         $scope.post_status=[];
 
       }
-    });
+    });*/
   };
 
   //待收货
@@ -217,16 +237,19 @@ if(bascId==1){
     $scope.dfk = false;
     $scope.dfc = true;
     $scope.dfh = false;
-
-    Tools.getData({
+    $scope.statusData = '2'
+    $scope.ShoppingList=[];
+    $scope.loadOlderStories();
+    $ionicScrollDelegate.scrollTop();
+  /*  Tools.getData({
       "interface_number": "020702",
       "client_type": window.platform,
       "post_content": {
         "token" : "",
         "token_phone": "",
-        "status": "2",
+        "status": $scope.statusData,
         "page_num": 1,
-        "page_per":10
+
       }
     },function(r){
       if(r){
@@ -237,7 +260,7 @@ if(bascId==1){
           $scope.newexpression=true
         }
         angular.forEach(r.resp_data.data,function(c){
-          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/2/w/200/h/200';
+          c.pic_path  =  window.qiniuimgHost+c.pic_path +'?imageView2/1/w/200/h/200';
           c.ctr  = false;
         });
         $ionicScrollDelegate.scrollTop();
@@ -247,7 +270,7 @@ if(bascId==1){
         $scope.post_status=[];
 
       }
-    });
+    });*/
 
   };
 
@@ -258,50 +281,47 @@ if(bascId==1){
     $scope.dfk = false;
     $scope.dfc = false;
     $scope.dfh = true;
+    $scope.statusData = '3'
+    $scope.ShoppingList=[];
+    $scope.loadOlderStories();
+    $ionicScrollDelegate.scrollTop();
+   /* Tools.getData({
+     "interface_number": "020702",
+     "client_type": window.platform,
+     "post_content": {
+     "token" : "",
+     "token_phone": "",
+     "status": $scope.statusData,
+     "page_num": 1,
 
-    Tools.getData({
-      "interface_number": "020702",
-      "client_type": window.platform,
-      "post_content": {
-        "token" : "",
-        "token_phone": "",
-        "status": "4",
-        "page_num": 1,
-        "page_per":10
-      }
-    },function(r){
-      if(r){
-        if(r.resp_data.data.length==10){
-          $scope.expression=true
-        }else{
-          $scope.expression=false
-          $scope.newexpression=true
-        }
-        angular.forEach(r.resp_data.data,function(c){
-          c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/2/w/200/h/200';
-          c.ctr  = false;
-        });
-        $ionicScrollDelegate.scrollTop();
-        $scope.ShoppingList= (r.resp_data.data)
-        console.log($scope.SalesList)
+     }
+     },function(r){
+     if(r){
+     if(r.resp_data.data.length==10){
+     $scope.expression=true
+     }else{
+     $scope.expression=false
+     $scope.newexpression=true
+     }
+     angular.forEach(r.resp_data.data,function(c){
+     c.pic_path  =  window.qiniuimgHost+c.pic_path +'?imageView2/1/w/200/h/200';
+     c.ctr  = false;
+     });
+     $ionicScrollDelegate.scrollTop();
+     $scope.ShoppingList= (r.resp_data.data)
+     console.log($scope.SalesList)
 
-        $scope.post_status=[];
+     $scope.post_status=[];
 
-      }
-    });
-
+     }
+     });
+     */
   };
 
   $scope.purchaseorde=function (value) {
     $state.go('r.tab.HomPurordersbody',{basicID:value});
   }
 
-  $scope.calssifloadMore = function (xxx) {
-    $timeout(function () {
-      $scope.$broadcast('scroll.refreshComplete');
-    }, 600);
-
-  };
 
   $scope.caklateheight  = {};
   function   caklatehe  (){
@@ -335,5 +355,59 @@ if(bascId==1){
   $scope.backView  = function(){
     $scope.$ionicGoBack();
   };*/
+
+
+  $scope.dataLeft =function (value,id,index) {
+
+    $ionicPopup.show({
+
+      title: '确认收货?',
+
+      scope: $scope,
+      buttons: [
+        { text: '取消' },
+        {
+          text: '<b>确认</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            console.log(1)
+
+            Tools.getData({
+              "interface_number": "020605",
+              "post_content": {
+                "token":"",
+                "token_phone": "",
+                "orderId":value,
+                "orderBasicId": id,
+                "receive":1
+
+              }
+
+            },function(r){
+
+              if(r.msg== "success"){
+
+
+                Tools.rmArrin($scope.ShoppingList,index);
+                native.task('成功');
+
+              }else{
+
+                return false
+
+              }
+
+
+            });
+
+
+          }
+
+
+        },
+      ]
+    });
+
+  }
 
 }]);
