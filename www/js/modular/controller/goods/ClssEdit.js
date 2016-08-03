@@ -276,7 +276,7 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
                 }
                 angular.forEach(r.resp_data.data,function(c){
                   if(c.select){ $scope.selectitemin ++; }
-                  c.img_url   =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200',
+                  c.img_url   =  window.qiniuimgHost+c.img_url+'?imageView2/2/w/200/h/200',
                   $scope.selectgoodslit.push(c);
                 })
            }else{
@@ -582,7 +582,7 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
                     $scope.page_number  =r.resp_data.nextPage;
                   }
                    angular.forEach(r.resp_data.data,function(c){
-                       c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/1/w/200/h/200';
+                       c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/2/w/200/h/200';
                        c.ctr  = false;
                    });
 

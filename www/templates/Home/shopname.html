@@ -1,31 +1,37 @@
-<ion-view view-title="修改">
-
-
-  <ion-nav-buttons side="left" >
-
-    <button   ng-click="$ionicGoBack()" class="button back-button buttons  button-clear header-item"><i class="icon ion-ios-arrow-left"></i>店铺管理
-    </button>
-  </ion-nav-buttons>
-
+<ion-view view-title="修改" >
 
     <ion-nav-buttons side="right" >
-      <a   nav-direction="back"   class="button button-icon " ng-click="queryname()">
+      <a    class="button button-icon " ng-click="queryname()">
+
         保存
       </a>
     </ion-nav-buttons>
 
 
   <ion-content  style="background: #F7F7F7;overflow: hidden;"  overflow-scroll="true"  scroll="false"  >
-    <div class="list " >
 
+    <div class="list"   >
 
-
-      <a class="item item-icon-left item-input-left" >
+      <a class="item item-icon-left item-input-left"   style="
+      padding-top:10px;
+      padding-bottom:10px;
+      " >
 
         <div>
+          <input type="text"    maxlength="30"   class="input-color-usercolse" placeholder="设置店铺名称" ng-model="shop.name"  ng-change="newshopname()" >
 
-          <input type="text"    class="input-color-usercolse" placeholder="设置店铺名称" ng-model="shop.name"  ng-change="newshopname(shop.name)" >
-          <div class="ion-close-circled ion-close-user" ng-click="clear()"  ng-if="showclear"></div>
+          <div  ng-show="shop.name.length"  ng-click="clear()"   class="ion-close-circled ion-close-user"
+
+            style="    position: absolute;
+                        right: 20px;
+                        margin-top: -10px;
+                        color: #a2a2a2;
+                        top: 50%;
+                  "
+
+
+           
+            ></div>
         </div>
 
       </a>

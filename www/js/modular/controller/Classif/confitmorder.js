@@ -56,7 +56,7 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
 
 
         angular.forEach(r.resp_data.goodsInfo,function(c){
-          c.shop_img =  window.qiniuimgHost+c.shop_img+'?imageView2/1/w/200/h/200';
+          c.shop_img =  window.qiniuimgHost+c.shop_img+'?imageView2/2/w/200/h/200';
           c.ctr  = false;
         });
 
@@ -92,7 +92,7 @@ Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','To
 
 
 
-        r.resp_data.data.img_url  =  window.qiniuimgHost+r.resp_data.data.img_url+'?imageView2/1/w/200/h/200';
+        r.resp_data.data.img_url  =  window.qiniuimgHost+r.resp_data.data.img_url+'?imageView2/2/w/200/h/200';
         r.resp_data.data.ctr  = false;
 
         $scope.ClassifDetailsList = (r.resp_data.data);

@@ -4,27 +4,30 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('companyInstallCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','storage','fromStateServ',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,storage,fromStateServ){
+Ctr.controller('companyInstallCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','storage','fromStateServ','selectaouthfunl',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,storage,fromStateServ,selectaouthfunl){
+
+
+
+  $scope.goselectaouth  =  function  (){
+      selectaouthfunl.state=true;
+      $state.go('r.selectAuth');
+  }
+
 
 
 
   $scope.expression = true;
   $scope.newexpression =true;
-$scope.companyID = storage.getObject('UserInfo').company_id;
+  $scope.companyID = storage.getObject('UserInfo').company_id;
   $scope.companyName = storage.getObject('UserInfo').company_name;
   $scope.adminer = storage.getObject('UserInfo').is_admin;
   $scope.userid = storage.getObject('UserInfo').user_id;
 
-
-
   //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
-
     Initial ();
-
   });
-
-
+  
   if($scope.adminer == "1"){
     $scope.newexpression = true
   }else {
@@ -140,7 +143,7 @@ if($scope.adminer == "0"){
     if(user.user_id){
       //登录了
       $scope.Userinfo = {};
-      $scope.Userinfo.imgheader  =  window.qiniuimgHost+user.avatar+'?imageView2/1/w/300/h/300';
+      $scope.Userinfo.imgheader  =  window.qiniuimgHost+user.avatar+'?imageView2/2/w/300/h/300';
       //哈哈哈
       if(user.sex  =='0'){
         $scope.Userinfo.sex  =  './img/icon_man@3x.png';

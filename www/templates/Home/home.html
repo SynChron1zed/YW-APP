@@ -11,9 +11,7 @@
       <a   nav-direction="forward" ng-click="goModular('r.login')"  class="button button-icon ion-ios-location-outline location-headers home-location">
         <p>全国</p>
       </a>
-    </ion-nav-buttons>-->
-
-
+    </ion-nav-buttons>-->    
     <ion-nav-buttons side="right">
       <button class="button button-icon  ion-ios-search-strong"  ui-sref="r.tab.HomeSearch"  ></button>
     </ion-nav-buttons>
@@ -21,18 +19,15 @@
 </ion-nav-bar>
   <ion-content  overflow-scroll="false"   scrollbar-y="false"   style='background-color:#f3f3f3' >
 
+      <ion-slide-box    ng-if='guankao'  class='homeSlidebox' auto-play='true'  does-continue="true" >
+        <ion-slide   ng-repeat="ss   in  guankao"   ng-click="gogunal(ss)"   >
+          <img ng-src="{{ss.qiniu_key}}" alt="">
+        </ion-slide>
+      </ion-slide-box>
 
-    <ion-slide-box  class='homeSlidebox' auto-play='true'  does-continue="true" >
-      <ion-slide  ng-click='a1()' >
-        <img ng-src="{{'http://oap3nxgde.bkt.clouddn.com/ad_index_1.jpg?imageView2/1/w/828/h/362'}}" alt="">
-      </ion-slide>
-      <ion-slide>
-        <img  ng-src="{{'http://oap3nxgde.bkt.clouddn.com/ad_index_2.jpg?imageView2/1/w/828/h/362'}}"alt="">
-      </ion-slide>
-      <ion-slide>
-        <img  ng-src="{{'http://oap3nxgde.bkt.clouddn.com/ad_index_3.jpg?imageView2/1/w/828/h/362'}}"alt="">
-      </ion-slide>
-    </ion-slide-box>
+
+
+    
     <div class="homein-tabs-meun row">
       <div class="col col-25">
         <img src="./img/homepage/icon_service@3x1.png" alt="">
@@ -95,13 +90,13 @@
 
     <div class="home-Honestenterprise">
       <div class="title">
-        诚信企业  <span>更多</span>
+        诚信企业 
       </div>
       <div class="content">
 
 
 
-        <div class="itemin" ng-repeat="x in company">
+        <div class="itemin" ng-repeat="x in company"  ng-click="goshopin(x)"   >
           <div class="content">
             <div class="title">{{ x.company_name }}</div>
             <div class="lev">

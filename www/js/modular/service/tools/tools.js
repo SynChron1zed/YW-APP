@@ -2,7 +2,7 @@
  * Created by Why on 16/6/10.
  */
 //小工具方法类
-Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup','storage','native','$ionicHistory','$state',function($window,$ionicLoading,$http,$timeout,$ionicPopup,storage,native,$ionicHistory,$state){
+Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup','storage','native','$ionicHistory','$state','$ionicNativeTransitions',function($window,$ionicLoading,$http,$timeout,$ionicPopup,storage,native,$ionicHistory,$state,$ionicNativeTransitions){
 
   //加在视图的加载效果http前调用
   var   showlogin = function() {
@@ -158,10 +158,13 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
               },200);
       if(r.resp_code== '0000'){
         Callback(r);
-      } else if(r.resp_code ==  '0001' ){
-
-            window.outlogin(function(){
-              $state.go('r.tab.Home');
+      } else if(r.resp_code ==  '0001' ||  r.resp_code ==  '1001' ){
+            window.outlogin(function(){               
+            $ionicNativeTransitions.stateGo('r.tab.Home',{}, {
+            "type": "slide",
+            "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
+            "duration": 400, // in milliseconds (ms), default 400
+            });
               $timeout(function(){
                   $ionicHistory.clearHistory();
               },40)

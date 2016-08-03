@@ -5,10 +5,9 @@
                    <ion-nav-back-button class="button-clear"    style="font-size:14px;color:#6b3801"  ng-click="GoBackHome()" >
                       <i class="icon ion-ios-arrow-left" style='#6b3801'  ></i> 返回
                     </ion-nav-back-button>
-
-
+                    
                     <ion-nav-buttons side="right" >
-                        <a   nav-direction="forward"  ng-click="skip()"    class="button button-icon  ">
+                        <a   ng-if='jiaofei'   ng-click="skip()"    class="button button-icon  ">
                             跳过
                         </a>
                     </ion-nav-buttons>

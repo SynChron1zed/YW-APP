@@ -2,7 +2,18 @@
  * Created by Why on 16/6/6.
  * testtt11111111222222222222222222222222
  */
-App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpProvider','$ionicNativeTransitionsProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider,$httpProvider,$ionicNativeTransitionsProvider){
+App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpProvider','$ionicNativeTransitionsProvider','$sceDelegateProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider,$httpProvider,$ionicNativeTransitionsProvider,$sceDelegateProvider){
+
+
+
+  $sceDelegateProvider.resourceUrlWhitelist([
+      // Allow same origin resource loads.
+      'self',
+      // Allow loading from our assets domain.  Notice the difference between * and **.
+      'http://m.kuaidi100.com/**',
+      'https://m.kuaidi100.com/**',
+
+    ]);
 
 
   $ionicNativeTransitionsProvider.setDefaultOptions({
@@ -202,6 +213,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+    
     //选择认证
       .state('r.selectAuth',{
         url: '/selectAuth',
@@ -398,20 +410,24 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
     //店铺name
-    .state('r.tab.HomShopadminname',{
-      url: '/HomShopadminname/:Classitem',
+    .state('r.HomShopadminname',{
+      url: '/HomShopadminname?nowname:',
       views: {
-        'Home': {
+        'rootview': {
+          params:{nowname:null},
           templateUrl: 'templates/Home/shopname.html',
           controller: 'shopnameCtr'
         }
       }
     })
+
+
     //店铺简介
-    .state('r.tab.HomShopadminbrief',{
-      url: '/HomShopadminbrief/:Classitem',
+    .state('r.HomShopadminbrief',{
+      url: '/HomShopadminbrief?nowdec:',
       views: {
-        'Home': {
+        'rootview': {
+          params:{nowdec:null},
           templateUrl: 'templates/Home/shopbriefing.html',
           controller: 'shopbriefingCtr'
         }
@@ -638,7 +654,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
+    
     //setting  个人设置 企业设置
     .state('r.companyInstall',{
       url: '/companyInstall',
@@ -959,7 +975,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       },
       views: {
         'rootview': {
-             params:{id:null},
+          params:{id:null},
           templateUrl: 'templates/Setting/addr/AddressEdithCtr.html',
           controller: 'AddressEdithCtr'
         }
@@ -980,19 +996,19 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         'rootview': {
           params:{id:null,inside:null},
           templateUrl: 'templates/goods/Productdetails.html',
-          controller: 'ProductdetailsCtr'
+          controller: 'ProductdetailsCtr'          
         }
       }
-    })
+    })       
     //确认订单
     .state('r.ConfirmorderZf', {
-          url: '/ConfirmorderZf',
+          url: '/ConfirmorderZf',         
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.ConfirmorderZf')
       },
       onExit:function(fromStateServ){
         fromStateServ.removebackregistevent();
-      },
+      }, 
           views: {
             'rootview': {
               templateUrl: 'templates/goods/comf.html',
@@ -1001,6 +1017,28 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           }
         })
 
+    //查看物流
+    .state('r.Logistics',{
+      url: '/Logistics?id:',
+      cache:false,
+      onEnter: function(fromStateServ,$ionicHistory) {
+          fromStateServ.saveHisty($ionicHistory,'r.Logistics')
+        },
+       onExit:function(fromStateServ){
+         fromStateServ.removebackregistevent();
+       },
+      views: {
+        params:{id:null},
+        'rootview': {
+          templateUrl: 'templates/Home/logistics.html',
+          controller: 'LogisticsCtr'
+        }
+      }
+    })
+
+
+
+        
 
 
 

@@ -281,7 +281,7 @@ $scope.recharge = function (value) {
     if(user.user_id){
       //登录了
       $scope.Userinfo = {};
-      $scope.Userinfo.imgheader  =  window.qiniuimgHost+user.avatar+'?imageView2/1/w/300/h/300';
+      $scope.Userinfo.imgheader  =  window.qiniuimgHost+user.avatar+'?imageView2/2/w/300/h/300';
       //哈哈哈
       if(user.sex  =='0'){
         $scope.Userinfo.sex  =  './img/icon_man@3x.png';

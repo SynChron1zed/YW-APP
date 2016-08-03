@@ -205,17 +205,26 @@ $ionicNativeTransitions,$timeout,native) {
     }, true);
 
     if(window.platform  !== 'ios'){
-      window.updateAPP();
+      window.updateAPP(true);
     }
   });
 
-  window.updateAPP  =  function(){
+
+
+  window.updateAPP  =  function(r){
+
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
     }
+    
     if(window.cordova){
       window.cordova.getAppVersion.getVersionNumber(function (version) {
-        Tools.showlogin();
+
+        if(!r){
+          Tools.showlogin();
+        }
+        
+
         Tools.getData({
           "interface_number": "050204",
           "post_content": {
@@ -230,7 +239,13 @@ $ionicNativeTransitions,$timeout,native) {
                   }
               })
             }else{
-              native.task('当前是最新版本!');
+
+                  if(!r){
+                      native.task('当前是最新版本!');
+                    }
+
+
+
             }
           }
         })

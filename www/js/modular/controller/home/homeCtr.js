@@ -9,6 +9,52 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
   $scope.judge3 = selectArr.selectarrs.authstatus();
   $scope.judge4 = selectArr.selectarrs.needpaid();
 
+
+
+
+//查看物流
+$scope.showlogistics  =  function () {
+      //160719000024
+      //160715000053
+      //$scope.goModular('r.Logistics',{id:'160719000024'});
+}
+
+
+  $scope.goshopin =  function (tart) {
+      $scope.goModular('r.Shophome',{id:tart.shop.shop_id});
+  }
+  //广告位
+  Tools.getData({
+        "interface_number": "050401",
+        "post_content": {
+        "type": "0",
+        }
+    },function(r){
+      if(r){
+            angular.forEach(r.resp_data,function(fff){
+                fff.qiniu_key  =  window.qiniuimgHost+fff.qiniu_key+'?imageView2/2/w/828/h/362';
+            })
+            $scope.guankao   =   r.resp_data;
+      }
+    })  
+
+    $scope.gogunal  =  function(item){
+       if(item.request_type  == '1'){
+          fromStateServ.stateChange('r.homeNewsContent',{postID:item.request_id});
+       }else  if(item.request_type  == '2'){
+         fromStateServ.stateChange('r.Shophome',{id:item.request_id});
+       }else  if(item.request_type  == '3'){
+          fromStateServ.stateChange('r.Productdetails',{id:item.request_id});
+       }else{
+         native.task('活动暂未开始');
+       }
+    }
+
+
+
+
+
+  $scope.judge =selectArr.selectarrs;
   $scope.select = ModuleArr
 
 
@@ -81,6 +127,8 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 
 
       }else{
+      
+
         native.confirm('该操作需要登录','您还没有登录',['登录','取消'],function(c){
           if(c  == 1){
             $scope.goModular('r.login');
@@ -276,26 +324,26 @@ $scope.gosales=function (r) {
             okText: '确定'
           });
         } else if ($scope.select.home[7].shangpingunali[1] == "1") {
-          if ($scope.judge1 != "1") {
+          if ($scope.judge[1] != "1") {
             $ionicPopup.alert({
               title: "您还不是管理员！",
               okText: '确定'
 
             });
           } else if($scope.select.home[7].shangpingunali[2]=="1") {
-            if ($scope.judge3 == "0") {
+            if ($scope.judge[3] == "0") {
               $ionicPopup.alert({
                 title: "您未认证，请前往认证！",
                 okText: '确定'
 
               });
-            } else if ($scope.judge3 == "1") {
+            } else if ($scope.judge[3] == "1") {
               $ionicPopup.alert({
                 title: "正在认证审核中！",
                 okText: '确定'
 
               });
-            } else if ($scope.judge3 == "3") {
+            } else if ($scope.judge[3] == "3") {
               $ionicPopup.alert({
                 title: "认证审核失败，请重新认证！",
                 okText: '确定'
@@ -303,7 +351,7 @@ $scope.gosales=function (r) {
               });
             } else if($scope.select.home[7].shangpingunali[3]=="1"){
 
-              if($scope.judge4==true){//$scope.judge[4]==
+              if($scope.judge[4]==true){//$scope.judge[4]==
                 $ionicPopup.alert({
                   title:"请先缴纳诚信金！",
                   okText:'确定'

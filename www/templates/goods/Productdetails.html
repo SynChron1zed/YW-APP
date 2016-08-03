@@ -1,11 +1,19 @@
 <ion-view view-title="商品详情"  style='background:#feeb0b' >
 
+
+
+
+
   <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
     <div    ng-if='showtitle'  class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.Productdetails')">
       <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
-      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title"
+      style="display: block;"
+      >{{parenttitle}}</span></span>
     </div>
+
   </ion-nav-buttons>
+
 
   <ion-content     style="background: #f9f9f9;"   scrollbar-y="false"  overflow-scroll="false"   >
     <ion-slide-box   ng-if="goods.goodsInfo.img"   style="height:16rem"  class='gooddetilslidbox'  auto-play='true' >
@@ -103,11 +111,17 @@
                 overflow: visible;position: relative;top: -2px;
                 "
                           class="danontgimg" >
-                          <img style='    position: absolute;
-                        border: 1px solid #ddd;
-                        padding: 2px;
-                        background: #fff;
-                        top:-1rem;'
+                          <img style='
+                          
+                              position: absolute;
+    border: 1px solid #ddd;
+    padding: 2px;
+    background: #fff;
+    top: -1.2rem;
+    left: 0px;
+    height: 4.1rem;
+    max-width: 4.1rem;
+                        '
       ng-src="{{goods.goodsInfo.img_url}}" alt="">
                         </div>
                             <div style="width:72%;float: right">

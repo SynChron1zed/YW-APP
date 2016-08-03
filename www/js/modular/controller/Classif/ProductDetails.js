@@ -22,7 +22,7 @@ Ctr.controller('ClassifDetailsCtr',['$scope','native','$state','fromStateServ','
     if(r){
 
 
-      r.resp_data.data.img_url  =  window.qiniuimgHost+r.resp_data.data.img_url+'?imageView2/1/w/200/h/200';
+      r.resp_data.data.img_url  =  window.qiniuimgHost+r.resp_data.data.img_url+'?imageView2/2/w/200/h/200';
       r.resp_data.data.ctr  = false;
 
 

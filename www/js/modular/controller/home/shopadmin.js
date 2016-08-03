@@ -5,10 +5,10 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
 
 
 
-
   //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
-            Initial  ();
+
+            Initial();
             console.log(fromStateServ.getState('r.HomShopadmin'))
             if(fromStateServ.getState('r.HomShopadmin')){
                 $scope.backtoprevView  =   fromStateServ.backView;
@@ -44,52 +44,50 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
     },function(r){
       if(r){
 
-        $scope.shopadmindata = (r.resp_data);
-
-        $scope.shopadmindata.basic_info.img_shop  =   window.qiniuimgHost+$scope.shopadmindata.basic_info.img_shop+'?imageView2/1/w/200/h/200';
-
-
-
+        $scope.shopadmindata = r.resp_data;
+        $scope.shopadmindata.basic_info.img_shop  =   window.qiniuimgHost+$scope.shopadmindata.basic_info.img_shop+'?imageView2/2/w/200/h/200';
       }
     });
-
-    
-
-
-
   }
 
 
-
-
-  $scope.shopName = function (Classitem) {
-    $state.go('r.tab.HomShopadminname', {Classitem: Classitem});
+  $scope.shopName = function () {
+      $state.go('r.HomShopadminname',{nowname:$scope.shopadmindata.basic_info.shop_name});
   };
-  $scope.shopBrief = function (Classitem) {
-    $state.go('r.tab.HomShopadminbrief', {Classitem: Classitem});
+  
+  $scope.shopBrief = function () {
+    $state.go('r.HomShopadminbrief', {nowdec:$scope.shopadmindata.basic_info.description});
   };
 
   $scope.goodspice  = [];
   $scope.selectpir  = function (){
+
                 Tools.chekpirc({
                     allowEdit:true
                   },function(r){
                     Tools.sendqiniu_queue([r],function(f){
+
                       Tools.showlogin();
+
                       Tools.getData({
                           "interface_number": "010102",
                           "post_content": {
                                 "img_shop":f[0].key,
                             }
-                            
                       },function(s){
+
                         if(s){
-                                 $scope.shopadmindata.basic_info.img_shop  =   r;
-                                //$scope.$apply();
+                                  $scope.shopadmindata.basic_info.img_shop  =   r;
                                   native.task('修改店头像成功');
+
                         }
+
                       })
+
+
                     },'user_img')
+
+                    
                   })
 
 
