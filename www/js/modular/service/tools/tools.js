@@ -159,17 +159,38 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       if(r.resp_code== '0000'){
         Callback(r);
       } else if(r.resp_code ==  '0001' ||  r.resp_code ==  '1001' ){
+
+
+            if(r.type  != '000003'){
+
+                        // window.Token   = undefined;
+                        // window.token_phone   = undefined;
+                        // storage.setObject('UserInfo',{
+                        // real_name:'还没有登录!',
+                        // avatar:window.defaultUserheader,
+                        // integral:'0.00',
+                        // sex:'./img/icon_man@3x.png',
+                        // })
             window.outlogin(function(){               
             $ionicNativeTransitions.stateGo('r.tab.Home',{}, {
             "type": "slide",
             "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
             "duration": 400, // in milliseconds (ms), default 400
             });
+
               $timeout(function(){
                   $ionicHistory.clearHistory();
               },40)
               native.task(r.msg,3000);
             })
+            Callback(false);
+            }else{
+            Callback(r);
+
+
+            }
+          
+
       }  else{
         Callback(false);
         // Callback(false);
