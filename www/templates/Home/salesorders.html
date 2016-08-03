@@ -66,7 +66,7 @@
           <a class="item item-icon-right item-input-left  " style="height: 30px;padding: 6px" >
 
             <div >
-<P style="font-size: 6px;
+<P style="font-size: 13px;
     color: black;">
               共计{{item.total_num}}件商品 &nbsp;合计:{{item.total_fee}}
 </P>
@@ -76,7 +76,7 @@
           <a class="item item-icon-right item-input-left"  style="height: 30px;padding: 6px">
 
             <div>
-<p style="font-size: 6px;
+<p style="font-size: 13px;
     color: black;">
               订单编号:  {{item.order_basic_id}}
 </p>
@@ -87,9 +87,11 @@
           <a class="item item-icon-right item-input-left"  style="height: 50px;padding: 6px">
 
             <div style="float: right;padding: 2px"  >
+              <button  ng-click="dataRight()"  ng-if="item.post_status==2"  class="button button-small button-stabl"  style="width: 60px; border: 1px solid #33cd5f;"><p style="color:#28a54c;font-size: 10px">物流详情</p></button>
+
               <button  ng-click="dataLeft(item.order_basic_id,item.total_num,$index)"  ng-if="item.post_status==1"  class="button button-small button-stabl"  style="width: 60px; border: 1px solid #33cd5f;"><p style="color:#28a54c">发&nbsp;货</p></button>
 
-              <button  ng-click="ordersbody(item.orderDetail[0].order_basic_id)" class="button button-small button-stabl"  style="width: 60px; border: 1px solid orange;">详&nbsp;情</button>
+              <button  ng-click="ordersbody(item.order_basic_id)" class="button button-small button-stabl"  style="width: 60px; border: 1px solid orange;">详&nbsp;情</button>
             </div>
 
           </a>
@@ -186,17 +188,39 @@
 
       <ion-header-bar class="bar bar-header bar-positive">
         <button class="button button-clear button-primary"  ng-click="newQuery()"  style="color: #333"><i class="icon ion-ios-arrow-left"></i></button>
-        <h1 class="title">请选择物流快递</h1>
+        <h1 class="title">物流快递</h1>
         <button class="button button-clear button-primary" ng-click="query()" style="color: #333">保存</button>
       </ion-header-bar>
 
       <ion-content>
 
-        <ion-radio  ng-repeat="item in SalesList"
-                    ng-value="item"
-                    ng-model="data.clientSide">
-          {{ item.logistics_company_name}}
-        </ion-radio>
+        <div class="list" style="overflow: visible;z-index: 999;padding:0px;">
+          <div class="item item-input" style="border: 1px solid whitesmoke;"  ng-click="deliveryList()">
+            <span class="input-label" style="  border-right: 1px solid #a2a2a2;">物流公司 </span>
+            <input type="text" ng-keyup="myKeyup($event)"   style="background:transparent;margin-left: 5px;"  maxlength="150"  ng-model="data.companyname"  placeholder="请输入物流公司名称" >
+          </div>
+
+          <ion-scroll  delegate-handle="list"
+                       lazy-scroll
+                       overflow-scroll="false"
+                       scrollbar-y="false"
+                       style="width: 100%;
+                     overflow:hidden
+                     "
+                       ng-style="caklateheightList"  >
+            <ion-refresher spinner="ios"  pulling-text="刷新" on-refresh="loadOlderStoriesList(true)"   ></ion-refresher>
+
+          <ion-radio ng-if="dataList" ng-repeat="item in SalesList"
+                      ng-value="item"
+                      ng-model="data.clientSide">
+            {{ item.logistics_company_name}}
+          </ion-radio>
+
+            <ion-infinite-scroll  ng-if="expressionList" style="height: 20px;line-height: 40px;margin-bottom:20px;text-align: center" spinner="dots" on-infinite="loadOlderStoriesList()"  distance="1%"  > </ion-infinite-scroll>
+            <div ng-if="!expressionList" style="line-height: 90px;margin-bottom:40px;text-align: center;color:#999" >没有更多了!</div>
+        </div>
+
+
 
       </ion-content>
     </ion-modal-view>

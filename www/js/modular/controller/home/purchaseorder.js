@@ -154,39 +154,9 @@ if(bascId==1){
     $scope.dfh = false;
     $scope.ShoppingList=[];
     $scope.statusData = "";
-    $scope.loadOlderStories();
+    $scope.expression  = true;
     $ionicScrollDelegate.scrollTop();
-    /*Tools.getData({
-      "interface_number": "020702",
-      "client_type": window.platform,
-      "post_content": {
-        "token" : "",
-        "token_phone": "",
-        "status": $scope.statusData,
-        "page_num": 1,
 
-      }
-    },function(r){
-      if(r){
-        if(r.resp_data.data.length==10){
-          $scope.expression=true
-        }else{
-          $scope.expression=false
-          $scope.newexpression=true
-        }
-
-        angular.forEach(r.resp_data.data,function(c){
-          c.pic_path  =  window.qiniuimgHost+c.pic_path +'?imageView2/1/w/200/h/200';
-          c.ctr  = false;
-        });
-        $ionicScrollDelegate.scrollTop();
-        $scope.ShoppingList = (r.resp_data.data)
-        console.log($scope.SalesList)
-
-        $scope.post_status=[];
-
-      }
-    });*/
 
   };
   //待发货
@@ -197,38 +167,9 @@ if(bascId==1){
     $scope.dfh = false;
     $scope.statusData = "1";
     $scope.ShoppingList=[];
-    $scope.loadOlderStories();
+    $scope.expression  = true;
     $ionicScrollDelegate.scrollTop();
-   /* Tools.getData({
-      "interface_number": "020702",
-      "client_type": window.platform,
-      "post_content": {
-        "token" : "",
-        "token_phone": "",
-        "status": $scope.statusData,
-        "page_num": 1,
 
-      }
-    },function(r){
-      if(r){
-        if(r.resp_data.data.length==10){
-          $scope.expression=true
-        }else{
-          $scope.expression=false
-          $scope.newexpression=true
-        }
-        angular.forEach(r.resp_data.data,function(c){
-          c.pic_path  =  window.qiniuimgHost+c.pic_path +'?imageView2/1/w/200/h/200';
-          c.ctr  = false;
-        });
-        $ionicScrollDelegate.scrollTop();
-        $scope.ShoppingList = (r.resp_data.data)
-        console.log($scope.SalesList)
-
-        $scope.post_status=[];
-
-      }
-    });*/
   };
 
   //待收货
@@ -239,38 +180,9 @@ if(bascId==1){
     $scope.dfh = false;
     $scope.statusData = '2'
     $scope.ShoppingList=[];
-    $scope.loadOlderStories();
+    $scope.expression  = true;
     $ionicScrollDelegate.scrollTop();
-  /*  Tools.getData({
-      "interface_number": "020702",
-      "client_type": window.platform,
-      "post_content": {
-        "token" : "",
-        "token_phone": "",
-        "status": $scope.statusData,
-        "page_num": 1,
 
-      }
-    },function(r){
-      if(r){
-        if(r.resp_data.data.length==10){
-          $scope.expression=true
-        }else{
-          $scope.expression=false
-          $scope.newexpression=true
-        }
-        angular.forEach(r.resp_data.data,function(c){
-          c.pic_path  =  window.qiniuimgHost+c.pic_path +'?imageView2/1/w/200/h/200';
-          c.ctr  = false;
-        });
-        $ionicScrollDelegate.scrollTop();
-        $scope.ShoppingList = (r.resp_data.data)
-        console.log($scope.SalesList)
-
-        $scope.post_status=[];
-
-      }
-    });*/
 
   };
 
@@ -283,39 +195,9 @@ if(bascId==1){
     $scope.dfh = true;
     $scope.statusData = '3'
     $scope.ShoppingList=[];
-    $scope.loadOlderStories();
+    $scope.expression  = true;
     $ionicScrollDelegate.scrollTop();
-   /* Tools.getData({
-     "interface_number": "020702",
-     "client_type": window.platform,
-     "post_content": {
-     "token" : "",
-     "token_phone": "",
-     "status": $scope.statusData,
-     "page_num": 1,
 
-     }
-     },function(r){
-     if(r){
-     if(r.resp_data.data.length==10){
-     $scope.expression=true
-     }else{
-     $scope.expression=false
-     $scope.newexpression=true
-     }
-     angular.forEach(r.resp_data.data,function(c){
-     c.pic_path  =  window.qiniuimgHost+c.pic_path +'?imageView2/1/w/200/h/200';
-     c.ctr  = false;
-     });
-     $ionicScrollDelegate.scrollTop();
-     $scope.ShoppingList= (r.resp_data.data)
-     console.log($scope.SalesList)
-
-     $scope.post_status=[];
-
-     }
-     });
-     */
   };
 
   $scope.purchaseorde=function (value) {

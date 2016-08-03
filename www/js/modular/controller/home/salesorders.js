@@ -9,7 +9,7 @@ Ctr.controller('salesCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','
 
   $scope.expression=true;
    $scope.dataNew = false
-
+$scope.dataList = false
   $scope.SalesList = [];
   $scope.statusData = ""
   $scope.datanum =  $stateParams.dataNum;
@@ -124,7 +124,7 @@ Ctr.controller('salesCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','
     $scope.SalesList = [];
     $ionicScrollDelegate.scrollTop();
     $scope.page_number=1;
-    $scope.loadOlderStories();
+    $scope.expression = true
 
 
 
@@ -141,7 +141,7 @@ Ctr.controller('salesCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','
     $scope.SalesList = [];
     $ionicScrollDelegate.scrollTop();
     $scope.page_number=1;
-    $scope.loadOlderStories();
+    $scope.expression = true
 
 
   };
@@ -155,7 +155,7 @@ Ctr.controller('salesCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','
     $scope.dfh = false;
     $scope.statusData = '2';
     $scope.SalesList = [];
-    $scope.loadOlderStories();
+    $scope.expression = true
     $ionicScrollDelegate.scrollTop();
 
   };
@@ -171,7 +171,7 @@ Ctr.controller('salesCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','
     $scope.statusData = "3";
     $scope.SalesList = [];
     $scope.page_number=1;
-    $scope.loadOlderStories();
+    $scope.expression = true
     $ionicScrollDelegate.scrollTop();
 
 
@@ -230,44 +230,47 @@ Ctr.controller('salesCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','
   $scope.deliveryList = function () {
     $scope.newmodal.hide();
 
+    $scope.modal.show();
+
+   /* */
+
+  };
 
 
-      $scope.modal.show();
+  $scope.myKeyup = function(e){
+
+    var keycode = window.event?e.keyCode:e.which;
+    if(keycode==13){
+
+      Tools.getData({
+        "interface_number": "020704",
+        "post_content": {
+          "token":"",
+          "token_phone": "",
+          "keyword": $scope.data.companyname
 
 
-    Tools.getData({
-      "interface_number": "020704",
-      "post_content": {
-        "token":"",
-        "token_phone": "",
+        }
+
+      },function(r){
+      
+        if(r.msg== "success"){
+          $scope.dataList = true
+          $scope.SalesList  = r.resp_data.data;
+
+        }else{
+
+          return false
+
+        }
 
 
-      }
-
-    },function(r){
-
-
-    
-
-      if(r.msg== "success"){
-
-        $scope.SalesList  = r.resp_data;
-
-      }else{
-
-        return false
-
-      }
-
-
-    });
-
-
-
+      });
 
 
 
-  }
+    }
+  };
 
 
   $ionicModal.fromTemplateUrl('templates/modal.html', {
@@ -342,6 +345,22 @@ $scope.query =function () {
   }
 
 
+  $scope.caklateheightList  = {};
+  function   caklateheList  (){
+    if(window.platform  == 'ios'){
+      $scope.caklateheightList  = {
+        height:window.innerHeight-(64+41)+'px'
+      }
+    }else{
+      $scope.caklateheightList  = {
+        height:window.innerHeight-(44+41)+'px'
+      }
+    }
+  };
+  caklateheList();
+  $timeout(function(){
+    caklateheList();
+  },600)
 
 
 
