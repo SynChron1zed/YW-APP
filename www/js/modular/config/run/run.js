@@ -3,22 +3,36 @@
  */
 App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout','native',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,
 $ionicNativeTransitions,$timeout,native) {
-  
+   
   //$cordovaProgress.showBar(true, 50000);
   //退出登录
               window.outlogin  = function(Callback){
 
-              window.Token   = undefined;
-              window.token_phone   = undefined;
-              storage.setObject('UserInfo',{
-                    real_name:'还没有登录!',
-                    avatar:window.defaultUserheader,
-                    integral:'0.00',
-                    sex:'./img/icon_man@3x.png',
+                Tools.getData({
+                    "interface_number": "000003",
+                    "post_content": {}
+                },function (r) {
+                  if(r){
+
+                        window.Token   = undefined;
+                        window.token_phone   = undefined;
+                        storage.setObject('UserInfo',{
+                        real_name:'还没有登录!',
+                        avatar:window.defaultUserheader,
+                        integral:'0.00',
+                        sex:'./img/icon_man@3x.png',
+                        })
+                        if(Callback){
+                        Callback();
+                        native.task('退出成功');
+                      }
+                      
+                  }
                 })
-                if(Callback){
-                    Callback();
-                }
+
+
+
+          
 
             };
 
@@ -216,7 +230,7 @@ $ionicNativeTransitions,$timeout,native) {
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
     }
-    
+
     if(window.cordova){
       window.cordova.getAppVersion.getVersionNumber(function (version) {
 

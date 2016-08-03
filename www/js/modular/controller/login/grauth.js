@@ -8,7 +8,7 @@ Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$io
   $scope.backView  = function(){
     $scope.$ionicGoBack();
   };
-  
+
   //身份证  图片对象
   $scope.identity  = {};
   $scope.rmPositive   = function () {
@@ -49,11 +49,11 @@ Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$io
       native.task('请上传审核照片')
       return false;
     }
-    if(!$scope.form.id ||  !$scope.form.name ){      
+    if(!$scope.form.id ||  !$scope.form.name ){
       native.task('请填写完审核信息')
       return false;
     }
-    
+
     Tools.showlogin();
     //发送图片到期牛
     Tools.sendqiniu_queue([
@@ -72,14 +72,14 @@ Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$io
         }
       },function(r){
         if(r){
-          
+
           native.task('认证已提交,个人中心查看审核进度!',4000)
           //需要支付会费
           if(r.resp_data.need_paid){
             $state.go('r.selectPaydues');
           }else{
-            //返回原始入口页            
-           
+            //返回原始入口页
+            selectaouthfunl.state=false;
             $ionicViewSwitcher.nextDirection('back');
             $ionicNativeTransitions.stateGo('r.tab.Settings',{}, {
               "type": "slide",
@@ -89,8 +89,8 @@ Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$io
             $timeout(function(){
               $ionicHistory.clearHistory();
             },100)
-        
-            
+
+
           }
 
 

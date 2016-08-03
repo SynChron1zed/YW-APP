@@ -13,8 +13,8 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
   $scope.xuanzpirce  = function(){
     Tools.chekpirc({},function(r){
       $scope.identity.Positive  = r;
-      
-      
+
+
     });
     // Tools.sendqiniu_single($scope.c,function(r){
     //   if(r){
@@ -27,19 +27,19 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
     Tools.chekpirc({},function(r){
 
       $scope.identity.inverse  = r;
-      
-      
+
+
 
     });
   }
-  
+
   $scope.rminverse  = function (){
     $scope.identity.inverse  = undefined;
   };
-  
+
   //基本表单信息
   $scope.from   = {};
-  
+
   $scope.Submitaudit  = function (){
 
     if(!$scope.identity.Positive || !$scope.identity.inverse){
@@ -76,7 +76,8 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
           if(r.resp_data.need_paid){
             $state.go('r.selectPaydues');
           }else{
-            //返回原始入口页        
+            //返回原始入口页
+            selectaouthfunl.state=false;
             $ionicViewSwitcher.nextDirection('back');
             $ionicNativeTransitions.stateGo('r.tab.Settings',{}, {
               "type": "slide",
@@ -96,7 +97,7 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
 
     },'auth_'+(storage.getObject('UserInfo').company_id)+'_')
 
-    
+
 
 
 
