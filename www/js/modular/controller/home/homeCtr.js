@@ -36,7 +36,7 @@ $scope.showlogistics  =  function () {
             })
             $scope.guankao   =   r.resp_data;
       }
-    })  
+    })
 
     $scope.gogunal  =  function(item){
        if(item.request_type  == '1'){
@@ -71,7 +71,7 @@ $scope.showlogistics  =  function () {
         })
   };
 
-  $scope.xiaoshouorder = function () {
+  $scope.xiaoshouorder = function (r) {
 
 
      if(storage.getObject('UserInfo').user_id){
@@ -117,7 +117,9 @@ $scope.showlogistics  =  function () {
 
                   });
                 }else{
-                  $state.go('r.tab.HomSales');
+                  fromStateServ.stateChange(r);
+                 
+
                 }
               }
             }
@@ -127,7 +129,7 @@ $scope.showlogistics  =  function () {
 
 
       }else{
-      
+
 
         native.confirm('该操作需要登录','您还没有登录',['登录','取消'],function(c){
           if(c  == 1){
