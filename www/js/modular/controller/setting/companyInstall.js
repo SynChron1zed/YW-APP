@@ -27,7 +27,7 @@ Ctr.controller('companyInstallCtr',['$scope','$rootScope','$ionicViewSwitcher','
   $scope.$on('$ionicView.beforeEnter',function(){
     Initial ();
   });
-  
+
   if($scope.adminer == "1"){
     $scope.newexpression = true
   }else {
@@ -50,6 +50,7 @@ function Initial() {
     if(r.msg== "success"){
       $scope.auth =r.resp_data.is_auth;
       if($scope.auth=="0"){
+
         $scope.autName="未认证"
         $scope.expression = false;
       }else if($scope.auth=="1"){
@@ -57,6 +58,7 @@ function Initial() {
       }else if($scope.auth=="2"){
         $scope.autName="审核通过";
       }else if($scope.auth=="3"){
+        $scope.expression = false;
         $scope.autName="审核失败"
       }
 

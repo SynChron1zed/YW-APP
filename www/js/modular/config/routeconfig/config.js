@@ -213,7 +213,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    
+
     //选择认证
       .state('r.selectAuth',{
         url: '/selectAuth',
@@ -369,7 +369,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-    //销售订单
+  /*  //销售订单
     .state('r.tab.HomSales',{
       url: '/HomeSales/:dataNum',
       views: {
@@ -378,7 +378,26 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           controller: 'salesCtr'
         }
       }
+    })*/
+
+
+    //销售订单
+    .state('r.HomSales',{
+      url: '/HomSales',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.HomSales')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Home/salesorders.html',
+          controller: 'salesCtr'
+        }
+      }
     })
+
 
     .state('r.tab.delivery',{
       url: '/delivery/:odId/:Num',
@@ -654,7 +673,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    
+
     //setting  个人设置 企业设置
     .state('r.companyInstall',{
       url: '/companyInstall',
@@ -996,19 +1015,19 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         'rootview': {
           params:{id:null,inside:null},
           templateUrl: 'templates/goods/Productdetails.html',
-          controller: 'ProductdetailsCtr'          
+          controller: 'ProductdetailsCtr'
         }
       }
-    })       
+    })
     //确认订单
     .state('r.ConfirmorderZf', {
-          url: '/ConfirmorderZf',         
+          url: '/ConfirmorderZf',
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.ConfirmorderZf')
       },
       onExit:function(fromStateServ){
         fromStateServ.removebackregistevent();
-      }, 
+      },
           views: {
             'rootview': {
               templateUrl: 'templates/goods/comf.html',
@@ -1038,7 +1057,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
 
-        
+
 
 
 

@@ -4,7 +4,7 @@
 /**
  * Created by Administrator on 2016/7/13.
  */
-Ctr.controller('salesCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize','$ionicScrollDelegate','$ionicModal','$ionicHistory',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize,$ionicScrollDelegate,$ionicModal,$ionicHistory){
+Ctr.controller('salesCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize','$ionicScrollDelegate','$ionicModal','$ionicHistory','fromStateServ',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize,$ionicScrollDelegate,$ionicModal,$ionicHistory,fromStateServ){
 
 
   $scope.expression=true;
@@ -253,7 +253,7 @@ $scope.dataList = false
         }
 
       },function(r){
-      
+
         if(r.msg== "success"){
           $scope.dataList = true
           $scope.SalesList  = r.resp_data.data;
@@ -364,6 +364,18 @@ $scope.query =function () {
 
 
 
+
+  $scope.backtoprevView  =   fromStateServ.backView;
+  $scope.$on('$stateChangeSuccess',function(){
+    debugger;
+    $scope.loginboj = {};
+    $scope.ing  = false;
+    $scope.parenttitle     =   fromStateServ.getState('r.HomSales').title;
+  });
+
+  $scope.backView  = function(){
+    $scope.$ionicGoBack();
+  };
 
 }]);
 
