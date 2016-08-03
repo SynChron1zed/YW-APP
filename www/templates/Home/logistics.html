@@ -1,0 +1,84 @@
+<ion-view style='background:#feeb0b'  view-title='物流信息'   >
+
+
+
+  <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
+    <div    ng-if='showtitle'  class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.Logistics')">
+      <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
+    </div>
+  </ion-nav-buttons>
+
+<style>
+  .boxheadiht  .scroll{
+    height:100%;
+  }
+
+  .tiem-itemlisgt   p{
+    margin:0px;
+  }
+  .tiem-itemlisgt{
+    
+    margin-right: 0px;
+    margin-left: 20px;
+    border-left: 2px solid #ddd;
+    padding-left: 10px;
+    padding-top:20px;
+    padding-bottom:10px;
+    position: relative;
+  }
+
+
+  .tiem-itemlisgt span{
+    display: inline-block;
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: #dddddd;
+    border-radius: 50%;
+    top: 0px;
+    left: -8px;
+  }
+
+    .tiem-itemlisgt   .now{
+        background: #f9b000;
+    height: 16px;
+    width: 16px;
+    left: -9px;  
+  }
+  .tiem-itemlisgt   .now::after {
+    content: '';
+    background: #f9b000;
+    height: 20px;
+    width: 20px;
+    left: -2px;
+    top: -2px;
+    display: block;
+    position: absolute;
+    border-radius: 50%;
+    opacity: .5;    
+  }
+
+</style>
+
+  <ion-content    class="boxheadiht"        overflow-scroll="false"   scrollbar-y="false"     style="background: #fff;
+  height:100%
+  "       >
+
+
+  <p style="height:1px;"></p>
+
+      <div class="tiem-itemlisgt"  ng-repeat="ff  in  logiaclist"   >
+
+          <span  ng-class="{'now':ff.now}" ></span>
+          <p style="font-size:14px" >{{ff.context}}</p>
+          <p style="color:#9a9a9a" >{{ff.time}}</p>
+
+      </div>
+
+
+
+  </ion-content>
+
+
+</ion-view>

@@ -12,7 +12,9 @@ $ionicNativeTransitions,$timeout,native) {
                     "interface_number": "000003",
                     "post_content": {}
                 },function (r) {
+
                   if(r){
+
 
                         window.Token   = undefined;
                         window.token_phone   = undefined;
@@ -26,8 +28,13 @@ $ionicNativeTransitions,$timeout,native) {
                         Callback();
                         native.task('退出成功');
                       }
-                      
+
+
                   }
+                  
+                  
+
+
                 })
 
 
