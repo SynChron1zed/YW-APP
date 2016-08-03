@@ -11,10 +11,21 @@
       }
     </style>
 
-         <div class="shopclaslist  casdawwwwww"   style="white-space: nowrap;overflow: hidden;    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.1);z-index: 9999;position: relative;
+         <div class="shopclaslist  casdawwwwww"   style="white-space: nowrap;overflow: hidden;    z-index: 9999;position: relative;
+         height: 50px;
+         line-height: 50px;
+        
          ">        
-            <div draggable  style="display: inline-block;" >
-                <div class="listitme"    ng-repeat="item in claslist "   ng-click="swatch(item)"   ng-class="{'active':item.select}"   >
+            <div draggable  style="display: inline-block;
+             height: 50px;
+            line-height: 50px;
+            " >
+                <div class="listitme"
+
+                style="      height: 50px;
+                            line-height: 50px;
+            "              
+                 ng-repeat="item in claslist "   ng-click="swatch(item)"   ng-class="{'active':item.select}"   >
                   {{item.itemcats_name }}
                 </div>
               </div>
