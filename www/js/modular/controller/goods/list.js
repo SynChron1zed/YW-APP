@@ -314,7 +314,7 @@ $scope.swatchtstate  = function (){
   $scope.liststate  =  true;
   $scope.left =  function (){
     if(!$scope.liststate){
-      debugger;
+     
           $ionicScrollDelegate.$getByHandle('list').scrollTop();
           $scope.liststate  =  true;
           $scope.downlistloadmor  = true;
@@ -324,7 +324,7 @@ $scope.swatchtstate  = function (){
   }
 
   $scope.right =  function (){
-    debugger;
+   
     if($scope.liststate){
       $ionicScrollDelegate.$getByHandle('list').scrollTop();
       $scope.liststate  =  false;
@@ -349,7 +349,7 @@ $scope.swatchtstate  = function (){
 
 
   $scope.customcucdownlisloadMore  =  function (type){
-    debugger;
+   
       var sendoption  = {
         "interface_number": "030104",
        "post_content": {

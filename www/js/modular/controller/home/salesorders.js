@@ -40,7 +40,7 @@ Ctr.controller('salesCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','
 
   //加载
   $scope.loadOlderStories=function (type) {
-debugger;
+
    /* if(type=="2"){
       return false
     }*/
@@ -63,7 +63,7 @@ debugger;
 
     Tools.getData(sendoption,function(r){
       if(r){
-debugger;
+
 
         if(r.resp_data.nextPage  == 0 ){
           $scope.expression  = false;
@@ -131,7 +131,7 @@ debugger;
   };
   //待发货
   $scope.dfks =  function  (){
-    debugger;
+
     $scope.dataNew = false
     $scope.all = false;
     $scope.dfk = true;
@@ -215,7 +215,7 @@ debugger;
 
 
   $scope.newQuery= function () {
-    debugger;
+
 
     $scope.modal.hide()
     $scope.newmodal.show();
@@ -247,7 +247,7 @@ debugger;
     },function(r){
 
 
-      debugger;
+    
 
       if(r.msg== "success"){
 

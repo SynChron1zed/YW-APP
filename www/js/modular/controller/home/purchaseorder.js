@@ -358,7 +358,7 @@ if(bascId==1){
 
 
   $scope.dataLeft =function (value,id,index) {
-debugger;
+
     $ionicPopup.show({
 
       title: '确认收货?',
