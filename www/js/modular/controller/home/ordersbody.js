@@ -4,7 +4,7 @@
 Ctr.controller('ordersbodyCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams) {
 
 
-  
+
   $scope.ID = $stateParams.basicID;
 
   Tools.getData({
@@ -16,9 +16,10 @@ Ctr.controller('ordersbodyCtr',['$scope','native','$state','fromStateServ','Tool
       "orderId": $scope.ID,
     }
   },function(r){
+    debugger;
     if(r){
       $scope.shopbody = (r.resp_data);
-      $scope.shopname = $scope.shopbody.order.data[0].buyer_nick
+      $scope.shopname = $scope.shopbody.order.data[0].shop_name
       $scope.id = $scope.shopbody.order.data[0].order_basic_id
       $scope.pay = $scope.shopbody.order.data[0].total_fee
       $scope.time = $scope.shopbody.order.data[0].order_created

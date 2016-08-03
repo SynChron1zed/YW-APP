@@ -39,17 +39,36 @@
       }
     }])
 
+ /* var selectStorge =  function () {
+     return
+  }*/
+
 
 
 //验证状态
   .factory('selectArr',['storage',function(storage){
     return{
-      userid:storage.getObject('UserInfo').user_id,
-      isadmin:storage.getObject('UserInfo').is_admin,
-      iscampany:storage.getObject('UserInfo').company_id,
-      authstatus:storage.getObject('UserInfo').auth_status,
-      needpaid:storage.getObject('UserInfo').need_paid,
-      selectarrs:[storage.getObject('UserInfo').user_id,storage.getObject('UserInfo').is_admin,storage.getObject('UserInfo').company_id,storage.getObject('UserInfo').auth_status,storage.getObject('UserInfo').need_paid]
+
+            selectarrs: {
+        id:function () {
+          return storage.getObject('UserInfo').user_id
+        },
+        isadmin:function () {
+          return  storage.getObject('UserInfo').is_admin
+        }  ,
+        companyid:function () {
+          return storage.getObject('UserInfo').company_id
+        },
+        authstatus:function () {
+          return  storage.getObject('UserInfo').auth_status
+        },
+        needpaid:function () {
+          return  storage.getObject('UserInfo').need_paid
+          
+        }
+        ,
+
+      }
 
     }
   }])

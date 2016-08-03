@@ -5,8 +5,7 @@
 Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state','$ionicHistory','storage','fromStateServ','$ionicScrollDelegate','Tools','native','selectArr',function($scope,$ionicPopover, $ionicPopup,$timeout,$state,$ionicHistory,storage,fromStateServ,$ionicScrollDelegate,Tools,native,selectArr) {
 
 
-  $scope.judge =selectArr.selectarrs;
-
+  $scope.judge =selectArr.selectarrs.companyid();
 
   $scope.userfanhui  = function () {
   $state.go('r.tab.SettingsUser')
@@ -72,11 +71,10 @@ $scope.updateAPP  =  function () {
     if(!storage.getObject('UserInfo').user_id){
 
       login();
-
     }else{
 
 
-      if(!$scope.judge[2]){
+      if(!$scope.judge){
 
         $ionicPopup.alert({
           title:"请先申请加入公司！",
@@ -181,7 +179,7 @@ var   userone = storage.getObject('UserInfo');
 
         }else{
 
-          if(!$scope.judge[2]){
+          if(!$scope.judge){
 
             $ionicPopup.alert({
               title:"请先申请加入公司！",
