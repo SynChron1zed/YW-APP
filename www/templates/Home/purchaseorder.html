@@ -135,7 +135,7 @@
             <a class="item item-icon-right item-input-left"  style="height: 50px;padding: 6px">
 
               <div style="float: right;padding: 2px"  >
-                <button  ng-click="dataRight()"  ng-if="item.post_status==2"  class="button button-small button-stabl"  style="width: 60px; border: 1px solid #feeb0b;"><p style="color:#a2a2a2;font-size: 10px">物流详情</p></button>
+                <button  ng-click="dataRight(item.order_basic_id)"  ng-if="item.post_status==2"  class="button button-small button-stabl"  style="width: 60px; border: 1px solid #feeb0b;"><p style="color:#a2a2a2;font-size: 10px">物流详情</p></button>
 
                 <button  ng-click="dataLeft(item.odid,item.order_basic_id,$index)"  ng-if="item.post_status==2"  class="button button-small button-stabl"  style="width: 60px; border: 1px solid #33cd5f;"><p style="color:#28a54c">收&nbsp;货</p></button>
 

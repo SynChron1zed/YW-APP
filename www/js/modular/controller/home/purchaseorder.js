@@ -11,7 +11,7 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
 
             if(fromStateServ.getState('r.HomPurchase')){
                 $scope.showtitle  = true;
-                $scope.backtoprevView  =   fromStateServ.backView; 
+                $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.HomPurchase').title;
             }else{
                 $scope.showtitle  = false;
@@ -44,7 +44,7 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
                   window.androdzerofun_clback  = 'nothing';
 
             }
-    });    
+    });
 
      $scope.$on('$ionicView.beforeLeave',function(){
             window.androdzerofun   =undefined;
@@ -52,7 +52,7 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
 
 
 
-    
+
 
 
 
@@ -290,6 +290,12 @@ if(bascId==1){
       ]
     });
 
+  }
+
+
+  $scope.dataRight =function (value) {
+ 
+    $state.go('r.Logistics',{id:value})
   }
 
 }]);

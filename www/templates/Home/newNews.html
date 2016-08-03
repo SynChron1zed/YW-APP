@@ -33,7 +33,7 @@
           <div class="col col-60">
             <span class="news-yiyu">{{item.title}}</span>
             <span class="yiyutwo">{{item.abstract}}</span>
-            <span class="news-time">{{item.add_time | date:"yyyy-MM-dd HH:mm:ss" }}</span>
+            <span class="news-time">{{item.add_time*1000 | date:"yyyy-MM-dd HH:mm:ss" }}</span>
 
             <i class="ion-ios-arrow-right" style="    float: right;
     font-size: 20px;
