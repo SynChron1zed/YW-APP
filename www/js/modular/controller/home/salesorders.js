@@ -367,7 +367,7 @@ $scope.query =function () {
 
   $scope.backtoprevView  =   fromStateServ.backView;
   $scope.$on('$stateChangeSuccess',function(){
-   
+
     $scope.loginboj = {};
     $scope.ing  = false;
     $scope.parenttitle     =   fromStateServ.getState('r.HomSales').title;
@@ -377,6 +377,10 @@ $scope.query =function () {
     $scope.$ionicGoBack();
   };
 
+  $scope.dataRight =function (value) {
+
+    $state.go('r.Logistics',{id:value})
+  }
 }]);
 
 

@@ -294,7 +294,7 @@ if(bascId==1){
 
 
   $scope.dataRight =function (value) {
-    debugger;
+ 
     $state.go('r.Logistics',{id:value})
   }
 
