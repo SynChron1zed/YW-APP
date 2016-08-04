@@ -4,12 +4,8 @@
 Ctr.controller('noticeCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$ionicHistory','storage','fromStateServ','selectArr',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$ionicHistory,storage,fromStateServ,selectArr){
 
 
-$scope.mathData = true;
 
-
-
-
-
+  $scope.mathData = true;
   function select() {
 
     $scope.adminer = selectArr.selectarrs.isadmin();
@@ -28,16 +24,34 @@ $scope.mathData = true;
   $scope.$on('$ionicView.beforeEnter',function(){
 
     //页面的状态变化  请求
-    select()
-    handtat();
-    $scope.doRefresh();
-    if ($ionicHistory.backView()) {
+
+
+  if ($ionicHistory.backView()) {
+
+
       window.androdzerofun  = function(parm1,parm2){
         $ionicHistory.goBack();
       }
       window.androdzerofun_parms  ='tabswtathing';
       window.androdzerofun_clback  = 'nothing';
     }
+    
+    if(storage.getObject('UserInfo').user_id){
+    }else{
+      return false;
+    }
+
+
+
+
+
+    select()
+    handtat();
+    $scope.doRefresh();
+
+  
+
+
   });
 
 

@@ -19,11 +19,15 @@
 </ion-nav-bar>
   <ion-content  overflow-scroll="false"   scrollbar-y="false"   style='background-color:#f3f3f3' >
 
-      <ion-slide-box    ng-if='guankao'  class='homeSlidebox' auto-play='true'  does-continue="true" >
-        <ion-slide   ng-repeat="ss   in  guankao"   ng-click="gogunal(ss)"   >
-          <img ng-src="{{ss.qiniu_key}}" alt="">
-        </ion-slide>
-      </ion-slide-box>
+      <div   ng-if='guankao'  >  
+        
+            <ion-slide-box    ng-if='guankao'  class='homeSlidebox' auto-play='true'  does-continue="true" >
+              <ion-slide   ng-repeat="ss   in  guankao"   ng-click="gogunal(ss)"   >
+                <img ng-src="{{ss.qiniu_key}}" alt="">
+              </ion-slide>
+            </ion-slide-box>
+
+      </div>
 
 
 
