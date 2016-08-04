@@ -45,7 +45,7 @@ $ionicNativeTransitions,$timeout,native) {
 
 
   $ionicPlatform.ready(function() {
-    //$state.go('r.selectAuth');
+    //$state.go('r.selectPaydues');
     $state.go('r.tab.Home');
 
 

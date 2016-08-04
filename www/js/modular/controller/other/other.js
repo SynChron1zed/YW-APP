@@ -12,6 +12,7 @@ Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory)
             }else{                
                 $scope.showtitle  = false;
             }
+
             inlit();
             console.log($stateParams);
     });
@@ -39,10 +40,7 @@ Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory)
                             $scope.backtoprevView('r.Logistics');
                             cordova.InAppBrowser.open(r.resp_data.url, '_blank', 'location=yes');
                             
-
                       }
-
-
                 }else{
                     $scope.backtoprevView('r.Logistics');
                 }
