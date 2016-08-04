@@ -179,7 +179,7 @@ $scope.dataList = false
 
   $scope.ordersbody= function (value) {
 
-    $state.go('r.tab.Homordersbody',{basicID:value});
+    $state.go('r.Homordersbody',{basicID:value});
   }
   $scope.calssifloadMore = function (xxx) {
     $timeout(function () {
@@ -309,7 +309,7 @@ $scope.dataList = false
 
         if(r.msg== "success"){
           $scope.dataList = true
-          $scope.SalesList  = r.resp_data.data;
+          $scope.selectList  = r.resp_data.data;
 
         }else{
 

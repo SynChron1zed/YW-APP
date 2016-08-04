@@ -4,7 +4,7 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('companyInstallCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','storage','fromStateServ','selectaouthfunl',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,storage,fromStateServ,selectaouthfunl){
+Ctr.controller('companyInstallCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','storage','fromStateServ','selectaouthfunl','selectArr',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,storage,fromStateServ,selectaouthfunl,selectArr){
 
 
 
@@ -26,12 +26,19 @@ Ctr.controller('companyInstallCtr',['$scope','$rootScope','$ionicViewSwitcher','
   //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
     Initial ();
+    select()
   });
 
-  if($scope.adminer == "1"){
-    $scope.newexpression = true
-  }else {
-    $scope.newexpression = false
+  function select() {
+
+    $scope.adminer = selectArr.selectarrs.isadmin();
+    $scope.expression = true;
+
+    if($scope.adminer == "1"){
+      $scope.newexpression = true
+    }else {
+      $scope.newexpression= false
+    }
   }
 
 
@@ -86,7 +93,7 @@ $scope.Unauthorized=function () {
 }
 
 $scope.goManagement = function (value) {
-  $state.go('r.tab.management',{integral:value})
+  $state.go('r.management',{integral:value})
 }
 
   //解除绑定
