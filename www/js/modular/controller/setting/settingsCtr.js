@@ -5,7 +5,7 @@
 Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state','$ionicHistory','storage','fromStateServ','$ionicScrollDelegate','Tools','native','selectArr',function($scope,$ionicPopover, $ionicPopup,$timeout,$state,$ionicHistory,storage,fromStateServ,$ionicScrollDelegate,Tools,native,selectArr) {
 
 
-  $scope.judge =selectArr.selectarrs.companyid();
+
 
   $scope.userfanhui  = function () {
   $state.go('r.tab.SettingsUser')
@@ -74,17 +74,8 @@ $scope.updateAPP  =  function () {
     }else{
 
 
-      if(!$scope.judge){
-
-        $ionicPopup.alert({
-          title:"请先申请加入公司！",
-          okText:'确定'
-
-        });
-      }else {
-
         $scope.getMdl('r.companyInstall')
-      }
+
     }
 
 
@@ -179,17 +170,10 @@ var   userone = storage.getObject('UserInfo');
 
         }else{
 
-          if(!$scope.judge){
-
-            $ionicPopup.alert({
-              title:"请先申请加入公司！",
-              okText:'确定'
-
-            });
-          }else{
+      
             $scope.shopid  = 'http://pan.baidu.com/share/qrcode?w=400&h=400&url='+uil.shop_id;
             $scope.opencustomenuatts   = true;
-          }
+
 
         }
 

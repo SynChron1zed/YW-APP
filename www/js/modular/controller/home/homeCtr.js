@@ -1,13 +1,8 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','ModuleArr',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,ModuleArr) {
+Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','ModuleArr','selectaouthfunl',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,ModuleArr,selectaouthfunl) {
 
-  $scope.judge0 = selectArr.selectarrs.id();
-  $scope.judge1 = selectArr.selectarrs.isadmin();
-  $scope.judge2 = selectArr.selectarrs.companyid();
-  $scope.judge3 = selectArr.selectarrs.authstatus();
-  $scope.judge4 = selectArr.selectarrs.needpaid();
 
 
 
@@ -75,58 +70,7 @@ $scope.showlogistics  =  function () {
 
 
      if(storage.getObject('UserInfo').user_id){
-
-        if($scope.select.home[0].xiaoshou[4]=="1") {
-          if (!$scope.judge2) {
-            $ionicPopup.alert({
-              title: "请先申请加入公司！",
-              okText: '确定'
-            });
-          } else if ($scope.select.home[0].xiaoshou[1] == "1") {
-            if ($scope.judge1 != "1") {
-              $ionicPopup.alert({
-                title: "您还不是管理员！",
-                okText: '确定'
-
-              });
-            } else if($scope.select.home[0].xiaoshou[2]=="1") {
-              if ($scope.judge3 == "0") {
-                $ionicPopup.alert({
-                  title: "您未认证，请前往认证！",
-                  okText: '确定'
-
-                });
-              } else if ($scope.judge3 == "1") {
-                $ionicPopup.alert({
-                  title: "正在认证审核中！",
-                  okText: '确定'
-
-                });
-              } else if ($scope.judge3 == "3") {
-                $ionicPopup.alert({
-                  title: "认证审核失败，请重新认证！",
-                  okText: '确定'
-
-                });
-              } else if($scope.select.home[0].xiaoshou[3]=="1"){
-
-                if($scope.judge4==true){//$scope.judge[4]==
-                  $ionicPopup.alert({
-                    title:"请先缴纳诚信金！",
-                    okText:'确定'
-
-                  });
-                }else{
                   fromStateServ.stateChange('r.HomSales');
-
-
-                }
-              }
-            }
-          }
-        }
-
-
 
       }else{
 
@@ -161,54 +105,8 @@ $scope.showlogistics  =  function () {
 
      if(storage.getObject('UserInfo').user_id){
 
-
-       if($scope.select.home[6].dianpuguanli[4]=="1") {
-         if (!$scope.judge2) {
-           $ionicPopup.alert({
-             title: "请先申请加入公司！",
-             okText: '确定'
-           });
-         } else if ($scope.select.home[6].dianpuguanli[1] == "1") {
-           if ($scope.judge1 != "1") {
-             $ionicPopup.alert({
-               title: "您还不是管理员！",
-               okText: '确定'
-
-             });
-           } else if($scope.select.home[6].dianpuguanli[2]=="1") {
-             if ($scope.judge3 == "0") {
-               $ionicPopup.alert({
-                 title: "您未认证，请前往认证！",
-                 okText: '确定'
-
-               });
-             } else if ($scope.judge3 == "1") {
-               $ionicPopup.alert({
-                 title: "正在认证审核中！",
-                 okText: '确定'
-
-               });
-             } else if ($scope.judge3 == "3") {
-               $ionicPopup.alert({
-                 title: "认证审核失败，请重新认证！",
-                 okText: '确定'
-
-               });
-             } else if($scope.select.home[6].dianpuguanli[3]=="1"){
-
-               if($scope.judge4==true){//$scope.judge[4]==
-                 $ionicPopup.alert({
-                   title:"请先缴纳诚信金！",
-                   okText:'确定'
-
-                 });
-               }else{
                  $scope.gosales('r.HomShopadmin');
-               }
-             }
-           }
-         }
-       }
+
 
       }else{
         native.confirm('该操作需要登录','您还没有登录',['登录','取消'],function(c){
@@ -250,57 +148,8 @@ $scope.gosales=function (r) {
 
       if(storage.getObject('UserInfo').user_id){
 
-        if($scope.select.home[8].shangpingfenlei[4]=="1") {
-          if (!$scope.judge2) {
-            $ionicPopup.alert({
-              title: "请先申请加入公司！",
-              okText: '确定'
-            });
-          } else if ($scope.select.home[8].shangpingfenlei[1] == "1") {
-            if ($scope.judge1 != "1") {
-              $ionicPopup.alert({
-                title: "您还不是管理员！",
-                okText: '确定'
 
-              });
-            } else if($scope.select.home[8].shangpingfenlei[2]=="1") {
-              if ($scope.judge3 == "0") {
-                $ionicPopup.alert({
-                  title: "您未认证，请前往认证！",
-                  okText: '确定'
-
-                });
-              } else if ($scope.judge3 == "1") {
-                $ionicPopup.alert({
-                  title: "正在认证审核中！",
-                  okText: '确定'
-
-                });
-              } else if ($scope.judge3 == "3") {
-                $ionicPopup.alert({
-                  title: "认证审核失败，请重新认证！",
-                  okText: '确定'
-
-                });
-              } else if($scope.select.home[8].shangpingfenlei[3]=="1"){
-
-                if($scope.judge4==true){//$scope.judge[4]==
-                  $ionicPopup.alert({
-                    title:"请先缴纳诚信金！",
-                    okText:'确定'
-
-                  });
-                }else{
                   $scope.goModular('r.goodsclasslist')
-                }
-              }
-            }
-          }
-        }
-
-
-
-
 
       }else{
 
@@ -318,57 +167,8 @@ $scope.gosales=function (r) {
     $scope.goodmsg =  function (){
 
     if(storage.getObject('UserInfo').user_id){
-
-      if($scope.select.home[7].shangpingunali[4]=="1") {
-        if (!$scope.judge2) {
-          $ionicPopup.alert({
-            title: "请先申请加入公司！",
-            okText: '确定'
-          });
-        } else if ($scope.select.home[7].shangpingunali[1] == "1") {
-          if ($scope.judge[1] != "1") {
-            $ionicPopup.alert({
-              title: "您还不是管理员！",
-              okText: '确定'
-
-            });
-          } else if($scope.select.home[7].shangpingunali[2]=="1") {
-            if ($scope.judge[3] == "0") {
-              $ionicPopup.alert({
-                title: "您未认证，请前往认证！",
-                okText: '确定'
-
-              });
-            } else if ($scope.judge[3] == "1") {
-              $ionicPopup.alert({
-                title: "正在认证审核中！",
-                okText: '确定'
-
-              });
-            } else if ($scope.judge[3] == "3") {
-              $ionicPopup.alert({
-                title: "认证审核失败，请重新认证！",
-                okText: '确定'
-
-              });
-            } else if($scope.select.home[7].shangpingunali[3]=="1"){
-
-              if($scope.judge[4]==true){//$scope.judge[4]==
-                $ionicPopup.alert({
-                  title:"请先缴纳诚信金！",
-                  okText:'确定'
-
-                });
-              }else{
+      
                 $scope.goModular('r.listofgoods')
-              }
-            }
-          }
-        }
-      }
-
-
-
 
 
     }else{
