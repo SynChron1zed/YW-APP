@@ -228,11 +228,72 @@ $scope.dataList = false
   //物流单号
 
   $scope.deliveryList = function () {
-    $scope.newmodal.hide();
 
     $scope.modal.show();
+    $scope.expressionList = true;
+    $scope.loadOlderStoriesList=function (type) {
+debugger;
+      var sendoption  = {
+        "interface_number": "020704",
+        "client_type": window.platform,
+        "post_content": {
+          "token":"",
+          "token_phone": "",
+          "token_phone": ""
+        }
+      };
 
-   /* */
+      if(type){
+        sendoption.post_content.page_num  = $scope.page_number  = 1;
+      }else{
+        sendoption.post_content.page_num  = $scope.page_number;
+      }
+
+
+      Tools.getData(sendoption,function(r){
+        if(r){
+
+
+          if(r.resp_data.nextPage  == 0 ){
+            $scope.expressionList  = false;
+            $scope.page_number  =1;
+          }else{
+            $scope.expressionList = true;
+            $scope.page_number  =r.resp_data.nextPage;
+          }
+
+
+          angular.forEach(r.resp_data.data,function(c){
+
+            c.pic_path  =  window.qiniuimgHost+c.pic_path +'?imageView2/1/w/200/h/200';
+            /* if(c.post_status=="1"){
+             $scope.dataNew = true;
+             }else{
+             $scope.dataNew = false
+             }*/
+          });
+
+
+          if(type){
+            $scope.SalesList  = r.resp_data.data;
+          }else{
+            angular.forEach(r.resp_data.data,function(c){
+              $scope.SalesList.push(c);
+            });
+          }
+
+
+
+
+        }
+        $scope.$broadcast('scroll.refreshComplete');
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      });
+
+
+    };
+
+
 
   };
 
@@ -381,6 +442,8 @@ $scope.query =function () {
 
     $state.go('r.Logistics',{id:value})
   }
+
+
 }]);
 
 
