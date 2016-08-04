@@ -11,6 +11,7 @@ $scope.mathData = true;
 
 
   function select() {
+
     $scope.adminer = selectArr.selectarrs.isadmin();
     $scope.expression = true;
     $scope.mathData = true;
@@ -98,7 +99,7 @@ $scope.mathData = true;
   };
 
   function handtat  (){
-    
+
     if(storage.getObject('UserInfo').user_id){
       $scope.isShow = false;
 
