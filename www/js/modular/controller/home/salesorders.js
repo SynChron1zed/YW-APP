@@ -226,20 +226,21 @@ $scope.dataList = false
   }
 
   //物流单号
+  $scope.selectList = []
 
   $scope.deliveryList = function () {
-
-    $scope.modal.show();
     $scope.expressionList = true;
+    $scope.modal.show();
+
     $scope.loadOlderStoriesList=function (type) {
-debugger;
+
       var sendoption  = {
         "interface_number": "020704",
         "client_type": window.platform,
         "post_content": {
           "token":"",
           "token_phone": "",
-          "token_phone": ""
+          "keyword": "",
         }
       };
 
@@ -263,23 +264,14 @@ debugger;
           }
 
 
-          angular.forEach(r.resp_data.data,function(c){
-
-            c.pic_path  =  window.qiniuimgHost+c.pic_path +'?imageView2/1/w/200/h/200';
-            /* if(c.post_status=="1"){
-             $scope.dataNew = true;
-             }else{
-             $scope.dataNew = false
-             }*/
-          });
-
 
           if(type){
-            $scope.SalesList  = r.resp_data.data;
+            $scope.selectList  = r.resp_data.data;
           }else{
             angular.forEach(r.resp_data.data,function(c){
-              $scope.SalesList.push(c);
+              $scope.selectList.push(c);
             });
+
           }
 
 
@@ -410,11 +402,11 @@ $scope.query =function () {
   function   caklateheList  (){
     if(window.platform  == 'ios'){
       $scope.caklateheightList  = {
-        height:window.innerHeight-(64+41)+'px'
+        height:window.innerHeight-(64+26)+'px'
       }
     }else{
       $scope.caklateheightList  = {
-        height:window.innerHeight-(44+41)+'px'
+        height:window.innerHeight-(44+26)+'px'
       }
     }
   };

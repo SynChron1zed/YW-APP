@@ -203,7 +203,7 @@
       <ion-content>
 
         <div class="list" style="overflow: visible;z-index: 999;padding:0px;">
-          <div class="item item-input" style="border: 1px solid whitesmoke;"  ng-click="deliveryList()">
+          <div class="item item-input" style="border: 1px solid whitesmoke;"  ng-click="newdeliveryList()">
             <span class="input-label" style="  border-right: 1px solid #a2a2a2;">物流公司 </span>
             <input type="text" ng-keyup="myKeyup($event)"   style="background:transparent;margin-left: 5px;"  maxlength="150"  ng-model="data.companyname"  placeholder="请输入物流公司名称" >
           </div>
@@ -218,7 +218,7 @@
                        ng-style="caklateheightList"  >
             <ion-refresher spinner="ios"  pulling-text="刷新" on-refresh="loadOlderStoriesList(true)"   ></ion-refresher>
 
-          <ion-radio ng-if="dataList" ng-repeat="item in SalesList"
+          <ion-radio  ng-repeat="item in selectList"
                       ng-value="item"
                       ng-model="data.clientSide">
             {{ item.logistics_company_name}}
