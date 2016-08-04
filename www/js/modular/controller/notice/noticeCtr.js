@@ -4,8 +4,12 @@
 Ctr.controller('noticeCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$ionicHistory','storage','fromStateServ','selectArr',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$ionicHistory,storage,fromStateServ,selectArr){
 
 
+$scope.mathData = true;
 
-  $scope.mathData = true;
+
+
+
+
   function select() {
 
     $scope.adminer = selectArr.selectarrs.isadmin();
