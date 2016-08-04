@@ -17,6 +17,7 @@ $scope.mathData = true;
     $scope.mathData = true;
     if($scope.adminer == "1"){
       $scope.expression = true
+      $scope.doRefresh();
     }else {
       $scope.expression= false
     }
@@ -30,7 +31,7 @@ $scope.mathData = true;
     //页面的状态变化  请求
     select()
     handtat();
-    $scope.doRefresh();
+
     if ($ionicHistory.backView()) {
       window.androdzerofun  = function(parm1,parm2){
         $ionicHistory.goBack();
