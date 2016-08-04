@@ -11,12 +11,14 @@ $scope.mathData = true;
 
 
   function select() {
-
+debugger;
     $scope.adminer = selectArr.selectarrs.isadmin();
     $scope.expression = true;
     $scope.mathData = true;
     if($scope.adminer == "1"){
       $scope.expression = true
+      $scope.doRefresh();
+
     }else {
       $scope.expression= false
     }
@@ -28,34 +30,18 @@ $scope.mathData = true;
   $scope.$on('$ionicView.beforeEnter',function(){
 
     //页面的状态变化  请求
+    select()
+
+    handtat();
 
 
-  if ($ionicHistory.backView()) {
-
-
+    if ($ionicHistory.backView()) {
       window.androdzerofun  = function(parm1,parm2){
         $ionicHistory.goBack();
       }
       window.androdzerofun_parms  ='tabswtathing';
       window.androdzerofun_clback  = 'nothing';
     }
-    
-    if(storage.getObject('UserInfo').user_id){
-    }else{
-      return false;
-    }
-
-
-
-
-
-    select()
-    handtat();
-    $scope.doRefresh();
-
-  
-
-
   });
 
 
@@ -113,10 +99,11 @@ $scope.mathData = true;
   };
 
   function handtat  (){
+    debugger;
     if(storage.getObject('UserInfo').user_id){
       $scope.isShow = false;
 
-      $scope.doRefresh();
+
     }else{
       $scope.isShow = true;
     }
