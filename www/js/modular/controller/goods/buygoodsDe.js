@@ -1,7 +1,7 @@
 Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$ionicHistory','Tools','$ionicModal','$timeout','native','buyConfirmorde','$state','$rootScope','$ionicNativeTransitions','storage','shopcartbactitle',function($scope,$stateParams,fromStateServ,$ionicHistory,Tools,$ionicModal,$timeout,native,buyConfirmorde,$state,$rootScope,$ionicNativeTransitions,storage,shopcartbactitle){
 
 
-  $scope.gouwuche  = function (){    
+  $scope.gouwuche  = function (){
 
     if(storage.getObject('UserInfo').user_id){
 
@@ -10,19 +10,12 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
                     "type": "slide",
                     "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
                     "duration": 400,  // in milliseconds (ms), default 400
-                  });                  
+                  });
       }else{
-        
+
         native.confirm('该操作需要登录','您还没有登录',['登录','取消'],function(c){
           if(c  == 1){
-
-            
             $state.go('r.login');
-            
-
-
-
-
 
           }
         });
@@ -32,7 +25,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
 
 
 
-  
+
 
 
 
@@ -51,7 +44,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
 
   $scope.addoactionlistimte  = function (pr) {
         if($scope.showstockprice){
-          if($scope.selectsku.state){              
+          if($scope.selectsku.state){
                 Tools.showlogin();
                 $scope.closetallcationvalue();
                 $timeout(function () {
@@ -64,7 +57,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
                   buyConfirmorde.goods_basic_id  =  $scope.goods.goodsInfo.goods_basic_id;
                   buyConfirmorde.number  =  $scope.selectsku.number;
 
-                  console.log($scope.selectsku,'沙龙的拉升的萨克的萨克拉的卡拉上课了') 
+                  console.log($scope.selectsku,'沙龙的拉升的萨克的萨克拉的卡拉上课了')
 
                   Tools.hidelogin();
                   $state.go('r.ConfirmorderZf')
@@ -84,7 +77,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
                 // },function (r) {
                 //     if(r){
 
-                    
+
                 //     }
                 // })
 
@@ -98,9 +91,9 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
           //加入购物车
           Tools.showlogin();
 
-      
 
-          
+
+
 
 
 
@@ -142,7 +135,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
 
 
   }
-  
+
 
     $scope.selectsku  ={};
     $scope.selectsku.number  =1;
@@ -157,7 +150,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
       if($scope.selectsku.number  >= 0){
         $scope.selectsku.number  =1;
       }
-      
+
     }
 
 
@@ -200,9 +193,9 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
           nowobj.active  =true;
         }
 
-      
 
-        //Only one    
+
+        //Only one
         if($scope.skugroup.length == 1 &&  $scope.skugroup[0].sku_strand.length == 1){
           angular.forEach($scope.skugroup,function(key) {
             if (nowobj.active) {
@@ -227,14 +220,14 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
             $scope.goodskuimte_attrbutsmsg.expar  = $scope.expar;
 
 
-            
+
             $scope.selectsku.skuid =   key.baseinfo.local_sku_id;
             $scope.selectsku.price =   key.baseinfo.activity_price;
 
 
 
 
-            
+
             $scope.goodskuimte_attrbutsmsg.price =key.baseinfo.activity_price;
             $scope.goodskumsg.price   =   key.baseinfo.activity_price
 
@@ -279,7 +272,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
               $scope.goodskumsg.stock_num  = key.baseinfo.stockNum;
               $scope.goodskuimte_attrbutsmsg.expar  = $scope.expar;
 
-              
+
 
               $scope.selectsku.skuid =   key.baseinfo.local_sku_id;
               $scope.selectsku.price =   key.baseinfo.activity_price;
@@ -296,7 +289,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
 
           });
           return false;
-        }        
+        }
         //是所有属性只有一个
 
         if(Object.keys($scope.goods.basicData).length  == 1){
@@ -313,19 +306,19 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
             })
           });
           if($scope.showskudata.length   ==  activelistxx.length){
-            
+
                   $scope.goodskuimte_attrbutsmsg = {};
                  angular.forEach($scope.goods.basicData,function(key){
 
                   $scope.showstockprice = true;
 
                   $scope.goodskuimte_attrbutsmsg.skuname = key.name;
-                  
+
                   $scope.goodskuimte_attrbutsmsg.local_sku_id =key.local_sku_id;
                   $scope.goodskumsg.stock_num  = key.stockNum;
 
 
-                  
+
 
                   $scope.selectsku.skuid =   key.local_sku_id;
                   $scope.selectsku.price =   key.activity_price;
@@ -336,7 +329,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
 
                  });
 
-              
+
 
 
 
@@ -364,7 +357,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
 
 
 
-          
+
         if($scope.keyslist.length == 2){
 
           var  activelistxx  =[];
@@ -417,13 +410,13 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
                   }
                 });
 
-                
-                
-                
+
+
+
                 if(!relyon){
-                      
+
                   if(activelistxx.length==2){
-                    
+
                     isover  =  true;
                   }
                   kksub.active  = false;
@@ -485,7 +478,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
                   $scope.goodskumsg.stock_num  = key.baseinfo.stockNum;
 
 
-                  
+
                   $scope.selectsku.skuid =   key.baseinfo.local_sku_id;
                   $scope.selectsku.price =   key.baseinfo.activity_price;
 
@@ -609,7 +602,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
                         //  $scope.goodskuimte_attrbutsmsg.price =  key.baseinfo.retail_price;
                         //  $scope.goodskumsg.price   =   key.baseinfo.retail_price
                         //}
-                        
+
                         $scope.selectsku.skuid =   key.baseinfo.local_sku_id;
                         $scope.selectsku.price =   key.baseinfo.activity_price;
                         //零售价
@@ -661,12 +654,31 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
 
 
    $scope.$on('$destroy', function() {
-    
+
    });
 
   $scope.addjoinshopcart  = function () {
 
-            if(Object.keys($scope.goods.basicData).length  == 1){
+
+
+
+    if(storage.getObject('UserInfo').user_id){
+    }else{
+      native.confirm('该操作需要登录','提示',['登录','取消'],function(c){
+        if(c  == 1){
+          $state.go('r.login');
+
+        }
+      });
+
+      return false;
+    }
+
+
+
+
+
+    if(Object.keys($scope.goods.basicData).length  == 1){
                       Tools.showlogin();
                       var  skuid =  undefined;
                       angular.forEach($scope.goods.basicData,function(xxx){
@@ -693,8 +705,20 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
              $scope.selectsku.number  =1;
              $scope.selectsku.state  =  false;
   }
-
+  
   $scope.lijibuy  = function () {
+
+              if(storage.getObject('UserInfo').user_id){
+              }else{
+                native.confirm('该操作需要登录','提示',['登录','取消'],function(c){
+                  if(c  == 1){
+                    $state.go('r.login');
+
+                  }
+                });
+
+                return false;
+              }
               $scope.setallcationstate = true;
              $scope.selectsku.number  =1;
              $scope.selectsku.state  =  true;
@@ -707,30 +731,30 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
 
             if(fromStateServ.getState('r.Productdetails')   &&  !$stateParams.inside ){
                 $scope.showtitle  = true;
-                $scope.backtoprevView  =   fromStateServ.backView; 
+                $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.Productdetails').title;
-              
+
 
             }else{
                 $scope.showtitle  = false;
-            }     
+            }
 
               if(!$scope.parenttitle){
                 $scope.parenttitle  = '返回';
                 }
-                
+
                 inlit();
-            
-
-
-            
 
 
 
-            
 
-            
-            
+
+
+
+
+
+
+
 
     });
 
@@ -739,7 +763,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
       Tools.getData({
         "interface_number": "020205",
          "post_content": {
-        "goods_basic_id":$stateParams.id        
+        "goods_basic_id":$stateParams.id
         }
       },function(r){
 
@@ -755,13 +779,13 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
                         r.resp_data.goodsInfo.img[index]     =  window.qiniuimgHost+fff+'?imageView2/2/w/'+width+'/h/'+width;
                     });
               }
-              
+
               r.resp_data.goodsInfo.img_url =  window.qiniuimgHost+ r.resp_data.goodsInfo.img_url + '?imageView2/2/w/150/h/150';
 
-              
-              
+
+
               $scope.goods  = r.resp_data;
-              
+
 
                 //this  is show sku data  list
             $scope.showskudata = [];

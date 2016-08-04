@@ -3,11 +3,10 @@
  */
 
      //全局变量定义
-    
-    //  window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
-    //window.Interactivehost  = 'http://192.168.0.56:1155/index.php?r=app/index';
-    window.Interactivehost =  'http://app.ywyde.com/index.php?r=app/index';
 
+    //  window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
+    window.Interactivehost  = 'http://192.168.0.56:1155/index.php?r=app/index';
+    //window.Interactivehost =  'http://app.ywyde.com/index.php?r=app/index';
     //window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
 
     window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';
@@ -64,26 +63,10 @@
         },
         needpaid:function () {
           return  storage.getObject('UserInfo').need_paid
-          
-        }
-        ,
-
+        },
       }
-
     }
   }])
-
-  //模块权限
-    .factory('ModuleArr',['storage',function(storage){ //登录 0，管理员 1，认证 2，诚信金3，加入公司4 1代表需要验证 0代表不需要验证
-      return{
-
-           setting:[{address:[1,0,0,0,0]},{two:[1,0,0,0,1]},{friends:[1,0,0,0,0]},{user:[0,0,0,0,0]},{we:[0,0,0,0,0]},{qiyesz1:[1,0,0,0,1],qiyesz2:[1,1,1,1,1]},{gerensz:[1,0,0,0,0]}],
-           claasif:[0,0,0,0,0],
-           shoppingcar:[1,0,0,0,0],
-           shop:[{shopone:[0,0,0,0,0]},{addcar:[1,0,0,0,0]},{buy:[1,0,0,0,0]}],
-           home:[{xiaoshou:[1,1,1,1,1]},{caigou:[1,0,0,0,0]},{jiaoyiliuchen:[0,0,0,0,0]},{dongtai:[0,0,0,0,0]},{tiyan:[0,0,0,0,0]},{cishan:[0,0,0,0,0]},{dianpuguanli:[1,1,1,1,1]},{shangpingunali:[1,1,1,1,1]},{shangpingfenlei:[1,1,1,1,1]}]
-      }
-    }])
 
 
 

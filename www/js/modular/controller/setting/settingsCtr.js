@@ -5,17 +5,27 @@
 Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state','$ionicHistory','storage','fromStateServ','$ionicScrollDelegate','Tools','native','selectArr',function($scope,$ionicPopover, $ionicPopup,$timeout,$state,$ionicHistory,storage,fromStateServ,$ionicScrollDelegate,Tools,native,selectArr) {
 
 
-
-
   $scope.userfanhui  = function () {
-  $state.go('r.tab.SettingsUser')
+    if(storage.getObject('UserInfo').user_id){
+      $state.go('r.tab.SettingsUser')
+    }else{
+      native.confirm('该操作需要登录','提示',['登录','取消'],function(c){
+        if(c  == 1){
+          $state.go('r.login');
+        }
+      });
+
+      return false;
+    }
+
+      
+
+
 }
 
 
 //切换到登录   login
 function   login   (){
-
-
       native.confirm('该操作需要登录','你还没有登录',['登录','取消'],function(c){
 
 
@@ -29,55 +39,46 @@ function   login   (){
 
 $scope.getMdl   =      fromStateServ.stateChange;
 $scope.Personalsetting  = function (){
-   if(!storage.getObject('UserInfo').user_id){
-        login();
-   }else{
-       $state.go('r.tab.SettingsUpdate');
-   }
-
+  
+  $state.go('r.tab.SettingsUpdate');
 
 }
 
 $scope.addermge  = function(){
 
-    if(!storage.getObject('UserInfo').user_id){
-        login();
-   }else{
-
         $scope.getMdl('r.Addresslist')
-
-
-   }
 }
 
 $scope.updateAPP  =  function () {
     window.updateAPP();
 }
+
   $scope.integral  = function(){
 
 
-    if(!storage.getObject('UserInfo').user_id){
-      login();
-    }else{
 
+    if(storage.getObject('UserInfo').user_id){
       $state.go('r.tab.SettingOne');
+    }else{
+      native.confirm('该操作需要登录','提示',['登录','取消'],function(c){
+        if(c  == 1){
+          $state.go('r.login');
 
+        }
+      });
 
+      return false;
     }
+
+      
+
+
+    
   }
 
   $scope.companyInstall=function () {
 
-    if(!storage.getObject('UserInfo').user_id){
-
-      login();
-    }else{
-
-
         $scope.getMdl('r.companyInstall')
-
-    }
-
 
   }
 
@@ -100,9 +101,10 @@ $scope.updateAPP  =  function () {
      }
     });
 
+
+
+
   $scope.outlogin  =   function (){
-
-
 
    native.confirm('你确定要退出当前用户吗','退出登录',['登出','取消'],function(c){
 
@@ -165,19 +167,13 @@ var   userone = storage.getObject('UserInfo');
         $scope.showco  =   function  () {
           var uil   = storage.getObject('UserInfo');
         if(!uil.user_id){
-
               login();
-
         }else{
-
-      
             $scope.shopid  = 'http://pan.baidu.com/share/qrcode?w=400&h=400&url='+uil.shop_id;
             $scope.opencustomenuatts   = true;
-
-
         }
 
-        }
+      }
          $scope.closecustomenu  =   function  () {
               $scope.opencustomenuatts   = false;
             }

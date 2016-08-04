@@ -1,11 +1,14 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','ModuleArr','selectaouthfunl',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,ModuleArr,selectaouthfunl) {
+Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','selectaouthfunl',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,selectaouthfunl) {
 
 
+$scope.aouthc =  function () {
 
-
+    $scope.goModular('r.selectAuth');
+    
+}
 
 //查看物流
 $scope.showlogistics  =  function () {
@@ -13,8 +16,7 @@ $scope.showlogistics  =  function () {
       //160715000053
       //$scope.goModular('r.Logistics',{id:'160719000024'});
 }
-
-
+  
   $scope.goshopin =  function (tart) {
       $scope.goModular('r.Shophome',{id:tart.shop.shop_id});
   }
@@ -49,8 +51,8 @@ $scope.showlogistics  =  function () {
 
 
 
-  $scope.judge =selectArr.selectarrs;
-  $scope.select = ModuleArr
+  // $scope.judge =selectArr.selectarrs;
+  // $scope.select = ModuleArr
 
 
   $scope.jindian  =  function () {
@@ -68,19 +70,7 @@ $scope.showlogistics  =  function () {
 
   $scope.xiaoshouorder = function (r) {
 
-
-     if(storage.getObject('UserInfo').user_id){
-                  fromStateServ.stateChange('r.HomSales');
-
-      }else{
-
-
-        native.confirm('该操作需要登录','您还没有登录',['登录','取消'],function(c){
-          if(c  == 1){
-            $scope.goModular('r.login');
-          }
-        });
-      }
+      fromStateServ.stateChange('r.HomSales');
 
   }
 
@@ -167,7 +157,7 @@ $scope.gosales=function (r) {
     $scope.goodmsg =  function (){
 
     if(storage.getObject('UserInfo').user_id){
-      
+
                 $scope.goModular('r.listofgoods')
 
 
