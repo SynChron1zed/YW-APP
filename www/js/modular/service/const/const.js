@@ -3,7 +3,7 @@
  */
 
      //全局变量定义
-
+     
     //  window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
     window.Interactivehost  = 'http://192.168.0.56:1155/index.php?r=app/index';
 
