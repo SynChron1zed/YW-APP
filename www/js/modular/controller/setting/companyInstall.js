@@ -12,9 +12,7 @@ Ctr.controller('companyInstallCtr',['$scope','$rootScope','$ionicViewSwitcher','
       selectaouthfunl.state=true;
       $state.go('r.selectAuth');
   }
-
-
-
+  
 
   $scope.expression = true;
   $scope.newexpression =true;

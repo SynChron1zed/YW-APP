@@ -6,13 +6,18 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
 
+
+
+
+
+
   $sceDelegateProvider.resourceUrlWhitelist([
       // Allow same origin resource loads.
       'self',
       // Allow loading from our assets domain.  Notice the difference between * and **.
       'http://m.kuaidi100.com/**',
       'https://m.kuaidi100.com/**',
-
+      
     ]);
 
 
@@ -214,8 +219,14 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-    //选择认证
+      //选择认证
       .state('r.selectAuth',{
+            onEnter: function(fromStateServ,$ionicHistory) {
+              fromStateServ.saveHisty($ionicHistory,'r.selectAuth')
+            },
+          onExit:function(fromStateServ){
+            fromStateServ.removebackregistevent();
+          },
         url: '/selectAuth',
         views: {
           'rootview': {
@@ -235,6 +246,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           }
         }
       })
+
     //企业认证
       .state('r.entAuthentication',{
         url: '/entAuthentication',
