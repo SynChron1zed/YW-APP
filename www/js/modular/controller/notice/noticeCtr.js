@@ -103,7 +103,6 @@ $scope.mathData = true;
     if(storage.getObject('UserInfo').user_id){
       $scope.isShow = false;
 
-
     }else{
       $scope.isShow = true;
     }
