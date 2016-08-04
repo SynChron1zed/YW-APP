@@ -16,7 +16,7 @@ Ctr.controller('ordersbodyCtr',['$scope','native','$state','fromStateServ','Tool
       "orderId": $scope.ID,
     }
   },function(r){
-    debugger;
+    
     if(r){
       $scope.shopbody = (r.resp_data);
       $scope.shopname = $scope.shopbody.order.data[0].shop_name
