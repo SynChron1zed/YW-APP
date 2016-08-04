@@ -91,20 +91,20 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
 
                             }
 
-                      
-                    
+
+
 
 
                   }
               })
 
 
-     
-      
+
+
     };
-    
-    
-    
+
+
+
 
 
     //批量设置价格
@@ -121,7 +121,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
           titleText: '选择需要批量设置的属性',
           cancelText: '取消',
           buttonClicked: function(index) {
-          
+
             if(index != 4 && index != 5 ){
               //打开输入框
               $ionicPopup.prompt({
@@ -161,14 +161,14 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
       }
     };
 
-        
+
         $scope.attrsprices  = [];
         $scope.savesku  = function(){
           $scope.attrsprices  = [];
           var   cheklist   = [];
           angular.forEach($scope.goods.skuSpe,function(ff){
               if(ff.select){
-                    var  chillist  = [];                
+                    var  chillist  = [];
                     angular.forEach(ff.child,function(ssz){
 
                       if(ssz.select){
@@ -177,7 +177,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
                                         prop_name:ff.prop_name,
                                         prop_value:ssz.prop_value,
                                         prop_value_id:ssz.prop_value_id,
-                                        start:false                                        
+                                        start:false
                          });
                       }
                     });
@@ -189,7 +189,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
               retail_price:undefined,
               activity_price:undefined,
               number:undefined,
-            };            
+            };
 
           var   c  = Tools.descartes(cheklist);
           var  ref = [];
@@ -254,7 +254,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
       }else  if($scope.attrsprices.length==0){
         $scope.goodsexpandc  =false;
       }
-      
+
       angular.forEach($scope.attrsprices,function(kin){
         if(kin.msg){
         }else{
@@ -271,11 +271,11 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
 
 
 
-        
+
 
 
         $scope.sku.hide();
-        
+
 
         };
 
@@ -291,7 +291,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
           angular.forEach($scope.goods.skuSpe,function(ss,kyein){
                  if(ss.chekd){
                    poid =  ss.goods_prop_id
-                 }                 
+                 }
                })
 
           Tools.getData({
@@ -309,9 +309,9 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
 
                var   inde  = undefined;
                angular.forEach($scope.goods.skuSpe,function(ss,kyein){
-                 if(ss.chekd){                                     
+                 if(ss.chekd){
                    inde = kyein;
-                 }                 
+                 }
                })
 
               $scope.goods.skuSpe[inde].child.unshift(r.resp_data);
@@ -320,7 +320,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
 
             $scope.sublistaddnew.prop_value   = undefined;
 
-            debugger
+            
 
           })
 
@@ -350,7 +350,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
                         })
 
                       }
-                
+
                 }
 
           })
@@ -396,7 +396,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
 
 
   }
-  
+
   $scope.subattrslist  = [];
 
 
@@ -431,7 +431,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
               }
 
 
-            
+
 
   }
 
@@ -525,7 +525,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
             "goods_id": $stateParams.id?$stateParams.id:'',
          }
     },function(r){
-         if(r){           
+         if(r){
               $scope.goods.systemClass   = r.resp_data.sys_cate;
               $scope.goods.catelist  = r.resp_data.shop_cate;
               $scope.systemparnslec();
@@ -548,10 +548,10 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
                 $scope.goods.is_virtual  =     r.resp_data.goodsInfo.is_virtual?true:false;
                 $scope.goods.title =     r.resp_data.goodsInfo.goods_title;
 
-                
+
 
                 $scope.goods.id  = r.resp_data.goodsInfo.goods_basic_id;
-                
+
                 $scope.goods.goodsDesc     =  r.resp_data.goodsInfo.desc;
                 $scope.goods.skuinfo  =  r.resp_data.skuInfo;
 
@@ -584,11 +584,11 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
                           var skuname  =  ff.properties_name.split(";");
                              skuname.length  =  skuname.length-1;
                              skuid.length  =  skuid.length-1;
-                             
+
                             angular.forEach(skuid,function(skulitem,skuinde){
                             var   idhan  =  skulitem.split(':');
                             var   namhan   = skuname[skuinde].split(':');
-                            
+
 
 
                             skuin.push({
@@ -615,7 +615,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
 
                   console.log($scope.attrsprices);
 
-                    
+
 
 
 
@@ -625,7 +625,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
                   $scope.goods.Stock_number    =     parseFloat($scope.goods.skuinfo[0].quantity);
                 }
 
-                
+
 
 
 
@@ -929,11 +929,11 @@ $scope.save  = function (){
         if($scope.goods.skuinfo.length){
               loid =   $scope.goods.skuinfo[0].local_sku_id;
         }
-        
+
         sku.push({
           activity_price:$scope.goods.Platform_price,
           retail_price:$scope.goods.Market_price,
-          properties:'',                    
+          properties:'',
           quantity:$scope.goods.Stock_number?$scope.goods.Stock_number:'0',
           local_sku_id:loid,
         })
@@ -951,7 +951,7 @@ $scope.save  = function (){
           sku.push({
           activity_price:fff.msg.activity_price,
           retail_price:fff.msg.retail_price,
-          properties:skuid,                    
+          properties:skuid,
           quantity:fff.msg.number?fff.msg.number:'0',
           local_sku_id:fff.msg.local_sku_id?fff.msg.local_sku_id:''
         })
@@ -965,7 +965,7 @@ $scope.save  = function (){
 
 
 
-    }   
+    }
 
 
     var sendoption  =  {
@@ -1042,7 +1042,7 @@ $scope.save  = function (){
   }
 
   $scope.scoptopheihgt  = {};
-  function gehiehgt (){    
+  function gehiehgt (){
       if(window.platform  == 'ios'){
             $scope.scoptopheihgt  ={
               height:(window.innerHeight-64-80)+'px'
