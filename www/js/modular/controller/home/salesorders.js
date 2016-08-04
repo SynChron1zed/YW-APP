@@ -334,7 +334,7 @@ $scope.dataList = false
 
 $scope.query =function () {
   $scope.modal.hide();
-  $scope.newmodal.show();
+
 }
 
   $scope.goods = []
@@ -382,9 +382,12 @@ $scope.query =function () {
     },function(r){
 
       if(r.msg== "success"){
-
+  
         $scope.newmodal.hide();
+        $scope.modal.hide();
         $scope.dfks();
+        $scope.data=[];
+        $scope.goods= [];
 
       }else{
 
