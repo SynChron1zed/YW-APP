@@ -201,7 +201,7 @@ if(bascId==1){
   };
 
   $scope.purchaseorde=function (value) {
-    $state.go('r.tab.HomPurordersbody',{basicID:value});
+    $state.go('r.HomPurordersbody',{basicID:value});
   }
 
 
@@ -294,7 +294,7 @@ if(bascId==1){
 
 
   $scope.dataRight =function (value) {
- 
+
     $state.go('r.Logistics',{id:value})
   }
 

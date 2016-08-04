@@ -500,7 +500,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
     //销售订单详情
-    .state('r.tab.Homordersbody',{
+/*    .state('r.tab.Homordersbody',{
       url: '/HomOrdersBody/:basicID',
       views: {
         'Home': {
@@ -508,12 +508,22 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           controller: 'ordersbodyCtr'
         }
       }
+    })*/
+    .state('r.Homordersbody', {
+      url: '/HomOrdersBody/:basicID',
+      cache: false,
+      views: {
+        'rootview': {
+          params:{'basicID':null},
+          templateUrl: 'templates/Home/ordersbody.html',
+          controller: 'ordersbodyCtr'
+        }
+      }
     })
 
 
-
     //采购订单详情
-    .state('r.tab.HomPurordersbody',{
+/*    .state('r.tab.HomPurordersbody',{
       url: '/HomPurOrdersBody/:basicID',
       views: {
         'Home': {
@@ -521,8 +531,18 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           controller: 'purbodyCtr'
         }
       }
+    })*/
+    .state('r.HomPurordersbody', {
+      url: '/HomPurOrdersBody/:basicID',
+      cache: false,
+      views: {
+        'rootview': {
+          params:{'basicID':null},
+          templateUrl: 'templates/Home/purchasebody.html',
+          controller: 'purbodyCtr'
+        }
+      }
     })
-
 
 
     // Shopping Cart 购物车
@@ -703,7 +723,33 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
+    //setting  个人设置
+    .state('r.management',{
+      url: '/management/:integral',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.management')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Setting/management.html',
+          controller: 'managementCtr'
+        }
+      }
+    })
+/*    //setting  个人设置
+    .state('r.tab.management', {
+      url: '/Settings/management/:integral',
+      views: {
+        'setting': {
+          templateUrl: 'templates/Setting/management.html',
+          controller: 'managementCtr'
+        }
 
+      }
+    })*/
 
 /*    .state('r.tab.companyInstall', {
       url: '/Settings/companyInstall',
@@ -825,17 +871,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-    //setting  个人设置
-    .state('r.tab.management', {
-      url: '/Settings/management/:integral',
-      views: {
-        'setting': {
-          templateUrl: 'templates/Setting/management.html',
-          controller: 'managementCtr'
-        }
 
-      }
-    })
   //setting  分类商品详情
 /*  .state('r.tab.ClassifDetails', {
     url: '/r.tab.ClassifDetails/:Classitem',

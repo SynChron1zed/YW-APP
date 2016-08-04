@@ -179,7 +179,7 @@ $scope.dataList = false
 
   $scope.ordersbody= function (value) {
 
-    $state.go('r.tab.Homordersbody',{basicID:value});
+    $state.go('r.Homordersbody',{basicID:value});
   }
   $scope.calssifloadMore = function (xxx) {
     $timeout(function () {
@@ -226,20 +226,21 @@ $scope.dataList = false
   }
 
   //物流单号
+  $scope.selectList = []
 
   $scope.deliveryList = function () {
-
-    $scope.modal.show();
     $scope.expressionList = true;
+    $scope.modal.show();
+
     $scope.loadOlderStoriesList=function (type) {
-debugger;
+
       var sendoption  = {
         "interface_number": "020704",
         "client_type": window.platform,
         "post_content": {
           "token":"",
           "token_phone": "",
-          "token_phone": ""
+          "keyword": "",
         }
       };
 
@@ -263,23 +264,14 @@ debugger;
           }
 
 
-          angular.forEach(r.resp_data.data,function(c){
-
-            c.pic_path  =  window.qiniuimgHost+c.pic_path +'?imageView2/1/w/200/h/200';
-            /* if(c.post_status=="1"){
-             $scope.dataNew = true;
-             }else{
-             $scope.dataNew = false
-             }*/
-          });
-
 
           if(type){
-            $scope.SalesList  = r.resp_data.data;
+            $scope.selectList  = r.resp_data.data;
           }else{
             angular.forEach(r.resp_data.data,function(c){
-              $scope.SalesList.push(c);
+              $scope.selectList.push(c);
             });
+
           }
 
 
@@ -317,7 +309,7 @@ debugger;
 
         if(r.msg== "success"){
           $scope.dataList = true
-          $scope.SalesList  = r.resp_data.data;
+          $scope.selectList  = r.resp_data.data;
 
         }else{
 
@@ -342,7 +334,7 @@ debugger;
 
 $scope.query =function () {
   $scope.modal.hide();
-  $scope.newmodal.show();
+
 }
 
   $scope.goods = []
@@ -390,9 +382,12 @@ $scope.query =function () {
     },function(r){
 
       if(r.msg== "success"){
-
+  
         $scope.newmodal.hide();
+        $scope.modal.hide();
         $scope.dfks();
+        $scope.data=[];
+        $scope.goods= [];
 
       }else{
 
@@ -410,11 +405,11 @@ $scope.query =function () {
   function   caklateheList  (){
     if(window.platform  == 'ios'){
       $scope.caklateheightList  = {
-        height:window.innerHeight-(64+41)+'px'
+        height:window.innerHeight-(64+26)+'px'
       }
     }else{
       $scope.caklateheightList  = {
-        height:window.innerHeight-(44+41)+'px'
+        height:window.innerHeight-(44+26)+'px'
       }
     }
   };
