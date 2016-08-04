@@ -32,7 +32,9 @@ Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools',
       console.log( $scope.shopchirld)
       console.log($scope.shopbody)
       console.log($scope.shopbody.order.data[0].buyer_nick)*/
-
+      $scope.pay = $scope.shopbody.total_fee
+      $scope.postage =  $scope.shopbody.post_fee
+      $scope.newTotal = parseInt($scope.pay)+parseInt($scope.postage)
 
     }
   });

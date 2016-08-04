@@ -64,7 +64,7 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
 
   $scope.expression=true
 
-  var pageNum = 0;
+
 if(bascId==1){
 
   $scope.datacaigou=false
@@ -152,6 +152,7 @@ if(bascId==1){
     $scope.dfk = false;
     $scope.dfc = false;
     $scope.dfh = false;
+    $scope.page_number  =1;
     $scope.ShoppingList=[];
     $scope.statusData = "";
     $scope.expression  = true;
@@ -165,6 +166,7 @@ if(bascId==1){
     $scope.dfk = true;
     $scope.dfc = false;
     $scope.dfh = false;
+    $scope.page_number  =1;
     $scope.statusData = "1";
     $scope.ShoppingList=[];
     $scope.expression  = true;
@@ -178,6 +180,7 @@ if(bascId==1){
     $scope.dfk = false;
     $scope.dfc = true;
     $scope.dfh = false;
+    $scope.page_number  =1;
     $scope.statusData = '2'
     $scope.ShoppingList=[];
     $scope.expression  = true;
@@ -193,6 +196,7 @@ if(bascId==1){
     $scope.dfk = false;
     $scope.dfc = false;
     $scope.dfh = true;
+    $scope.page_number  =1;
     $scope.statusData = '3'
     $scope.ShoppingList=[];
     $scope.expression  = true;

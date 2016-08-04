@@ -320,7 +320,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
 
             $scope.sublistaddnew.prop_value   = undefined;
 
-            
+          
 
           })
 
