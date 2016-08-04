@@ -16,12 +16,15 @@ Ctr.controller('ordersbodyCtr',['$scope','native','$state','fromStateServ','Tool
       "orderId": $scope.ID,
     }
   },function(r){
-    
+
     if(r){
       $scope.shopbody = (r.resp_data);
       $scope.shopname = $scope.shopbody.order.data[0].shop_name
       $scope.id = $scope.shopbody.order.data[0].order_basic_id
       $scope.pay = $scope.shopbody.order.data[0].total_fee
+      $scope.postage =  $scope.shopbody.order.data[0].post_fee
+      $scope.newTotal = parseInt($scope.pay)+parseInt($scope.postage)
+      
       $scope.time = $scope.shopbody.order.data[0].order_created
       $scope.name = $scope.shopbody.address.receiver_name
       $scope.mobile= $scope.shopbody.address.receiver_mobile
