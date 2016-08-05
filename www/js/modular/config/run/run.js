@@ -4,8 +4,6 @@
 App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout','native','fromStateServ',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,
 $ionicNativeTransitions,$timeout,native,fromStateServ) {
 
-
-
               //$cordovaProgress.showBar(true, 50000);
               //退出登录
               window.outlogin  = function(Callback){
@@ -28,17 +26,12 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
                       }
                   }
                 })
-
-
-
-
             };
 
-
   $ionicPlatform.ready(function() {
+    
     //$state.go('r.selectAuth');
     $state.go('r.tab.Home');
-
 
     //初始化    用户信息
     if(!storage.getObject('UserInfo').user_id){
@@ -54,10 +47,6 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
 
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
 
-
-
-  
-
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
       ionic.Platform.isFullScreen = true;
@@ -66,9 +55,11 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
 
       //Return event listener
       //uuid
-      setTimeout(function () {
-          navigator.splashscreen.hide();
-           }, 1000);
+      
+
+
+
+   
       //回退之前  退出键盘
       window.screen.lockOrientation('portrait');
 
@@ -221,6 +212,17 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
     if(window.platform  !== 'ios'){
       window.updateAPP(true);
     }
+
+
+
+       setTimeout(function () {
+        if(navigator){
+          navigator.splashscreen.hide();
+        }
+      }, 1000);
+
+
+
   });
 
 
