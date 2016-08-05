@@ -17,7 +17,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       // Allow loading from our assets domain.  Notice the difference between * and **.
       'http://m.kuaidi100.com/**',
       'https://m.kuaidi100.com/**',
-      
+
     ]);
 
 
@@ -360,18 +360,48 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
     //慈善专区
-    .state('r.tab.HomeCharitable',{
+    .state('r.HomeCharitable', {
       url: '/HomeCharitable',
+      cache:false,
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.HomeCharitable')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
       views: {
-        'Home': {
+        'rootview': {
+          params:{id:null,inside:null},
           templateUrl: 'templates/Home/charitable.html',
           controller: 'chariCtr'
         }
       }
     })
 
+
+
     //体验专区
-    .state('r.tab.HomTaste',{
+
+    .state('r.HomTaste', {
+      url: '/HomTaste',
+      cache:false,
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.HomTaste')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          params:{id:null,inside:null},
+          templateUrl: 'templates/Home/taste.html',
+          controller: 'tasteCtr'
+        }
+      }
+    })
+    
+    
+ /*   .state('r.tab.HomTaste',{
       url: '/HomeTaste',
       views: {
         'Home': {
@@ -379,18 +409,8 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           controller: 'tasteCtr'
         }
       }
-    })
-
-  /*  //销售订单
-    .state('r.tab.HomSales',{
-      url: '/HomeSales/:dataNum',
-      views: {
-        'Home': {
-          templateUrl: 'templates/Home/salesorders.html',
-          controller: 'salesCtr'
-        }
-      }
     })*/
+
 
 
     //销售订单
