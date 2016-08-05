@@ -7,7 +7,7 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 $scope.aouthc =  function () {
 
     $scope.goModular('r.selectAuth');
-    
+
 }
 
   //慈善
@@ -202,8 +202,10 @@ $scope.gosales=function (r) {
         "token_phone": ""
       }
     },function(r){
+
       if(r){
         $scope.company = (r.resp_data.data)
+
 
       }
     });
@@ -232,6 +234,9 @@ $scope.gosales=function (r) {
     fromStateServ.stateChange(r);
   };
 
+  $scope.flow=function () {
+    $state.go('r.flow')
+  }
 
 
 }]);

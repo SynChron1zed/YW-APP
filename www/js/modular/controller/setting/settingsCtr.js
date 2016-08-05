@@ -6,7 +6,7 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
 
 
   $scope.userfanhui  = function () {
-    
+
     if(storage.getObject('UserInfo').user_id){
       $state.go('r.tab.SettingsUser')
     }else{
@@ -19,7 +19,7 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
       return false;
     }
 
-      
+
 
 
 }
@@ -40,10 +40,16 @@ function   login   (){
 
 $scope.getMdl   =      fromStateServ.stateChange;
 $scope.Personalsetting  = function (){
-  
+
   $state.go('r.tab.SettingsUpdate');
 
 }
+  $scope.aboutWe  = function (){
+
+    $state.go('r.tab.SettingWe');
+
+  }
+
 
 $scope.addermge  = function(){
 
@@ -71,10 +77,10 @@ $scope.updateAPP  =  function () {
       return false;
     }
 
-      
 
 
-    
+
+
   }
 
   $scope.companyInstall=function () {
@@ -162,7 +168,7 @@ var   userone = storage.getObject('UserInfo');
       $scope.Userinfo.integral    = user.integral
       }
     }
-    
+
         $scope.opencustomenuatts  = false;
         $scope.showco  =   function  () {
           var uil   = storage.getObject('UserInfo');

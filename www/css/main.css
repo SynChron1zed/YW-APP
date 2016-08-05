@@ -959,6 +959,28 @@ body {
   overflow: visible;
   font-size: 14px; }
 
+.home-company {
+  text-align: -webkit-center;
+  font-size: 13px;
+  padding-left: 3px;
+  padding-right: 3px;
+  margin-top: 5px; }
+
+.home-kuaibao {
+  color: #a2a2a2; }
+
+.flow-onetext {
+  font-size: 20px;
+  color: #a2a2a2;
+  margin-top: 5px; }
+
+.flow-one {
+  font-size: 20px;
+  margin-top: .7rem; }
+
+.foot-image {
+  margin-top: .3rem; }
+
 .homein-tabs-meun {
   padding: .4rem 0px;
   height: 3.5rem; }

@@ -399,18 +399,29 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    
-    
- /*   .state('r.tab.HomTaste',{
-      url: '/HomeTaste',
+
+    //交易流程
+  /* .state('r.tab.flow',{
+      url: '/flow',
       views: {
         'Home': {
-          templateUrl: 'templates/Home/taste.html',
-          controller: 'tasteCtr'
+          templateUrl: 'templates/Home/flow.html',
+          controller: 'flowCtr'
         }
       }
     })*/
 
+
+    .state('r.flow', {
+      url: '/flow',
+      cache: false,
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Home/flow.html',
+          controller: 'flowCtr'
+        }
+      }
+    })
 
 
     //销售订单
@@ -891,6 +902,17 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
+    //setting  个人设置 邀请好友
+    .state('r.tab.SettingWe', {
+      url: '/Settings/SettingWe',
+      views: {
+        'setting': {
+          templateUrl: 'templates/Setting/aboutWe.html',
+          controller: 'aboutWeCtr'
+        }
+
+      }
+    })
 
   //setting  分类商品详情
 /*  .state('r.tab.ClassifDetails', {
