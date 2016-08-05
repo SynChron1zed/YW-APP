@@ -7,8 +7,24 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 $scope.aouthc =  function () {
 
     $scope.goModular('r.selectAuth');
-    
+
 }
+
+  //慈善
+
+  $scope.charitable =  function () {
+
+    $scope.goModular('r.HomeCharitable');
+
+  }
+
+  //体验
+
+  $scope.tastetable =  function () {
+
+    $scope.goModular('r.HomTaste');
+
+  }
 
 //查看物流
 $scope.showlogistics  =  function () {
@@ -16,7 +32,7 @@ $scope.showlogistics  =  function () {
       //160715000053
       //$scope.goModular('r.Logistics',{id:'160719000024'});
 }
-  
+
   $scope.goshopin =  function (tart) {
       $scope.goModular('r.Shophome',{id:tart.shop.shop_id});
   }

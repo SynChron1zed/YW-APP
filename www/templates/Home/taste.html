@@ -1,6 +1,18 @@
 <ion-view  hide-tabs="true" view-title="体验专区">
 
 
+
+  <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
+    <div     class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.HomTaste')">
+      <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title"
+                                                                                                                                                     style="display: block;"
+      >{{parenttitle}}</span></span>
+    </div>
+
+  </ion-nav-buttons>
+
+
     <ion-nav-buttons side="right">
       <a   nav-direction="back"  href=""  class="button button-icon ">
 
@@ -10,9 +22,11 @@
 
   <ion-content style="background-color: whitesmoke" >
 
-    <div>
-      <img  ng-src="{{'http://oap3nxgde.bkt.clouddn.com/ad_index_3.jpg?imageView2/2/w/828/h/362'}}"alt="">
-    </div>
+    <ion-slide-box    ng-if='guankao'  class='homeSlidebox' auto-play='true'  does-continue="true" >
+      <ion-slide   ng-repeat="ss   in  guankao"   ng-click="gogunal(ss)"   >
+        <img ng-src="{{ss.qiniu_key}}" alt="">
+      </ion-slide>
+    </ion-slide-box>
 
     <div class=" taste-names">推荐商品</div>
     <div class=" row"><hr class="taste-hengxian"/></div>
@@ -29,16 +43,13 @@
                  ng-style="caklateheight"   >
 
       <ion-refresher spinner="ios"  pulling-text="刷新" on-refresh="loadOlderStories(true)"   ></ion-refresher>
-    <div id="class-boder" class="classlist" >
-      <div class=" charitable-list " >
-        <div class="charitable-one" ng-repeat="item in ShoppingList" >
-          <img  style="width: 100px;margin-top: 5px" src={{item.img_url}} alt="">
-          <div style="margin-top: 5px">{{item.goods_title}}</div>
-          <div class="classif-price">￥{{item.total_in_price}} <span class="classif-priceone">￥19999</span></div>
-        </div>
-      </div>
-    </div>
 
+
+      <div class="shopgoodslit"  style="    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.03)"   ng-repeat="item in ShoppingList"    ng-click="newDetail(item)"  >
+        <img image-lazy-src="{{item.img_url}}" alt="" image-lazy-distance-from-bottom-to-load="10"     >
+        <p style="height:40px;padding:0px 4px;">{{item.goods_title}}</p>
+        <p><span style="color:#f16902">￥{{item.total_in_price}}</span></p>
+      </div>
 
       <ion-infinite-scroll  ng-if="expression" style="height: 20px;line-height: 40px;margin-bottom:20px;text-align: center" spinner="dots" on-infinite="loadOlderStories()"  distance="1%"  > </ion-infinite-scroll>
       <div ng-if="!expression" style="line-height: 90px;margin-bottom:40px;text-align: center;color:#999" >没有更多了!</div>
