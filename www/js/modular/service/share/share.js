@@ -3,9 +3,7 @@
  */
   //本地存储数据===================================
 Server.factory('share',['$window','native',function($window,native){
-
-
-
+  
   //是否安装微信
   function wechatishas  (sharego){
     native.loading('启动微信...');

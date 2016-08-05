@@ -38,11 +38,17 @@
 
   <ion-scroll  overflow-scroll="false"    delegate-handle="small"    scrollbar-y="false"   lazy-scroll   ng-style="scorllheader"    >
 
+
+  <div   ng-if='guankao'  >  
+
     <ion-slide-box    ng-if='guankao'  class='homeSlidebox' auto-play='true'  does-continue="true" >
       <ion-slide   ng-repeat="ss   in  guankao"   ng-click="gogunal(ss)"   >
         <img ng-src="{{ss.qiniu_key}}" alt="">
       </ion-slide>
     </ion-slide-box>
+
+</div>
+
 
           <div class="shopgoodslit"  style="    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.03)"   ng-repeat="ff in goodlist"    ng-click="goodsdetail(ff)"  >
             <img image-lazy-src="{{ff.img_url}}" alt="" image-lazy-distance-from-bottom-to-load="10"     >

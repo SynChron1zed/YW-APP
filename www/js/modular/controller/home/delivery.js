@@ -34,7 +34,6 @@ Ctr.controller('deliveryCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
 
     },function(r){
 
-debugger;
 
       if(r.msg== "success"){
 
@@ -79,7 +78,7 @@ debugger;
 
 
   $scope.deliveryNew=function () {
-debugger;
+
     if(!$scope.data.clientSide){
       native.task('请选择物流!')
       return  false;

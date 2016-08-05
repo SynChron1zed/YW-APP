@@ -3,12 +3,14 @@
  */
 Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatform','$state','Tools','$ionicPopup','storage','$timeout','loginregisterstate','native','$rootScope',function($ionicHistory,$scope,fromStateServ,$ionicPlatform,$state,Tools,$ionicPopup,storage,$timeout,loginregisterstate,native,$rootScope){
 
+      $scope.Userinfo =  {};
+      var   user = storage.getObject('UserInfo');
+      $scope.Userinfo.imgheader  =  window.qiniuimgHost+'sys_male.jpg?imageView2/2/w/300/h/300';
   //处理登录
   $scope.loginboj  = {};
 
   $scope.loginhan  = function (){
       if(!$scope.loginboj.userName){
-
         native.task('请输入用户名');
         return false;
       }

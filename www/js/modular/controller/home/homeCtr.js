@@ -7,7 +7,7 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 $scope.aouthc =  function () {
 
     $scope.goModular('r.selectAuth');
-
+    
 }
 
   //慈善

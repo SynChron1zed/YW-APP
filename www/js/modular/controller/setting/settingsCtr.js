@@ -6,6 +6,7 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
 
 
   $scope.userfanhui  = function () {
+    
     if(storage.getObject('UserInfo').user_id){
       $state.go('r.tab.SettingsUser')
     }else{
@@ -161,15 +162,18 @@ var   userone = storage.getObject('UserInfo');
       $scope.Userinfo.integral    = user.integral
       }
     }
-
+    
         $scope.opencustomenuatts  = false;
-
         $scope.showco  =   function  () {
           var uil   = storage.getObject('UserInfo');
         if(!uil.user_id){
               login();
         }else{
             $scope.shopid  = 'http://pan.baidu.com/share/qrcode?w=400&h=400&url='+uil.shop_id;
+
+            console.log(uil.shop_id);
+
+
             $scope.opencustomenuatts   = true;
         }
 

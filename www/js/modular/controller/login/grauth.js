@@ -72,6 +72,11 @@ Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$io
         }
       },function(r){
         if(r){
+          
+          var setin   =  storage.getObject('UserInfo');
+          setin.auth_status   ='1';
+          storage.setObject('UserInfo',setin);
+
 
           native.task('认证已提交,个人中心查看审核进度!',4000)
           //需要支付会费

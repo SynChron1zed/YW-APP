@@ -37,6 +37,7 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
      if ($ionicHistory.backView()) {
+       
        window.androdzerofun  = function(parm1,parm2){
          $ionicHistory.goBack();
        }

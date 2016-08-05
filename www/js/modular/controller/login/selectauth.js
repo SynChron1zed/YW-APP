@@ -1,7 +1,10 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher','$state','$timeout','$ionicNativeTransitions','selectaouthfunl','storage',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher,$state,$timeout,$ionicNativeTransitions,selectaouthfunl,storage){
+Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher','$state','$timeout','$ionicNativeTransitions','selectaouthfunl','storage','fromStateServ',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher,$state,$timeout,$ionicNativeTransitions,selectaouthfunl,storage,fromStateServ){
+
+
+
 
 
    //对安卓返回键的  特殊处理  tabs
@@ -13,6 +16,18 @@ Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicVie
       }else{
         $state.jiaofei  = true;
       }
+
+
+    if(fromStateServ.getState('r.selectAuth')){
+        $scope.showtitle  = true;
+        $scope.backtoprevView  =   fromStateServ.backView; 
+        $scope.parenttitle     =   fromStateServ.getState('r.selectAuth').title;
+    }else{
+        $scope.showtitle  = false;
+    }
+
+
+
 
       //注册安卓返回的处理
       window.androdzerofun  =  function(ba,com){
