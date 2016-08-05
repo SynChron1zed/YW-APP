@@ -1919,12 +1919,6 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
   display: inline-block;
   position: relative; }
 
-.modal-backdrop-bg {
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 10 !important;
-  transition: background  200ms;
-  -webkit-transition: background   200ms; }
-
 .cutom-sheet.active {
   z-index: 9999; }
 
@@ -2177,6 +2171,46 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
   content: '';
   display: block;
   clear: both; }
+
+.platform-android .action-sheet-group {
+  margin-bottom: 8px;
+  border-radius: 4px;
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color: rgba(255, 255, 255, 0.88);
+  overflow: hidden; }
+
+.platform-android .action-sheet .action-sheet-title, .platform-android .action-sheet .button {
+  text-align: left;
+  border-color: transparent;
+  color: inherit;
+  border-bottom: 1px solid #dadada;
+  text-align: center;
+  color: #007aff;
+  font-size: 20px; }
+
+.platform-android .action-sheet .action-sheet-title {
+  font-size: 14px;
+  padding: 16px;
+  color: #666 !important; }
+
+.checkbox-square .checkbox-icon:after, .checkbox-square input:after, .platform-android .checkbox-platform .checkbox-icon:after, .platform-android .checkbox-platform input:after {
+  border-width: 2px;
+  top: 19%;
+  left: 25%;
+  width: 13px;
+  height: 7px;
+  margin-top: 2px;
+  margin-left: 2px; }
+
+.checkbox-square .checkbox-icon:before, .checkbox-square input:before, .platform-android .checkbox-platform .checkbox-icon:before, .platform-android .checkbox-platform input:before {
+  border-radius: 50%;
+  width: 72%;
+  height: 72%;
+  margin-top: 14%;
+  padding: 10px;
+  margin-left: 14%;
+  border-width: 2px; }
 
 .shopcartnoitem {
   margin-top: 10px;

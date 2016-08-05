@@ -1256,6 +1256,7 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
     //$state.go('r.selectAuth');
     $state.go('r.tab.Home');
 
+
     //初始化    用户信息
     if(!storage.getObject('UserInfo').user_id){
       //没有登录写入   默认基本  信息
@@ -1268,10 +1269,12 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
     }
 
 
-
-
-
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+
+
+
+  
+
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
       ionic.Platform.isFullScreen = true;
@@ -4367,33 +4370,39 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
           titleText: '选择需要批量设置的属性',
           cancelText: '取消',
           buttonClicked: function(index) {
-
+            
             if(index != 4 && index != 5 ){
-              //打开输入框
-              $ionicPopup.prompt({
-                title:'输入批量设置的数量!',
-                inputType:'number',
-                inputPlaceholder:'请输入数量',
-                okText:'确认',
-                cancelText:'取消'
-              }).then(function(res){
-                var resulf =null;
-                if(index==0){
-                  //进货价
-                  resulf = 'retail_price';
+              native.prompt('输入批量设置的数量!','提示',['确认','取消'],'请输入数量',function(ss){
+                if(ss.buttonIndex  ==1){
+                  if(ss.input1  !== "请输入数量"){
+
+                              var resulf =null;
+                              if(index==0){
+                                //进货价
+                                resulf = 'retail_price';
+                              }
+                              if(index ==1){
+                                //零售价
+                                resulf = 'activity_price';
+                              }
+                              if(index ==2){
+                                //批发价
+                                resulf = 'number';
+                              }
+                              angular.forEach($scope.attrsprices,function(key){
+                                key.msg[resulf] = parseInt(ss.input1);
+                              });
+
+                  }
                 }
-                if(index ==1){
-                  //零售价
-                  resulf = 'activity_price';
-                }
-                if(index ==2){
-                  //批发价
-                  resulf = 'number';
-                }
-                angular.forEach($scope.attrsprices,function(key){
-                  key.msg[resulf] = res
-                });
-              });
+              })
+
+
+
+
+
+
+
             };
 
             return true;
@@ -6037,10 +6046,10 @@ Ctr.controller('deliveryCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
 Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','selectaouthfunl',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,selectaouthfunl) {
 
 
-$scope.aouthc =  function () {
 
+
+$scope.aouthc =  function () {
     $scope.goModular('r.selectAuth');
-       
 }
 
 //查看物流
@@ -9810,7 +9819,7 @@ Ctr.controller('SettingsUpdateCtr',['$scope','storage','Tools','native','$state'
             Tools.getData({
                 "interface_number": "050306",
                 "post_content": {
-                      "img_shop":f[0].key,
+                      "avatar":f[0].key,
                   }
             },function(s){
               if(s){
@@ -11128,20 +11137,15 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
  */
 
      //全局变量定义
-     
+
     //  window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
-    window.Interactivehost  = 'http://192.168.0.56:1155/index.php?r=app/index';
-
+    window.Interactivehost  = 'http://192.168.0.56:1155/index.php?r=app/index';    
     //window.Interactivehost =  'http://app.ywyde.com/index.php?r=app/index';
-
-
     //window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
-
     window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';
-
+    
   //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
   //没有使用过度的返回页面的使用
-
   //本地缓存   对象列表 定义
   // window.LocalCacheStatelist  =  {
   //   shopCart:'YES',

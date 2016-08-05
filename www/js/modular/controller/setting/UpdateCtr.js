@@ -30,7 +30,7 @@ Ctr.controller('SettingsUpdateCtr',['$scope','storage','Tools','native','$state'
             Tools.getData({
                 "interface_number": "050306",
                 "post_content": {
-                      "img_shop":f[0].key,
+                      "avatar":f[0].key,
                   }
             },function(s){
               if(s){

@@ -39,6 +39,7 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
     //$state.go('r.selectAuth');
     $state.go('r.tab.Home');
 
+
     //初始化    用户信息
     if(!storage.getObject('UserInfo').user_id){
       //没有登录写入   默认基本  信息
@@ -51,10 +52,12 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
     }
 
 
-
-
-
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+
+
+
+  
+
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
       ionic.Platform.isFullScreen = true;

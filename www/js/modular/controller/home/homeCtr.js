@@ -4,10 +4,10 @@
 Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','selectaouthfunl',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,selectaouthfunl) {
 
 
-$scope.aouthc =  function () {
 
+
+$scope.aouthc =  function () {
     $scope.goModular('r.selectAuth');
-       
 }
 
 //查看物流
