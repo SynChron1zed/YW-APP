@@ -11,7 +11,7 @@
       <a   nav-direction="forward" ng-click="goModular('r.login')"  class="button button-icon ion-ios-location-outline location-headers home-location">
         <p>全国</p>
       </a>
-    </ion-nav-buttons>-->    
+    </ion-nav-buttons>-->
     <ion-nav-buttons side="right">
       <button class="button button-icon  ion-ios-search-strong"  ui-sref="r.tab.HomeSearch"  ></button>
     </ion-nav-buttons>
@@ -27,7 +27,7 @@
 
 
 
-    
+
     <div class="homein-tabs-meun row">
       <div class="col col-25">
         <img src="./img/homepage/icon_service@3x1.png" alt="">
@@ -38,11 +38,11 @@
         <img src="./img/homepage/icon_dynamic@3x.png" alt="">
         <p>最新动态</p>
       </div>
-      <div class="col col-25" ui-sref="r.tab.HomTaste">
+      <div class="col col-25" ng-click="tastetable()">
         <img src="./img/homepage/icon_experience@3x.png" alt="">
         <p>体验专区</p>
       </div>
-      <div class="col col-25" ui-sref="r.tab.HomeCharitable" >
+      <div class="col col-25" ng-click="charitable()" >
         <img src="./img/homepage/icon_charity@3x.png" alt="">
         <p>慈善物品</p>
       </div>
@@ -90,7 +90,7 @@
 
     <div class="home-Honestenterprise">
       <div class="title">
-        诚信企业 
+        诚信企业
       </div>
       <div class="content">
 
