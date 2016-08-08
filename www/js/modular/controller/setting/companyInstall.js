@@ -102,7 +102,7 @@ $scope.goManagement = function (value) {
   //解除绑定
 $scope.deleteCompany=function () {
 
-if($scope.adminer == "0"){
+/*if($scope.adminer == 1){
 
   $ionicPopup.alert({
     title:"请先移交管理员！",
@@ -110,7 +110,7 @@ if($scope.adminer == "0"){
 
   });
   return false;
-}else {
+}else {*/
 
   Tools.getData({
     "interface_number": "000402",
@@ -146,7 +146,7 @@ if($scope.adminer == "0"){
 }
 
 
-}
+
 
   //初始  信息
   function  newInitial  (){
