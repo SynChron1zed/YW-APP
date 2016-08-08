@@ -728,3 +728,22 @@ background-color: #ffd21c;
 .foot-image{
   margin-top: .3rem;
 }
+.home-kuainews{
+
+  font-size: 12px;
+  overflow: hidden;
+  display: -webkit-box;
+  max-width: 85%;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  color: #a2a2a2
+}
+.home-kuainewsnody{
+  font-size: 12px;
+  overflow: hidden;
+  display: -webkit-box;
+  max-width: 95%;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  color: red;
+}
