@@ -1,10 +1,10 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('homesearchCtr',['$scope','$state','$ionicHistory',function($scope,$state,$ionicHistory) {
-    
+Ctr.controller('homesearchCtr',['$scope','$state','$rootScope',function($scope,$state,$rootScope) {
+  
   $scope.back  =  function (){
-      $ionicHistory.goBack();
+      $rootScope.$ionicGoBack();
   }
 
 }]);

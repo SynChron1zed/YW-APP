@@ -12,7 +12,7 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
    $scope.showtitle   = false;
   //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
-
+            
             if(fromStateServ.getState('r.Shophome')){
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView; 
@@ -20,9 +20,10 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
             }else{
                 $scope.showtitle  = false;
             }
+            
             $timeout(function(){
 
-                if($scope.goodlistdata.length  &&  $stateParams.ref){
+                if($scope.goodlistdata.length){
 
                 }else{
                         inlit();

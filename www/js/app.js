@@ -108,15 +108,14 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       // Allow loading from our assets domain.  Notice the difference between * and **.
       'http://m.kuaidi100.com/**',
       'https://m.kuaidi100.com/**',
-      
     ]);
 
-
+    
   $ionicNativeTransitionsProvider.setDefaultOptions({
     duration: 300, // in milliseconds (ms), default 400,
     slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
-    iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
-    androiddelay: -1, // same as above but for Android, default -1
+    iosdelay: 50, // ms to wait for the iOS webview to update before animation kicks in, default -1
+    androiddelay: 50, // same as above but for Android, default -1
     winphonedelay: -1, // same as above but for Windows Phone, default -1,
     fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
     fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
@@ -451,37 +450,68 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
     //慈善专区
-    .state('r.tab.HomeCharitable',{
+    .state('r.HomeCharitable', {
       url: '/HomeCharitable',
+      cache:false,
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.HomeCharitable')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
       views: {
-        'Home': {
+        'rootview': {
+          params:{id:null,inside:null},
           templateUrl: 'templates/Home/charitable.html',
           controller: 'chariCtr'
         }
       }
     })
 
+
+
     //体验专区
-    .state('r.tab.HomTaste',{
-      url: '/HomeTaste',
+
+    .state('r.HomTaste', {
+      url: '/HomTaste',
+      cache:false,
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.HomTaste')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
       views: {
-        'Home': {
+        'rootview': {
+          params:{id:null,inside:null},
           templateUrl: 'templates/Home/taste.html',
           controller: 'tasteCtr'
         }
       }
     })
 
-  /*  //销售订单
-    .state('r.tab.HomSales',{
-      url: '/HomeSales/:dataNum',
+    //交易流程
+  /* .state('r.tab.flow',{
+      url: '/flow',
       views: {
         'Home': {
-          templateUrl: 'templates/Home/salesorders.html',
-          controller: 'salesCtr'
+          templateUrl: 'templates/Home/flow.html',
+          controller: 'flowCtr'
         }
       }
     })*/
+
+
+    .state('r.flow', {
+      url: '/flow',
+      cache: false,
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Home/flow.html',
+          controller: 'flowCtr'
+        }
+      }
+    })
 
 
     //销售订单
@@ -962,6 +992,17 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
+    //setting  个人设置 邀请好友
+    .state('r.tab.SettingWe', {
+      url: '/Settings/SettingWe',
+      views: {
+        'setting': {
+          templateUrl: 'templates/Setting/aboutWe.html',
+          controller: 'aboutWeCtr'
+        }
+
+      }
+    })
 
   //setting  分类商品详情
 /*  .state('r.tab.ClassifDetails', {
@@ -1221,8 +1262,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout','native','fromStateServ',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,
 $ionicNativeTransitions,$timeout,native,fromStateServ) {
 
-
-
               //$cordovaProgress.showBar(true, 50000);
               //退出登录
               window.outlogin  = function(Callback){
@@ -1245,14 +1284,10 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
                       }
                   }
                 })
-
-
-
-
             };
 
-
   $ionicPlatform.ready(function() {
+
     //$state.go('r.selectAuth');
     $state.go('r.tab.Home');
 
@@ -1268,21 +1303,25 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
     }
 
 
-
-
-
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
       ionic.Platform.isFullScreen = true;
 
-
-
       //Return event listener
       //uuid
-      setTimeout(function () {
+       setTimeout(function () {
           navigator.splashscreen.hide();
-           }, 1000);
+      }, 1000);
+      
+    if (window.StatusBar) {
+          window.StatusBar.styleDefault();
+    }
+
+
+
+   
       //回退之前  退出键盘
       window.screen.lockOrientation('portrait');
 
@@ -1305,7 +1344,7 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
                 storage.setObject('jPush',locjPush);
     }
 
-    if (window.StatusBar) {StatusBar.styleDefault();}
+
 
       window.noNavtionsback =  function (rooter,parmgs){
         $ionicNativeTransitions.stateGo(rooter,parmgs,{
@@ -1435,6 +1474,12 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
     if(window.platform  !== 'ios'){
       window.updateAPP(true);
     }
+
+
+
+
+
+
   });
 
 
@@ -3191,9 +3236,6 @@ $scope.comorder  =function () {
             shopin[inde]  = aaa.make?aaa.make:'';
 
      })
-
-     console.log(shopin)
-
     Tools.getData({
          "interface_number": "020607",
          "post_content": {
@@ -4367,33 +4409,39 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
           titleText: '选择需要批量设置的属性',
           cancelText: '取消',
           buttonClicked: function(index) {
-
+            
             if(index != 4 && index != 5 ){
-              //打开输入框
-              $ionicPopup.prompt({
-                title:'输入批量设置的数量!',
-                inputType:'number',
-                inputPlaceholder:'请输入数量',
-                okText:'确认',
-                cancelText:'取消'
-              }).then(function(res){
-                var resulf =null;
-                if(index==0){
-                  //进货价
-                  resulf = 'retail_price';
+              native.prompt('输入批量设置的数量!','提示',['确认','取消'],'请输入数量',function(ss){
+                if(ss.buttonIndex  ==1){
+                  if(ss.input1  !== "请输入数量"){
+
+                              var resulf =null;
+                              if(index==0){
+                                //进货价
+                                resulf = 'retail_price';
+                              }
+                              if(index ==1){
+                                //零售价
+                                resulf = 'activity_price';
+                              }
+                              if(index ==2){
+                                //批发价
+                                resulf = 'number';
+                              }
+                              angular.forEach($scope.attrsprices,function(key){
+                                key.msg[resulf] = parseInt(ss.input1);
+                              });
+
+                  }
                 }
-                if(index ==1){
-                  //零售价
-                  resulf = 'activity_price';
-                }
-                if(index ==2){
-                  //批发价
-                  resulf = 'number';
-                }
-                angular.forEach($scope.attrsprices,function(key){
-                  key.msg[resulf] = res
-                });
-              });
+              })
+
+
+
+
+
+
+
             };
 
             return true;
@@ -5806,9 +5854,7 @@ var a = selectArr.selectarrs;
       "post_content": {
         "token": "",
         "token_phone": "",
-        "searchParam": {
-          "sys_cate_id": "0"         //代表只搜索 此分类下的商品
-        },
+
       }
 
     };
@@ -5855,44 +5901,15 @@ var a = selectArr.selectarrs;
   };
 
 
-
-
-/*
-  Tools.getData({
-    "interface_number": "020201",
-    "client_type": window.platform,
-    "post_content": {
-      "token": "",
-      "token_phone": "",
-      "searchParam": {
-        "shop_cate_id": "0"         //代表只搜索 此分类下的商品
-      },
-      "page_num": "1"
-    }
-  },function(r){
-    if(r){
-      angular.forEach(r.resp_data.data,function(c){
-        c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/2/w/200/h/200';
-
-      });
-      $scope.Charitable = (r.resp_data.data)
-
-
-    }
-  });*/
-
-
-
-
   $scope.caklateheight  = {};
   function   caklatehe  (){
     if(window.platform  == 'ios'){
       $scope.caklateheight  = {
-        height:window.innerHeight-(64+166)+'px'
+        height:window.innerHeight-(64+151)+'px'
       }
     }else{
       $scope.caklateheight  = {
-        height:window.innerHeight-(44+166)+'px'
+        height:window.innerHeight-(44+151)+'px'
       }
     }
   };
@@ -5901,6 +5918,70 @@ var a = selectArr.selectarrs;
     caklatehe();
   },600)
 
+//广告位接口
+  Tools.getData({
+    "interface_number": "050401",
+    "post_content": {
+      "token":"",
+      "token_phone": "",
+      "type": "1"
+    }
+
+  },function(r){
+
+
+
+    if(r.msg== "success"){
+      angular.forEach(r.resp_data,function(c){
+        c.qiniu_key  =  window.qiniuimgHost+c.qiniu_key+'?imageView2/2/w/828/h/362';
+      })
+      $scope.guankao   =   r.resp_data;
+
+    }else{
+
+      return false
+
+    }
+
+
+  });
+
+  $scope.gogunal  =  function(item){
+    if(item.request_type  == '1'){
+      $state.go('r.homeNewsContent',{postID:item.request_id});
+    }else  if(item.request_type  == '2'){
+      $state.go('r.Shophome',{id:item.request_id});
+    }else  if(item.request_type  == '3'){
+      $state.go('r.Productdetails',{id:item.request_id});
+    }else{
+      native.task('活动暂未开始');
+    }
+  }
+
+
+  //商品详情模块
+  //保存历史记录的方法  调用  上一次1 title  和返回方法
+  $scope.backtoprevView  =   fromStateServ.backView;
+
+  $scope.$on('$stateChangeSuccess',function(){
+
+    $scope.loginboj = {};
+    $scope.ing  = false;
+    $scope.parenttitle     =   fromStateServ.getState('r.HomeCharitable').title;
+  });
+
+
+  $scope.backView  = function(){
+    $scope.$ionicGoBack();
+  };
+
+
+
+  $scope.goodsdetail  = function(r){
+
+    $state.go('r.Productdetails',{id:r.goods_basic_id})
+   // fromStateServ.stateChange('r.Productdetails',{id:r.goods_basic_id});
+  }
 
 }]);
 
@@ -6032,9 +6113,32 @@ Ctr.controller('deliveryCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
 }]);
 
 /**
+ * Created by Administrator on 2016/8/5.
+ */
+/**
+ * Created by Administrator on 2016/7/29.
+ */
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('flowCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize){
+
+
+
+
+
+
+
+}]);
+
+
+/**
  * Created by Why on 16/6/8.
  */
 Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','selectaouthfunl',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,selectaouthfunl) {
+
+
 
 
 $scope.aouthc =  function () {
@@ -6043,13 +6147,29 @@ $scope.aouthc =  function () {
        
 }
 
+  //慈善
+
+  $scope.charitable =  function () {
+
+    $scope.goModular('r.HomeCharitable');
+
+  }
+
+  //体验
+
+  $scope.tastetable =  function () {
+
+    $scope.goModular('r.HomTaste');
+
+  }
+
 //查看物流
 $scope.showlogistics  =  function () {
       //160719000024
       //160715000053
       //$scope.goModular('r.Logistics',{id:'160719000024'});
 }
-  
+
   $scope.goshopin =  function (tart) {
       $scope.goModular('r.Shophome',{id:tart.shop.shop_id});
   }
@@ -6219,8 +6339,10 @@ $scope.gosales=function (r) {
         "token_phone": ""
       }
     },function(r){
+
       if(r){
         $scope.company = (r.resp_data.data)
+
 
       }
     });
@@ -6249,6 +6371,9 @@ $scope.gosales=function (r) {
     fromStateServ.stateChange(r);
   };
 
+  $scope.flow=function () {
+    $state.go('r.flow')
+  }
 
 
 }]);
@@ -7273,10 +7398,10 @@ $scope.query =function () {
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('homesearchCtr',['$scope','$state','$ionicHistory',function($scope,$state,$ionicHistory) {
-    
+Ctr.controller('homesearchCtr',['$scope','$state','$rootScope',function($scope,$state,$rootScope) {
+  
   $scope.back  =  function (){
-      $ionicHistory.goBack();
+      $rootScope.$ionicGoBack();
   }
 
 }]);
@@ -7466,6 +7591,15 @@ Ctr.controller('tasteCtr',['$scope','native','$state','fromStateServ','Tools','$
   $scope.ShoppingList=[];
 
 
+  $scope.newDetail  = function(r){
+
+
+    $state.go('r.Productdetails',{id:r.goods_basic_id})
+    // fromStateServ.stateChange('r.Productdetails',{id:r.goods_basic_id});
+  }
+
+
+
   $scope.loadOlderStories=function (type) {
 
     var sendoption  = {
@@ -7474,9 +7608,7 @@ Ctr.controller('tasteCtr',['$scope','native','$state','fromStateServ','Tools','$
       "post_content": {
         "token": "",
         "token_phone": "",
-        "searchParam": {
-          "sys_cate_id": "2"         //代表只搜索 此分类下的商品
-        },
+
       }
 
     };
@@ -7522,41 +7654,57 @@ Ctr.controller('tasteCtr',['$scope','native','$state','fromStateServ','Tools','$
 
   };
 
- /* Tools.getData({
-    "interface_number": "020202",
-    "client_type": window.platform,
+  //广告位接口
+  Tools.getData({
+    "interface_number": "050401",
     "post_content": {
-      "token": "",
+      "token":"",
       "token_phone": "",
-      "searchParam": {
-        "shop_cate_id": "0"         //代表只搜索 此分类下的商品
-      },
-      "page_num": "1"
+      "type": "3"
     }
+
   },function(r){
 
-    if(r){
-      angular.forEach(r.resp_data.data,function(c){
-        c.img_url  =  window.qiniuimgHost+c.img_url+'?imageView2/2/w/200/h/200';
 
-      });
 
-      $scope.Taste = (r.resp_data.data)
+    if(r.msg== "success"){
+      angular.forEach(r.resp_data,function(c){
+        c.qiniu_key  =  window.qiniuimgHost+c.qiniu_key+'?imageView2/2/w/828/h/362';
+      })
+      $scope.guankao   =   r.resp_data;
 
+    }else{
+
+      return false
 
     }
+
+
   });
-*/
+
+  $scope.gogunal  =  function(item){
+
+    if(item.request_type  == '1'){
+      $state.go('r.homeNewsContent',{postID:item.request_id});
+    }else  if(item.request_type  == '2'){
+      $state.go('r.Shophome',{id:item.request_id});
+    }else  if(item.request_type  == '3'){
+      $state.go('r.Productdetails',{id:item.request_id});
+    }else{
+      native.task('活动暂未开始');
+    }
+  }
+
 
   $scope.caklateheight  = {};
   function   caklatehe  (){
     if(window.platform  == 'ios'){
       $scope.caklateheight  = {
-        height:window.innerHeight-(64+166)+'px'
+        height:window.innerHeight-(64+151)+'px'
       }
     }else{
       $scope.caklateheight  = {
-        height:window.innerHeight-(44+166)+'px'
+        height:window.innerHeight-(44+151)+'px'
       }
     }
   };
@@ -7564,6 +7712,23 @@ Ctr.controller('tasteCtr',['$scope','native','$state','fromStateServ','Tools','$
   $timeout(function(){
     caklatehe();
   },600)
+
+
+  //商品详情模块
+  //保存历史记录的方法  调用  上一次1 title  和返回方法
+  $scope.backtoprevView  =   fromStateServ.backView;
+
+  $scope.$on('$stateChangeSuccess',function(){
+
+    $scope.loginboj = {};
+    $scope.ing  = false;
+    $scope.parenttitle     =   fromStateServ.getState('r.HomTaste').title;
+  });
+
+
+  $scope.backView  = function(){
+    $scope.$ionicGoBack();
+  };
 
 
 }]);
@@ -9810,7 +9975,7 @@ Ctr.controller('SettingsUpdateCtr',['$scope','storage','Tools','native','$state'
             Tools.getData({
                 "interface_number": "050306",
                 "post_content": {
-                      "img_shop":f[0].key,
+                      "avatar":f[0].key,
                   }
             },function(s){
               if(s){
@@ -9970,6 +10135,27 @@ $scope.save  = function (){
 
 
 }])
+
+/**
+ * Created by Administrator on 2016/8/5.
+ */
+/**
+ * Created by Administrator on 2016/7/29.
+ */
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('aboutWeCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize){
+
+
+
+
+
+
+
+}]);
+
 
 /**
  * Created by Administrator on 2016/7/27.
@@ -10497,7 +10683,7 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
 
 
   $scope.userfanhui  = function () {
-    
+
     if(storage.getObject('UserInfo').user_id){
       $state.go('r.tab.SettingsUser')
     }else{
@@ -10510,7 +10696,7 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
       return false;
     }
 
-      
+
 
 
 }
@@ -10531,10 +10717,16 @@ function   login   (){
 
 $scope.getMdl   =      fromStateServ.stateChange;
 $scope.Personalsetting  = function (){
-  
+
   $state.go('r.tab.SettingsUpdate');
 
 }
+  $scope.aboutWe  = function (){
+
+    $state.go('r.tab.SettingWe');
+
+  }
+
 
 $scope.addermge  = function(){
 
@@ -10562,10 +10754,10 @@ $scope.updateAPP  =  function () {
       return false;
     }
 
-      
 
 
-    
+
+
   }
 
   $scope.companyInstall=function () {
@@ -10653,7 +10845,7 @@ var   userone = storage.getObject('UserInfo');
       $scope.Userinfo.integral    = user.integral
       }
     }
-    
+
         $scope.opencustomenuatts  = false;
         $scope.showco  =   function  () {
           var uil   = storage.getObject('UserInfo');
@@ -10719,7 +10911,7 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
    $scope.showtitle   = false;
   //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
-
+            
             if(fromStateServ.getState('r.Shophome')){
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView; 
@@ -10727,9 +10919,10 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
             }else{
                 $scope.showtitle  = false;
             }
+            
             $timeout(function(){
 
-                if($scope.goodlistdata.length  &&  $stateParams.ref){
+                if($scope.goodlistdata.length){
 
                 }else{
                         inlit();
@@ -11130,18 +11323,13 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
      //全局变量定义
      
     //  window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
-    window.Interactivehost  = 'http://192.168.0.56:1155/index.php?r=app/index';
-
-    //window.Interactivehost =  'http://app.ywyde.com/index.php?r=app/index';
-
-
+    //window.Interactivehost  = 'http://192.168.0.56:1155/index.php?r=app/index';
+    window.Interactivehost =  'http://app.ywyde.com/index.php?r=app/index';
     //window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
-
     window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';
-
+    
   //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
   //没有使用过度的返回页面的使用
-
   //本地缓存   对象列表 定义
   // window.LocalCacheStatelist  =  {
   //   shopCart:'YES',

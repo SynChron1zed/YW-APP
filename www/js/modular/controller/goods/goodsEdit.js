@@ -121,33 +121,39 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
           titleText: '选择需要批量设置的属性',
           cancelText: '取消',
           buttonClicked: function(index) {
-
+            
             if(index != 4 && index != 5 ){
-              //打开输入框
-              $ionicPopup.prompt({
-                title:'输入批量设置的数量!',
-                inputType:'number',
-                inputPlaceholder:'请输入数量',
-                okText:'确认',
-                cancelText:'取消'
-              }).then(function(res){
-                var resulf =null;
-                if(index==0){
-                  //进货价
-                  resulf = 'retail_price';
+              native.prompt('输入批量设置的数量!','提示',['确认','取消'],'请输入数量',function(ss){
+                if(ss.buttonIndex  ==1){
+                  if(ss.input1  !== "请输入数量"){
+
+                              var resulf =null;
+                              if(index==0){
+                                //进货价
+                                resulf = 'retail_price';
+                              }
+                              if(index ==1){
+                                //零售价
+                                resulf = 'activity_price';
+                              }
+                              if(index ==2){
+                                //批发价
+                                resulf = 'number';
+                              }
+                              angular.forEach($scope.attrsprices,function(key){
+                                key.msg[resulf] = parseInt(ss.input1);
+                              });
+
+                  }
                 }
-                if(index ==1){
-                  //零售价
-                  resulf = 'activity_price';
-                }
-                if(index ==2){
-                  //批发价
-                  resulf = 'number';
-                }
-                angular.forEach($scope.attrsprices,function(key){
-                  key.msg[resulf] = res
-                });
-              });
+              })
+
+
+
+
+
+
+
             };
 
             return true;
