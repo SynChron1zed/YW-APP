@@ -13,7 +13,7 @@ Ctr.controller('registercfpwdCtr',['$scope','$state','Tools','$stateParams','$io
 
   if(!$scope.password.Original || !$scope.password.Repeat)  {
 
-    native.task('请填写密码!');
+    native.task('请确认密码!');
     return false;
   }
     if(!Tools.reg.equal($scope.password.Original,$scope.password.Repeat) ){

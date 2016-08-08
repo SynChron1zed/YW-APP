@@ -8,7 +8,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   var   showlogin = function() {
     native.loading();
   };
-  
+
     function  clone  (myObj){
       if(typeof(myObj) != 'object') return myObj;
       if(myObj == null) return myObj;
@@ -171,7 +171,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
                         // integral:'0.00',
                         // sex:'./img/icon_man@3x.png',
                         // })
-            window.outlogin(function(){               
+            window.outlogin(function(){
             $ionicNativeTransitions.stateGo('r.tab.Home',{}, {
             "type": "slide",
             "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
@@ -189,7 +189,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 
 
             }
-          
+
 
       }  else{
         Callback(false);
@@ -262,6 +262,12 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     },
     equal: function (val1, val2) {
       return (val1 == val2);
+    },
+    qq:function (val) {
+      return /^[1-9]\d{4,11}$/.test(val)
+    },
+    Tphone:function (val) {
+      return /^1[3|4|5|7|8]\d{9}$/.test(val)
     }
 
   };
