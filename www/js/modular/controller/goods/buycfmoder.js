@@ -23,9 +23,6 @@ $scope.comorder  =function () {
             shopin[inde]  = aaa.make?aaa.make:'';
 
      })
-
-     console.log(shopin)
-
     Tools.getData({
          "interface_number": "020607",
          "post_content": {

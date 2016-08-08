@@ -108,15 +108,14 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       // Allow loading from our assets domain.  Notice the difference between * and **.
       'http://m.kuaidi100.com/**',
       'https://m.kuaidi100.com/**',
-
     ]);
 
-
+    
   $ionicNativeTransitionsProvider.setDefaultOptions({
     duration: 300, // in milliseconds (ms), default 400,
     slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
-    iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
-    androiddelay: -1, // same as above but for Android, default -1
+    iosdelay: 50, // ms to wait for the iOS webview to update before animation kicks in, default -1
+    androiddelay: 50, // same as above but for Android, default -1
     winphonedelay: -1, // same as above but for Windows Phone, default -1,
     fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
     fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
@@ -490,18 +489,29 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    
-    
- /*   .state('r.tab.HomTaste',{
-      url: '/HomeTaste',
+
+    //交易流程
+  /* .state('r.tab.flow',{
+      url: '/flow',
       views: {
         'Home': {
-          templateUrl: 'templates/Home/taste.html',
-          controller: 'tasteCtr'
+          templateUrl: 'templates/Home/flow.html',
+          controller: 'flowCtr'
         }
       }
     })*/
 
+
+    .state('r.flow', {
+      url: '/flow',
+      cache: false,
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Home/flow.html',
+          controller: 'flowCtr'
+        }
+      }
+    })
 
 
     //销售订单
@@ -982,6 +992,17 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
+    //setting  个人设置 邀请好友
+    .state('r.tab.SettingWe', {
+      url: '/Settings/SettingWe',
+      views: {
+        'setting': {
+          templateUrl: 'templates/Setting/aboutWe.html',
+          controller: 'aboutWeCtr'
+        }
+
+      }
+    })
 
   //setting  分类商品详情
 /*  .state('r.tab.ClassifDetails', {
@@ -1266,7 +1287,7 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
             };
 
   $ionicPlatform.ready(function() {
-    
+
     //$state.go('r.selectAuth');
     $state.go('r.tab.Home');
 
@@ -1288,11 +1309,15 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
       cordova.plugins.Keyboard.disableScroll(true);
       ionic.Platform.isFullScreen = true;
 
-
-
       //Return event listener
       //uuid
+       setTimeout(function () {
+          navigator.splashscreen.hide();
+      }, 1000);
       
+    if (window.StatusBar) {
+          window.StatusBar.styleDefault();
+    }
 
 
 
@@ -1319,7 +1344,7 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
                 storage.setObject('jPush',locjPush);
     }
 
-    if (window.StatusBar) {StatusBar.styleDefault();}
+
 
       window.noNavtionsback =  function (rooter,parmgs){
         $ionicNativeTransitions.stateGo(rooter,parmgs,{
@@ -1452,11 +1477,6 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
 
 
 
-       setTimeout(function () {
-        if(navigator){
-          navigator.splashscreen.hide();
-        }
-      }, 1000);
 
 
 
@@ -3216,9 +3236,6 @@ $scope.comorder  =function () {
             shopin[inde]  = aaa.make?aaa.make:'';
 
      })
-
-     console.log(shopin)
-
     Tools.getData({
          "interface_number": "020607",
          "post_content": {
@@ -6096,6 +6113,27 @@ Ctr.controller('deliveryCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
 }]);
 
 /**
+ * Created by Administrator on 2016/8/5.
+ */
+/**
+ * Created by Administrator on 2016/7/29.
+ */
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('flowCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize){
+
+
+
+
+
+
+
+}]);
+
+
+/**
  * Created by Why on 16/6/8.
  */
 Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','selectaouthfunl',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,selectaouthfunl) {
@@ -6301,8 +6339,10 @@ $scope.gosales=function (r) {
         "token_phone": ""
       }
     },function(r){
+
       if(r){
         $scope.company = (r.resp_data.data)
+
 
       }
     });
@@ -6331,6 +6371,9 @@ $scope.gosales=function (r) {
     fromStateServ.stateChange(r);
   };
 
+  $scope.flow=function () {
+    $state.go('r.flow')
+  }
 
 
 }]);
@@ -7355,10 +7398,10 @@ $scope.query =function () {
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('homesearchCtr',['$scope','$state','$ionicHistory',function($scope,$state,$ionicHistory) {
-    
+Ctr.controller('homesearchCtr',['$scope','$state','$rootScope',function($scope,$state,$rootScope) {
+  
   $scope.back  =  function (){
-      $ionicHistory.goBack();
+      $rootScope.$ionicGoBack();
   }
 
 }]);
@@ -9043,14 +9086,6 @@ $scope.mathData = true;
 
   }]);
 
-/**
- * Created by Why on 16/6/8.
- */
-
-Ctr.controller('rootCtr',[function(){
-  
-}])
-
 Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory){
 }])
 
@@ -9115,6 +9150,14 @@ Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory)
 
 
 }])
+/**
+ * Created by Why on 16/6/8.
+ */
+
+Ctr.controller('rootCtr',[function(){
+  
+}])
+
 /**
  * Created by Administrator on 2016/7/5.
  */
@@ -10094,6 +10137,27 @@ $scope.save  = function (){
 }])
 
 /**
+ * Created by Administrator on 2016/8/5.
+ */
+/**
+ * Created by Administrator on 2016/7/29.
+ */
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('aboutWeCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize){
+
+
+
+
+
+
+
+}]);
+
+
+/**
  * Created by Administrator on 2016/7/27.
  */
 /**
@@ -10619,7 +10683,7 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
 
 
   $scope.userfanhui  = function () {
-    
+
     if(storage.getObject('UserInfo').user_id){
       $state.go('r.tab.SettingsUser')
     }else{
@@ -10632,7 +10696,7 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
       return false;
     }
 
-      
+
 
 
 }
@@ -10653,10 +10717,16 @@ function   login   (){
 
 $scope.getMdl   =      fromStateServ.stateChange;
 $scope.Personalsetting  = function (){
-  
+
   $state.go('r.tab.SettingsUpdate');
 
 }
+  $scope.aboutWe  = function (){
+
+    $state.go('r.tab.SettingWe');
+
+  }
+
 
 $scope.addermge  = function(){
 
@@ -10684,10 +10754,10 @@ $scope.updateAPP  =  function () {
       return false;
     }
 
-      
 
 
-    
+
+
   }
 
   $scope.companyInstall=function () {
@@ -10775,7 +10845,7 @@ var   userone = storage.getObject('UserInfo');
       $scope.Userinfo.integral    = user.integral
       }
     }
-    
+
         $scope.opencustomenuatts  = false;
         $scope.showco  =   function  () {
           var uil   = storage.getObject('UserInfo');
@@ -10841,7 +10911,7 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
    $scope.showtitle   = false;
   //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
-
+            
             if(fromStateServ.getState('r.Shophome')){
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView; 
@@ -10849,9 +10919,10 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
             }else{
                 $scope.showtitle  = false;
             }
+            
             $timeout(function(){
 
-                if($scope.goodlistdata.length  &&  $stateParams.ref){
+                if($scope.goodlistdata.length){
 
                 }else{
                         inlit();
@@ -11250,10 +11321,10 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
  */
 
      //全局变量定义
-
+     
     //  window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
-    window.Interactivehost  = 'http://192.168.0.56:1155/index.php?r=app/index';    
-    //window.Interactivehost =  'http://app.ywyde.com/index.php?r=app/index';
+    //window.Interactivehost  = 'http://192.168.0.56:1155/index.php?r=app/index';
+    window.Interactivehost =  'http://app.ywyde.com/index.php?r=app/index';
     //window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
     window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';
     

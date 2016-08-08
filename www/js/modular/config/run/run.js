@@ -29,7 +29,7 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
             };
 
   $ionicPlatform.ready(function() {
-    
+
     //$state.go('r.selectAuth');
     $state.go('r.tab.Home');
 
@@ -51,11 +51,15 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
       cordova.plugins.Keyboard.disableScroll(true);
       ionic.Platform.isFullScreen = true;
 
-
-
       //Return event listener
       //uuid
+       setTimeout(function () {
+          navigator.splashscreen.hide();
+      }, 1000);
       
+    if (window.StatusBar) {
+          window.StatusBar.styleDefault();
+    }
 
 
 
@@ -82,7 +86,7 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
                 storage.setObject('jPush',locjPush);
     }
 
-    if (window.StatusBar) {StatusBar.styleDefault();}
+
 
       window.noNavtionsback =  function (rooter,parmgs){
         $ionicNativeTransitions.stateGo(rooter,parmgs,{
@@ -215,11 +219,6 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
 
 
 
-       setTimeout(function () {
-        if(navigator){
-          navigator.splashscreen.hide();
-        }
-      }, 1000);
 
 
 
