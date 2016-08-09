@@ -46,10 +46,10 @@
               <div class="price">
                 <span class="pri">￥{{xx.total_in_price}}</span>
                 <div class="ctr"
-                ng-class="{'active':xx.ctr}"                
-                    ng-click='swatchctr(xx,$event)'  
+                ng-class="{'active':xx.ctr}"
+                    ng-click='swatchctr(xx,$event)'
                 >
-                
+
                 <i class="ion-ios-plus-outline"></i>
                   <div class="box"
                   ng-class="{'active':xx.ctr}"
@@ -136,7 +136,7 @@
             class="button button-icon "> <i class="ion-ios-search-strong" style="font-size: 24px;color: #999;"></i>
     </button>
 
-    <input type="text" ng-model="searchaction"  placeholder="请输入公司ID" style="    
+    <input type="text" ng-model="searchaction"  placeholder="请输入商品名称/商品编号" style="
         background: rgb(255, 255, 255);
         border-radius: 5px;
         border: 1px solid #ddd;
@@ -277,7 +277,7 @@
                     &#xe62e;
                   </i>
 
-              <input type="text"  ng-model="searchobj.tiaomiao"  placeholder="输入名称/条码查询"
+              <input type="text"  ng-model="searchobj.tiaomiao"  placeholder="请输入商品名称/商品编号"
                      style="background: #fff;padding-right: 40px;"    >
 
                 </div>
@@ -409,9 +409,9 @@
                           .sleilist  .item-content{
                             padding-top:10px;padding-bottom:10px;
                           }
-                         
+
                 </style>
-                
+
               <div>
                           <ion-list  style="margin-top:10px;">
                         <ion-item   ng-repeat="item in goodsClasda"   style="

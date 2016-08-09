@@ -121,11 +121,11 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
           titleText: '选择需要批量设置的属性',
           cancelText: '取消',
           buttonClicked: function(index) {
-            
+
             if(index != 4 && index != 5 ){
-              native.prompt('输入批量设置的数量!','提示',['确认','取消'],'请输入数量',function(ss){
+              native.prompt('输入批量设置的价格!','提示',['确认','取消'],'请输入价格',function(ss){
                 if(ss.buttonIndex  ==1){
-                  if(ss.input1  !== "请输入数量"){
+                  if(ss.input1  !== "请输入价格"){
 
                               var resulf =null;
                               if(index==0){
@@ -326,7 +326,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
 
             $scope.sublistaddnew.prop_value   = undefined;
 
-          
+
 
           })
 
