@@ -118,11 +118,11 @@ Ctr.controller('tasteCtr',['$scope','native','$state','fromStateServ','Tools','$
   function   caklatehe  (){
     if(window.platform  == 'ios'){
       $scope.caklateheight  = {
-        height:window.innerHeight-(64+151)+'px'
+        height:window.innerHeight-(44)+'px'
       }
     }else{
       $scope.caklateheight  = {
-        height:window.innerHeight-(44+151)+'px'
+        height:window.innerHeight-(24)+'px'
       }
     }
   };

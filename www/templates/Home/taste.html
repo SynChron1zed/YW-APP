@@ -22,6 +22,14 @@
 
   <ion-content style="background-color: whitesmoke" >
 
+    <ion-scroll  delegate-handle="list"
+                 lazy-scroll
+                 overflow-scroll="false"
+                 scrollbar-y="false"
+                 style="width: 100%;
+                     overflow:hidden
+                     "
+                 ng-style="caklateheight"   >
     <ion-slide-box    ng-if='guankao'  class='homeSlidebox' auto-play='true'  does-continue="true" >
       <ion-slide   ng-repeat="ss   in  guankao"   ng-click="gogunal(ss)"   >
         <img ng-src="{{ss.qiniu_key}}" alt="">
@@ -33,16 +41,8 @@
 
 
 
-    <ion-scroll  delegate-handle="list"
-                 lazy-scroll
-                 overflow-scroll="false"
-                 scrollbar-y="false"
-                 style="width: 100%;
-                     overflow:hidden
-                     "
-                 ng-style="caklateheight"   >
 
-      <ion-refresher spinner="ios"  pulling-text="刷新" on-refresh="loadOlderStories(true)"   ></ion-refresher>
+     <!-- <ion-refresher spinner="ios"  pulling-text="刷新" on-refresh="loadOlderStories(true)"   ></ion-refresher>-->
 
 
       <div class="shopgoodslit"  style="    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.03)"   ng-repeat="item in ShoppingList"    ng-click="newDetail(item)"  >
