@@ -50,10 +50,9 @@ $scope.seltwuiluthi  = function (it) {
 
 $scope.selecthiswuliufun  =   function(r){
 
-        if(!r.can_take){
+        if(r.buyer_take){
             $scope.ctrnowobj  = r;
             $scope.addjoinshopcart(true)
-
         }else{
             native.task('部分商品支持在快递物流,不可选择其他配送方式');
         }
