@@ -20,7 +20,7 @@
           </label>
 
           <div class="item item-input"   >
-                <span     class="input-label">条码 <span style="color: #fff"> *</span>
+                <span     class="input-label">条码 <span style="color: red">*</span>   <span style="color: #fff"> *</span>
                 </span>
 
                 <i    ng-click="Barcode()"     class="extends" style="
@@ -44,7 +44,7 @@
           </div>
 
 
-          
+
           <!--<div class="item" style="padding: 8px 10px;overflow: visible; " ng-model="airplaneMode"   ng-if="!edith_isfictitious"  >
                     <span style="display: inline-block;height: 40px;line-height: 40px;">
                     是否属于虚拟产品!
@@ -134,13 +134,13 @@
                 <div class="list " ng-show="!goods.edit" style="">
 
                         <div class="item" style="border-top: 1px solid #ddd;padding-top: 4px;padding-bottom:4px;"  >
-                          
+
                             <div    ng-show="!goods.edit"   ng-click="openattslist();"  style="position: relative;;float:left;color: #666;display:inline-block;width:50%;height: 30px;line-height: 30px;text-align: center">
                               <span   style="clear: both;position:absolute;left: 50%;margin-left: -25%;" >
                                       <i class="ion-plus" style="float:left;font-size: 21px;position: relative;top:0px;left: -6px;"></i>
                                       <span  style="float:left" > 添加规格</span>
                                </span>
-                            </div>    
+                            </div>
 
                             <div  ng-click="openlistset()"  style="position: relative;;color:#666;display:inline-block;width:50%;height: 30px;line-height: 30px;text-align: center">
                               <span   style="clear: both;position:absolute;left: 50%;margin-left: -25%;" >
@@ -164,7 +164,7 @@
             <span class="input-label">库存 </span>
             <input type="number"  placeholder="库存数"    ng-model="goods.Stock_number" >
           </div>
-          <div class="item item-input"     >
+          <div class="item item-input"   >
             <span class="input-label">运费 </span>
             <input type="number" placeholder="运费价格"    ng-model="goods.freight_price" >
           </div>
@@ -485,7 +485,7 @@
 
                           <ion-list>
 
-                            <ion-item ng-repeat="item in goods.skuSpe"   ng-show='{{      goods.edit?item.select?true:false :true     }}'   ng-click="showmichild(item)"   ng-class="{'select':item.chekd,'active':item.select}"  
+                            <ion-item ng-repeat="item in goods.skuSpe"   ng-show='{{      goods.edit?item.select?true:false :true     }}'   ng-click="showmichild(item)"   ng-class="{'select':item.chekd,'active':item.select}"
                             class="icon-left  skuitemthi"  >
                                     <i  class="chek ion-ios-checkmark"  style="color:#fe7e0b"  ng-class="{'active':item.select}"     style=""></i>
                                     <p>{{item.prop_name}}</p>

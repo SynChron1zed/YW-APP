@@ -12,14 +12,18 @@ Ctr.controller('companyInstallCtr',['$scope','$rootScope','$ionicViewSwitcher','
       selectaouthfunl.state=true;
       $state.go('r.selectAuth');
   }
-  
+
 
   $scope.expression = true;
   $scope.newexpression =true;
-  $scope.companyID = storage.getObject('UserInfo').company_id;
+
   $scope.companyName = storage.getObject('UserInfo').company_name;
   $scope.adminer = storage.getObject('UserInfo').is_admin;
   $scope.userid = storage.getObject('UserInfo').user_id;
+
+
+
+
 
   //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
@@ -28,7 +32,8 @@ Ctr.controller('companyInstallCtr',['$scope','$rootScope','$ionicViewSwitcher','
   });
 
   function select() {
-
+    $scope.companyID =  selectArr.selectarrs.companyid();
+    $scope.companyName =  selectArr.selectarrs.companyname();
     $scope.adminer = selectArr.selectarrs.isadmin();
     $scope.expression = true;
 
@@ -97,7 +102,7 @@ $scope.goManagement = function (value) {
   //解除绑定
 $scope.deleteCompany=function () {
 
-if($scope.adminer == "0"){
+/*if($scope.adminer == 1){
 
   $ionicPopup.alert({
     title:"请先移交管理员！",
@@ -105,7 +110,7 @@ if($scope.adminer == "0"){
 
   });
   return false;
-}else {
+}else {*/
 
   Tools.getData({
     "interface_number": "000402",
@@ -141,7 +146,7 @@ if($scope.adminer == "0"){
 }
 
 
-}
+
 
   //初始  信息
   function  newInitial  (){

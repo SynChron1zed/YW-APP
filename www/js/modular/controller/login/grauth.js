@@ -42,7 +42,11 @@ Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$io
   $scope.Submitaudit  =  function (){
 
 
+      if(!Tools.reg.ID($scope.form.id)){
 
+        native.task('请输入正确的身份证号码！');
+        return false
+      }
 
     if(!$scope.identity.Positive || !$scope.identity.inverse){
 
@@ -72,7 +76,7 @@ Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$io
         }
       },function(r){
         if(r){
-          
+
           var setin   =  storage.getObject('UserInfo');
           setin.auth_status   ='1';
           storage.setObject('UserInfo',setin);

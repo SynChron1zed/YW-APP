@@ -147,7 +147,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
     }
     $scope.removeumber  = function () {
       $scope.selectsku.number--;
-      if($scope.selectsku.number  >= 0){
+      if($scope.selectsku.number  <= 0){
         $scope.selectsku.number  =1;
       }
 
@@ -705,7 +705,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
              $scope.selectsku.number  =1;
              $scope.selectsku.state  =  false;
   }
-  
+
   $scope.lijibuy  = function () {
 
               if(storage.getObject('UserInfo').user_id){

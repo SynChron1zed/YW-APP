@@ -16,13 +16,19 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
     $scope.goModular('r.selectAuth');      
   }
   //慈善
+
   $scope.charitable =  function () {
+
     $scope.goModular('r.HomeCharitable');
+
   }
 
   //体验
+
   $scope.tastetable =  function () {
+
     $scope.goModular('r.HomTaste');
+
   }
 
 //查看物流
@@ -133,6 +139,8 @@ $scope.showlogistics  =  function () {
 
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
+
+    newsList();
        window.androdzerofun  =  undefined
        window.androdzerofun_parms  =undefined;
        window.androdzerofun_clback  = undefined;
@@ -195,6 +203,25 @@ $scope.gosales=function (r) {
     };
 
 
+
+
+  function newsList() {
+    Tools.getData({
+      "interface_number": "020002",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": ""
+      }
+    },function(r){
+      if(r){
+
+        $scope.news = (r.resp_data.data)
+
+      }
+    });
+
+
     Tools.getData({
       "interface_number": "020001",
       "client_type": window.platform,
@@ -210,21 +237,9 @@ $scope.gosales=function (r) {
 
       }
     });
+  }
 
-  Tools.getData({
-    "interface_number": "020002",
-    "client_type": window.platform,
-    "post_content": {
-      "token" : "",
-      "token_phone": ""
-    }
-  },function(r){
-    if(r){
 
-      $scope.news = (r.resp_data.data)
-
-    }
-  });
 
 
 

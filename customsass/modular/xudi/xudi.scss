@@ -709,7 +709,7 @@ background-color: #ffd21c;
 }
 
 .home-company{
-  text-align: -webkit-center;
+  text-align: center;
   font-size: 13px;
   padding-left: 3px;
   padding-right: 3px;
@@ -727,4 +727,33 @@ background-color: #ffd21c;
 }
 .foot-image{
   margin-top: .3rem;
+}
+.home-kuainews{
+
+  font-size: 12px;
+  overflow: hidden;
+  display: -webkit-box;
+  max-width: 85%;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  color: #a2a2a2
+}
+.home-kuainewsnody{
+  font-size: 12px;
+  overflow: hidden;
+  display: -webkit-box;
+  max-width: 95%;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  color: red;
+}
+.ziti-left{
+overflow: hidden;
+display: -webkit-box;
+max-width: 100%;
+              -webkit-line-clamp: 1;
+-webkit-box-orient: vertical;
+color: #a2a2a2;
+font-size: 14px;
+margin-top: 5px;
 }

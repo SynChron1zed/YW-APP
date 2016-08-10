@@ -282,6 +282,12 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     },
     equal: function (val1, val2) {
       return (val1 == val2);
+    },
+    qq:function (val) {
+      return /^[1-9]\d{4,11}$/.test(val)
+    },
+    Tphone:function (val) {
+      return /^1[3|4|5|7|8]\d{9}$/.test(val)
     }
 
   };

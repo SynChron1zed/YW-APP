@@ -9,7 +9,7 @@
    <div>
         <div class="lable">法人</div>
         <div class="input">
-          <input type="text"  ng-model="from.legal"  placeholder="填写法人姓名">
+          <input type="text"  ng-model="from.legal" maxlength="5"  placeholder="填写法人姓名">
         </div>
       </div>
 
@@ -18,7 +18,7 @@
         <div class="lable">营业执照</div>
         <div class="input">
 
-          <input type="text"  ng-model="from.License"  placeholder="填写营业执照注册号">
+          <input type="text"  ng-model="from.License" maxlength="20" placeholder="填写营业执照注册号">
 
         </div>
       </div>
@@ -28,7 +28,7 @@
         <div class="lable">组织机构</div>
         <div class="input">
 
-          <input type="text"  ng-model="from.mechanism"  placeholder="填写组织机构代码证书">
+          <input type="text"  ng-model="from.mechanism" maxlength="15"  placeholder="填写组织机构代码证书">
 
         </div>
       </div>

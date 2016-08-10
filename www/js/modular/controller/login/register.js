@@ -3,13 +3,13 @@
  */
 Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native){
 
-  
+
    //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
     if(loginregisterstate.Refresh){
         $scope.registbasinfo  = {};
         loginregisterstate.Refresh  = false;
-    }  
+    }
   });
 
 
@@ -22,6 +22,7 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
   //获取验证码
   var sctolthi  = true;
   $scope.GetverCode =  function (){
+   
     if(sctolthi){
 
           sctolthi  = false;
@@ -31,6 +32,13 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
             sctolthi  = true;
             return false;
           };
+
+      if(!Tools.reg.Tphone($scope.registbasinfo.phone)){
+
+        native.task('请输入正确的手机号码！');
+        return false
+      }
+
           Tools.getData({
             "interface_number": "000101",
             "post_content": {
@@ -54,7 +62,7 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
             }else{
               sctolthi  = true;
             }
-            
+
           },function(){
             sctolthi  = true;
           });
@@ -84,7 +92,7 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
       return  false;
     }
     if(!$scope.registbasinfo.userName){
-      
+
       native.task('请输入姓名!');
       return  false;
     }

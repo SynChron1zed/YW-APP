@@ -112,10 +112,10 @@
                 line-height: 1.4;
             " >{{ x.company_name }}</div>
          <div class="lev" style=" position: absolute;bottom: 0;width: 100%;">
-              <img src="/img/homepage/lev1.png" alt="" ng-if="x.faith_level==1" style="width: 15%;">
-              <img src="/img/homepage/lev2.png" alt="" ng-if="x.faith_level==2" style="width: 35%;">
-              <img src="/img/homepage/lev3.png" alt="" ng-if="x.faith_level==3" style="width: 50%;">
-              <img src="/img/homepage/lev4.png" alt="" ng-if="x.faith_level==4" style="width: 70%;">
+              <img src="./img/homepage/lev1.png" alt="" ng-if="x.faith_level==1" style="width: 15%;">
+              <img src="./img/homepage/lev2.png" alt="" ng-if="x.faith_level==2" style="width: 35%;">
+              <img src="./img/homepage/lev3.png" alt="" ng-if="x.faith_level==3" style="width: 50%;">
+              <img src="./img/homepage/lev4.png" alt="" ng-if="x.faith_level==4" style="width: 70%;">
               <img src="./img/homepage/lev5.png" alt="" ng-if="x.faith_level==5" style="width: 80%;">
             </div>
           </div>
@@ -133,14 +133,35 @@
       <div class="title">易物快报  </div>
       <div class="content">
 
-        <div class="newitem" ng-repeat="x in news">
+        <div class="  gerenlist-icon" ng-repeat="x in news">
+
+          <label class=""   style=""  >
+            <div class="row" style="height: 35px;    border-bottom: 1px solid #ccc;" >
+              <div  class="col" style="">
+                    <div class="home-kuainews">{{ x.buyer_nick }}</div>
+
+              </div>
+
+              <div class="col col-50">
+                        <div class="home-kuainewsnody">成功交易了{{ x.goods_name  }}</div>
+              </div>
+              <div  class="col" style="">
+                <div style="font-size: 12px;text-align: -webkit-center;">{{ x.pay_time}}</div>
+              </div>
+            </div>
+          </label>
+        </div>
+
+
+
+      <!--  <div class="newitem" ng-repeat="x in news">
           <div style="width: 70%;text-indent: 5px">
             <span class="home-kuaibao">{{ x.buyer_nick }}</span>
             <span style="margin-left: 10%;color: red;">成功交易了{{ x.goods_name  }}</span>
           </div>
           <div class="tiem">{{ x.pay_time}}</div>
         </div>
-
+-->
       </div>
 
     </div>

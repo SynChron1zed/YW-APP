@@ -22,8 +22,12 @@
 
 
       <div class="shopcartnologin" ng-show="isShow">
-          <img src="./img/img3@x.png" alt="">
-          <button class="gotologin"    ng-click="login('r.login')" >登 录</button>
+        <img src="./img/classif/icon_gouwuchebj@3x.png" alt="" style="width: 25%">
+        <div style="font-size: 25px;">没有订单</div>
+        <div style="margin-top: 15px;
+    font-size: 15px;
+    color: #444;">您还没有登录，请登录后查看购物车</div>
+        <button class="gotologin"    ng-click="login('r.login')" style="margin-top: 15px">立即登录</button>
       </div>
 
         <div class="shopcartBOXLIST"  ng-show="!isShow"  >

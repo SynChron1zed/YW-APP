@@ -62,6 +62,10 @@
         needpaid:function () {
           return  storage.getObject('UserInfo').need_paid
         },
+              companyname:function () {
+                return  storage.getObject('UserInfo').company_name
+              },
+
       }
     }
   }])

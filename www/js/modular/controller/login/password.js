@@ -20,6 +20,13 @@ Ctr.controller('passwordoldCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
         sctolthi  = true;
         return false;
       };
+
+      if(!Tools.reg.Tphone($scope.registbasinfo.phone)){
+
+        native.task('请输入正确的手机号码！');
+        return false
+      }
+
       Tools.getData({
         "interface_number": "050304",
         "post_content": {
@@ -116,7 +123,7 @@ Ctr.controller('passwordoldCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
       "verify_code":$scope.registbasinfo.Vercode
     }
   },function(r){
-   
+
     if(r.msg== "success"){
 
       $rootScope.$ionicGoBack();

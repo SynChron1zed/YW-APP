@@ -22,17 +22,6 @@
 
   <ion-content style="background-color: whitesmoke" >
 
-    <ion-slide-box    ng-if='guankao'  class='homeSlidebox' auto-play='true'  does-continue="true" >
-      <ion-slide   ng-repeat="ss   in  guankao"   ng-click="gogunal(ss)"   >
-        <img ng-src="{{ss.qiniu_key}}" alt="">
-      </ion-slide>
-    </ion-slide-box>
-
-    <div class=" taste-names">推荐商品</div>
-    <div class=" row"><hr class="taste-hengxian"/></div>
-
-
-
     <ion-scroll  delegate-handle="list"
                  lazy-scroll
                  overflow-scroll="false"
@@ -41,8 +30,19 @@
                      overflow:hidden
                      "
                  ng-style="caklateheight"   >
+    <ion-slide-box    ng-if='guankao'  class='homeSlidebox' auto-play='true'  does-continue="true" >
+      <ion-slide   ng-repeat="ss   in  guankao"   ng-click="gogunal(ss)"   >
+        <img ng-src="{{ss.qiniu_key}}" alt="">
+      </ion-slide>
+    </ion-slide-box>
 
-      <ion-refresher spinner="ios"  pulling-text="刷新" on-refresh="loadOlderStories(true)"   ></ion-refresher>
+    <div class=" taste-names">体验商品</div>
+    <div class=" row"><hr class="taste-hengxian"/></div>
+
+
+
+
+     <!-- <ion-refresher spinner="ios"  pulling-text="刷新" on-refresh="loadOlderStories(true)"   ></ion-refresher>-->
 
 
       <div class="shopgoodslit"  style="    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.03)"   ng-repeat="item in ShoppingList"    ng-click="newDetail(item)"  >

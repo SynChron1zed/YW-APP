@@ -107,7 +107,7 @@ $scope.updateAPP  =  function () {
 
   $scope.outlogin  =   function (){
 
-   native.confirm('你确定要退出当前用户吗','退出登录',['登出','取消'],function(c){
+   native.confirm('你确定要退出当前用户吗','退出登录',['退出','取消'],function(c){
 
         if(c  == 1){
                   window.outlogin(function(){

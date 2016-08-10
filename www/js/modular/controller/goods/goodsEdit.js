@@ -366,11 +366,11 @@ function  creatpint   (e){
           titleText: '选择需要批量设置的属性',
           cancelText: '取消',
           buttonClicked: function(index) {
-            
+
             if(index != 4 && index != 5 ){
-              native.prompt('输入批量设置的数量!','提示',['确认','取消'],'请输入数量',function(ss){
+              native.prompt('输入批量设置的价格!','提示',['确认','取消'],'请输入价格',function(ss){
                 if(ss.buttonIndex  ==1){
-                  if(ss.input1  !== "请输入数量"){
+                  if(ss.input1  !== "请输入价格"){
 
                               var resulf =null;
                               if(index==0){
@@ -571,7 +571,7 @@ function  creatpint   (e){
 
             $scope.sublistaddnew.prop_value   = undefined;
 
-          
+
 
           })
 
@@ -1144,6 +1144,8 @@ $scope.save  = function (){
     return  false;
   }
 
+
+
   native.loading();
   uploadimg(function(){
       // console.log(JSON.stringify($scope.goodspice))
@@ -1196,6 +1198,22 @@ $scope.save  = function (){
           native.hidloading();
           return  false;
         }
+      if(!Tools.reg.negative($scope.goods.Market_price)){
+        native.task('请填写正确的市场价!');
+
+        return  false;
+      }
+      if(!Tools.reg.negative($scope.goods.Platform_price)){
+        native.task('请填写正确的平台价!');
+
+        return  false;
+      }
+      if(!Tools.reg.negative($scope.goods.freight_price)){
+        native.task('请填写正确的运费!');
+
+        return  false;
+      }
+
 
         var loid  =undefined;
 
