@@ -1,19 +1,6 @@
 Ctr.controller('ConfirmorderZfctr',['$scope','buyConfirmorde','Tools','$timeout','$state','comforderlistadder','native','fromStateServ','$ionicScrollDelegate',function ($scope,buyConfirmorde,Tools,$timeout,$state,comforderlistadder,native,fromStateServ,$ionicScrollDelegate){
 
 
-$scope.wuliuseleclist  = [
-    {
-        name:'快递物流',
-        value:0,
-        select:true
-    },
-    {
-        name:'门店自提',
-        value:1,
-        select:false
-    }
-];
-
 $scope.seltwuiluthi  = function (it) {
         angular.forEach($scope.wuliuseleclist,function (ss) {
                 ss.select   = false;
@@ -190,6 +177,23 @@ $scope.comorder  =function () {
    function  inlit  (){
 
        $ionicScrollDelegate.scrollTop();
+
+
+$scope.wuliuseleclist  = [
+    {
+        name:'快递物流',
+        value:0,
+        select:true
+    },
+    {
+        name:'门店自提',
+        value:1,
+        select:false
+    }
+];
+
+
+
             if(comforderlistadder.no){
                 comforderlistadder.no  = false
                 return false;
