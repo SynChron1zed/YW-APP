@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2016 /21.
  */
-Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$stateParams','$ionicScrollDelegate','$ionicHistory','$ionicNativeTransitions',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$stateParams,$ionicScrollDelegate,$ionicHistory,$ionicNativeTransitions) {
+Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$stateParams','$ionicScrollDelegate','$ionicHistory','$ionicNativeTransitions','$ionicModal',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$stateParams,$ionicScrollDelegate,$ionicHistory,$ionicNativeTransitions,$ionicModal) {
 
 
 
@@ -300,6 +300,59 @@ if(bascId==1){
   $scope.dataRight =function (value) {
 
     $state.go('r.Logistics',{id:value})
+  };
+
+  $ionicModal.fromTemplateUrl('templates/leftModal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.leftmodal = modal;
+  });
+
+  $scope.selfRight = function (val) {
+    $scope.leftmodal.show();
+    $scope.odId = val
+    Tools.getData({
+      "interface_number": "020804",
+      "post_content": {
+        "token":"",
+        "token_phone": "",
+        goods_id: $scope.odId
+
+      }
+
+    },function(r){
+
+      if(r.msg== "success"){
+        $scope.selfList =r.resp_data
+
+      }else{
+
+        return false
+
+      }
+
+
+    });
+
+
   }
+
+  $scope.newQuery =function () {
+    $scope.leftmodal.hide();
+  }
+
+  $scope.selfLeft = function (val) {
+
+    $scope.selfId  = 'http://pan.baidu.com/share/qrcode?w=400&h=400&url='+val;
+    console.log(val);
+    $scope.opencustomenuatts  = true;
+  }
+
+  $scope.closecustomenu  =   function  () {
+    $scope.opencustomenuatts   = false;
+  }
+  $scope.$on('$ionicView.beforeLeave',function(){
+    $scope.closecustomenu();
+  })
 
 }]);

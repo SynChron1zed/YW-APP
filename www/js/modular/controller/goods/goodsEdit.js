@@ -877,6 +877,8 @@ $scope.save  = function (){
     return  false;
   }
 
+
+
   native.loading();
   uploadimg(function(){
       // console.log(JSON.stringify($scope.goodspice))
@@ -929,6 +931,22 @@ $scope.save  = function (){
           native.hidloading();
           return  false;
         }
+      if(!Tools.reg.negative($scope.goods.Market_price)){
+        native.task('请填写正确的市场价!');
+
+        return  false;
+      }
+      if(!Tools.reg.negative($scope.goods.Platform_price)){
+        native.task('请填写正确的平台价!');
+
+        return  false;
+      }
+      if(!Tools.reg.negative($scope.goods.freight_price)){
+        native.task('请填写正确的运费!');
+
+        return  false;
+      }
+
 
         var loid  =undefined;
 

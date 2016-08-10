@@ -19,7 +19,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       'https://m.kuaidi100.com/**',
     ]);
 
-    
+
   $ionicNativeTransitionsProvider.setDefaultOptions({
     duration: 300, // in milliseconds (ms), default 400,
     slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
@@ -495,24 +495,12 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-  /*  //采购订单
-    .state('r.tab.HomPurchase',{
-      url: '/HomPurchase',
-      views: {
-        'Home': {
-          templateUrl: 'templates/Home/purchaseorder.html',
-          controller: 'purchaseorderCtr'
-        }
-      }
-    })*/
+
 
     //采购订单
     .state('r.HomPurchase', {
       url: '/HomPurchase',
-      // nativeTransitions: {
-      //   "type": "flip",
-      //   "direction": "up"
-      // },
+
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.HomPurchase')
       },
@@ -530,15 +518,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
     //销售订单详情
-/*    .state('r.tab.Homordersbody',{
-      url: '/HomOrdersBody/:basicID',
-      views: {
-        'Home': {
-          templateUrl: 'templates/Home/ordersbody.html',
-          controller: 'ordersbodyCtr'
-        }
-      }
-    })*/
+
     .state('r.Homordersbody', {
       url: '/HomOrdersBody/:basicID',
       cache: false,
@@ -551,17 +531,25 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
+ /*   .state('r.Homordersbody', {
+      url: '/Homordersbody/:basicID',
 
-    //采购订单详情
-/*    .state('r.tab.HomPurordersbody',{
-      url: '/HomPurOrdersBody/:basicID',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.Homordersbody')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
       views: {
-        'Home': {
-          templateUrl: 'templates/Home/purchasebody.html',
-          controller: 'purbodyCtr'
+        'rootview': {
+          templateUrl: 'templates/Home/ordersbody.html',
+          controller: 'ordersbodyCtr'
         }
       }
     })*/
+
+    //采购订单详情
+
     .state('r.HomPurordersbody', {
       url: '/HomPurOrdersBody/:basicID',
       cache: false,

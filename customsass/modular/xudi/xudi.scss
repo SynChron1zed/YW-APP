@@ -747,3 +747,13 @@ background-color: #ffd21c;
   -webkit-box-orient: vertical;
   color: red;
 }
+.ziti-left{
+overflow: hidden;
+display: -webkit-box;
+max-width: 100%;
+              -webkit-line-clamp: 1;
+-webkit-box-orient: vertical;
+color: #a2a2a2;
+font-size: 14px;
+margin-top: 5px;
+}

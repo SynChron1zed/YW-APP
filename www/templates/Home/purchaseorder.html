@@ -134,12 +134,16 @@
 
             <a class="item item-icon-right item-input-left"  style="height: 50px;padding: 6px">
 
-              <div style="float: right;padding: 2px"  >
+              <div style="float: right;padding: 2px"  >  <!-- 1 自提  0 物流-->
+                <button  ng-click="selfLeft(item.odid)"  ng-if="item.post_type==1"  class="button button-small button-stabl"  style="width: 60px; border: 1px solid #a2a2a2;"><p style="color:#a2a2a2;font-size: 10px">二维码</p></button>
+
+                <button  ng-click="selfRight(item.goods_basic_id)"  ng-if="item.post_type==1"  class="button button-small button-stabl"  style="width: 60px; border: 1px solid #11c1f3;"><p style="color:#a2a2a2;font-size: 10px">商家信息</p></button>
+
                 <button  ng-click="dataRight(item.order_basic_id)"  ng-if="item.post_status==2"  class="button button-small button-stabl"  style="width: 60px; border: 1px solid #feeb0b;"><p style="color:#a2a2a2;font-size: 10px">物流详情</p></button>
 
-                <button  ng-click="dataLeft(item.odid,item.order_basic_id,$index)"  ng-if="item.post_status==2"  class="button button-small button-stabl"  style="width: 60px; border: 1px solid #33cd5f;"><p style="color:#28a54c">收&nbsp;货</p></button>
+                <button  ng-click="dataLeft(item.odid,item.order_basic_id,$index)"  ng-if="item.post_status==2"  class="button button-small button-stabl"  style="width: 55px; border: 1px solid #33cd5f;"><p style="color:#28a54c;font-size: 10px">收&nbsp;货</p></button>
 
-                <button ng-click="purchaseorde(item.odid)" class="button button-small button-stabl"  style="width: 60px; border: 1px solid orange;">详&nbsp;情</button>
+                <button ng-click="purchaseorde(item.odid)" class="button button-small button-stabl"  style="width: 55px; border: 1px solid orange;">详&nbsp;情</button>
               </div>
 
             </a>
@@ -160,10 +164,93 @@
 
     </ion-scroll>
 
+    <style>
 
+      .showcoder.active{
+
+        opacity: 1 !important;
+        z-index: 9999 !important;
+      }
+    </style>
+
+    <div class="madtansition  action-sheet-backdrop  coustim-code   showcoder"   id="ahseetparnercode"       ng-click='closecustomenu()'
+         style="display:flex !important;background: rgba(0,0,0,0.7) !important;
+            opacity: 0;
+            z-index: -1;
+           "
+         ng-class="{'active':opencustomenuatts}"   >
+      <div style="text-align:center">
+
+        <img   ng-src="{{selfId}}"
+
+               style="    width: 16em;
+              height: 16em;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              margin-left: -8em;
+              margin-top: -8em;"
+               alt="">
+      </div>
+    </div>
 
   </ion-content>
 
+
+
+  <script id="templates/leftModal.html" type="text/ng-template">
+    <ion-modal-view>
+
+      <ion-header-bar class="bar bar-header bar-positive">
+        <button class="button button-clear button-primary"  ng-click="newQuery()"  style="color: #333"> <i class="icon ion-ios-arrow-left"></i>&nbsp;商家信息</button>
+        <h1 class="title"></h1>
+        <button class="button button-clear button-primary" ng-click="query()" style="color: #333"></button>
+      </ion-header-bar>
+
+      <ion-content style="background: #F7F7F7;overflow: hidden;" ;overflow-scroll="false">
+
+        <div class="list" style="overflow: visible;z-index: 999;padding:0px;">
+
+<!--
+          <ion-scroll  delegate-handle="list"
+                       lazy-scroll
+                       overflow-scroll="false"
+                       scrollbar-y="false"
+                       style="width: 100%;
+                     overflow:hidden
+                     "
+                       ng-style="caklateheightList"  >-->
+           <!-- <ion-refresher spinner="ios"  pulling-text="刷新" on-refresh="loadOlderStoriesList(true)"   ></ion-refresher>
+          -->  <div class="list   gerenlist-icon" style="">
+
+              <label class=""   style="" ng-repeat="item in selfList" >
+                <div class="row" style="height:60px;    border-bottom: 1px solid #ccc;" >
+                  <div  class="col col-80" style="width: 100px">
+                       <span class="news-yiyu">{{item[0].name}}</span>
+                       <span class="ziti-left">{{item[0].address}}</span>
+
+                  </div>
+
+                  <div class="col ">
+                    <a href="tel:{{item[0].link}}">
+
+           <img src="./img/classif/phoneziti.png" style=" width: 45px;border-left: 1px solid #a2a2a2;float: right;">
+                    </a>
+                  </div>
+                </div>
+              </label>
+            </div>
+
+
+            <!--<ion-infinite-scroll  ng-if="expressionList" style="height: 20px;line-height: 40px;margin-bottom:20px;text-align: center" spinner="dots" on-infinite="loadOlderStoriesList()"  distance="1%"  > </ion-infinite-scroll>
+            <div ng-if="!expressionList" style="line-height: 90px;margin-bottom:40px;text-align: center;color:#999" >没有更多了!</div>
+      -->  </div>
+
+
+
+      </ion-content>
+    </ion-modal-view>
+  </script>
 
 
 </ion-view>
