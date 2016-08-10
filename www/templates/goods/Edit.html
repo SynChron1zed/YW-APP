@@ -168,8 +168,30 @@
             <span class="input-label">运费 </span>
             <input type="number" placeholder="运费价格"    ng-model="goods.freight_price" >
           </div>
+
         </div>
 
+
+        <p style="
+            margin: 0;
+            height: 30px;
+            line-height: 30px;
+            text-indent: 10px;
+            color: #464545;
+        " >配送方式  </p>
+
+        <div class="list">
+
+               <ion-toggle ng-model="goods.post"  ng-disabled="true"  >快递物流</ion-toggle>
+               <ion-toggle ng-model="goods.Since" >门店自提</ion-toggle>
+                <div class="item canshoumi"   ng-click="opensincesetiing()"    ng-class="{'show':goods.Since}"     >
+                      自提点设置
+                      <i class="ion-ios-settings-strong"  style="    font-size: 25px;position: absolute;right: 22px;color: #797979;top: 14px;
+                      " ></i>
+                </div>
+
+
+        </div>
 
 
 
@@ -192,7 +214,6 @@
             font-size: 60px;
             color: #636363;
           }
-
           .pushgoodphost .shoping, .pushgoodphost  .kinlh{
             display:none;
           }
@@ -498,6 +519,210 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <script id="Since.html" type="text/ng-template">
+          <div class="modal">
+                      <ion-header-bar  class="bar-positive item-input-inset  lb-main-title-search" >
+                        <button  style="padding: 0px;" class="button button-icon " ng-click="setmendianmsg()"  >
+                          自提列表
+                        </button>
+                        <h5 class="title"></h5>
+                        <button class="button button-icon ion-android-close"  ng-click="Since.hide()" >
+                        </button>
+                      </ion-header-bar>
+                      <ion-content   overflow-scroll="false"  scrollbar-y="false" style='background:#f7f7f7'    >
+
+                    
+
+                    <p ng-show="!Sincesome.length"
+                     style="    text-indent: 10px;color: #777777;" 
+                     >还没有自提点</p>
+
+<!--                     
+                        <p ng-show="Sincesome.length"
+                     style="    text-indent: 10px;color: #777777;" 
+                     >侧滑删除</p> -->
+
+
+<!--
+                    <ion-list   
+                    >
+                      <ion-item  ng-repeat="aa  in  Sincesome"                               >
+                        <h5>{{aa.name}}   <span style="float:right;"   >{{aa.link}}</span> </h5>
+                        <p>{{aa.address}}</p>
+                        <ion-option-button class="button-assertive"
+                                          ng-click="edit(item)">
+                          删除
+                        </ion-option-button>
+
+                        <ion-delete-button class="ion-minus-circled"  >
+                          dsa
+                        </ion-delete-button>
+
+
+                      </ion-item>
+                    </ion-list>-->
+
+                      <style>
+                        .bildthisitmeicon    .ion-ios-checkmark  {
+                            color:#fe7e0b !important
+                        }
+                        .bildthisitmeicon   .item-content {
+                              padding-right: 62px  !important;   
+                        }
+                      </style>
+
+
+                    <ion-list   class="bildthisitmeicon"     
+                                show-delete="true"
+                                show-reorder="shouldShowReorder"
+                                  >
+                        <ion-item 
+
+                        ng-repeat="aa  in  Sincesome"   ng-click="xuanzheopition(aa)"    >
+
+                            <div >
+                            <p  style="    color: #3a3a3a;">{{aa.name}}   <span style="float:right;"   >{{aa.link}}</span> </p>
+                            <p>{{aa.address}}</p>
+                            </div>
+                            <ion-delete-button  ng-click="selectthi(aa)"  ng-class="{'ion-ios-circle-outline':!aa.select,'ion-ios-checkmark':aa.select}"    class="ion-ios-circle-outline"  style="color:#989898"   >
+                            </ion-delete-button>
+                          <ion-reorder-button class="ion-trash-b"     >
+                          </ion-reorder-button>
+                        </ion-item>
+                      </ion-list>
+
+                          <button ng-click="xuanzheopition()"
+                           style="width: 80%;
+                                  margin-left: 10%;
+                                  padding: 0px;
+                                  height: 42px;
+                                  line-height: 42px;
+                                  background: #f3e009;
+                                  border: none;
+                                  margin-top: 10px;
+                                  border-radius: 5px;
+                                  color: #6b3801;
+                                  letter-spacing: 1px;
+                                  margin-bottom:20px;
+                                  font-size:15px;
+                                "                   
+                            >
+                            添加自提点
+                          </button>
+
+              </ion-content>
+          </div>
+ </script>
+
+
+
+
+
+
+ <script id="map.html" type="text/ng-template">
+          <div class="modal">
+                      <ion-header-bar  class="bar-positive item-input-inset  lb-main-title-search" >
+                        <button  style="padding: 0px;" class="button button-icon "  ng-click="map.hide()"  >
+                          取消
+                        </button>
+                        <h5 class="title"></h5>
+                        <button class="button button-icon"  ng-click="savePintthi()" >
+                          完成
+                        </button>
+                      </ion-header-bar>
+                  <ion-content  scroll="false"   >
+
+
+                        <div  style="height:100%;"  id="container"></div> 
+
+            </ion-content>
+
+  <ion-footer-bar class="bar-energized "   >
+
+          <!--<div class="buttons" ng-click="setmendianmsg()"   style="font-size:15px;line-height: 34px;color: #794901;"  > 
+          </div>-->
+
+          <h1 class="title" ng-click="setmendianmsg()"  style="font-size: 15px;font-weight: normal;color: #794901;letter-spacing: 1px;"  > 设置门店信息</h1>
+
+        </ion-footer-bar>
+
+
+
+
+    <!--//set模块-->
+    <div class="action-sheet-backdrop cutom-sheet"   ng-click="closetallcationvalue()"   id='setmapid'   style="overflow: visible;
+    "  ng-class="{'active':setallcationstate}" >
+
+        <div class="action-sheet-wrapper    setmapintking   "   ng-class="{'action-sheet-up':setallcationstate}" style="overflow: visible;
+            top:0px;
+            transform: translate3d(0,-100%,0);
+            -webkit-transform: translate3d(0,-100%,0);
+        "   >
+            <div class="action-sheet"  " style="width: 100%;margin: 0px;border-radius: 0px;overflow:visible">
+                <div class="action-sheet-group action-sheet-options   Custom-menu" 
+                ng-click="stopporp($event)"
+                style="background: #fff;overflow: visible;margin: 0px;border-radius: 0px;"  >
+                    <div style="width:94%;margin-left:3%;position:relative">
+
+                          <p style="height:20px;"></p>
+                          <div class="list">
+
+                            <label class="item item-input"><input type="text" ng-model="mapTagging.title"   placeholder="自提点名称"></label>
+                            <label class="item item-input"><input type="text"   ng-model="mapTagging.tel"    placeholder="联系方式"></label>
+                            <label class="item item-input"><input type="text" ng-model="mapTagging.business"   placeholder="自提时间"></label>
+                            </div>
+
+                            <button    ng-click="comfpintbasemsg()"
+                             style="
+                                margin-top:10px;
+                                margin-bottom:10px;
+                                width: 100%;
+                                border: none;
+                                color: rgb(255, 255, 255);
+                                font-size: 16px;
+                                font-weight: 400;
+                                height: 42px;
+                                border-radius: 0px;
+                                background: rgb(255, 159, 4);
+                             " > 确 认 </button>
+
+                    </div>
+                             
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+        </script>
+
+
+
+
+      
 
       </ion-content>
 </ion-view>

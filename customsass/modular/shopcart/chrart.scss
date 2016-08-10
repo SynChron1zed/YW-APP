@@ -115,17 +115,21 @@ ion-content{
             .icons.chekthis{
               i{color: #fe7e0b}
             }
+
             .goodsimg{
-              flex: 3.2;
-              overflow: hidden;
-              width: 30%;
-              display: box;
-              display: -webkit-box;
-              display: -moz-box;
-              -webkit-box-pack: center;
-              -moz-box-pack: center;
-              -webkit-box-align: center;
-              -moz-box-align: center;
+               flex: 3.2;
+                overflow: hidden;
+                width: 30%;
+                display: box;
+                display: -webkit-box;
+                display: -moz-box;
+                -webkit-box-pack: center;
+                -moz-box-pack: center;
+                -webkit-box-align: center;
+                margin-bottom: .3rem;
+                -moz-box-align: center;
+                height: 4.5rem;
+                
             }
 
             .goodsbasmsg.edit {

@@ -38,7 +38,7 @@ Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory)
                       }else{
 
                             $scope.backtoprevView('r.Logistics');
-                            cordova.InAppBrowser.open(r.resp_data.url, '_blank', 'location=yes');
+                            cordova.InAppBrowser.open(r.resp_data.url, '_blank', 'location=no');
                             
                       }
                 }else{

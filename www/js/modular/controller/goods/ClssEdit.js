@@ -450,6 +450,7 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
         },function(r){
           if(r){
             $scope.title  = $scope.classinfo.title;
+                native.task('保存成功');
                 $scope.goodsfenle.hide();
           }
         })

@@ -1,8 +1,8 @@
 /**
  * Created by Why on 16/6/6.
  */
-App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout','native','fromStateServ',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,
-$ionicNativeTransitions,$timeout,native,fromStateServ) {
+App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout','native','fromStateServ','$cordovaGeolocation',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,
+$ionicNativeTransitions,$timeout,native,fromStateServ,$cordovaGeolocation) {
 
               //$cordovaProgress.showBar(true, 50000);
               //退出登录
@@ -27,12 +27,17 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
                   }
                 })
             };
+            
+      storage.setObject('location',{
+          lat:28.188874,
+          long:112.991093
+        });
+        
 
   $ionicPlatform.ready(function() {
-
     //$state.go('r.selectAuth');
     $state.go('r.tab.Home');
-
+    
     //初始化    用户信息
     if(!storage.getObject('UserInfo').user_id){
       //没有登录写入   默认基本  信息
@@ -73,6 +78,63 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
         }, function(){});
         locldevice.uuid  = device.uuid;
         storage.setObject('device',locldevice)
+
+    //获取极光推送注册id
+    window.plugins.jPushPlugin.getRegistrationID( function(data) {
+      try {
+        
+        var  locjPush  =    storage.getObject('jPush');
+        locjPush.RegistrationID =  data;
+        storage.setObject('jPush',locjPush);
+        if(storage.getObject('UserInfo').user_id){
+              Tools.getData({
+           "interface_number": "000004",
+              "post_content": {
+                "pushId":data,
+                "uuid":device.uuid
+              }
+        },function (r){
+          if(r){
+          }
+         })
+        }
+
+      
+
+
+      } catch(exception) {
+        console.log(exception,'发生了错误');
+      }
+    });
+
+
+
+
+
+
+
+
+ var posOptions = {timeout: 10000, enableHighAccuracy: false};
+  $cordovaGeolocation
+    .getCurrentPosition(posOptions)
+    .then(function (position) {
+   var lat  = position.coords.latitude;
+      var long = position.coords.longitude;
+        alert('成功')
+        storage.setObject('location',{
+          lat:lat,
+          long:long
+        });
+
+    }, function(err) {
+      // error
+    });
+
+
+
+
+
+
 
     }else{
         //这里是浏览器写的是固定的值
@@ -131,6 +193,8 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
         return false;
       }
 
+
+
     //执行一个零时的 处理函数
         if(window.androdzerofun){
             window.androdzerofun(window.androdzerofun_parms,window.androdzerofun_clback);
@@ -142,8 +206,7 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
        showConfirm();
      } else if ($ionicHistory.backView()) {
        $rootScope.$ionicGoBack();
-
-     } else {
+     }else {
        // This is the last page: Show confirmation popup
        showConfirm();
      }
@@ -166,16 +229,10 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
     //调试模式
     //window.plugins.jPushPlugin.setDebugMode(true);
 
-    //获取极光推送注册id
-    window.plugins.jPushPlugin.getRegistrationID( function(data) {
-      try {
-        var  locjPush  =    storage.getObject('jPush');
-        locjPush.RegistrationID =  data;
-        storage.setObject('jPush',locjPush);
-      } catch(exception) {
-        console.log(exception,'发生了错误');
-      }
-    });
+
+
+
+
 
     //极光推送事件处理
     //极光数据处理  兼容ios  安卓平台  剥离数据
@@ -198,6 +255,7 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
     };
 
 
+
     //点击通知的处理
     var onOpenNotification  = function(){
       var alertContent  =  bestripped(window.plugins.jPushPlugin.openNotification);
@@ -205,6 +263,8 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
       //window.plugins.jPushPlugin.openNotification
       alert(' 点击事件');
     };
+
+
 
     window.document.addEventListener("jpush.openNotification", onOpenNotification, true);
     //收到推送 事件  触发
@@ -228,8 +288,11 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
 
   window.updateAPP  =  function(r){
 
+    return  false;
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
+
+      
     }
 
     if(window.cordova){
@@ -248,7 +311,7 @@ $ionicNativeTransitions,$timeout,native,fromStateServ) {
         },function(r){
           if(r){
             if(r.resp_data.data.new){
-               native.confirm('检查到有新的版本更新','升级易物宜得？',['更新','取消'],function(c){
+               native.confirm('检查到有新的版本更新','升级易物宜得？',['更新'],function(c){
                   if(c  == 1){
                     updataAp(r.resp_data.data.downloadUrl);
                   }

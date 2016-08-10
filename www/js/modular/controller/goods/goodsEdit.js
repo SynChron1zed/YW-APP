@@ -2,9 +2,254 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','native','Tools','$ionicPopup','$ionicModal','$rootScope','goodsState','$ionicScrollDelegate','$ionicActionSheet',function($scope,$timeout,$state,$stateParams,native,Tools,$ionicPopup,$ionicModal,$rootScope,goodsState,$ionicScrollDelegate,$ionicActionSheet){
+Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','native','Tools','$ionicPopup','$ionicModal','$rootScope','goodsState','$ionicScrollDelegate','$ionicActionSheet','storage',function($scope,$timeout,$state,$stateParams,native,Tools,$ionicPopup,$ionicModal,$rootScope,goodsState,$ionicScrollDelegate,$ionicActionSheet,storage){
 
 
+
+
+
+
+$scope.selectthi  = function(tar){
+    tar.select   = !tar.select; 
+}
+
+$scope.chekselectpintlist = function(){
+    $scope.shouldShowDelete  =  !$scope.shouldShowDelete; 
+}
+$scope.chekselectpintlistdel = function(){
+    $scope.shouldShowReorder  =  !$scope.shouldShowReorder; 
+}
+
+
+    $scope.Sincesome =  [];
+
+    $scope.opensincesetiing  = function(){
+      if($scope.goods.Since){
+          $scope.Since.show();
+
+          $timeout(function(){
+
+
+                   if($scope.Sincesome.length  == 0){
+            Tools.showlogin();
+            Tools.getData({
+              "interface_number": "020801",
+              "post_content": {
+                  "goods_id":$scope.goods.edit?$scope.goods.id:'',
+              }
+            },function(r){
+                if(r){
+
+                  $scope.Sincesome  = r.resp_data;
+
+                }
+            })
+          }
+          },420)
+      }
+    }
+
+    $scope.savePintthi =  function (){
+        if(!$scope.mapTagging.title){
+          $scope.setmendianmsg();
+          native.task('请填写自提点名称');
+        }else  if($scope.mapTagging.position  == '获取中....'){
+            native.task('请点击地图,选择自提点位置');
+        }else{
+          Tools.showlogin();
+          Tools.getData({
+              "interface_number": "020802",
+              "post_content": {
+                "goods_id":$scope.goods.edit?$scope.goods.id:'',
+                "take_id": $scope.mapTagging.take_id?$scope.mapTagging.take_id:'',
+                "name": $scope.mapTagging.title,
+                "address": $scope.mapTagging.position,
+                "gps_lat": $scope.mapTagging.lat+'',
+                "gps_long": $scope.mapTagging.long+'',
+                "take_time": $scope.mapTagging.business?$scope.mapTagging.business:'',
+                "link": $scope.mapTagging.tel?$scope.mapTagging.tel:''
+              }
+          },function(r){
+            if(r){
+
+                $scope.Sincesome.unshift({
+                   "select": false,
+                   "link": $scope.mapTagging.tel?$scope.mapTagging.tel:'',
+                   "name":$scope.mapTagging.title,
+                   "long": $scope.mapTagging.long,
+                   "lat": $scope.mapTagging.lat,
+                   "take_id": $scope.mapTagging.take_id?$scope.mapTagging.take_id:'',
+                   "address":$scope.mapTagging.position
+                });
+
+                $timeout(function(){
+                      $scope.map.hide();
+                },100)
+
+                
+
+            }
+          })
+        }
+
+        //console.log($scope.mapTagging);
+        
+    }
+
+  $scope.comfpintbasemsg  = function (){
+      $scope.closetallcationvalue();
+      if(marker){
+          infoWindow.setContent(setcontext());
+          openinfo();
+      }
+  }
+
+    $scope.stopporp  = function(e){e.stopPropagation();}
+
+    $scope.closetallcationvalue  =   function(){
+      $scope.setallcationstate  =  false;
+      var  c   =   document.querySelector('#setmapid');
+      c.className = "action-sheet-backdrop";
+      $timeout(function(){
+        c.className  ="action-sheet-backdrop cutom-sheet"
+
+      },500);
+
+      $scope.shopcartnumber = 0;
+      angular.forEach($scope.shopcart,function(key){
+        $scope.shopcartnumber  =  ($scope.shopcartnumber+key.number);
+      })
+    };
+  $scope.setmendianmsg  = function(){
+      $scope.setallcationstate  = true;
+  }
+
+
+
+
+
+
+
+function  creatpint   (e){
+
+
+        Tools.getData({},function(r){
+        },function(){},'GET','http://api.map.baidu.com/geocoder/v2/?ak=O9j8KDz0QkBkuNVL4rnBRvx8&callback=renderReverse&location='+e.point.lat+','+e.point.lng+'&output=json&pois=1',true)
+        infoWindow = new BMap.InfoWindow(setcontext(),{
+          height:0,
+          width:200
+        });
+
+          map.clearOverlays(marker);
+          var icon = new BMap.Icon('./img/pint.png', new BMap.Size(20, 32), {
+              anchor: new BMap.Size(10, 30),
+              infoWindowAnchor: new BMap.Size(20,5),
+              raiseOnDrag: true
+            });
+
+
+            
+          marker = new BMap.Marker(e.point,{icon:icon});  // 创建标注
+          map.addOverlay(marker);               // 将标注添加到地图中
+          //marker.setAnimation(BMAP_ANIMATION_BOUNCE); 
+          //console.log(marker.getShadow());
+
+          openinfo = function(){
+            marker.openInfoWindow(infoWindow,e.point);
+          }
+
+          marker.setLabel('1');
+          marker.enableMassClear(true);
+          
+
+
+}
+
+
+
+
+
+  function  setcontext  (){
+
+      return "<h5 style='margin:0 0 5px 0;padding:0.2em 0'>"+$scope.mapTagging.title+"</h5>" +  
+	      "<p style='margin:0;line-height:1.5;font-size:13px;margin-bottom: 2px;max-height: 40px;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;word-wrap: break-word;'> 地 址 :  <span style='color:#4a4a4a'>"+$scope.mapTagging.position+"</span>  </p>" +
+        "<p style='margin:0;line-height:1.5;font-size:13px;margin-bottom: 2px;max-height: 40px;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;word-wrap: break-word;'> 联 系 方 式 : <span style='color:#4a4a4a'>"+$scope.mapTagging.tel+"</span> </p>" +
+        "<p style='margin:0;line-height:1.5;font-size:13px;margin-bottom: 2px;max-height: 40px;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;word-wrap: break-word;'> 营 业 时 间 : <span style='color:#4a4a4a'>"+$scope.mapTagging.business+"</span> </p>" + 
+	      "</div>";
+  }
+  
+    var openinfo  = undefined;
+    var marker  = undefined;
+    var infoWindow   =  undefined;
+    var map  =  undefined;
+    
+
+
+  $scope.xuanzheopition  = function (tage){
+
+        if(!tage){
+
+                if(marker){
+                  map.clearOverlays(marker);
+                }
+
+           $timeout(function(){
+
+                $scope.setmendianmsg();
+           },700)
+        }
+
+      $scope.map.show();
+
+      console.log(tage);
+
+      $scope.mapTagging   ={};
+      $scope.mapTagging.title  = '';
+      $scope.mapTagging.tel  = '';
+      $scope.mapTagging.business  = '';
+      $scope.mapTagging.position  = '获取中....';
+      $scope.mapTagging.long   =  undefined;
+      $scope.mapTagging.lat   =  undefined;
+      //$scope.mapTagging.take_id
+
+
+      if(map){
+
+        if(tage){
+              creatpint(tage);
+        }
+      }else{
+      $timeout(function(){
+      var ss  = storage.getObject('location');
+       map = new BMap.Map("container");          // 创建地图实例  
+      var point = new BMap.Point(ss.long, ss.lat);  // 创建点坐标  
+      map.centerAndZoom(point, 25);
+      window.renderReverse  = function(r){
+          $scope.mapTagging.position  = r.result.formatted_address+','+r.result.sematic_description;
+          infoWindow.setContent(setcontext());
+          openinfo();
+      }
+
+      //map.setZoom()
+      map.addEventListener("click", function(e){
+        $scope.mapTagging.lat  =e.point.lat;
+        $scope.mapTagging.long  =e.point.lng ;
+        creatpint(e)
+      });
+      },400)
+
+
+      }   
+
+    
+
+
+
+      
+  }
+
+
+  
 
 
 
@@ -458,7 +703,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
     //添加分类
     $scope.newclass  = {};
     $scope.addnewclass  = function(){
-      console.log($scope.newclass)
+
       if(!$scope.newclass.name){
         native.task('请填写分类名称');
         return false;
@@ -491,6 +736,23 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
     $scope.$on('$destroy', function() {
       $scope.goodclass.remove();
       $scope.sku.remove();
+      $scope.map.remove();
+      $scope.Since.remove();
+
+    });
+
+    $ionicModal.fromTemplateUrl('Since.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.Since = modal;
+    });
+
+  $ionicModal.fromTemplateUrl('map.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.map = modal;
     });
 
     $ionicModal.fromTemplateUrl('goodclass.html', {
@@ -515,6 +777,10 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
 
   //构建商品对象  基本信息
   $scope.goods = {};
+  $scope.goods.post = true;
+
+
+
   $scope.goods.edit  =  false;  //商品编辑状态
   $scope.goods.Stock_number = 1;
   $scope.goods.systemSelect  = undefined;
@@ -553,11 +819,12 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
                 $scope.goods.freight_price =   parseFloat(r.resp_data.goodsInfo.express_fee);
                 $scope.goods.is_virtual  =     r.resp_data.goodsInfo.is_virtual?true:false;
                 $scope.goods.title =     r.resp_data.goodsInfo.goods_title;
-
-
+                
+                if(r.resp_data.goodsInfo.buyer_take == '1'){
+                  $scope.goods.Since  = true;
+                }
 
                 $scope.goods.id  = r.resp_data.goodsInfo.goods_basic_id;
-
                 $scope.goods.goodsDesc     =  r.resp_data.goodsInfo.desc;
                 $scope.goods.skuinfo  =  r.resp_data.skuInfo;
 
@@ -619,7 +886,7 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
                         })
                   })
 
-                  console.log($scope.attrsprices);
+                  
 
 
 
@@ -752,7 +1019,7 @@ $timeout(function(){
   };
   //子类
   $scope.chidselect   = function(){
-      //console.log($scope.goods.systemchidSelct)
+      
   }
 
   //$scope.goods.
@@ -968,11 +1235,14 @@ $scope.save  = function (){
         native.hidloading();
         return false;
       }
-
-
-
     }
 
+    var  takelist =  [];
+    angular.forEach($scope.Sincesome,function(ss){
+      if(ss.select){
+          takelist.push(ss.take_id);
+      }
+    })
 
     var sendoption  =  {
         "interface_number": '030101',
@@ -988,6 +1258,8 @@ $scope.save  = function (){
           total_in_number:'',
           total_in_price:'',
           skuInfo:sku,
+          buyer_take:$scope.goods.Since?'1':'0',
+          take_ids:takelist
           }
     };
 

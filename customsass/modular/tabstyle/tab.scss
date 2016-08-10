@@ -899,14 +899,6 @@ background-color: #fff;
     position: relative;
 }
 
-.modal-backdrop-bg{
-  // background: rgba(0,0,0,0.6);
-  // z-index: 10 !important;
-  // transition: background  200ms;
-  // -webkit-transition: background   200ms;
-  }
-
-
 .cutom-sheet.active {
     z-index: 9999;
 }
@@ -1124,16 +1116,16 @@ background-color: #fff;
     word-break: break-all;
     color: #35352F;
     margin-bottom: .1rem;
+        white-space: normal;
 }
 .comfis .item .goodsmsg .sku {
+  
     overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
     word-break: break-all;
     height: 1rem;
     line-height: 1rem;
     color: #4b566a;
+    text-overflow: ellipsis;
 }
 .comfis .item .goodsmsg .prieNumber {
     width: 14.5rem;
@@ -1222,4 +1214,53 @@ background-color: #fff;
     padding: 10px;
     margin-left: 14%;
     border-width: 2px;
+}
+.modal-backdrop, .modal-backdrop-bg{
+  position: absolute !important;
+}
+.anchorBL{
+  display:none;
+}
+.BMap_shadow[type='infowindow_shadow']  img {
+  display: none
+}
+// .BMap_bubble_title{
+//   font-size: 15px;
+// }
+
+.comfpositonbox {
+  background: red;
+  input{
+    border: none  !important;
+  }
+}
+
+
+.action-sheet-wrapper.setmapintking.action-sheet-up{
+    -webkit-transform: translate3d(0,0,0) !important;
+    transform: translate3d(0,0,0) !important;
+}
+
+.canshoumi{
+   transition:  all 200ms;
+   -webkit-transition:  all 200ms;
+   opacity: 0;
+   height:0px;
+   padding: 0px;
+}
+.canshoumi.show{
+    opacity: 1;
+   height:53px;
+   padding: 16px;
+}
+
+.selectwulijfun{
+      height: 44px;
+    line-height: 44px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 0px 16px;
+    position: relative;
+    color: dimgrey;
+    font-size: 13px;
 }

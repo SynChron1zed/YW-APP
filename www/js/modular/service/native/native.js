@@ -72,25 +72,29 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
         //配置调用的摄像头位置
         //配置对象config  0 背面摄像头
         //配置对象config  1 正面摄像头
-        popoverOptions: CameraPopoverOptions,  //ios  的弹出位置 不予配置
-        saveToPhotoAlbum: config.saveToPhotoAlbum?config.saveToPhotoAlbum:false,
+        //popoverOptions: CameraPopoverOptions,  //ios  的弹出位置 不予配置
+        //saveToPhotoAlbum: config.saveToPhotoAlbum?config.saveToPhotoAlbum:false,
         //获取图片完成后是否在 设备上相册保留
-        correctOrientation:config.correctOrientation?config.correctOrientation:true
+        //correctOrientation:config.correctOrientation?config.correctOrientation:true
         //支持图片旋转是否
       };
-
+      
       if(config.targetWidth){
         options.targetWidth  = config.targetWidth;
       }else  if(config.targetHeight){
         options.targetHeight  = config.targetHeight;
       }
-
-
-      $cordovaCamera.getPicture(options).then(function(imageData) {
+    
+    
+      $cordovaCamera.getPicture(
+        options
+      ).then(function(imageData) {
         var  data = "data:image/jpeg;base64," + imageData;
         Callback(data,imageData);
       }, function(err) {
-        $cordovaToast.show('获取图片错误',1000,'bottom');
+
+        //$cordovaToast.show('获取图片错误',1000,'bottom');
+
         errCallback();
         // error
         //this.alert(err,'信息','确认')
@@ -154,7 +158,7 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
       //msg     消息主题   必传
       //time    消失时间  毫秒数  默认 1000
       //animte  动画方式   'top', 'center', 'bottom'
-      $cordovaToast.show(msg,time?time:3000,animte?animte:'bottom')
+      $cordovaToast.show(msg,time?time:2000,animte?animte:'bottom')
       .then(function(success) {
           // success
         }, function (error) {

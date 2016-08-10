@@ -1,5 +1,64 @@
-Ctr.controller('ConfirmorderZfctr',['$scope','buyConfirmorde','Tools','$timeout','$state','comforderlistadder','native','fromStateServ',function ($scope,buyConfirmorde,Tools,$timeout,$state,comforderlistadder,native,fromStateServ) {
+Ctr.controller('ConfirmorderZfctr',['$scope','buyConfirmorde','Tools','$timeout','$state','comforderlistadder','native','fromStateServ','$ionicScrollDelegate',function ($scope,buyConfirmorde,Tools,$timeout,$state,comforderlistadder,native,fromStateServ,$ionicScrollDelegate){
 
+
+$scope.wuliuseleclist  = [
+    {
+        name:'快递物流',
+        value:0,
+        select:true
+    },
+    {
+        name:'门店自提',
+        value:1,
+        select:false
+    }
+];
+
+$scope.seltwuiluthi  = function (it) {
+        angular.forEach($scope.wuliuseleclist,function (ss) {
+                ss.select   = false;
+        })
+
+        it.select  =  true;
+
+        angular.forEach($scope.ctrnowobj.goods_info,function (ss) {
+                if(it.value){
+                    ss.express_fee_back  =  ss.express_fee;
+                    ss.express_fee  ='0.00';
+                    $scope.info.total_pricy   =   parseFloat($scope.info.total_pricy)- (parseFloat(ss.express_fee_back) * parseInt(ss.number))
+                    $scope.info.total_pricy  =  $scope.info.total_pricy.toFixed(2); 
+
+                }else{
+                    if(ss.express_fee_back){
+                        ss.express_fee    =   parseInt(ss.number)*parseFloat(ss.express_fee_back);
+                        ss.express_fee =  ss.express_fee.toFixed(2);
+                        $scope.info.total_pricy   =   parseFloat($scope.info.total_pricy)+(parseFloat(ss.express_fee_back) * parseInt(ss.number))
+                        $scope.info.total_pricy  =  $scope.info.total_pricy.toFixed(2);
+                    }
+                }    
+        })
+
+        if(it.value){
+            $scope.ctrnowobj.showcatmapint   = true;
+        }else{
+            $scope.ctrnowobj.showcatmapint   = false;
+        }
+        $ionicScrollDelegate.resize();
+        $scope.closetallcationvalue();
+
+}
+
+$scope.selecthiswuliufun  =   function(r){
+
+        if(!r.can_take){
+            $scope.ctrnowobj  = r;
+            $scope.addjoinshopcart(true)
+
+        }else{
+            native.task('部分商品支持在快递物流,不可选择其他配送方式');
+        }
+
+};
 
 
 $scope.comorder  =function () {
@@ -10,27 +69,31 @@ $scope.comorder  =function () {
     }    
     Tools.showlogin();
     var  carids  = '';
+    
     angular.forEach($scope.info.goods,function (sff) {
         angular.forEach(sff.goods_info,function (aaa) {
            carids+= aaa.cart_id+',';
         })
     })
+
      carids  =    carids.substring(carids.lastIndexOf(','),'')
-     
      var shopin  ={};
+     var  takeBy   = {};
      angular.forEach($scope.info.goods,function(aaa){
             var inde  =  parseInt(aaa.shop_id);
             shopin[inde]  = aaa.make?aaa.make:'';
+            takeBy[inde]   = aaa.showcatmapint?'1':'0'
 
      })
+
+
     Tools.getData({
          "interface_number": "020607",
          "post_content": {
             "addr_id": $scope.info.address.addr_id,
             "remark": shopin,
-            "cartIds":carids
-
-
+            "cartIds":carids,
+            takeBySelf:takeBy
         }
     },function (r) {
         if(r){
@@ -84,7 +147,17 @@ $scope.comorder  =function () {
         e.stopPropagation();
     }
 
-  $scope.addjoinshopcart  = function () {
+  $scope.addjoinshopcart  = function (r) {
+
+                if(r){
+                    $scope.selectstat  = true;
+                    $scope.setallcationstate = true;
+
+                    
+                    return false;
+                }
+
+            Tools.showlogin();
             Tools.getData({
                  "interface_number": "020505",
                 "post_content": {}
@@ -99,14 +172,13 @@ $scope.comorder  =function () {
                             }else{
                                 s.active  =false;
                             }
-
-                        });
-                        
+                        });                    
+                        $scope.selectstat  = false;
                         $scope.setallcationstate = true;
-
                     }
             })
         }        
+                
         $scope.closetallcationvalue  =   function(){
             $scope.setallcationstate  =  false;
             var  c   =   document.querySelector('#cutom_sheet');
@@ -117,6 +189,8 @@ $scope.comorder  =function () {
             };
 
    function  inlit  (){
+
+       $ionicScrollDelegate.scrollTop();
             if(comforderlistadder.no){
                 comforderlistadder.no  = false
                 return false;
@@ -184,7 +258,8 @@ $scope.comorder  =function () {
    }
 
 $scope.$on('$ionicView.beforeEnter',function(){
-            
+
+            $scope.showpanl = true;
             if(fromStateServ.getState('r.ConfirmorderZf')){
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView; 
@@ -192,9 +267,16 @@ $scope.$on('$ionicView.beforeEnter',function(){
             }else{
                 $scope.showtitle  = false;
             }
-
             inlit();    
 })
+
+
+$scope.$on('$ionicView.beforeLeave',function(){
+
+           $timeout(function(){
+            $scope.showpanl = false;
+           },300)
+         })
 
 
 
