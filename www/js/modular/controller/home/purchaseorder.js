@@ -306,7 +306,7 @@ if(bascId==1){
 
   $scope.selfRight = function (val) {
 
-    $state.go('r.selfShop',{goodsId:val})
+    $state.go('r.selfShop',{goodsId:val,company_id:""})
 
 
 

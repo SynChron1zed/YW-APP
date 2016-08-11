@@ -85,9 +85,9 @@ Ctr.controller('homesearchCtr',['$scope','native','$state','fromStateServ','Tool
   };
 
 $scope.handleinputkey = function () {
-  debugger;
+
   $scope.ShoppingList = [];
-  $scope.loadOlderStories();
+  $scope.expression = true
 
 }
 

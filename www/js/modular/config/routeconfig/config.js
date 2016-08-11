@@ -323,7 +323,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
     .state('r.selfShop',{
-      url: '/selfShop/:goodsId',
+      url: '/selfShop/:goodsId/:company_id',
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.selfShop')
       },
