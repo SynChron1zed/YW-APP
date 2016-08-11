@@ -213,15 +213,14 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
         //make  对象列表
 
         var makelist  = [];
-        angular.forEach(seeshopPint.datalist,function(element) {
+        angular.forEach(seeshopPint.datalist,function(element,index) {
                makelist[makelist.length]   =  marker = new BMap.Marker({lng:element.lng,lat:element.lat},{icon:icon});  // 创建标注
                map.addOverlay(marker);
 
 
-                        (function(element,marker){
-                                console.log(element)
-                    marker.addEventListener('click',function(){
-                        function  setcontext  (){
+                        (function(element,marker,index){
+                                
+  function  setcontext  (){
                                 return "<h5 style='margin:0 0 5px 0;padding:0.2em 0'>"+element.name+"</h5>" +  
                                 "<p style='margin:0;line-height:1.5;font-size:13px;margin-bottom: 2px;max-height: 40px;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;word-wrap: break-word;'> 地 址 :  <span style='color:#4a4a4a'>"+element.opsition+"</span>  </p>" +
                                 "<p style='margin:0;line-height:1.5;font-size:13px;margin-bottom: 2px;max-height: 40px;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;word-wrap: break-word;'> 联 系 方 式 : <span style='color:#4a4a4a'>"+element.link+"</span> </p>" +
@@ -229,18 +228,25 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
                                 "</div>";
                         }
 
-                      var infoWindow = new BMap.InfoWindow(setcontext(),{
+                    var infoWindow = new BMap.InfoWindow(setcontext(),{
                             height:0,
                             width:200
                             });
+                    marker.addEventListener('click',function(){
+                      
+                     
 
                             marker.openInfoWindow(infoWindow,{lng:element.lng,lat:element.lat});
                            })
 
+                           if(index  == 0){
+                               marker.openInfoWindow(infoWindow,{lng:element.lng,lat:element.lat});
+                           }
+
 
                       
 
-                    })(element,marker);//调用时参数  
+                    })(element,marker,index);//调用时参数  
 
 
         });
@@ -249,7 +255,7 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
         
 
      
-
+        
 
 
 

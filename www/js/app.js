@@ -379,21 +379,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-   /* .state('r.tab.HomeSearch',{
-      onEnter: function() {
-        window.noNavtionsbackRootuer   = 'r.tab.Home';
-      },
-      onExit:function(){
-        window.noNavtionsbackRootuer   =   undefined;
-      },
-      url: '/HomeSearch',
-      views: {
-        'Home': {
-          templateUrl: 'templates/Home/search.html',
-          controller: 'homesearchCtr'
-        }
-      }
-    })*/
+
 
     .state('r.HomeSearch',{
       onEnter: function(fromStateServ,$ionicHistory) {
@@ -450,17 +436,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
 
 
-    // home  最新动态详情
- /*   .state('r.tab.homeNewsContent',{
-      url: '/homeNewsContent',
-      nativeTransitions: null,
-      views: {
-        'Home': {
-          templateUrl: 'templates/Home/newsContent.html',
-          controller: 'newsContentCtr'
-        }
-      }
-    })*/
+
 
 
     .state('r.homeNewsContent', {
@@ -523,15 +499,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
 
     //交易流程
-  /* .state('r.tab.flow',{
-      url: '/flow',
-      views: {
-        'Home': {
-          templateUrl: 'templates/Home/flow.html',
-          controller: 'flowCtr'
-        }
-      }
-    })*/
+
 
 
     .state('r.flow', {
@@ -681,6 +649,18 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           params:{'basicID':null},
           templateUrl: 'templates/Home/purchasebody.html',
           controller: 'purbodyCtr'
+        }
+      }
+    })
+
+
+    //采购订单搜索
+    .state('r.searchPurchase',{
+      url: '/searchPurchase/:keyValue/:newData',
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Home/searchPurchase.html',
+          controller: 'searchPurchaseCtr'
         }
       }
     })
@@ -2558,6 +2538,13 @@ $scope.deletedizhi=function () {
 
 
 }]);
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('tabCtr',[function(){
+
+}])
 
 Ctr.controller('goodsclasslist',['$scope','fromStateServ','$timeout','Tools','native','$ionicModal','$state',function($scope,fromStateServ,$timeout,Tools,native,$ionicModal,$state){
 
@@ -6317,13 +6304,6 @@ $scope.swatchtstate  = function (){
 }])
 
 /**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('tabCtr',[function(){
-
-}])
-
-/**
  * Created by Administrator on 2016/7/13.
  */
 Ctr.controller('chariCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$ionicHistory','$ionicScrollDelegate','$ionicBackdrop','selectArr',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$ionicHistory,$ionicScrollDelegate,$ionicBackdrop,selectArr) {
@@ -7206,7 +7186,6 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
 
 
 
-
   $scope.$on('$ionicView.beforeEnter',function(){
 
             if(fromStateServ.getState('r.HomPurchase')){
@@ -7286,7 +7265,8 @@ if(bascId==1){
       "post_content": {
         "token":"",
         "token_phone": "",
-        "status": $scope.statusData
+        "status": $scope.statusData,
+        "keyword":$scope.key
       }
     };
 
@@ -7531,6 +7511,54 @@ if(bascId==1){
     $scope.closecustomenu();
   })
 
+
+  $ionicModal.fromTemplateUrl('templates/searchModal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.Modal = modal;
+  });
+
+  $scope.searchBody=function () {
+    $scope.Modal.show();
+
+
+  }
+
+  $scope.back  =  function (){
+    $rootScope.$ionicGoBack();
+  };
+
+
+  $scope.msg={};
+  $scope.clear  = function(){
+    $scope.msg.key   = undefined;
+  }
+
+
+  $scope.myKeyup = function (e) {
+    var keycode = window.event?e.keyCode:e.which;
+    if(keycode==13){
+
+     $scope.key = $scope.msg.key
+      $scope.Modal.hide();
+      $scope.ShoppingList=[];
+      $scope.page_number  =1;
+      $ionicScrollDelegate.scrollTop();
+      $scope.all = true;
+      $scope.dfk = false;
+      $scope.dfc = false;
+      $scope.dfh = false;
+      $scope.expression  = true;
+    }
+
+  }
+$scope.leftHide =  function () {
+ 
+  $scope.Modal.hide();
+}
+
+
 }]);
 
 /**
@@ -7585,7 +7613,8 @@ $scope.dataList = false
       "post_content": {
         "token":"",
         "token_phone": "",
-        "status": $scope.statusData
+        "status": $scope.statusData,
+        "keyword":$scope.key
       }
     };
 
@@ -7917,7 +7946,7 @@ $scope.query =function () {
     },function(r){
 
       if(r.msg== "success"){
-  
+
         $scope.newmodal.hide();
         $scope.modal.hide();
         $scope.dfks();
@@ -7974,6 +8003,56 @@ $scope.query =function () {
   }
 
 
+
+  $ionicModal.fromTemplateUrl('templates/searchModal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.Modal = modal;
+  });
+
+  $scope.searchBody=function () {
+    $scope.Modal.show();
+
+
+  }
+
+  $scope.back  =  function (){
+    $rootScope.$ionicGoBack();
+  };
+
+
+  $scope.msg={};
+  $scope.clear  = function(){
+    $scope.msg.key   = undefined;
+  }
+
+
+  $scope.myKeyup = function (e) {
+    var keycode = window.event?e.keyCode:e.which;
+    if(keycode==13){
+
+      $scope.key = $scope.msg.key
+      $scope.Modal.hide();
+      $scope.SalesList=[];
+      $scope.page_number  =1;
+      $ionicScrollDelegate.scrollTop();
+      $scope.all = true;
+      $scope.dfk = false;
+      $scope.dfc = false;
+      $scope.dfh = false;
+      $scope.expressionList  = true;
+    }
+
+  }
+  $scope.leftHide =  function () {
+
+    $scope.Modal.hide();
+  }
+
+
+
+
 }]);
 
 
@@ -8005,6 +8084,7 @@ Ctr.controller('homesearchCtr',['$scope','native','$state','fromStateServ','Tool
   $scope.clear  = function(){
     $scope.msg.key   =undefined;
   }
+  
 
   //加载
   $scope.loadOlderStories=function (type) {
@@ -8064,10 +8144,23 @@ Ctr.controller('homesearchCtr',['$scope','native','$state','fromStateServ','Tool
 
   };
 
-$scope.handleinputkey = function () {
+$scope.myKeyup = function (e) {
 
-  $scope.ShoppingList = [];
-  $scope.expression = true
+
+  var keycode = window.event?e.keyCode:e.which;
+  if(keycode==13){
+
+    $scope.ShoppingList = [];
+    if($scope.expression==true){
+      $scope.expression =false;
+      $ionicScrollDelegate.scrollTop();
+    }
+    $scope.expression = true;
+
+    $scope.page_number  = 1
+  }
+
+
 
 }
 
@@ -8096,6 +8189,46 @@ $scope.handleinputkey = function () {
   }
 
 }]);
+
+/**
+ * Created by Administrator on 2016/8/11.
+ */
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('searchPurchaseCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$stateParams','$ionicScrollDelegate','$ionicHistory','$ionicNativeTransitions','$ionicModal',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$stateParams,$ionicScrollDelegate,$ionicHistory,$ionicNativeTransitions,$ionicModal) {
+
+  $scope.back  =  function (){
+    $rootScope.$ionicGoBack();
+  };
+  $scope.ShoppingList=[];
+
+
+
+  $scope.msg={};
+  $scope.clear  = function(){
+    $scope.msg.key   = undefined;
+  }
+
+
+  $scope.myKeyup = function (e) {
+    var keycode = window.event?e.keyCode:e.which;
+    if(keycode==13){
+      
+       $state.go('r.HomPurchase',{keyValue:$scope.msg.key,newData:"1"})
+
+    }
+
+  }
+
+
+
+
+}]);
+
+/**
+ * Created by Administrator on 2016/8/11.
+ */
 
 /**
  * Created by Why on 16/6/8.
@@ -8464,354 +8597,6 @@ Ctr.controller('tasteCtr',['$scope','native','$state','fromStateServ','Tools','$
 
 
 }]);
-
-/**
- * Created by Administrator on 2016/7/30.
- */
-
-
-/**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('informationCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize){
-
-  $scope.newsList =[]
-  $scope.expression=true;
-
-
-  //加载
-  $scope.loadOlderStories=function (type) {
-
-    var sendoption  = {
-      "interface_number": "000400",
-      "client_type": window.platform,
-      "post_content": {
-        "token":"",
-        "token_phone": "",
-        "count": "0"
-      }
-    };
-
-    if(type){
-      sendoption.post_content.page_num  = $scope.page_number  = 1;
-    }else{
-      sendoption.post_content.page_num  = $scope.page_number;
-    }
-
-
-    Tools.getData(sendoption,function(r){
-      if(r){
-
-
-        if(r.resp_data.nextPage  == 0 ){
-          $scope.expression  = false;
-          $scope.page_number  =1;
-        }else{
-          $scope.expression  = true;
-          $scope.page_number  =r.resp_data.nextPage;
-        }
-
-
-        if(type){
-          $scope.newsList  = r.resp_data.data;
-        }else{
-          angular.forEach(r.resp_data.data,function(c){
-            $scope.newsList.push(c);
-          });
-        }
-
-
-
-
-      }
-      $scope.$broadcast('scroll.refreshComplete');
-      $scope.$broadcast('scroll.infiniteScrollComplete');
-    });
-
-
-  };
-
-
-
-
-
-
-  $scope.caklateheight  = {};
-
-  function   caklatehe  (){
-    if(window.platform  == 'ios'){
-      $scope.caklateheight  = {
-        height:window.innerHeight-(64+44+30-95)+'px'
-      }
-    }else{
-      $scope.caklateheight  = {
-        height:window.innerHeight-(44+44+30-95)+'px'
-      }
-    }
-  };
-  caklatehe();
-  $timeout(function(){
-    caklatehe();
-  },600)
-
-  $scope.agreeSize = function(value,index) {
-
-    $ionicPopup.show({
-
-      title: '同意申请人加入公司?',
-
-      scope: $scope,
-      buttons: [
-        { text: '取消' },
-        {
-          text: '<b>确认</b>',
-          type: 'button-positive',
-          onTap: function(e) {
-            console.log(1)
-
-            Tools.getData({
-              "interface_number": "000401",
-              "post_content": {
-                "token":"",
-                "token_phone": "",
-                "userId": value,
-                "isPass": "1"
-              }
-
-            },function(r){
-
-
-
-              if(r.msg== "success"){
-                Tools.rmArrin($scope.newsList,index);
-                native.task('成功');
-
-              }else{
-
-                return false
-
-              }
-
-
-            });
-
-
-          }
-
-
-        },
-      ]
-    });
-
-  };
-
-
-
-  $scope.refuseOne = function(value,index) {
-
-
-    $ionicPopup.show({
-
-      title: '拒绝申请人加入公司?',
-
-      scope: $scope,
-      buttons: [
-        { text: '取消' },
-        {
-          text: '<b>确认</b>',
-          type: 'button-positive',
-          onTap: function(e) {
-            console.log(1)
-
-            Tools.getData({
-              "interface_number": "000401",
-              "post_content": {
-                "token":"",
-                "token_phone": "",
-                "userId": value,
-                "isPass": "0"
-              }
-
-            },function(r){
-
-
-              if(r.msg== "success"){
-                Tools.rmArrin($scope.newsList,index);
-                native.task('成功');
-
-              }else{
-
-                return false
-
-              }
-
-
-            });
-
-
-          }
-
-
-        },
-      ]
-    });
-
-    
-  };
-
-
-
-
-  }]);
-
-
-/**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('noticeCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$ionicHistory','storage','fromStateServ','selectArr',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$ionicHistory,storage,fromStateServ,selectArr){
-
-
-$scope.mathData = true;
-
-
-
-
-
-  function select() {
-
-    $scope.adminer = selectArr.selectarrs.isadmin();
-    $scope.expression = true;
-    $scope.mathData = true;
-    if($scope.adminer == "1"){
-      $scope.expression = true
-      $scope.doRefresh();
-
-    }else {
-      $scope.expression= false
-    }
-  }
-
-
-
-
-  $scope.$on('$ionicView.beforeEnter',function(){
-
-    //页面的状态变化  请求
-    select()
-
-    handtat();
-
-
-    if ($ionicHistory.backView()) {
-      window.androdzerofun  = function(parm1,parm2){
-        $ionicHistory.goBack();
-      }
-      window.androdzerofun_parms  ='tabswtathing';
-      window.androdzerofun_clback  = 'nothing';
-    }
-  });
-
-
-  //对安卓返回键的  特殊处理  tabs
-
- /* if($scope.adminer == undefined){
-
-  }else{
-    $scope.$on('$ionicView.beforeEnter',function(){
-
-      Initial ();
-
-
-    });
-  }*/
-
-
-
-
-  $scope.application = function () {
-    $state.go('r.tab.information')
-  }
-
-
- /* function  Initial  () {
-
-    Tools.getData({
-      "interface_number": "000400",
-      "post_content": {
-        "token": "",
-        "token_phone": "",
-        "count": "1"
-      }
-
-    }, function (r) {
-      if (r.msg == "success") {
-        $scope.newsList = r.resp_data.count
-        if ($scope.newsList > 99) {
-          $scope.newsList = "99+"
-        }
-
-
-      } else {
-        return false
-
-      }
-
-    });
-  }
-*/
-
-
-  $scope.login  =  function(r){
-    fromStateServ.stateChange(r);
-  };
-
-  function handtat  (){
-
-    if(storage.getObject('UserInfo').user_id){
-      $scope.isShow = false;
-
-    }else{
-      $scope.isShow = true;
-    }
-  }
-
-  $scope.doRefresh  = function () {
-    Tools.getData({
-      "interface_number": "000400",
-      "post_content": {
-        "token": "",
-        "token_phone": "",
-        "count": "1"
-      }
-
-    }, function (r) {
-      if (r.msg == "success") {
-        $scope.newsList = r.resp_data.count
-        if ($scope.newsList > 99) {
-          $scope.newsList = "99+"
-        }
-        if($scope.newsList==0){
-          $scope.mathData = false
-        }
-
-
-      } else {
-        return false
-
-      }
-
-    });
-  }
-
-
-
-}])
-
-
-
-  .controller('noticeDetailCtr', ['$scope',function($scope) {
-
-  }]);
 
 /**
  * Created by Administrator on 2016/7/27.
@@ -9578,20 +9363,19 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
   //获取验证码
   var sctolthi  = true;
   $scope.GetverCode =  function (){
-   
+
     if(sctolthi){
 
           sctolthi  = false;
           if(!$scope.registbasinfo.phone){
-
             native.task('请填写手机号码!');
             sctolthi  = true;
             return false;
           };
 
       if(!Tools.reg.Tphone($scope.registbasinfo.phone)){
-
         native.task('请输入正确的手机号码！');
+        sctolthi  = true;
         return false
       }
 
@@ -9835,6 +9619,354 @@ Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicVie
 
 
 }]);
+
+/**
+ * Created by Administrator on 2016/7/30.
+ */
+
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('informationCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize){
+
+  $scope.newsList =[]
+  $scope.expression=true;
+
+
+  //加载
+  $scope.loadOlderStories=function (type) {
+
+    var sendoption  = {
+      "interface_number": "000400",
+      "client_type": window.platform,
+      "post_content": {
+        "token":"",
+        "token_phone": "",
+        "count": "0"
+      }
+    };
+
+    if(type){
+      sendoption.post_content.page_num  = $scope.page_number  = 1;
+    }else{
+      sendoption.post_content.page_num  = $scope.page_number;
+    }
+
+
+    Tools.getData(sendoption,function(r){
+      if(r){
+
+
+        if(r.resp_data.nextPage  == 0 ){
+          $scope.expression  = false;
+          $scope.page_number  =1;
+        }else{
+          $scope.expression  = true;
+          $scope.page_number  =r.resp_data.nextPage;
+        }
+
+
+        if(type){
+          $scope.newsList  = r.resp_data.data;
+        }else{
+          angular.forEach(r.resp_data.data,function(c){
+            $scope.newsList.push(c);
+          });
+        }
+
+
+
+
+      }
+      $scope.$broadcast('scroll.refreshComplete');
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    });
+
+
+  };
+
+
+
+
+
+
+  $scope.caklateheight  = {};
+
+  function   caklatehe  (){
+    if(window.platform  == 'ios'){
+      $scope.caklateheight  = {
+        height:window.innerHeight-(64+44+30-95)+'px'
+      }
+    }else{
+      $scope.caklateheight  = {
+        height:window.innerHeight-(44+44+30-95)+'px'
+      }
+    }
+  };
+  caklatehe();
+  $timeout(function(){
+    caklatehe();
+  },600)
+
+  $scope.agreeSize = function(value,index) {
+
+    $ionicPopup.show({
+
+      title: '同意申请人加入公司?',
+
+      scope: $scope,
+      buttons: [
+        { text: '取消' },
+        {
+          text: '<b>确认</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            console.log(1)
+
+            Tools.getData({
+              "interface_number": "000401",
+              "post_content": {
+                "token":"",
+                "token_phone": "",
+                "userId": value,
+                "isPass": "1"
+              }
+
+            },function(r){
+
+
+
+              if(r.msg== "success"){
+                Tools.rmArrin($scope.newsList,index);
+                native.task('成功');
+
+              }else{
+
+                return false
+
+              }
+
+
+            });
+
+
+          }
+
+
+        },
+      ]
+    });
+
+  };
+
+
+
+  $scope.refuseOne = function(value,index) {
+
+
+    $ionicPopup.show({
+
+      title: '拒绝申请人加入公司?',
+
+      scope: $scope,
+      buttons: [
+        { text: '取消' },
+        {
+          text: '<b>确认</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            console.log(1)
+
+            Tools.getData({
+              "interface_number": "000401",
+              "post_content": {
+                "token":"",
+                "token_phone": "",
+                "userId": value,
+                "isPass": "0"
+              }
+
+            },function(r){
+
+
+              if(r.msg== "success"){
+                Tools.rmArrin($scope.newsList,index);
+                native.task('成功');
+
+              }else{
+
+                return false
+
+              }
+
+
+            });
+
+
+          }
+
+
+        },
+      ]
+    });
+
+    
+  };
+
+
+
+
+  }]);
+
+
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('noticeCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$ionicHistory','storage','fromStateServ','selectArr',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$ionicHistory,storage,fromStateServ,selectArr){
+
+
+$scope.mathData = true;
+
+
+
+
+
+  function select() {
+
+    $scope.adminer = selectArr.selectarrs.isadmin();
+    $scope.expression = true;
+    $scope.mathData = true;
+    if($scope.adminer == "1"){
+      $scope.expression = true
+      $scope.doRefresh();
+
+    }else {
+      $scope.expression= false
+    }
+  }
+
+
+
+
+  $scope.$on('$ionicView.beforeEnter',function(){
+
+    //页面的状态变化  请求
+    select()
+
+    handtat();
+
+
+    if ($ionicHistory.backView()) {
+      window.androdzerofun  = function(parm1,parm2){
+        $ionicHistory.goBack();
+      }
+      window.androdzerofun_parms  ='tabswtathing';
+      window.androdzerofun_clback  = 'nothing';
+    }
+  });
+
+
+  //对安卓返回键的  特殊处理  tabs
+
+ /* if($scope.adminer == undefined){
+
+  }else{
+    $scope.$on('$ionicView.beforeEnter',function(){
+
+      Initial ();
+
+
+    });
+  }*/
+
+
+
+
+  $scope.application = function () {
+    $state.go('r.tab.information')
+  }
+
+
+ /* function  Initial  () {
+
+    Tools.getData({
+      "interface_number": "000400",
+      "post_content": {
+        "token": "",
+        "token_phone": "",
+        "count": "1"
+      }
+
+    }, function (r) {
+      if (r.msg == "success") {
+        $scope.newsList = r.resp_data.count
+        if ($scope.newsList > 99) {
+          $scope.newsList = "99+"
+        }
+
+
+      } else {
+        return false
+
+      }
+
+    });
+  }
+*/
+
+
+  $scope.login  =  function(r){
+    fromStateServ.stateChange(r);
+  };
+
+  function handtat  (){
+
+    if(storage.getObject('UserInfo').user_id){
+      $scope.isShow = false;
+
+    }else{
+      $scope.isShow = true;
+    }
+  }
+
+  $scope.doRefresh  = function () {
+    Tools.getData({
+      "interface_number": "000400",
+      "post_content": {
+        "token": "",
+        "token_phone": "",
+        "count": "1"
+      }
+
+    }, function (r) {
+      if (r.msg == "success") {
+        $scope.newsList = r.resp_data.count
+        if ($scope.newsList > 99) {
+          $scope.newsList = "99+"
+        }
+        if($scope.newsList==0){
+          $scope.mathData = false
+        }
+
+
+      } else {
+        return false
+
+      }
+
+    });
+  }
+
+
+
+}])
+
+
+
+  .controller('noticeDetailCtr', ['$scope',function($scope) {
+
+  }]);
 
 Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory){
 }])
@@ -11909,15 +12041,14 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
         //make  对象列表
 
         var makelist  = [];
-        angular.forEach(seeshopPint.datalist,function(element) {
+        angular.forEach(seeshopPint.datalist,function(element,index) {
                makelist[makelist.length]   =  marker = new BMap.Marker({lng:element.lng,lat:element.lat},{icon:icon});  // 创建标注
                map.addOverlay(marker);
 
 
-                        (function(element,marker){
-                                console.log(element)
-                    marker.addEventListener('click',function(){
-                        function  setcontext  (){
+                        (function(element,marker,index){
+                                
+  function  setcontext  (){
                                 return "<h5 style='margin:0 0 5px 0;padding:0.2em 0'>"+element.name+"</h5>" +  
                                 "<p style='margin:0;line-height:1.5;font-size:13px;margin-bottom: 2px;max-height: 40px;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;word-wrap: break-word;'> 地 址 :  <span style='color:#4a4a4a'>"+element.opsition+"</span>  </p>" +
                                 "<p style='margin:0;line-height:1.5;font-size:13px;margin-bottom: 2px;max-height: 40px;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;word-wrap: break-word;'> 联 系 方 式 : <span style='color:#4a4a4a'>"+element.link+"</span> </p>" +
@@ -11925,18 +12056,25 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
                                 "</div>";
                         }
 
-                      var infoWindow = new BMap.InfoWindow(setcontext(),{
+                    var infoWindow = new BMap.InfoWindow(setcontext(),{
                             height:0,
                             width:200
                             });
+                    marker.addEventListener('click',function(){
+                      
+                     
 
                             marker.openInfoWindow(infoWindow,{lng:element.lng,lat:element.lat});
                            })
 
+                           if(index  == 0){
+                               marker.openInfoWindow(infoWindow,{lng:element.lng,lat:element.lat});
+                           }
+
 
                       
 
-                    })(element,marker);//调用时参数  
+                    })(element,marker,index);//调用时参数  
 
 
         });
@@ -11945,7 +12083,7 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
         
 
      
-
+        
 
 
 
