@@ -84,10 +84,23 @@ Ctr.controller('homesearchCtr',['$scope','native','$state','fromStateServ','Tool
 
   };
 
-$scope.handleinputkey = function () {
+$scope.myKeyup = function (e) {
 
-  $scope.ShoppingList = [];
-  $scope.expression = true
+
+  var keycode = window.event?e.keyCode:e.which;
+  if(keycode==13){
+
+    $scope.ShoppingList = [];
+    if($scope.expression==true){
+      $scope.expression =false;
+      $ionicScrollDelegate.scrollTop();
+    }
+    $scope.expression = true;
+
+    $scope.page_number  = 1
+  }
+
+
 
 }
 

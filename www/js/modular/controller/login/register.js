@@ -22,20 +22,19 @@ Ctr.controller('registerCtr',['$scope','$rootScope','$ionicViewSwitcher','$state
   //获取验证码
   var sctolthi  = true;
   $scope.GetverCode =  function (){
-   
+
     if(sctolthi){
 
           sctolthi  = false;
           if(!$scope.registbasinfo.phone){
-
             native.task('请填写手机号码!');
             sctolthi  = true;
             return false;
           };
 
       if(!Tools.reg.Tphone($scope.registbasinfo.phone)){
-
         native.task('请输入正确的手机号码！');
+        sctolthi  = true;
         return false
       }
 
