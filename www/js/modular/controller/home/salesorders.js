@@ -50,7 +50,8 @@ $scope.dataList = false
       "post_content": {
         "token":"",
         "token_phone": "",
-        "status": $scope.statusData
+        "status": $scope.statusData,
+        "keyword":$scope.key
       }
     };
 
@@ -382,7 +383,7 @@ $scope.query =function () {
     },function(r){
 
       if(r.msg== "success"){
-  
+
         $scope.newmodal.hide();
         $scope.modal.hide();
         $scope.dfks();
@@ -437,6 +438,56 @@ $scope.query =function () {
 
     $state.go('r.Logistics',{id:value})
   }
+
+
+
+  $ionicModal.fromTemplateUrl('templates/searchModal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.Modal = modal;
+  });
+
+  $scope.searchBody=function () {
+    $scope.Modal.show();
+
+
+  }
+
+  $scope.back  =  function (){
+    $rootScope.$ionicGoBack();
+  };
+
+
+  $scope.msg={};
+  $scope.clear  = function(){
+    $scope.msg.key   = undefined;
+  }
+
+
+  $scope.myKeyup = function (e) {
+    var keycode = window.event?e.keyCode:e.which;
+    if(keycode==13){
+
+      $scope.key = $scope.msg.key
+      $scope.Modal.hide();
+      $scope.SalesList=[];
+      $scope.page_number  =1;
+      $ionicScrollDelegate.scrollTop();
+      $scope.all = true;
+      $scope.dfk = false;
+      $scope.dfc = false;
+      $scope.dfh = false;
+      $scope.expressionList  = true;
+    }
+
+  }
+  $scope.leftHide =  function () {
+
+    $scope.Modal.hide();
+  }
+
+
 
 
 }]);

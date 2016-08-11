@@ -25,6 +25,7 @@ Ctr.controller('homesearchCtr',['$scope','native','$state','fromStateServ','Tool
   $scope.clear  = function(){
     $scope.msg.key   =undefined;
   }
+  
 
   //加载
   $scope.loadOlderStories=function (type) {
