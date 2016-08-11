@@ -57,8 +57,10 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
                                     if(fromStateServ.getState('r.Shophome')){
                                         fromStateServ.backView('r.Shophome') 
                                         }else{
-
+                                            $timeout(function(){
                                                 $rootScope.$ionicGoBack();
+                                            },400)
+                                                
 
                                          }
 

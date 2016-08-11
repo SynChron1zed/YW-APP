@@ -880,14 +880,6 @@ body {
     font-size: 40px;
     display: inline-block; }
 
-.modal-backdrop, .modal-backdrop-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 11;
-  width: 100%;
-  height: 100%; }
-
 .news-yiyu {
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -2172,17 +2164,16 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
   -webkit-box-orient: vertical;
   word-break: break-all;
   color: #35352F;
-  margin-bottom: .1rem; }
+  margin-bottom: .1rem;
+  white-space: normal; }
 
 .comfis .item .goodsmsg .sku {
   overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
   word-break: break-all;
   height: 1rem;
   line-height: 1rem;
-  color: #4b566a; }
+  color: #4b566a;
+  text-overflow: ellipsis; }
 
 .comfis .item .goodsmsg .prieNumber {
   width: 14.5rem;
@@ -2261,6 +2252,46 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
   padding: 10px;
   margin-left: 14%;
   border-width: 2px; }
+
+.modal-backdrop, .modal-backdrop-bg {
+  position: absolute !important; }
+
+.anchorBL {
+  display: none; }
+
+.BMap_shadow[type='infowindow_shadow'] img {
+  display: none; }
+
+.comfpositonbox {
+  background: red; }
+  .comfpositonbox input {
+    border: none  !important; }
+
+.action-sheet-wrapper.setmapintking.action-sheet-up {
+  -webkit-transform: translate3d(0, 0, 0) !important;
+  transform: translate3d(0, 0, 0) !important; }
+
+.canshoumi {
+  transition: all 200ms;
+  -webkit-transition: all 200ms;
+  opacity: 0;
+  height: 0px;
+  padding: 0px; }
+
+.canshoumi.show {
+  opacity: 1;
+  height: 53px;
+  padding: 16px; }
+
+.selectwulijfun {
+  height: 44px;
+  line-height: 44px;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 0px 16px;
+  position: relative;
+  color: dimgrey;
+  font-size: 13px; }
 
 .shopcartnoitem {
   margin-top: 10px;
@@ -2380,7 +2411,9 @@ ion-content {
       -webkit-box-pack: center;
       -moz-box-pack: center;
       -webkit-box-align: center;
-      -moz-box-align: center; }
+      margin-bottom: .3rem;
+      -moz-box-align: center;
+      height: 4.5rem; }
     .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg.edit .cheknumber {
       display: block; }
     .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg.edit .del {

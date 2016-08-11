@@ -1,10 +1,12 @@
 <ion-view view-title="个人中心"   hide-nav-bar="true"   style="overflow-x: hidden; overflow-y:visible;" scroll="false"   >
-  <ion-content style="background: whitesmoke"   overflow-scroll="false"   scrollbar-y="false"   >
+  <ion-content   style="background: whitesmoke;"   overflow-scroll="false"   scrollbar-y="false"   >
+
 
     <div class="ge-center-header">
 
         <div class="userheader">
-              <div class="imgbox">
+
+              <div class="imgbox"  ng-click="Personalsetting()" >
                      <img  class="userheaderimg"  ng-src="{{Userinfo.imgheader}}" alt="">
                      <img  class="sex" ng-src="{{Userinfo.sex}}" alt="">
               </div>
@@ -14,7 +16,6 @@
                       <p  ng-show='!Userinfo.login'>
                         还没有登录！
                         </p>
-
               </div>
         </div>
     </div>
@@ -28,6 +29,8 @@
         <div>  <img src="./img/icon_top-up.png" alt=""   style="margin-top:-.55rem" >
          <span>充值积分</span> </div>
     </div>
+
+    <div  style="background: whitesmoke;" >
 
    <div  class="list   gerenlist-icon"  style="margin-top:20px;">
 
@@ -100,53 +103,39 @@
           退出
    </div>
 
-
     <div style="height:2rem"></div>
 
-
-
-
-
- <style>
-
-        .showcoder.active{
-
-              opacity: 1 !important;
-              z-index: 9999 !important;
-        }
-      </style>
-
-
-
-      <div class="madtansition  action-sheet-backdrop  coustim-code   showcoder"   id="ahseetparnercode"       ng-click='closecustomenu()'
-           style="display:flex !important;background: rgba(0,0,0,0.7) !important;
-            opacity: 0;
-            z-index: -1;
-           "
-           ng-class="{'active':opencustomenuatts}"   >
-        <div style="text-align:center">
-
-          <img   ng-src="{{shopid}}"
-
-                 style="    width: 16em;
-              height: 16em;
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              margin-left: -8em;
-              margin-top: -8em;"
-                 alt="">
-        </div>
-      </div>
-
-
-
-
-
-
-
-
-
-
+    </div>
   </ion-content>
+  
+    <!--//set模块-->
+    <div class="action-sheet-backdrop cutom-sheet"      ng-click="closetallcationvalue()"   id='seletercode'   style="overflow: visible;
+    "
+        ng-class="{'active':setallcationstate}"    >
+        <div class="action-sheet-wrapper "   ng-class="{'action-sheet-up':setallcationstate}" style="overflow: visible;
+            top: 50%;
+                margin-top: -200px;
+        "   >
+            <div class="action-sheet"  " style="width: 100%;margin: 0px;border-radius: 0px;overflow:visible;
+                width: 60%;
+                margin: 0 auto;
+            ">
+                <div class="action-sheet-group action-sheet-options   Custom-menu"
+                ng-click="stopporp($event)"
+                style="background: #fff;overflow: visible;margin: 0px;border-radius: 0px;"  >
+                 <img ng-src="{{shopid}}" alt="">
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+
 </ion-view>

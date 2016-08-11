@@ -71,15 +71,44 @@
     font-size: .55rem;
     bottom: .3rem;">
                                         运费:&nbsp;{{sss.express_fee}}                                 </div>
-
                                 </div>
 
+
+
+
+                                 <div class="selectwulijfun"  ng-click="selecthiswuliufun(fffs)"  >
+                                 <span>配送方式</span>
+                                 <i class="ion-ios-arrow-right"
+                                  style="float: right;font-size: 24px;color: #8e8e8e;"
+                                 ></i>
+                                 <span style="    float: right;margin-right: 10px;" >快递物流</span>
+                            </div>
+
+
+                            <div class="selectwulijfun"  ng-show="fffs.showcatmapint"  >
+                                 <span>门店自提</span>
+                                 <i class="ion-ios-arrow-right"
+                                  style="float: right;font-size: 24px;color: #8e8e8e;"
+                                 ></i>
+                                 <span style="    float: right;margin-right: 10px;" >查看地址</span>
+                            </div>
+                            
+                            
+
                             <div class="liuyan1" style="margin-top: 2rem;margin: 0;padding: 0;display: flex;    margin-bottom: 1rem;">
-                                <input style="width: 100%;resize: none;outline: none;font-size: .56rem;margin: 0;padding: 10px 5%;" 
+                                <input style="width: 100%;resize: none;outline: none;font-size: .56rem;margin: 0;padding: 10px 5%;
+                                      -webkit-appearance: none;
+                                              -moz-appearance: none;
+                                              appearance: none;
+                                                border:none;
+                                " 
                                   ng-model="fffs.make"
                                  id="" placeholder="请填写你和卖家达成一致的要求,或留言">
                             </div>
+                         
                         </div>
+
+
                         
             </div>
 
@@ -124,8 +153,9 @@
 
 
 
+
     <!--//set模块-->
-    <div class="action-sheet-backdrop cutom-sheet"    ng-click="closetallcationvalue()"   id='cutom_sheet'   style="overflow: visible;
+    <div class="action-sheet-backdrop cutom-sheet"    ng-if='showpanl'  ng-click="closetallcationvalue()"   id='cutom_sheet'   style="overflow: visible;
 
     "  ng-class="{'active':setallcationstate}"    >
         <div class="action-sheet-wrapper "   ng-class="{'action-sheet-up':setallcationstate}" style="overflow: visible"   >
@@ -136,6 +166,10 @@
                 ng-click="stopporp($event)"
                 style="background: #fff;overflow: visible;margin: 0px;border-radius: 0px;"  >
                     <div style="width:94%;margin-left:3%;position:relative">
+
+
+
+                <div  ng-show="!selectstat" >
                       <div style="
                       font-size: 16px;
                       text-align: center;
@@ -196,9 +230,40 @@
                       <div   ng-click="addadder()"  style="    height: 40px;font-size: 14px;line-height: 40px;" >
                               <i class="ion-ios-plus-outline" style="float: left;font-size: 24px;margin-right: 10px;"  ></i>   添加收货地址
                       </div>
+                </div>
+
+
+                    <div  ng-show="selectstat">
+
+                             <ion-list      class="comfiradderlist" style="    overflow: visible;"   >
+                                            <ion-item ng-repeat="item in  wuliuseleclist "  style="    overflow: visible;"  ng-click="seltwuiluthi(item)"  >
+                                              <i class=""
+                                                ng-class="{'ion-ios-circle-outline':!item.select,'ion-ios-checkmark':item.select}"
+
+                                                style=" color:#afafaf;position: absolute;font-size: 26px;left: 3px;top: 50%;margin-top: -10px;"
+                                               ></i>
+
+                                              <h5 style="padding-left: 20px;
+                                                  font-size: 14px;
+                                                  font-weight: normal;
+                                              "   >{{item.name}}  </span></h5>
+                                              
+                                            </ion-item>
+                                            
+
+
+                                </ion-list>
 
 
 
+
+                    </div>
+
+
+
+
+
+                            
 
                 </div>
 

@@ -98,7 +98,6 @@ Ctr.controller('AddresslistCtr',['$scope','fromStateServ','Tools','native','$sta
                         })
 
                         if(relf.length){
-
                             Tools.getData({
                             "interface_number": "020504",
                                 "post_content": {
@@ -106,15 +105,14 @@ Ctr.controller('AddresslistCtr',['$scope','fromStateServ','Tools','native','$sta
                                 }
                             },function(r){
                                 if(r){
+                                    
+                                        index.reverse();
+                                        angular.forEach(index,function(s){                                       
+                                                Tools.rmArrin($scope.datalist,parseInt(s))   
+                                        })
+                                        
+                                        native.task('删除成功');
 
-                                angular.forEach(index,function(s){
-                                        console.log(parseInt(s));
-                                        Tools.rmArrin($scope.datalist,parseInt(s))   
-                                })
-
-                                
-
-                                native.task('删除成功!');
 
                                 }
                             })

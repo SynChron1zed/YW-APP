@@ -15,7 +15,6 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
         return false;
       }
       if(!$scope.loginboj.Pwd){
-
         native.task('请输入密码');
         return false;
       }
@@ -26,7 +25,7 @@ Ctr.controller('loginCtr',['$ionicHistory','$scope','fromStateServ','$ionicPlatf
         "client_type": window.platform,
         "post_content": {
           "phone":$scope.loginboj.userName,
-          "push_registration_id" : storage.getObject('jPush').RegistrationID,
+          "push_registration_id" : storage.getObject('jPush').RegistrationID?storage.getObject('jPush').RegistrationID:'',
           "password":window.md5($scope.loginboj.Pwd),
           "uuid":devinfo.uuid
         }

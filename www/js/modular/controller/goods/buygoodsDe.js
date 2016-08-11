@@ -157,7 +157,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
 
     $scope.closetallcationvalue  =   function(){
       $scope.setallcationstate  =  false;
-      var  c   =   document.querySelector('#cutom_sheet');
+      var  c   =   document.querySelector('#goodslia');
       c.className = "action-sheet-backdrop";
       $timeout(function(){
         c.className  ="action-sheet-backdrop cutom-sheet"
@@ -727,38 +727,36 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
         e.stopPropagation();
     }
 
-  $scope.$on('$ionicView.beforeEnter',function(event, data){
 
+
+$scope.$on('$ionicView.beforeLeave',function(){
+
+           $timeout(function(){
+            $scope.showpanl = false;
+           },300)
+         })
+         
+  $scope.$on('$ionicView.beforeEnter',function(event, data){
+            $scope.showpanl = true;
             if(fromStateServ.getState('r.Productdetails')   &&  !$stateParams.inside ){
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.Productdetails').title;
-
-
             }else{
                 $scope.showtitle  = false;
             }
-
-              if(!$scope.parenttitle){
-                $scope.parenttitle  = '返回';
-                }
-
-                inlit();
-
-
-
-
-
-
-
-
-
-
-
-
+            if(!$scope.parenttitle){
+                    $scope.parenttitle  = '返回';
+            }   
+            inlit();
     });
-
     function  inlit  (){
+
+      if($scope.goods){
+        return false;
+      }
+      
+
       Tools.showlogin();
       Tools.getData({
         "interface_number": "020205",

@@ -2,11 +2,11 @@
  * Created by Why on 16/6/8.
  */
 
-Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state','$ionicHistory','storage','fromStateServ','$ionicScrollDelegate','Tools','native','selectArr',function($scope,$ionicPopover, $ionicPopup,$timeout,$state,$ionicHistory,storage,fromStateServ,$ionicScrollDelegate,Tools,native,selectArr) {
+Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state','$ionicHistory','storage','fromStateServ','$ionicScrollDelegate','Tools','native','selectArr','$rootScope',function($scope,$ionicPopover, $ionicPopup,$timeout,$state,$ionicHistory,storage,fromStateServ,$ionicScrollDelegate,Tools,native,selectArr,$rootScope) {
+
 
 
   $scope.userfanhui  = function () {
-
     if(storage.getObject('UserInfo').user_id){
       $state.go('r.tab.SettingsUser')
     }else{
@@ -28,32 +28,31 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
 //切换到登录   login
 function   login   (){
       native.confirm('该操作需要登录','你还没有登录',['登录','取消'],function(c){
-
-
+        
         if(c  == 1){
           fromStateServ.stateChange('r.login');
           }
-
-
       })
 };
 
-$scope.getMdl   =      fromStateServ.stateChange;
+
+$scope.getMdl   =     function(r){
+  fromStateServ.stateChange(r)
+} ;
+
 $scope.Personalsetting  = function (){
-
   $state.go('r.tab.SettingsUpdate');
-
 }
   $scope.aboutWe  = function (){
 
     $state.go('r.tab.SettingWe');
-
   }
 
 
 $scope.addermge  = function(){
 
         $scope.getMdl('r.Addresslist')
+
 }
 
 $scope.updateAPP  =  function () {
@@ -78,15 +77,10 @@ $scope.updateAPP  =  function () {
     }
 
 
-
-
-
   }
 
   $scope.companyInstall=function () {
-
         $scope.getMdl('r.companyInstall')
-
   }
 
 
@@ -168,7 +162,6 @@ var   userone = storage.getObject('UserInfo');
       $scope.Userinfo.integral    = user.integral
       }
     }
-
         $scope.opencustomenuatts  = false;
         $scope.showco  =   function  () {
           var uil   = storage.getObject('UserInfo');
@@ -176,21 +169,47 @@ var   userone = storage.getObject('UserInfo');
               login();
         }else{
             $scope.shopid  = 'http://pan.baidu.com/share/qrcode?w=400&h=400&url='+uil.shop_id;
+            $rootScope.hideTabs =true;
+            $scope.setallcationstate   = true;
 
-            console.log(uil.shop_id);
-
-
-            $scope.opencustomenuatts   = true;
         }
-
       }
-         $scope.closecustomenu  =   function  () {
-              $scope.opencustomenuatts   = false;
-            }
-         $scope.$on('$ionicView.beforeLeave',function(){
-           $scope.closecustomenu();
-         })
+
+
+  $scope.closetallcationvalue  =   function(){
+      $scope.setallcationstate  =  false;
+      $rootScope.hideTabs = false;
+
+
+      //alert($rootScope.hideTabs)
+      
+      var  c   =   document.querySelector('#seletercode');
+      c.className = "action-sheet-backdrop";
+      $timeout(function(){
+        c.className  ="action-sheet-backdrop cutom-sheet"
+      },400);
+      $scope.shopcartnumber = 0;
+      angular.forEach($scope.shopcart,function(key){
+        $scope.shopcartnumber  =  ($scope.shopcartnumber+key.number);
+      })
+
+    };
+
+
+
+ $scope.$on('$ionicView.beforeLeave',function(){
+          
+           $scope.closetallcationvalue();
+})
+
+
+
+         
+        
+
   }])
+
+  
   .controller('SettingsUserCtr',['$scope','Tools','$rootScope','native',function($scope,Tools,$rootScope,native){
     $scope.fankui  = {};
     //$rootScope.$ionicGoBack();

@@ -20,7 +20,12 @@
 
 
       <div class="item item-icon-left item-input-left nopir"       style="width:100%;margin-left:0px"  >
-                 <input style="padding-right:20px;" maxlength="12" class="input-color-usercolse" ng-model="msg.qq"   background: transparent;border:none"  placeholder="请输入您的QQ号码">
+                 <input style="padding-right:20px;
+                 -webkit-appearance: none;
+                 -moz-appearance: none;
+                 appearance: none;background:transparent;border:none
+
+                 " class="input-color-usercolse" ng-model="msg.qq"  placeholder="请输入您的QQ号码">
 
                 <div   ng-click="clear()"   ng-if='msg.qq.length'  class="ion-close-circled ion-close-user" style="    margin-top: -28px;"></div>
 

@@ -8,7 +8,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   var   showlogin = function() {
     native.loading();
   };
-
+  
     function  clone  (myObj){
       if(typeof(myObj) != 'object') return myObj;
       if(myObj == null) return myObj;
@@ -37,6 +37,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
         data  = data.substring(data.indexOf(",")+1);
 
         var pic =data;
+
         var url = 'http://upload.qiniu.com/putb64/'+piclen+'/key/'+key;
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange=function(){
@@ -137,17 +138,38 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   var   hidelogin = function(){
             native.hidloading();
   };
-  var   getData  = function(data,Callback,errorCallback,sendType){
+  var   getData  = function(data,Callback,errorCallback,sendType,host,jsonp){
+
+    if(!host){
+
     data.client_type =   window.platform?window.platform:'ios';
     data.post_content.token  = window.Token?window.Token:storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:'';
     data.post_content.token_phone  = window.token_phone?window.token_phone:storage.getObject('UserInfo').phone?storage.getObject('UserInfo').phone:'';
 
+    }
+    
     console.log('数据监控 ....')
     console.log(JSON.stringify(data));
+    if(jsonp){
+        $http.jsonp(host).success(
+        function(data, status, header, config){
+            Callback(JSON.parse(data));
+
+        }
+    )
+    .error(
+        function(data){
+            //native.task('获取数据失败,请检查网络')
+        }
+    );
+
+
+      return false;
+    }
 
 
     $http({
-      url:window.Interactivehost,
+      url:host?host:window.Interactivehost,
       method:sendType?sendType:'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
       data:data
@@ -171,12 +193,10 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
                         // integral:'0.00',
                         // sex:'./img/icon_man@3x.png',
                         // })
-            window.outlogin(function(){
-            $ionicNativeTransitions.stateGo('r.tab.Home',{}, {
-            "type": "slide",
-            "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
-            "duration": 400, // in milliseconds (ms), default 400
-            });
+            window.outlogin(function(){ 
+            $state.go('r.tab.Home');
+
+                      
 
               $timeout(function(){
                   $ionicHistory.clearHistory();
@@ -189,7 +209,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 
 
             }
-
+          
 
       }  else{
         Callback(false);

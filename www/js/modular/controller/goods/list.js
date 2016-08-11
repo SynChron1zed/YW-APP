@@ -159,21 +159,23 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
                 );
                   }
               });
-
     }
-
-
-
 
   //编辑
   $scope.edith  = function (r){
     goodsState.goods_basic_id  = r.goods_basic_id;
     goodsState.goods_title  = r.goods_title;
     goodsState.img_url  = r.img_url;
-    goodsState.activity_price  = r.activity_price;
-    r.total_in_number  = goodsState.total_in_number;
+    goodsState.total_in_price  = r.total_in_price;
+
+    goodsState.total_in_number  = r.total_in_number ;
+
+
+    console.log(r);
+
 
     $state.go('r.goodsEdit',{state:'edit',id:r.goods_basic_id});
+
   };
 
 
@@ -230,7 +232,7 @@ $scope.swatchtstate  = function (){
   $scope.salestotin.down  =0;
 
   function  inlit (){
-
+    
    if(goodsState.goods_basic_id){
             angular.forEach($scope.datalist,function(r){
                   if(r.goods_basic_id  == goodsState.goods_basic_id){

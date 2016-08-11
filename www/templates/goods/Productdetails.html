@@ -83,35 +83,25 @@
 
   </ion-content>
 
-
-
-
-
-
     <!--//set模块-->
-    <div class="action-sheet-backdrop cutom-sheet"    ng-click="closetallcationvalue()"   id='cutom_sheet'   style="overflow: visible;
-
+    <div class="action-sheet-backdrop cutom-sheet"   ng-if='showpanl' ng-click="closetallcationvalue()"   id='goodslia'   style="overflow: visible;
     "  ng-class="{'active':setallcationstate}"    >
         <div class="action-sheet-wrapper "   ng-class="{'action-sheet-up':setallcationstate}" style="overflow: visible"   >
 
             <div class="action-sheet"  " style="width: 100%;margin: 0px;border-radius: 0px;overflow:visible">
-
                 <div class="action-sheet-group action-sheet-options   Custom-menu" 
                 ng-click="stopporp($event)"
                 style="background: #fff;overflow: visible;margin: 0px;border-radius: 0px;"  >
                     <div style="width:94%;margin-left:3%;position:relative">
 
-        
-
                       <div style="width: 100%;padding:0px;height:3.5rem;padding-top: 6px; border-bottom: 1px solid #F1EEEE;">
-
-
                         <div
                         style="width: 26%;float:left; display: flex !important;flex: 1;justify-content: center;align-items: center;
                 overflow: visible;position: relative;top: -2px;
                 "
                           class="danontgimg" >
                           <img style='
+
                           
                               position: absolute;
     border: 1px solid #ddd;
@@ -120,7 +110,7 @@
     top: -1.2rem;
     left: 0px;
     height: 4.1rem;
-    max-width: 4.1rem;
+    width: 4.1rem;
                         '
       ng-src="{{goods.goodsInfo.img_url}}" alt="">
                         </div>
@@ -164,7 +154,13 @@
                         
                         <div class="adbutton">
                                 <div   ng-click="addnumber()" >+</div>
-                                <input    ng-model="selectsku.number"  readonly  style="background:#fff"  type="text">
+                                <input    ng-model="selectsku.number"  readonly  style="background:#fff;
+                                      -webkit-appearance: none;
+                                              -moz-appearance: none;
+                                              appearance: none;
+                                              border-radius: 0px;
+
+                                "  type="text">
                                 <div  ng-click="removeumber()"  >-</div>
                         </div>            
                             <button  ng-show='!selectsku.state'   style="

@@ -47,7 +47,11 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
             return this.data[module];
         },
         stateChange: function(stateName,parms,animation){
-
+            
+            if(window.Permission(stateName,parms,animation)){
+                            return  false;
+            }
+            
             box.savestate = true;
             //$ionicViewSwitcher.nextDirection(animation?animation:'forward');
             // $ionicNativeTransitions.stateGo(stateName,parms,{
@@ -56,6 +60,7 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
             //     "duration": 1000 // in milliseconds (ms), default 400
             // });
           $ionicViewSwitcher.nextDirection('forward');
+
           $ionicNativeTransitions.stateGo(stateName,parms, {
             "type": "slide",
             "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')

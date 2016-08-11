@@ -1,17 +1,20 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','selectaouthfunl',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,selectaouthfunl) {
+Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','selectaouthfunl','$cordovaCamera',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,selectaouthfunl,$cordovaCamera) {
 
 
 
 
-$scope.aouthc =  function () {
-
-    $scope.goModular('r.selectAuth');
-
-}
-
+  //打开一个浏览器
+  $scope.openinboower  =function () {
+    
+    
+  }
+  
+  $scope.aouthc =  function () {
+    $scope.goModular('r.selectAuth');      
+  }
   //慈善
 
   $scope.charitable =  function () {
@@ -78,7 +81,9 @@ $scope.showlogistics  =  function () {
         native.Barcode(function (rr) {
           if(!rr.cancelled){
                 if(rr.text){
-                    $scope.goModular('r.Shophome',{id:rr});
+
+                    $scope.goModular('r.Shophome',{id:rr.text});
+                    
                 }
           }
 
