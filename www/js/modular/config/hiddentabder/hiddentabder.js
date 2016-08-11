@@ -15,7 +15,6 @@ App.directive('hideTabs',function($rootScope) {
     };
 });
 
-
 //drag  left right box   directive
 App.directive('draggable', function($document, $timeout) {
     return {

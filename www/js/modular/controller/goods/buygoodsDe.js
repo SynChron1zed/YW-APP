@@ -39,7 +39,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
 
 
   $scope.goshop  = function () {
-    $state.go('r.Shophome',{id:$scope.goods.shopInfo.shop_id,ref:'yes'})
+    $state.go('r.Shophome',{id:$scope.goods.shopInfo.shop_id,ref:'yes',inside:'yes'})
   }
 
   $scope.addoactionlistimte  = function (pr) {

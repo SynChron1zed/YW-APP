@@ -48,20 +48,17 @@ $ionicNativeTransitions,$timeout,native,fromStateServ,$cordovaGeolocation) {
           sex:'./img/icon_man@3x.png',
       })
     }
-
-
+    
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
       ionic.Platform.isFullScreen = true;
-
       //Return event listener
       //uuid
        setTimeout(function () {
           navigator.splashscreen.hide();
       }, 1000);
-      
+
     if (window.StatusBar) {
           window.StatusBar.styleDefault();
     }
@@ -120,7 +117,6 @@ $ionicNativeTransitions,$timeout,native,fromStateServ,$cordovaGeolocation) {
     .then(function (position) {
    var lat  = position.coords.latitude;
       var long = position.coords.longitude;
-        alert('成功')
         storage.setObject('location',{
           lat:lat,
           long:long

@@ -62,7 +62,6 @@
                             </div>
                             <div class="goodsbasmsg  "   ng-class="{'edit':xx.edit}" >
                                 <h5
-
                                 ng-click="chekthis(ss)"
                                 >{{ss.goods_title}}</h5>
                                 <p class="price">
@@ -77,7 +76,7 @@
                                         <div>
 
                                             <div class="remove"   ng-click='Subtractme(ss)' >-</div>
-                                            <input type="text"  ng-model='ss.number'  readonly style='background-color:#fff;
+                                            <input type="text"  ng-model='ss.number'  readonly class="nocursor" style='background-color:#fff;
                                               -webkit-appearance: none;
                                               -moz-appearance: none;
                                               appearance: none;'  value="5">

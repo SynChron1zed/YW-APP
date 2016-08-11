@@ -1264,3 +1264,18 @@ background-color: #fff;
     color: dimgrey;
     font-size: 13px;
 }
+scroll-view.scroll-y{
+   height: 100%  !important
+}
+.nocursor{
+   cursor: none !important;
+}
+
+input[readonly]{
+  user-select: none; -khtml-user-select: none; -moz-user-select: none;
+  -webkit-user-select: none
+}
+
+.sliderbox-right.isios{
+  margin-top: 20px;
+}

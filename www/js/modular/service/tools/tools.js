@@ -89,8 +89,10 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
                       },key_header)
                     }
                   }();
-          }else{
+              }else{
+
             native.task('获取图片Token失败！');
+
           }
         });
   };
@@ -193,16 +195,20 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
                         // integral:'0.00',
                         // sex:'./img/icon_man@3x.png',
                         // })
-            window.outlogin(function(){ 
-            $state.go('r.tab.Home');
+                        
+                        $timeout(function () {
 
-                      
+                              window.outlogin(function(){ 
+                              $state.go('r.tab.Home');
+                                $timeout(function(){
+                                    $ionicHistory.clearHistory();
+                                },40)
+                                native.task(r.msg,3000);
+                              })
 
-              $timeout(function(){
-                  $ionicHistory.clearHistory();
-              },40)
-              native.task(r.msg,3000);
-            })
+                        },520)
+                        
+
             Callback(false);
             }else{
             Callback(r);

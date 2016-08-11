@@ -9,6 +9,12 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
 
 
 
+ 
+ if(window.platform   = 'ios'){
+   $scope.plfisios  = true;
+ }
+
+
 $scope.selectthi  = function(tar){
     tar.select   = !tar.select; 
 }
@@ -135,10 +141,16 @@ function  creatpint   (e){
 
         Tools.getData({},function(r){
         },function(){},'GET','http://api.map.baidu.com/geocoder/v2/?ak=O9j8KDz0QkBkuNVL4rnBRvx8&callback=renderReverse&location='+e.point.lat+','+e.point.lng+'&output=json&pois=1',true)
+        
         infoWindow = new BMap.InfoWindow(setcontext(),{
           height:0,
           width:200
         });
+
+
+
+
+
 
           map.clearOverlays(marker);
           var icon = new BMap.Icon('./img/pint.png', new BMap.Size(20, 32), {
@@ -153,12 +165,11 @@ function  creatpint   (e){
           map.addOverlay(marker);               // 将标注添加到地图中
           //marker.setAnimation(BMAP_ANIMATION_BOUNCE); 
           //console.log(marker.getShadow());
-
+          
           openinfo = function(){
             marker.openInfoWindow(infoWindow,e.point);
           }
 
-          marker.setLabel('1');
           marker.enableMassClear(true);
           
 
@@ -221,9 +232,12 @@ function  creatpint   (e){
       }else{
       $timeout(function(){
       var ss  = storage.getObject('location');
-       map = new BMap.Map("container");          // 创建地图实例  
+
+
+      map = new BMap.Map("container");          // 创建地图实例  
       var point = new BMap.Point(ss.long, ss.lat);  // 创建点坐标  
       map.centerAndZoom(point, 25);
+
       window.renderReverse  = function(r){
           $scope.mapTagging.position  = r.result.formatted_address+','+r.result.sematic_description;
           infoWindow.setContent(setcontext());
@@ -827,7 +841,6 @@ function  creatpint   (e){
                 $scope.goods.id  = r.resp_data.goodsInfo.goods_basic_id;
                 $scope.goods.goodsDesc     =  r.resp_data.goodsInfo.desc;
                 $scope.goods.skuinfo  =  r.resp_data.skuInfo;
-
                 angular.forEach(r.resp_data.goodsInfo.arr_img,function (v){
                   var   c = undefined;
                   if(v  == r.resp_data.goodsInfo.img_url){
@@ -1144,6 +1157,29 @@ $scope.save  = function (){
     return  false;
   }
 
+      // if(!$scope.goods.Market_price){
+      //     native.task('请填写市场价!')
+      //     native.hidloading();
+      //     return  false;
+      //   }
+      //   if(!$scope.goods.Platform_price){
+      //     native.task('请填写平台价!')
+      //     native.hidloading();
+      //     return  false;
+      //   }
+      // if(!Tools.reg.negative($scope.goods.Market_price)){
+      //   native.task('请填写正确的市场价!');
+      //   return  false;
+      // }
+      
+      // if(!Tools.reg.negative($scope.goods.Platform_price)){
+      //   native.task('请填写正确的平台价!');
+      //   return  false;
+      // }
+
+
+
+
 
 
   native.loading();
@@ -1166,10 +1202,7 @@ $scope.save  = function (){
         }
       }
 
-
-
      var sys_catId  ='';
-
      if($scope.goods.systemSelect){
         sys_catId   = $scope.goods.systemSelect
      }
@@ -1188,35 +1221,7 @@ $scope.save  = function (){
     var sku = [];
     if($scope.attrsprices.length == 0){
 
-        if(!$scope.goods.Market_price){
-          native.task('请填写市场价!')
-          native.hidloading();
-          return  false;
-        }
-        if(!$scope.goods.Platform_price){
-          native.task('请填写平台价!')
-          native.hidloading();
-          return  false;
-        }
-      if(!Tools.reg.negative($scope.goods.Market_price)){
-        native.task('请填写正确的市场价!');
-
-        return  false;
-      }
-      if(!Tools.reg.negative($scope.goods.Platform_price)){
-        native.task('请填写正确的平台价!');
-
-        return  false;
-      }
-      if(!Tools.reg.negative($scope.goods.freight_price)){
-        native.task('请填写正确的运费!');
-
-        return  false;
-      }
-
-
         var loid  =undefined;
-
         if($scope.goods.skuinfo.length){
               loid =   $scope.goods.skuinfo[0].local_sku_id;
         }

@@ -106,5 +106,9 @@
       return{
       }
     }])
+    .factory('seeshopPint',[function(){
+      return{
+      }
+    }])
 
 

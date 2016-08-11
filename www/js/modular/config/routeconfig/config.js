@@ -9,26 +9,22 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
 
-
-
   $sceDelegateProvider.resourceUrlWhitelist([
       // Allow same origin resource loads.
       'self',
       // Allow loading from our assets domain.  Notice the difference between * and **.
       'http://m.kuaidi100.com/**',
       'https://m.kuaidi100.com/**',
-    ]);
-
-
+    ]);    
   $ionicNativeTransitionsProvider.setDefaultOptions({
-    duration: 300, // in milliseconds (ms), default 400,
-    slowdownfactor: 4, // overlap views (higher number is more) or no overlap (1), default 4
+    duration: 350, // in milliseconds (ms), default 400,
+    slowdownfactor: 1, // overlap views (higher number is more) or no overlap (1), default 4
     iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
     androiddelay: -1, // same as above but for Android, default -1
     winphonedelay: -1, // same as above but for Windows Phone, default -1,
     fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
     fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
-    triggerTransitionEvent: '$ionicView.afterEnter', // internal ionic-native-transitions option
+    triggerTransitionEvent: '$ionicView.beforeEnter', // internal ionic-native-transitions option
     backInOppositeDirection: false // Takes over default back transition and state back transition to use the opposite direction transition to go back
   }).setDefaultTransition({
     type: 'slide',
@@ -88,9 +84,11 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
   $ionicConfigProvider.platform.ios.backButton.previousTitleText('').icon('ion-ios-arrow-left');
   $ionicConfigProvider.platform.android.backButton.previousTitleText('').icon('ion-ios-arrow-left');
 
-
   $ionicConfigProvider.platform.ios.views.transition('ios');
   $ionicConfigProvider.platform.android.views.transition('android');
+  
+  $ionicConfigProvider.views.swipeBackEnabled(false);
+
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
@@ -1055,10 +1053,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
-    //店铺 home列表
+    
+      //店铺 home列表
       .state('r.Shophome', {
-      url: '/Shophome?id:&ref:',
+      url: '/Shophome?id:&ref:&inside:',
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.Shophome')
       },
@@ -1067,7 +1065,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       },
       views: {
         'rootview': {
-          params:{id:null,ref:null},
+          params:{id:null,ref:null,inside:null},
           templateUrl: 'templates/shop/home.html',
           controller: 'shophomeCtr'
         }
@@ -1163,6 +1161,27 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+    
+      //查看物流
+    .state('r.SeeshopPint',{
+      url: '/SeeshopPint?name:',
+      cache:false,
+      onEnter: function(fromStateServ,$ionicHistory) {
+          fromStateServ.saveHisty($ionicHistory,'r.SeeshopPint')
+        },
+       onExit:function(fromStateServ){
+         fromStateServ.removebackregistevent();
+       },
+      views: {
+        params:{name:null},
+        'rootview': {
+          templateUrl: 'templates/shop/showpint.html',
+          controller: 'SeeshopPintCtr'
+        }
+      }
+    })
+
+
 
 
 

@@ -7,13 +7,16 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
             $state.go('r.Productdetails',{id:r.goods_basic_id,inside:'dsadsa'})
     }
 
-
    $scope.title  ='店铺';
    $scope.showtitle   = false;
   //对安卓返回键的  特殊处理  tabs
+
   $scope.$on('$ionicView.beforeEnter',function(){
-            
-            if(fromStateServ.getState('r.Shophome')){
+
+
+            if($stateParams.inside){
+                $scope.showtitle  = false;   
+            }else  if(fromStateServ.getState('r.Shophome')){
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView; 
                 $scope.parenttitle     =   fromStateServ.getState('r.Shophome').title;
@@ -29,12 +32,17 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
                         inlit();
                 }
 
-                        
-
             },400)
     });    
 
     var   inlit  = function (){
+
+
+
+
+
+
+
                 Tools.getData({ "interface_number": "030201",
                 "post_content": {shop_id:$stateParams.id}         
                 },function(r){
@@ -75,6 +83,7 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
 
         //切换分类
         $scope.swatchclass = function (item){
+
                 if(!item.select){
                     angular.forEach($scope.shopclasslist,function(s){
                         s.select  = false;
@@ -83,8 +92,9 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
                            item.select  = true; 
                            $scope.goodlistdata = [];
                             $scope.pagnumber = 1;
-                            $scope.loadermoer = true;     
+                            $scope.customcucdownlisloadMore(true);     
                 }
+
         }
 
         $scope.goodslisthe =  {};
@@ -160,7 +170,100 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
 
 
 
-    
+
+
+}]).controller('SeeshopPintCtr',['$scope','seeshopPint','$stateParams','$timeout','fromStateServ','native',function($scope,seeshopPint,$stateParams,$timeout,fromStateServ,native){
+
+
+          $scope.title  = $stateParams.name;
+          $scope.$on('$ionicView.beforeEnter',function(){
+            if(fromStateServ.getState('r.SeeshopPint')){
+                $scope.showtitle  = true;
+                $scope.backtoprevView  =   fromStateServ.backView; 
+                $scope.parenttitle     =   fromStateServ.getState('r.SeeshopPint').title;
+            }else{
+                $scope.showtitle  = false;
+            }
+
+            $timeout(function(){
+                console.log(seeshopPint);
+                inli();
+            },400)
+    });    
+
+    function  inli (){
+        if(!seeshopPint.datalist.length){
+            native.task('数据为空');
+            return false;
+        }
+
+        //获取第一个点
+        var Firstpoint    =  seeshopPint.datalist[0];
+
+        map = new BMap.Map("showshopint");          // 创建地图实例  
+        var point = new BMap.Point(Firstpoint.lng, Firstpoint.lat);  // 创建点坐标  
+        map.centerAndZoom(point, 25);
+        //初始化图标
+        var icon = new BMap.Icon('./img/pint.png', new BMap.Size(20, 32), {
+              anchor: new BMap.Size(10, 30),
+              infoWindowAnchor: new BMap.Size(20,5),
+              raiseOnDrag: true
+            });
+        //开始循环插入make
+        //make  对象列表
+
+        var makelist  = [];
+        angular.forEach(seeshopPint.datalist,function(element) {
+               makelist[makelist.length]   =  marker = new BMap.Marker({lng:element.lng,lat:element.lat},{icon:icon});  // 创建标注
+               map.addOverlay(marker);
+
+
+                        (function(element,marker){
+                                console.log(element)
+                    marker.addEventListener('click',function(){
+                        function  setcontext  (){
+                                return "<h5 style='margin:0 0 5px 0;padding:0.2em 0'>"+element.name+"</h5>" +  
+                                "<p style='margin:0;line-height:1.5;font-size:13px;margin-bottom: 2px;max-height: 40px;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;word-wrap: break-word;'> 地 址 :  <span style='color:#4a4a4a'>"+element.opsition+"</span>  </p>" +
+                                "<p style='margin:0;line-height:1.5;font-size:13px;margin-bottom: 2px;max-height: 40px;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;word-wrap: break-word;'> 联 系 方 式 : <span style='color:#4a4a4a'>"+element.link+"</span> </p>" +
+                                "<p style='margin:0;line-height:1.5;font-size:13px;margin-bottom: 2px;max-height: 40px;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;word-wrap: break-word;'> 营 业 时 间 : <span style='color:#4a4a4a'>"+element.business+"</span> </p>" + 
+                                "</div>";
+                        }
+
+                      var infoWindow = new BMap.InfoWindow(setcontext(),{
+                            height:0,
+                            width:200
+                            });
+
+                            marker.openInfoWindow(infoWindow,{lng:element.lng,lat:element.lat});
+                           })
+
+
+                      
+
+                    })(element,marker);//调用时参数  
+
+
+        });
+
+
+        
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
 
 
 }])

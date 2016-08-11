@@ -1,10 +1,7 @@
 Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory){
 }])
 
-
-
 .controller('LogisticsCtr',['$scope','Tools','fromStateServ','$stateParams','native','$rootScope','$timeout',function($scope,Tools,fromStateServ,$stateParams,native,$rootScope,$timeout){
-
 
   $scope.$on('$ionicView.beforeEnter',function(){
             if(fromStateServ.getState('r.Logistics')){
@@ -14,7 +11,6 @@ Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory)
             }else{                
                 $scope.showtitle  = false;
             }
-
             inlit();
             console.log($stateParams);
     });

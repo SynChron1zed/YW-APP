@@ -80,7 +80,7 @@ $scope.comorder  =function () {
         native.task('请选择收货地址');
         return  false;
     }    
-    Tools.showlogin();
+
     var  carids  = '';
     
     angular.forEach($scope.info.goods,function (sff) {
@@ -161,12 +161,10 @@ $scope.comorder  =function () {
     }
 
   $scope.addjoinshopcart  = function (r) {
-
+      
                 if(r){
                     $scope.selectstat  = true;
                     $scope.setallcationstate = true;
-
-                    
                     return false;
                 }
 
@@ -206,14 +204,11 @@ $scope.comorder  =function () {
        $ionicScrollDelegate.scrollTop();
 
 
-
-
-
             if(comforderlistadder.no){
                 comforderlistadder.no  = false
                 return false;
             }
-                Tools.showlogin();
+
                 if(buyConfirmorde.cart){
                     //购物车过来的 接口    
                     Tools.getData({

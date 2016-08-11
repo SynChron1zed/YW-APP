@@ -2293,6 +2293,21 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
   color: dimgrey;
   font-size: 13px; }
 
+scroll-view.scroll-y {
+  height: 100%  !important; }
+
+.nocursor {
+  cursor: none !important; }
+
+input[readonly] {
+  user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none; }
+
+.sliderbox-right.isios {
+  margin-top: 20px; }
+
 .shopcartnoitem {
   margin-top: 10px;
   height: 2.4rem;
