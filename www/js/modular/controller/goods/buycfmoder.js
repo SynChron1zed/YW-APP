@@ -1,6 +1,9 @@
 Ctr.controller('ConfirmorderZfctr',['$scope','buyConfirmorde','Tools','$timeout','$state','comforderlistadder','native','fromStateServ','$ionicScrollDelegate',function ($scope,buyConfirmorde,Tools,$timeout,$state,comforderlistadder,native,fromStateServ,$ionicScrollDelegate){
 
 
+
+
+
 $scope.seltwuiluthi  = function (it) {
         angular.forEach($scope.wuliuseleclist,function (ss) {
                 ss.select   = false;
@@ -38,8 +41,28 @@ $scope.seltwuiluthi  = function (it) {
 $scope.selecthiswuliufun  =   function(r){
 
         if(r.buyer_take){
+
+            if(r.showcatmapint){
+            }
+
+            $scope.wuliuseleclist  = [
+                        {
+                            name:'快递物流',
+                            value:0,
+                            select:r.showcatmapint?false:true
+                        },
+                        {
+                            name:'门店自提',
+                            value:1,
+                            select:r.showcatmapint?true:false
+                        }
+                    ];
+
+
+
             $scope.ctrnowobj  = r;
-            $scope.addjoinshopcart(true)
+            $scope.addjoinshopcart(true);
+
         }else{
             native.task('部分商品支持在快递物流,不可选择其他配送方式');
         }
@@ -179,18 +202,6 @@ $scope.comorder  =function () {
        $ionicScrollDelegate.scrollTop();
 
 
-$scope.wuliuseleclist  = [
-    {
-        name:'快递物流',
-        value:0,
-        select:true
-    },
-    {
-        name:'门店自提',
-        value:1,
-        select:false
-    }
-];
 
 
 

@@ -82,8 +82,29 @@ $scope.showlogistics  =  function () {
           if(!rr.cancelled){
                 if(rr.text){
 
-                    $scope.goModular('r.Shophome',{id:rr.text});
+
                     
+                    if(rr.text.length  == 12){
+                      Tools.showlogin();
+                      Tools.getData({
+                          "interface_number": "020605",
+                          "post_content": {
+                          "orderId": rr.text,
+                          "r_token": "sanReceive",
+                          "receive":1
+                          }
+                      },function (r) {
+                        if(r){
+                          native.task('自提订单验证成功',4000);
+                        }
+                      })
+                    }else{
+                        $scope.goModular('r.Shophome',{id:rr.text});
+                    }
+
+                    
+
+
                 }
           }
 
