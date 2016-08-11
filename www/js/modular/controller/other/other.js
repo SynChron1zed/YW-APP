@@ -3,7 +3,9 @@ Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory)
 
 
 
-.controller('LogisticsCtr',['$scope','Tools','fromStateServ','$stateParams','native',function($scope,Tools,fromStateServ,$stateParams,native){
+.controller('LogisticsCtr',['$scope','Tools','fromStateServ','$stateParams','native','$rootScope','$timeout',function($scope,Tools,fromStateServ,$stateParams,native,$rootScope,$timeout){
+
+
   $scope.$on('$ionicView.beforeEnter',function(){
             if(fromStateServ.getState('r.Logistics')){
                 $scope.showtitle  = true;
@@ -17,7 +19,7 @@ Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory)
             console.log($stateParams);
     });
     $scope.state  = true;
-
+    
     var inlit  =   function   (){
         Tools.showlogin();
 
@@ -28,7 +30,6 @@ Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory)
                 }
          },function(r){
                 if(r){
-
                       if(r.resp_data.length){
                         //渲染数据
                         $scope.state =  false;
@@ -37,12 +38,33 @@ Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory)
                         
                       }else{
 
+                          $timeout(function(){
+
+                        if($scope.backtoprevView){
                             $scope.backtoprevView('r.Logistics');
+                      }else{
+                          $rootScope.$ionicGoBack();
+                        }
+                            },400)
+
                             cordova.InAppBrowser.open(r.resp_data.url, '_blank', 'location=no');
                             
                       }
                 }else{
-                    $scope.backtoprevView('r.Logistics');
+
+
+                    $timeout(function(){
+
+                        if($scope.backtoprevView){
+                            $scope.backtoprevView('r.Logistics');
+                      }else{
+                          $rootScope.$ionicGoBack();
+                      }
+
+                    },400)
+
+                   
+                    
                 }
 
          })
