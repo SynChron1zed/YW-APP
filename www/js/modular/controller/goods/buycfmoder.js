@@ -3,6 +3,10 @@ Ctr.controller('ConfirmorderZfctr',['$scope','buyConfirmorde','Tools','$timeout'
 
 
 
+$scope.showgoodmappintthi  = function (params) {
+    $state.go('r.selfShop',{goodsId:'',company_id:params.goods_info[0].company_id});
+}
+
 
 $scope.seltwuiluthi  = function (it) {
         angular.forEach($scope.wuliuseleclist,function (ss) {
