@@ -288,7 +288,8 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    .state('r.tab.HomeSearch',{
+
+   /* .state('r.tab.HomeSearch',{
       onEnter: function() {
         window.noNavtionsbackRootuer   = 'r.tab.Home';
       },
@@ -302,9 +303,41 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           controller: 'homesearchCtr'
         }
       }
+    })*/
+
+    .state('r.HomeSearch',{
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.HomeSearch')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      url: '/HomeSearch',
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Home/search.html',
+          controller: 'homesearchCtr'
+        }
+      }
     })
 
 
+    .state('r.selfShop',{
+      url: '/selfShop/:goodsId',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.selfShop')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Home/selfShop.html',
+          controller: 'selfShopCtr'
+        }
+      }
+    })
 
 
 

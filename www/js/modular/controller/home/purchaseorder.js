@@ -302,37 +302,13 @@ if(bascId==1){
     $state.go('r.Logistics',{id:value})
   };
 
-  $ionicModal.fromTemplateUrl('templates/leftModal.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.leftmodal = modal;
-  });
+
 
   $scope.selfRight = function (val) {
-    $scope.leftmodal.show();
-    $scope.odId = val
-    Tools.getData({
-      "interface_number": "020804",
-      "post_content": {
-        "token":"",
-        "token_phone": "",
-        goods_id: $scope.odId
 
-      }
-
-    },function(r){
-
-      if(r.msg== "success"){
-        $scope.selfList =r.resp_data
-
-      }else{
-
-        return false
-
-      }
+    $state.go('r.selfShop',{goodsId:val})
 
 
-    });
 
 
   }
