@@ -7,6 +7,7 @@ Ctr.controller('selfShopCtr',['$scope','native','$state','fromStateServ','Tools'
 
 
   $scope.goodID = $stateParams.goodsId;
+  $scope.companyID = $stateParams.company_id
 
 
   Tools.getData({
@@ -14,7 +15,9 @@ Ctr.controller('selfShopCtr',['$scope','native','$state','fromStateServ','Tools'
     "post_content": {
       "token":"",
       "token_phone": "",
-      goods_id: $scope.goodID
+      goods_id: $scope.goodID,
+      "company_id": $scope.companyID
+
 
     }
 
