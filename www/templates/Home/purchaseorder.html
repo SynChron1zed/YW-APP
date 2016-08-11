@@ -6,7 +6,7 @@
 
 
 
-       <ion-nav-bar   class="bar-positive ">
+       <ion-nav-bar   class="bar-positive" ng-hide="isHide">
 
         <ion-nav-back-button class="button-clear"    style="font-size:14px;color:#6b3801"  ng-click="backv()" >
             <i class="icon ion-ios-arrow-left" style='#6b3801'  ></i> 返回
@@ -31,18 +31,22 @@
 
 
           </ion-nav-buttons>
+         <ion-nav-buttons side="right">
+           <a   nav-direction="back"   class="button button-icon  ion-ios-search-strong " ng-click="searchBody()">
+
+           </a>
+         </ion-nav-buttons>
 
 
   </ion-nav-bar>
 
 
 
-<!--
-  <ion-nav-buttons side="right">
-      <a   nav-direction="back"   class="button button-icon  ion-ios-search-strong ">
 
-      </a>
-    </ion-nav-buttons>-->
+
+
+
+
 
 
   <ion-content  style="background: #F7F7F7;overflow: hidden;" ;overflow-scroll="false"  scrollbar-y="false"  >
@@ -126,7 +130,7 @@
               <div>
                 <p style="font-size: 13px;
     color: black;">
-                  订单编号:  {{item.odid}}
+                  订单编号:  {{item.order_basic_id}}
                 </p>
               </div>
 
@@ -195,6 +199,32 @@
     </div>
 
   </ion-content>
+
+
+  <script id="templates/searchModal.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-nav-bar   class="bar-positive   home-search-noback">
+        <ion-nav-buttons side="right">
+          <button class="button button-icon " ng-click="leftHide()" >
+            返回
+          </button>
+        </ion-nav-buttons>
+
+        <ion-nav-title  class=" item-input-inset" style="padding: 0px;padding-top: 7px;width:120%;position: relative;left: -20%;">
+          <form class="item-input-wrapper" style="height: 31px;">
+            <i class="icon ion-ios-search-strong placeholder-icon"></i>
+            <input type="search"  jfocus style="width:100%" class="input-color-usercolse" ng-model="msg.key"     ng-keyup="myKeyup($event)"   class="cutom-inputfocus"       placeholder="寻找你要的商品">
+            <div   ng-click="clear()"   ng-if='msg.key.length'  class="ion-close-circled ion-close-user" style="     margin-top: 0px;
+    right: 5px;"></div>
+
+          </form>
+        </ion-nav-title>
+      </ion-nav-bar>
+      <ion-content>
+
+      </ion-content>
+    </ion-modal-view>
+  </script>
 
 
 

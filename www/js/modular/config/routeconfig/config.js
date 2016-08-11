@@ -287,21 +287,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-   /* .state('r.tab.HomeSearch',{
-      onEnter: function() {
-        window.noNavtionsbackRootuer   = 'r.tab.Home';
-      },
-      onExit:function(){
-        window.noNavtionsbackRootuer   =   undefined;
-      },
-      url: '/HomeSearch',
-      views: {
-        'Home': {
-          templateUrl: 'templates/Home/search.html',
-          controller: 'homesearchCtr'
-        }
-      }
-    })*/
+
 
     .state('r.HomeSearch',{
       onEnter: function(fromStateServ,$ionicHistory) {
@@ -358,17 +344,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
 
 
-    // home  最新动态详情
- /*   .state('r.tab.homeNewsContent',{
-      url: '/homeNewsContent',
-      nativeTransitions: null,
-      views: {
-        'Home': {
-          templateUrl: 'templates/Home/newsContent.html',
-          controller: 'newsContentCtr'
-        }
-      }
-    })*/
+
 
 
     .state('r.homeNewsContent', {
@@ -431,15 +407,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
 
     //交易流程
-  /* .state('r.tab.flow',{
-      url: '/flow',
-      views: {
-        'Home': {
-          templateUrl: 'templates/Home/flow.html',
-          controller: 'flowCtr'
-        }
-      }
-    })*/
+
 
 
     .state('r.flow', {
@@ -589,6 +557,18 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           params:{'basicID':null},
           templateUrl: 'templates/Home/purchasebody.html',
           controller: 'purbodyCtr'
+        }
+      }
+    })
+
+
+    //采购订单搜索
+    .state('r.searchPurchase',{
+      url: '/searchPurchase/:keyValue/:newData',
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Home/searchPurchase.html',
+          controller: 'searchPurchaseCtr'
         }
       }
     })

@@ -6,7 +6,6 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
 
 
 
-
   $scope.$on('$ionicView.beforeEnter',function(){
 
             if(fromStateServ.getState('r.HomPurchase')){
@@ -86,7 +85,8 @@ if(bascId==1){
       "post_content": {
         "token":"",
         "token_phone": "",
-        "status": $scope.statusData
+        "status": $scope.statusData,
+        "keyword":$scope.key
       }
     };
 
@@ -330,5 +330,53 @@ if(bascId==1){
   $scope.$on('$ionicView.beforeLeave',function(){
     $scope.closecustomenu();
   })
+
+
+  $ionicModal.fromTemplateUrl('templates/searchModal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.Modal = modal;
+  });
+
+  $scope.searchBody=function () {
+    $scope.Modal.show();
+
+
+  }
+
+  $scope.back  =  function (){
+    $rootScope.$ionicGoBack();
+  };
+
+
+  $scope.msg={};
+  $scope.clear  = function(){
+    $scope.msg.key   = undefined;
+  }
+
+
+  $scope.myKeyup = function (e) {
+    var keycode = window.event?e.keyCode:e.which;
+    if(keycode==13){
+
+     $scope.key = $scope.msg.key
+      $scope.Modal.hide();
+      $scope.ShoppingList=[];
+      $scope.page_number  =1;
+      $ionicScrollDelegate.scrollTop();
+      $scope.all = true;
+      $scope.dfk = false;
+      $scope.dfc = false;
+      $scope.dfh = false;
+      $scope.expression  = true;
+    }
+
+  }
+$scope.leftHide =  function () {
+ 
+  $scope.Modal.hide();
+}
+
 
 }]);
