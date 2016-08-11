@@ -1,0 +1,39 @@
+<ion-view view-title="最新动态"  >
+
+
+
+
+  <ion-content  scrollbar-y="false"  overflow-scroll="false"   style="background: whitesmoke"  >
+    <div class="list" style="overflow: visible;z-index: 999;padding:0px;">
+
+     <div class="list   gerenlist-icon" style="">
+
+      <label class=""   style="" ng-repeat="item in selfList" >
+        <div class="row" style="height:60px;    border-bottom: 1px solid #ccc;" >
+          <div  class="col col-80" style="width: 100px">
+            <span class="news-yiyu">{{item[0].name}}</span>
+            <span class="ziti-left">{{item[0].address}}</span>
+
+          </div>
+
+          <div class="col ">
+            <a href="tel:item[0].link">
+
+              <img src="./img/classif/phoneziti.png" style=" width: 45px;border-left: 1px solid #a2a2a2;float: right;">
+            </a>
+          </div>
+        </div>
+      </label>
+    </div>
+
+
+       </div>
+
+  </ion-content>
+
+
+
+</ion-view>
+
+
+

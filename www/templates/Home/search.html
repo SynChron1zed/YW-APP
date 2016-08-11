@@ -1,12 +1,6 @@
 <ion-view  hide-back-button="true"  view-title=""   hide-tabs="true"   >
 
   <ion-nav-bar   class="bar-positive   home-search-noback">
-  <!--<ion-nav-buttons side="left">-->
-    <!--<button class="button" ng-click="doSomething()">-->
-      <!--我是一个在导航栏左侧的按钮！-->
-    <!--</button>-->
-  <!--</ion-nav-buttons>-->
-  <!--<ion-header-bar  class="bar-positive item-input-inset  lb-main-title-search" >-->
   <ion-nav-buttons side="right">
     <button class="button button-icon "  >
       搜索
@@ -16,15 +10,34 @@
   <ion-nav-title  class=" item-input-inset" style="padding: 0px;padding-top: 7px;width:120%;position: relative;left: -20%;">
     <form class="item-input-wrapper" style="height: 31px;">
       <i class="icon ion-ios-search-strong placeholder-icon"></i>
-            <input type="text"  jfocus style="width:100%"      ng-keyup="handleinputkey(searchkeyword.txt,$event)"   class="cutom-inputfocus"       placeholder="寻找你要的商品">
+            <input type="text"  jfocus style="width:100%" class="input-color-usercolse" ng-model="msg.key"     ng-keyup="handleinputkey(searchkeyword.txt,$event)"   class="cutom-inputfocus"       placeholder="寻找你要的商品">
+              <div   ng-click="clear()"   ng-if='msg.key.length'  class="ion-close-circled ion-close-user" style="     margin-top: 0px;
+    right: 5px;"></div>
 
     </form>
   </ion-nav-title>
-  <!--</ion-header-bar>-->
 </ion-nav-bar>
 
-  <ion-content   style="background: #f3f3f3;overflow-x: hidden; overflow-y:visible;" scroll="false"  on-swipe-right="back()"  >
+  <ion-content  style="background-color: whitesmoke;overflow: hidden;" overflow-scroll="false"  scrollbar-y="false"  >
+    <ion-scroll  delegate-handle="list"
+                 lazy-scroll
+                 overflow-scroll="false"
+                 scrollbar-y="false"
+                 style="width: 100%;
+                     overflow:hidden
+                     "
+                 ng-style="caklateheight"   >
 
+      <div class="shopgoodslit"  style="    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.03)"   ng-repeat="item in ShoppingList"    ng-click="goodsdetail(item)"  >
+        <img image-lazy-src="{{item.img_url}}" alt="" image-lazy-distance-from-bottom-to-load="10"     >
+        <p style="height:40px;padding:0px 4px;">{{item.goods_title}}</p>
+        <p><span style="color:#f16902">￥{{item.total_in_price}}</span></p>
+      </div>
+
+      <ion-infinite-scroll  ng-if="expression" style="height: 20px;line-height: 40px;margin-bottom:20px;text-align: center" spinner="dots" on-infinite="loadOlderStories()"  distance="1%"  > </ion-infinite-scroll>
+      <div ng-if="!expression" style="line-height: 90px;margin-bottom:40px;text-align: center;color:#999" >没有更多了!</div>
+
+    </ion-scroll>
 
   </ion-content>
 </ion-view>

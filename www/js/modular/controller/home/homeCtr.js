@@ -117,6 +117,10 @@ $scope.showlogistics  =  function () {
       fromStateServ.stateChange('r.HomSales');
 
   }
+  $scope.searchBody=function () {
+    fromStateServ.stateChange('r.HomeSearch');
+  }
+
 
   $scope.caigoudindan1  =function () {
 
