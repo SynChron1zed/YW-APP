@@ -108,4 +108,11 @@ $scope.handleinputkey = function () {
   $timeout(function(){
     caklatehe();
   },600)
+
+  $scope.goodsdetail  = function(r){
+
+    $state.go('r.Productdetails',{id:r.goods_basic_id})
+    // fromStateServ.stateChange('r.Productdetails',{id:r.goods_basic_id});
+  }
+
 }]);
