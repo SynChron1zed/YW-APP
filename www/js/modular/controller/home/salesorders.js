@@ -223,6 +223,7 @@ $scope.dataList = false
   }
   $scope.queryTwo =function () {
     $scope.newmodal.hide();
+    $scope.expressionList = false
     $scope.dfks();
   }
 
@@ -254,7 +255,7 @@ $scope.dataList = false
 
       Tools.getData(sendoption,function(r){
         if(r){
-
+          debugger;
 
           if(r.resp_data.nextPage  == 0 ){
             $scope.expressionList  = false;
@@ -313,7 +314,6 @@ $scope.dataList = false
           $scope.selectList  = r.resp_data.data;
 
         }else{
-
           return false
 
         }
@@ -465,7 +465,7 @@ $scope.query =function () {
   }
 
 
-  $scope.myKeyup = function (e) {
+  $scope.newKeyup = function (e) {
     var keycode = window.event?e.keyCode:e.which;
     if(keycode==13){
 
@@ -478,7 +478,7 @@ $scope.query =function () {
       $scope.dfk = false;
       $scope.dfc = false;
       $scope.dfh = false;
-      $scope.expressionList  = true;
+      $scope.expression  = true;
     }
 
   }
