@@ -24,7 +24,7 @@ Ctr.controller('ordersbodyCtr',['$scope','native','$state','fromStateServ','Tool
       $scope.pay = $scope.shopbody.order.data[0].total_fee
       $scope.postage =  $scope.shopbody.order.data[0].post_fee
       $scope.newTotal = parseInt($scope.pay)+parseInt($scope.postage)
-      
+      $scope.message = $scope.shopbody.order.data[0].buyer_message
       $scope.time = $scope.shopbody.order.data[0].order_created
       $scope.name = $scope.shopbody.address.receiver_name
       $scope.mobile= $scope.shopbody.address.receiver_mobile
