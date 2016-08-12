@@ -3,8 +3,7 @@
  */
 App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout','native','fromStateServ','$cordovaGeolocation',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,
 $ionicNativeTransitions,$timeout,native,fromStateServ,$cordovaGeolocation) {
-
-
+window.networonline  =  true;
 
 
 
@@ -31,9 +30,8 @@ $ionicNativeTransitions,$timeout,native,fromStateServ,$cordovaGeolocation) {
                   }
                 })
             };
-          
-
-
+      
+      
       // storage.setObject('location',{
       //     lat:28.188874,
       //     long:112.991093
@@ -67,9 +65,8 @@ $ionicNativeTransitions,$timeout,native,fromStateServ,$cordovaGeolocation) {
       cordova.plugins.Keyboard.disableScroll(true);      
       //ionic.Platform.isFullScreen = true;
 
-      //Return event listener
-      //uuid
-
+    //Return event listener
+    //uuid
     if (window.StatusBar) {
           window.StatusBar.styleDefault();
     }
@@ -289,11 +286,18 @@ $ionicNativeTransitions,$timeout,native,fromStateServ,$cordovaGeolocation) {
 
 
 
-  //注册 键盘打开事件
-  window.addEventListener('native.keyboardshow',function (e) {
-      console.log(e);
 
-  });
+ // listen for Online event
+    $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
+      
+         window.networonline  =  true;
+
+    })
+
+    // listen for Offline event
+    $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
+      window.networonline  =  false;
+    })
 
 
 

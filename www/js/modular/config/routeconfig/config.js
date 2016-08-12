@@ -1122,7 +1122,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
             }
           }
         })
-
+        
     //查看物流
     .state('r.Logistics',{
       url: '/Logistics?id:',
@@ -1160,9 +1160,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
-
-
 
 
 

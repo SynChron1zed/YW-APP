@@ -18,7 +18,6 @@
     margin:0px;
   }
   .tiem-itemlisgt{
-    
     margin-right: 0px;
     margin-left: 20px;
     border-left: 2px solid #ddd;
@@ -66,14 +65,21 @@
   "       >
 
 
+
+<div class="list"><label class="item item-input item-floating-label"><span class="input-label">First Name</span><input type="text"placeholder="First Name"></label><label class="item item-input item-floating-label">
+  
+  <span class="input-label">Last Name</span>
+  <input type="text"placeholder="Last Name"></label><label class="item item-input item-floating-label"><span class="input-label">Email</span><input type="text"placeholder="Email"></label>
+
+  </div>
+
+
+
   <p style="height:1px;"></p>
-
       <div class="tiem-itemlisgt"  ng-repeat="ff  in  logiaclist"   >
-
           <span  ng-class="{'now':ff.now}" ></span>
           <p style="font-size:14px" >{{ff.context}}</p>
           <p style="color:#9a9a9a" >{{ff.time}}</p>
-
       </div>
 
 

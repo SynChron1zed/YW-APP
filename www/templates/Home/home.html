@@ -27,10 +27,14 @@
     <div style="height:100px"  ng-click='catshowtakepint()'>
         查看一个字体点位置
     </div>
+    
+    <div style="height:100px"  ng-click='showlogistics()'>
+        查看·物流
+    </div>
 
 
       <div   ng-if='guankao'  >
-            <ion-slide-box    ng-if='guankao'  class='homeSlidebox' auto-play='true'  does-continue="true" >
+            <ion-slide-box    ng-if='guankao'  class='homeSlidebox' auto-play='true'   >
               <ion-slide   ng-repeat="ss   in  guankao"   ng-click="gogunal(ss)"   >
                 <img ng-src="{{ss.qiniu_key}}" alt="">
               </ion-slide>
