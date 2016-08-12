@@ -9,9 +9,16 @@ Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','nati
 
 
 
+
+
+
+
+
  
- if(window.platform   = 'ios'){
+ if(window.platform   == 'ios'){
    $scope.plfisios  = true;
+ }else{
+   $scope.plfisios  = false;
  }
 
 
@@ -1041,26 +1048,86 @@ $timeout(function(){
   //is_virtual
   //barcode
   //goodsDesc
-  $scope.$watch('goods.retail_price',function(newValue,oldValue, scope){
-           if(Math.abs(newValue)  >= 999999){
-             $scope.goods.Market_price  = 999999;
-           }
+$scope.bilfthivla = function(r){
+     if(Math.abs(r.msg.retail_price)  >= 999999){
+        r.msg.retail_price  = 999999;
+      }
+}
+$scope.bilfthivlabr   = function(r){
+      r.msg.retail_price   = Math.abs(r.msg.retail_price);
+}
+
+
+$scope.bilfthivlapre = function(r){
+     if(Math.abs(r.msg.activity_price)  >= 999999){
+        r.msg.activity_price  = 999999;
+      }
+}
+$scope.bilfthivlabrpre   = function(r){
+      r.msg.activity_price   = Math.abs(r.msg.activity_price);
+}
+
+
+$scope.bilfthivlanumber = function(r){
+     if(Math.abs(r.msg.number)  >= 999999){
+        r.msg.number  = 999999;
+      }
+}
+
+$scope.bilfthivlanumberbr   = function(r){
+      r.msg.number   = Math.abs(r.msg.number);
+}
+
+
+
+
+
+
+$scope.matthisvalu   = function(s){
+  s.Market_price = Math.abs(s.Market_price);
+}
+$scope.matthisvaluplaform   = function(s){
+  s.Platform_price = Math.abs(s.Platform_price);
+}
+$scope.matthisvalstok   = function(s){
+  s.Stock_number = Math.abs(s.Stock_number);
+}
+$scope.matthisvalfrprice   = function(s){
+  s.freight_price = Math.abs(s.freight_price);
+}
+
+
+
+
+
+
+
+
+  $scope.$watch('goods.Market_price',function(newValue,oldValue, scope){
+            if(Math.abs(newValue)  >= 999999){
+              $scope.goods.Market_price  = 999999;
+            }
+           ///$scope.goods.Market_price  = Math.abs($scope.goods.Market_price)
    });
 
    $scope.$watch('goods.Platform_price',function(newValue,oldValue, scope){
             if(Math.abs(newValue)  >= 999999){
               $scope.goods.Platform_price  = 999999;
             }
+            //$scope.goods.Platform_price  = Math.abs($scope.goods.Platform_price)
     });
     $scope.$watch('goods.Stock_number',function(newValue,oldValue, scope){
              if(Math.abs(newValue)  >= 999999){
                $scope.goods.Stock_number  = 999999;
              }
+             //$scope.goods.Stock_number  = Math.abs($scope.goods.Stock_number)
      });
+
      $scope.$watch('goods.freight_price',function(newValue,oldValue, scope){
               if(Math.abs(newValue)  >= 999999){
                 $scope.goods.freight_price  = 999999;
               }
+          //$scope.goods.freight_price  = Math.abs($scope.goods.freight_price)
       });
 
   ///扫码

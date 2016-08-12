@@ -4,6 +4,10 @@
 App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout','native','fromStateServ','$cordovaGeolocation',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,
 $ionicNativeTransitions,$timeout,native,fromStateServ,$cordovaGeolocation) {
 
+
+
+
+
               //$cordovaProgress.showBar(true, 50000);
               //退出登录
               window.outlogin  = function(Callback){
@@ -27,14 +31,23 @@ $ionicNativeTransitions,$timeout,native,fromStateServ,$cordovaGeolocation) {
                   }
                 })
             };
-            
-      storage.setObject('location',{
-          lat:28.188874,
-          long:112.991093
-        });
+          
+
+
+      // storage.setObject('location',{
+      //     lat:28.188874,
+      //     long:112.991093
+      //   });
         
 
   $ionicPlatform.ready(function() {
+
+   setTimeout(function () {
+     if(navigator){
+       navigator.splashscreen.hide();
+       }    
+    }, 1000);
+
     //$state.go('r.selectAuth');
     $state.go('r.tab.Home');
     
@@ -55,9 +68,7 @@ $ionicNativeTransitions,$timeout,native,fromStateServ,$cordovaGeolocation) {
       ionic.Platform.isFullScreen = true;
       //Return event listener
       //uuid
-       setTimeout(function () {
-          navigator.splashscreen.hide();
-      }, 1000);
+      
 
     if (window.StatusBar) {
           window.StatusBar.styleDefault();

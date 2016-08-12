@@ -91,25 +91,21 @@
 
           <div class="item item-input"   ng-show="!hassku"   >
             <span class="input-label">市场价 <span style="color: red">*</span></span>
-            <input type="text" placeholder="￥0.00"  maxlength="6"  ng-model="goods.Market_price" >
+            <input type="text" placeholder="￥0.00"  ng-blur="matthisvalu(goods)"   ng-model="goods.Market_price" >
           </div>
 
           <div class="item item-input"   ng-show="!hassku"      >
             <span class="input-label">平台价 <span style="color: red">*</span></span>
-            <input type="text" placeholder="￥0.00"    ng-model="goods.Platform_price" >
+            <input type="text" placeholder="￥0.00"    ng-blur="matthisvaluplaform(goods)" ng-model="goods.Platform_price" >
           </div>
           </div>
-
+          
                 <ion-list >
-
                     <h5     ng-show="!goods.edit"  style="background: #fff;text-indent:20px;margin: 0;padding: 10px 4px;font-weight: normal;font-size:15px;border-top: 1px solid #DDD">添加商品规格:</h5>
-
                     <div class="item   lastitemnoborer"   ng-repeat="fff  in attrsprices"    >
                         <div class="item-attrs-good" >
                             <section class="attrname">
-
                                 <span ng-repeat="subke in   fff.sku"  >{{subke.prop_name+':'+subke.prop_value}}&nbsp;</span>
-
                             </section>
 
                             <del class="delattritm"  ng-click="delattritem(attrsprices,fff.index)"  >
@@ -117,9 +113,9 @@
                             </del>
                             <ul class="attrlist"    >
 
-                                <li> <span>市场价<i style="color: red"> &nbsp;</i></span> <input type="text"  ng-model="fff.msg.retail_price"      placeholder="￥0.00" >  </li>
-                                <li> <span>平台价<i style="color:red"> &nbsp;</i></span> <input type="text"   ng-model="fff.msg.activity_price"     placeholder="￥0.00" >  </li>
-                                <li> <span>库存<i style="color:red"> &nbsp;</i></span> <input type="text"     ng-model="fff.msg.number"      placeholder="库存数" >  </li>
+                                <li> <span>市场价<i style="color: red"> &nbsp;</i></span> <input type="text"  ng-model="fff.msg.retail_price"   ng-change="bilfthivla(fff)"   ng-blur="bilfthivlabr(fff)"      placeholder="￥0.00" >  </li>
+                                <li> <span>平台价<i style="color:red"> &nbsp;</i></span> <input type="text"   ng-model="fff.msg.activity_price"   ng-change="bilfthivlapre(fff)"   ng-blur="bilfthivlabrpre(fff)"      placeholder="￥0.00" >  </li>
+                                <li> <span>库存<i style="color:red"> &nbsp;</i></span> <input type="text"     ng-model="fff.msg.number"     ng-change="bilfthivlanumber(fff)"   ng-blur="bilfthivlanumberbr(fff)"     placeholder="库存数" >  </li>
 
 
                             </ul>
@@ -162,11 +158,11 @@
         <div class="list">
           <div class="item item-input"   ng-show="!hassku"     >
             <span class="input-label">库存 </span>
-            <input type="number"  placeholder="库存数"    ng-model="goods.Stock_number" >
+            <input type="number"  placeholder="库存数"  ng-blur="matthisvalstok(goods)"    ng-model="goods.Stock_number" >
           </div>
           <div class="item item-input"   >
             <span class="input-label">运费 </span>
-            <input type="number" placeholder="运费价格"    ng-model="goods.freight_price" >
+            <input type="number" placeholder="运费价格"   ng-blur="matthisvalfrprice(goods)"     ng-model="goods.freight_price" >
           </div>
 
         </div>
@@ -430,7 +426,6 @@
                               margin: 0px;
               display: inline-block;
               width: 70%;
-              padding-left:10%;
               height: 45px;
               line-height: 45px;
                           " type="text" placeholder="请输入需要添加的属性名" >
