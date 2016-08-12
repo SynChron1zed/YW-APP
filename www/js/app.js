@@ -1325,7 +1325,7 @@ $ionicNativeTransitions,$timeout,native,fromStateServ,$cordovaGeolocation) {
        navigator.splashscreen.hide();
        }    
     }, 1000);
-
+    
     //$state.go('r.selectAuth');
     $state.go('r.tab.Home');
     
@@ -1339,22 +1339,19 @@ $ionicNativeTransitions,$timeout,native,fromStateServ,$cordovaGeolocation) {
           sex:'./img/icon_man@3x.png',
       })
     }
-    
+
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
-      ionic.Platform.isFullScreen = true;
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
+      cordova.plugins.Keyboard.disableScroll(true);      
+      //ionic.Platform.isFullScreen = true;
+
       //Return event listener
       //uuid
-      
 
     if (window.StatusBar) {
           window.StatusBar.styleDefault();
     }
 
-
-
-   
       //回退之前  退出键盘
       window.screen.lockOrientation('portrait');
 
@@ -1567,13 +1564,25 @@ $ionicNativeTransitions,$timeout,native,fromStateServ,$cordovaGeolocation) {
 
 
 
+
+
+
+  //注册 键盘打开事件
+  window.addEventListener('native.keyboardshow',function (e) {
+      console.log(e);
+
   });
 
 
 
+
+
+  });
+ 
+
+
   window.updateAPP  =  function(r){
 
-    return  false;
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
 
@@ -4458,11 +4467,22 @@ $scope.$on('$ionicView.beforeLeave',function(){
 
 
           }else{
-            if($scope.showtitle){
-                $scope.backtoprevView('r.Productdetails');
-            }else{
-              $ionicHistory.goBack();
-            }
+
+
+
+            $timeout(function(){
+              
+                if($scope.showtitle){
+                      $scope.backtoprevView('r.Productdetails');
+                  }else{
+                    $ionicHistory.goBack();
+                  }
+
+
+            },420)
+
+        
+
 
 
           }
@@ -6697,7 +6717,7 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 
 $scope.catshowtakepint  = function () {
 
-  
+
 
   seeshopPint.datalist  = [
     {
@@ -6705,7 +6725,7 @@ $scope.catshowtakepint  = function () {
       lat:28.188874,
       lng:112.991093,
       link:13517437502,
-      business:'早上7点到晚上12点',
+      business:'早上7点到晚上12点1111',
       opsition:'xxx小学校，距离xxx多少米'
     },
      {
@@ -6717,18 +6737,18 @@ $scope.catshowtakepint  = function () {
       opsition:'xxx小学校，距离xxx多少米'
     }
   ];
-  
+
 fromStateServ.stateChange('r.SeeshopPint',{name:'测试的店铺'});
 
 
 }
 
   //打开一个浏览器
-  $scope.openinboower  =function () {    
+  $scope.openinboower  =function () {
   }
-  
+
   $scope.aouthc =  function () {
-    $scope.goModular('r.selectAuth');      
+    $scope.goModular('r.selectAuth');
   }
   //慈善
 
@@ -6798,7 +6818,7 @@ $scope.showlogistics  =  function () {
                 if(rr.text){
 
 
-                    
+
                     if(rr.text.length  == 12){
                       Tools.showlogin();
                       Tools.getData({
@@ -6817,7 +6837,7 @@ $scope.showlogistics  =  function () {
                         $scope.goModular('r.Shophome',{id:rr.text});
                     }
 
-                    
+
 
 
                 }
@@ -8318,7 +8338,7 @@ Ctr.controller('searchPurchaseCtr',['$scope','native','$state','fromStateServ','
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('selfShopCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$stateParams','$ionicScrollDelegate','$ionicHistory','$ionicNativeTransitions','$ionicModal',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$stateParams,$ionicScrollDelegate,$ionicHistory,$ionicNativeTransitions,$ionicModal) {
+Ctr.controller('selfShopCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$stateParams','$ionicScrollDelegate','$ionicHistory','$ionicNativeTransitions','$ionicModal','seeshopPint',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$stateParams,$ionicScrollDelegate,$ionicHistory,$ionicNativeTransitions,$ionicModal,seeshopPint) {
 
 
 
@@ -8342,6 +8362,7 @@ Ctr.controller('selfShopCtr',['$scope','native','$state','fromStateServ','Tools'
 
     if(r.msg== "success"){
       $scope.selfList =r.resp_data
+      
 
     }else{
 
@@ -8351,6 +8372,46 @@ Ctr.controller('selfShopCtr',['$scope','native','$state','fromStateServ','Tools'
 
 
   });
+
+
+  $scope.newMap = function (val) {
+
+     seeshopPint.datalist  =[];
+    $scope.mapList = val;
+    
+    seeshopPint.datalist  = [
+      {
+        name:$scope.mapList.name,
+        lat:$scope.mapList.gps_lat,
+        lng:$scope.mapList.gps_long,
+        link:$scope.mapList.link,
+        business:$scope.mapList.take_time,
+        opsition:$scope.mapList.address
+      }
+    ];
+    $state.go('r.SeeshopPint',{name:$scope.mapList.name});
+
+
+    }
+
+
+
+  /*for(var i = 0 ;i<$scope.selfList.length;i++){
+    seeshopPint.datalist.push({}[i])
+    for(var j = 0 ; j<$scope.selfList[i].length;j++){
+      if($scope.selfList[i].take_time){
+        seeshopPint.datalist[i].business = $scope.selfList[i].take_time
+      }
+      if($scope.selfList[i].gps_lat){
+        seeshopPint.datalist[i].lat = $scope.selfList[i].gps_lat
+      }
+      if($scope.selfList[i].link){
+        seeshopPint.datalist[i].link = $scope.selfList[i].link
+      }
+    }
+
+  }*/
+
 
 
 }]);
@@ -11923,9 +11984,8 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
    $scope.title  ='店铺';
    $scope.showtitle   = false;
   //对安卓返回键的  特殊处理  tabs
-
+  
   $scope.$on('$ionicView.beforeEnter',function(){
-
 
             if($stateParams.inside){
                 $scope.showtitle  = false;
@@ -12561,6 +12621,20 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
 /**
  * Created by Why on 16/6/10.
  */
+//推送的方法类封装
+Server.factory('native',['$window',function($window){
+  return{
+    //存储单个属性
+    set :function(key,value){
+      $window.localStorage[key]=value;
+    },
+  }
+
+}]);
+
+/**
+ * Created by Why on 16/6/10.
+ */
 //调用原生方法类
 Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaActionSheet','$cordovaAppVersion','$cordovaBadge','$cordovaBarcodeScanner','$cordovaToast','$cordovaProgress','$cordovaCalendar','$ionicLoading',function($window,$cordovaCamera,$cordovaDialogs,$cordovaActionSheet,$cordovaAppVersion,$cordovaBadge,$cordovaBarcodeScanner,$cordovaToast,$cordovaProgress,$cordovaCalendar,$ionicLoading){
   //跟新方法
@@ -12782,20 +12856,6 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
     //}
 
 
-  }
-
-}]);
-
-/**
- * Created by Why on 16/6/10.
- */
-//推送的方法类封装
-Server.factory('native',['$window',function($window){
-  return{
-    //存储单个属性
-    set :function(key,value){
-      $window.localStorage[key]=value;
-    },
   }
 
 }]);

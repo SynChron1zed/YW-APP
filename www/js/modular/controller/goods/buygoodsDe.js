@@ -851,11 +851,22 @@ $scope.$on('$ionicView.beforeLeave',function(){
 
 
           }else{
-            if($scope.showtitle){
-                $scope.backtoprevView('r.Productdetails');
-            }else{
-              $ionicHistory.goBack();
-            }
+
+
+
+            $timeout(function(){
+              
+                if($scope.showtitle){
+                      $scope.backtoprevView('r.Productdetails');
+                  }else{
+                    $ionicHistory.goBack();
+                  }
+
+
+            },420)
+
+        
+
 
 
           }
