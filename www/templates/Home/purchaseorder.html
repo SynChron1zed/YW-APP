@@ -203,30 +203,23 @@
 
   <script id="templates/searchModal.html" type="text/ng-template">
     <ion-modal-view>
-
-      <ion-nav-bar   class="bar-positive   home-search-noback">
-
-        <ion-nav-buttons side="left">
-          <button class="button button-icon " ng-click="leftHide()" >
-            <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
-          </button>
-        </ion-nav-buttons>
-        <ion-nav-buttons side="right">
-          <button class="button button-icon "  >
-           搜索
-          </button>
-        </ion-nav-buttons>
-
-        <ion-nav-title  class=" item-input-inset" style="padding: 0px;padding-top: 7px;width:110%;position: relative;left: -10%;">
-          <form class="item-input-wrapper" style="height: 31px;" action="javascript:return true;">
-            <i class="icon ion-ios-search-strong placeholder-icon"></i>
-            <input type="search"  jfocus style="width:100%" class="input-color-usercolse" ng-model="msg.key"     ng-keyup="myKeyup($event)"   class="cutom-inputfocus"       placeholder="搜索你要的订单">
-            <div   ng-click="clear()"   ng-if='msg.key.length'  class="ion-close-circled ion-close-user" style="     margin-top: 0px;
-    right: 5px;"></div>
+      <div class="bar bar-header bar-positive" ng-click="" >
+        <button class="button button-icon " ng-click="leftHide()" >
+          <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
+        </button>
+           <form class="item-input-wrapper serach-Head" style="height: 34px;" action="javascript:return true;" >
+            <i class="icon ion-ios-search-strong placeholder-icon" style="font-size: 17px"></i>
+            <input type="search"  jfocus style="width:100%;height: 26px" class="input-color-usercolse" ng-model="msg.key"     ng-keyup="myKeyup($event)"   class="cutom-inputfocus"       placeholder="搜索你要的订单">
+            <div   ng-click="clear()"   ng-if='msg.key.length'  class="ion-close-circled ion-close-user" style="
+    right: 70px;margin-top: 0px"></div>
 
           </form>
-        </ion-nav-title>
-      </ion-nav-bar>
+        <button class="button button-icon " ng-click="homeSearch()" >
+          取消
+        </button>
+
+      </div>
+
       <ion-content>
 
       </ion-content>

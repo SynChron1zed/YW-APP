@@ -1008,6 +1008,10 @@ body {
   margin-top: 5px;
   padding-left: 25px; }
 
+.serach-Head {
+  height: 31px;
+  width: 65%; }
+
 .homein-tabs-meun {
   padding: .4rem 0px;
   height: 3.5rem; }

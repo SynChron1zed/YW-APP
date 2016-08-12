@@ -133,4 +133,9 @@ $scope.myKeyup = function (e) {
     $ionicHistory.goBack()
   }
 
+  $scope.homeSearch = function () {
+    $ionicHistory.goBack()
+  }
+
+
 }]);
