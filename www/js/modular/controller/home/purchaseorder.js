@@ -336,11 +336,13 @@ if(bascId==1){
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
-    $scope.Modal = modal;
+    $scope.newModal = modal;
   });
 
+
+
   $scope.searchBody=function () {
-    $scope.Modal.show();
+    $scope.newModal.show();
 
 
   }
@@ -361,7 +363,7 @@ if(bascId==1){
     if(keycode==13){
 
      $scope.key = $scope.msg.key
-      $scope.Modal.hide();
+      $scope.newModal.hide();
       $scope.ShoppingList=[];
       $scope.page_number  =1;
       $ionicScrollDelegate.scrollTop();
@@ -374,9 +376,8 @@ if(bascId==1){
 
   }
 $scope.leftHide =  function () {
- 
-  $scope.Modal.hide();
-}
+  $scope.newModal.hide();
 
+}
 
 }]);
