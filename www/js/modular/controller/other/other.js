@@ -44,7 +44,7 @@ Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory)
 
 
 
-                           Tools.getData({
+            Tools.getData({
               "interface_number": "020608",
                 "post_content": {
                 "order_basic_id": $stateParams.id,
@@ -58,7 +58,7 @@ Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory)
                       }else{
                         $scope.state  = true;
                           $scope.openruil =  function(){
-                              cordova.InAppBrowser.open(r.resp_data.url, '_blank', 'location=no');
+                              cordova.InAppBrowser.open(r.resp_data.url, '_blank', 'location=yes');
                           }
 
                             

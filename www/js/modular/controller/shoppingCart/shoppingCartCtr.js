@@ -97,11 +97,11 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
                       })
                     }
              }
-
            })
       };
 
       function handtat  (){
+        
         if(storage.getObject('UserInfo').user_id){
             $scope.isShow = false;
             $scope.doRefresh();
@@ -109,6 +109,8 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
         }else{
           $scope.isShow = true;
         }
+      $scope.TotalPrice  = '0.00';
+        
       }
 
       //编辑
