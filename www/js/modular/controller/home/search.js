@@ -25,7 +25,7 @@ Ctr.controller('homesearchCtr',['$scope','native','$state','fromStateServ','Tool
   $scope.clear  = function(){
     $scope.msg.key   =undefined;
   }
-  
+
 
   //加载
   $scope.loadOlderStories=function (type) {
@@ -127,6 +127,10 @@ $scope.myKeyup = function (e) {
 
     $state.go('r.Productdetails',{id:r.goods_basic_id})
     // fromStateServ.stateChange('r.Productdetails',{id:r.goods_basic_id});
+  }
+
+  $scope.leftHide =function () {
+    $ionicHistory.goBack()
   }
 
 }]);

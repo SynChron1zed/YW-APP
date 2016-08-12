@@ -97,7 +97,7 @@
             <div style="float: right;padding: 2px"  >
               <button  ng-click="dataRight(item.order_basic_id)"  ng-if="item.post_status==2"  class="button button-small button-stabl"  style="width: 60px; border: 1px solid #33cd5f;"><p style="color:#28a54c;font-size: 10px">物流详情</p></button>
 
-              <button  ng-click="dataLeft(item.order_basic_id,item.total_num,$index)"  ng-if="item.post_status==1"  class="button button-small button-stabl"  style="width: 60px; border: 1px solid #33cd5f;"><p style="color:#28a54c">发&nbsp;货</p></button>
+              <button  ng-click="dataLeft(item.order_basic_id,item.total_num,$index)"  ng-if="item.post_status==1&&item.post_type==0"  class="button button-small button-stabl"  style="width: 60px; border: 1px solid #33cd5f;"><p style="color:#28a54c">发&nbsp;货</p></button>
 
               <button  ng-click="ordersbody(item.order_basic_id)" class="button button-small button-stabl"  style="width: 60px; border: 1px solid orange;">详&nbsp;情</button>
             </div>
@@ -239,16 +239,21 @@
   <script id="templates/searchModal.html" type="text/ng-template">
     <ion-modal-view>
       <ion-nav-bar   class="bar-positive   home-search-noback">
-        <ion-nav-buttons side="right">
+        <ion-nav-buttons side="left">
           <button class="button button-icon " ng-click="leftHide()" >
-            返回
+            <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
+          </button>
+        </ion-nav-buttons>
+        <ion-nav-buttons side="right">
+          <button class="button button-icon "  >
+           搜索
           </button>
         </ion-nav-buttons>
 
-        <ion-nav-title  class=" item-input-inset" style="padding: 0px;padding-top: 7px;width:120%;position: relative;left: -20%;">
+        <ion-nav-title  class=" item-input-inset" style="padding: 0px;padding-top: 7px;width:110%;position: relative;left: -10%;">
           <form class="item-input-wrapper" style="height: 31px;" action="javascript:return true;">
             <i class="icon ion-ios-search-strong placeholder-icon"></i>
-            <input type="search"  jfocus style="width:100%" class="input-color-usercolse" ng-model="msg.key"     ng-keyup="newKeyup($event)"   class="cutom-inputfocus"       placeholder="寻找你要的商品">
+            <input type="search"  jfocus style="width:100%" class="input-color-usercolse" ng-model="msg.key"     ng-keyup="newKeyup($event)"   class="cutom-inputfocus"       placeholder="搜索你要的订单">
             <div   ng-click="clear()"   ng-if='msg.key.length'  class="ion-close-circled ion-close-user" style="     margin-top: 0px;
     right: 5px;"></div>
 

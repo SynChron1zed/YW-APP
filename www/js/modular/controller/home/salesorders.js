@@ -41,9 +41,6 @@ $scope.dataList = false
   //加载
   $scope.loadOlderStories=function (type) {
 
-   /* if(type=="2"){
-      return false
-    }*/
     var sendoption  = {
       "interface_number": "020701",
       "client_type": window.platform,
@@ -78,11 +75,7 @@ $scope.dataList = false
         angular.forEach(r.resp_data.data,function(c){
 
           c.pic_path  =  window.qiniuimgHost+c.pic_path +'?imageView2/1/w/200/h/200';
-         /* if(c.post_status=="1"){
-            $scope.dataNew = true;
-          }else{
-            $scope.dataNew = false
-          }*/
+
         });
 
 
@@ -156,6 +149,7 @@ $scope.dataList = false
     $scope.dfh = false;
     $scope.statusData = '2';
     $scope.SalesList = [];
+    $scope.page_number=1;
     $scope.expression = true
     $ionicScrollDelegate.scrollTop();
 
@@ -235,14 +229,14 @@ $scope.dataList = false
     $scope.modal.show();
 
     $scope.loadOlderStoriesList=function (type) {
-
+  
       var sendoption  = {
         "interface_number": "020704",
         "client_type": window.platform,
         "post_content": {
           "token":"",
           "token_phone": "",
-          "keyword": "",
+          "keyword": $scope.data.companyname,
         }
       };
 
@@ -255,7 +249,7 @@ $scope.dataList = false
 
       Tools.getData(sendoption,function(r){
         if(r){
-          debugger;
+
 
           if(r.resp_data.nextPage  == 0 ){
             $scope.expressionList  = false;
@@ -297,29 +291,16 @@ $scope.dataList = false
     var keycode = window.event?e.keyCode:e.which;
     if(keycode==13){
 
-      Tools.getData({
-        "interface_number": "020704",
-        "post_content": {
-          "token":"",
-          "token_phone": "",
-          "keyword": $scope.data.companyname
+      debugger;
+      if($scope.expressionList){
+        $scope.expressionList=false;
+        $ionicScrollDelegate.scrollTop();
+      }
+      $scope.selectList=[];
+      $scope.page_number  = 1;
 
+      $scope.expressionList= true;
 
-        }
-
-      },function(r){
-
-        if(r.msg== "success"){
-          $scope.dataList = true
-          $scope.selectList  = r.resp_data.data;
-
-        }else{
-          return false
-
-        }
-
-
-      });
 
 
 
