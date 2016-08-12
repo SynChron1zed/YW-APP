@@ -1,9 +1,11 @@
-Ctr.controller('ConfirmorderZfctr',['$scope','buyConfirmorde','Tools','$timeout','$state','comforderlistadder','native','fromStateServ','$ionicScrollDelegate',function ($scope,buyConfirmorde,Tools,$timeout,$state,comforderlistadder,native,fromStateServ,$ionicScrollDelegate){
+Ctr.controller('ConfirmorderZfctr',['$scope','buyConfirmorde','Tools','$timeout','$state','comforderlistadder','native','fromStateServ','$ionicScrollDelegate','comfrombackresitl',function ($scope,buyConfirmorde,Tools,$timeout,$state,comforderlistadder,native,fromStateServ,$ionicScrollDelegate,comfrombackresitl){
 
 
 
 
 $scope.showgoodmappintthi  = function (params) {
+
+    comfrombackresitl.ref  =true;
     $state.go('r.selfShop',{goodsId:'',company_id:params.goods_info[0].company_id});
 }
 
@@ -201,9 +203,13 @@ $scope.comorder  =function () {
 
    function  inlit  (){
 
+
+       if(comfrombackresitl.ref){
+           
+           comfrombackresitl.ref  = false;
+           return  false;
+       }
        $ionicScrollDelegate.scrollTop();
-
-
             if(comforderlistadder.no){
                 comforderlistadder.no  = false
                 return false;

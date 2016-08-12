@@ -15,25 +15,22 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
 
 
             if($stateParams.inside){
-                $scope.showtitle  = false;   
+                $scope.showtitle  = false;
             }else  if(fromStateServ.getState('r.Shophome')){
                 $scope.showtitle  = true;
-                $scope.backtoprevView  =   fromStateServ.backView; 
+                $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.Shophome').title;
             }else{
                 $scope.showtitle  = false;
             }
-            
             $timeout(function(){
-
                 if($scope.goodlistdata.length){
-
                 }else{
                         inlit();
                 }
 
             },400)
-    });    
+    });
 
     var   inlit  = function (){
 
@@ -44,7 +41,7 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
 
 
                 Tools.getData({ "interface_number": "030201",
-                "post_content": {shop_id:$stateParams.id}         
+                "post_content": {shop_id:$stateParams.id}
                 },function(r){
                         if(r){
                             $scope.shopclasslist = r.resp_data.cate_info;
@@ -53,22 +50,22 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
                                 cate_name:"最新商品",
                                 num:"0"
                             })
-                            $scope.shopclasslist[0].select  =true;                            
-                            $scope.shop_info = r.resp_data.shop_info;                            
+                            $scope.shopclasslist[0].select  =true;
+                            $scope.shop_info = r.resp_data.shop_info;
                             $scope.shop_info.img_header  = window.qiniuimgHost+$scope.shop_info.img_header+'?imageView2/2/w/800';
                             $scope.shop_info.img_shop  =  window.qiniuimgHost+$scope.shop_info.img_shop+'?imageView2/2/w/200';
                             $ionicScrollDelegate.$getByHandle('goodslistshop').scrollTop();
                             $scope.goodlistdata = [];
                             $scope.pagnumber = 1;
-                            $scope.loadermoer = true;                  
+                            $scope.loadermoer = true;
                         }else{
                                     if(fromStateServ.getState('r.Shophome')){
-                                        fromStateServ.backView('r.Shophome') 
+                                        fromStateServ.backView('r.Shophome')
                                         }else{
                                             $timeout(function(){
                                                 $rootScope.$ionicGoBack();
                                             },400)
-                                                
+
 
                                          }
 
@@ -89,10 +86,10 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
                         s.select  = false;
                     })
                            $ionicScrollDelegate.$getByHandle('goodslistshop').scrollTop();
-                           item.select  = true; 
+                           item.select  = true;
                            $scope.goodlistdata = [];
                             $scope.pagnumber = 1;
-                            $scope.customcucdownlisloadMore(true);     
+                            $scope.customcucdownlisloadMore(true);
                 }
 
         }
@@ -114,11 +111,11 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
         $scope.customcucdownlisloadMore  = function(parm){
 
                     if(parm){
-                            $scope.pagnumber   = 1;       
-                            $scope.goodlistdata = [];                     
+                            $scope.pagnumber   = 1;
+                            $scope.goodlistdata = [];
                     }
-                    
-                    var nowid = undefined;                    
+
+                    var nowid = undefined;
                     angular.forEach($scope.shopclasslist,function(v) {
                             if(v.select){
                                 nowid = v.cate_id;
@@ -155,7 +152,7 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
                             }
                         }else{
                             $scope.loadermoer = false;
-                            
+
                         }
 
                         $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -164,7 +161,7 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
 
 
         }
-        
+
 
 
 
@@ -179,7 +176,7 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
           $scope.$on('$ionicView.beforeEnter',function(){
             if(fromStateServ.getState('r.SeeshopPint')){
                 $scope.showtitle  = true;
-                $scope.backtoprevView  =   fromStateServ.backView; 
+                $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.SeeshopPint').title;
             }else{
                 $scope.showtitle  = false;
@@ -189,7 +186,7 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
                 console.log(seeshopPint);
                 inli();
             },400)
-    });    
+    });
 
     function  inli (){
         if(!seeshopPint.datalist.length){
@@ -200,8 +197,8 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
         //获取第一个点
         var Firstpoint    =  seeshopPint.datalist[0];
 
-        map = new BMap.Map("showshopint");          // 创建地图实例  
-        var point = new BMap.Point(Firstpoint.lng, Firstpoint.lat);  // 创建点坐标  
+        map = new BMap.Map("showshopint");          // 创建地图实例
+        var point = new BMap.Point(Firstpoint.lng, Firstpoint.lat);  // 创建点坐标
         map.centerAndZoom(point, 25);
         //初始化图标
         var icon = new BMap.Icon('./img/pint.png', new BMap.Size(20, 32), {
@@ -219,12 +216,12 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
 
 
                         (function(element,marker,index){
-                                
+
   function  setcontext  (){
-                                return "<h5 style='margin:0 0 5px 0;padding:0.2em 0'>"+element.name+"</h5>" +  
+                                return "<h5 style='margin:0 0 5px 0;padding:0.2em 0'>"+element.name+"</h5>" +
                                 "<p style='margin:0;line-height:1.5;font-size:13px;margin-bottom: 2px;max-height: 40px;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;word-wrap: break-word;'> 地 址 :  <span style='color:#4a4a4a'>"+element.opsition+"</span>  </p>" +
                                 "<p style='margin:0;line-height:1.5;font-size:13px;margin-bottom: 2px;max-height: 40px;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;word-wrap: break-word;'> 联 系 方 式 : <span style='color:#4a4a4a'>"+element.link+"</span> </p>" +
-                                "<p style='margin:0;line-height:1.5;font-size:13px;margin-bottom: 2px;max-height: 40px;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;word-wrap: break-word;'> 营 业 时 间 : <span style='color:#4a4a4a'>"+element.business+"</span> </p>" + 
+                                "<p style='margin:0;line-height:1.5;font-size:13px;margin-bottom: 2px;max-height: 40px;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;word-wrap: break-word;'> 营 业 时 间 : <span style='color:#4a4a4a'>"+element.business+"</span> </p>" +
                                 "</div>";
                         }
 
@@ -233,8 +230,8 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
                             width:200
                             });
                     marker.addEventListener('click',function(){
-                      
-                     
+
+
 
                             marker.openInfoWindow(infoWindow,{lng:element.lng,lat:element.lat});
                            })
@@ -244,18 +241,18 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
                            }
 
 
-                      
 
-                    })(element,marker,index);//调用时参数  
+
+                    })(element,marker,index);//调用时参数
 
 
         });
 
 
-        
 
-     
-        
+
+
+
 
 
 

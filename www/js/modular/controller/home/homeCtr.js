@@ -28,6 +28,7 @@ $scope.catshowtakepint  = function () {
       opsition:'xxx小学校，距离xxx多少米'
     }
   ];
+  
 fromStateServ.stateChange('r.SeeshopPint',{name:'测试的店铺'});
 
 
