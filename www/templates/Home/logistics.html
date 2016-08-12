@@ -18,7 +18,6 @@
     margin:0px;
   }
   .tiem-itemlisgt{
-    
     margin-right: 0px;
     margin-left: 20px;
     border-left: 2px solid #ddd;
@@ -61,22 +60,38 @@
 
 </style>
 
-  <ion-content    class="boxheadiht"        overflow-scroll="false"   scrollbar-y="false"     style="background: #fff;
+  <ion-content    class="boxheadiht"        overflow-scroll="false"   scrollbar-y="false"     style="background: #f7f7f7;
   height:100%
   "       >
 
 
+<divclass="list">
+
+  <label class="item item-input"><span class="input-label">快递名称</span><input   ng-model="postiobasinfo.post_company_name" style="background:#fff"   readonly type="text"></label>
+
+  <label class="item item-input"><span class="input-label">快递单号</span><input   ng-model="postiobasinfo.post_no" style="background:#fff"   readonly   type="text"></label>
+  <label class="item item-input"><span class="input-label">发货时间</span><input   ng-model="postiobasinfo.post_time" style="background:#fff"  readonly type="text"></label>
+
+
+</div>
+
+  <p  style="text-align: center;line-height: 40px;color: #545454;" ng-show='!state'   ng-if='!logiaclist' >加载中....</p>
   <p style="height:1px;"></p>
-
       <div class="tiem-itemlisgt"  ng-repeat="ff  in  logiaclist"   >
-
           <span  ng-class="{'now':ff.now}" ></span>
           <p style="font-size:14px" >{{ff.context}}</p>
           <p style="color:#9a9a9a" >{{ff.time}}</p>
-
       </div>
 
 
+       <div  ng-if='state' style="width: 80%;margin-left: 10%;background: #ffec0b;text-align: center;height: 40px;line-height: 40px;border-radius: 5px;font-size: 15px;color: #6b3801;"  ng-click="openruil()">
+            点击查看物流详情
+       </div>
+
+
+        <div style="height:60px;">
+
+        </div>
 
   </ion-content>
 

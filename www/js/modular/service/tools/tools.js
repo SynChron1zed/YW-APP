@@ -149,7 +149,13 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     data.post_content.token_phone  = window.token_phone?window.token_phone:storage.getObject('UserInfo').phone?storage.getObject('UserInfo').phone:'';
 
     }
-    
+    if(!window.networonline){
+      
+      Callback(false);
+      native.task('检查网络是否开启!')
+      return false;
+    }
+
     console.log('数据监控 ....')
     console.log(JSON.stringify(data));
     if(jsonp){
@@ -165,14 +171,13 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
         }
     );
 
-
       return false;
     }
 
-
     $http({
       url:host?host:window.Interactivehost,
-      method:sendType?sendType:'POST',
+      method:sendType?sendType:'POST',      
+      timeout: 4000,
       headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
       data:data
     }).success(function(r){
@@ -183,7 +188,6 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       if(r.resp_code== '0000'){
         Callback(r);
       } else if(r.resp_code ==  '0001' ||  r.resp_code ==  '1001' ){
-
 
             if(r.type  != '000003'){
 

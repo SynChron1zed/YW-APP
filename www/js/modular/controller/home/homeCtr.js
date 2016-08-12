@@ -54,14 +54,13 @@ fromStateServ.stateChange('r.SeeshopPint',{name:'测试的店铺'});
   $scope.tastetable =  function () {
 
     $scope.goModular('r.HomTaste');
-
   }
 
 //查看物流
 $scope.showlogistics  =  function () {
       //160719000024
       //160715000053
-      //$scope.goModular('r.Logistics',{id:'160719000024'});
+    $scope.goModular('r.Logistics',{id:'160719000024'});
 }
 
   $scope.goshopin =  function (tart) {

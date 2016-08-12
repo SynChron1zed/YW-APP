@@ -389,7 +389,29 @@ function  creatpint   (e){
           buttonClicked: function(index) {
 
             if(index != 4 && index != 5 ){
-              native.prompt('输入批量设置的价格!','提示',['确认','取消'],'请输入价格',function(ss){
+
+
+            var defulattext  = '请输入价格';
+            if(window.platform  ==  'ios'){
+              var defulattext ='';
+            }
+            var subtext  =  '';
+            if(index  == 0){
+              subtext   ='请输入市场价';
+            }
+            
+            if(index  == 1){
+              subtext   ='请输入平台价';
+            }
+            if(index  == 2){
+              subtext   ='请输入库存数';
+            }
+            
+
+            console.log(index)
+
+
+              native.prompt(subtext,'提示',['确认','取消'],defulattext,function(ss){
                 if(ss.buttonIndex  ==1){
                   if(ss.input1  !== "请输入价格"){
 
