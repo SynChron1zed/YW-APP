@@ -167,8 +167,8 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
     goodsState.goods_title  = r.goods_title;
     goodsState.img_url  = r.img_url;
     goodsState.total_in_price  = r.total_in_price;
-
     goodsState.total_in_number  = r.total_in_number ;
+
 
 
     console.log(r);
@@ -238,7 +238,7 @@ $scope.swatchtstate  = function (){
                   if(r.goods_basic_id  == goodsState.goods_basic_id){
                     r.goods_title  = goodsState.goods_title;
                     r.img_url  = goodsState.img_url;
-                    r.activity_price  = goodsState.activity_price;
+                    r.activity_price  = goodsState.total_in_price;
                     r.total_in_number  = goodsState.total_in_number;
 
                   }

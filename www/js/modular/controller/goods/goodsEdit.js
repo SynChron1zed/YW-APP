@@ -406,10 +406,7 @@ function  creatpint   (e){
             if(index  == 2){
               subtext   ='请输入库存数';
             }
-            
-
-            console.log(index)
-
+          
 
               native.prompt(subtext,'提示',['确认','取消'],defulattext,function(ss){
                 if(ss.buttonIndex  ==1){
@@ -429,7 +426,12 @@ function  creatpint   (e){
                                 resulf = 'number';
                               }
                               angular.forEach($scope.attrsprices,function(key){
-                                key.msg[resulf] = parseInt(ss.input1);
+                                 if(Math.abs(ss.input1)  >= 999999){
+                                    ss.input1  = 999999;
+                                  }
+
+                                key.msg[resulf] = Match.abs(parseInt(ss.input1));
+
                               });
 
                   }
@@ -739,14 +741,9 @@ function  creatpint   (e){
       $scope.sku.show();
   }
 
-
-
-
-
     //添加分类
     $scope.newclass  = {};
     $scope.addnewclass  = function(){
-
       if(!$scope.newclass.name){
         native.task('请填写分类名称');
         return false;
@@ -1390,7 +1387,7 @@ $scope.save  = function (){
             goodsState.goods_basic_id  = r.resp_data.goods_basic_Id;
             goodsState.goods_title  = r.resp_data.goods_title;
             goodsState.img_url  = window.qiniuimgHost+r.resp_data.img_url+'?imageView2/2/w/200/h/200';
-            goodsState.activity_price  = r.resp_data.total_in_price;
+            goodsState.total_in_price  = r.resp_data.total_in_price;
             goodsState.total_in_number   = r.resp_data.total_in_number;
 
 

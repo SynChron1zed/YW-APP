@@ -4,6 +4,14 @@
 
 Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$ionicHistory','$ionicScrollDelegate','$ionicBackdrop',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$ionicHistory,$ionicScrollDelegate,$ionicBackdrop) {
 
+
+
+
+
+function  inlit   (){
+
+
+  if($scope.guankao){ return false; }
   $scope.goodsdetail  = function(r){
         fromStateServ.stateChange('r.Productdetails',{id:r.goods_basic_id});
   }
@@ -34,17 +42,9 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
     }
 
 
- //对安卓返回键的  特殊处理  tabs
-  $scope.$on('$ionicView.beforeEnter',function(){
-     if ($ionicHistory.backView()) {
-       
-       window.androdzerofun  = function(parm1,parm2){
-         $ionicHistory.goBack();
-       }
-       window.androdzerofun_parms  ='tabswtathing';
-       window.androdzerofun_clback  = 'nothing';
-     }
-    });
+
+
+
 
     $scope.scorllheader  =  {};
     var  gescoheight   =   function () {
@@ -62,8 +62,6 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
     $timeout(function() {
       gescoheight();
     },500)
-
-
     $scope.swatch   =  function(ff){
         if(!ff.select){
           angular.forEach($scope.claslist,function(zf){
@@ -76,7 +74,6 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
           },200)
         }
     }
-
     Tools.getData({
     "interface_number": "020101",
     "post_content": {}
@@ -87,22 +84,10 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
          });
          $scope.claslist  = r.resp_data;
          $scope.claslist[0].select  =  true;
-
           $scope.loadermoer  = true;
 
            }
       })
-
-
-
-
-
-
-
-
-
-
-
 
       $scope.goodlist  = [];
       $scope.loadermoer  = false;
@@ -111,19 +96,16 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
       if(ss){
             $scope.pagenumber  = 1;
       }        
-
     var   parmsss  = undefined;
     angular.forEach($scope.claslist,function (sss) {
         if(sss.select){
                 parmsss  =  sss.cate_id;
         }
     })
-
     if(!parmsss){
     return  false;
     }
     var pang  = $scope.pagenumber;
-
     Tools.getData({
             "interface_number": "020104",
             "post_content": {
@@ -131,7 +113,6 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
                   page_num:pang
             }
         },function (r) {
-          
           $timeout(function(){
             $ionicScrollDelegate.$getByHandle('small').resize();
             $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -144,40 +125,43 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
                   $scope.loadermoer  = true;
                   $scope.pagenumber  = r.resp_data.nextPage;
               }
-
               if(ss){
                   $scope.goodlist = [];
                  angular.forEach(r.resp_data.data,function(ff){
                    ff.img_url   = window.qiniuimgHost+ff.img_url+'?imageView2/2/w/300/h/300';
                     $scope.goodlist.push(ff);
                 })
-
               }else{
                 angular.forEach(r.resp_data.data,function(ff){
                     ff.img_url   = window.qiniuimgHost+ff.img_url+'?imageView2/2/w/300/h/300';
                     $scope.goodlist.push(ff);
                 })
               }
-
-
-
-
-
-              
-
             }
-
-      
-
         })
-
-
-
-
-
       }
 
 
+
+
+
+}
+
+
+
+ //对安卓返回键的  特殊处理  tabs
+  $scope.$on('$ionicView.beforeEnter',function(){
+     if ($ionicHistory.backView()) {
+
+       window.androdzerofun  = function(parm1,parm2){
+         $ionicHistory.goBack();
+       }
+       window.androdzerofun_parms  ='tabswtathing';
+       window.androdzerofun_clback  = 'nothing';
+     }
+
+      inlit();
+    });
 
 
 

@@ -596,13 +596,13 @@
                                   >
                                   
                         <ion-item 
-
+                        
                         ng-repeat="aa  in  Sincesome"   ng-click="xuanzheopition(aa)"    >
                             <div >
                             <p  style="    color: #3a3a3a;">{{aa.name}}   <span style="float:right;"   >{{aa.link}}</span> </p>
                             <p>{{aa.address}}</p>
                             </div>
-                            <ion-delete-button  ng-click="selectthi(aa)"  ng-class="{'ion-ios-circle-outline':!aa.select,'ion-ios-checkmark':aa.select}"    class="ion-ios-circle-outline"  style="color:#989898"   >
+                            <ion-delete-button  ng-click="selectthi(aa)"  ng-class="{'ion-ios-circle-outline':!aa.select,'ion-ios-checkmark':aa.select}"    style="color:#989898"   >
                             </ion-delete-button>
                           <ion-reorder-button class="ion-trash-b"     >
                           </ion-reorder-button>

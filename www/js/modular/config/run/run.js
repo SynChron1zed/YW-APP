@@ -31,7 +31,7 @@ window.networonline  =  true;
                 })
             };
       
-      
+
       // storage.setObject('location',{
       //     lat:28.188874,
       //     long:112.991093
@@ -61,13 +61,18 @@ window.networonline  =  true;
     }
 
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
-      cordova.plugins.Keyboard.disableScroll(true);      
-      //ionic.Platform.isFullScreen = true;
 
-    //Return event listener
-    //uuid
-    if (window.StatusBar) {
+      if(ionic.Platform.platform()  == 'ios'){
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
+      }else{
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      }
+      
+      cordova.plugins.Keyboard.disableScroll(true);      
+      ionic.Platform.isFullScreen = true;
+      //Return event listener
+      //uuid
+      if (window.StatusBar) {
           window.StatusBar.styleDefault();
     }
 
