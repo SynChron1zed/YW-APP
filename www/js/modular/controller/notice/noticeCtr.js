@@ -123,9 +123,7 @@ $scope.mathData = true;
         if ($scope.newsList > 99) {
           $scope.newsList = "99+"
         }
-        if($scope.newsList==0){
-          $scope.mathData = false
-        }
+
 
 
       } else {
