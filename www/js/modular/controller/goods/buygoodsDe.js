@@ -602,12 +602,12 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
                         //  $scope.goodskuimte_attrbutsmsg.price =  key.baseinfo.retail_price;
                         //  $scope.goodskumsg.price   =   key.baseinfo.retail_price
                         //}
-
+                        
                         $scope.selectsku.skuid =   key.baseinfo.local_sku_id;
                         $scope.selectsku.price =   key.baseinfo.activity_price;
                         //零售价
-                        $scope.goodskuimte_attrbutsmsg.price =  key.baseinfo.retail_price;
-                        $scope.goodskumsg.price   =   key.baseinfo.retail_price
+                        $scope.goodskuimte_attrbutsmsg.price =  key.baseinfo.activity_price;
+                        $scope.goodskumsg.price   =   key.baseinfo.activity_price
 
 
 
@@ -824,7 +824,7 @@ $scope.$on('$ionicView.beforeLeave',function(){
             angular.forEach($scope.localprice,function (keyxx){
               angular.forEach($scope.skugroup,function(groupitme){
                 if(groupitme.baseinfo.local_sku_id  == keyxx.local_sku_id){
-                  groupitme.baseinfo.retail_price  = keyxx.retail_price;
+                  groupitme.baseinfo.activity_price  = keyxx.activity_price;
                 }
               })
             });
