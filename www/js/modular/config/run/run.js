@@ -47,7 +47,7 @@ $ionicNativeTransitions,$timeout,native,fromStateServ,$cordovaGeolocation) {
        navigator.splashscreen.hide();
        }    
     }, 1000);
-
+    
     //$state.go('r.selectAuth');
     $state.go('r.tab.Home');
     
@@ -61,22 +61,19 @@ $ionicNativeTransitions,$timeout,native,fromStateServ,$cordovaGeolocation) {
           sex:'./img/icon_man@3x.png',
       })
     }
-    
+
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
-      ionic.Platform.isFullScreen = true;
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
+      cordova.plugins.Keyboard.disableScroll(true);      
+      //ionic.Platform.isFullScreen = true;
+
       //Return event listener
       //uuid
-      
 
     if (window.StatusBar) {
           window.StatusBar.styleDefault();
     }
 
-
-
-   
       //回退之前  退出键盘
       window.screen.lockOrientation('portrait');
 
@@ -289,13 +286,25 @@ $ionicNativeTransitions,$timeout,native,fromStateServ,$cordovaGeolocation) {
 
 
 
+
+
+
+  //注册 键盘打开事件
+  window.addEventListener('native.keyboardshow',function (e) {
+      console.log(e);
+
   });
 
 
 
+
+
+  });
+ 
+
+
   window.updateAPP  =  function(r){
 
-    return  false;
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
 

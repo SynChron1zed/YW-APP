@@ -22,9 +22,8 @@ App.directive('draggable', function($document, $timeout) {
         link:function(scope, element, attr) {
             var now = 0 ;
             ionic.onGesture('dragstart',function(e){
-
+                
                 element[0].style.webkitTransitionDuration='0ms';
-
                 var position   = element[0].style.webkitTransform.replace('translateX(','').replace('px)','');
                 if(position !==  ''){
                     now  = parseInt(position);

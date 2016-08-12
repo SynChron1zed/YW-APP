@@ -10,9 +10,8 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
    $scope.title  ='店铺';
    $scope.showtitle   = false;
   //对安卓返回键的  特殊处理  tabs
-
+  
   $scope.$on('$ionicView.beforeEnter',function(){
-
 
             if($stateParams.inside){
                 $scope.showtitle  = false;
