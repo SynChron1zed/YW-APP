@@ -380,4 +380,8 @@ $scope.leftHide =  function () {
 
 }
 
+  $scope.homeSearch = function () {
+    $scope.newModal.hide();
+  }
+
 }]);

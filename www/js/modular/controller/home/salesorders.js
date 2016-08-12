@@ -229,7 +229,7 @@ $scope.dataList = false
     $scope.modal.show();
 
     $scope.loadOlderStoriesList=function (type) {
-  
+
       var sendoption  = {
         "interface_number": "020704",
         "client_type": window.platform,
@@ -468,7 +468,9 @@ $scope.query =function () {
     $scope.Modal.hide();
   }
 
-
+  $scope.homeSearch = function () {
+    $scope.Modal.hide();
+  }
 
 
 }]);
