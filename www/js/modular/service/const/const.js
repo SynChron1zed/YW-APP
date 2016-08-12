@@ -24,7 +24,7 @@
         haha:'哈哈'
       }
     }])
-
+    
     //商品编辑状态
     .factory('goodsState',[function(){
       return{
