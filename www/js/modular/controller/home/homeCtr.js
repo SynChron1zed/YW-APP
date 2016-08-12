@@ -8,7 +8,7 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 
 $scope.catshowtakepint  = function () {
 
-  
+
 
   seeshopPint.datalist  = [
     {
@@ -16,7 +16,7 @@ $scope.catshowtakepint  = function () {
       lat:28.188874,
       lng:112.991093,
       link:13517437502,
-      business:'早上7点到晚上12点',
+      business:'早上7点到晚上12点1111',
       opsition:'xxx小学校，距离xxx多少米'
     },
      {
@@ -28,18 +28,18 @@ $scope.catshowtakepint  = function () {
       opsition:'xxx小学校，距离xxx多少米'
     }
   ];
-  
+
 fromStateServ.stateChange('r.SeeshopPint',{name:'测试的店铺'});
 
 
 }
 
   //打开一个浏览器
-  $scope.openinboower  =function () {    
+  $scope.openinboower  =function () {
   }
-  
+
   $scope.aouthc =  function () {
-    $scope.goModular('r.selectAuth');      
+    $scope.goModular('r.selectAuth');
   }
   //慈善
 
@@ -109,7 +109,7 @@ $scope.showlogistics  =  function () {
                 if(rr.text){
 
 
-                    
+
                     if(rr.text.length  == 12){
                       Tools.showlogin();
                       Tools.getData({
@@ -128,7 +128,7 @@ $scope.showlogistics  =  function () {
                         $scope.goModular('r.Shophome',{id:rr.text});
                     }
 
-                    
+
 
 
                 }

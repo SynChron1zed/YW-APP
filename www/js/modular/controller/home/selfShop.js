@@ -25,6 +25,7 @@ Ctr.controller('selfShopCtr',['$scope','native','$state','fromStateServ','Tools'
 
     if(r.msg== "success"){
       $scope.selfList =r.resp_data
+      
 
     }else{
 
@@ -36,29 +37,44 @@ Ctr.controller('selfShopCtr',['$scope','native','$state','fromStateServ','Tools'
   });
 
 
-  $scope.newMap = function () {
+  $scope.newMap = function (val) {
 
+     seeshopPint.datalist  =[];
+    $scope.mapList = val;
+    
     seeshopPint.datalist  = [
       {
-        name:'我是自提点',
-        lat:28.188874,
-        lng:112.991093,
-        link:13517437502,
-        business:'早上7点到晚上12点',
-        opsition:'xxx小学校，距离xxx多少米'
-      },
-      {
-        name:'我是自提点',
-        lat:28.188464,
-        lng:112.991093,
-        link:13517437502,
-        business:'早上7点到晚上12点',
-        opsition:'xxx小学校，距离xxx多少米'
+        name:$scope.mapList.name,
+        lat:$scope.mapList.gps_lat,
+        lng:$scope.mapList.gps_long,
+        link:$scope.mapList.link,
+        business:$scope.mapList.take_time,
+        opsition:$scope.mapList.address
       }
     ];
-   $state.go('r.SeeshopPint',{name:'测试的店铺'});
+    $state.go('r.SeeshopPint',{name:$scope.mapList.name});
 
-  }
+
+    }
+
+
+
+  /*for(var i = 0 ;i<$scope.selfList.length;i++){
+    seeshopPint.datalist.push({}[i])
+    for(var j = 0 ; j<$scope.selfList[i].length;j++){
+      if($scope.selfList[i].take_time){
+        seeshopPint.datalist[i].business = $scope.selfList[i].take_time
+      }
+      if($scope.selfList[i].gps_lat){
+        seeshopPint.datalist[i].lat = $scope.selfList[i].gps_lat
+      }
+      if($scope.selfList[i].link){
+        seeshopPint.datalist[i].link = $scope.selfList[i].link
+      }
+    }
+
+  }*/
+
 
 
 }]);
