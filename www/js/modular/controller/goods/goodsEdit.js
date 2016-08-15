@@ -147,7 +147,7 @@ function  creatpint   (e){
 
 
         Tools.getData({},function(r){
-        },function(){},'GET','http://api.map.baidu.com/geocoder/v2/?ak=O9j8KDz0QkBkuNVL4rnBRvx8&callback=renderReverse&location='+e.point.lat+','+e.point.lng+'&output=json&pois=1',true)
+        },function(){},'GET','http://api.map.baidu.com/geocoder/v2/?ak=RRcZDvEYvUVZXVXRbipOwytFrXflZlNg&callback=renderReverse&location='+e.point.lat+','+e.point.lng+'&output=json&pois=1',true)
         
         infoWindow = new BMap.InfoWindow(setcontext(),{
           height:0,
@@ -429,8 +429,8 @@ function  creatpint   (e){
                                  if(Math.abs(ss.input1)  >= 999999){
                                     ss.input1  = 999999;
                                   }
-
-                                key.msg[resulf] = Match.abs(parseInt(ss.input1));
+                                key.msg[resulf] = Math.abs(parseInt(ss.input1));
+                                
 
                               });
 
@@ -838,12 +838,12 @@ function  creatpint   (e){
          }
     },function(r){
          if(r){
+            
               $scope.goods.systemClass   = r.resp_data.sys_cate;
               $scope.goods.catelist  = r.resp_data.shop_cate;
-              $scope.systemparnslec();
+              
               //$scope.goods.Stock_number  =
               $scope.hassku  = false;
-
               angular.forEach(r.resp_data.prop,function(ha){
                       ha.chekd  = false;
                       if(ha.select){
@@ -853,6 +853,12 @@ function  creatpint   (e){
               $scope.goods.skuSpe  =  r.resp_data.prop;
               $scope.chengselect();
               $scope.goods.skuinfo  = [];
+
+              $timeout(function(){
+                $scope.systemparnslec();
+
+              },10)
+              
 
               if($scope.goods.edit){
                 $scope.goods.barcode =   r.resp_data.goodsInfo.barcode;
@@ -992,19 +998,14 @@ $timeout(function(){
      }else{
        $scope.goods.cateSelctItem  = selectleng+' 个';
      }
-
-
-
   }
 
 
   //父类
   $scope.systemparnslec =   function (){
 
-
     if($scope.goods.systemSelect){
         angular.forEach($scope.goods.systemClass,function(c){
-
                 if(c.cate_id   ==  $scope.goods.systemSelect){
                   c.select  =true;
                 }else{
@@ -1013,9 +1014,8 @@ $timeout(function(){
         })
     }
 
-
-
     var hanparnselect = true;
+
     angular.forEach($scope.goods.systemClass,function(c){
 
           if(c.select){
@@ -1023,39 +1023,50 @@ $timeout(function(){
             hanparnselect  = false;
           }
 
-          if(c.cate_id  == $scope.goods.systemSelect  &&  c.children.length !=0){
+          if(c.cate_id  == $scope.goods.systemSelect  && c.children.length !=0){
 
                 //计算那个   默认选中
-                $scope.goods.systemchidlist  =  c.children;
-                var hasslect = true;
+                $timeout(function(){
 
+
+
+                         $scope.goods.systemchidlist  =  c.children;
+                var hasslect = true;
                 angular.forEach($scope.goods.systemchidlist,function(xx){
                         if(xx.select){
                           hasslect = false;;
                             $scope.goods.systemchidSelct   = xx.cate_id;
                         }
                 });
+
                 if(hasslect){
                     $scope.goods.systemchidSelct   =  $scope.goods.systemchidlist[0].cate_id;
-                }
+                  }
+
+
+                })
+
+             
 
           }else{
             $scope.goods.systemchidlist  =  undefined;
             $scope.goods.systemchidSelct  =  undefined;
           }
-
-
-
-
     })
+
+
 
     if(hanparnselect){
     $scope.goods.systemClass[0].select = true;
     $scope.goods.systemSelect  = $scope.goods.systemClass[0].cate_id;
-
     }
 
+
   };
+
+  
+
+
   //子类
   $scope.chidselect   = function(){
       

@@ -4,18 +4,12 @@
 
 Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$ionicHistory','$ionicScrollDelegate','$ionicBackdrop',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$ionicHistory,$ionicScrollDelegate,$ionicBackdrop) {
 
-
-
-
-
 function  inlit   (){
-
 
   if($scope.guankao){ return false; }
   $scope.goodsdetail  = function(r){
         fromStateServ.stateChange('r.Productdetails',{id:r.goods_basic_id});
   }
-  
     Tools.getData({
         "interface_number": "050401",
         "post_content": {

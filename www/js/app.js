@@ -107,7 +107,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     duration: 410, // in milliseconds (ms), default 400,
     slowdownfactor: 1, // overlap views (higher number is more) or no overlap (1), default 4
     iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
-    androiddelay: 1, // same as above but for Android, default -1
+    androiddelay: -4, // same as above but for Android, default -1
     winphonedelay: -1, // same as above but for Windows Phone, default -1,
     fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
     fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
@@ -700,7 +700,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     // Notice   员工审核消息
     .state('r.tab.information',{
-      nativeTransitions: null,
       url: '/information',
       views: {
         'notice': {
@@ -733,7 +732,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-      //setting  个人设置 个人资料修改
+    //setting  个人设置 个人资料修改
     .state('r.tab.SettingsUpdate', {
       url: '/Settings/update',
       views: {
@@ -1359,9 +1358,10 @@ window.networonline  =  true;
     //获取极光推送注册id
     window.plugins.jPushPlugin.getRegistrationID( function(data) {
       try {
-        
+
         var  locjPush  =    storage.getObject('jPush');
         locjPush.RegistrationID =  data;
+
         storage.setObject('jPush',locjPush);
         if(storage.getObject('UserInfo').user_id){
               Tools.getData({
@@ -1501,22 +1501,22 @@ window.networonline  =  true;
 
 
     //极光推送  初始初始化
-    window.plugins.jPushPlugin.init();
+    var  jpushstat  =   window.plugins.jPushPlugin.init();
+    console.log(jpushstat)
+
+  
     //调试模式
-    //window.plugins.jPushPlugin.setDebugMode(true);
-
-
-
-
+    window.plugins.jPushPlugin.setDebugMode(true);
 
 
     //极光推送事件处理
     //极光数据处理  兼容ios  安卓平台  剥离数据
     var bestripped  =  function(data){
-      var result = {};
+
+    var result = {};
       if(device.platform == "Android") {
         result.title = data.alert;
-        result.value = data.extras["cn.jpusdroid.EXTRA"];
+        result.value = data.extras['cn.jpush.android.EXTRA'];
       }else{
         var iosVlue  ={};
         angular.forEach(data,function(value,key){
@@ -1528,47 +1528,66 @@ window.networonline  =  true;
         result.value = iosVlue;
       }
       return  result;
-    };
+      };
 
-
-
-    //点击通知的处理
-    var onOpenNotification  = function(){
+      //点击通知的处理 click  jpush  event  Handle
+      window.document.addEventListener("jpush.openNotification", function(){
       var alertContent  =  bestripped(window.plugins.jPushPlugin.openNotification);
       //推送的附带对象 数据 直接访问
-      //window.plugins.jPushPlugin.openNotification
-      alert(' 点击事件');
-    };
+      console.log(alertContent,'收到的数据');
+      }, true);
+
+      document.addEventListener("jpush.receiveNotification", function(e){
+      var alertContent  =  bestripped(window.plugins.jPushPlugin.receiveNotification);
+
+      var nownotilist = storage.getObject('Notice');
+      if(!nownotilist.userlist){
+        nownotilist.userlist = {};
+      }
+
+      if(!nownotilist.userlist[storage.getObject('UserInfo').user_id]){
+          nownotilist.userlist[storage.getObject('UserInfo').user_id]  = {};
+      }
+
+      console.log(nownotilist.userlist[storage.getObject('UserInfo').user_id]);
+      switch (alertContent.value.msg_type){
+           case  '1':
+                  //类型1 的注入
+                 if(!nownotilist.userlist[storage.getObject('UserInfo').user_id].Tradelogistics){nownotilist.userlist[storage.getObject('UserInfo').user_id].Tradelogistics  = [];}
+                  nownotilist.userlist[storage.getObject('UserInfo').user_id].Tradelogistics.unshift(alertContent)
+           break;
+           case  '2':
+            if(!nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage){
+              nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage  = [];
+            }
+                  nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage.unshift(alertContent)
+          break;
+           default:
+           return false;
+      }
+      storage.setObject('Notice',nownotilist);
+
+      $timeout(function () {
+       $rootScope.newnotice  = new  Date()+Math.random()*1000;
+      });
+
+      
 
 
 
-    window.document.addEventListener("jpush.openNotification", onOpenNotification, true);
-    //收到推送 事件  触发
-    window.document.addEventListener("jpush.receiveNotification", function(){
-      var alertContent  =  bestripped(window.plugins.jPushPlugin.openNotification);
-      alert('收到时间');
-    }, true);
+      
+    
+
+    }, false);
 
     if(window.platform  !== 'ios'){
       window.updateAPP(true);
     }
 
-
-
-
-
-
-
-
-
-
- // listen for Online event
+    //listen for Online event
     $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
-      
          window.networonline  =  true;
-
     })
-
     // listen for Offline event
     $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
       window.networonline  =  false;
@@ -1581,9 +1600,12 @@ window.networonline  =  true;
   });
  
 
-
   window.updateAPP  =  function(r){
-
+    if(ionic.Platform.platform()  == 'ios'){
+      return false;
+    }
+    
+  
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
 
@@ -1905,21 +1927,22 @@ function  nopossionchangrout  (nowrout,change,parim){
 /**
  * Created by Why on 16/6/8.
  */
+Ctr.controller('tabCtr',[function(){
+
+}])
+
+/**
+ * Created by Why on 16/6/8.
+ */
 
 Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$ionicHistory','$ionicScrollDelegate','$ionicBackdrop',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$ionicHistory,$ionicScrollDelegate,$ionicBackdrop) {
 
-
-
-
-
 function  inlit   (){
-
 
   if($scope.guankao){ return false; }
   $scope.goodsdetail  = function(r){
         fromStateServ.stateChange('r.Productdetails',{id:r.goods_basic_id});
   }
-  
     Tools.getData({
         "interface_number": "050401",
         "post_content": {
@@ -2543,13 +2566,6 @@ $scope.deletedizhi=function () {
 
 
 }]);
-
-/**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('tabCtr',[function(){
-
-}])
 
 Ctr.controller('goodsclasslist',['$scope','fromStateServ','$timeout','Tools','native','$ionicModal','$state',function($scope,fromStateServ,$timeout,Tools,native,$ionicModal,$state){
 
@@ -4630,7 +4646,7 @@ function  creatpint   (e){
 
 
         Tools.getData({},function(r){
-        },function(){},'GET','http://api.map.baidu.com/geocoder/v2/?ak=O9j8KDz0QkBkuNVL4rnBRvx8&callback=renderReverse&location='+e.point.lat+','+e.point.lng+'&output=json&pois=1',true)
+        },function(){},'GET','http://api.map.baidu.com/geocoder/v2/?ak=RRcZDvEYvUVZXVXRbipOwytFrXflZlNg&callback=renderReverse&location='+e.point.lat+','+e.point.lng+'&output=json&pois=1',true)
         
         infoWindow = new BMap.InfoWindow(setcontext(),{
           height:0,
@@ -4912,8 +4928,8 @@ function  creatpint   (e){
                                  if(Math.abs(ss.input1)  >= 999999){
                                     ss.input1  = 999999;
                                   }
-
-                                key.msg[resulf] = Match.abs(parseInt(ss.input1));
+                                key.msg[resulf] = Math.abs(parseInt(ss.input1));
+                                
 
                               });
 
@@ -5321,12 +5337,12 @@ function  creatpint   (e){
          }
     },function(r){
          if(r){
+            
               $scope.goods.systemClass   = r.resp_data.sys_cate;
               $scope.goods.catelist  = r.resp_data.shop_cate;
-              $scope.systemparnslec();
+              
               //$scope.goods.Stock_number  =
               $scope.hassku  = false;
-
               angular.forEach(r.resp_data.prop,function(ha){
                       ha.chekd  = false;
                       if(ha.select){
@@ -5336,6 +5352,12 @@ function  creatpint   (e){
               $scope.goods.skuSpe  =  r.resp_data.prop;
               $scope.chengselect();
               $scope.goods.skuinfo  = [];
+
+              $timeout(function(){
+                $scope.systemparnslec();
+
+              },10)
+              
 
               if($scope.goods.edit){
                 $scope.goods.barcode =   r.resp_data.goodsInfo.barcode;
@@ -5475,19 +5497,14 @@ $timeout(function(){
      }else{
        $scope.goods.cateSelctItem  = selectleng+' 个';
      }
-
-
-
   }
 
 
   //父类
   $scope.systemparnslec =   function (){
 
-
     if($scope.goods.systemSelect){
         angular.forEach($scope.goods.systemClass,function(c){
-
                 if(c.cate_id   ==  $scope.goods.systemSelect){
                   c.select  =true;
                 }else{
@@ -5496,9 +5513,8 @@ $timeout(function(){
         })
     }
 
-
-
     var hanparnselect = true;
+
     angular.forEach($scope.goods.systemClass,function(c){
 
           if(c.select){
@@ -5506,39 +5522,50 @@ $timeout(function(){
             hanparnselect  = false;
           }
 
-          if(c.cate_id  == $scope.goods.systemSelect  &&  c.children.length !=0){
+          if(c.cate_id  == $scope.goods.systemSelect  && c.children.length !=0){
 
                 //计算那个   默认选中
-                $scope.goods.systemchidlist  =  c.children;
-                var hasslect = true;
+                $timeout(function(){
 
+
+
+                         $scope.goods.systemchidlist  =  c.children;
+                var hasslect = true;
                 angular.forEach($scope.goods.systemchidlist,function(xx){
                         if(xx.select){
                           hasslect = false;;
                             $scope.goods.systemchidSelct   = xx.cate_id;
                         }
                 });
+
                 if(hasslect){
                     $scope.goods.systemchidSelct   =  $scope.goods.systemchidlist[0].cate_id;
-                }
+                  }
+
+
+                })
+
+             
 
           }else{
             $scope.goods.systemchidlist  =  undefined;
             $scope.goods.systemchidSelct  =  undefined;
           }
-
-
-
-
     })
+
+
 
     if(hanparnselect){
     $scope.goods.systemClass[0].select = true;
     $scope.goods.systemSelect  = $scope.goods.systemClass[0].cate_id;
-
     }
 
+
   };
+
+  
+
+
   //子类
   $scope.chidselect   = function(){
       
@@ -7624,11 +7651,13 @@ if(bascId==1){
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
-    $scope.Modal = modal;
+    $scope.newModal = modal;
   });
 
+
+
   $scope.searchBody=function () {
-    $scope.Modal.show();
+    $scope.newModal.show();
 
 
   }
@@ -7649,7 +7678,7 @@ if(bascId==1){
     if(keycode==13){
 
      $scope.key = $scope.msg.key
-      $scope.Modal.hide();
+      $scope.newModal.hide();
       $scope.ShoppingList=[];
       $scope.page_number  =1;
       $ionicScrollDelegate.scrollTop();
@@ -7662,10 +7691,13 @@ if(bascId==1){
 
   }
 $scope.leftHide =  function () {
- 
-  $scope.Modal.hide();
+  $scope.newModal.hide();
+
 }
 
+  $scope.homeSearch = function () {
+    $scope.newModal.hide();
+  }
 
 }]);
 
@@ -7900,7 +7932,7 @@ $scope.dataList = false
     $scope.modal.show();
 
     $scope.loadOlderStoriesList=function (type) {
-  
+
       var sendoption  = {
         "interface_number": "020704",
         "client_type": window.platform,
@@ -8139,7 +8171,9 @@ $scope.query =function () {
     $scope.Modal.hide();
   }
 
-
+  $scope.homeSearch = function () {
+    $scope.Modal.hide();
+  }
 
 
 }]);
@@ -8280,6 +8314,11 @@ $scope.myKeyup = function (e) {
   $scope.leftHide =function () {
     $ionicHistory.goBack()
   }
+
+  $scope.homeSearch = function () {
+    $ionicHistory.goBack()
+  }
+
 
 }]);
 
@@ -9960,6 +9999,8 @@ Ctr.controller('informationCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
 Ctr.controller('noticeCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$ionicHistory','storage','fromStateServ','selectArr',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$ionicHistory,storage,fromStateServ,selectArr){
 
 
+
+
 $scope.mathData = true;
 
 
@@ -9979,17 +10020,59 @@ $scope.mathData = true;
       $scope.expression= false
     }
   }
+  
+   $rootScope.$watch('newnotice', function() {
+      Handlenotice();
+    });
+
+$scope.notice = {
+  Tradelogistics:undefined,
+  Systemmessage:undefined
+};
+function Handlenotice() {
+
+  
+
+  var  id   = storage.getObject('UserInfo').user_id;
+    if(id){
+        //多去当前用户消息  
+        var notilength   = undefined;          
+         notilength  =  storage.getObject('Notice');
+
+          var nowuser  =   notilength.userlist[id];
+          
+          if(nowuser.Tradelogistics){
+               if(nowuser.Tradelogistics.length){
+                 $scope.notice.Tradelogistics   =  nowuser.Tradelogistics.length;
+               }
+          }else{
+            $scope.notice.Tradelogistics  = undefined
+          }
+
+          if(nowuser.Systemmessage){
+               if(nowuser.Systemmessage.length){
+                 $scope.notice.Systemmessage   =  nowuser.Systemmessage.length;
+               }
+          }else{
+            $scope.notice.Systemmessage  = undefined
+          }
 
 
+
+    }
+}
 
 
   $scope.$on('$ionicView.beforeEnter',function(){
 
+    //处理通知
+    Handlenotice();
+
+
+
     //页面的状态变化  请求
     select()
-
     handtat();
-
 
     if ($ionicHistory.backView()) {
       window.androdzerofun  = function(parm1,parm2){
@@ -9998,21 +10081,9 @@ $scope.mathData = true;
       window.androdzerofun_parms  ='tabswtathing';
       window.androdzerofun_clback  = 'nothing';
     }
+
   });
 
-
-  //对安卓返回键的  特殊处理  tabs
-
- /* if($scope.adminer == undefined){
-
-  }else{
-    $scope.$on('$ionicView.beforeEnter',function(){
-
-      Initial ();
-
-
-    });
-  }*/
 
 
 
@@ -10100,6 +10171,14 @@ $scope.mathData = true;
 
   }]);
 
+/**
+ * Created by Why on 16/6/8.
+ */
+
+Ctr.controller('rootCtr',[function(){
+  
+}])
+
 Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory){
 }])
 
@@ -10117,7 +10196,7 @@ Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory)
                 $scope.showtitle  = false;
             }
             inlit();
-            console.log($stateParams);
+            
     });
     $scope.state  = true;
     
@@ -10152,19 +10231,32 @@ Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory)
                 "order_basic_id": $stateParams.id,
                 }
          },function(r){
+                    
+                    if(r){
+
+                    
                       if(r.resp_data.length){
                         //渲染数据
+                        $scope.other  = true;
                         $scope.state =  false;
                         $scope.logiaclist  = r.resp_data;
                         $scope.logiaclist[0].now  = true;
-                      }else{
+                        }else {
+                        $scope.other  = true;
                         $scope.state  = true;
-                          $scope.openruil =  function(){
-                              cordova.InAppBrowser.open(r.resp_data.url, '_blank', 'location=yes');
-                          }
+                        $scope.openruil =  function(){
 
-                            
+                            cordova.InAppBrowser.open(r.resp_data.url, '_blank', 'location=yes');
+                        }
+
+
+
                       }
+                }else{
+
+
+
+                }
 
          })
 
@@ -10204,14 +10296,6 @@ Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory)
 
 
 }])
-/**
- * Created by Why on 16/6/8.
- */
-
-Ctr.controller('rootCtr',[function(){
-  
-}])
-
 /**
  * Created by Administrator on 2016/7/5.
  */
@@ -11005,7 +11089,6 @@ Ctr.controller('SettingsUpdateCtr',['$scope','storage','Tools','native','$state'
 
 
 
-
   $scope.$on('$ionicView.beforeEnter',function(){
           var userin  =  storage.getObject('UserInfo');
           $scope.header  =    window.qiniuimgHost+userin.avatar+'?imageView2/2/w/130/h/130';
@@ -11017,6 +11100,7 @@ Ctr.controller('SettingsUpdateCtr',['$scope','storage','Tools','native','$state'
           }
           $scope.qq  =   userin.qq;
   });
+  
   $scope.Headportrait   =  function(){
 
         Tools.chekpirc({
@@ -11980,6 +12064,394 @@ var   userone = storage.getObject('UserInfo');
 
   }])
 
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$rootScope','$ionicPopup','$ionicHistory','native','buyConfirmorde','$stateParams','shopcartbactitle',function($scope,fromStateServ,storage,Tools,$rootScope,$ionicPopup,$ionicHistory,native,buyConfirmorde,$stateParams,shopcartbactitle){
+
+
+ //对安卓返回键的  特殊处理  tabs
+  $scope.$on('$ionicView.beforeEnter',function(){
+    //页面的状态变化  请求
+      handtat();
+     if ($ionicHistory.backView()) {
+       window.androdzerofun  = function(parm1,parm2){
+         $ionicHistory.goBack();
+
+       }
+       window.androdzerofun_parms   ='tabswtathing';
+       window.androdzerofun_clback  = 'nothing';
+     }
+    
+     if(shopcartbactitle.state){
+       $scope.showtitle  = true;
+       $scope.backv    =function (){
+         $rootScope.$ionicGoBack();
+       }
+
+        window.androdzerofun  = function(parm1,parm2){
+         $rootScope.$ionicGoBack();
+       }
+       window.androdzerofun_parms   ='tabswtathing';
+       window.androdzerofun_clback  = 'nothing';
+
+
+     }else{
+        $scope.showtitle  = false;
+     }
+
+    });
+
+    $scope.$on('$ionicView.beforeLeave',function(){
+      window.androdzerofun  = undefined;
+      $scope.showtitle  = false;
+      shopcartbactitle.state  =  false;
+
+    })
+
+
+
+
+
+
+
+      $scope.login  =  function(r){
+            fromStateServ.stateChange(r);
+      };
+      $scope.shopcartdata  =[];
+      $scope.TotalPrice  = '0.00';
+
+  //统计总价
+  $scope.Total  =function (){
+    $scope.TotalPrice  = 0;
+    angular.forEach($scope.shopcartdata,function(v){
+      angular.forEach(v.goods_info,function(value){
+        if(value.select){
+          $scope.TotalPrice += parseFloat(value.activity_price)*parseInt(value.number);
+        }
+      })
+    });
+    $scope.TotalPrice   = $scope.TotalPrice.toFixed(2);
+  };
+
+      //请求购物数据  整体刷新
+      $scope.doRefresh  =  function (){
+           Tools.getData({
+             "interface_number": "020402",
+             "post_content": {}
+           },function(r){
+             $scope.$broadcast('scroll.refreshComplete');
+             $scope.selectall   = false;
+             if(r){
+                      if(r.resp_data.cart == []){
+                        $scope.noitem  = true;
+                        return  false;
+                      }else{
+                        $scope.noitem  = false;
+                      }
+
+                    $scope.shopcartdata  = r.resp_data.cart;
+
+                    if(Object.keys($scope.shopcartdata).length  == 0){
+                      $scope.noitem  = true;
+                    }else{
+                      $scope.noitem  = false;
+                      angular.forEach($scope.shopcartdata,function(value){
+                          angular.forEach(value.goods_info,function(subvalue){
+                              subvalue.edit  =false;
+                          })
+                      })
+                    }
+             }
+           })
+      };
+
+      function handtat  (){
+        
+        if(storage.getObject('UserInfo').user_id){
+            $scope.isShow = false;
+            $scope.doRefresh();
+            $scope.Total();
+        }else{
+          $scope.isShow = true;
+        }
+      $scope.TotalPrice  = '0.00';
+        
+      }
+
+      //编辑
+      $scope.edit  =function (e){
+        if(!e.edit){
+            e.edit  = true;
+        }else{
+            e.edit  = false;
+
+          var changedatat =  [];
+          angular.forEach(e.goods_info,function(v){
+            changedatat.push({
+              number:v.number,
+              cart_id:v.cart_id
+            });
+
+          });
+          //完成的交互
+          Tools.showlogin();
+          Tools.getData({
+            "interface_number": "020404",
+            "post_content": {
+              "cart_data": changedatat
+            }
+          },function(r){
+            if(r){
+              Tools.hidelogin();
+                console.log(r)
+            }
+          })
+
+        }
+      };
+
+  //选中自身
+  $scope.chekthis  = function (r){
+
+       if(!r.select){
+         r.select  =true;
+       }else{
+         r.select  =false;
+       }
+
+    $scope.Total();
+  };
+
+
+  //选中所以
+  $scope.selctall   = function (){
+
+
+      if(!$scope.selectall){
+        $scope.selectall   = true;
+        angular.forEach($scope.shopcartdata,function(v){
+          angular.forEach(v.goods_info,function(value){
+            value.select  = true;
+          })
+        })
+
+      }else {
+        $scope.selectall   = false;
+        angular.forEach($scope.shopcartdata,function(v){
+          angular.forEach(v.goods_info,function(value){
+            value.select  = false;
+          })
+        })
+
+      }
+
+    $scope.Total()
+
+  }
+
+
+
+   //自  --
+        $scope.Subtractme  = function (r){
+            r.number    = (parseInt(r.number) -1);
+            if(r.number  <=1){
+              r.number  = 1;
+            }
+        }
+   //增加  ++
+        $scope.Increase  = function (r){
+
+            r.number    = (parseInt(r.number)+1);
+            if(r.number  >=  parseInt(r.max_buy_num)){
+              r.number  = parseInt(r.max_buy_num);
+            }
+        }
+
+        //del    Myself
+        $scope.delmyseif  = function (c,key,parnt,parntkey,root){
+
+          Tools.getData({
+              "interface_number": "020403",
+              "post_content": {
+              "cart_id": [c.cart_id]
+              }
+          },function(r){
+            if(r){
+               Tools.rmArrin(parnt.goods_info,key)
+               if(parnt.goods_info.length  ==0 ){
+                    delete  root[parntkey];
+               }
+            }
+          });
+          $scope.Total();
+        };
+
+
+        //去结算
+        $scope.Settlement  = function (){
+
+          //用于结算的  订单的 商品存储对象
+          var   shopcartOrder  = '';
+          var   nogoods  = true;
+
+          angular.forEach($scope.shopcartdata,function(v){
+            angular.forEach(v.goods_info,function(value){
+              if(value.select){
+                nogoods   = false;
+                shopcartOrder += value.cart_id+','
+              }
+            })
+          });
+          if(nogoods){
+            native.task('请选择结算的商品');
+            return false;
+          }
+            //选中的商品
+            shopcartOrder  = shopcartOrder.substring(0,shopcartOrder.length-1);
+            buyConfirmorde.cart   =shopcartOrder;
+            fromStateServ.stateChange('r.ConfirmorderZf');
+            //这里去 确认订单
+        };
+
+
+
+
+
+
+}])
+
+/**
+ * Created by Why on 16/6/12.
+ */
+
+      //全局变量定义
+      //window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
+      window.Interactivehost  = 'http://192.168.0.56:1155/index.php?r=app/index';
+      //window.Interactivehost =  'http://app.ywyde.com/index.php?r=app/index';
+      //window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
+      window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';
+
+  //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
+  //没有使用过度的返回页面的使用
+  //本地缓存   对象列表 定义
+  // window.LocalCacheStatelist  =  {
+  //   shopCart:'YES',
+  // };
+
+  window.defaultUserheader  =  './img/sys_male.jpg';
+  Server.factory('const',['$window','$ionicHistory','$timeout','$ionicNativeTransitions',function($window,$ionicHistory,$timeout,$ionicNativeTransitions){
+      return{
+        haha:'哈哈'
+      }
+    }])
+    
+    //商品编辑状态
+    .factory('goodsState',[function(){
+      return{
+         Refresh:false,
+         goods_basic_id:undefined,
+         goods_title:undefined,
+         img_url:undefined,
+         activity_price:undefined,
+         total_in_number:undefined
+      }
+    }])
+
+ /* var selectStorge =  function () {
+     return
+  }*/
+
+
+
+//验证状态
+  .factory('selectArr',['storage',function(storage){
+    return{
+
+            selectarrs: {
+        id:function () {
+          return storage.getObject('UserInfo').user_id
+        },
+        isadmin:function () {
+          return  storage.getObject('UserInfo').is_admin
+        }  ,
+        companyid:function () {
+          return storage.getObject('UserInfo').company_id
+        },
+        authstatus:function () {
+          return  storage.getObject('UserInfo').auth_status
+        },
+        needpaid:function () {
+          return  storage.getObject('UserInfo').need_paid
+        },
+              companyname:function () {
+                return  storage.getObject('UserInfo').company_name
+              },
+
+      }
+    }
+  }])
+
+
+
+    .factory('loginregisterstate',[function(){
+      return{
+         Refresh:false,
+      }
+    }])
+    .factory('adderupdatastat',[function(){
+      return{
+          id:false,
+          linkname:undefined,
+          phone:undefined,
+          city:undefined,
+          province:undefined,
+          region:undefined,
+          street:undefined,
+          is_default:undefined,
+      }
+    }])
+    .factory('buyConfirmorde',[function(){
+      return{
+      }
+    }])
+    .factory('comforderlistadder',[function(){
+      return{
+      }
+    }])
+    .factory('shopcartbactitle',[function(){
+      return{
+      }
+    }])
+     .factory('selectaouthfunl',[function(){
+      return{
+      }
+    }])
+    .factory('seeshopPint',[function(){
+      return{
+      }
+    }])
+     .factory('comfrombackresitl',[function(){
+      return{
+      }
+    }])
+
+
+
+/**
+ * Created by Why on 16/6/10.
+ */
+//推送的方法类封装
+Server.factory('native',['$window',function($window){
+  return{
+    //存储单个属性
+    set :function(key,value){
+      $window.localStorage[key]=value;
+    },
+  }
+
+}]);
+
 
 
 Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state','fromStateServ','$ionicScrollDelegate','$rootScope',function($scope,$timeout,Tools,$stateParams,$state,fromStateServ,$ionicScrollDelegate,$rootScope){
@@ -12253,396 +12725,6 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
 }])
 
 /**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$rootScope','$ionicPopup','$ionicHistory','native','buyConfirmorde','$stateParams','shopcartbactitle',function($scope,fromStateServ,storage,Tools,$rootScope,$ionicPopup,$ionicHistory,native,buyConfirmorde,$stateParams,shopcartbactitle){
-
-
- //对安卓返回键的  特殊处理  tabs
-  $scope.$on('$ionicView.beforeEnter',function(){
-    //页面的状态变化  请求
-      handtat();
-     if ($ionicHistory.backView()) {
-       window.androdzerofun  = function(parm1,parm2){
-         $ionicHistory.goBack();
-
-       }
-       window.androdzerofun_parms   ='tabswtathing';
-       window.androdzerofun_clback  = 'nothing';
-     }
-    
-     if(shopcartbactitle.state){
-       $scope.showtitle  = true;
-       $scope.backv    =function (){
-         $rootScope.$ionicGoBack();
-       }
-
-        window.androdzerofun  = function(parm1,parm2){
-         $rootScope.$ionicGoBack();
-       }
-       window.androdzerofun_parms   ='tabswtathing';
-       window.androdzerofun_clback  = 'nothing';
-
-
-     }else{
-        $scope.showtitle  = false;
-     }
-
-    });
-
-    $scope.$on('$ionicView.beforeLeave',function(){
-      window.androdzerofun  = undefined;
-      $scope.showtitle  = false;
-      shopcartbactitle.state  =  false;
-
-    })
-
-
-
-
-
-
-
-      $scope.login  =  function(r){
-            fromStateServ.stateChange(r);
-      };
-      $scope.shopcartdata  =[];
-      $scope.TotalPrice  = '0.00';
-
-  //统计总价
-  $scope.Total  =function (){
-    $scope.TotalPrice  = 0;
-    angular.forEach($scope.shopcartdata,function(v){
-      angular.forEach(v.goods_info,function(value){
-        if(value.select){
-          $scope.TotalPrice += parseFloat(value.activity_price)*parseInt(value.number);
-        }
-      })
-    });
-    $scope.TotalPrice   = $scope.TotalPrice.toFixed(2);
-  };
-
-      //请求购物数据  整体刷新
-      $scope.doRefresh  =  function (){
-           Tools.getData({
-             "interface_number": "020402",
-             "post_content": {}
-           },function(r){
-             $scope.$broadcast('scroll.refreshComplete');
-             $scope.selectall   = false;
-             if(r){
-                      if(r.resp_data.cart == []){
-                        $scope.noitem  = true;
-                        return  false;
-                      }else{
-                        $scope.noitem  = false;
-                      }
-
-                    $scope.shopcartdata  = r.resp_data.cart;
-
-                    if(Object.keys($scope.shopcartdata).length  == 0){
-                      $scope.noitem  = true;
-                    }else{
-                      $scope.noitem  = false;
-                      angular.forEach($scope.shopcartdata,function(value){
-                          angular.forEach(value.goods_info,function(subvalue){
-                              subvalue.edit  =false;
-                          })
-                      })
-                    }
-             }
-           })
-      };
-
-      function handtat  (){
-        
-        if(storage.getObject('UserInfo').user_id){
-            $scope.isShow = false;
-            $scope.doRefresh();
-            $scope.Total();
-        }else{
-          $scope.isShow = true;
-        }
-      $scope.TotalPrice  = '0.00';
-        
-      }
-
-      //编辑
-      $scope.edit  =function (e){
-        if(!e.edit){
-            e.edit  = true;
-        }else{
-            e.edit  = false;
-
-          var changedatat =  [];
-          angular.forEach(e.goods_info,function(v){
-            changedatat.push({
-              number:v.number,
-              cart_id:v.cart_id
-            });
-
-          });
-          //完成的交互
-          Tools.showlogin();
-          Tools.getData({
-            "interface_number": "020404",
-            "post_content": {
-              "cart_data": changedatat
-            }
-          },function(r){
-            if(r){
-              Tools.hidelogin();
-                console.log(r)
-            }
-          })
-
-        }
-      };
-
-  //选中自身
-  $scope.chekthis  = function (r){
-
-       if(!r.select){
-         r.select  =true;
-       }else{
-         r.select  =false;
-       }
-
-    $scope.Total();
-  };
-
-
-  //选中所以
-  $scope.selctall   = function (){
-
-
-      if(!$scope.selectall){
-        $scope.selectall   = true;
-        angular.forEach($scope.shopcartdata,function(v){
-          angular.forEach(v.goods_info,function(value){
-            value.select  = true;
-          })
-        })
-
-      }else {
-        $scope.selectall   = false;
-        angular.forEach($scope.shopcartdata,function(v){
-          angular.forEach(v.goods_info,function(value){
-            value.select  = false;
-          })
-        })
-
-      }
-
-    $scope.Total()
-
-  }
-
-
-
-   //自  --
-        $scope.Subtractme  = function (r){
-            r.number    = (parseInt(r.number) -1);
-            if(r.number  <=1){
-              r.number  = 1;
-            }
-        }
-   //增加  ++
-        $scope.Increase  = function (r){
-
-            r.number    = (parseInt(r.number)+1);
-            if(r.number  >=  parseInt(r.max_buy_num)){
-              r.number  = parseInt(r.max_buy_num);
-            }
-        }
-
-        //del    Myself
-        $scope.delmyseif  = function (c,key,parnt,parntkey,root){
-
-          Tools.getData({
-              "interface_number": "020403",
-              "post_content": {
-              "cart_id": [c.cart_id]
-              }
-          },function(r){
-            if(r){
-               Tools.rmArrin(parnt.goods_info,key)
-               if(parnt.goods_info.length  ==0 ){
-                    delete  root[parntkey];
-               }
-            }
-          });
-          $scope.Total();
-        };
-
-
-        //去结算
-        $scope.Settlement  = function (){
-
-          //用于结算的  订单的 商品存储对象
-          var   shopcartOrder  = '';
-          var   nogoods  = true;
-
-          angular.forEach($scope.shopcartdata,function(v){
-            angular.forEach(v.goods_info,function(value){
-              if(value.select){
-                nogoods   = false;
-                shopcartOrder += value.cart_id+','
-              }
-            })
-          });
-          if(nogoods){
-            native.task('请选择结算的商品');
-            return false;
-          }
-            //选中的商品
-            shopcartOrder  = shopcartOrder.substring(0,shopcartOrder.length-1);
-            buyConfirmorde.cart   =shopcartOrder;
-            fromStateServ.stateChange('r.ConfirmorderZf');
-            //这里去 确认订单
-        };
-
-
-
-
-
-
-}])
-
-/**
- * Created by Why on 16/6/12.
- */
-
-      //全局变量定义
-      //window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
-      window.Interactivehost  = 'http://192.168.0.56:1155/index.php?r=app/index';
-      
-      //window.Interactivehost =  'http://app.ywyde.com/index.php?r=app/index';
-      //window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
-
-      window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';
-
-  //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
-  //没有使用过度的返回页面的使用
-  //本地缓存   对象列表 定义
-  // window.LocalCacheStatelist  =  {
-  //   shopCart:'YES',
-  // };
-
-  window.defaultUserheader  =  './img/sys_male.jpg';
-  Server.factory('const',['$window','$ionicHistory','$timeout','$ionicNativeTransitions',function($window,$ionicHistory,$timeout,$ionicNativeTransitions){
-      return{
-        haha:'哈哈'
-      }
-    }])
-    
-    //商品编辑状态
-    .factory('goodsState',[function(){
-      return{
-         Refresh:false,
-         goods_basic_id:undefined,
-         goods_title:undefined,
-         img_url:undefined,
-         activity_price:undefined,
-         total_in_number:undefined
-      }
-    }])
-
- /* var selectStorge =  function () {
-     return
-  }*/
-
-
-
-//验证状态
-  .factory('selectArr',['storage',function(storage){
-    return{
-
-            selectarrs: {
-        id:function () {
-          return storage.getObject('UserInfo').user_id
-        },
-        isadmin:function () {
-          return  storage.getObject('UserInfo').is_admin
-        }  ,
-        companyid:function () {
-          return storage.getObject('UserInfo').company_id
-        },
-        authstatus:function () {
-          return  storage.getObject('UserInfo').auth_status
-        },
-        needpaid:function () {
-          return  storage.getObject('UserInfo').need_paid
-        },
-              companyname:function () {
-                return  storage.getObject('UserInfo').company_name
-              },
-
-      }
-    }
-  }])
-
-
-
-    .factory('loginregisterstate',[function(){
-      return{
-         Refresh:false,
-      }
-    }])
-    .factory('adderupdatastat',[function(){
-      return{
-          id:false,
-          linkname:undefined,
-          phone:undefined,
-          city:undefined,
-          province:undefined,
-          region:undefined,
-          street:undefined,
-          is_default:undefined,
-      }
-    }])
-    .factory('buyConfirmorde',[function(){
-      return{
-      }
-    }])
-    .factory('comforderlistadder',[function(){
-      return{
-      }
-    }])
-    .factory('shopcartbactitle',[function(){
-      return{
-      }
-    }])
-     .factory('selectaouthfunl',[function(){
-      return{
-      }
-    }])
-    .factory('seeshopPint',[function(){
-      return{
-      }
-    }])
-     .factory('comfrombackresitl',[function(){
-      return{
-      }
-    }])
-
-
-
-/**
- * Created by Why on 16/6/10.
- */
-//推送的方法类封装
-Server.factory('native',['$window',function($window){
-  return{
-    //存储单个属性
-    set :function(key,value){
-      $window.localStorage[key]=value;
-    },
-  }
-
-}]);
-
-/**
  * Created by Why on 16/6/10.
  */
 //调用原生方法类
@@ -12870,58 +12952,6 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
 
 }]);
 
-/**
- * Created by Why on 16/6/6.
- */
-Server.factory('Chats', function() {
-  // Might use a resource here that returns a JSON array
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
-  }];
-
-  return {
-    all: function() {
-      return chats;
-    },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
-    },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
-        }
-      }
-      return null;
-    }
-  };
-});
-
-
 Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$timeout','$ionicNativeTransitions',function($state,$ionicViewSwitcher,$ionicHistory,$timeout,$ionicNativeTransitions){
     var box  = {
         data: {},
@@ -12956,7 +12986,7 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
               window.androdzerofun_clback  = undefined;
               window.backtoinroot_parms  =  undefined;
               $ionicHistory.clearHistory();
-            }, 100);
+            }, 20);
 
         },
         setState: function(module, fromState, fromParams,title,viewid) {
@@ -13022,6 +13052,58 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
 
     return box;
 }])
+
+/**
+ * Created by Why on 16/6/6.
+ */
+Server.factory('Chats', function() {
+  // Might use a resource here that returns a JSON array
+  // Some fake testing data
+  var chats = [{
+    id: 0,
+    name: 'Ben Sparrow',
+    lastText: 'You on your way?',
+    face: 'img/ben.png'
+  }, {
+    id: 1,
+    name: 'Max Lynx',
+    lastText: 'Hey, it\'s me',
+    face: 'img/max.png'
+  }, {
+    id: 2,
+    name: 'Adam Bradleyson',
+    lastText: 'I should buy a boat',
+    face: 'img/adam.jpg'
+  }, {
+    id: 3,
+    name: 'Perry Governor',
+    lastText: 'Look at my mukluks!',
+    face: 'img/perry.png'
+  }, {
+    id: 4,
+    name: 'Mike Harrington',
+    lastText: 'This is wicked good ice cream.',
+    face: 'img/mike.png'
+  }];
+
+  return {
+    all: function() {
+      return chats;
+    },
+    remove: function(chat) {
+      chats.splice(chats.indexOf(chat), 1);
+    },
+    get: function(chatId) {
+      for (var i = 0; i < chats.length; i++) {
+        if (chats[i].id === parseInt(chatId)) {
+          return chats[i];
+        }
+      }
+      return null;
+    }
+  };
+});
+
 
 /**
  * Created by Why on 16/6/14.

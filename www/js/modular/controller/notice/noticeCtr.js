@@ -4,6 +4,8 @@
 Ctr.controller('noticeCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$ionicHistory','storage','fromStateServ','selectArr',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$ionicHistory,storage,fromStateServ,selectArr){
 
 
+
+
 $scope.mathData = true;
 
 
@@ -23,17 +25,59 @@ $scope.mathData = true;
       $scope.expression= false
     }
   }
+  
+   $rootScope.$watch('newnotice', function() {
+      Handlenotice();
+    });
+
+$scope.notice = {
+  Tradelogistics:undefined,
+  Systemmessage:undefined
+};
+function Handlenotice() {
+
+  
+
+  var  id   = storage.getObject('UserInfo').user_id;
+    if(id){
+        //多去当前用户消息  
+        var notilength   = undefined;          
+         notilength  =  storage.getObject('Notice');
+
+          var nowuser  =   notilength.userlist[id];
+          
+          if(nowuser.Tradelogistics){
+               if(nowuser.Tradelogistics.length){
+                 $scope.notice.Tradelogistics   =  nowuser.Tradelogistics.length;
+               }
+          }else{
+            $scope.notice.Tradelogistics  = undefined
+          }
+
+          if(nowuser.Systemmessage){
+               if(nowuser.Systemmessage.length){
+                 $scope.notice.Systemmessage   =  nowuser.Systemmessage.length;
+               }
+          }else{
+            $scope.notice.Systemmessage  = undefined
+          }
 
 
+
+    }
+}
 
 
   $scope.$on('$ionicView.beforeEnter',function(){
 
+    //处理通知
+    Handlenotice();
+
+
+
     //页面的状态变化  请求
     select()
-
     handtat();
-
 
     if ($ionicHistory.backView()) {
       window.androdzerofun  = function(parm1,parm2){
@@ -42,21 +86,9 @@ $scope.mathData = true;
       window.androdzerofun_parms  ='tabswtathing';
       window.androdzerofun_clback  = 'nothing';
     }
+
   });
 
-
-  //对安卓返回键的  特殊处理  tabs
-
- /* if($scope.adminer == undefined){
-
-  }else{
-    $scope.$on('$ionicView.beforeEnter',function(){
-
-      Initial ();
-
-
-    });
-  }*/
 
 
 

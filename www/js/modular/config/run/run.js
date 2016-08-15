@@ -89,9 +89,10 @@ window.networonline  =  true;
     //获取极光推送注册id
     window.plugins.jPushPlugin.getRegistrationID( function(data) {
       try {
-        
+
         var  locjPush  =    storage.getObject('jPush');
         locjPush.RegistrationID =  data;
+
         storage.setObject('jPush',locjPush);
         if(storage.getObject('UserInfo').user_id){
               Tools.getData({
@@ -231,22 +232,22 @@ window.networonline  =  true;
 
 
     //极光推送  初始初始化
-    window.plugins.jPushPlugin.init();
+    var  jpushstat  =   window.plugins.jPushPlugin.init();
+    console.log(jpushstat)
+
+  
     //调试模式
-    //window.plugins.jPushPlugin.setDebugMode(true);
-
-
-
-
+    window.plugins.jPushPlugin.setDebugMode(true);
 
 
     //极光推送事件处理
     //极光数据处理  兼容ios  安卓平台  剥离数据
     var bestripped  =  function(data){
-      var result = {};
+
+    var result = {};
       if(device.platform == "Android") {
         result.title = data.alert;
-        result.value = data.extras["cn.jpusdroid.EXTRA"];
+        result.value = data.extras['cn.jpush.android.EXTRA'];
       }else{
         var iosVlue  ={};
         angular.forEach(data,function(value,key){
@@ -258,47 +259,66 @@ window.networonline  =  true;
         result.value = iosVlue;
       }
       return  result;
-    };
+      };
 
-
-
-    //点击通知的处理
-    var onOpenNotification  = function(){
+      //点击通知的处理 click  jpush  event  Handle
+      window.document.addEventListener("jpush.openNotification", function(){
       var alertContent  =  bestripped(window.plugins.jPushPlugin.openNotification);
       //推送的附带对象 数据 直接访问
-      //window.plugins.jPushPlugin.openNotification
-      alert(' 点击事件');
-    };
+      console.log(alertContent,'收到的数据');
+      }, true);
+
+      document.addEventListener("jpush.receiveNotification", function(e){
+      var alertContent  =  bestripped(window.plugins.jPushPlugin.receiveNotification);
+
+      var nownotilist = storage.getObject('Notice');
+      if(!nownotilist.userlist){
+        nownotilist.userlist = {};
+      }
+
+      if(!nownotilist.userlist[storage.getObject('UserInfo').user_id]){
+          nownotilist.userlist[storage.getObject('UserInfo').user_id]  = {};
+      }
+
+      console.log(nownotilist.userlist[storage.getObject('UserInfo').user_id]);
+      switch (alertContent.value.msg_type){
+           case  '1':
+                  //类型1 的注入
+                 if(!nownotilist.userlist[storage.getObject('UserInfo').user_id].Tradelogistics){nownotilist.userlist[storage.getObject('UserInfo').user_id].Tradelogistics  = [];}
+                  nownotilist.userlist[storage.getObject('UserInfo').user_id].Tradelogistics.unshift(alertContent)
+           break;
+           case  '2':
+            if(!nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage){
+              nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage  = [];
+            }
+                  nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage.unshift(alertContent)
+          break;
+           default:
+           return false;
+      }
+      storage.setObject('Notice',nownotilist);
+
+      $timeout(function () {
+       $rootScope.newnotice  = new  Date()+Math.random()*1000;
+      });
+
+      
 
 
 
-    window.document.addEventListener("jpush.openNotification", onOpenNotification, true);
-    //收到推送 事件  触发
-    window.document.addEventListener("jpush.receiveNotification", function(){
-      var alertContent  =  bestripped(window.plugins.jPushPlugin.openNotification);
-      alert('收到时间');
-    }, true);
+      
+    
+
+    }, false);
 
     if(window.platform  !== 'ios'){
       window.updateAPP(true);
     }
 
-
-
-
-
-
-
-
-
-
- // listen for Online event
+    //listen for Online event
     $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
-      
          window.networonline  =  true;
-
     })
-
     // listen for Offline event
     $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
       window.networonline  =  false;
@@ -311,9 +331,12 @@ window.networonline  =  true;
   });
  
 
-
   window.updateAPP  =  function(r){
-
+    if(ionic.Platform.platform()  == 'ios'){
+      return false;
+    }
+    
+  
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
 

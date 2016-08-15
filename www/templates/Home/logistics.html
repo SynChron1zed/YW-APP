@@ -77,18 +77,18 @@
 
   <p  style="text-align: center;line-height: 40px;color: #545454;" ng-show='!state'   ng-if='!logiaclist' >加载中....</p>
   <p style="height:1px;"></p>
-      <div class="tiem-itemlisgt"  ng-repeat="ff  in  logiaclist"   >
+      <div  ng-show="other"  class="tiem-itemlisgt"  ng-repeat="ff  in  logiaclist"   >
           <span  ng-class="{'now':ff.now}" ></span>
           <p style="font-size:14px" >{{ff.context}}</p>
           <p style="color:#9a9a9a" >{{ff.time}}</p>
       </div>
-
-
-       <div  ng-if='state' style="width: 80%;margin-left: 10%;background: #ffec0b;text-align: center;height: 40px;line-height: 40px;border-radius: 5px;font-size: 15px;color: #6b3801;"  ng-click="openruil()">
+      
+       <div  ng-show="other" ng-if='state' style="width: 80%;margin-left: 10%;background: #ffec0b;text-align: center;height: 40px;line-height: 40px;border-radius: 5px;font-size: 15px;color: #6b3801;"  ng-click="openruil()">
             点击查看物流详情
        </div>
-
-
+          <p></p>
+          <p   ng-show="!other"  style="text-align: center;line-height: 40px;color: #545454;"  >没有数据</p>
+          
         <div style="height:60px;">
 
         </div>

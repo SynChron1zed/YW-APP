@@ -15,7 +15,7 @@ Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory)
                 $scope.showtitle  = false;
             }
             inlit();
-            console.log($stateParams);
+            
     });
     $scope.state  = true;
     
@@ -50,19 +50,32 @@ Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory)
                 "order_basic_id": $stateParams.id,
                 }
          },function(r){
+                    
+                    if(r){
+
+                    
                       if(r.resp_data.length){
                         //渲染数据
+                        $scope.other  = true;
                         $scope.state =  false;
                         $scope.logiaclist  = r.resp_data;
                         $scope.logiaclist[0].now  = true;
-                      }else{
+                        }else {
+                        $scope.other  = true;
                         $scope.state  = true;
-                          $scope.openruil =  function(){
-                              cordova.InAppBrowser.open(r.resp_data.url, '_blank', 'location=yes');
-                          }
+                        $scope.openruil =  function(){
 
-                            
+                            cordova.InAppBrowser.open(r.resp_data.url, '_blank', 'location=yes');
+                        }
+
+
+
                       }
+                }else{
+
+
+
+                }
 
          })
 
