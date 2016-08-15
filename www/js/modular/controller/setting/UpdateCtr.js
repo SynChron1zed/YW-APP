@@ -8,7 +8,6 @@ Ctr.controller('SettingsUpdateCtr',['$scope','storage','Tools','native','$state'
 
 
 
-
   $scope.$on('$ionicView.beforeEnter',function(){
           var userin  =  storage.getObject('UserInfo');
           $scope.header  =    window.qiniuimgHost+userin.avatar+'?imageView2/2/w/130/h/130';
@@ -20,6 +19,7 @@ Ctr.controller('SettingsUpdateCtr',['$scope','storage','Tools','native','$state'
           }
           $scope.qq  =   userin.qq;
   });
+  
   $scope.Headportrait   =  function(){
 
         Tools.chekpirc({

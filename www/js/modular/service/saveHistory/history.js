@@ -32,7 +32,7 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
               window.androdzerofun_clback  = undefined;
               window.backtoinroot_parms  =  undefined;
               $ionicHistory.clearHistory();
-            }, 100);
+            }, 20);
 
         },
         setState: function(module, fromState, fromParams,title,viewid) {
