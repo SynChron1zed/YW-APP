@@ -175,7 +175,8 @@ $scope.dataList = false
   $scope.ordersbody= function (value) {
 
     $state.go('r.Homordersbody',{basicID:value});
-  }
+  };
+  
   $scope.calssifloadMore = function (xxx) {
     $timeout(function () {
       $scope.$broadcast('scroll.refreshComplete');

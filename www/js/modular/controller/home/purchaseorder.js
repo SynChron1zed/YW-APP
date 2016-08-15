@@ -46,6 +46,7 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
     });
 
      $scope.$on('$ionicView.beforeLeave',function(){
+
             window.androdzerofun   =undefined;
     })
 
@@ -373,6 +374,8 @@ if(bascId==1){
       $scope.dfh = false;
       $scope.expression  = true;
     }
+
+
 
   }
 $scope.leftHide =  function () {

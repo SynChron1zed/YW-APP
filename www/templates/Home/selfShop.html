@@ -10,10 +10,10 @@
 
       <div class=""   style="" ng-repeat="item in selfList" >
         <div class="row" style="height:60px;    border-bottom: 1px solid #ccc;" >
-          <div  class="col col-80" style="width: 100px" >
+          <div  class="col col-80" style="width: 100px"  ng-click="newMap(item)">
             <span class="news-yiyu">{{item.name}}</span>
 
-           <div><span class="ziti-left" ng-click="newMap(item)"> {{item.address}}</span>
+           <div><span class="ziti-left" > {{item.address}}</span>
            </div>
             <img src="./img/classif/icon_ditu@3x.png" style="width: 20px;
     position: absolute;
@@ -22,11 +22,9 @@
           </div>
 
           <div class="col ">
-            <a href="tel:13170400719">
-
+            <a href="tel:item.link">
               <img ng-if="item.link" src="./img/classif/icom_iphone@3X.png" style=" width: 40px;border-left: 1px solid #a2a2a2;float: right;padding: 5px;">
               <img ng-if="!item.link" src="./img/classif/icon_jingzhi.png" style=" width: 40px;border-left: 1px solid #a2a2a2;float: right;padding: 5px;">
-
             </a>
           </div>
         </div>

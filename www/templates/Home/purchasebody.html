@@ -1,4 +1,16 @@
-<ion-view  hide-tabs="true"   view-title="{{title}}"    >
+<ion-view  hide-tabs="true"   view-title="订单详情"    >
+
+
+
+  <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
+    <div    ng-if='showtitle'  class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.HomPurordersbody')">
+      <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title"
+                                                                                                                                                     style="display: block;"
+      >{{parenttitle}}</span></span>
+    </div>
+
+  </ion-nav-buttons>
 
 
     <ion-nav-buttons side="right">
@@ -38,10 +50,10 @@
 
 
       <label class="item item-input" style=" height: 35px;">
-        <span class="input-label" style="color: #111">已付(￥)</span><div style="color: #444">{{newTotal}}</div> </label>
+        <span class="input-label" style="color: #111">已付(￥)</span><div style="color: #444">{{pay}}</div> </label>
 
       <div class="item item-input" style=" height: 35px;">
-        <span class="input-label" style="color: #111">应付(￥)</span><div style="color: #444">{{newTotal}}</div>
+        <span class="input-label" style="color: #111">应付(￥)</span><div style="color: #444">{{pay}}</div>
 
 
 
@@ -49,7 +61,7 @@
       </div>
 
       <label class="item item-input"  style=" height: 35px;">
-        <span class="input-label" style="color: #111">时间</span><div style="color: #444">{{ shopbody.create_date*1000| date:"yyyy-MM-dd" }}</div>
+        <span class="input-label" style="color: #111">时间</span><div style="color: #444">{{ shopbody.create_date*1000| date:"yyyy-MM-dd HH:mm:ss" }}</div>
       </label>
     </div>
 
@@ -82,7 +94,7 @@
     <div class="list" style="border-top: 1px solid  #E1E1E1;background-color: white"  >
 
       <p    ng-if="!goodslsit.length"    style="border-bottom: 1px solid #ddd;height: 40px;line-height: 30px; padding-left:16px;padding-top:4px;color: #3A3A3A;font-size: 16px;">订单明细
-        <span style="float: right;font-size: 12px;margin-right: 15px">合计价格: <span style="color: rgb(254,143,37);">￥{{newTotal}}</span></span>
+        <span style="float: right;font-size: 12px;margin-right: 15px">合计价格: <span style="color: rgb(254,143,37);">￥{{pay}}</span></span>
 
         <span style="float: right;font-size: 12px;margin-right: 15px">合计数量: <span style="color: rgb(254,143,37);">{{shopbody.goods_num}}</span></span>
       </p>

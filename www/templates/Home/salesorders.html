@@ -76,7 +76,7 @@
             <div >
 <P style="font-size: 13px;
     color: black;">
-              共计{{item.total_num}}件商品 &nbsp;合计:{{item.total_fee}}
+              共计{{item.total_num}}件商品 &nbsp;合计:{{item.total_fee}}&nbsp;(含运费:{{item.post_fee}})
 </P>
             </div>
 
@@ -95,6 +95,9 @@
           <a class="item item-icon-right item-input-left"  style="height: 50px;padding: 6px">
 
             <div style="float: right;padding: 2px"  >
+              <button    ng-if="item.post_type==1"  class="button button-small button-stabl"  style="width: 60px; border: 1px solid #e42112; "><p style="color:#ef473a;font-size: 12px;">自提商品</p></button>
+
+
               <button  ng-click="dataRight(item.order_basic_id)"  ng-if="item.post_status==2"  class="button button-small button-stabl"  style="width: 60px; border: 1px solid #33cd5f;"><p style="color:#28a54c;font-size: 10px">物流详情</p></button>
 
               <button  ng-click="dataLeft(item.order_basic_id,item.total_num,$index)"  ng-if="item.post_status==1&&item.post_type==0"  class="button button-small button-stabl"  style="width: 60px; border: 1px solid #33cd5f;"><p style="color:#28a54c">发&nbsp;货</p></button>
@@ -245,7 +248,7 @@
         </button>
         <form class="item-input-wrapper serach-Head" style="height: 34px;" action="javascript:return true;" >
           <i class="icon ion-ios-search-strong placeholder-icon" style="font-size: 17px"></i>
-          <input type="search"  jfocus style="width:100%;height: 26px" class="input-color-usercolse" ng-model="msg.key"     ng-keyup="newKeyup($event)"   class="cutom-inputfocus"       placeholder="搜索你要的订单">
+          <input type="search"  jfocus style="width:100%;height: 30px" class="input-color-usercolse" ng-model="msg.key"     ng-keyup="newKeyup($event)"   class="cutom-inputfocus"       placeholder="搜索你要的订单">
           <div   ng-click="clear()"   ng-if='msg.key.length'  class="ion-close-circled ion-close-user" style="
     right: 70px; margin-top: 0px"></div>
 

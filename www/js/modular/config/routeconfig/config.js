@@ -11,7 +11,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       // Allow loading from our assets domain.  Notice the difference between * and **.
       'http://m.kuaidi100.com/**',
       'https://m.kuaidi100.com/**',
-    ]);    
+    ]);
   $ionicNativeTransitionsProvider.setDefaultOptions({
     duration: 410, // in milliseconds (ms), default 400,
     slowdownfactor: 1, // overlap views (higher number is more) or no overlap (1), default 4
@@ -82,7 +82,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
   $ionicConfigProvider.platform.ios.views.transition('ios');
   $ionicConfigProvider.platform.android.views.transition('android');
-  
+
   $ionicConfigProvider.views.swipeBackEnabled(false);
 
   // Ionic uses AngularUI Router which uses the concept of states
@@ -514,19 +514,9 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     //销售订单详情
 
-    .state('r.Homordersbody', {
-      url: '/HomOrdersBody/:basicID',
-      cache: false,
-      views: {
-        'rootview': {
-          params:{'basicID':null},
-          templateUrl: 'templates/Home/ordersbody.html',
-          controller: 'ordersbodyCtr'
-        }
-      }
-    })
 
- /*   .state('r.Homordersbody', {
+
+    .state('r.Homordersbody', {
       url: '/Homordersbody/:basicID',
 
       onEnter: function(fromStateServ,$ionicHistory) {
@@ -541,11 +531,11 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           controller: 'ordersbodyCtr'
         }
       }
-    })*/
+    })
 
     //采购订单详情
 
-    .state('r.HomPurordersbody', {
+  /*  .state('r.HomPurordersbody', {
       url: '/HomPurOrdersBody/:basicID',
       cache: false,
       views: {
@@ -555,9 +545,26 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           controller: 'purbodyCtr'
         }
       }
+    })*/
+
+
+
+    .state('r.HomPurordersbody', {
+      url: '/HomPurOrdersBody/:basicID',
+
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.HomPurordersbody')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Home/purchasebody.html',
+          controller: 'purbodyCtr'
+        }
+      }
     })
-
-
     //采购订单搜索
     .state('r.searchPurchase',{
       url: '/searchPurchase/:keyValue/:newData',
@@ -1028,7 +1035,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    
+
       //店铺 home列表
       .state('r.Shophome', {
       url: '/Shophome?id:&ref:&inside:',
@@ -1117,7 +1124,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
             }
           }
         })
-        
+
     //查看物流
     .state('r.Logistics',{
       url: '/Logistics?id:',
@@ -1136,7 +1143,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    
+
       //查看物流
     .state('r.SeeshopPint',{
       url: '/SeeshopPint?name:',
