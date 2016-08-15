@@ -5,54 +5,62 @@ Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools',
 
   $scope.ID = $stateParams.basicID;
 
- console.log($scope.ID)
-  Tools.getData({
-    "interface_number": "020705",
-    "client_type": window.platform,
-    "post_content": {
-      "token" : "",
-      "token_phone": "",
-      "orderId": $scope.ID,
+  $scope.$on('$ionicView.beforeEnter',function(event, data){
+
+
+    if(fromStateServ.getState('r.HomPurordersbody')   &&  !$stateParams.inside ){
+      $scope.showtitle  = true;
+      $scope.backtoprevView  =   fromStateServ.backView;
+      $scope.parenttitle     =   fromStateServ.getState('r.HomPurordersbody').title;
+    }else{
+      $scope.showtitle  = false;
     }
-  },function(r){
-    if(r){
-      $scope.shopbody = (r.resp_data);
-      console.log($scope.shopbody)
-
-      /*$scope.shopname = $scope.shopbody.order.data[0].buyer_nick
-      $scope.id = $scope.shopbody.order.data[0].order_basic_id
-      $scope.pay = $scope.shopbody.order.data[0].total_fee
-      $scope.time = $scope.shopbody.order.data[0].order_created
-      $scope.name = $scope.shopbody.address.receiver_name
-      $scope.mobile= $scope.shopbody.address.receiver_mobile
-      $scope.street= $scope.shopbody.address.receiver_province+$scope.shopbody.address.receiver_city+$scope.shopbody.address.receiver_region+$scope.shopbody.address.receiver_street
-      $scope.total = $scope.shopbody.order.data[0].total_fee
-      $scope.totalNum = $scope.shopbody.order.data[0].total_num
-      $scope.shopchirld = $scope.shopbody.order.data[0].orderDetail
-      console.log( $scope.shopchirld)
-      console.log($scope.shopbody)
-      console.log($scope.shopbody.order.data[0].buyer_nick)*/
-      $scope.pay = $scope.shopbody.total_fee
-      $scope.postage =  $scope.shopbody.post_fee
-      $scope.newTotal = parseInt($scope.pay)+parseInt($scope.postage)
-
+    if(!$scope.parenttitle){
+      $scope.parenttitle  = '返回';
     }
-  });
-  //商品详情模块
-  //保存历史记录的方法  调用  上一次1 title  和返回方法
-  $scope.backtoprevView  =   fromStateServ.backView;
-
-  $scope.$on('$stateChangeSuccess',function(){
-
-    $scope.loginboj = {};
-    $scope.ing  = false;
-    $scope.parenttitle     =   fromStateServ.getState('r.HomPurchase').title;
+    init();
   });
 
-  $scope.backView  = function(){
-    $scope.$ionicGoBack();
-  };
-  $scope.title="订单详情";
+
+
+  console.log($scope.ID)
+
+
+
+  function init() {
+    Tools.getData({
+      "interface_number": "020705",
+      "client_type": window.platform,
+      "post_content": {
+        "token" : "",
+        "token_phone": "",
+        "orderId": $scope.ID,
+      }
+    },function(r){
+      if(r){
+        $scope.shopbody = (r.resp_data);
+        console.log($scope.shopbody)
+
+        $scope.pay = $scope.shopbody.total_fee
+        $scope.postage =  $scope.shopbody.post_fee
+        $scope.newTotal = parseInt($scope.pay)+parseInt($scope.postage)
+
+      }else{
+        $timeout(function(){
+
+          if($scope.showtitle){
+            $scope.backtoprevView('r.HomPurordersbody');
+          }else{
+            $ionicHistory.goBack();
+          }
+
+
+        },420)
+      }
+    });
+  }
+
+
 
 
 }]);

@@ -1,11 +1,29 @@
 /**
  * Created by Administrator on 2016/7/23.
  */
-Ctr.controller('ordersbodyCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams) {
+Ctr.controller('ordersbodyCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$timeout','$ionicHistory',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$timeout,$ionicHistory) {
 
 
 
   $scope.ID = $stateParams.basicID;
+
+  $scope.$on('$ionicView.beforeEnter',function(event, data){
+
+
+    if(fromStateServ.getState('r.Homordersbody')   &&  !$stateParams.inside ){
+      $scope.showtitle  = true;
+      $scope.backtoprevView  =   fromStateServ.backView;
+      $scope.parenttitle     =   fromStateServ.getState('r.Homordersbody').title;
+    }else{
+      $scope.showtitle  = false;
+    }
+    if(!$scope.parenttitle){
+      $scope.parenttitle  = '返回';
+    }
+    init();
+  });
+
+function init() {
 
   Tools.getData({
     "interface_number": "020703",
@@ -34,10 +52,27 @@ Ctr.controller('ordersbodyCtr',['$scope','native','$state','fromStateServ','Tool
       $scope.shopchirld = $scope.shopbody.order.data[0].orderDetail
       console.log( $scope.shopchirld)
       console.log($scope.shopbody)
-console.log($scope.shopbody.order.data[0].buyer_nick)
+      console.log($scope.shopbody.order.data[0].buyer_nick)
 
 
+    }else{
+      $timeout(function(){
+
+        if($scope.showtitle){
+          $scope.backtoprevView('r.Homordersbody');
+        }else{
+          $ionicHistory.goBack();
+        }
+
+
+      },420)
     }
   });
+
+}
+
+
+
+
 
 }]);

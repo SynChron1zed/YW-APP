@@ -5,13 +5,13 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('newsContentCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize','fromStateServ',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize,fromStateServ){
+Ctr.controller('newsContentCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize','fromStateServ','$ionicHistory',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize,fromStateServ,$ionicHistory){
 
  $scope.Postid = $stateParams.postID;
 
 
   $scope.$on('$ionicView.beforeEnter',function(event, data){
- 
+
 
     if(fromStateServ.getState('r.homeNewsContent')   &&  !$stateParams.inside ){
       $scope.showtitle  = true;
