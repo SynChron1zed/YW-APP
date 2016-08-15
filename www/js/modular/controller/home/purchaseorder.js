@@ -228,21 +228,6 @@ if(bascId==1){
   },600)
 
 
-  /*//商品详情模块
-  //保存历史记录的方法  调用  上一次1 title  和返回方法
-  $scope.backtoprevView  =   fromStateServ.backView;
-
-  $scope.$on('$stateChangeSuccess',function(){
-
-    $scope.loginboj = {};
-    $scope.ing  = false;
-    $scope.parenttitle     =   fromStateServ.getState('r.HomPurchase').title;
-  });
-
-  $scope.backView  = function(){
-    $scope.$ionicGoBack();
-  };*/
-
 
   $scope.dataLeft =function (value,id,index) {
 
@@ -295,7 +280,59 @@ if(bascId==1){
       ]
     });
 
-  }
+  };
+
+
+  $scope.deleteOrder =function (value,id,index) {
+
+    $ionicPopup.show({
+
+      title: '取消订单?',
+
+      scope: $scope,
+      buttons: [
+        { text: '取消' },
+        {
+          text: '<b>确认</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            console.log(1)
+
+            Tools.getData({
+              "interface_number": "020606",
+              "post_content": {
+                "token":"",
+                "token_phone": "",
+                "orderId":value,
+
+              }
+
+            },function(r){
+
+              if(r.msg== "success"){
+
+
+                Tools.rmArrin($scope.ShoppingList,index);
+                native.task('成功');
+
+              }else{
+
+                return false
+
+              }
+
+
+            });
+
+
+          }
+
+
+        },
+      ]
+    });
+
+  };
 
 
   $scope.dataRight =function (value) {
