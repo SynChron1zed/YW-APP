@@ -16,7 +16,7 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
        window.androdzerofun_parms   ='tabswtathing';
        window.androdzerofun_clback  = 'nothing';
      }
-    
+
      if(shopcartbactitle.state){
        $scope.showtitle  = true;
        $scope.backv    =function (){
@@ -101,7 +101,7 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
       };
 
       function handtat  (){
-        
+
         if(storage.getObject('UserInfo').user_id){
             $scope.isShow = false;
             $scope.doRefresh();
@@ -110,7 +110,7 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
           $scope.isShow = true;
         }
       $scope.TotalPrice  = '0.00';
-        
+
       }
 
       //编辑
@@ -161,6 +161,11 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
   //选中所以
   $scope.selctall   = function (){
 
+    
+    if($scope.shopcartdata.length==0){
+      $scope.selectall   = false;
+      return false
+    }
 
       if(!$scope.selectall){
         $scope.selectall   = true;
