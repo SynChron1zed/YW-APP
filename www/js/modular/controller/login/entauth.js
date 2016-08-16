@@ -23,31 +23,19 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
     // })
   };
 
-  $scope.xuanzpirceinverse   =  function (){
-    Tools.chekpirc({},function(r){
-
-      $scope.identity.inverse  = r;
-
-
-
-    });
-  }
-
-  $scope.rminverse  = function (){
-    $scope.identity.inverse  = undefined;
-  };
+ 
 
   //基本表单信息
   $scope.from   = {};
 
   $scope.Submitaudit  = function (){
 
-    if(!$scope.identity.Positive || !$scope.identity.inverse){
+    if(!$scope.identity.Positive){
 
       native.task('请上传审核照片')
       return false;
     }
-    if( !$scope.from.License  || !$scope.from.mechanism  ||  !$scope.from.legal ){
+    if( !$scope.from.License   ||  !$scope.from.legal ){
       native.task('请填写完整基本信息');
       return false;
     }
@@ -56,7 +44,7 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
        //发送图片到期牛
     Tools.sendqiniu_queue([
       $scope.identity.Positive,
-      $scope.identity.inverse
+
     ],function(f){
 
     Tools.getData({
@@ -65,9 +53,8 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
           "company_type":"0",
           legal:$scope.from.legal,
           "license": $scope.from.License,
-          "certificate_no": $scope.from.mechanism,
-          "license_img":f[0].key,
-          "certificate_img":f[1].key
+          "credit_code":f[0].key,
+
         }
       },function(r){
         if(r){
