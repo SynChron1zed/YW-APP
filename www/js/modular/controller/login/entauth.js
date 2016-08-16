@@ -23,7 +23,7 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
     // })
   };
 
- 
+
 
   //基本表单信息
   $scope.from   = {};
@@ -35,8 +35,12 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
       native.task('请上传审核照片')
       return false;
     }
-    if( !$scope.from.License   ||  !$scope.from.legal ){
+    if( !$scope.from.License   ||  !$scope.from.legal  ){
       native.task('请填写完整基本信息');
+      return false;
+    }
+    if($scope.from.License.length<18){
+      native.task('请填写正确的社会信用代码');
       return false;
     }
 
