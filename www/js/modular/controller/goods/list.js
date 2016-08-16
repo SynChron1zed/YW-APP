@@ -232,7 +232,7 @@ $scope.swatchtstate  = function (){
   $scope.salestotin.down  =0;
 
   function  inlit (){
-    
+
    if(goodsState.goods_basic_id){
             angular.forEach($scope.datalist,function(r){
                   if(r.goods_basic_id  == goodsState.goods_basic_id){
@@ -316,7 +316,7 @@ $scope.swatchtstate  = function (){
   $scope.liststate  =  true;
   $scope.left =  function (){
     if(!$scope.liststate){
-     
+
           $ionicScrollDelegate.$getByHandle('list').scrollTop();
           $scope.liststate  =  true;
           $scope.downlistloadmor  = true;
@@ -326,7 +326,7 @@ $scope.swatchtstate  = function (){
   }
 
   $scope.right =  function (){
-   
+
     if($scope.liststate){
       $ionicScrollDelegate.$getByHandle('list').scrollTop();
       $scope.liststate  =  false;
@@ -351,7 +351,7 @@ $scope.swatchtstate  = function (){
 
 
   $scope.customcucdownlisloadMore  =  function (type){
-   
+
       var sendoption  = {
         "interface_number": "030104",
        "post_content": {
@@ -449,6 +449,10 @@ $scope.swatchtstate  = function (){
 
 
   $scope.$on('$stateChangeSuccess',function(){
+    $scope.datalist  = [];
+    $scope.page_number  = 1;
+    $ionicScrollDelegate.scrollTop();
+    $scope.downlistloadmor  = true;
     $scope.loginboj = {};
     $scope.ing  = false;
     $scope.parenttitle     =   fromStateServ.getState('r.listofgoods').title;
