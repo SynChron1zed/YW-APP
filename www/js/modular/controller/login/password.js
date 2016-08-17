@@ -19,13 +19,15 @@ Ctr.controller('passwordoldCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
         });
         sctolthi  = true;
         return false;
-      };
-
-      if(!Tools.reg.Tphone($scope.registbasinfo.phone)){
-
-        native.task('请输入正确的手机号码！');
-        return false
+      }else if(!Tools.reg.USPhone($scope.registbasinfo.phone)) {
+        $ionicPopup.alert({
+          title:'请输入正确的手机号码!',
+          okText:'确认'
+        });
+        sctolthi  = true;
+        return  false;
       }
+
 
       Tools.getData({
         "interface_number": "050304",
@@ -34,6 +36,7 @@ Ctr.controller('passwordoldCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
         }
       },function(r){
         if(r){
+   
           native.task('发送成功');
           $scope.vercodeing  = true;
           $scope.nextvercode =  60;

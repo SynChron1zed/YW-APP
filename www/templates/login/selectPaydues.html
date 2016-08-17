@@ -1,9 +1,15 @@
-<ion-view view-title="本功能暂为开通"  >
+<ion-view view-title="年服务费"  >
 
-  <ion-nav-bar   class="bar-positive ">
-    <ion-nav-back-button class="button-clear"   ng-click="GoBackHome()"    style="font-size:14px;color:#6b3801">
-      <i class="icon ion-ios-arrow-left"  ></i> 返回
-    </ion-nav-back-button>
+
+  <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
+    <div    ng-if='showtitle'  class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.selectPaydues')">
+      <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title"
+                                                                                                                                                     style="display: block;"
+      >{{parenttitle}}</span></span>
+    </div>
+
+  </ion-nav-buttons>
 
 
   <!--<ion-nav-buttons side="right"     class="button back-button buttons button-clear header-item">
@@ -15,7 +21,7 @@
 
     <ion-content  scrollbar-y="false"  overflow-scroll="false"  style="background: #f5f5f5" >
 
-      <!--<p style='
+      <p style='
       font-size: 14px;
       color: #656565;
       background: #ececec;
@@ -28,14 +34,14 @@
         温馨提示: 本次收取的费用为 <span style='color:#ff6100'>365元</span> 是平台的服务费(一年)，为了营造更好的APP生态环境(防止恶意用户)，以及提供更好的平台服务!
       </p>
       <p style="height:100px"></p>
-      
+
       <div class="list">
         <a class="item item-icon-left"  style="width:90%;margin:0 auto;border:none;    box-shadow: 1px 1px 1px rgba(0,0,0,.1);color:#565656"  >
           <i class="icon ion-card"></i>
           支付年费 <span style="color:#ff3f01">365元</span>
-        </a>-->
+        </a>
 
 
-
+</div>
     </ion-content>
 </ion-view>

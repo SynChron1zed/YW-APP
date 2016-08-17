@@ -59,7 +59,12 @@
 
         </div>
 
-        <div class="col col-60">
+        <div class="col col-60"  ng-if="item.post_type==1">
+          <span class="news-yiyu">{{item.goods_name}}(自提商品)</span>
+          <span class="yiyutwoONE">{{item.goods_property}}</span>
+
+        </div>
+        <div class="col col-60"  ng-if="item.post_type!=1">
           <span class="news-yiyu">{{item.goods_name}}</span>
           <span class="yiyutwoONE">{{item.goods_property}}</span>
 
@@ -81,12 +86,22 @@
             </div>
 
           </a>
-          <a class="item item-icon-right item-input-left"  style="height: 30px;padding: 6px">
+          <a class="item item-icon-right item-input-left"  style="height: 30px;padding: 6px" ng-if="item.post_status!=5">
+
+            <div>
+              <p style="font-size: 13px;
+    color: black;">
+                订单编号:  {{item.order_basic_id}}
+              </p>
+            </div>
+
+          </a>
+          <a class="item item-icon-right item-input-left"  style="height: 30px;padding: 6px" ng-if="item.post_status==5">
 
             <div>
 <p style="font-size: 13px;
     color: black;">
-              订单编号:  {{item.order_basic_id}}
+              订单编号:  {{item.order_basic_id}} (订单已取消)
 </p>
             </div>
 
@@ -95,12 +110,11 @@
           <a class="item item-icon-right item-input-left"  style="height: 50px;padding: 6px">
 
             <div style="float: right;padding: 2px"  >
-              <button    ng-if="item.post_type==1"  class="button button-small button-stabl"  style="width: 60px; border: 1px solid #e42112; "><p style="color:#ef473a;font-size: 12px;">自提商品</p></button>
-
 
               <button  ng-click="dataRight(item.order_basic_id)"  ng-if="item.post_status==2"  class="button button-small button-stabl"  style="width: 60px; border: 1px solid #33cd5f;"><p style="color:#28a54c;font-size: 10px">物流详情</p></button>
 
               <button  ng-click="dataLeft(item.order_basic_id,item.total_num,$index)"  ng-if="item.post_status==1&&item.post_type==0"  class="button button-small button-stabl"  style="width: 60px; border: 1px solid #33cd5f;"><p style="color:#28a54c">发&nbsp;货</p></button>
+
 
               <button  ng-click="ordersbody(item.order_basic_id)" class="button button-small button-stabl"  style="width: 60px; border: 1px solid orange;">详&nbsp;情</button>
             </div>

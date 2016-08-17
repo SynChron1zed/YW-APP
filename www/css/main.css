@@ -1004,6 +1004,9 @@ body {
   height: 31px;
   width: 65%; }
 
+.popup-container.active .popup {
+  margin-top: -45%; }
+
 .homein-tabs-meun {
   padding: .4rem 0px;
   height: 3.5rem; }

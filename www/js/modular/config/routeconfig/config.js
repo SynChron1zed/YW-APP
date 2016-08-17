@@ -117,10 +117,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     //登录
      .state('r.login', {
       url: '/login',
-       // nativeTransitions: {
-       //   "type": "flip",
-       //   "direction": "up"
-       // },
       onEnter: function(fromStateServ,$ionicHistory) {
           fromStateServ.saveHisty($ionicHistory,'r.login')
         },
@@ -139,19 +135,33 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
     //注册
-    .state('r.register',{
+
+    .state('r.register', {
       url: '/register',
-      // nativeTransitions: {
-      //   "type": "flip",
-      //   "direction": "up"
-      // },
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.register')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/login/register.html',
+          controller: 'registerCtr'
+        }
+      }
+    })
+
+  /*  .state('r.register',{
+      url: '/register',
+
        views: {
         'rootview': {
           templateUrl: 'templates/login/register.html',
           controller: 'registerCtr'
         }
        }
-    })
+    })*/
 
 
     //认证公司ID
@@ -201,7 +211,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
     //输入密码
-    .state('r.registercfpwd',{
+  /*  .state('r.registercfpwd',{
       url: '/registercfpwd?phone:',
       views: {
         'rootview': {
@@ -210,7 +220,24 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           controller: 'registercfpwdCtr'
         }
       }
+    })*/
+
+    .state('r.registercfpwd', {
+      url: '/registercfpwd?phone:',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.registercfpwd')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/login/registercfpwd.html',
+          controller: 'registercfpwdCtr'
+        }
+      }
     })
+
 
       //选择认证
       .state('r.selectAuth',{
@@ -230,6 +257,23 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       })
 
     //个人认证
+    .state('r.grAuthentication',{
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.grAuthentication')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      url: '/grAuthentication',
+      views: {
+        'rootview': {
+          templateUrl: 'templates/login/grAuthentication.html',
+          controller: 'grAuthenticationctr'
+        }
+      }
+    })
+
+/*
      .state('r.grAuthentication',{
         url: '/grAuthentication',
         views: {
@@ -238,10 +282,26 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
             controller: 'grAuthenticationctr'
           }
         }
-      })
+      })*/
 
     //企业认证
-      .state('r.entAuthentication',{
+    .state('r.entAuthentication',{
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.entAuthentication')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      url: '/entAuthentication',
+      views: {
+        'rootview': {
+          templateUrl: 'templates/login/entAuthentication.html',
+          controller: 'entAuthenticationctr'
+        }
+      }
+    })
+
+   /*   .state('r.entAuthentication',{
         url: '/entAuthentication',
         views: {
           'rootview': {
@@ -249,8 +309,25 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
             controller: 'entAuthenticationctr'
           }
         }
-      })
-      .state('r.selectPaydues',{
+      })*/
+
+    .state('r.selectPaydues',{
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.selectPaydues')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      url: '/selectPaydues',
+      views: {
+        'rootview': {
+          templateUrl: 'templates/login/selectPaydues.html',
+          controller: 'selectPayduesctr'
+        }
+      }
+    })
+
+/*      .state('r.selectPaydues',{
         url: '/selectPaydues',
         views: {
           'rootview': {
@@ -258,7 +335,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
             controller: 'selectPayduesctr'
           }
         }
-      })
+      })*/
     //分类
     .state('r.tab.Classif', {
       url: '/Classif',

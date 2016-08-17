@@ -138,6 +138,8 @@
 
                 <button  ng-click="dataLeft(item.odid,item.order_basic_id,$index)"  ng-if="item.post_status==2"  class="button button-small button-stabl"  style="width: 55px; border: 1px solid #33cd5f;"><p style="color:#28a54c;font-size: 10px">收&nbsp;货</p></button>
 
+                <button  ng-click="deleteOrder(item.odid,item.order_basic_id,$index)"  ng-if="item.post_status==1"  class="button button-small button-stabl"  style="width: 60px; border: 1px solid #33cd5f;"><p style="color:#28a54c;font-size: 10px">取消订单</p></button>
+
                 <button ng-click="purchaseorde(item.odid)" class="button button-small button-stabl"  style="width: 55px; border: 1px solid orange;">详&nbsp;情</button>
               </div>
 
