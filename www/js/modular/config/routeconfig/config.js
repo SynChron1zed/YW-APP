@@ -16,7 +16,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     duration: 410, // in milliseconds (ms), default 400,
     slowdownfactor: 1, // overlap views (higher number is more) or no overlap (1), default 4
     iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
-    androiddelay: -4, // same as above but for Android, default -1
+    androiddelay: -1, // same as above but for Android, default -1
     winphonedelay: -1, // same as above but for Windows Phone, default -1,
     fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
     fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
@@ -46,8 +46,8 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
             innerObj[fullSubName] = subValue;
             query += param(innerObj) + '&';
           }
-        }
-        else if(value instanceof Object) {
+
+        }else if(value instanceof Object) {
           for(subName in value) {
             subValue = value[subName];
             fullSubName = name + '[' + subName + ']';
@@ -58,7 +58,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
         else if(value !== undefined && value !== null)
           query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
-      }
+        }
 
       return query.length ? query.substr(0, query.length - 1) : query;
     };
@@ -1195,10 +1195,11 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
-  //商品详情
+    
+    //商品详情
     .state('r.Productdetails', {
       url: '/Productdetails?id:&inside:',
+      cache:false,
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.Productdetails')
       },
@@ -1267,6 +1268,58 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+    //交易物流消息
+    .state('r.LogisticsInformation',{
+      url: '/LogisticsInformation',
+      onEnter: function(fromStateServ,$ionicHistory) {
+          fromStateServ.saveHisty($ionicHistory,'r.LogisticsInformation')
+        },
+       onExit:function(fromStateServ){
+         fromStateServ.removebackregistevent();
+       },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Notice/logisticsInfo.html',
+          controller: 'LogisticsInformationCtr'
+        }
+      }
+    })
+
+    //系统消息
+    .state('r.Systemessagenotice',{
+      url: '/Systemessagenotice',
+      onEnter: function(fromStateServ,$ionicHistory) {
+          fromStateServ.saveHisty($ionicHistory,'r.Systemessagenotice')
+        },
+       onExit:function(fromStateServ){
+         fromStateServ.removebackregistevent();
+       },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Notice/logisticsInfo.html',
+          controller: 'SystemessagenoticeCtr'
+        }
+      }
+    })
+    //系统消息
+    .state('r.Companynotice',{
+      url: '/Companynotice',
+      onEnter: function(fromStateServ,$ionicHistory) {
+          fromStateServ.saveHisty($ionicHistory,'r.Companynotice')
+        },
+       onExit:function(fromStateServ){
+         fromStateServ.removebackregistevent();
+       },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Notice/logisticsInfo.html',
+          controller: 'CompanynoticeCtr'
+        }
+      }
+    })
+
+
+
 
 
 

@@ -13,29 +13,28 @@
     </div>
 
     <ion-list  class="msg-list" ng-show="!isShow" >
-      <ion-item class="item-remove-animate item-avatar item-icon-right"    >
+      <ion-item class="item-remove-animate item-avatar item-icon-right"   ng-click="goinstinfo();"  >
         <img style="border-radius: 0px;" src="./img/msg/wuliu.jpg" >
         <h2>交易物流消息</h2>
-        <p class="subborder">&nbsp; </p>
+        <p class="subborder">{{notice.Tradelogisticsdesc}}&nbsp; </p>
 
         <span    ng-show="notice.Tradelogistics"  style="       position: absolute;
-    top: 10px;
-    right: 16px;
-    background: #ef473a;
-    color: #fff;
-    display: inline-block;
-    padding: 0px 6px;
-    border-radius: 10px;
-    line-height: 1.6;
-    font-size: 12px;
+          top: 10px;
+          right: 16px;
+          background: #ef473a;
+          color: #fff;
+          display: inline-block;
+          padding: 0px 6px;
+          border-radius: 10px;
+          line-height: 1.6;
+          font-size: 12px;
         " >{{notice.Tradelogistics}}</span>
       </ion-item>
-      
-      <ion-item class="item-remove-animate item-avatar item-icon-right"    >
+
+      <ion-item class="item-remove-animate item-avatar item-icon-right"  ng-click="goinstinfosystem()"    >
         <img  style="border-radius: 0px;" src="./img/msg/liwu.jpg" >
         <h2>系统消息</h2>
-        <p class="subborder">&nbsp;</p>
-
+        <p class="subborder">{{notice.Systemmessagedesc}}&nbsp;</p>
              <span    ng-show="notice.Systemmessage"  style="  
                  position: absolute;
                  top: 10px;
@@ -48,21 +47,39 @@
                  line-height: 1.6;
                  font-size: 12px;
         " >{{notice.Systemmessage}}</span>
-
-
       </ion-item>
+
+<!--      
+    <ion-item    ng-show="hasCompay"   class="item-remove-animate item-avatar item-icon-right"  ng-click="goinstinfoCompoen()"  >
+        <img  style="border-radius: 0px;" src="./img/classif/icon_shengqingjilv@3x.png" >
+        <h2 >员工申请审核</h2>
+  <p class="subborder">{{notice.Companynoticedesc}}&nbsp;</p>
+             <span    ng-show="notice.Systemmessage"  style="  
+                 position: absolute;
+                 top: 10px;
+                 right: 16px;
+                 background: #ef473a;
+                 color: #fff;
+                 display: inline-block;
+                 padding: 0px 6px;
+                 border-radius: 10px;
+                 line-height: 1.6;
+                 font-size: 12px;
+        " >{{notice.Companynotice}}</span>
+      </ion-item>
+  -->
 
       <ion-item class="item-remove-animate item-avatar item-icon-right"  ng-click="application()"  ng-if="expression" >
         <img  style="border-radius: 0px;" src="./img/classif/icon_shengqingjilv@3x.png" >
         <h2 >员工申请审核</h2>
-
+        
         <div ng-if="mathData" style="    width: 20px;
           height: 20px;
           background: #ef473a;
           border-radius: 50px;
           float: right;margin-top: -20px;"><div style="text-align: -webkit-center;color: white;font-size: 10px;">{{newsList}}</div></div>
-
       </ion-item>
+
 
     </ion-list>
 

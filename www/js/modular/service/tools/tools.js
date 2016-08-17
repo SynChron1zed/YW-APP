@@ -4,12 +4,39 @@
 //小工具方法类
 Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup','storage','native','$ionicHistory','$state','$ionicNativeTransitions',function($window,$ionicLoading,$http,$timeout,$ionicPopup,storage,native,$ionicHistory,$state,$ionicNativeTransitions){
 
+  //通知挑战
+  var  Notificationjump  = function (obj) {
+    console.log(obj);
+
+    //判断类型
+    if(obj.value.msg_type  == '1'){
+      //物流信息
+       console.log(obj)
+       if(obj.value.action_type  == '1' || obj.value.action_type  == '3' || obj.value.action_type  == '4'){
+        //obj.value.pk_id
+         $state.go('r.Homordersbody',{basicID:obj.value.pk_id})
+       }
+       if(obj.value.action_type  == '2'){
+         $state.go('r.HomPurordersbody',{basicID:obj.value.pk_id})
+       }
+    }
+    
+    //系统通知
+    if(obj.value.msg_type  == '2'){
+      //系统通知 
+    }
+    //公司消息
+    if(obj.value.msg_type  == '3'){
+    //公司消息
+    }
+    
+
+  }
   //加在视图的加载效果http前调用
   var   showlogin = function() {
-    native.loading();
+  native.loading();
   };
-  
-    function  clone  (myObj){
+  function  clone  (myObj){
       if(typeof(myObj) != 'object') return myObj;
       if(myObj == null) return myObj;
       if(  myObj instanceof Array ){
@@ -25,19 +52,12 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       }
       return myNewObj;
     }
-
-
   //上传到七牛  图片单张
   var   sendqiniu_single  =  function (data,claback,key_header,next){
-
-
-
       var  piclen  =   '-1';
       var  key  = Base64.encode(key_header+'_'+(storage.getObject('UserInfo').user_id?storage.getObject('UserInfo').user_id:'-1_')+'_'+(Date.parse(new Date()))+(Math.random()*1000).toFixed(1)+'.jpg');
         data  = data.substring(data.indexOf(",")+1);
-
         var pic =data;
-
         var url = 'http://upload.qiniu.com/putb64/'+piclen+'/key/'+key;
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange=function(){
@@ -73,6 +93,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
           "post_content": {}
         },function(r){
           if(r){
+
             storage.setObject('qiniu',r.resp_data);
 
                   var   index  =  -1;
@@ -94,7 +115,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
             native.task('获取图片Token失败！');
 
           }
-        });
+        },function () {},'POST',true,false,true);
   };
 
   //选择图片  提供相机  和  相册功能
@@ -109,7 +130,6 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
      },function(r){
 
        if(r==1) {
-
          cofnig.quality?cofnig.quality:50;
          cofnig.allowEdit?cofnig.allowEdit:false;
          native.Camera(cofnig,function(r){
@@ -130,27 +150,21 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
          native.task('取消');
        }
 
-
-
-
-
      })
    };
 
   var   hidelogin = function(){
             native.hidloading();
   };
-  var   getData  = function(data,Callback,errorCallback,sendType,host,jsonp){
+  var   getData  = function(data,Callback,errorCallback,sendType,host,jsonp,cansologin){
 
     if(!host){
-
     data.client_type =   window.platform?window.platform:'ios';
     data.post_content.token  = window.Token?window.Token:storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:'';
     data.post_content.token_phone  = window.token_phone?window.token_phone:storage.getObject('UserInfo').phone?storage.getObject('UserInfo').phone:'';
-
     }
+
     if(!window.networonline){
-      
       Callback(false);
       native.task('检查网络是否开启!')
       return false;
@@ -170,20 +184,24 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
             //native.task('获取数据失败,请检查网络')
         }
     );
-
       return false;
     }
+    
 
     $http({
       url:host?host:window.Interactivehost,
       method:sendType?sendType:'POST',      
-      timeout: 4000,
+      timeout: 12000,
       headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
       data:data
     }).success(function(r){
 
       $timeout(function(){
-                hidelogin();
+
+              if(!cansologin){
+                  hidelogin();
+              }
+                
               },200);
       if(r.resp_code== '0000'){
         Callback(r);
@@ -236,7 +254,9 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     }).error(function(e){
       // errorCallback?errorCallback(e):null;
       $timeout(function(){
-        hidelogin();
+          if(!cansologin){
+              hidelogin();            
+          }
       },200);
       Callback(false);
       native.task('网络错误,请确认网络连接!')
@@ -414,7 +434,8 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     reg:reg,
     sendqiniu_single:sendqiniu_single,
     sendqiniu_queue:sendqiniu_queue,
-    chekpirc:chekpirc
+    chekpirc:chekpirc,
+    Notificationjump:Notificationjump
 
 
 

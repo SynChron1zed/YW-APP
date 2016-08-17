@@ -4,9 +4,6 @@
 App.run(['$ionicPlatform','$state','$window','$cordovaPush','$rootScope','$location','$ionicHistory','$ionicPopup','storage','Tools','$ionicNativeTransitions','$timeout','native','fromStateServ','$cordovaGeolocation',function($ionicPlatform,$state,$window,$cordovaPush,$rootScope,$location,$ionicHistory,$ionicPopup,storage,Tools,
 $ionicNativeTransitions,$timeout,native,fromStateServ,$cordovaGeolocation) {
 window.networonline  =  true;
-
-
-
               //$cordovaProgress.showBar(true, 50000);
               //退出登录
               window.outlogin  = function(Callback){
@@ -44,7 +41,7 @@ window.networonline  =  true;
      if(navigator){
        navigator.splashscreen.hide();
        }    
-    }, 1000);
+    }, 400);
     
     //$state.go('r.selectAuth');
     $state.go('r.tab.Home');
@@ -89,10 +86,9 @@ window.networonline  =  true;
     //获取极光推送注册id
     window.plugins.jPushPlugin.getRegistrationID( function(data) {
       try {
-
+        
         var  locjPush  =    storage.getObject('jPush');
         locjPush.RegistrationID =  data;
-
         storage.setObject('jPush',locjPush);
         if(storage.getObject('UserInfo').user_id){
               Tools.getData({
@@ -106,9 +102,6 @@ window.networonline  =  true;
           }
          })
         }
-
-      
-
 
       } catch(exception) {
         console.log(exception,'发生了错误');
@@ -153,9 +146,7 @@ window.networonline  =  true;
         var     locjPush  =    storage.getObject('jPush');
                 locjPush.RegistrationID =  'janiokq-text-jpush';
                 storage.setObject('jPush',locjPush);
-    }
-
-
+      }
 
       window.noNavtionsback =  function (rooter,parmgs){
         $ionicNativeTransitions.stateGo(rooter,parmgs,{
@@ -163,7 +154,6 @@ window.networonline  =  true;
           "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
           "duration": 300, // in milliseconds (ms), default 400
         });
-
         $timeout(function(){
           $ionicHistory.clearHistory();
         },300)
@@ -176,8 +166,6 @@ window.networonline  =  true;
     var userinfo  = storage.getObject('UserInfo');
     window.Token  =  userinfo.token?userinfo.token:undefined;
     window.Token_phone  =  userinfo.phone?userinfo.phone:undefined;
-
-
 
     function showConfirm() {
         native.confirm('你确定要退出应用吗?','退出应用?',['退出','取消'],function(c){
@@ -193,15 +181,11 @@ window.networonline  =  true;
     $ionicPlatform.registerBackButtonAction(function (e) {
       e.preventDefault();
 
-
       //返回一个没有使用  原始过度的页面
       if(window.noNavtionsbackRootuer){
         window.noNavtionsback(window.noNavtionsbackRootuer);
         return false;
       }
-
-
-
     //执行一个零时的 处理函数
         if(window.androdzerofun){
             window.androdzerofun(window.androdzerofun_parms,window.androdzerofun_clback);
@@ -237,17 +221,22 @@ window.networonline  =  true;
 
   
     //调试模式
-    window.plugins.jPushPlugin.setDebugMode(true);
+    //window.plugins.jPushPlugin.setDebugMode(true);
+
 
 
     //极光推送事件处理
     //极光数据处理  兼容ios  安卓平台  剥离数据
     var bestripped  =  function(data){
 
+
     var result = {};
       if(device.platform == "Android") {
-        result.title = data.alert;
+        result.alert = data.alert;
+        data.extras['cn.jpush.android.EXTRA'].img  =  window.qiniuimgHost+data.extras['cn.jpush.android.EXTRA'].img+'?imageView2/2/w/120/h/120';
         result.value = data.extras['cn.jpush.android.EXTRA'];
+        result.See  = false;
+        result.title = result.value.title;
       }else{
         var iosVlue  ={};
         angular.forEach(data,function(value,key){
@@ -255,31 +244,32 @@ window.networonline  =  true;
             iosVlue[key] = value;
           }
         })
-        result.title = data.aps.alert;
+
+        iosVlue.img  = window.qiniuimgHost+iosVlue.img+'?imageView2/2/w/120/h/120'; 
+
+        result.See  = false;
+        result.title   =  iosVlue.title;
+        result.alert = data.aps.alert;
         result.value = iosVlue;
       }
       return  result;
       };
 
-      //点击通知的处理 click  jpush  event  Handle
-      window.document.addEventListener("jpush.openNotification", function(){
-      var alertContent  =  bestripped(window.plugins.jPushPlugin.openNotification);
-      //推送的附带对象 数据 直接访问
-      console.log(alertContent,'收到的数据');
-      }, true);
 
-      document.addEventListener("jpush.receiveNotification", function(e){
-      var alertContent  =  bestripped(window.plugins.jPushPlugin.receiveNotification);
 
+      function hannotilistnow(e) {
+
+
+
+
+      var alertContent  =  bestripped(e);
       var nownotilist = storage.getObject('Notice');
       if(!nownotilist.userlist){
         nownotilist.userlist = {};
       }
-
       if(!nownotilist.userlist[storage.getObject('UserInfo').user_id]){
           nownotilist.userlist[storage.getObject('UserInfo').user_id]  = {};
       }
-
       console.log(nownotilist.userlist[storage.getObject('UserInfo').user_id]);
       switch (alertContent.value.msg_type){
            case  '1':
@@ -291,25 +281,67 @@ window.networonline  =  true;
             if(!nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage){
               nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage  = [];
             }
-                  nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage.unshift(alertContent)
+                  nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage.unshift(alertContent)  
+          break;
+           case  '3':
+            if(!nownotilist.userlist[storage.getObject('UserInfo').user_id].Companynotice){
+              nownotilist.userlist[storage.getObject('UserInfo').user_id].Companynotice  = [];
+            }
+                  nownotilist.userlist[storage.getObject('UserInfo').user_id].Companynotice.unshift(alertContent)  
           break;
            default:
            return false;
+        }
+
+      if(nownotilist.userlist[storage.getObject('UserInfo').user_id].Tradelogistics){
+          if(nownotilist.userlist[storage.getObject('UserInfo').user_id].Tradelogistics.length > 30){
+        nownotilist.userlist[storage.getObject('UserInfo').user_id].Tradelogistics.length  = 30
+        }
       }
+
+      if(nownotilist.userlist[storage.getObject('UserInfo').user_id].Companynotice){
+        if(nownotilist.userlist[storage.getObject('UserInfo').user_id].Companynotice.length){
+          nownotilist.userlist[storage.getObject('UserInfo').user_id].Companynotice.length = 30
+        }
+      }
+
+      if(nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage){
+        if(nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage.length){
+          nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage.length = 30
+        }
+      }
+        if(window.platform  == 'ios'){
+                        window.plugins.jPushPlugin.getApplicationIconBadgeNumber(function (s) {
+                            window.plugins.jPushPlugin.setApplicationIconBadgeNumber(s+1);
+                        })
+        }
       storage.setObject('Notice',nownotilist);
 
       $timeout(function () {
        $rootScope.newnotice  = new  Date()+Math.random()*1000;
-      });
+      }); 
+      }
+      //点击通知的处理 click  jpush  event  Handle
+      window.document.addEventListener("jpush.openNotification", function(){
+      var alertContent  =  bestripped(window.plugins.jPushPlugin.openNotification);
+      //推送的附带对象 数据 直接访问
+      //console.log(alertContent,'收到的数据');
 
+      $state.go('r.tab.Notice');
+      $timeout(function () {
+        $ionicHistory.clearHistory();
+      },20)
+      }, true);
+
+    if(window.platform  == 'ios'){
       
-
-
-
-      
-    
-
-    }, false);
+       document.addEventListener("jpush.backgroundNotification", function (e) {
+        hannotilistnow(e)
+      }, false);      
+    }
+      document.addEventListener("jpush.receiveNotification", function(e){
+        hannotilistnow(e)
+      }, false);
 
     if(window.platform  !== 'ios'){
       window.updateAPP(true);

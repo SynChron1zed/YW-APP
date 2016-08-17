@@ -43,6 +43,7 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                 viewId:viewid
             };
         },
+        
         getState: function(module) {
             return this.data[module];
         },
