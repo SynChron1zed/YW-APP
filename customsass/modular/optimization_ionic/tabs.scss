@@ -234,9 +234,7 @@ img{
   background: #fff;
   .item:last-child{
     p.subborder{
-      &:after{
-        display: none;
-      }
+      border:none;
     }
   }
   .item{
@@ -247,29 +245,19 @@ img{
     height: 60px;
     padding-right: 16px;
     img{
-      top:10px;
-
+      top:7px;
       z-index: -1;
+    
     }
     h2{
       color: #323232;
     }
     p.subborder{
-      position: relative;
-      overflow: visible;
-      color: #cecdcc;
-      &:after{
-        content: '';
-        display: block;
-        width: 104.5%;
-        height: 1px;
-        background: #c1c1c1;
-        bottom: -5px;
-        position: absolute;
-        left: -4.5%;
-        z-index: 9;
-
-      }
+       position: relative;
+    overflow: hidden;
+    color: #5D5D5D;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 2px;
     }
 
 

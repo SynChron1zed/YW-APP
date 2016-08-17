@@ -21,14 +21,15 @@ $scope.seltwuiluthi  = function (it) {
                 if(it.value){
                     ss.express_fee_back  =  ss.express_fee;
                     ss.express_fee  ='0.00';
-                    $scope.info.total_pricy   =   parseFloat($scope.info.total_pricy)- (parseFloat(ss.express_fee_back) * parseInt(ss.number))
+                    $scope.info.total_pricy   =   parseFloat($scope.info.total_pricy)- parseFloat(ss.express_fee_back) ;
                     $scope.info.total_pricy  =  $scope.info.total_pricy.toFixed(2); 
 
                 }else{
                     if(ss.express_fee_back){
-                        ss.express_fee    =   parseInt(ss.number)*parseFloat(ss.express_fee_back);
+                        
+                        ss.express_fee    =  parseFloat(ss.express_fee_back);
                         ss.express_fee =  ss.express_fee.toFixed(2);
-                        $scope.info.total_pricy   =   parseFloat($scope.info.total_pricy)+(parseFloat(ss.express_fee_back) * parseInt(ss.number))
+                        $scope.info.total_pricy   =   parseFloat($scope.info.total_pricy)+ parseFloat(ss.express_fee_back);
                         $scope.info.total_pricy  =  $scope.info.total_pricy.toFixed(2);
                     }
                 }    
@@ -48,9 +49,7 @@ $scope.selecthiswuliufun  =   function(r){
 
         if(r.buyer_take){
 
-            if(r.showcatmapint){
-            }
-
+            if(r.showcatmapint){}
             $scope.wuliuseleclist  = [
                         {
                             name:'快递物流',
@@ -67,6 +66,7 @@ $scope.selecthiswuliufun  =   function(r){
 
 
             $scope.ctrnowobj  = r;
+
             $scope.addjoinshopcart(true);
 
         }else{
@@ -163,13 +163,16 @@ $scope.comorder  =function () {
     }
 
   $scope.addjoinshopcart  = function (r) {
-      
+
                 if(r){
-                    $scope.selectstat  = true;
-                    $scope.setallcationstate = true;
+
+                    $timeout(function () {
+                                      $scope.selectstat  = true;
+                                      $scope.setallcationstate = true;
+                    },200)
                     return false;
                 }
-
+                
             Tools.showlogin();
             Tools.getData({
                  "interface_number": "020505",
@@ -185,13 +188,18 @@ $scope.comorder  =function () {
                             }else{
                                 s.active  =false;
                             }
-                        });                    
-                        $scope.selectstat  = false;
-                        $scope.setallcationstate = true;
+                        });    
+
+                        $timeout(function () {
+                                $scope.selectstat  = false;
+                                $scope.setallcationstate = true;
+                        },200)                
+                    
                     }
             })
-        }        
-                
+
+        }
+
         $scope.closetallcationvalue  =   function(){
             $scope.setallcationstate  =  false;
             var  c   =   document.querySelector('#cutom_sheet');
