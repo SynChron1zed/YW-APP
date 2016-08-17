@@ -4,15 +4,6 @@
 
 
 
-  <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
-    <div    ng-if='showtitle'  class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.Productdetails')">
-      <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
-      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title"
-      style="display: block;"
-      >{{parenttitle}}</span></span>
-    </div>
-
-  </ion-nav-buttons>
 
 
   <ion-content     style="background: #f9f9f9;"   scrollbar-y="false"  overflow-scroll="false"   >
@@ -32,11 +23,11 @@
                 <div class="left"></div>
                 <div class="content">
                     <span style="position: relative;left: 4px;">￥</span>
-                    {{goods.goodsInfo.total_in_price}}                                
+                    {{goods.goodsInfo.total_in_price}}
                     </div>
                 <div class="right"></div>
     </div>
-    
+
           <div class="basemasg">
                 <div><label for="">运费 :</label> <span>￥</span>
                     {{goods.goodsInfo.express_fee}}              </div>
@@ -89,7 +80,7 @@
         <div class="action-sheet-wrapper "   ng-class="{'action-sheet-up':setallcationstate}" style="overflow: visible"   >
 
             <div class="action-sheet"  " style="width: 100%;margin: 0px;border-radius: 0px;overflow:visible">
-                <div class="action-sheet-group action-sheet-options   Custom-menu" 
+                <div class="action-sheet-group action-sheet-options   Custom-menu"
                 ng-click="stopporp($event)"
                 style="background: #fff;overflow: visible;margin: 0px;border-radius: 0px;"  >
                     <div style="width:94%;margin-left:3%;position:relative">
@@ -102,7 +93,7 @@
                           class="danontgimg" >
                           <img style='
 
-                          
+
                               position: absolute;
     border: 1px solid #ddd;
     padding: 2px;
@@ -131,7 +122,7 @@
                             </div>
                             <span style="display: inline-block;clear: both"></span>
                         </div>
-                        
+
                         <div class="showgoodmsxxx " ng-class="{'showselectgoodsmsgheight':showstockprice}" >
                             库存总数: <span style="color:rgb(254,143,37);">{{goodskumsg.stock_num}}</span>
                              <span style="float: right"  ng-click='eidtprice(goodskumsg)' >平台价: <span style="color:rgb(254,143,37) ">{{goodskumsg.price}}</span>
@@ -151,7 +142,7 @@
                                 </div>
                             </div>
                         </ion-scroll>
-                        
+
                         <div class="adbutton">
                                 <div   ng-click="addnumber()" >+</div>
                                 <input    ng-model="selectsku.number"  readonly  style="background:#fff;
@@ -162,7 +153,7 @@
 
                                 "  type="text">
                                 <div  ng-click="removeumber()"  >-</div>
-                        </div>            
+                        </div>
                             <button  ng-show='!selectsku.state'   style="
                                 width: 106%;
                                 background: #21BD00;
@@ -212,15 +203,15 @@
   <ion-footer-bar  class="goodsdetilfooterbar"   >
 
     <div class="goshopchart" ng-click="gouwuche()"   >
-      <i class="shoping"   style="font-size: 20px;text-align: center;margin-left: -10px;" >&#xe611;</i> 
+      <i class="shoping"   style="font-size: 20px;text-align: center;margin-left: -10px;" >&#xe611;</i>
       <p style="top:-6px;" >购物车</p>
     </div>
 
     <div class="goshopchart"  ng-click="goshop()"   >
-      <i class="shoping" style="    font-size: 20px;text-align: center;margin-left: -10px;">&#xe61b;</i> 
+      <i class="shoping" style="    font-size: 20px;text-align: center;margin-left: -10px;">&#xe61b;</i>
       <p style="top:-6px;">店铺</p>
     </div>
-    
+
     <div class="addjoinshopcar"  ng-click="addjoinshopcart()"  >加入购物车</div>
     <div class="buy"    ng-click="lijibuy()"  >立即购买</div>
 
