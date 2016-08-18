@@ -22,17 +22,17 @@ $scope.seltwuiluthi  = function (it) {
                     ss.express_fee_back  =  ss.express_fee;
                     ss.express_fee  ='0.00';
                     $scope.info.total_pricy   =   parseFloat($scope.info.total_pricy)- parseFloat(ss.express_fee_back) ;
-                    $scope.info.total_pricy  =  $scope.info.total_pricy.toFixed(2); 
+                    $scope.info.total_pricy  =  $scope.info.total_pricy.toFixed(2);
 
                 }else{
                     if(ss.express_fee_back){
-                        
+
                         ss.express_fee    =  parseFloat(ss.express_fee_back);
                         ss.express_fee =  ss.express_fee.toFixed(2);
                         $scope.info.total_pricy   =   parseFloat($scope.info.total_pricy)+ parseFloat(ss.express_fee_back);
                         $scope.info.total_pricy  =  $scope.info.total_pricy.toFixed(2);
                     }
-                }    
+                }
         })
 
         if(it.value){
@@ -81,10 +81,10 @@ $scope.comorder  =function () {
     if(!$scope.info.address.addr_id){
         native.task('请选择收货地址');
         return  false;
-    }    
+    }
 
     var  carids  = '';
-    
+
     angular.forEach($scope.info.goods,function (sff) {
         angular.forEach(sff.goods_info,function (aaa) {
            carids+= aaa.cart_id+',';
@@ -112,9 +112,9 @@ $scope.comorder  =function () {
         }
     },function (r) {
         if(r){
-        
-        
-            $state.go('r.HomPurchase');
+
+
+            $state.go('r.HomPurchase',{data:1});
             native.task('确认订单成功');
 
         }
@@ -124,8 +124,8 @@ $scope.comorder  =function () {
 
 }
     $scope.chikethi  =function (r) {
-        
-        
+
+
 
         if(r.active){
             $scope.closetallcationvalue()
@@ -134,14 +134,14 @@ $scope.comorder  =function () {
                 ww.active   =false;
             })
             r.active  =  true;
-        
+
 
             $scope.info.address   = r;
             $scope.closetallcationvalue();
 
 
 
-            
+
 
         }
 
@@ -172,7 +172,7 @@ $scope.comorder  =function () {
                     },200)
                     return false;
                 }
-                
+
             Tools.showlogin();
             Tools.getData({
                  "interface_number": "020505",
@@ -181,20 +181,20 @@ $scope.comorder  =function () {
                 if(r){
 
                         $scope.addlist  = r.resp_data.data;
-                        
+
                         angular.forEach($scope.addlist,function(s) {
                             if(s.addr_id  == $scope.info.address.addr_id){
                                 s.active  =true;
                             }else{
                                 s.active  =false;
                             }
-                        });    
+                        });
 
                         $timeout(function () {
                                 $scope.selectstat  = false;
                                 $scope.setallcationstate = true;
-                        },200)                
-                    
+                        },200)
+
                     }
             })
 
@@ -213,7 +213,7 @@ $scope.comorder  =function () {
 
 
        if(comfrombackresitl.ref){
-           
+
            comfrombackresitl.ref  = false;
            return  false;
        }
@@ -224,7 +224,7 @@ $scope.comorder  =function () {
             }
 
                 if(buyConfirmorde.cart){
-                    //购物车过来的 接口    
+                    //购物车过来的 接口
                     Tools.getData({
                    "interface_number": "020601",
                     "post_content": {
@@ -236,8 +236,8 @@ $scope.comorder  =function () {
                                     $scope.info = r.resp_data;
                                     $scope.info.total_pricy  = $scope.info.total_pricy.toFixed(2);
                                     //$scope.info.goods  =  $scope.info.goodsInfo;
-                                    
-                                     
+
+
                                     angular.forEach($scope.info.goods,function(ssz){
                                         ssz.shop_img   = window.qiniuimgHost+ssz.shop_img+'?imageView2/2/w/50/h/50';
                                         angular.forEach(ssz.goods_info,function(gooitem){
@@ -247,13 +247,13 @@ $scope.comorder  =function () {
 
                                     console.log($scope.info)
                                     $scope.addjoinshopcart();
-                                    
+
                                 }
                     })
 
 
 
-                    
+
 
 
                 }else{
@@ -289,12 +289,12 @@ $scope.$on('$ionicView.beforeEnter',function(){
             $scope.showpanl = true;
             if(fromStateServ.getState('r.ConfirmorderZf')){
                 $scope.showtitle  = true;
-                $scope.backtoprevView  =   fromStateServ.backView; 
+                $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.ConfirmorderZf').title;
             }else{
                 $scope.showtitle  = false;
             }
-            inlit();    
+            inlit();
 })
 
 

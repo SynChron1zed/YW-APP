@@ -1,0 +1,131 @@
+<ion-view  hide-back-button="true"  view-title="分类" >
+
+  <ion-content      scrollbar-y="false"   style="background:rgb(245, 245, 245)"     >
+
+      <div   ng-if='guankao'  >
+
+        <ion-slide-box    ng-if='guankao'  class='homeSlidebox' auto-play='true'  does-continue="true" >
+          <ion-slide   ng-repeat="ss   in  guankao"   ng-click="gogunal(ss)"   >
+            <img ng-src="{{ss.qiniu_key}}" alt="">
+          </ion-slide>
+        </ion-slide-box>
+
+      </div>
+
+    <div class="newHomebox">
+      <div class="row" >
+        <div class="col " ng-click="newclass(1,'百货超市')" >
+          <img src="./img/newclass/cailanzi@3x.png" alt="">
+          <p>百货超市</p>
+        </div>
+
+
+        <div class="col "   ng-click="newclass(7,'美食')" >
+          <img src="./img/newclass/food-10@3x.png" alt="">
+          <p>美食</p>
+        </div>
+
+
+        <div class="col " ng-click="newclass(13,'服装')">
+          <img src="./img/newclass/yifu@3x.png" alt="">
+          <p>服装</p>
+        </div>
+
+        <div class="col " ng-click="newclass(18,'美业')">
+          <img src="./img/newclass/meirong@3x.png" alt="">
+          <p>美业</p>
+        </div>
+      </div>
+
+      <div class="row rowtow">
+        <div class="col col-25"    ng-click="newclass(23,'美妆')" >
+          <img src="./img/newclass/meizhuang@3x.png" alt="">
+          <p>美妆</p>
+        </div>
+
+        <div class="col "  ng-click="newclass(27,'酒店住宿')"  >
+          <img src="./img/newclass/jiudian@3x.png" alt="">
+          <p>酒店住宿</p>
+        </div>
+
+        <div class="col "    ng-click="newclass(28,'休闲娱乐')"  >
+          <img src="./img/newclass/xiuxian@3x.png" alt="">
+          <p>休闲娱乐</p>
+        </div>
+
+        <div class="col " ng-click="newclass(33,'汽车服务')">
+          <img src="./img/newclass/carfuwu@3x.png" alt="">
+          <p>汽车服务</p>
+        </div>
+      </div>
+
+      <div class="row rowtow">
+        <div class="col col-25"    ng-click="newclass(37,'运动健身')" >
+          <img src="./img/newclass/sport@3x.png" alt="">
+          <p>运动健身</p>
+        </div>
+
+        <div class="col "  ng-click="newclass(42,'家装建材')"  >
+          <img src="./img/newclass/jiancai@3x.png" alt="">
+          <p>家装建材</p>
+        </div>
+
+        <div class="col "    ng-click="newclass(48,'软件培训')"  >
+          <img src="./img/newclass/ruanjian@3x.png" alt="">
+          <p>软件培训</p>
+        </div>
+
+        <div class="col " ng-click="newclass(52,'家用电器')">
+          <img src="./img/newclass/dianqi@3x.png" alt="">
+          <p>家用电器</p>
+        </div>
+      </div>
+
+
+      <div class="row rowtow">
+        <div class="col col-25"    ng-click="newclass(57,'电脑办公')" >
+          <img src="./img/newclass/bangong@3x.png" alt="">
+          <p>电脑办公</p>
+        </div>
+
+        <div class="col "  ng-click="newclass(63,'手机数码')"  >
+          <img src="./img/newclass/shuma@3x.png" alt="">
+          <p>手机数码</p>
+        </div>
+
+        <div class="col "    ng-click="newclass(67,'家居家纺')"  >
+          <img src="./img/newclass/jiafang@3x.png" alt="">
+          <p>家居家纺</p>
+        </div>
+
+        <div class="col " ng-click="newclass(71,'母婴')">
+          <img src="./img/newclass/muying@3x.png" alt="">
+          <p>母婴</p>
+        </div>
+      </div>
+
+      <div class="row rowtow">
+        <div class="col col-25"    ng-click="newclass(72,'旅游度假')" >
+          <img src="./img/newclass/dujia@3x.png" alt="">
+          <p>旅游度假</p>
+        </div>
+
+        <div class="col col-25 "  ng-click="newclass(73,'其他')" style="border-right: 1px solid #ddd;" >
+          <img src="./img/newclass/qita@3x.png" alt="">
+          <p>其他</p>
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+
+
+
+
+
+  </ion-content>
+</ion-view>
+

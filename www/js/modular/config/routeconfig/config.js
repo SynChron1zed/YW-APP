@@ -337,7 +337,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       })*/
     //分类
-    .state('r.tab.Classif', {
+   /* .state('r.tab.Classif', {
       url: '/Classif',
       nativeTransitions: null,
       views: {
@@ -346,7 +346,36 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           controller: 'Classif'
         }
       }
+    })*/
+
+    .state('r.tab.Classif', {
+      url: '/Classif',
+      nativeTransitions: null,
+      views: {
+        'Classif': {
+          templateUrl: 'templates/Classif/newClass.html',
+          controller: 'Classif'
+        }
+      }
     })
+
+
+    .state('r.classContent',{
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.classContent')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      url: '/classContent/:id/:Name',
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Classif/classContent.html',
+          controller: 'classContentCtr'
+        }
+      }
+    })
+
 
     // home  主页
     .state('r.tab.Home',{
@@ -571,7 +600,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     //采购订单
     .state('r.HomPurchase', {
-      url: '/HomPurchase',
+      url: '/HomPurchase/:data',
 
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.HomPurchase')
@@ -1167,7 +1196,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    
+
     //商品详情
     .state('r.Productdetails', {
       url: '/Productdetails?id:&inside:',

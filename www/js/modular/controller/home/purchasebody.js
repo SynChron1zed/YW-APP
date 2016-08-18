@@ -28,6 +28,7 @@ Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools',
 
 
   function init() {
+    Tools.showlogin();
     Tools.getData({
       "interface_number": "020705",
       "client_type": window.platform,

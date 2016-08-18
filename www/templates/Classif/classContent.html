@@ -1,0 +1,82 @@
+<ion-view  hide-back-button="true"  view-title="{{title}}" >
+
+
+
+  <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
+    <div     class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.classContent')">
+      <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title"
+                                                                                                                                                     style="display: block;"
+      >{{parenttitle}}</span></span>
+    </div>
+
+  </ion-nav-buttons>
+
+
+
+  <ion-content   scroll="false"   scrollbar-y="false" overflow-scroll="false"   style="background:rgb(245, 245, 245);overflow-y: hidden;"     >
+
+
+    <style>
+      .casdawwwwww  .listitme.active::after{
+        bottom: 0px !important;
+        background:#ffa900 !important;
+      }
+    </style>
+
+    <div class="shopclaslist  casdawwwwww"   style="white-space: nowrap;overflow: hidden;    z-index: 9999;position: relative;
+         height: 50px;
+         line-height: 50px;
+
+         ">
+      <div draggable  style="display: inline-block;
+             height: 50px;
+            line-height: 50px;
+            " >
+        <div class="listitme"
+
+             style="      height: 50px;
+                            line-height: 50px;
+            "
+             ng-repeat="item in claslist "   ng-click="swatch(item)"   ng-class="{'active':item.select}"   >
+          {{item.itemcats_name }}
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+    <ion-scroll style="overflow-y: hidden;"  overflow-scroll="false"    delegate-handle="small"    scrollbar-y="false"   lazy-scroll   ng-style="scorllheader"    >
+
+
+
+
+
+      <div class="shopgoodslit"  style="    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.03)"   ng-repeat="ff in goodlist"    ng-click="goodsdetail(ff)"  >
+        <img image-lazy-src="{{ff.img_url}}" alt="" image-lazy-distance-from-bottom-to-load="10"     >
+        <p style="height:40px;padding:0px 4px;">{{ff.goods_title}}</p>
+        <p><span style="color:#f16902">￥{{ff.total_in_price}}</span></p>
+      </div>
+
+
+
+
+      <ion-infinite-scroll ng-if="loadermoer"      style="height: 40px;line-height: 40px;margin-bottom:10px;text-align: center"   spinner="dots"      on-infinite="customcucdownlisloadMore()" distance="1%" ></ion-infinite-scroll>
+      <p ng-if="!loadermoer" style="height: 40px;line-height: 40px;margin-bottom:10px;text-align: center;color:#999" >没有更多了!</p>
+
+
+    </ion-scroll>
+
+
+
+
+
+
+
+
+  </ion-content>
+</ion-view>
+

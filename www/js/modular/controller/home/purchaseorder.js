@@ -8,6 +8,10 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
 
   $scope.$on('$ionicView.beforeEnter',function(){
 
+    if($stateParams.data==1){
+      $scope.dfks();
+    }
+    
             if(fromStateServ.getState('r.HomPurchase')){
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView;
