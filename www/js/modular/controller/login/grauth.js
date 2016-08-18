@@ -41,8 +41,7 @@ Ctr.controller('grAuthenticationctr',['$ionicHistory','$scope','$rootScope','$io
   //提交审核
   $scope.Submitaudit  =  function (){
 
-
-      if(!Tools.reg.ID($scope.form.id)){
+      if(!Tools.reg.Pid($scope.form.id)){
 
         native.task('请输入正确的身份证号码！');
         return false

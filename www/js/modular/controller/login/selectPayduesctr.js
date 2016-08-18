@@ -38,6 +38,7 @@ Ctr.controller('selectPayduesctr',['$scope','$state','Tools','$ionicViewSwitcher
   $scope.$on('$ionicView.beforeEnter',function(event, data){
 
 
+    
     if(fromStateServ.getState('r.selectPaydues')   &&  !$stateParams.inside ){
       $scope.showtitle  = true;
       $scope.backtoprevView  =   fromStateServ.backView;

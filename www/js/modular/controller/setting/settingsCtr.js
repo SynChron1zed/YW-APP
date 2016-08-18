@@ -2,7 +2,7 @@
  * Created by Why on 16/6/8.
  */
 
-Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state','$ionicHistory','storage','fromStateServ','$ionicScrollDelegate','Tools','native','selectArr','$rootScope',function($scope,$ionicPopover, $ionicPopup,$timeout,$state,$ionicHistory,storage,fromStateServ,$ionicScrollDelegate,Tools,native,selectArr,$rootScope) {
+Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state','$ionicHistory','storage','fromStateServ','$ionicScrollDelegate','Tools','native','selectArr','$rootScope','selectArr',function($scope,$ionicPopover, $ionicPopup,$timeout,$state,$ionicHistory,storage,fromStateServ,$ionicScrollDelegate,Tools,native,selectArr,$rootScope,selectArr) {
 
 
 
@@ -28,7 +28,7 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
 //切换到登录   login
 function   login   (){
       native.confirm('该操作需要登录','你还没有登录',['登录','取消'],function(c){
-        
+
         if(c  == 1){
           fromStateServ.stateChange('r.login');
           }
@@ -168,6 +168,13 @@ var   userone = storage.getObject('UserInfo');
         if(!uil.user_id){
               login();
         }else{
+        
+          if(!selectArr.selectarrs.companyid()){
+
+            native.task('请先加入公司');
+            return false
+          }
+
             $scope.shopid  = 'http://pan.baidu.com/share/qrcode?w=400&h=400&url='+uil.shop_id;
             $rootScope.hideTabs =true;
             $scope.setallcationstate   = true;
@@ -182,7 +189,7 @@ var   userone = storage.getObject('UserInfo');
 
 
       //alert($rootScope.hideTabs)
-      
+
       var  c   =   document.querySelector('#seletercode');
       c.className = "action-sheet-backdrop";
       $timeout(function(){
@@ -198,18 +205,18 @@ var   userone = storage.getObject('UserInfo');
 
 
  $scope.$on('$ionicView.beforeLeave',function(){
-          
+
            $scope.closetallcationvalue();
 })
 
 
 
-         
-        
+
+
 
   }])
 
-  
+
   .controller('SettingsUserCtr',['$scope','Tools','$rootScope','native',function($scope,Tools,$rootScope,native){
     $scope.fankui  = {};
     //$rootScope.$ionicGoBack();

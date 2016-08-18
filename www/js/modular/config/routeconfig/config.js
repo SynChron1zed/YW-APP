@@ -358,7 +358,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    
+
 
     .state('r.classContent',{
       onEnter: function(fromStateServ,$ionicHistory) {
@@ -600,7 +600,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     //采购订单
     .state('r.HomPurchase', {
-      url: '/HomPurchase',
+      url: '/HomPurchase/:data',
 
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.HomPurchase')

@@ -20,16 +20,16 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
          $state.go('r.HomPurordersbody',{basicID:obj.value.pk_id})
        }
     }
-    
+
     //系统通知
     if(obj.value.msg_type  == '2'){
-      //系统通知 
+      //系统通知
     }
     //公司消息
     if(obj.value.msg_type  == '3'){
     //公司消息
     }
-    
+
 
   }
   //加在视图的加载效果http前调用
@@ -186,11 +186,11 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     );
       return false;
     }
-    
+
 
     $http({
       url:host?host:window.Interactivehost,
-      method:sendType?sendType:'POST',      
+      method:sendType?sendType:'POST',
       timeout: 12000,
       headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
       data:data
@@ -201,7 +201,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
               if(!cansologin){
                   hidelogin();
               }
-                
+
               },200);
       if(r.resp_code== '0000'){
         Callback(r);
@@ -217,10 +217,10 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
                         // integral:'0.00',
                         // sex:'./img/icon_man@3x.png',
                         // })
-                        
+
                         $timeout(function () {
 
-                              window.outlogin(function(){ 
+                              window.outlogin(function(){
                               $state.go('r.tab.Home');
                                 $timeout(function(){
                                     $ionicHistory.clearHistory();
@@ -229,7 +229,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
                               })
 
                         },520)
-                        
+
 
             Callback(false);
             }else{
@@ -237,7 +237,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 
 
             }
-          
+
 
       }  else{
         Callback(false);
@@ -255,7 +255,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       // errorCallback?errorCallback(e):null;
       $timeout(function(){
           if(!cansologin){
-              hidelogin();            
+              hidelogin();
           }
       },200);
       Callback(false);
@@ -278,6 +278,11 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       return /[\u4E00-\u9FA5]/.test(val);
     },
     //身份证验证
+    Pid:function (val) {
+      return /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(val);
+    },
+
+
     ID:function(val){
       return  /^((1[1-5])|(2[1-3])|(3[1-7])|(4[1-6])|(5[0-4])|(6[1-5])|71|(8[12])|91)\d{4}((19\d{2}(0[13-9]|1[012])(0[1-9]|[12]\d|30))|(19\d{2}(0[13578]|1[02])31)|(19\d{2}02(0[1-9]|1\d|2[0-8]))|(19([13579][26]|[2468][048]|0[48])0229))\d{3}(\d|X)?$/.test(val);
     },
