@@ -12,6 +12,11 @@ window.networonline  =  true;
                     "post_content": {}
                 },function (r) {
                   if(r){
+
+                      
+
+                          
+                        
                         window.Token   = undefined;
                         window.token_phone   = undefined;
                         storage.setObject('UserInfo',{
@@ -24,6 +29,8 @@ window.networonline  =  true;
                         Callback();
                         native.task('退出成功');
                       }
+
+                      window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
                   }
                 })
             };
@@ -86,7 +93,9 @@ window.networonline  =  true;
     //获取极光推送注册id
     window.plugins.jPushPlugin.getRegistrationID( function(data) {
       try {
-        
+
+          if(data){
+
         var  locjPush  =    storage.getObject('jPush');
         locjPush.RegistrationID =  data;
         storage.setObject('jPush',locjPush);
@@ -102,6 +111,11 @@ window.networonline  =  true;
           }
          })
         }
+        
+          }
+          
+
+
 
       } catch(exception) {
         console.log(exception,'发生了错误');
@@ -129,12 +143,6 @@ window.networonline  =  true;
     }, function(err) {
       // error
     });
-
-
-
-
-
-
 
     }else{
         //这里是浏览器写的是固定的值
@@ -209,7 +217,6 @@ window.networonline  =  true;
 
 
 
-
     $window.platform = window.platform = ionic.Platform.platform();
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -217,11 +224,9 @@ window.networonline  =  true;
 
     //极光推送  初始初始化
     var  jpushstat  =   window.plugins.jPushPlugin.init();
-    console.log(jpushstat)
 
-  
     //调试模式
-    //window.plugins.jPushPlugin.setDebugMode(true);
+    window.plugins.jPushPlugin.setDebugMode(true);
 
 
 
@@ -244,9 +249,7 @@ window.networonline  =  true;
             iosVlue[key] = value;
           }
         })
-
         iosVlue.img  = window.qiniuimgHost+iosVlue.img+'?imageView2/2/w/120/h/120'; 
-
         result.See  = false;
         result.title   =  iosVlue.title;
         result.alert = data.aps.alert;
@@ -254,14 +257,7 @@ window.networonline  =  true;
       }
       return  result;
       };
-
-
-
-      function hannotilistnow(e) {
-
-
-
-
+      window.hannotilistnow  = function(e) {
       var alertContent  =  bestripped(e);
       var nownotilist = storage.getObject('Notice');
       if(!nownotilist.userlist){
@@ -310,38 +306,44 @@ window.networonline  =  true;
           nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage.length = 30
         }
       }
+
         if(window.platform  == 'ios'){
-                        window.plugins.jPushPlugin.getApplicationIconBadgeNumber(function (s) {
-                            window.plugins.jPushPlugin.setApplicationIconBadgeNumber(s+1);
-                        })
+                        window.plugins.jPushPlugin.getApplicationIconBadgeNumber(function(data) {
+                         window.plugins.jPushPlugin.setApplicationIconBadgeNumber(++data);
+                  });
         }
       storage.setObject('Notice',nownotilist);
-
       $timeout(function () {
-       $rootScope.newnotice  = new  Date()+Math.random()*1000;
-      }); 
+          $rootScope.newnotice  = new  Date()+Math.random()*1000;
+        });
+
       }
+
+
+
+      
+      
+
+
       //点击通知的处理 click  jpush  event  Handle
-      window.document.addEventListener("jpush.openNotification", function(){
-      var alertContent  =  bestripped(window.plugins.jPushPlugin.openNotification);
+      window.document.addEventListener("jpush.openNotification", function(e){
+
       //推送的附带对象 数据 直接访问
       //console.log(alertContent,'收到的数据');
-
       $state.go('r.tab.Notice');
       $timeout(function () {
         $ionicHistory.clearHistory();
       },20)
       }, true);
 
-    if(window.platform  == 'ios'){
-      
-       document.addEventListener("jpush.backgroundNotification", function (e) {
-        hannotilistnow(e)
-      }, false);      
-    }
-      document.addEventListener("jpush.receiveNotification", function(e){
-        hannotilistnow(e)
+      document.addEventListener("jpush.receiveNotification", function(e){    
+          window.hannotilistnow(e);
       }, false);
+      if(window.platform  == 'ios'){
+        document.addEventListener("jpush.backgoundNotification", function (e) {
+          window.hannotilistnow(e)        
+        }, false);
+      }
 
     if(window.platform  !== 'ios'){
       window.updateAPP(true);
@@ -364,6 +366,8 @@ window.networonline  =  true;
  
 
   window.updateAPP  =  function(r){
+
+    
     if(ionic.Platform.platform()  == 'ios'){
       return false;
     }

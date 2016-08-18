@@ -20,19 +20,12 @@ $scope.goinstinfo  = function (params) {
                         }
                         s.See  = true
                       })
-
                       storage.setObject('Notice',noti);
-                      Handlenotice()
-                      
                       if(window.platform  == 'ios'){
-                        window.plugins.jPushPlugin.getApplicationIconBadgeNumber(function (s) {
+                      
+                        window.plugins.jPushPlugin.setApplicationIconBadgeNumber($scope.notice.Tradelogistics+$scope.notice.Systemmessage+$scope.notice.Companynotice);
 
-                            var nowbe  =  parseInt(s)  -  Badgenumber;
-                            if(nowbe <=  0){
-                              nowbe  = 0;
-                            }
-                            window.plugins.jPushPlugin.setApplicationIconBadgeNumber(nowbe);
-                        })
+
                       }
                     }
                 }
@@ -68,14 +61,8 @@ $scope.goinstinfosystem  = function (params) {
                       storage.setObject('Notice',noti);
                       Handlenotice()
                       if(window.platform  == 'ios'){
-                        window.plugins.jPushPlugin.getApplicationIconBadgeNumber(function (s) {
+                        window.plugins.jPushPlugin.setApplicationIconBadgeNumber($scope.notice.Tradelogistics+$scope.notice.Systemmessage+$scope.notice.Companynotice);
 
-                            var nowbe  =  parseInt(s)  -  Badgenumber;
-                            if(nowbe <=  0){
-                              nowbe  = 0;
-                            }
-                            window.plugins.jPushPlugin.setApplicationIconBadgeNumber(nowbe);
-                        })
                       }
                     }
                 }
@@ -110,15 +97,9 @@ $scope.goinstinfoCompoen  = function (params) {
                       })
                       storage.setObject('Notice',noti);
                       Handlenotice()
-                      if(window.platform  == 'ios'){
-                        window.plugins.jPushPlugin.getApplicationIconBadgeNumber(function (s) {
 
-                            var nowbe  =  parseInt(s)  -  Badgenumber;
-                            if(nowbe <=  0){
-                              nowbe  = 0;
-                            }
-                            window.plugins.jPushPlugin.setApplicationIconBadgeNumber(nowbe);
-                        })
+                      if(window.platform  == 'ios'){
+                        window.plugins.jPushPlugin.setApplicationIconBadgeNumber($scope.notice.Tradelogistics+$scope.notice.Systemmessage+$scope.notice.Companynotice);
                       }
                     }
                 }
@@ -142,25 +123,32 @@ $scope.goinstinfoCompoen  = function (params) {
     }
   }
 
-   $rootScope.$watch('newnotice', function() {
-      Handlenotice();
-    });
+
 
 $scope.notice = {
-  Tradelogistics:undefined,
-  Systemmessage:undefined
+  Tradelogistics:0,
+  Systemmessage:0,
+  Companynotice:0
 };
 
+
+
+$rootScope.$watch('newnotice', function() {
+        $timeout(function () {
+          Handlenotice()
+        })
+    });
 
 function Handlenotice() {
 
   var  id   = storage.getObject('UserInfo').user_id;
     if(id){
+
         if(storage.getObject('UserInfo').company_id !=''){
           $scope.hasCompay  = true;
         }
         //多去当前用户消息  
-        var notilength   = undefined;          
+        var notilength   = 0;          
          notilength  =  storage.getObject('Notice');
          if(!notilength.userlist){
            return false;
@@ -170,7 +158,7 @@ function Handlenotice() {
           if(nowuser.Tradelogistics){
                if(nowuser.Tradelogistics.length){
                 var badgenumber =  0;
-                var fistnoseemsg  = undefined;
+                var fistnoseemsg  = 0;
                 angular.forEach(nowuser.Tradelogistics,function (params) {
                     if(!params.See){
                       badgenumber++;               
@@ -185,7 +173,7 @@ function Handlenotice() {
                  $scope.notice.Tradelogisticsdesc   =   fistnoseemsg;
                }
           }else{
-            $scope.notice.Tradelogistics  = undefined
+            $scope.notice.Tradelogistics  = 0
           }
 
 
@@ -193,7 +181,7 @@ function Handlenotice() {
                if(nowuser.Systemmessage.length){
 
                    var badgenumber =  0;
-                   var firsetnoseemasg  = undefined;
+                   var firsetnoseemasg  = 0;
                 angular.forEach(nowuser.Systemmessage,function (params) {
                     if(!params.See){
                       badgenumber++;
@@ -207,7 +195,7 @@ function Handlenotice() {
 
                }
           }else{
-            $scope.notice.Systemmessage  = undefined
+            $scope.notice.Systemmessage  = 0
           }
 
 
@@ -215,7 +203,7 @@ function Handlenotice() {
                if(nowuser.Companynotice.length){
 
                    var badgenumber =  0;
-                   var firsetnoseemasg  = undefined;
+                   var firsetnoseemasg  = 0;
                 angular.forEach(nowuser.Companynotice,function (params) {
                     if(!params.See){
                       badgenumber++;
@@ -229,13 +217,17 @@ function Handlenotice() {
 
                }
           }else{
-            $scope.notice.Systemmessage  = undefined
+            $scope.notice.Systemmessage  = 0
           }
-
-
-
+          
+          if(window.platform  == 'ios'){
+            var c  = $scope.notice.Tradelogistics+$scope.notice.Systemmessage+$scope.notice.Companynotice;
+              window.plugins.jPushPlugin.setApplicationIconBadgeNumber(c);            
+            } 
 
     }
+
+    
 }
 
 
