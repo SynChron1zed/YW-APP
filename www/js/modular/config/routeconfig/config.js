@@ -358,6 +358,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+    
 
     .state('r.classContent',{
       onEnter: function(fromStateServ,$ionicHistory) {
@@ -1195,7 +1196,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    
+
     //商品详情
     .state('r.Productdetails', {
       url: '/Productdetails?id:&inside:',
