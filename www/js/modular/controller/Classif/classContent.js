@@ -52,7 +52,9 @@ Ctr.controller('classContentCtr',['$scope','native','$state','fromStateServ','To
     $timeout(function() {
       gescoheight();
     },500)
+
     $scope.swatch   =  function(ff){
+
       if(!ff.select){
         angular.forEach($scope.claslist,function(zf){
           zf.select   = false;
@@ -71,12 +73,13 @@ Ctr.controller('classContentCtr',['$scope','native','$state','fromStateServ','To
       },
 
     },function (r) {
+     
       if(r){
         angular.forEach(r.resp_data,function(ss) {
           ss.select  = false;
         });
         $scope.claslist  = r.resp_data;
-        $scope.claslist[0].select  =  true;
+        $scope.claslist[1].select  =  true;
         $scope.loadermoer  = true;
 
       }
@@ -166,7 +169,7 @@ Ctr.controller('classContentCtr',['$scope','native','$state','fromStateServ','To
 
 
 
-    
+
 
   });
 

@@ -49,7 +49,7 @@
       </div>
       <div class="col col-25" ng-click="charitable()" >
         <img src="./img/homepage/icon_charity@3x.png" alt="">
-        <p>慈善物品</p>
+        <p>活动促销</p>
       </div>
     </div>
 
@@ -94,13 +94,41 @@
     </div>
 
     <div class="home-Honestenterprise">
-      <div class="title">
-        诚信企业
+      <div class="title" style="border-bottom: 1px solid #6c3800;">
+        诚信企业<span ng-click="moreCompany('r.Companies')">更多</span>
       </div>
       <div class="content">
 
 
-        <div class="itemin" ng-repeat="x in company"  ng-click="goshopin(x)"   >
+
+
+        <div class="shopclaslist "   style="white-space: nowrap;overflow: hidden;    z-index: 9999;position: relative;
+         height: 9rem;background-color: whitesmoke;
+
+
+         ">
+          <div newdraggable  style="display: inline-block;">
+
+            <div class="newlistitme"style="  "ng-click="goshopin(item)"   ng-class="{'active':item.select}"   ng-repeat="item in company"   >
+              <div class="img-homeqiye">
+             <img src={{item.shop.img_shop}} style="padding: 2px">
+              </div>
+              <div class="chenxin-home">【{{item.company_name}}】</div>
+              <div class="chenxin-home1"> <span class="chenxin-dengji">等级</span><img src="./img/homepage/lev1.png" alt="" ng-if="item.faith_level==1"class="chenxin-xingji lev1-home"></div>
+              <div class="chenxin-home1"> <span class="chenxin-dengji">等级</span><img src="./img/homepage/lev2.png" alt="" ng-if="item.faith_level==2"class="chenxin-xingji lev2-home"></div>
+              <div class="chenxin-home1"> <span class="chenxin-dengji">等级</span><img src="./img/homepage/lev3.png" alt="" ng-if="item.faith_level==3"class="chenxin-xingji lev3-home"></div>
+              <div class="chenxin-home1"> <span class="chenxin-dengji">等级</span><img src="./img/homepage/lev4.png" alt="" ng-if="item.faith_level==4"class="chenxin-xingji lev4-home"></div>
+              <div class="chenxin-home1"> <span class="chenxin-dengji">等级</span><img src="./img/homepage/lev5.png" alt="" ng-if="item.faith_level==5"class="chenxin-xingji lev5-home"></div>
+
+            </div>
+
+
+
+          </div>
+        </div>
+
+
+       <!-- <div class="itemin" ng-repeat="x in company"  ng-click="goshopin(x)"   >
           <div class="content">
             <div class="home-company" style="position: relative;
                 padding: 4px 6px;
@@ -117,7 +145,7 @@
               <img src="./img/homepage/lev5.png" alt="" ng-if="x.faith_level==5" style="width: 80%;">
             </div>
           </div>
-        </div>
+        </div>-->
 
 
 

@@ -45,7 +45,10 @@ fromStateServ.stateChange('r.SeeshopPint',{name:'测试的店铺'});
 
   $scope.charitable =  function () {
 
-    $scope.goModular('r.HomeCharitable');
+    native.task('该活动暂未开放，敬请期待');
+    return false;
+
+    //$scope.goModular('r.HomeCharitable');
 
   }
 
@@ -282,8 +285,12 @@ $scope.gosales=function (r) {
     },function(r){
 
       if(r){
-        $scope.company = (r.resp_data.data)
 
+        angular.forEach(r.resp_data.data,function(c){
+          c.shop.img_shop  =  window.qiniuimgHost+c.shop.img_shop+'?imageView2/2/w/200/h/200';
+
+        });
+        $scope.company = (r.resp_data.data)
 
       }
     });
@@ -305,4 +312,9 @@ $scope.gosales=function (r) {
   }
 
 
+  //诚信企业
+  $scope.moreCompany = function (r) {
+
+    fromStateServ.stateChange(r);
+  };
 }]);
