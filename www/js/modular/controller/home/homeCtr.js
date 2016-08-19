@@ -6,6 +6,14 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 
 
 
+$scope.mb =  function () {
+  alert('开是')
+  //window.plugins.jPushPlugin.addLocalNotificationForIOS(1, "本地推送内容", 1, "notiId", {"key":"value"});
+  
+
+}
+
+
 $scope.catshowtakepint  = function () {
 
 
