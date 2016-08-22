@@ -58,7 +58,6 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
           legal:$scope.from.legal,
           "license": $scope.from.License,
           "credit_code":f[0].key,
-
         }
       },function(r){
         if(r){

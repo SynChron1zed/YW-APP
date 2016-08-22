@@ -33,7 +33,7 @@ Ctr.controller('CompaniesCtr',['$scope','$rootScope','$ionicViewSwitcher','$stat
 
     Tools.getData(sendoption,function(r){
       if(r){
-debugger;
+
         if(r.resp_data.nextPage  == 0 ){
           $scope.expression  = false;
           $scope.page_number  =1;

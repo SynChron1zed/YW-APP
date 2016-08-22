@@ -316,6 +316,7 @@ function Handlenotice() {
   }
 
   $scope.doRefresh  = function () {
+    //Tools.showlogin();
     Tools.getData({
       "interface_number": "000400",
       "post_content": {

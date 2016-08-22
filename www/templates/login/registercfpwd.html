@@ -19,7 +19,7 @@
         <div>
           <div class="lable">密码</div>
           <div class="input">
-            <input type="password"  ng-model="password.Original"  placeholder="请输入账号密码">
+            <input type="password"  minlength="6" maxlength="22" ng-model="password.Original"  placeholder="请输入密码(至少6位)">
           </div>
         </div>
 
@@ -27,7 +27,7 @@
         <div>
           <div class="lable">确认密码</div>
           <div class="input">
-            <input type="password"  ng-model="password.Repeat"  placeholder="确认密码">
+            <input type="password"  minlength="6" maxlength="22" ng-model="password.Repeat"  placeholder="确认密码">
           </div>
         </div>
       </div>
