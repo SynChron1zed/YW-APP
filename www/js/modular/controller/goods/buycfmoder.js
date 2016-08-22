@@ -101,8 +101,6 @@ $scope.comorder  =function () {
 
      })
 
-
-
     Tools.showlogin();
     Tools.getData({
          "interface_number": "020607",

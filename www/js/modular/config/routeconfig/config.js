@@ -745,8 +745,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
-
+      
     // Notice Detail  通知详情
     .state('r.tab.NoticeDetail', {
       url: '/NoticeDetail/:chatId',
@@ -1052,7 +1051,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       onExit:function(fromStateServ){
         fromStateServ.removebackregistevent();
       },
-      
+
       views: {
         'rootview': {
           templateUrl: 'templates/Setting/aboutWe.html',

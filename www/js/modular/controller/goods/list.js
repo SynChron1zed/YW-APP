@@ -233,9 +233,11 @@ $scope.swatchtstate  = function (){
             angular.forEach($scope.datalist,function(r){
                   if(r.goods_basic_id  == goodsState.goods_basic_id){
                     r.goods_title  = goodsState.goods_title;
-                    r.img_url  = goodsState.img_url;
-                    r.activity_price  = goodsState.total_in_price;
+                    r.img_url  = goodsState.img_url+'?imageView2/2/w/200/h/200';
+                    r.total_in_price  = goodsState.total_in_price;
                     r.total_in_number  = goodsState.total_in_number;
+
+
 
                   }
             })
@@ -243,7 +245,7 @@ $scope.swatchtstate  = function (){
 
       if(goodsState.Refresh){
           goodsState.Refresh   =false;
-          
+
           return  false;
       };
 
@@ -257,13 +259,13 @@ $scope.swatchtstate  = function (){
 
 
     $timeout(function(){
-        
+
     },500)
 
 
   };
 
-  
+
 
       //$ionicScrollDelegate.$getByHandle('list').scrollTop();
       $scope.downlistloadmor  = true;
@@ -412,7 +414,7 @@ $scope.swatchtstate  = function (){
             $scope.$broadcast('scroll.infiniteScrollComplete');
           },200)
 
-          
+
           if(r){
 
                 if(r.resp_data.nextPage  == 0 ){
@@ -433,15 +435,15 @@ $scope.swatchtstate  = function (){
                    angular.forEach(r.resp_data.data,function(c){
                        $scope.datalist.push(c);
                    });
-                 }                 
+                 }
           }else{
-            
+
             $scope.downlistloadmor  = false;
 
 
           }
 
-          
+
     })
   }
 

@@ -3,20 +3,20 @@
  * Created by Why on 16/6/8.
  */
 Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','native','Tools','$ionicPopup','$ionicModal','$rootScope','goodsState','$ionicScrollDelegate','$ionicActionSheet','storage',function($scope,$timeout,$state,$stateParams,native,Tools,$ionicPopup,$ionicModal,$rootScope,goodsState,$ionicScrollDelegate,$ionicActionSheet,storage){
-  
+
 if(window.$cordovaGeolocation){
 
  var posOptions = {timeout: 10000, enableHighAccuracy: false};
   $cordovaGeolocation
     .getCurrentPosition(posOptions)
-    .then(function (position) {      
+    .then(function (position) {
     var lat  = position.coords.latitude;
       var long = position.coords.longitude;
         storage.setObject('location',{
           lat:lat,
           long:long
         });
-        
+
     }, function(err) {
       //error
     });
@@ -30,7 +30,7 @@ if(window.$cordovaGeolocation){
 
 
 
- 
+
  if(window.platform   == 'ios'){
    $scope.plfisios  = true;
  }else{
@@ -39,14 +39,14 @@ if(window.$cordovaGeolocation){
 
 
 $scope.selectthi  = function(tar){
-    tar.select   = !tar.select; 
+    tar.select   = !tar.select;
 }
 
 $scope.chekselectpintlist = function(){
-    $scope.shouldShowDelete  =  !$scope.shouldShowDelete; 
+    $scope.shouldShowDelete  =  !$scope.shouldShowDelete;
 }
 $scope.chekselectpintlistdel = function(){
-    $scope.shouldShowReorder  =  !$scope.shouldShowReorder; 
+    $scope.shouldShowReorder  =  !$scope.shouldShowReorder;
 }
 
 
@@ -115,14 +115,14 @@ $scope.chekselectpintlistdel = function(){
                       $scope.map.hide();
                 },100)
 
-                
+
 
             }
           })
         }
 
         //console.log($scope.mapTagging);
-        
+
     }
 
   $scope.comfpintbasemsg  = function (){
@@ -164,7 +164,7 @@ function  creatpint   (e){
 
         Tools.getData({},function(r){
         },function(){},'GET','http://api.map.baidu.com/geocoder/v2/?ak=RRcZDvEYvUVZXVXRbipOwytFrXflZlNg&callback=renderReverse&location='+e.point.lat+','+e.point.lng+'&output=json&pois=1',true)
-        
+
         infoWindow = new BMap.InfoWindow(setcontext(),{
           height:0,
           width:200
@@ -183,18 +183,18 @@ function  creatpint   (e){
             });
 
 
-            
+
           marker = new BMap.Marker(e.point,{icon:icon});  // 创建标注
           map.addOverlay(marker);               // 将标注添加到地图中
-          //marker.setAnimation(BMAP_ANIMATION_BOUNCE); 
+          //marker.setAnimation(BMAP_ANIMATION_BOUNCE);
           //console.log(marker.getShadow());
-          
+
           openinfo = function(){
             marker.openInfoWindow(infoWindow,e.point);
           }
 
           marker.enableMassClear(true);
-          
+
 
 
 }
@@ -205,18 +205,18 @@ function  creatpint   (e){
 
   function  setcontext  (){
 
-      return "<h5 style='margin:0 0 5px 0;padding:0.2em 0'>"+$scope.mapTagging.title+"</h5>" +  
+      return "<h5 style='margin:0 0 5px 0;padding:0.2em 0'>"+$scope.mapTagging.title+"</h5>" +
 	      "<p style='margin:0;line-height:1.5;font-size:13px;margin-bottom: 2px;max-height: 40px;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;word-wrap: break-word;'> 地 址 :  <span style='color:#4a4a4a'>"+$scope.mapTagging.position+"</span>  </p>" +
         "<p style='margin:0;line-height:1.5;font-size:13px;margin-bottom: 2px;max-height: 40px;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;word-wrap: break-word;'> 联 系 方 式 : <span style='color:#4a4a4a'>"+$scope.mapTagging.tel+"</span> </p>" +
-        "<p style='margin:0;line-height:1.5;font-size:13px;margin-bottom: 2px;max-height: 40px;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;word-wrap: break-word;'> 营 业 时 间 : <span style='color:#4a4a4a'>"+$scope.mapTagging.business+"</span> </p>" + 
+        "<p style='margin:0;line-height:1.5;font-size:13px;margin-bottom: 2px;max-height: 40px;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;word-wrap: break-word;'> 营 业 时 间 : <span style='color:#4a4a4a'>"+$scope.mapTagging.business+"</span> </p>" +
 	      "</div>";
   }
-  
+
     var openinfo  = undefined;
     var marker  = undefined;
     var infoWindow   =  undefined;
     var map  =  undefined;
-    
+
 
 
   $scope.xuanzheopition  = function (tage){
@@ -257,8 +257,8 @@ function  creatpint   (e){
       var ss  = storage.getObject('location');
 
 
-      map = new BMap.Map("container");          // 创建地图实例  
-      var point = new BMap.Point(ss.long, ss.lat);  // 创建点坐标  
+      map = new BMap.Map("container");          // 创建地图实例
+      var point = new BMap.Point(ss.long, ss.lat);  // 创建点坐标
       map.centerAndZoom(point, 25);
 
       window.renderReverse  = function(r){
@@ -276,17 +276,17 @@ function  creatpint   (e){
       },400)
 
 
-      }   
-
-    
+      }
 
 
 
-      
+
+
+
   }
 
 
-  
+
 
 
 
@@ -415,14 +415,14 @@ function  creatpint   (e){
             if(index  == 0){
               subtext   ='请输入市场价';
             }
-            
+
             if(index  == 1){
               subtext   ='请输入平台价';
             }
             if(index  == 2){
               subtext   ='请输入库存数';
             }
-          
+
 
               native.prompt(subtext,'提示',['确认','取消'],defulattext,function(ss){
                 if(ss.buttonIndex  ==1){
@@ -446,7 +446,7 @@ function  creatpint   (e){
                                     ss.input1  = 999999;
                                   }
                                 key.msg[resulf] = Math.abs(parseInt(ss.input1));
-                                
+
 
                               });
 
@@ -854,10 +854,10 @@ function  creatpint   (e){
          }
     },function(r){
          if(r){
-            
+
               $scope.goods.systemClass   = r.resp_data.sys_cate;
               $scope.goods.catelist  = r.resp_data.shop_cate;
-              
+
               //$scope.goods.Stock_number  =
               $scope.hassku  = false;
               angular.forEach(r.resp_data.prop,function(ha){
@@ -874,14 +874,14 @@ function  creatpint   (e){
                 $scope.systemparnslec();
 
               },10)
-              
+
 
               if($scope.goods.edit){
                 $scope.goods.barcode =   r.resp_data.goodsInfo.barcode;
                 $scope.goods.freight_price =   parseFloat(r.resp_data.goodsInfo.express_fee);
                 $scope.goods.is_virtual  =     r.resp_data.goodsInfo.is_virtual?true:false;
                 $scope.goods.title =     r.resp_data.goodsInfo.goods_title;
-                
+
                 if(r.resp_data.goodsInfo.buyer_take == '1'){
                   $scope.goods.Since  = true;
                 }
@@ -947,7 +947,7 @@ function  creatpint   (e){
                         })
                   })
 
-                  
+
 
 
 
@@ -1062,7 +1062,7 @@ $timeout(function(){
 
                 })
 
-             
+
 
           }else{
             $scope.goods.systemchidlist  =  undefined;
@@ -1080,12 +1080,12 @@ $timeout(function(){
 
   };
 
-  
+
 
 
   //子类
   $scope.chidselect   = function(){
-      
+
   }
 
   //$scope.goods.
@@ -1284,7 +1284,7 @@ $scope.save  = function (){
       //   native.task('请填写正确的市场价!');
       //   return  false;
       // }
-      
+
       // if(!Tools.reg.negative($scope.goods.Platform_price)){
       //   native.task('请填写正确的平台价!');
       //   return  false;
@@ -1363,7 +1363,7 @@ $scope.save  = function (){
           properties:skuid,
           quantity:fff.msg.number?Math.abs(fff.msg.number):'0',
           local_sku_id:fff.msg.local_sku_id?fff.msg.local_sku_id:''
-          
+
         })
       })
 
@@ -1417,11 +1417,9 @@ $scope.save  = function (){
             goodsState.img_url  = window.qiniuimgHost+r.resp_data.img_url+'?imageView2/2/w/200/h/200';
             goodsState.total_in_price  = r.resp_data.total_in_price;
             goodsState.total_in_number   = r.resp_data.total_in_number;
-
-
-
+            //console.log(goodsState)
+          
           native.task('保存成功!',3000)
-
           $timeout(function(){
               $rootScope.$ionicGoBack();
           },300)

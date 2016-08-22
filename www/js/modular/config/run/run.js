@@ -37,7 +37,7 @@ window.networonline  =  true;
 
           console.log($location.path());
           console.log($ionicHistory.viewHistory())
-          
+
       });
 
   $ionicPlatform.ready(function() {
@@ -45,12 +45,12 @@ window.networonline  =  true;
    setTimeout(function () {
      if(navigator){
        navigator.splashscreen.hide();
-       }    
+       }
     }, 400);
-    
+
     //$state.go('r.selectAuth');
     $state.go('r.tab.Home');
-    
+
     //初始化    用户信息
     if(!storage.getObject('UserInfo').user_id){
       //没有登录写入   默认基本  信息
@@ -69,15 +69,14 @@ window.networonline  =  true;
       }else{
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       }
-      
-      cordova.plugins.Keyboard.disableScroll(true);      
+
+      cordova.plugins.Keyboard.disableScroll(true);
       ionic.Platform.isFullScreen = true;
       //Return event listener
       //uuid
       if (window.StatusBar) {
           window.StatusBar.styleDefault();
-    }
-
+      }
       //回退之前  退出键盘
       window.screen.lockOrientation('portrait');
       var  locldevice  =    storage.getObject('device');
@@ -110,9 +109,9 @@ window.networonline  =  true;
           }
          })
         }
-        
+
           }
-          
+
 
 
 
@@ -131,14 +130,14 @@ window.networonline  =  true;
  var posOptions = {timeout: 10000, enableHighAccuracy: false};
   $cordovaGeolocation
     .getCurrentPosition(posOptions)
-    .then(function (position) {      
+    .then(function (position) {
     var lat  = position.coords.latitude;
       var long = position.coords.longitude;
         storage.setObject('location',{
           lat:lat,
           long:long
         });
-        
+
     }, function(err) {
       //error
     });
@@ -203,7 +202,7 @@ window.networonline  =  true;
             window.androdzerofun(window.androdzerofun_parms,window.androdzerofun_clback);
           return false;
         }
-        
+
      // Is there a page to go back to?
      if (JSON.stringify($location.path()) == '/r/tab/Home'  ||  JSON.stringify($location.path()) == '/r/tab/goodsclasslist' ||  JSON.stringify($location.path()) == '/r/tab/Notice'  ||  JSON.stringify($location.path()) == '/r/tab/Settings' ) {
        showConfirm();
@@ -212,7 +211,7 @@ window.networonline  =  true;
      }else {
        // This is the last page: Show confirmation popup
        window.extapp();
-       
+
      }
      return false;
    }, 100);
@@ -254,7 +253,7 @@ window.networonline  =  true;
             iosVlue[key] = value;
           }
         })
-        iosVlue.img  = window.qiniuimgHost+iosVlue.img+'?imageView2/2/w/120/h/120'; 
+        iosVlue.img  = window.qiniuimgHost+iosVlue.img+'?imageView2/2/w/120/h/120';
         result.See  = false;
         result.title   =  iosVlue.title;
         result.alert = data.aps.alert;
@@ -265,7 +264,7 @@ window.networonline  =  true;
       window.hannotilistnow  = function(e) {
       var alertContent  =  bestripped(e);
 
-    
+
 
       var nownotilist = storage.getObject('Notice');
       if(!nownotilist.userlist){
@@ -285,14 +284,14 @@ window.networonline  =  true;
             if(!nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage){
               nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage  = [];
             }
-                  nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage.unshift(alertContent)  
+                  nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage.unshift(alertContent)
           break;
-           case  '3':
-            if(!nownotilist.userlist[storage.getObject('UserInfo').user_id].Companynotice){
-              nownotilist.userlist[storage.getObject('UserInfo').user_id].Companynotice  = [];
-            }
-                  nownotilist.userlist[storage.getObject('UserInfo').user_id].Companynotice.unshift(alertContent)  
-          break;
+          //  case  '3':
+          //   if(!nownotilist.userlist[storage.getObject('UserInfo').user_id].Companynotice){
+          //     nownotilist.userlist[storage.getObject('UserInfo').user_id].Companynotice  = [];
+          //   }
+          //         nownotilist.userlist[storage.getObject('UserInfo').user_id].Companynotice.unshift(alertContent)
+          // break;
            default:
            return false;
         }
@@ -309,11 +308,11 @@ window.networonline  =  true;
         }
       }
 
-      if(nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage){
-        if(nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage.length){
-          nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage.length = 30
-        }
-      }
+      // if(nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage){
+      //   if(nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage.length){
+      //     nownotilist.userlist[storage.getObject('UserInfo').user_id].Systemmessage.length = 30
+      //   }
+      // }
 
         if(window.platform  == 'ios'){
                         var nule  = storage.getObject('badge');
@@ -334,8 +333,8 @@ window.networonline  =  true;
 
 
 
-      
-      
+
+
 
 
       //点击通知的处理 click  jpush  event  Handle
@@ -354,7 +353,7 @@ window.networonline  =  true;
       }, false);
       if(window.platform  == 'ios'){
         document.addEventListener("jpush.backgoundNotification", function (e) {
-          window.hannotilistnow(e)        
+          window.hannotilistnow(e)
         }, false);
       }
 
@@ -376,20 +375,20 @@ window.networonline  =  true;
 
 
   });
- 
+
 
   window.updateAPP  =  function(r){
 
-    
+
     if(ionic.Platform.platform()  == 'ios'){
       return false;
     }
-    
-  
+
+
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
 
-      
+
     }
 
     if(window.cordova){
@@ -580,12 +579,12 @@ window.networonline  =  true;
       return  handeposins(a,PermissionConfig.Addresslist)
     }
 
-    
 
 
 
 
-    
+
+
 
 
 

@@ -181,10 +181,8 @@ function Handlenotice() {
             $scope.notice.Tradelogistics  = 0
           }
 
-
           if(nowuser.Systemmessage){
                if(nowuser.Systemmessage.length){
-
                    var badgenumber =  0;
                    var firsetnoseemasg  = 0;
                 angular.forEach(nowuser.Systemmessage,function (params) {
@@ -202,8 +200,7 @@ function Handlenotice() {
           }else{
             $scope.notice.Systemmessage  = 0
           }
-
-
+      
             if(nowuser.Companynotice){
                if(nowuser.Companynotice.length){
 
@@ -254,7 +251,7 @@ function Handlenotice() {
 
     if ($ionicHistory.backView()) {
       window.androdzerofun  = function(parm1,parm2){
-        
+
         window.extapp()
       }
       window.androdzerofun_parms  ='tabswtathing';
