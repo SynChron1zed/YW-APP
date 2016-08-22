@@ -7,19 +7,20 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
 
 
   $scope.userfanhui  = function () {
+
+
     if(storage.getObject('UserInfo').user_id){
-      $state.go('r.tab.SettingsUser')
+      $scope.getMdl('r.SettingsUser')
     }else{
       native.confirm('该操作需要登录','提示',['登录','取消'],function(c){
         if(c  == 1){
-          $state.go('r.login');
+          fromStateServ.stateChange('r.login');
+
         }
       });
 
       return false;
     }
-
-
 
 
 }
@@ -43,9 +44,9 @@ $scope.getMdl   =     function(r){
 $scope.Personalsetting  = function (){
   $state.go('r.tab.SettingsUpdate');
 }
-  $scope.aboutWe  = function (){
+  $scope.aboutWe  = function (r){
 
-    $state.go('r.tab.SettingWe');
+    fromStateServ.stateChange(r)
   }
 
 
@@ -62,13 +63,12 @@ $scope.updateAPP  =  function () {
   $scope.integral  = function(){
 
 
-
     if(storage.getObject('UserInfo').user_id){
-      $state.go('r.tab.SettingOne');
+      $scope.getMdl('r.SettingOne')
     }else{
       native.confirm('该操作需要登录','提示',['登录','取消'],function(c){
         if(c  == 1){
-          $state.go('r.login');
+          fromStateServ.stateChange('r.login');
 
         }
       });
@@ -168,7 +168,7 @@ var   userone = storage.getObject('UserInfo');
         if(!uil.user_id){
               login();
         }else{
-        
+
           if(!selectArr.selectarrs.companyid()){
 
             native.task('请先加入公司');
@@ -217,7 +217,7 @@ var   userone = storage.getObject('UserInfo');
   }])
 
 
-  .controller('SettingsUserCtr',['$scope','Tools','$rootScope','native',function($scope,Tools,$rootScope,native){
+  .controller('SettingsUserCtr',['$scope','Tools','$rootScope','native','fromStateServ',function($scope,Tools,$rootScope,native,fromStateServ){
     $scope.fankui  = {};
     //$rootScope.$ionicGoBack();
     $scope.submitfankui  = function(){
@@ -243,5 +243,21 @@ var   userone = storage.getObject('UserInfo');
 
 
     }
+
+
+    //商品详情模块
+    //保存历史记录的方法  调用  上一次1 title  和返回方法
+    $scope.backtoprevView  =   fromStateServ.backView;
+
+    $scope.$on('$stateChangeSuccess',function(){
+
+      $scope.loginboj = {};
+      $scope.ing  = false;
+      $scope.parenttitle     =   fromStateServ.getState('r.SettingsUser').title;
+    });
+
+    $scope.backView  = function(){
+      $scope.$ionicGoBack();
+    };
 
   }])

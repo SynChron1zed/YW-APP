@@ -12,7 +12,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       'http://m.kuaidi100.com/**',
       'https://m.kuaidi100.com/**',
     ]);
-    
+
   $ionicNativeTransitionsProvider.setDefaultOptions({
     duration: 0, // in milliseconds (ms), default 400,
     slowdownfactor: 1, // overlap views (higher number is more) or no overlap (1), default 4
@@ -22,7 +22,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
     fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
     triggerTransitionEvent: '$ionicView.beforeEnter', // internal ionic-native-transitions option
-    backInOppositeDirection: false // Takes over default back transition and state back transition to use the opposite direction transition to go back    
+    backInOppositeDirection: false // Takes over default back transition and state back transition to use the opposite direction transition to go back
   }).setDefaultTransition({
     type: 'slide',
     direction: 'left'
@@ -782,7 +782,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
     //setting  个人设置 客户反馈
-    .state('r.tab.SettingsUser', {
+ /*   .state('r.tab.SettingsUser', {
       url: '/Settings/user',
       cache:false,
       views: {
@@ -791,7 +791,25 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           controller: 'SettingsUserCtr'
         }
       }
+    })*/
+
+    .state('r.SettingsUser',{
+      url: '/SettingsUser',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.SettingsUser')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Setting/SettingsUser.html',
+          controller: 'SettingsUserCtr'
+        }
+      }
     })
+
+
 
     //setting  个人设置 充值
     .state('r.tab.SettingsRecharge', {
@@ -1014,7 +1032,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
   //setting  个人设置 邀请好友
-    .state('r.tab.SettingOne', {
+/*    .state('r.tab.SettingOne', {
       url: '/Settings/SettingOne',
       views: {
         'setting': {
@@ -1023,31 +1041,45 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
 
       }
+    })*/
+
+
+    .state('r.SettingOne', {
+      url: '/SettingOne',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.SettingOne')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Setting/Settinginvite.html',
+          controller: 'SettinginviteCtr'
+        }
+      }
     })
 
-    //setting  个人设置 邀请好友
-    .state('r.tab.SettingWe', {
-      url: '/Settings/SettingWe',
+
+
+
+    .state('r.SettingWe', {
+      url: '/SettingWe',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.SettingWe')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
       views: {
-        'setting': {
+        'rootview': {
           templateUrl: 'templates/Setting/aboutWe.html',
           controller: 'aboutWeCtr'
         }
-
       }
     })
 
-  //setting  分类商品详情
-/*  .state('r.tab.ClassifDetails', {
-    url: '/r.tab.ClassifDetails/:Classitem',
-    views: {
-      'Classif': {
-        templateUrl: 'templates/Classif/ProductDetails.html',
-        controller: 'ClassifDetailsCtr'
-      }
 
-    }
-  })*/
 
     .state('r.ClassifDetails', {
       url: '/ClassifDetails/:Classitem',
