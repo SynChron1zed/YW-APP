@@ -254,7 +254,7 @@ function Handlenotice() {
 
     if ($ionicHistory.backView()) {
       window.androdzerofun  = function(parm1,parm2){
-        
+
         window.extapp()
       }
       window.androdzerofun_parms  ='tabswtathing';
@@ -268,7 +268,7 @@ function Handlenotice() {
 
 
   $scope.application = function () {
-    $state.go('r.tab.information')
+    fromStateServ.stateChange('r.information');
   }
 
 
