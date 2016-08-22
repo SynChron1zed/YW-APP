@@ -199,11 +199,13 @@ $scope.showlogistics  =  function () {
 
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
-
-    newsList();
-       window.androdzerofun  =  undefined
-       window.androdzerofun_parms  =undefined;
-       window.androdzerofun_clback  = undefined;
+      newsList();
+      
+       window.androdzerofun  =  function(r,b){
+         window.extapp()
+       }
+       window.androdzerofun_parms  ='ffffff';
+       window.androdzerofun_clback  = 'xxxx';
     });
 
 $scope.gosales=function (r) {
