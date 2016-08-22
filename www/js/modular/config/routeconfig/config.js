@@ -735,11 +735,28 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-    // Notice   员工审核消息
+ /*   // Notice   员工审核消息
     .state('r.tab.information',{
       url: '/information',
       views: {
         'notice': {
+          templateUrl: 'templates/Notice/applicationinformation.html',
+          controller: 'informationCtr'
+        }
+      }
+    })*/
+
+
+    .state('r.information', {
+      url: '/information',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.information');
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
           templateUrl: 'templates/Notice/applicationinformation.html',
           controller: 'informationCtr'
         }

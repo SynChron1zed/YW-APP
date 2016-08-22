@@ -265,7 +265,7 @@ function Handlenotice() {
 
 
   $scope.application = function () {
-    $state.go('r.tab.information')
+    fromStateServ.stateChange('r.information');
   }
 
 
