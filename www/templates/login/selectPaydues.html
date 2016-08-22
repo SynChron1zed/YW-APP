@@ -1,15 +1,33 @@
 <ion-view view-title="年服务费"  >
 
 
-  <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
-    <div    ng-if='showtitle'  class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.selectPaydues')">
-      <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
-      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title"
-                                                                                                                                                     style="display: block;"
-      >{{parenttitle}}</span></span>
-    </div>
 
-  </ion-nav-buttons>
+
+  <ion-nav-bar   class="bar-positive ">
+
+    <ion-nav-back-button class="button-clear"    style="font-size:14px;color:#6b3801"  ng-click="GoBackHome()" >
+      <i class="icon ion-ios-arrow-left" style='#6b3801'  ></i> 返回
+    </ion-nav-back-button>
+    <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
+      <div    ng-if='showtitle'  class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.selectPaydues')">
+        <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;color:#6b3801"></i>
+              <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title"
+                                                                                                                                                             style='    display: block !important;
+               color:#6b3801
+               '
+              >{{parenttitle}}</span></span>
+      </div>
+    </ion-nav-buttons>
+
+
+
+    <ion-nav-buttons side="right" >
+      <a   ng-if='jiaofei'   ng-click="skip()"    class="button button-icon  ">
+        跳过
+      </a>
+    </ion-nav-buttons>
+
+  </ion-nav-bar>
 
 
   <!--<ion-nav-buttons side="right"     class="button back-button buttons button-clear header-item">

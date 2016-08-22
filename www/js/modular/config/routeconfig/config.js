@@ -134,7 +134,23 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
        }
     })
 
+//诚信企业
+    .state('r.Companies', {
+      url: '/Companies',
 
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.Companies')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Home/Companies.html',
+          controller: 'CompaniesCtr'
+        }
+      }
+    })
 
 
     //注册

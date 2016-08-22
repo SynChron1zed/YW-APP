@@ -1067,6 +1067,119 @@ body {
         position: absolute;
         width: 90%; }
 
+.newlistitme {
+  display: inline-block;
+  padding: 0 10px; }
+
+.chenxin-home {
+  display: inline-block;
+  position: absolute;
+  margin-top: 6.5rem;
+  margin-left: -5rem;
+  color: #6c3800; }
+
+.chenxin-home1 {
+  display: inline-block;
+  position: absolute;
+  margin-top: 7.5rem;
+  margin-left: -4.8rem;
+  width: 5rem; }
+
+.chenxin-dengji {
+  color: #6c3800; }
+
+.chenxin-xingji {
+  width: 75%;
+  float: right;
+  margin-top: 5px; }
+
+.home-newchenxin {
+  padding-left: 10px;
+  padding-right: 10px; }
+
+.home-chenxinno {
+  width: 2rem;
+  margin-top: -.3rem;
+  position: absolute;
+  margin-left: 1rem; }
+
+.home-chenxinqiye {
+  width: 4rem;
+  float: right;
+  position: absolute;
+  margin-top: -5rem;
+  margin-left: 11rem; }
+
+.home-qiyename {
+  position: absolute;
+  margin-top: 1rem;
+  margin-left: 1.5rem;
+  color: #6c3800; }
+
+.home-qiyedengji {
+  margin-left: 1.5rem;
+  font-size: 13px;
+  position: absolute;
+  color: #6c3800; }
+
+.home-qiyedengji1 {
+  position: absolute;
+  margin-top: 2rem;
+  width: 80%; }
+
+.qiye-address {
+  width: 13rem;
+  font-size: 13px;
+  color: #a2a2a2;
+  margin-left: 1rem;
+  overflow: hidden;
+  display: -webkit-box;
+  max-width: 55%;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical; }
+
+.qiye-ditu {
+  width: .8rem;
+  position: absolute; }
+
+.qiye-addressditu {
+  position: absolute;
+  margin-top: 3.9rem;
+  margin-left: 1.5rem; }
+
+.lev1-home {
+  width: 14%;
+  margin-left: 5px;
+  position: absolute; }
+
+.lev2-home {
+  width: 30%;
+  margin-left: 5px;
+  position: absolute; }
+
+.lev3-home {
+  width: 45%;
+  margin-left: 5px;
+  position: absolute; }
+
+.lev4-home {
+  width: 65%;
+  margin-left: 5px;
+  position: absolute;
+  margin-top: 4px; }
+
+.lev5-home {
+  margin-left: 5px;
+  position: absolute; }
+
+.img-homeqiye {
+  display: inline-flex;
+  width: 5rem;
+  height: 6rem;
+  background-color: white;
+  margin-top: 10px;
+  border: 1px solid #a2a2a2; }
+
 .homein-tabs-meun {
   padding: .4rem 0px;
   height: 3.5rem; }
@@ -1146,12 +1259,12 @@ body {
     .home-Honestenterprise > .title:after {
       content: '';
       display: inline-block;
-      height: 80%;
+      height: 90%;
       top: 10%;
       left: 0px;
       position: absolute;
       width: 5px;
-      background-color: #ffd35c; }
+      background-color: #6c3800; }
   .home-Honestenterprise .itemin {
     margin-bottom: .5rem;
     background: url(../img/homepage/icon_chanpin@3x@3x.png) no-repeat;

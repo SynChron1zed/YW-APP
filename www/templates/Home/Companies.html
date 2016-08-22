@@ -1,0 +1,59 @@
+<ion-view view-title="诚信企业"  >
+  <ion-nav-buttons side="left"    class="button back-button buttons button-clear header-item">
+    <div class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.Companies')">
+      <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
+    </div>
+  </ion-nav-buttons>
+
+
+
+  <ion-content  scrollbar-y="false"  overflow-scroll="false"   style="background: whitesmoke"  >
+
+    <ion-scroll  delegate-handle="list"
+                 lazy-scroll
+                 overflow-scroll="false"
+                 scrollbar-y="false"
+                 style="width: 100%;
+                     overflow:hidden
+                     "
+                 ng-style="caklateheight"  >
+      <ion-refresher spinner="ios"  pulling-text="刷新" on-refresh="loadOlderStories(true)"   ></ion-refresher>
+
+      <div class="list" style="margin-top: 20px" ng-repeat="item in newsList " ng-click="goshopin(item)">
+
+        <label class=""   style=""   ng-click="" >
+          <div>
+              <div>
+                <span class="home-qiyename">{{item.company_name}}</span>
+                <div class="home-qiyedengji1" ng-if="item.faith_level==1"><span class="home-qiyedengji">等级</span><img src="./img/homepage/lev1.png" style="width: 5%; margin-left: 3rem;"></div>
+                <div class="home-qiyedengji1" ng-if="item.faith_level==2"><span class="home-qiyedengji">等级</span><img src="./img/homepage/lev2.png" style="width: 10%; margin-left: 3rem;"></div>
+                <div class="home-qiyedengji1" ng-if="item.faith_level==3"><span class="home-qiyedengji">等级</span><img src="./img/homepage/lev3.png" style="width: 15%; margin-left: 3rem;"></div>
+                <div class="home-qiyedengji1" ng-if="item.faith_level==4"><span class="home-qiyedengji">等级</span><img src="./img/homepage/lev4.png" style="width: 20%; margin-left: 3rem;"></div>
+                <div class="home-qiyedengji1" ng-if="item.faith_level==5"><span class="home-qiyedengji">等级</span><img src="./img/homepage/lev5.png" style="width: 25%; margin-left: 3rem;"></div>
+
+                <!-- <div class="qiye-addressditu"><img src="./img/classif/icon_ditu@3x.png" class="qiye-ditu" ><span class="qiye-address">湖南省长沙市通宝大厦</span></div>
+              --> </div>
+
+
+             <img src="./img/homepage/no.1@3x.png" class="home-chenxinno" ng-if="$index==0">
+            <img src="./img/homepage/no.2@3x.png" class="home-chenxinno" ng-if="$index==1">
+            <img src="./img/homepage/no.3@3x.png" class="home-chenxinno" ng-if="$index==2">
+             <img src="./img/homepage/bj1@3x.png" class="home-newchenxin">
+            <img src="{{item.shop.img_shop}}" class="home-chenxinqiye">
+          </div>
+        </label>
+      </div>
+
+      <ion-infinite-scroll  ng-if="expression" style="height: 20px;line-height: 40px;margin-bottom:20px;text-align: center" spinner="dots" on-infinite="loadOlderStories()"  distance="1%"  > </ion-infinite-scroll>
+      <div ng-if="!expression" style="line-height: 90px;margin-bottom:40px;text-align: center;color:#999" >没有更多了!</div>
+
+    </ion-scroll>
+
+  </ion-content>
+
+
+
+</ion-view>
+
+
