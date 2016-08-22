@@ -12,9 +12,9 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       'http://m.kuaidi100.com/**',
       'https://m.kuaidi100.com/**',
     ]);
-
+    
   $ionicNativeTransitionsProvider.setDefaultOptions({
-    duration: 0, // in milliseconds (ms), default 400,
+    duration: 400, // in milliseconds (ms), default 400,
     slowdownfactor: 1, // overlap views (higher number is more) or no overlap (1), default 4
     iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
     androiddelay: -1, // same as above but for Android, default -1
@@ -22,7 +22,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
     fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
     triggerTransitionEvent: '$ionicView.beforeEnter', // internal ionic-native-transitions option
-    backInOppositeDirection: false // Takes over default back transition and state back transition to use the opposite direction transition to go back
+    backInOppositeDirection: false // Takes over default back transition and state back transition to use the opposite direction transition to go back    
   }).setDefaultTransition({
     type: 'slide',
     direction: 'left'
@@ -31,7 +31,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     direction: 'right'
   });
   $ionicNativeTransitionsProvider.enable(true);
-
 
   //post  auto    transfromition  to  json
   ! function ($httpProvider) {
@@ -377,8 +376,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
-
+    
     .state('r.classContent',{
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.classContent')
@@ -771,36 +769,34 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+    
     //setting  个人设置 个人资料修改
-    .state('r.tab.SettingsUpdate', {
+    .state('r.SettingsUpdate', {
       url: '/Settings/update',
+        onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.SettingsUpdate');
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
       views: {
-        'setting': {
+        'rootview': {
           templateUrl: 'templates/Setting/SettingsUpdate.html',
           controller: 'SettingsUpdateCtr'
         }
       }
     })
-    //setting  个人设置 客户反馈
- /*   .state('r.tab.SettingsUser', {
-      url: '/Settings/user',
-      cache:false,
-      views: {
-        'setting': {
-          templateUrl: 'templates/Setting/SettingsUser.html',
-          controller: 'SettingsUserCtr'
-        }
-      }
-    })*/
 
-    .state('r.SettingsUser',{
-      url: '/SettingsUser',
-      onEnter: function(fromStateServ,$ionicHistory) {
-        fromStateServ.saveHisty($ionicHistory,'r.SettingsUser')
+    //setting  个人设置 客户反馈
+    .state('r.SettingsUser', {
+      url: '/Settings/user',
+             onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.SettingsUser');
       },
       onExit:function(fromStateServ){
         fromStateServ.removebackregistevent();
       },
+      cache:false,
       views: {
         'rootview': {
           templateUrl: 'templates/Setting/SettingsUser.html',
@@ -808,8 +804,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
-
 
     //setting  个人设置 充值
     .state('r.tab.SettingsRecharge', {
@@ -834,11 +828,11 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
 
     //setting  个人设置 个人资料修改 sex
-    .state('r.tab.SettingsSexUsername', {
+    .state('r.SettingsSexUsername', {
 
       url: '/Settings/update/sex',
       views: {
-        'setting': {
+        'rootview': {
           templateUrl: 'templates/Setting/SettingsUpdateSex.html',
           controller: 'SettingsUpdateSexCtr'
         }
@@ -846,10 +840,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
 
     //setting  个人设置 个人资料修改 QQ
-    .state('r.tab.SettingsQQ', {
+    .state('r.SettingsQQ', {
       url: '/Settings/update/qq',
       views: {
-        'setting': {
+        'rootview': {
           templateUrl: 'templates/Setting/SettingsUpdateQQ.html',
           controller: 'SettingsUpdateQQCtr'
         }
@@ -857,10 +851,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
 
     //setting  个人设置 个人资料修改 password
-    .state('r.tab.SettingsPassword', {
+    .state('r.SettingsPassword', {
       url: '/Settings/update/password',
       views: {
-        'setting': {
+        'rootview': {
           templateUrl: 'templates/Setting/SettingsUpdatePassword.html',
           controller: 'SettingsUpdatePasswordCtr'
         }
@@ -1032,20 +1026,8 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
   //setting  个人设置 邀请好友
-/*    .state('r.tab.SettingOne', {
-      url: '/Settings/SettingOne',
-      views: {
-        'setting': {
-          templateUrl: 'templates/Setting/Settinginvite.html',
-          controller: 'SettinginviteCtr'
-        }
-
-      }
-    })*/
-
-
     .state('r.SettingOne', {
-      url: '/SettingOne',
+      url: '/Settings/SettingOne',
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.SettingOne')
       },
@@ -1057,14 +1039,13 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           templateUrl: 'templates/Setting/Settinginvite.html',
           controller: 'SettinginviteCtr'
         }
+
       }
     })
 
-
-
-
+    //setting  关于企业
     .state('r.SettingWe', {
-      url: '/SettingWe',
+      url: '/Settings/SettingWe',
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.SettingWe')
       },
@@ -1076,10 +1057,21 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           templateUrl: 'templates/Setting/aboutWe.html',
           controller: 'aboutWeCtr'
         }
+
       }
     })
 
+  //setting  分类商品详情
+/*  .state('r.tab.ClassifDetails', {
+    url: '/r.tab.ClassifDetails/:Classitem',
+    views: {
+      'Classif': {
+        templateUrl: 'templates/Classif/ProductDetails.html',
+        controller: 'ClassifDetailsCtr'
+      }
 
+    }
+  })*/
 
     .state('r.ClassifDetails', {
       url: '/ClassifDetails/:Classitem',

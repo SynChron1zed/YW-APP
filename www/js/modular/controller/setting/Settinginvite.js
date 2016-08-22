@@ -4,6 +4,20 @@
 Ctr.controller('SettinginviteCtr',['$scope','storage','Tools','native','$state','fromStateServ',function($scope,storage,Tools,native,$state,fromStateServ){
   $scope.Hight={}
 
+
+  $scope.$on('$ionicView.beforeEnter',function(){
+         if(fromStateServ.getState('r.SettingOne')){
+                $scope.showtitle  = true;
+                $scope.backtoprevView  =   fromStateServ.backView;
+                $scope.parenttitle     =   fromStateServ.getState('r.SettingOne').title;
+            }else{
+                $scope.showtitle  = false;
+            }
+
+  })
+  
+
+
   $scope.Hight =window.innerHeight+"px";
   console.log($scope.Hight)
   Tools.getData({

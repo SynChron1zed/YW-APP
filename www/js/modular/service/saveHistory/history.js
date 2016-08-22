@@ -10,7 +10,7 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                       $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
                         "type": "slide",
                         "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
-                        "duration": 400, // in milliseconds (ms), default 400
+                        "duration":400, // in milliseconds (ms), default 400
                       });
                     },300)
                     
@@ -21,18 +21,19 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                       "duration": 400, // in milliseconds (ms), default 400
                     });
                   }
-
-                    $timeout(function () {
-                    if(clback){
+        $timeout(function () {
+            $ionicHistory.clearHistory();
+                if(clback){
                         clback()
-                    }
+                }
               window.backtoinroot  = undefined;
               window.androdzerofun  =  undefined;
               window.androdzerofun_parms  = undefined;
               window.androdzerofun_clback  = undefined;
               window.backtoinroot_parms  =  undefined;
-              $ionicHistory.clearHistory();
-            }, 20);
+              
+            }, 100);
+
 
         },
         setState: function(module, fromState, fromParams,title,viewid) {
@@ -48,25 +49,18 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
             return this.data[module];
         },
         stateChange: function(stateName,parms,animation){
-            
+    
             if(window.Permission(stateName,parms,animation)){
                             return  false;
             }
-            
-            box.savestate = true;
-            //$ionicViewSwitcher.nextDirection(animation?animation:'forward');
-            // $ionicNativeTransitions.stateGo(stateName,parms,{
-            //     "type": "drawer",
-            //     "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
-            //     "duration": 1000 // in milliseconds (ms), default 400
-            // });
-          $ionicViewSwitcher.nextDirection('forward');
 
-          $ionicNativeTransitions.stateGo(stateName,parms, {
+            box.savestate = true;
+            $ionicViewSwitcher.nextDirection('forward');
+            $ionicNativeTransitions.stateGo(stateName,parms, {
             "type": "slide",
             "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
-            "duration": 400, // in milliseconds (ms), default 400
-          });
+            "duration":400, // in milliseconds (ms), default 400
+            });
 
         },
         removebackregistevent:function(){
@@ -74,12 +68,16 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
         },
         saveHisty:function ($histy,stateNa){
 
+            
+
             if(this.savestate){
+
                     var hostiy  = $histy.currentView();
                    //注册安卓返回监听
                     window.androdzerofun  =  box.backView;
                     window.androdzerofun_parms  = stateNa;
                     window.androdzerofun_clback  = window.anbackAndcals;
+
                     //内部固化一个返回路径  (当第三方视图完全退出时 销毁)
                     window.backtoinroot      =   box.backView;
                     window.backtoinroot_parms  =  stateNa;

@@ -1,14 +1,19 @@
 /**
  * Created by Administrator on 2016/7/7.
  */
-Ctr.controller('SettingsUpdateCtr',['$scope','storage','Tools','native','$state',function($scope,storage,Tools,native,$state){
-
-
-
-
-
+Ctr.controller('SettingsUpdateCtr',['$scope','storage','Tools','native','$state','fromStateServ',function($scope,storage,Tools,native,$state,fromStateServ){
 
   $scope.$on('$ionicView.beforeEnter',function(){
+         if(fromStateServ.getState('r.SettingsUpdate')){
+                $scope.showtitle  = true;
+                $scope.backtoprevView  =   fromStateServ.backView;
+                $scope.parenttitle     =   fromStateServ.getState('r.SettingsUpdate').title;
+            }else{
+                $scope.showtitle  = false;
+            }
+
+
+
           var userin  =  storage.getObject('UserInfo');
           $scope.header  =    window.qiniuimgHost+userin.avatar+'?imageView2/2/w/130/h/130';
           $scope.real_name  =    userin.real_name;
@@ -18,6 +23,8 @@ Ctr.controller('SettingsUpdateCtr',['$scope','storage','Tools','native','$state'
             $scope.sex     =  '女';
           }
           $scope.qq  =   userin.qq;
+
+
   });
   
   $scope.Headportrait   =  function(){
@@ -53,17 +60,17 @@ Ctr.controller('SettingsUpdateCtr',['$scope','storage','Tools','native','$state'
 
   //修改qqdsadsa
   $scope.qqc  = function (){
-    $state.go('r.tab.SettingsQQ')
+    $state.go('r.SettingsQQ')
   }
 
 
   //修改性别
   $scope.sexgo  = function(){
-    $state.go('r.tab.SettingsSexUsername');
+    $state.go('r.SettingsSexUsername');
   }
   //修改  秘密
   $scope.resetPwd  =  function(){
-      $state.go('r.tab.SettingsPassword');
+      $state.go('r.SettingsPassword');
   }
   //收货地址
 
@@ -71,6 +78,7 @@ Ctr.controller('SettingsUpdateCtr',['$scope','storage','Tools','native','$state'
 
 
 }])
+
 .controller('SettingsUpdateSexCtr',['$scope','Tools','storage','$rootScope','native',function($scope,Tools,storage,$rootScope,native){
 
   $scope.$on('$ionicView.beforeEnter',function(){

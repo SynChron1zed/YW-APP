@@ -8,19 +8,19 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
 
   $scope.userfanhui  = function () {
 
-
     if(storage.getObject('UserInfo').user_id){
-      $scope.getMdl('r.SettingsUser')
+      fromStateServ.stateChange('r.SettingsUser');
     }else{
       native.confirm('该操作需要登录','提示',['登录','取消'],function(c){
         if(c  == 1){
-          fromStateServ.stateChange('r.login');
-
+          $state.go('r.login');
         }
       });
 
       return false;
     }
+
+
 
 
 }
@@ -42,13 +42,17 @@ $scope.getMdl   =     function(r){
 } ;
 
 $scope.Personalsetting  = function (){
-  $state.go('r.tab.SettingsUpdate');
-}
-  $scope.aboutWe  = function (r){
-
-    fromStateServ.stateChange(r)
+      var uil   = storage.getObject('UserInfo');
+        if(!uil.user_id){
+              login();
+        }else{
+            fromStateServ.stateChange('r.SettingsUpdate');
+        }
   }
 
+  $scope.aboutWe  = function (){
+    fromStateServ.stateChange('r.SettingWe');
+  }
 
 $scope.addermge  = function(){
 
@@ -63,12 +67,13 @@ $scope.updateAPP  =  function () {
   $scope.integral  = function(){
 
 
+
     if(storage.getObject('UserInfo').user_id){
-      $scope.getMdl('r.SettingOne')
+      fromStateServ.stateChange('r.SettingOne');
     }else{
       native.confirm('该操作需要登录','提示',['登录','取消'],function(c){
         if(c  == 1){
-          fromStateServ.stateChange('r.login');
+          $state.go('r.login');
 
         }
       });
@@ -92,10 +97,13 @@ $scope.updateAPP  =  function () {
       $scope.update  =  true;
     }
 
+
+
+
     Initial();
      if ($ionicHistory.backView()) {
        window.androdzerofun  = function(parm1,parm2){
-         $ionicHistory.goBack();
+         window.extapp()
        }
        window.androdzerofun_parms  ='tabswtathing';
        window.androdzerofun_clback  = 'nothing';
@@ -164,11 +172,12 @@ var   userone = storage.getObject('UserInfo');
     }
         $scope.opencustomenuatts  = false;
         $scope.showco  =   function  () {
+
           var uil   = storage.getObject('UserInfo');
         if(!uil.user_id){
               login();
         }else{
-
+        
           if(!selectArr.selectarrs.companyid()){
 
             native.task('请先加入公司');
@@ -205,19 +214,23 @@ var   userone = storage.getObject('UserInfo');
 
 
  $scope.$on('$ionicView.beforeLeave',function(){
-
            $scope.closetallcationvalue();
-})
-
-
-
-
-
-
+    })
   }])
 
-
   .controller('SettingsUserCtr',['$scope','Tools','$rootScope','native','fromStateServ',function($scope,Tools,$rootScope,native,fromStateServ){
+
+
+      $scope.$on('$ionicView.beforeEnter',function(){
+         if(fromStateServ.getState('r.SettingsUser')){
+                $scope.showtitle  = true;
+                $scope.backtoprevView  =   fromStateServ.backView;
+                $scope.parenttitle     =   fromStateServ.getState('r.SettingsUser').title;
+            }else{
+                $scope.showtitle  = false;
+            }
+      });
+
     $scope.fankui  = {};
     //$rootScope.$ionicGoBack();
     $scope.submitfankui  = function(){
@@ -243,21 +256,5 @@ var   userone = storage.getObject('UserInfo');
 
 
     }
-
-
-    //商品详情模块
-    //保存历史记录的方法  调用  上一次1 title  和返回方法
-    $scope.backtoprevView  =   fromStateServ.backView;
-
-    $scope.$on('$stateChangeSuccess',function(){
-
-      $scope.loginboj = {};
-      $scope.ing  = false;
-      $scope.parenttitle     =   fromStateServ.getState('r.SettingsUser').title;
-    });
-
-    $scope.backView  = function(){
-      $scope.$ionicGoBack();
-    };
 
   }])

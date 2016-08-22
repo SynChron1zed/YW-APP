@@ -90,11 +90,13 @@ $scope.showlogistics  =  function () {
     })
 
     $scope.gogunal  =  function(item){
+
        if(item.request_type  == '1'){
           fromStateServ.stateChange('r.homeNewsContent',{postID:item.request_id});
        }else  if(item.request_type  == '2'){
          fromStateServ.stateChange('r.Shophome',{id:item.request_id});
        }else  if(item.request_type  == '3'){
+         
           fromStateServ.stateChange('r.Productdetails',{id:item.request_id});
        }else{
          native.task('活动暂未开始');

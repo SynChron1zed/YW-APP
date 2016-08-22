@@ -24,18 +24,21 @@ window.networonline  =  true;
                         Callback();
                         native.task('退出成功');
                       }
+
                       window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
-                      
+
                   }
                 })
             };
-      
 
-      // storage.setObject('location',{
-      //     lat:28.188874,
-      //     long:112.991093
-      //   });
-        
+
+
+       $rootScope.$on('$stateChangeSuccess', function() {
+
+          console.log($location.path());
+          console.log($ionicHistory.viewHistory())
+          
+      });
 
   $ionicPlatform.ready(function() {
 
@@ -77,7 +80,6 @@ window.networonline  =  true;
 
       //回退之前  退出键盘
       window.screen.lockOrientation('portrait');
-
       var  locldevice  =    storage.getObject('device');
         window.plugins.sim.getSimInfo(  function (result) {
         locldevice.phoneNumber  =result.phoneNumber;
@@ -89,8 +91,10 @@ window.networonline  =  true;
     window.plugins.jPushPlugin.getRegistrationID( function(data) {
       try {
 
-          if(data){
+        window.jpushreightid  = data;
+        //alert(window.jpushreightid,'获取推送id成功')
 
+        if(data){
         var  locjPush  =    storage.getObject('jPush');
         locjPush.RegistrationID =  data;
         storage.setObject('jPush',locjPush);
@@ -175,7 +179,7 @@ window.networonline  =  true;
     window.Token  =  userinfo.token?userinfo.token:undefined;
     window.Token_phone  =  userinfo.phone?userinfo.phone:undefined;
 
-    function showConfirm() {
+    window.extapp   =  function () {
         native.confirm('你确定要退出应用吗?','退出应用?',['退出','取消'],function(c){
             if(c  == 1){
               ionic.Platform.exitApp();
@@ -199,15 +203,16 @@ window.networonline  =  true;
             window.androdzerofun(window.androdzerofun_parms,window.androdzerofun_clback);
           return false;
         }
-
+        
      // Is there a page to go back to?
-     if (JSON.stringify($location.path()) == '/r/tab/Home' ) {
+     if (JSON.stringify($location.path()) == '/r/tab/Home'  ||  JSON.stringify($location.path()) == '/r/tab/goodsclasslist' ||  JSON.stringify($location.path()) == '/r/tab/Notice'  ||  JSON.stringify($location.path()) == '/r/tab/Settings' ) {
        showConfirm();
      } else if ($ionicHistory.backView()) {
        $rootScope.$ionicGoBack();
      }else {
        // This is the last page: Show confirmation popup
-       showConfirm();
+       window.extapp();
+       
      }
      return false;
    }, 100);
@@ -259,6 +264,9 @@ window.networonline  =  true;
       };
       window.hannotilistnow  = function(e) {
       var alertContent  =  bestripped(e);
+
+    
+
       var nownotilist = storage.getObject('Notice');
       if(!nownotilist.userlist){
         nownotilist.userlist = {};
@@ -341,7 +349,7 @@ window.networonline  =  true;
       },20)
       }, true);
 
-      document.addEventListener("jpush.receiveNotification", function(e){    
+      document.addEventListener("jpush.receiveNotification", function(e){
           window.hannotilistnow(e);
       }, false);
       if(window.platform  == 'ios'){

@@ -6,12 +6,9 @@
  */
 
 Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$ionicHistory','$ionicScrollDelegate','$ionicBackdrop',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$ionicHistory,$ionicScrollDelegate,$ionicBackdrop) {
-
+  
   function  inlit   (){
-
-
     if($scope.guankao){ return false; }
-
     Tools.getData({
       "interface_number": "050401",
       "post_content": {
@@ -46,7 +43,7 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
     if ($ionicHistory.backView()) {
 
       window.androdzerofun  = function(parm1,parm2){
-        $ionicHistory.goBack();
+        window.extapp()
       }
       window.androdzerofun_parms  ='tabswtathing';
       window.androdzerofun_clback  = 'nothing';
@@ -55,10 +52,17 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
     inlit();
   });
 
+//alert();
+
 $scope.newclass = function (value,name) {
 
   fromStateServ.stateChange('r.classContent',{id:value,Name:name});
 }
+
+
+
+
+
 
 
 }]);

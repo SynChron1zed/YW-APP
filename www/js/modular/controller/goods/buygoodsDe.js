@@ -730,7 +730,6 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
 
 
 $scope.$on('$ionicView.beforeLeave',function(){
-
            $timeout(function(){
             $scope.showpanl = false;
            },300)
