@@ -265,7 +265,11 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
 
         }
       },function (r){
-        $scope.$broadcast('scroll.infiniteScrollComplete');
+          $timeout(function(){
+            $ionicScrollDelegate.$getByHandle('list').resize();
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+          },200)
+
            if(r){
                 if(r.resp_data.nextPage  == 0){
                   $scope.selectgoodslitloadmoer  =  false;
@@ -573,6 +577,15 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
 
 
       Tools.getData(sendoption,function(r){
+        
+          $timeout(function(){
+            $ionicScrollDelegate.$getByHandle('list').resize();
+              $scope.$broadcast('scroll.refreshComplete');
+              $scope.$broadcast('scroll.infiniteScrollComplete');
+          },200)
+
+                  
+
             if(r){
 
                   if(r.resp_data.nextPage  == 0 ){
@@ -599,8 +612,7 @@ Ctr.controller('goodsclassDetail',['$scope','$timeout','native','Tools','$ionicM
 
 
             }
-            $scope.$broadcast('scroll.refreshComplete');
-            $scope.$broadcast('scroll.infiniteScrollComplete');
+    
       })
     }
 

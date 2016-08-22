@@ -23,9 +23,11 @@ $scope.goinstinfo  = function (params) {
                       storage.setObject('Notice',noti);
                       if(window.platform  == 'ios'){
                       
-                        window.plugins.jPushPlugin.setApplicationIconBadgeNumber($scope.notice.Tradelogistics+$scope.notice.Systemmessage+$scope.notice.Companynotice);
-
-
+                       var c   =$scope.notice.Tradelogistics+$scope.notice.Systemmessage+$scope.notice.Companynotice
+                        window.plugins.jPushPlugin.setApplicationIconBadgeNumber(c);
+                        var  nule = {};   
+                          nule.number  = c;
+                          storage.setObject('badge',nule);
                       }
                     }
                 }
@@ -61,8 +63,11 @@ $scope.goinstinfosystem  = function (params) {
                       storage.setObject('Notice',noti);
                       Handlenotice()
                       if(window.platform  == 'ios'){
-                        window.plugins.jPushPlugin.setApplicationIconBadgeNumber($scope.notice.Tradelogistics+$scope.notice.Systemmessage+$scope.notice.Companynotice);
-
+                           var c   =$scope.notice.Tradelogistics+$scope.notice.Systemmessage+$scope.notice.Companynotice
+                        window.plugins.jPushPlugin.setApplicationIconBadgeNumber(c);
+                        var  nule = {};   
+                          nule.number  = c;
+                          storage.setObject('badge',nule);
                       }
                     }
                 }
@@ -99,7 +104,12 @@ $scope.goinstinfoCompoen  = function (params) {
                       Handlenotice()
 
                       if(window.platform  == 'ios'){
-                        window.plugins.jPushPlugin.setApplicationIconBadgeNumber($scope.notice.Tradelogistics+$scope.notice.Systemmessage+$scope.notice.Companynotice);
+                        var c   =$scope.notice.Tradelogistics+$scope.notice.Systemmessage+$scope.notice.Companynotice
+                        window.plugins.jPushPlugin.setApplicationIconBadgeNumber(c);
+                        var  nule = {};   
+                          nule.number  = c;
+                          storage.setObject('badge',nule);
+
                       }
                     }
                 }
@@ -222,7 +232,12 @@ function Handlenotice() {
           
           if(window.platform  == 'ios'){
             var c  = $scope.notice.Tradelogistics+$scope.notice.Systemmessage+$scope.notice.Companynotice;
-              window.plugins.jPushPlugin.setApplicationIconBadgeNumber(c);            
+            window.plugins.jPushPlugin.setApplicationIconBadgeNumber(c);
+              var  nule = {};   
+              nule.number  = c;
+              storage.setObject('badge',nule);
+
+                        
             } 
 
     }

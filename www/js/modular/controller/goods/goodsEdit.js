@@ -3,10 +3,26 @@
  * Created by Why on 16/6/8.
  */
 Ctr.controller('goodsEditCtr',['$scope','$timeout','$state','$stateParams','native','Tools','$ionicPopup','$ionicModal','$rootScope','goodsState','$ionicScrollDelegate','$ionicActionSheet','storage',function($scope,$timeout,$state,$stateParams,native,Tools,$ionicPopup,$ionicModal,$rootScope,goodsState,$ionicScrollDelegate,$ionicActionSheet,storage){
+  
+if(window.$cordovaGeolocation){
+
+ var posOptions = {timeout: 10000, enableHighAccuracy: false};
+  $cordovaGeolocation
+    .getCurrentPosition(posOptions)
+    .then(function (position) {      
+    var lat  = position.coords.latitude;
+      var long = position.coords.longitude;
+        storage.setObject('location',{
+          lat:lat,
+          long:long
+        });
+        
+    }, function(err) {
+      //error
+    });
 
 
-
-
+}
 
 
 
@@ -1324,10 +1340,10 @@ $scope.save  = function (){
         }
 
         sku.push({
-          activity_price:$scope.goods.Platform_price,
-          retail_price:$scope.goods.Market_price,
+          activity_price:Math.abs($scope.goods.Platform_price),
+          retail_price:Math.abs($scope.goods.Market_price),
           properties:'',
-          quantity:$scope.goods.Stock_number?$scope.goods.Stock_number:'0',
+          quantity:$scope.goods.Stock_number?Math.abs($scope.goods.Stock_number):'0',
           local_sku_id:loid,
         })
     }else{
@@ -1342,11 +1358,12 @@ $scope.save  = function (){
                 skuid+=xxx.goods_prop_id+':'+xxx.prop_value_id+';';
           })
           sku.push({
-          activity_price:fff.msg.activity_price,
-          retail_price:fff.msg.retail_price,
+          activity_price:Math.abs(fff.msg.activity_price),
+          retail_price:Math.abs(fff.msg.retail_price),
           properties:skuid,
-          quantity:fff.msg.number?fff.msg.number:'0',
+          quantity:fff.msg.number?Math.abs(fff.msg.number):'0',
           local_sku_id:fff.msg.local_sku_id?fff.msg.local_sku_id:''
+          
         })
       })
 

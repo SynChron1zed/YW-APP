@@ -12,11 +12,6 @@ window.networonline  =  true;
                     "post_content": {}
                 },function (r) {
                   if(r){
-
-                      
-
-                          
-                        
                         window.Token   = undefined;
                         window.token_phone   = undefined;
                         storage.setObject('UserInfo',{
@@ -29,8 +24,8 @@ window.networonline  =  true;
                         Callback();
                         native.task('退出成功');
                       }
-
                       window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
+                      
                   }
                 })
             };
@@ -132,17 +127,22 @@ window.networonline  =  true;
  var posOptions = {timeout: 10000, enableHighAccuracy: false};
   $cordovaGeolocation
     .getCurrentPosition(posOptions)
-    .then(function (position) {
-   var lat  = position.coords.latitude;
+    .then(function (position) {      
+    var lat  = position.coords.latitude;
       var long = position.coords.longitude;
         storage.setObject('location',{
           lat:lat,
           long:long
         });
-
+        
     }, function(err) {
-      // error
+      //error
     });
+
+
+
+
+
 
     }else{
         //这里是浏览器写的是固定的值
@@ -308,9 +308,14 @@ window.networonline  =  true;
       }
 
         if(window.platform  == 'ios'){
-                        window.plugins.jPushPlugin.getApplicationIconBadgeNumber(function(data) {
-                         window.plugins.jPushPlugin.setApplicationIconBadgeNumber(++data);
-                  });
+                        var nule  = storage.getObject('badge');
+                        if(!nule.number){
+                            nule.number  = 0;
+                        }
+                        var sss  = ++nule.number;
+                         window.plugins.jPushPlugin.setApplicationIconBadgeNumber(sss);
+
+                         storage.setObject('badge',nule);
         }
       storage.setObject('Notice',nownotilist);
       $timeout(function () {
