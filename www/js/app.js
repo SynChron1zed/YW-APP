@@ -868,11 +868,28 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-    // Notice   员工审核消息
+ /*   // Notice   员工审核消息
     .state('r.tab.information',{
       url: '/information',
       views: {
         'notice': {
+          templateUrl: 'templates/Notice/applicationinformation.html',
+          controller: 'informationCtr'
+        }
+      }
+    })*/
+
+
+    .state('r.information', {
+      url: '/information',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.information');
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
           templateUrl: 'templates/Notice/applicationinformation.html',
           controller: 'informationCtr'
         }
@@ -6614,10 +6631,8 @@ $scope.swatchtstate  = function (){
                   if(r.goods_basic_id  == goodsState.goods_basic_id){
                     r.goods_title  = goodsState.goods_title;
                     r.img_url  = goodsState.img_url+'?imageView2/2/w/200/h/200';
-                    r.total_in_price  = goodsState.total_in_price;
+                    r.total_in_price  = goodsState.total_in_price.toFixed(2);
                     r.total_in_number  = goodsState.total_in_number;
-
-
 
                   }
             })
@@ -10532,10 +10547,27 @@ Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicVie
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('informationCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize){
+Ctr.controller('informationCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize','fromStateServ',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize,fromStateServ){
 
   $scope.newsList =[]
   $scope.expression=true;
+
+
+  //商品详情模块
+  //保存历史记录的方法  调用  上一次1 title  和返回方法
+  $scope.backtoprevView  =   fromStateServ.backView;
+
+  $scope.$on('$stateChangeSuccess',function(){
+
+    $scope.loginboj = {};
+    $scope.ing  = false;
+    $scope.parenttitle     =   fromStateServ.getState('r.information').title;
+  });
+
+  $scope.backView  = function(){
+    $scope.$ionicGoBack();
+  };
+
 
 
   //加载
@@ -10715,7 +10747,7 @@ Ctr.controller('informationCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
       ]
     });
 
-    
+
   };
 
 
@@ -10991,7 +11023,7 @@ function Handlenotice() {
 
 
   $scope.application = function () {
-    $state.go('r.tab.information')
+    fromStateServ.stateChange('r.information');
   }
 
 

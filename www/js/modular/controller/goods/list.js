@@ -234,10 +234,8 @@ $scope.swatchtstate  = function (){
                   if(r.goods_basic_id  == goodsState.goods_basic_id){
                     r.goods_title  = goodsState.goods_title;
                     r.img_url  = goodsState.img_url+'?imageView2/2/w/200/h/200';
-                    r.total_in_price  = goodsState.total_in_price;
+                    r.total_in_price  = goodsState.total_in_price.toFixed(2);
                     r.total_in_number  = goodsState.total_in_number;
-
-
 
                   }
             })
