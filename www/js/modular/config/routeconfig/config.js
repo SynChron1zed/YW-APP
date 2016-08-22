@@ -12,7 +12,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       'http://m.kuaidi100.com/**',
       'https://m.kuaidi100.com/**',
     ]);
-    
+
   $ionicNativeTransitionsProvider.setDefaultOptions({
     duration: 400, // in milliseconds (ms), default 400,
     slowdownfactor: 1, // overlap views (higher number is more) or no overlap (1), default 4
@@ -22,7 +22,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
     fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
     triggerTransitionEvent: '$ionicView.beforeEnter', // internal ionic-native-transitions option
-    backInOppositeDirection: false // Takes over default back transition and state back transition to use the opposite direction transition to go back    
+    backInOppositeDirection: false // Takes over default back transition and state back transition to use the opposite direction transition to go back
   }).setDefaultTransition({
     type: 'slide',
     direction: 'left'
@@ -376,7 +376,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    
+
     .state('r.classContent',{
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.classContent')
@@ -769,7 +769,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    
+
     //setting  个人设置 个人资料修改
     .state('r.SettingsUpdate', {
       url: '/Settings/update',
@@ -1052,6 +1052,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       onExit:function(fromStateServ){
         fromStateServ.removebackregistevent();
       },
+      
       views: {
         'rootview': {
           templateUrl: 'templates/Setting/aboutWe.html',
