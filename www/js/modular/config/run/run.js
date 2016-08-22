@@ -100,7 +100,7 @@ window.networonline  =  true;
         storage.setObject('jPush',locjPush);
         if(storage.getObject('UserInfo').user_id){
               Tools.getData({
-           "interface_number": "000004",
+              "interface_number": "000004",
               "post_content": {
                 "pushId":data,
                 "uuid":device.uuid
