@@ -27,8 +27,8 @@ Ctr.controller('registercfpwdCtr',['$scope','$state','Tools','$stateParams','$io
              "phone":$stateParams.phone,
              "password":window.md5($scope.password.Original),
              "repassword":window.md5($scope.password.Repeat),
-             uuid:storage.getObject('device').uuid,
-             "push_registration_id" : storage.getObject('jPush').RegistrationID,
+              uuid:storage.getObject('device').uuid,
+             "push_registration_id" : storage.getObject('jPush').RegistrationID?storage.getObject('jPush').RegistrationID:'',
          }
     },function(r){
       if(r){

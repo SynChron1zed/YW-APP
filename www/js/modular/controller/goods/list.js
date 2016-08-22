@@ -153,6 +153,7 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
                         $scope.salestotin.up =  parseInt($scope.salestotin.up) -1;
                       }
                       Tools.rmArrin($scope.datalist,index);
+                      $ionicScrollDelegate.$getByHandle('list').resize();
                       native.task('删除成功');
                     }
                   }
@@ -168,11 +169,6 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
     goodsState.img_url  = r.img_url;
     goodsState.total_in_price  = r.total_in_price;
     goodsState.total_in_number  = r.total_in_number ;
-
-
-
-    console.log(r);
-
 
     $state.go('r.goodsEdit',{state:'edit',id:r.goods_basic_id});
 
@@ -245,18 +241,34 @@ $scope.swatchtstate  = function (){
             })
       }
 
-
       if(goodsState.Refresh){
           goodsState.Refresh   =false;
+          
           return  false;
       };
 
+    $scope.datalist  = [];
+    $scope.page_number  = 1;
+    $ionicScrollDelegate.scrollTop();
+    $scope.downlistloadmor  = true;
+    $scope.loginboj = {};
+    $scope.ing  = false;
+    $scope.parenttitle     =   fromStateServ.getState('r.listofgoods').title;
+
+
     $timeout(function(){
-      $ionicScrollDelegate.$getByHandle('list').scrollTop();
+        
+    },500)
+
+
+  };
+
+  
+
+      //$ionicScrollDelegate.$getByHandle('list').scrollTop();
       $scope.downlistloadmor  = true;
       $scope.page_number  = 1;
       $scope.datalist  = [];
-
       Tools.getData({
        "interface_number": "030105",
        "post_content": {}
@@ -275,16 +287,9 @@ $scope.swatchtstate  = function (){
            $scope.fenliedata  = r.resp_data;
            angular.forEach($scope.fenliedata,function(s){
              s.select   = false;
-
-
-
-
            })
-
        }
       })
-    },500)
-  };
 
 
   $scope.searchclarall = function (){
@@ -399,6 +404,15 @@ $scope.swatchtstate  = function (){
 
 
     Tools.getData(sendoption,function(r){
+
+          console.log('麻痹')
+          $timeout(function(){
+            $ionicScrollDelegate.$getByHandle('list').resize();
+            $scope.$broadcast('scroll.refreshComplete');
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+          },200)
+
+          
           if(r){
 
                 if(r.resp_data.nextPage  == 0 ){
@@ -419,19 +433,20 @@ $scope.swatchtstate  = function (){
                    angular.forEach(r.resp_data.data,function(c){
                        $scope.datalist.push(c);
                    });
-                 }
+                 }                 
           }else{
-
+            
             $scope.downlistloadmor  = false;
+
 
           }
 
-          $scope.$broadcast('scroll.refreshComplete');
-          $scope.$broadcast('scroll.infiniteScrollComplete');
+          
     })
   }
 
   $scope.Add  = function(){
+
     $state.go('r.goodsEdit')
   };
 
@@ -448,15 +463,6 @@ $scope.swatchtstate  = function (){
 
 
 
-  $scope.$on('$stateChangeSuccess',function(){
-    $scope.datalist  = [];
-    $scope.page_number  = 1;
-    $ionicScrollDelegate.scrollTop();
-    $scope.downlistloadmor  = true;
-    $scope.loginboj = {};
-    $scope.ing  = false;
-    $scope.parenttitle     =   fromStateServ.getState('r.listofgoods').title;
-  });
 
 
   $scope.caklateheight  = {};

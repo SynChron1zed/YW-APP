@@ -115,7 +115,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
             native.task('获取图片Token失败！');
 
           }
-        },function () {},'POST',true,false,true);
+        },function () {},'POST',false,false,true);
   };
 
   //选择图片  提供相机  和  相册功能

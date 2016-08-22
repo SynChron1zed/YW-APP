@@ -2,22 +2,19 @@
  * Created by Why on 16/6/8.
  */
 Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','selectaouthfunl','seeshopPint',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,selectaouthfunl,seeshopPint) {
-
-
-
-
-$scope.mb =  function () {
-  alert('开是')
-  //window.plugins.jPushPlugin.addLocalNotificationForIOS(1, "本地推送内容", 1, "notiId", {"key":"value"});
-
+  
+$scope.paly  = function () {
+    window.alipay.pay({
+    tradeNo: new Date().getTime(),
+    subject: "测试标题",
+    body: "我是测试内容",
+    price: 0.02,
+    notifyUrl: "http://your.server.notify.url"
+}, function(successResults){alert(successResults)}, function(errorResults){alert(errorResults)});
 
 }
-
-
 $scope.catshowtakepint  = function () {
-
-
-
+  
   seeshopPint.datalist  = [
     {
       name:'我是自提点',
@@ -298,8 +295,6 @@ $scope.gosales=function (r) {
           c.shop.img_shop  =  window.qiniuimgHost+c.shop.img_shop+'?imageView2/2/w/200/h/200';
 
         });
-
-        
         $scope.company = (r.resp_data.data)
 
       }

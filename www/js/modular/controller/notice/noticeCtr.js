@@ -22,10 +22,12 @@ $scope.goinstinfo  = function (params) {
                       })
                       storage.setObject('Notice',noti);
                       if(window.platform  == 'ios'){
-
-                        window.plugins.jPushPlugin.setApplicationIconBadgeNumber($scope.notice.Tradelogistics+$scope.notice.Systemmessage+$scope.notice.Companynotice);
-
-
+                      
+                       var c   =$scope.notice.Tradelogistics+$scope.notice.Systemmessage+$scope.notice.Companynotice
+                        window.plugins.jPushPlugin.setApplicationIconBadgeNumber(c);
+                        var  nule = {};   
+                          nule.number  = c;
+                          storage.setObject('badge',nule);
                       }
                     }
                 }
@@ -61,8 +63,11 @@ $scope.goinstinfosystem  = function (params) {
                       storage.setObject('Notice',noti);
                       Handlenotice()
                       if(window.platform  == 'ios'){
-                        window.plugins.jPushPlugin.setApplicationIconBadgeNumber($scope.notice.Tradelogistics+$scope.notice.Systemmessage+$scope.notice.Companynotice);
-
+                           var c   =$scope.notice.Tradelogistics+$scope.notice.Systemmessage+$scope.notice.Companynotice
+                        window.plugins.jPushPlugin.setApplicationIconBadgeNumber(c);
+                        var  nule = {};   
+                          nule.number  = c;
+                          storage.setObject('badge',nule);
                       }
                     }
                 }
@@ -99,7 +104,12 @@ $scope.goinstinfoCompoen  = function (params) {
                       Handlenotice()
 
                       if(window.platform  == 'ios'){
-                        window.plugins.jPushPlugin.setApplicationIconBadgeNumber($scope.notice.Tradelogistics+$scope.notice.Systemmessage+$scope.notice.Companynotice);
+                        var c   =$scope.notice.Tradelogistics+$scope.notice.Systemmessage+$scope.notice.Companynotice
+                        window.plugins.jPushPlugin.setApplicationIconBadgeNumber(c);
+                        var  nule = {};   
+                          nule.number  = c;
+                          storage.setObject('badge',nule);
+
                       }
                     }
                 }
@@ -147,12 +157,12 @@ function Handlenotice() {
         if(storage.getObject('UserInfo').company_id !=''){
           $scope.hasCompay  = true;
         }
-        //多去当前用户消息
-        var notilength   = 0;
+        //多去当前用户消息  
+        var notilength   = 0;          
          notilength  =  storage.getObject('Notice');
          if(!notilength.userlist){
            return false;
-         }
+         }         
           var nowuser  =   notilength.userlist[id];
           if(!nowuser)  return  false;
           if(nowuser.Tradelogistics){
@@ -161,14 +171,14 @@ function Handlenotice() {
                 var fistnoseemsg  = 0;
                 angular.forEach(nowuser.Tradelogistics,function (params) {
                     if(!params.See){
-                      badgenumber++;
+                      badgenumber++;               
                       if(!fistnoseemsg){
                         fistnoseemsg  = params.title;
-                      }
+                      }        
                     }
                 })
 
-
+                 
                  $scope.notice.Tradelogistics   =  badgenumber;
                  $scope.notice.Tradelogisticsdesc   =   fistnoseemsg;
                }
@@ -219,15 +229,20 @@ function Handlenotice() {
           }else{
             $scope.notice.Systemmessage  = 0
           }
-
+          
           if(window.platform  == 'ios'){
             var c  = $scope.notice.Tradelogistics+$scope.notice.Systemmessage+$scope.notice.Companynotice;
-              window.plugins.jPushPlugin.setApplicationIconBadgeNumber(c);
-            }
+            window.plugins.jPushPlugin.setApplicationIconBadgeNumber(c);
+              var  nule = {};   
+              nule.number  = c;
+              storage.setObject('badge',nule);
+
+                        
+            } 
 
     }
 
-
+    
 }
 
 
@@ -330,7 +345,7 @@ function Handlenotice() {
 
     });
   }
-
+  
 }])
   .controller('noticeDetailCtr', ['$scope',function($scope) {
   }])
@@ -343,15 +358,15 @@ function Handlenotice() {
       Tools.Notificationjump(params)
      }
      $scope.back  = function () {
-      $scope.backtoprevView('r.LogisticsInformation')
+      $scope.backtoprevView('r.LogisticsInformation')  
      }
-
+     
      $scope.title  =  '交易物流';
      $scope.nomsg =  true;
      $scope.notilist  = []
      $scope.init  =  function (params){
      $timeout(function (params) {
-          $scope.$broadcast('scroll.refreshComplete');
+          $scope.$broadcast('scroll.refreshComplete');   
      },300)
       var userin  =  storage.getObject('UserInfo')
        if(userin.user_id){
@@ -393,22 +408,22 @@ function Handlenotice() {
   .controller('SystemessagenoticeCtr',['$scope','storage','fromStateServ','$timeout','Tools',function($scope,storage,fromStateServ,$timeout,Tools){
 
      $scope.actionTy =  function (params) {
-
+       
       console.log(params,'执行动作')
       Tools.Notificationjump(params)
      }
 
      $scope.back  = function () {
-      $scope.backtoprevView('r.Systemessagenotice')
+      $scope.backtoprevView('r.Systemessagenotice')  
      }
-
+     
      $scope.title  =  '系统消息';
      $scope.nomsg =  true;
      $scope.notilist  = []
      $scope.init  =  function (params){
-
+      
        $timeout(function (params) {
-          $scope.$broadcast('scroll.refreshComplete');
+          $scope.$broadcast('scroll.refreshComplete');   
        },300)
 
       var userin  =  storage.getObject('UserInfo')
@@ -438,21 +453,21 @@ function Handlenotice() {
     });
   }])
  .controller('CompanynoticeCtr',['$scope','storage','fromStateServ','$timeout','Tools',function($scope,storage,fromStateServ,$timeout,Tools){
-     $scope.actionTy =  function (params) {
-
+     $scope.actionTy =  function (params) {    
+      
       Tools.Notificationjump(params)
      }
      $scope.back  = function () {
-      $scope.backtoprevView('r.Companynotice')
+      $scope.backtoprevView('r.Companynotice')  
      }
 
      $scope.title  =  '公司消息';
      $scope.nomsg =  true;
      $scope.notilist  = []
      $scope.init  =  function (params){
-
+      
        $timeout(function (params) {
-          $scope.$broadcast('scroll.refreshComplete');
+          $scope.$broadcast('scroll.refreshComplete');   
        },300)
 
       var userin  =  storage.getObject('UserInfo')
