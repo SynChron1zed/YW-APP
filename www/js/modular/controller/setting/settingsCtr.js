@@ -13,7 +13,8 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
     }else{
       native.confirm('该操作需要登录','提示',['登录','取消'],function(c){
         if(c  == 1){
-          $state.go('r.login');
+
+          fromStateServ.stateChange('r.login');
         }
       });
 
@@ -73,7 +74,7 @@ $scope.updateAPP  =  function () {
     }else{
       native.confirm('该操作需要登录','提示',['登录','取消'],function(c){
         if(c  == 1){
-          $state.go('r.login');
+          fromStateServ.stateChange('r.login');
 
         }
       });
@@ -177,7 +178,7 @@ var   userone = storage.getObject('UserInfo');
         if(!uil.user_id){
               login();
         }else{
-        
+
           if(!selectArr.selectarrs.companyid()){
 
             native.task('请先加入公司');

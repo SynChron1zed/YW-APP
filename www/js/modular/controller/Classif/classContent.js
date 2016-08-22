@@ -9,7 +9,7 @@ Ctr.controller('classContentCtr',['$scope','native','$state','fromStateServ','To
 
   $scope.bascId = $stateParams.id;
  $scope.title = $stateParams.Name;
-
+  $scope.dataList = true;
   //商品详情模块
   //保存历史记录的方法  调用  上一次1 title  和返回方法
   $scope.backtoprevView  =   fromStateServ.backView;
@@ -74,8 +74,13 @@ Ctr.controller('classContentCtr',['$scope','native','$state','fromStateServ','To
       },
 
     },function (r) {
-     
+
       if(r){
+
+        if( r.resp_data==""){
+
+
+        }else{
         angular.forEach(r.resp_data,function(ss) {
           ss.select  = false;
         });
@@ -83,6 +88,7 @@ Ctr.controller('classContentCtr',['$scope','native','$state','fromStateServ','To
         $scope.claslist[1].select  =  true;
         $scope.loadermoer  = true;
 
+      }
       }
     })
 

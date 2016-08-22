@@ -55,9 +55,9 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
         "interface_number": "000301",
         "post_content": {
           "company_type":"0",
-          legal:$scope.from.legal,
-          "license": $scope.from.License,
-          "credit_code":f[0].key,
+          "legal":$scope.from.legal,
+          "credit_code": $scope.from.License,
+          "license_img":f[0].key,
         }
       },function(r){
         if(r){
