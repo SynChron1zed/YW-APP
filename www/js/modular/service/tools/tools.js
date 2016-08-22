@@ -68,7 +68,11 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
                 next(JSON.parse(xhr.responseText));
               }
             }else{
-              native.task('图片上传失败!',1000);
+
+              hidelogin();              
+              native.task('图片上传失败!',2000);
+              
+
             }
           }
         }
@@ -95,7 +99,6 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
           if(r){
 
             storage.setObject('qiniu',r.resp_data);
-
                   var   index  =  -1;
                   var   reslf  = [];
                   !function  run (){
@@ -169,9 +172,10 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       native.task('检查网络是否开启!')
       return false;
     }
+    
+    // console.log('数据监控 ....')
+    // console.log(JSON.stringify(data));
 
-    console.log('数据监控 ....')
-    console.log(JSON.stringify(data));
     if(jsonp){
         $http.jsonp(host).success(
         function(data, status, header, config){

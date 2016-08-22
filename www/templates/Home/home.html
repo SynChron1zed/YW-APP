@@ -19,12 +19,10 @@
 </ion-nav-bar>
 
   <ion-content  overflow-scroll="false"   scrollbar-y="false"   style='background-color:#f3f3f3' >
-
-
-
-    <div style="height:20px;" ng-click="paly()"  >
-          微信支付
-    </div>
+    
+    <!--<div style="height:20px;" ng-click="paly()"  >-->
+          <!--微信支付-->
+    <!--</div>-->
 
       <div   ng-if='guankao'  >
             <ion-slide-box    ng-if='guankao'  class='homeSlidebox' auto-play='true'   >
@@ -94,29 +92,23 @@
           <p>商品分类</p>
         </div>
       </div>
-
-
+      
     </div>
 
     <div class="home-Honestenterprise">
       <div class="title" style="border-bottom: 1px solid #6c3800;">
         诚信企业<span ng-click="moreCompany('r.Companies')">更多</span>
       </div>
+
       <div class="content">
-
-
-
 
         <div class="shopclaslist "   style="white-space: nowrap;overflow: hidden;    z-index: 9999;position: relative;
          height: 9rem;background-color: whitesmoke;
-
-
          ">
           <div newdraggable  style="display: inline-block;">
-
             <div class="newlistitme"style="  "ng-click="goshopin(item)"   ng-class="{'active':item.select}"   ng-repeat="item in company"   >
               <div class="img-homeqiye">
-             <img src={{item.shop.img_shop}} style="padding: 2px">
+             <img ng-src={{item.shop.img_shop}} style="padding: 2px">
               </div>
               <div class="chenxin-home">【{{item.company_name}}】</div>
               <div class="chenxin-home1"> <span class="chenxin-dengji">等级</span><img src="./img/homepage/lev1.png" alt="" ng-if="item.faith_level==1"class="chenxin-xingji lev1-home"></div>

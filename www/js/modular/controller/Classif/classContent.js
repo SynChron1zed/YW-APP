@@ -13,12 +13,13 @@ Ctr.controller('classContentCtr',['$scope','native','$state','fromStateServ','To
   //商品详情模块
   //保存历史记录的方法  调用  上一次1 title  和返回方法
   $scope.backtoprevView  =   fromStateServ.backView;
-
+  
   $scope.$on('$stateChangeSuccess',function(){
-
     $scope.loginboj = {};
     $scope.ing  = false;
-    $scope.parenttitle     =   fromStateServ.getState('r.classContent').title;
+    $scope.parenttitle     =   fromStateServ.getState('r.classContent').title;  
+
+
   });
 
   $scope.backView  = function(){
@@ -156,15 +157,7 @@ Ctr.controller('classContentCtr',['$scope','native','$state','fromStateServ','To
       $ionicScrollDelegate.$getByHandle('small').resize();
       $scope.loadermoer = true;
     }
-    if ($ionicHistory.backView()) {
-
-      window.androdzerofun  = function(parm1,parm2){
-        $ionicHistory.goBack();
-      }
-      window.androdzerofun_parms  ='tabswtathing';
-      window.androdzerofun_clback  = 'nothing';
-    }
-
+    
     inlit();
 
 

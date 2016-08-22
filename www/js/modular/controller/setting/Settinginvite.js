@@ -1,8 +1,22 @@
 /**
  * Created by Administrator on 2016/7/28.
  */
-Ctr.controller('SettinginviteCtr',['$scope','storage','Tools','native','$state',function($scope,storage,Tools,native,$state){
+Ctr.controller('SettinginviteCtr',['$scope','storage','Tools','native','$state','fromStateServ',function($scope,storage,Tools,native,$state,fromStateServ){
   $scope.Hight={}
+
+
+  $scope.$on('$ionicView.beforeEnter',function(){
+         if(fromStateServ.getState('r.SettingOne')){
+                $scope.showtitle  = true;
+                $scope.backtoprevView  =   fromStateServ.backView;
+                $scope.parenttitle     =   fromStateServ.getState('r.SettingOne').title;
+            }else{
+                $scope.showtitle  = false;
+            }
+
+  })
+  
+
 
   $scope.Hight =window.innerHeight+"px";
   console.log($scope.Hight)

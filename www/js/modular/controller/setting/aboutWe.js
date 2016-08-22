@@ -8,13 +8,18 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('aboutWeCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize){
+Ctr.controller('aboutWeCtr',['$scope','fromStateServ',function($scope,fromStateServ){
 
-
-
-
-
-
+  $scope.$on('$ionicView.beforeEnter',function(){
+         if(fromStateServ.getState('r.SettingWe')){
+                $scope.showtitle  = true;
+                $scope.backtoprevView  =   fromStateServ.backView;
+                $scope.parenttitle     =   fromStateServ.getState('r.SettingWe').title;
+                
+            }else{
+                $scope.showtitle  = false;
+            }
+  })
 
 }]);
 

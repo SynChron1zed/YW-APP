@@ -12,9 +12,9 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       'http://m.kuaidi100.com/**',
       'https://m.kuaidi100.com/**',
     ]);
-    
+
   $ionicNativeTransitionsProvider.setDefaultOptions({
-    duration: 0, // in milliseconds (ms), default 400,
+    duration: 400, // in milliseconds (ms), default 400,
     slowdownfactor: 1, // overlap views (higher number is more) or no overlap (1), default 4
     iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
     androiddelay: -1, // same as above but for Android, default -1
@@ -31,7 +31,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     direction: 'right'
   });
   $ionicNativeTransitionsProvider.enable(true);
-
 
   //post  auto    transfromition  to  json
   ! function ($httpProvider) {
@@ -377,8 +376,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
-
+    
     .state('r.classContent',{
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.classContent')
@@ -771,22 +769,36 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+    
     //setting  个人设置 个人资料修改
-    .state('r.tab.SettingsUpdate', {
+    .state('r.SettingsUpdate', {
       url: '/Settings/update',
+        onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.SettingsUpdate');
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
       views: {
-        'setting': {
+        'rootview': {
           templateUrl: 'templates/Setting/SettingsUpdate.html',
           controller: 'SettingsUpdateCtr'
         }
       }
     })
+
     //setting  个人设置 客户反馈
-    .state('r.tab.SettingsUser', {
+    .state('r.SettingsUser', {
       url: '/Settings/user',
+             onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.SettingsUser');
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
       cache:false,
       views: {
-        'setting': {
+        'rootview': {
           templateUrl: 'templates/Setting/SettingsUser.html',
           controller: 'SettingsUserCtr'
         }
@@ -816,11 +828,11 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
 
     //setting  个人设置 个人资料修改 sex
-    .state('r.tab.SettingsSexUsername', {
+    .state('r.SettingsSexUsername', {
 
       url: '/Settings/update/sex',
       views: {
-        'setting': {
+        'rootview': {
           templateUrl: 'templates/Setting/SettingsUpdateSex.html',
           controller: 'SettingsUpdateSexCtr'
         }
@@ -828,10 +840,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
 
     //setting  个人设置 个人资料修改 QQ
-    .state('r.tab.SettingsQQ', {
+    .state('r.SettingsQQ', {
       url: '/Settings/update/qq',
       views: {
-        'setting': {
+        'rootview': {
           templateUrl: 'templates/Setting/SettingsUpdateQQ.html',
           controller: 'SettingsUpdateQQCtr'
         }
@@ -839,10 +851,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
 
     //setting  个人设置 个人资料修改 password
-    .state('r.tab.SettingsPassword', {
+    .state('r.SettingsPassword', {
       url: '/Settings/update/password',
       views: {
-        'setting': {
+        'rootview': {
           templateUrl: 'templates/Setting/SettingsUpdatePassword.html',
           controller: 'SettingsUpdatePasswordCtr'
         }
@@ -1014,10 +1026,16 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
   //setting  个人设置 邀请好友
-    .state('r.tab.SettingOne', {
+    .state('r.SettingOne', {
       url: '/Settings/SettingOne',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.SettingOne')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
       views: {
-        'setting': {
+        'rootview': {
           templateUrl: 'templates/Setting/Settinginvite.html',
           controller: 'SettinginviteCtr'
         }
@@ -1025,11 +1043,17 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-    //setting  个人设置 邀请好友
-    .state('r.tab.SettingWe', {
+    //setting  关于企业
+    .state('r.SettingWe', {
       url: '/Settings/SettingWe',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.SettingWe')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
       views: {
-        'setting': {
+        'rootview': {
           templateUrl: 'templates/Setting/aboutWe.html',
           controller: 'aboutWeCtr'
         }

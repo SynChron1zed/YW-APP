@@ -1,4 +1,14 @@
 <ion-view view-title="邀请奖励"    hide-tabs="true"  >
+
+
+
+          <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
+    <div    ng-if='showtitle'  class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.SettingOne')">
+      <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
+    </div>
+  </ion-nav-buttons>
+
   <ion-content style="background-color: whitesmoke"   overflow-scroll="false"   scrollbar-y="false"        >
 
 <div>

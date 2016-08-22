@@ -10,7 +10,8 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
       handtat();
      if ($ionicHistory.backView()) {
        window.androdzerofun  = function(parm1,parm2){
-         $ionicHistory.goBack();
+
+         window.extapp()
 
        }
        window.androdzerofun_parms   ='tabswtathing';
@@ -28,8 +29,7 @@ Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$r
        }
        window.androdzerofun_parms   ='tabswtathing';
        window.androdzerofun_clback  = 'nothing';
-
-
+       
      }else{
         $scope.showtitle  = false;
      }

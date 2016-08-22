@@ -7,8 +7,9 @@ Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout'
 
 
   $scope.userfanhui  = function () {
+
     if(storage.getObject('UserInfo').user_id){
-      $state.go('r.tab.SettingsUser')
+      fromStateServ.stateChange('r.SettingsUser');
     }else{
       native.confirm('该操作需要登录','提示',['登录','取消'],function(c){
         if(c  == 1){
@@ -41,13 +42,17 @@ $scope.getMdl   =     function(r){
 } ;
 
 $scope.Personalsetting  = function (){
-  $state.go('r.tab.SettingsUpdate');
-}
-  $scope.aboutWe  = function (){
-
-    $state.go('r.tab.SettingWe');
+      var uil   = storage.getObject('UserInfo');
+        if(!uil.user_id){
+              login();
+        }else{
+            fromStateServ.stateChange('r.SettingsUpdate');
+        }
   }
 
+  $scope.aboutWe  = function (){
+    fromStateServ.stateChange('r.SettingWe');
+  }
 
 $scope.addermge  = function(){
 
@@ -64,7 +69,7 @@ $scope.updateAPP  =  function () {
 
 
     if(storage.getObject('UserInfo').user_id){
-      $state.go('r.tab.SettingOne');
+      fromStateServ.stateChange('r.SettingOne');
     }else{
       native.confirm('该操作需要登录','提示',['登录','取消'],function(c){
         if(c  == 1){
@@ -92,10 +97,13 @@ $scope.updateAPP  =  function () {
       $scope.update  =  true;
     }
 
+
+
+
     Initial();
      if ($ionicHistory.backView()) {
        window.androdzerofun  = function(parm1,parm2){
-         $ionicHistory.goBack();
+         window.extapp()
        }
        window.androdzerofun_parms  ='tabswtathing';
        window.androdzerofun_clback  = 'nothing';
@@ -164,6 +172,7 @@ var   userone = storage.getObject('UserInfo');
     }
         $scope.opencustomenuatts  = false;
         $scope.showco  =   function  () {
+
           var uil   = storage.getObject('UserInfo');
         if(!uil.user_id){
               login();
@@ -205,19 +214,23 @@ var   userone = storage.getObject('UserInfo');
 
 
  $scope.$on('$ionicView.beforeLeave',function(){
-
            $scope.closetallcationvalue();
-})
-
-
-
-
-
-
+    })
   }])
 
+  .controller('SettingsUserCtr',['$scope','Tools','$rootScope','native','fromStateServ',function($scope,Tools,$rootScope,native,fromStateServ){
 
-  .controller('SettingsUserCtr',['$scope','Tools','$rootScope','native',function($scope,Tools,$rootScope,native){
+
+      $scope.$on('$ionicView.beforeEnter',function(){
+         if(fromStateServ.getState('r.SettingsUser')){
+                $scope.showtitle  = true;
+                $scope.backtoprevView  =   fromStateServ.backView;
+                $scope.parenttitle     =   fromStateServ.getState('r.SettingsUser').title;
+            }else{
+                $scope.showtitle  = false;
+            }
+      });
+
     $scope.fankui  = {};
     //$rootScope.$ionicGoBack();
     $scope.submitfankui  = function(){
