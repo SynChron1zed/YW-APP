@@ -1076,7 +1076,8 @@ body {
   position: absolute;
   margin-top: 6.5rem;
   margin-left: -5rem;
-  color: #6c3800; }
+  color: #6c3800;
+  width: 5rem; }
 
 .chenxin-home1 {
   display: inline-block;
@@ -1114,7 +1115,13 @@ body {
   position: absolute;
   margin-top: 1rem;
   margin-left: 1.5rem;
-  color: #6c3800; }
+  color: #6c3800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  max-width: 70%;
+  width: 9rem; }
 
 .home-qiyedengji {
   margin-left: 1.5rem;
@@ -1179,6 +1186,14 @@ body {
   background-color: white;
   margin-top: 10px;
   border: 1px solid #a2a2a2; }
+
+.home-companyname {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  max-width: 75%;
+  margin-left: 15px; }
 
 .homein-tabs-meun {
   padding: .4rem 0px;

@@ -22,7 +22,8 @@ Ctr.controller('managementCtr',['$scope','$rootScope','$ionicViewSwitcher','$sta
       "post_content": {
         "token":"",
         "token_phone": "",
-        "count": "0"
+        "count": "0",
+        "takeId":"",
       }
     };
 

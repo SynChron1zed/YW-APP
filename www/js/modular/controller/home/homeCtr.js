@@ -9,7 +9,7 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 $scope.mb =  function () {
   alert('开是')
   //window.plugins.jPushPlugin.addLocalNotificationForIOS(1, "本地推送内容", 1, "notiId", {"key":"value"});
-  
+
 
 }
 
@@ -298,6 +298,8 @@ $scope.gosales=function (r) {
           c.shop.img_shop  =  window.qiniuimgHost+c.shop.img_shop+'?imageView2/2/w/200/h/200';
 
         });
+
+        
         $scope.company = (r.resp_data.data)
 
       }
