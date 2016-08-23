@@ -5,20 +5,12 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
 
 
 
-
-
-
-
  $scope.searchresult  = function (){
           $scope.listsearch.hide();
           $timeout(function(){
               $scope.customcucdownlisloadMore(true);
           },300)
    }
-
-
-
-
     $scope.chengselect =  function(i){
         i.select  = !i.select;
     }
@@ -233,14 +225,14 @@ $scope.swatchtstate  = function (){
             angular.forEach($scope.datalist,function(r){
                   if(r.goods_basic_id  == goodsState.goods_basic_id){
                     r.goods_title  = goodsState.goods_title;
-                    r.img_url  = goodsState.img_url+'?imageView2/2/w/200/h/200';
+                    r.img_url  = goodsState.img_url;
                     r.total_in_price  = goodsState.total_in_price.toFixed(2);
                     r.total_in_number  = goodsState.total_in_number;
 
                   }
             })
       }
-
+    
       if(goodsState.Refresh){
           goodsState.Refresh   =false;
 

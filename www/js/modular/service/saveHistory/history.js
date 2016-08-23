@@ -10,15 +10,30 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                       $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
                         "type": "slide",
                         "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
-                        "duration":400, // in milliseconds (ms), default 400
+                           "duration":550, // in milliseconds (ms), default 400
+             slowdownfactor: 1,
+              iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
+              androiddelay: 20, // same as above but for Android, default -1
+             fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
+             fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
+            triggerTransitionEvent: '$ionicView.beforeEnter', // internal ionic-native-transitions option
+    
+
                       });
                     },300)
-                    
                   }else{
                     $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
                       "type": "slide",
                       "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
-                      "duration": 400, // in milliseconds (ms), default 400
+                         "duration":550, // in milliseconds (ms), default 400
+             slowdownfactor: 1,
+              iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
+              androiddelay: 20, // same as above but for Android, default -1
+             fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
+             fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
+            triggerTransitionEvent: '$ionicView.beforeEnter', // internal ionic-native-transitions option
+    
+
                     });
                   }
         $timeout(function () {
@@ -58,8 +73,14 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
             $ionicViewSwitcher.nextDirection('forward');
             $ionicNativeTransitions.stateGo(stateName,parms, {
             "type": "slide",
-            "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
-            "duration":400, // in milliseconds (ms), default 400
+             "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
+             "duration":550, // in milliseconds (ms), default 400
+              slowdownfactor: 1,
+              iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
+              androiddelay: -1, // same as above but for Android, default -1
+             fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
+             fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
+            triggerTransitionEvent: '$ionicView.beforeEnter', // internal ionic-native-transitions option
             });
 
         },
