@@ -200,7 +200,7 @@ function Handlenotice() {
           }else{
             $scope.notice.Systemmessage  = 0
           }
-      
+
             if(nowuser.Companynotice){
                if(nowuser.Companynotice.length){
 
@@ -295,7 +295,7 @@ function Handlenotice() {
     });
   }
 */
-
+  $scope.all = false;
 
   $scope.login  =  function(r){
     fromStateServ.stateChange(r);
@@ -324,11 +324,15 @@ function Handlenotice() {
 
     }, function (r) {
       if (r.msg == "success") {
-        $scope.newsList = r.resp_data.count
+        $scope.newsList = r.resp_data.count;
         if ($scope.newsList > 99) {
           $scope.newsList = "99+"
         }
 
+        if($scope.newsList!= 0 ){
+          $scope.all=true;
+
+        }
 
 
       } else {
