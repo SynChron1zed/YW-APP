@@ -4,10 +4,8 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
         savestate:false,
         backView:function(tartg,clback){
 
-            alert();
           if(window.lockingJump) return  false;
           window.lockingJump  =  true;
-
           $ionicViewSwitcher.nextDirection('back');
           if(window.cordova  && window.cordova.plugins.Keyboard.isVisible ){
            window.cordova.plugins.Keyboard.close();
@@ -28,7 +26,7 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                                     window.lockingJump =  false;
                             },860)
                   }else{
-
+                      
                     $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
                             "type": "slide",
                             "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
@@ -54,20 +52,16 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
               window.androdzerofun_parms  = undefined;
               window.androdzerofun_clback  = undefined;
               window.backtoinroot_parms  =  undefined;
-
             }, 100);
-
-
         },
         setState: function(module, fromState, fromParams,title,viewid,backV) {
             this.data[module] = {
                 "fromState": fromState,
                 "fromParams": fromParams,
-                title:title,
-                viewId:viewid,
+                 title:title,
+                 viewId:viewid,
             };
         },
-
         getState: function(module) {
             return this.data[module];
         },
@@ -112,11 +106,9 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                     window.androdzerofun  =  box.backView;
                     window.androdzerofun_parms  = stateNa;
                     window.androdzerofun_clback  = window.anbackAndcals;
-
                     //内部固化一个返回路径  (当第三方视图完全退出时 销毁)
                     window.backtoinroot      =   box.backView;
                     window.backtoinroot_parms  =  stateNa;
-
                 this.savestate  = false;
                 box.data = {};
                 this.setState(stateNa,hostiy.stateName,hostiy.stateParams,hostiy.title,hostiy.viewId);

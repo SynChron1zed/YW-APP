@@ -9,6 +9,14 @@ Ctr.controller('SettingsUpdateCtr',['$scope','storage','Tools','native','$state'
                 $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.SettingsUpdate').title;
                 
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.SettingsUpdate';
+                window.androdzerofun_clback  = function(){};
+
+
+
+
+
 
             }else{
                 $scope.showtitle  = false;
