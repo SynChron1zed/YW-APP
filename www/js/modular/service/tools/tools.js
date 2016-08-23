@@ -69,9 +69,9 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
               }
             }else{
 
-              hidelogin();              
+              hidelogin();
               native.task('图片上传失败!',2000);
-              
+
 
             }
           }
@@ -162,9 +162,19 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   var   getData  = function(data,Callback,errorCallback,sendType,host,jsonp,cansologin){
 
     if(!host){
-    data.client_type =   window.platform?window.platform:'ios';
-    data.post_content.token  = window.Token?window.Token:storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:'';
-    data.post_content.token_phone  = window.token_phone?window.token_phone:storage.getObject('UserInfo').phone?storage.getObject('UserInfo').phone:'';
+      data.client_type =   window.platform?window.platform:'ios';
+      data.post_content.token  = window.Token?window.Token:storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:'';
+      data.post_content.token_phone  = window.token_phone?window.token_phone:storage.getObject('UserInfo').phone?storage.getObject('UserInfo').phone:'';
+
+      if(window.dev_version){
+        data.post_content.version  =  window.dev_version;
+      }else {
+
+        window.cordova.getAppVersion.getVersionNumber(function (version) {
+          data.post_content.version  =  version;
+        })
+      }
+
     }
 
     if(!window.networonline){
@@ -172,7 +182,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       native.task('检查网络是否开启!')
       return false;
     }
-    
+
     // console.log('数据监控 ....')
     // console.log(JSON.stringify(data));
 
