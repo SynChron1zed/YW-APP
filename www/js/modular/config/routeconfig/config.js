@@ -791,7 +791,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     //setting  个人设置 个人资料修改
     .state('r.SettingsUpdate', {
       url: '/Settings/update',
-        onEnter: function(fromStateServ,$ionicHistory) {
+      onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.SettingsUpdate');
       },
       onExit:function(fromStateServ){

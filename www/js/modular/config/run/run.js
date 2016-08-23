@@ -34,12 +34,10 @@ window.networonline  =  true;
 
 
        $rootScope.$on('$stateChangeSuccess', function() {
-
           console.log($location.path());
           console.log($ionicHistory.viewHistory())
-
       });
-
+  
   $ionicPlatform.ready(function() {
 
    setTimeout(function () {
@@ -207,7 +205,13 @@ window.networonline  =  true;
      if (JSON.stringify($location.path()) == '/r/tab/Home'  ||  JSON.stringify($location.path()) == '/r/tab/goodsclasslist' ||  JSON.stringify($location.path()) == '/r/tab/Notice'  ||  JSON.stringify($location.path()) == '/r/tab/Settings' ) {
        showConfirm();
      } else if ($ionicHistory.backView()) {
+       if(window.lockingJump) return  false;
+       window.lockingJump  =  true;
        $rootScope.$ionicGoBack();
+       $timeout(function(){
+          window.lockingJump  =  false;
+       },600)
+
      }else {
        // This is the last page: Show confirmation popup
        window.extapp();

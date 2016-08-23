@@ -8,6 +8,8 @@ Ctr.controller('SettingsUpdateCtr',['$scope','storage','Tools','native','$state'
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.SettingsUpdate').title;
+                
+
             }else{
                 $scope.showtitle  = false;
             }
@@ -32,16 +34,15 @@ Ctr.controller('SettingsUpdateCtr',['$scope','storage','Tools','native','$state'
         Tools.chekpirc({
           allowEdit:true
         },function(r){
+          Tools.showlogin();
           Tools.sendqiniu_queue([r],function(f){
-            Tools.showlogin();
             Tools.getData({
                 "interface_number": "050306",
                 "post_content": {
                       "avatar":f[0].key,
                   }
             },function(s){
-              if(s){
-
+              if(s){                
                       var reif = storage.getObject('UserInfo');
                       reif.avatar  =f[0].key;
                       storage.setObject('UserInfo',reif);
