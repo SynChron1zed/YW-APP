@@ -165,7 +165,7 @@ $scope.recharge = function (value,val) {
 
   $ionicPopup.show({
     template: '<input type="text" ng-model="data.integral">',
-    title: '您将给员工'+val+'充值积分',
+    title: '给  '+val+'  充值积分',
     subTitle: '请输入充值积分数量<br>（余额：'+$scope.integralnew+'）',
     scope: $scope,
     buttons: [
