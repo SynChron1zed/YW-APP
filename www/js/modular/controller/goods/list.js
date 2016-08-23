@@ -225,9 +225,9 @@ $scope.swatchtstate  = function (){
             angular.forEach($scope.datalist,function(r){
                   if(r.goods_basic_id  == goodsState.goods_basic_id){
                     r.goods_title  = goodsState.goods_title;
-                    r.img_url  = goodsState.img_url;
-                    r.total_in_price  = goodsState.total_in_price.toFixed(2);
-                    r.total_in_number  = goodsState.total_in_number;
+                       r.img_url  = goodsState.img_url;              
+                      r.total_in_price  = parseFloat(goodsState.total_in_price).toFixed(2);
+                      r.total_in_number  = goodsState.total_in_number;
 
                   }
             })
@@ -397,13 +397,17 @@ $scope.swatchtstate  = function (){
 
     Tools.getData(sendoption,function(r){
 
-          console.log('麻痹')
           $timeout(function(){
             $ionicScrollDelegate.$getByHandle('list').resize();
             $scope.$broadcast('scroll.refreshComplete');
             $scope.$broadcast('scroll.infiniteScrollComplete');
           },200)
 
+          if($scope.liststate){
+                $scope.salestotin.up   =  r.resp_data.totalCount
+          }else{
+                $scope.salestotin.down   =  r.resp_data.totalCount
+          }
 
           if(r){
 

@@ -172,22 +172,32 @@ var   userone = storage.getObject('UserInfo');
       }
     }
         $scope.opencustomenuatts  = false;
-        $scope.showco  =   function  () {
 
-          var uil   = storage.getObject('UserInfo');
+
+        $scope.showco  =   function  (f) {
+
+        var uil   = storage.getObject('UserInfo');
+
         if(!uil.user_id){
-              login();
+
+          if(!f){
+            login();
+          }
+          
         }else{
 
           if(!selectArr.selectarrs.companyid()){
-
             native.task('请先加入公司');
             return false
           }
 
             $scope.shopid  = 'http://pan.baidu.com/share/qrcode?w=400&h=400&url='+uil.shop_id;
+
+            if(!f){
             $rootScope.hideTabs =true;
             $scope.setallcationstate   = true;
+            }
+            
 
         }
       }
@@ -216,6 +226,10 @@ var   userone = storage.getObject('UserInfo');
 
  $scope.$on('$ionicView.beforeLeave',function(){
            $scope.closetallcationvalue();
+           $scope.showco(true);
+
+
+
     })
   }])
 

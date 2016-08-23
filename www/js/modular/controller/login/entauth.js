@@ -24,10 +24,8 @@ Ctr.controller('entAuthenticationctr',['$ionicHistory','$scope','$rootScope','$i
   };
 
 
-
   //基本表单信息
   $scope.from   = {};
-
   $scope.Submitaudit  = function (){
 
     if(!$scope.identity.Positive){
