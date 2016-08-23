@@ -73,11 +73,7 @@
         <img  style="border-radius: 0px;" src="./img/classif/icon_shengqingjilv@3x.png" >
         <h2 >员工申请审核</h2>
 
-        <div ng-if="newsList!=0" style="  width: 20px;
-          height: 20px;
-          background: #ef473a;
-          border-radius: 50px;
-          float: right;margin-top: -20px;"><div style="text-align: -webkit-center;color: white;font-size: 10px;">{{newsList}}</div></div>
+        <div ng-class="{'noticeList':all}"><div style="text-align: -webkit-center;color: white;font-size: 10px;">{{newsList}}</div></div>
       </ion-item>
 
 
