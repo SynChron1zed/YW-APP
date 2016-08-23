@@ -159,13 +159,13 @@ Ctr.controller('managementCtr',['$scope','$rootScope','$ionicViewSwitcher','$sta
   };
 
 
-$scope.recharge = function (value) {
+$scope.recharge = function (value,val) {
 
   $scope.data={}
 
   $ionicPopup.show({
     template: '<input type="text" ng-model="data.integral">',
-    title: '充值积分',
+    title: '您将给员工'+val+'充值积分',
     subTitle: '请输入充值积分数量<br>（余额：'+$scope.integralnew+'）',
     scope: $scope,
     buttons: [
