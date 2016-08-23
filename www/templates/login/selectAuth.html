@@ -15,7 +15,7 @@
               >{{parenttitle}}</span></span>
               </div>
   </ion-nav-buttons>
-  
+
 
 
                     <ion-nav-buttons side="right" >
@@ -23,7 +23,7 @@
                             跳过
                         </a>
                     </ion-nav-buttons>
-                    
+
   </ion-nav-bar>
 
     <ion-content  scrollbar-y="false"  overflow-scroll="false"  style="background: #f5f5f5" >
@@ -46,22 +46,37 @@
           </a>
 
 
-
-
-
-
         </div>
       </div>
 
-
-
-
-
-
-
-
-
-
-
     </ion-content>
+
+  <script id="templates/selectModal.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar class="bar bar-header bar-positive">
+        <button class="button button-clear button-primary"  ng-click="goSelect()"  style="color: #333"><i class="icon ion-ios-arrow-left"></i>返回</button>
+        <h1 class="title">选择版本认证</h1>
+        <button class="button button-clear button-primary" ng-click="modal.hide()" style="color: #333"></button>
+      </ion-header-bar>
+
+      <ion-content>
+
+        <div class="content has-header" style="top: 0px">
+
+          <ul class="list">
+
+            <li class="item" ng-click="newSelect()">
+              前往新版本认证<span style="font-size: 13px;color: #a2a2a2">(三证/五证合一)</span>
+            </li>
+            <li class="item"  ng-click="oldSelect()">
+              前往旧版本认证<span style="font-size: 13px;color: #a2a2a2">(营业执照+机构代码)</span>
+            </li>
+          </ul>
+
+        </div>
+
+      </ion-content>
+    </ion-modal-view>
+  </script>
+
 </ion-view>

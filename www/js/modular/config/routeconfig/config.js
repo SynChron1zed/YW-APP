@@ -312,7 +312,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       onExit:function(fromStateServ){
         fromStateServ.removebackregistevent();
       },
-      url: '/entAuthentication',
+      url: '/entAuthentication/:selectData',
       views: {
         'rootview': {
           templateUrl: 'templates/login/entAuthentication.html',
@@ -764,7 +764,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-      
+
     // Notice Detail  通知详情
     .state('r.tab.NoticeDetail', {
       url: '/NoticeDetail/:chatId',

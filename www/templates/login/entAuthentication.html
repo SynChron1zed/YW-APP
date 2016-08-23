@@ -14,7 +14,7 @@
       </div>
 
 
-      <div>
+      <div ng-if="!oldSelect">
         <div class="lable">营业执照</div>
         <div class="input">
 
@@ -23,6 +23,25 @@
         </div>
       </div>
 
+
+      <div ng-if="oldSelect">
+        <div class="lable">营业执照</div>
+        <div class="input">
+
+          <input type="text"  ng-model="from.License" maxlength="20" placeholder="填写营业执照注册号">
+
+        </div>
+      </div>
+
+
+      <div ng-if="oldSelect">
+        <div class="lable">组织机构</div>
+        <div class="input">
+
+          <input type="text"  ng-model="from.mechanism" maxlength="20"  placeholder="填写组织机构代码证书">
+
+        </div>
+      </div>
 
 
 
@@ -63,6 +82,33 @@
       </div>
 
 
+       <div ng-if="oldSelect">
+      <p style="margin-top:10px;font-size:14px;color:#333">组织机构</p>
+
+      <div    ng-if="identity.inverse"  style="width:80%;margin: 0 auto;padding: 6px;border: 1px dashed #717070;position: relative"   >
+        <i  ng-click="rminverse()"
+            class="ion-ios-close"  style="position: absolute;
+              font-size: 30px;
+              top: -10px;
+              right: -6px;
+              color: red;
+              "></i>
+        <img     ng-src="{{identity.inverse}}"      alt="">
+      </div>
+
+      <div style="
+          border: 1px dashed #9a9a9a;
+          height: 80px;
+          width: 80px;
+          text-align:center;
+          line-height:70px;
+          "  ng-click="xuanzpirceinverse()"   ng-if="!identity.inverse"  >
+        <i class="ion-ios-camera-outline"
+           style='font-size:50px;color:#525252'
+        ></i>
+      </div>
+
+       </div>
 
 
 

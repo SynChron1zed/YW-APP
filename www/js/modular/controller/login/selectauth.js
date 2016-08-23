@@ -1,7 +1,7 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher','$state','$timeout','$ionicNativeTransitions','selectaouthfunl','storage','fromStateServ',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher,$state,$timeout,$ionicNativeTransitions,selectaouthfunl,storage,fromStateServ){
+Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher','$state','$timeout','$ionicNativeTransitions','selectaouthfunl','storage','fromStateServ','$ionicModal',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher,$state,$timeout,$ionicNativeTransitions,selectaouthfunl,storage,fromStateServ,$ionicModal){
 
 
 
@@ -20,7 +20,7 @@ Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicVie
 
     if(fromStateServ.getState('r.selectAuth')){
         $scope.showtitle  = true;
-        $scope.backtoprevView  =   fromStateServ.backView; 
+        $scope.backtoprevView  =   fromStateServ.backView;
         $scope.parenttitle     =   fromStateServ.getState('r.selectAuth').title;
     }else{
         $scope.showtitle  = false;
@@ -56,7 +56,7 @@ Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicVie
 
       };
 
-      
+
         window.androdzerofun_parms  =    'r.tab.Home';
         window.androdzerofun_clback  =    function(){
         $ionicHistory.clearHistory();
@@ -74,7 +74,7 @@ Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicVie
           }else{
             window.androdzerofun(window.androdzerofun_parms,window.androdzerofun_clback);
           }
-          
+
       }
 
 
@@ -101,12 +101,35 @@ Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicVie
   }
   //企业认证
   $scope.qiye  =  function (){
-    $state.go('r.entAuthentication');
+    $scope.Modal.show();
+
+    //$state.go('r.entAuthentication');
   }
   //跳过
   $scope.skip  = function(){
   $state.go('r.selectPaydues')
   }
 
+  $ionicModal.fromTemplateUrl('templates/selectModal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.Modal = modal;
+  });
+
+
+
+  $scope.goSelect = function () {
+    $scope.Modal.hide();
+  }
+
+  $scope.newSelect = function () {
+    $scope.Modal.hide();
+    $state.go('r.entAuthentication',{selectData:'new'});
+  }
+  $scope.oldSelect = function () {
+    $scope.Modal.hide();
+    $state.go('r.entAuthentication',{selectData:'old'});
+  }
 
 }]);
