@@ -2,7 +2,7 @@
  * Created by Why on 16/6/8.
  */
 Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','selectaouthfunl','seeshopPint',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,selectaouthfunl,seeshopPint) {
-  
+
 $scope.paly  = function () {
     window.alipay.pay({
     tradeNo: new Date().getTime(),
@@ -14,7 +14,7 @@ $scope.paly  = function () {
 
 }
 $scope.catshowtakepint  = function () {
-  
+
   seeshopPint.datalist  = [
     {
       name:'我是自提点',
@@ -96,7 +96,7 @@ $scope.showlogistics  =  function () {
        }else  if(item.request_type  == '2'){
          fromStateServ.stateChange('r.Shophome',{id:item.request_id});
        }else  if(item.request_type  == '3'){
-         
+
           fromStateServ.stateChange('r.Productdetails',{id:item.request_id});
        }else{
          native.task('活动暂未开始');
@@ -200,7 +200,7 @@ $scope.showlogistics  =  function () {
  //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
       newsList();
-      
+
        window.androdzerofun  =  function(r,b){
          window.extapp()
        }
@@ -296,7 +296,7 @@ $scope.gosales=function (r) {
       if(r){
 
         angular.forEach(r.resp_data.data,function(c){
-          c.shop.img_shop  =  window.qiniuimgHost+c.shop.img_shop+'?imageView2/2/w/200/h/200';
+          c.shop.img_shop  =  window.qiniuimgHost+c.shop.img_shop+'?imageView2/2/w/200/h/200/q/100';
 
         });
         $scope.company = (r.resp_data.data)

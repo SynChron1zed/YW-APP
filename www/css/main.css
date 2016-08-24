@@ -1073,7 +1073,7 @@ body {
 .chenxin-home {
   display: inline-block;
   position: absolute;
-  margin-top: 6.5rem;
+  margin-top: 5.7rem;
   margin-left: -5rem;
   color: #6c3800;
   width: 5rem; }
@@ -1081,8 +1081,8 @@ body {
 .chenxin-home1 {
   display: inline-block;
   position: absolute;
-  margin-top: 7.5rem;
-  margin-left: -4.8rem;
+  margin-top: 6.7rem;
+  margin-left: -5.0rem;
   width: 5rem; }
 
 .chenxin-dengji {
@@ -1105,10 +1105,11 @@ body {
 
 .home-chenxinqiye {
   width: 4rem;
+  height: 4rem;
   float: right;
   position: absolute;
-  margin-top: -5rem;
-  margin-left: 11rem; }
+  margin-top: -4.65rem;
+  margin-left: 11.1rem; }
 
 .home-qiyename {
   position: absolute;
@@ -1181,7 +1182,7 @@ body {
 .img-homeqiye {
   display: inline-flex;
   width: 5rem;
-  height: 6rem;
+  height: 5rem;
   background-color: white;
   margin-top: 10px;
   border: 1px solid #a2a2a2; }

@@ -42,7 +42,7 @@ Ctr.controller('CompaniesCtr',['$scope','$rootScope','$ionicViewSwitcher','$stat
           $scope.page_number  =r.resp_data.nextPage;
         }
         angular.forEach(r.resp_data.data,function(c){
-          c.shop.img_shop  =  window.qiniuimgHost+c.shop.img_shop+'?imageView2/2/w/200/h/200';
+          c.shop.img_shop  =  window.qiniuimgHost+c.shop.img_shop+'?imageView2/2/w/200/h/200/q/100';
 
         });
 
@@ -72,33 +72,30 @@ Ctr.controller('CompaniesCtr',['$scope','$rootScope','$ionicViewSwitcher','$stat
 
 
 
+ 
+
   //商品详情模块
   //保存历史记录的方法  调用  上一次1 title  和返回方法
-  $scope.backtoprevView  =   fromStateServ.backView;
-
-
-  $scope.$on('$ionicView.beforeEnter',function(){
-
-    $scope.loginboj = {};
-    $scope.ing  = false;
-
-             if(fromStateServ.getState('r.Companies')){
-
-                $scope.parenttitle     =   fromStateServ.getState('r.Companies').title;
-                window.androdzerofun  =   fromStateServ.backView;
-                window.androdzerofun_parms  = 'r.Companies';
-                window.androdzerofun_clback  = function(){};
-                
-             }
-             
-
-
-  });
 
   $scope.backView  = function(){
     $scope.$ionicGoBack();
   };
+  $scope.$on('$ionicView.beforeEnter',function() {
+    if (fromStateServ.getState('r.Companies')) {
+      $scope.showtitle = true;
+      $scope.ing = false;
 
+
+      $scope.parenttitle = fromStateServ.getState('r.Companies').title;
+      $scope.backtoprevView = fromStateServ.backView;
+      window.androdzerofun = fromStateServ.backView;
+      window.androdzerofun_parms = 'r.Companies';
+      window.androdzerofun_clback = function () {
+      };
+
+
+    }
+  });
 
   $scope.caklateheight  = {};
 
