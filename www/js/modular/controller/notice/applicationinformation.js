@@ -12,20 +12,31 @@ Ctr.controller('informationCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
   $scope.expression=true;
 
 
+
+
+
   //商品详情模块
   //保存历史记录的方法  调用  上一次1 title  和返回方法
-  $scope.backtoprevView  =   fromStateServ.backView;
-
-  $scope.$on('$stateChangeSuccess',function(){
-
-    $scope.loginboj = {};
-    $scope.ing  = false;
-    $scope.parenttitle     =   fromStateServ.getState('r.information').title;
-  });
 
   $scope.backView  = function(){
     $scope.$ionicGoBack();
   };
+  $scope.$on('$ionicView.beforeEnter',function() {
+    if (fromStateServ.getState('r.information')) {
+      $scope.showtitle = true;
+      $scope.ing = false;
+
+
+      $scope.parenttitle = fromStateServ.getState('r.information').title;
+      $scope.backtoprevView = fromStateServ.backView;
+      window.androdzerofun = fromStateServ.backView;
+      window.androdzerofun_parms = 'r.information';
+      window.androdzerofun_clback = function () {
+      };
+
+
+    }
+  });
 
 
 
