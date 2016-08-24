@@ -20,6 +20,12 @@ Ctr.controller('selectPayduesctr',['$ionicHistory','$scope','$rootScope','$ionic
       $scope.showtitle  = true;
       $scope.backtoprevView  =   fromStateServ.backView;
       $scope.parenttitle     =   fromStateServ.getState('r.selectPaydues').title;
+      
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.selectPaydues';
+                window.androdzerofun_clback  = function(){};
+
+
     }else{
       $scope.showtitle  = false;
     }

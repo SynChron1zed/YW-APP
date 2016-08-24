@@ -18,7 +18,15 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
             }else  if(fromStateServ.getState('r.Shophome')){
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView;
+
                 $scope.parenttitle     =   fromStateServ.getState('r.Shophome').title;
+
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.Shophome';
+                window.androdzerofun_clback  = function(){};
+
+
+
             }else{
                 $scope.showtitle  = false;
             }
@@ -177,6 +185,14 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.SeeshopPint').title;
+                
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.SeeshopPint';
+                window.androdzerofun_clback  = function(){};
+
+
+
+
             }else{
                 $scope.showtitle  = false;
             }

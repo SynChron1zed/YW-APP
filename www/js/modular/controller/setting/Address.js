@@ -51,6 +51,13 @@ Ctr.controller('AddresslistCtr',['$scope','fromStateServ','Tools','native','$sta
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView; 
                 $scope.parenttitle     =   fromStateServ.getState('r.Addresslist').title;
+
+                   window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.Addresslist';
+                window.androdzerofun_clback  = function(){};
+
+
+
             }else{
                 $scope.showtitle  = false;
             }
@@ -141,8 +148,6 @@ $scope.addreder   =  function(){
 
 .controller('AddressEdithCtr',['$scope','Tools','$stateParams','fromStateServ','$ionicModal','$timeout','native','$rootScope','adderupdatastat',function($scope,Tools,$stateParams,fromStateServ,$ionicModal,$timeout,native,$rootScope,adderupdatastat){
 
-
-
   
 
 
@@ -153,8 +158,15 @@ $scope.addreder   =  function(){
             console.log(fromStateServ.getState('r.AddressEdith'))
             if(fromStateServ.getState('r.AddressEdith')){
                 $scope.showtitle  = true;
-                $scope.backtoprevView  =   fromStateServ.backView; 
+                $scope.backtoprevView  =   fromStateServ.backView;
+
                 $scope.parenttitle     =   fromStateServ.getState('r.AddressEdith').title;
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.AddressEdith';
+                window.androdzerofun_clback  = function(){};
+
+
+
             }else{
                 $scope.showtitle  = false;
             }

@@ -2573,6 +2573,9 @@ input[readonly] {
       display: block;
       clear: both; }
 
+.bar-footer.has-tabs, .has-tabs {
+  bottom: 48px; }
+
 .shopcartnoitem {
   margin-top: 10px;
   height: 2.4rem;

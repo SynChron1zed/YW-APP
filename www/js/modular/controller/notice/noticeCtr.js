@@ -351,6 +351,10 @@ function Handlenotice() {
 
 
 
+
+
+
+
      $scope.actionTy =  function (params) {
       Tools.Notificationjump(params)
      }
@@ -396,6 +400,12 @@ function Handlenotice() {
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.LogisticsInformation').title;
+
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.LogisticsInformation';
+                window.androdzerofun_clback  = function(){};
+
+
             }else{
                 $scope.showtitle  = false;
             }
@@ -443,6 +453,12 @@ function Handlenotice() {
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.Systemessagenotice').title;
+
+                        
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.Systemessagenotice';
+                window.androdzerofun_clback  = function(){};
+
             }else{
                 $scope.showtitle  = false;
             }
@@ -488,6 +504,14 @@ function Handlenotice() {
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.Companynotice').title;
+
+
+                        
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.Companynotice';
+                window.androdzerofun_clback  = function(){};
+
+                
             }else{
                 $scope.showtitle  = false;
             }

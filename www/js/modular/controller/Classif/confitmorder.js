@@ -6,6 +6,26 @@
  */
 Ctr.controller('ConfirmOrderCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$ionicModal','$ionicBackdrop',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$ionicModal,$ionicBackdrop) {
 
+
+
+
+
+  $scope.$on('$ionicView.beforeEnter',function(){
+         if(fromStateServ.getState('r.confirmOrder')){
+                $scope.showtitle  = true;
+                $scope.backtoprevView  =   fromStateServ.backView;
+                $scope.parenttitle     =   fromStateServ.getState('r.confirmOrder').title;
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.confirmOrder';
+                window.androdzerofun_clback  = function(){};              
+            }
+
+  })
+
+
+
+
+
   var bascId = $stateParams.basicID;
   var shopId = $stateParams.shopID;
   var Num = $stateParams.Num;

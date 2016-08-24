@@ -14,10 +14,24 @@ Ctr.controller('classContentCtr',['$scope','native','$state','fromStateServ','To
   //保存历史记录的方法  调用  上一次1 title  和返回方法
   $scope.backtoprevView  =   fromStateServ.backView;
 
-  $scope.$on('$stateChangeSuccess',function(){
+  $scope.$on('$ionicView.beforeEnter',function(){
+
     $scope.loginboj = {};
-    $scope.ing  = false;
-    $scope.parenttitle     =   fromStateServ.getState('r.classContent').title;
+    $scope.ing  = false; 
+    
+            if(fromStateServ.getState('r.classContent')){
+                $scope.showtitle  = true;
+                $scope.parenttitle     =   fromStateServ.getState('r.classContent').title;
+                $scope.ing  = false;
+
+                
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.classContent';
+                window.androdzerofun_clback  = function(){};
+
+
+
+            }
 
 
   });

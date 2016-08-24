@@ -4,9 +4,10 @@
       //全局变量定义
       //window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
       window.Interactivehost  = 'http://192.168.0.56:1155/index.php?r=app/index';
+      
       window.dev_version   = '1.1.0';
-      //window.Interactivehost  = 'http://pay.ywyde.com/index.php?r=app/index';
 
+      //window.Interactivehost  = 'http://pay.ywyde.com/index.php?r=app/index';
       //window.Interactivehost =  'http://app.ywyde.com/index.php?r=app/index';
       //window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
       window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';

@@ -67,6 +67,16 @@ Ctr.controller('goodsclasslist',['$scope','fromStateServ','$timeout','Tools','na
 
 $scope.backtoprevView  = fromStateServ.backView;
 $scope.parenttitle     =   fromStateServ.getState('r.goodsclasslist').title;
+
+            window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.goodsclasslist';
+                window.androdzerofun_clback  = function(){};
+
+
+
+
+
+
   $scope.$on('$ionicView.beforeEnter',function(){
     $timeout(function () {
       Tools.getData({"interface_number": "030201","post_content": {}},function(r){

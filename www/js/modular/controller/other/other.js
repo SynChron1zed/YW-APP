@@ -11,6 +11,18 @@ Ctr.controller("tabCtr",['$scope','$ionicHistory',function($scope,$ionicHistory)
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView; 
                 $scope.parenttitle     =   fromStateServ.getState('r.Logistics').title;
+                
+
+                
+
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.Logistics';
+                window.androdzerofun_clback  = function(){};
+
+                
+                
+
+
             }else{                
                 $scope.showtitle  = false;
             }

@@ -291,6 +291,14 @@ $scope.$on('$ionicView.beforeEnter',function(){
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.ConfirmorderZf').title;
+
+
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.ConfirmorderZf';
+                window.androdzerofun_clback  = function(){};
+                
+
+
             }else{
                 $scope.showtitle  = false;
             }

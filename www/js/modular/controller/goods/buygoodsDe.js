@@ -737,10 +737,17 @@ $scope.$on('$ionicView.beforeLeave',function(){
          
   $scope.$on('$ionicView.beforeEnter',function(event, data){
             $scope.showpanl = true;
+
             if(fromStateServ.getState('r.Productdetails')   &&  !$stateParams.inside ){
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.Productdetails').title;
+
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.Productdetails';
+                window.androdzerofun_clback  = function(){};
+
+
             }else{
                 $scope.showtitle  = false;
             }

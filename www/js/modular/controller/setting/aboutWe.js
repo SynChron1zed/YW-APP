@@ -15,6 +15,15 @@ Ctr.controller('aboutWeCtr',['$scope','fromStateServ',function($scope,fromStateS
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.SettingWe').title;
+
+
+                                             
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.SettingWe';
+                window.androdzerofun_clback  = function(){};
+
+
+
                 
             }else{
                 $scope.showtitle  = false;

@@ -9,7 +9,7 @@ Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicVie
 
    //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
-
+    
 
       if(storage.getObject('UserInfo').need_paid  =='false'){
         $state.jiaofei  = false;
@@ -22,6 +22,12 @@ Ctr.controller('selectAuthctr',['$ionicHistory','$scope','$rootScope','$ionicVie
         $scope.showtitle  = true;
         $scope.backtoprevView  =   fromStateServ.backView;
         $scope.parenttitle     =   fromStateServ.getState('r.selectAuth').title;
+        
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.selectAuth';
+                window.androdzerofun_clback  = function(){};
+
+
     }else{
         $scope.showtitle  = false;
     }

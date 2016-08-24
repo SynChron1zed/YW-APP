@@ -846,6 +846,7 @@ function  creatpint   (e){
   $scope.goods.catelist =  [];
 
   function inlint(){
+
     Tools.showlogin();
     Tools.getData({
       "interface_number": "030102",
@@ -971,12 +972,11 @@ function  creatpint   (e){
          }
     })
   }
- //初始化 goods 对象
-
-
-$timeout(function(){
+//初始化 goods 对象
+$scope.$on('$ionicView.beforeEnter',function(){
   inlint();
-},400)
+})
+  
 
 
 

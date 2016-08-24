@@ -9,6 +9,7 @@ Ctr.controller('registercfpwdCtr',['$scope','$state','Tools','$stateParams','$io
   //选择认证方式
 
   console.log($stateParams.phone)
+  
   $scope.next =  function (){
 
   if(!$scope.password.Original || !$scope.password.Repeat)  {

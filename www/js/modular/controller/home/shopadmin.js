@@ -9,10 +9,17 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
   $scope.$on('$ionicView.beforeEnter',function(){
 
             Initial();
-            console.log(fromStateServ.getState('r.HomShopadmin'))
+
             if(fromStateServ.getState('r.HomShopadmin')){
                 $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.HomShopadmin').title;
+
+
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.HomShopadmin';
+                window.androdzerofun_clback  = function(){};
+                                
+
             }
   });
 

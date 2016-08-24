@@ -76,11 +76,23 @@ Ctr.controller('CompaniesCtr',['$scope','$rootScope','$ionicViewSwitcher','$stat
   //保存历史记录的方法  调用  上一次1 title  和返回方法
   $scope.backtoprevView  =   fromStateServ.backView;
 
-  $scope.$on('$stateChangeSuccess',function(){
+
+  $scope.$on('$ionicView.beforeEnter',function(){
 
     $scope.loginboj = {};
     $scope.ing  = false;
-    $scope.parenttitle     =   fromStateServ.getState('r.Companies').title;
+
+             if(fromStateServ.getState('r.Companies')){
+
+                $scope.parenttitle     =   fromStateServ.getState('r.Companies').title;
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.Companies';
+                window.androdzerofun_clback  = function(){};
+                
+             }
+             
+
+
   });
 
   $scope.backView  = function(){
