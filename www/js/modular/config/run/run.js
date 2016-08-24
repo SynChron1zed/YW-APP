@@ -556,14 +556,26 @@ window.networonline  =  true;
       auth:false,
       Integritygold:false
     },
+    Storemanagement:{
+        login:true,
+        admin:true,
+        company:true,
+        auth:true,
+        Integritygold:true
+    }
   }
 
   window.Permission  =  function (a,b,c) {
-    
+  
+
     if(a  ==  'r.SeeshopPint') {
       return  true;
     }
 
+    if(a =='r.Storemanagement'){
+      return   handeposins(a,PermissionConfig.Storemanagement)
+    }
+    
     if(a   == 'r.HomSales' ){
         return  handeposins(a,PermissionConfig.HomSales)
     }
@@ -588,18 +600,6 @@ window.networonline  =  true;
     if(a   ==  'r.Addresslist'){
       return  handeposins(a,PermissionConfig.Addresslist)
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
   };
 

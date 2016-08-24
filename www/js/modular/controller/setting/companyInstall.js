@@ -13,6 +13,9 @@ Ctr.controller('companyInstallCtr',['$scope','$rootScope','$ionicViewSwitcher','
       $state.go('r.selectAuth');
   }
 
+  $scope.Storemage   = function(r){
+     $state.go('r.Storemanagement');
+  }
 
   $scope.expression = true;
   $scope.newexpression =true;
