@@ -40,11 +40,26 @@ window.networonline  =  true;
   
   $ionicPlatform.ready(function() {
 
+    if(window.cordova){
+
+      window.cordova.getAppVersion.getVersionNumber(function (version) {
+            window.dev_version  = version;
+
+
+
+
+
+
+      })
+
+    }
+    
+
    setTimeout(function () {
      if(navigator){
        navigator.splashscreen.hide();
        }
-    }, 400);
+    }, 500);
 
     //$state.go('r.selectAuth');
     $state.go('r.tab.Home');
@@ -200,7 +215,7 @@ window.networonline  =  true;
             window.androdzerofun(window.androdzerofun_parms,window.androdzerofun_clback);
           return false;
         }
-
+        
      // Is there a page to go back to?
      if (JSON.stringify($location.path()) == '/r/tab/Home'  ||  JSON.stringify($location.path()) == '/r/tab/goodsclasslist' ||  JSON.stringify($location.path()) == '/r/tab/Notice'  ||  JSON.stringify($location.path()) == '/r/tab/Settings' ) {
        showConfirm();
@@ -373,22 +388,12 @@ window.networonline  =  true;
     $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
       window.networonline  =  false;
     })
-
-
-
-
-
   });
-
-
+  
   window.updateAPP  =  function(r){
-
-
     if(ionic.Platform.platform()  == 'ios'){
       return false;
     }
-
-
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
 
@@ -551,13 +556,14 @@ window.networonline  =  true;
       auth:false,
       Integritygold:false
     },
-
-
-
   }
 
-
   window.Permission  =  function (a,b,c) {
+    
+    if(a  ==  'r.SeeshopPint') {
+      return  true;
+    }
+
     if(a   == 'r.HomSales' ){
         return  handeposins(a,PermissionConfig.HomSales)
     }

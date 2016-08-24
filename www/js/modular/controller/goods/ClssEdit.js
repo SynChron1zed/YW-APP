@@ -319,10 +319,27 @@ inlit();
     goodsState.total_in_price  = r.total_in_price;
     goodsState.total_in_number  = r.total_in_number;
 
+        if(window.lockingJump) return  false;
+        window.lockingJump  =  true;
+
+        $ionicNativeTransitions.stateGo('r.goodsEdit',{state:'edit',id:r.goods_basic_id}, {
+            "type": "slide",
+             "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
+             "duration":550, // in milliseconds (ms), default 400
+              slowdownfactor: 1,
+              iosdelay: 20, // ms to wait for the iOS webview to update before animation kicks in, default -1
+              androiddelay: -1000, // same as above but for Android, default -1
+
+              fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
+              fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
+              triggerTransitionEvent: '$ionicView.afterEnter', // internal ionic-native-transitions option
+            });
+
+            $timeout(function(){
+              window.lockingJump  =  false;
+            },1100)
 
 
-
-    $state.go('r.goodsEdit',{state:'edit',id:r.goods_basic_id});
   };
   $scope.classinfo  = {};
   $scope.classinfo.title =   $stateParams.title;
@@ -621,7 +638,32 @@ inlit();
     }
 
     $scope.Add  = function(){
-      $state.go('r.goodsEdit')
+
+
+
+
+        if(window.lockingJump) return  false;
+        window.lockingJump  =  true;
+
+        $ionicNativeTransitions.stateGo('r.goodsEdit',{}, {
+            "type": "slide",
+             "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
+             "duration":550, // in milliseconds (ms), default 400
+              slowdownfactor: 1,
+              iosdelay: 20, // ms to wait for the iOS webview to update before animation kicks in, default -1
+              androiddelay: -1000, // same as above but for Android, default -1
+
+              fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
+              fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
+              triggerTransitionEvent: '$ionicView.afterEnter', // internal ionic-native-transitions option
+            });
+
+            $timeout(function(){
+              window.lockingJump  =  false;
+            },1100)
+
+
+
     };
 
 

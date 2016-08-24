@@ -19,14 +19,14 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                                 androiddelay: 20, // same as above but for Android, default -1
                                 fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
                                 fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
-                                triggerTransitionEvent: '$ionicView.beforeEnter', // internal ionic-native-transitions option
+                                triggerTransitionEvent: '$ionicView.afterEnter', // internal ionic-native-transitions option
                           });
                         },300)
                            $timeout(function(){
                                     window.lockingJump =  false;
                             },860)
                   }else{
-                      
+
                     $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
                             "type": "slide",
                             "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
@@ -36,7 +36,7 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                             androiddelay: 20, // same as above but for Android, default -1
                             fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
                             fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
-                            triggerTransitionEvent: '$ionicView.beforeEnter', // internal ionic-native-transitions option
+                            triggerTransitionEvent: '$ionicView.afterEnter', // internal ionic-native-transitions option
                     });
                          $timeout(function(){
                                     window.lockingJump =  false;
@@ -85,7 +85,7 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
               androiddelay: -1, // same as above but for Android, default -1
               fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
               fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
-              triggerTransitionEvent: '$ionicView.beforeEnter', // internal ionic-native-transitions option
+              triggerTransitionEvent: '$ionicView.afterEnter', // internal ionic-native-transitions option
             });
 
             $timeout(function(){

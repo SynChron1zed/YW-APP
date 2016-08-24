@@ -1,7 +1,7 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$ionicModal','native','Tools','$ionicScrollDelegate','goodsState','$ionicPopup',function($scope,fromStateServ,$timeout,$state,$ionicModal,native,Tools,$ionicScrollDelegate,goodsState,$ionicPopup){
+Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$ionicModal','native','Tools','$ionicScrollDelegate','goodsState','$ionicPopup','$ionicNativeTransitions',function($scope,fromStateServ,$timeout,$state,$ionicModal,native,Tools,$ionicScrollDelegate,goodsState,$ionicPopup,$ionicNativeTransitions){
 
 
 
@@ -162,7 +162,27 @@ Ctr.controller('listofgoodsCtr',['$scope','fromStateServ','$timeout','$state','$
     goodsState.total_in_price  = r.total_in_price;
     goodsState.total_in_number  = r.total_in_number ;
 
-    $state.go('r.goodsEdit',{state:'edit',id:r.goods_basic_id});
+
+    
+        if(window.lockingJump) return  false;
+        window.lockingJump  =  true;
+             $timeout(function(){
+              window.lockingJump  =  false;
+            },400)
+        $ionicNativeTransitions.stateGo('r.goodsEdit',{state:'edit',id:r.goods_basic_id}, {
+            "type": "slide",
+             "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
+             "duration":550, // in milliseconds (ms), default 400
+              slowdownfactor: 1,
+              iosdelay: 20, // ms to wait for the iOS webview to update before animation kicks in, default -1
+              androiddelay: -1000, // same as above but for Android, default -1
+              fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
+              fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
+              triggerTransitionEvent: '$ionicView.afterEnter', // internal ionic-native-transitions option
+            });
+
+       
+
 
   };
 
@@ -225,17 +245,17 @@ $scope.swatchtstate  = function (){
             angular.forEach($scope.datalist,function(r){
                   if(r.goods_basic_id  == goodsState.goods_basic_id){
                     r.goods_title  = goodsState.goods_title;
-                       r.img_url  = goodsState.img_url;              
+                       r.img_url  = goodsState.img_url;
                       r.total_in_price  = parseFloat(goodsState.total_in_price).toFixed(2);
                       r.total_in_number  = goodsState.total_in_number;
 
                   }
             })
       }
-    
+
       if(goodsState.Refresh){
           goodsState.Refresh   =false;
-
+        
           return  false;
       };
 
@@ -245,7 +265,17 @@ $scope.swatchtstate  = function (){
     $scope.downlistloadmor  = true;
     $scope.loginboj = {};
     $scope.ing  = false;
+
+
     $scope.parenttitle     =   fromStateServ.getState('r.listofgoods').title;
+
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.listofgoods';
+                window.androdzerofun_clback  = function(){};
+
+
+
+
 
 
     $timeout(function(){
@@ -305,6 +335,7 @@ $scope.swatchtstate  = function (){
 
   $scope.$on('$ionicView.beforeEnter',function(){
     inlit()
+
   });
 
 
@@ -403,14 +434,12 @@ $scope.swatchtstate  = function (){
             $scope.$broadcast('scroll.infiniteScrollComplete');
           },200)
 
-          if($scope.liststate){
-                $scope.salestotin.up   =  r.resp_data.totalCount
-          }else{
-                $scope.salestotin.down   =  r.resp_data.totalCount
-          }
-
           if(r){
-
+               if($scope.liststate){
+                $scope.salestotin.up   =  r.resp_data.totalCount
+                }else{
+                $scope.salestotin.down   =  r.resp_data.totalCount
+                }
                 if(r.resp_data.nextPage  == 0 ){
                 $scope.downlistloadmor  = false;
                 $scope.page_number  =1;
@@ -443,7 +472,30 @@ $scope.swatchtstate  = function (){
 
   $scope.Add  = function(){
 
-    $state.go('r.goodsEdit')
+
+        if(window.lockingJump) return  false;
+        window.lockingJump  =  true;
+
+               $timeout(function(){
+              window.lockingJump  =  false;
+            },400)
+
+        $ionicNativeTransitions.stateGo('r.goodsEdit',{}, {
+            "type": "slide",
+             "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
+             "duration":550, // in milliseconds (ms), default 400
+              slowdownfactor: 1,
+              iosdelay: 20, // ms to wait for the iOS webview to update before animation kicks in, default -1
+              androiddelay: -1000, // same as above but for Android, default -1
+
+              fixedPixelsTop: 0, // the number of pixels of your fixed header, default 0 (iOS and Android)
+              fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
+              triggerTransitionEvent: '$ionicView.afterEnter', // internal ionic-native-transitions option
+            });
+
+
+
+
   };
 
   $scope.backtoprevView  =     function (r){

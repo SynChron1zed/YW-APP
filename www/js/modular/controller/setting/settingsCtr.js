@@ -241,6 +241,13 @@ var   userone = storage.getObject('UserInfo');
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.SettingsUser').title;
+                
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.SettingsUser';
+                window.androdzerofun_clback  = function(){};
+
+
+
             }else{
                 $scope.showtitle  = false;
             }

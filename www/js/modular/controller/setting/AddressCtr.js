@@ -126,7 +126,17 @@ Ctr.controller('SettingsAddressCtr',['$scope','native','$state','fromStateServ',
   $scope.$on('$ionicView.beforeEnter',function(){    
     $scope.loginboj = {};
     $scope.ing  = false;
-    $scope.parenttitle     =   fromStateServ.getState('r.ClassifDetails').title;
+
+      if(fromStateServ.getState('r.ClassifDetails')){
+                $scope.backtoprevView  =   fromStateServ.backView;
+                $scope.parenttitle     =   fromStateServ.getState('r.ClassifDetails').title;
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.ClassifDetails';
+                window.androdzerofun_clback  = function(){};
+            }
+
+
+
   });
 
   $scope.backView  = function(){

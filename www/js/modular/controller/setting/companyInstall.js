@@ -30,6 +30,26 @@ Ctr.controller('companyInstallCtr',['$scope','$rootScope','$ionicViewSwitcher','
 
     Initial ();
     select()
+
+
+      if(fromStateServ.getState('r.companyInstall')){
+                $scope.showtitle  = true;
+                $scope.backtoprevView  =   fromStateServ.backView;
+                $scope.parenttitle     =   fromStateServ.getState('r.companyInstall').title;
+                
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.companyInstall';
+                window.androdzerofun_clback  = function(){};
+
+
+
+            }
+
+
+
+
+
+
   });
 
   function select() {

@@ -7,9 +7,12 @@ Ctr.controller('SettingsAddAddressCtr',['$scope','native','$state','fromStateSer
   var dataadd = $stateParams.dataAdd
     console.log(dataadd);
   //默认
+
+
+
+
   $scope.pushNotificationChange = function() {
 
-    console.log('Push Notification Change', $scope.pushNotification.checked);
     if($scope.pushNotification.checked==false){
       Checked=0;
     }else{

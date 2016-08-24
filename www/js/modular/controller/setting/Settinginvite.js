@@ -10,6 +10,11 @@ Ctr.controller('SettinginviteCtr',['$scope','storage','Tools','native','$state',
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.SettingOne').title;
+                                         
+                window.androdzerofun  =   fromStateServ.backView;
+                window.androdzerofun_parms  = 'r.SettingOne';
+                window.androdzerofun_clback  = function(){};
+
             }else{
                 $scope.showtitle  = false;
             }

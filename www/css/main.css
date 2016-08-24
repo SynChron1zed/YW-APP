@@ -141,12 +141,13 @@ img {
     .homeSlidebox .slider-pager .slider-pager-page {
       color: #939393;
       opacity: 1;
-      width: 30px; }
+      width: 30px;
+      margin: 0px; }
       .homeSlidebox .slider-pager .slider-pager-page i:before {
         content: '';
         background-color: #939393;
         height: 3px;
-        width: 25px; }
+        width: 20px; }
     .homeSlidebox .slider-pager .slider-pager-page.active {
       opacity: 1;
       color: #fdea08; }
@@ -2573,6 +2574,9 @@ input[readonly] {
       content: '';
       display: block;
       clear: both; }
+
+.bar-footer.has-tabs, .has-tabs {
+  bottom: 48px; }
 
 .shopcartnoitem {
   margin-top: 10px;

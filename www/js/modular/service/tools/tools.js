@@ -3,7 +3,6 @@
  */
 //小工具方法类
 Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup','storage','native','$ionicHistory','$state','$ionicNativeTransitions',function($window,$ionicLoading,$http,$timeout,$ionicPopup,storage,native,$ionicHistory,$state,$ionicNativeTransitions){
-
   //通知挑战
   var  Notificationjump  = function (obj) {
     console.log(obj);
@@ -93,7 +92,6 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   var   sendqiniu_queue  =  function (data,claback,key_header){
     getData({
           "interface_number": "000002",
-          "client_type": "ios",
           "post_content": {}
         },function(r){
           if(r){
@@ -160,23 +158,24 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
             native.hidloading();
   };
   var   getData  = function(data,Callback,errorCallback,sendType,host,jsonp,cansologin){
-
+    
     if(!host){
       data.client_type =   window.platform?window.platform:'ios';
       data.post_content.token  = window.Token?window.Token:storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:'';
       data.post_content.token_phone  = window.token_phone?window.token_phone:storage.getObject('UserInfo').phone?storage.getObject('UserInfo').phone:'';
 
-      if(window.dev_version){
-        data.post_content.version  =  window.dev_version;
-      }else {
-
-        window.cordova.getAppVersion.getVersionNumber(function (version) {
-          data.post_content.version  =  version;
-        })
+      data.version  =  window.dev_version;
+      if(!window.dev_version){
+        $timeout(function(){
+            getData(data,Callback,errorCallback,sendType,host,jsonp,cansologin);
+        },400)
+          return false;
       }
 
     }
 
+
+    
     if(!window.networonline){
       Callback(false);
       native.task('检查网络是否开启!')

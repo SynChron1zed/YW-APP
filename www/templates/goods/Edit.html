@@ -609,26 +609,20 @@
                         </ion-item>
                       </ion-list>
 
-                          <button ng-click="xuanzheopition()"
-                           style="width: 80%;
-                                  margin-left: 10%;
-                                  padding: 0px;
-                                  height: 42px;
-                                  line-height: 42px;
-                                  background: #f3e009;
-                                  border: none;
-                                  margin-top: 10px;
-                                  border-radius: 5px;
-                                  color: #6b3801;
-                                  letter-spacing: 1px;
-                                  margin-bottom:20px;
-                                  font-size:15px;
-                                "                   
-                            >
-                            添加自提点
-                          </button>
-
               </ion-content>
+
+
+                <ion-footer-bar class="bar-energized "   >
+
+          <!--<div class="buttons" ng-click="setmendianmsg()"   style="font-size:15px;line-height: 34px;color: #794901;"  > 
+          </div>-->
+
+          <h1 class="title" ng-click="xuanzheopition()"  style="font-size: 15px;font-weight: normal;color: #794901;letter-spacing: 1px;"  >   添加自提点</h1>
+
+        </ion-footer-bar>
+
+
+
           </div>
  </script>
 
@@ -668,7 +662,7 @@
 
 
     <!--//set模块-->
-    <div class="action-sheet-backdrop cutom-sheet"   ng-click="closetallcationvalue()"   id='setmapid'   style="overflow: visible;
+    <div class="action-sheet-backdrop cutom-sheet"     id='setmapid'   style="overflow: visible;
     "  ng-class="{'active':setallcationstate}" >
 
         <div class="action-sheet-wrapper    setmapintking   "   ng-class="{'action-sheet-up':setallcationstate}" style="overflow: visible;
@@ -687,14 +681,17 @@
 
                             <label class="item item-input"><input type="text" ng-model="mapTagging.title"   placeholder="自提点名称"></label>
                             <label class="item item-input"><input type="text"   ng-model="mapTagging.tel"    placeholder="联系方式"></label>
+                            <label class="item item-input"><input type="text" ng-model="mapTagging.position"   placeholder="详细地址"></label>
                             <label class="item item-input"><input type="text" ng-model="mapTagging.business"   placeholder="自提时间"></label>
+
                             </div>
 
                             <button    ng-click="comfpintbasemsg()"
+
                              style="
-                                margin-top:10px;
-                                margin-bottom:10px;
-                                width: 100%;
+                                
+                                margin:10px 5%;
+                                width: 40%;
                                 border: none;
                                 color: rgb(255, 255, 255);
                                 font-size: 16px;
@@ -702,7 +699,28 @@
                                 height: 42px;
                                 border-radius: 0px;
                                 background: rgb(255, 159, 4);
+                                float: left;
                              " > 确 认 </button>
+
+                             <button    ng-click="closetallcationvalue()"
+
+                             style="
+                                    float: left;
+                                margin:10px 5%;
+                                width: 40%;
+                                border: none;
+                                color: rgb(255, 255, 255);
+                                font-size: 16px;
+                                font-weight: 400;
+                                height: 42px;
+                                border-radius: 0px;
+                                background: rgb(255, 159, 4);
+                             " > 取 消 </button>
+
+                                <div style="display:block;clear:both" >
+
+                                </div>
+
 
                     </div>
                              
