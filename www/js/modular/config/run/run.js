@@ -39,9 +39,21 @@ window.networonline  =  true;
       });
   
   $ionicPlatform.ready(function() {
-    window.cordova.getAppVersion.getVersionNumber(function (version) {
-          window.dev_version  = version;
-    })
+
+    if(window.cordova){
+
+      window.cordova.getAppVersion.getVersionNumber(function (version) {
+            window.dev_version  = version;
+
+
+
+
+
+
+      })
+
+    }
+    
 
    setTimeout(function () {
      if(navigator){
@@ -376,16 +388,12 @@ window.networonline  =  true;
     $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
       window.networonline  =  false;
     })
-    
   });
-
+  
   window.updateAPP  =  function(r){
-    return false;
     if(ionic.Platform.platform()  == 'ios'){
       return false;
     }
-
-
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
 
@@ -548,13 +556,14 @@ window.networonline  =  true;
       auth:false,
       Integritygold:false
     },
-
-
-
   }
 
-
   window.Permission  =  function (a,b,c) {
+    
+    if(a  ==  'r.SeeshopPint') {
+      return  true;
+    }
+
     if(a   == 'r.HomSales' ){
         return  handeposins(a,PermissionConfig.HomSales)
     }

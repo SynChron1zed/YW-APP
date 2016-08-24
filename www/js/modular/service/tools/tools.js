@@ -163,9 +163,19 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       data.client_type =   window.platform?window.platform:'ios';
       data.post_content.token  = window.Token?window.Token:storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:'';
       data.post_content.token_phone  = window.token_phone?window.token_phone:storage.getObject('UserInfo').phone?storage.getObject('UserInfo').phone:'';
+
       data.version  =  window.dev_version;
+      if(!window.dev_version){
+        $timeout(function(){
+            getData(data,Callback,errorCallback,sendType,host,jsonp,cansologin);
+        },400)
+          return false;
+      }
+
     }
 
+
+    
     if(!window.networonline){
       Callback(false);
       native.task('检查网络是否开启!')

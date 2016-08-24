@@ -154,11 +154,12 @@ img{
        color: #939393;
        opacity: 1;
        width: 30px;
+       margin: 0px;
        i:before{
          content: '';
          background-color: #939393;
          height: 3px;
-         width: 25px;
+         width: 20px;
        }
       }
       .slider-pager-page.active{

@@ -288,7 +288,6 @@ $scope.recharge = function (value,val) {
         $scope.Userinfo.sex  =  './img/icon_man@3x.png';
       }else{
         $scope.Userinfo.sex  =  './img/icon_women.png';
-
       }
       $scope.Userinfo.login  = true;
       $scope.Userinfo.name  = user.real_name;
@@ -313,9 +312,11 @@ $scope.recharge = function (value,val) {
 
 
   $scope.$on('$ionicView.beforeEnter',function() {
+
     if (fromStateServ.getState('r.management')) {
       $scope.showtitle = true;
       $scope.ing = false;
+
 
 
       $scope.parenttitle = fromStateServ.getState('r.management').title;

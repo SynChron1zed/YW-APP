@@ -111,9 +111,11 @@ $scope.chekselectpintlistdel = function(){
                    "address":$scope.mapTagging.position
                 });
 
+                
+                $scope.closetallcationvalue();
                 $timeout(function(){
-                      $scope.map.hide();
-                },100)
+                      $scope.map.hide();      
+                },400)
 
 
 
@@ -126,7 +128,10 @@ $scope.chekselectpintlistdel = function(){
     }
 
   $scope.comfpintbasemsg  = function (){
-      $scope.closetallcationvalue();
+
+      //$scope.closetallcationvalue();
+      $scope.savePintthi();
+
       if(marker){
           infoWindow.setContent(setcontext());
           openinfo();
@@ -221,8 +226,32 @@ function  creatpint   (e){
 
   $scope.xuanzheopition  = function (tage){
 
-        if(!tage){
 
+
+
+
+
+ $scope.map.show();
+      $scope.mapTagging   ={};
+      $scope.mapTagging.title  = '';
+      $scope.mapTagging.tel  = '';
+      $scope.mapTagging.business  = '';
+      //$scope.mapTagging.position  = '获取中....';
+      $scope.mapTagging.position  = undefined;
+      $scope.mapTagging.long   =  '';
+      $scope.mapTagging.lat   =  '';
+
+
+    $scope.map.show();
+
+    $timeout(function(){
+
+      $scope.setmendianmsg();
+
+    },600)
+    return false;
+
+        if(!tage){
                 if(marker){
                   map.clearOverlays(marker);
                 }
@@ -233,17 +262,7 @@ function  creatpint   (e){
            },700)
         }
 
-      $scope.map.show();
-
-      console.log(tage);
-
-      $scope.mapTagging   ={};
-      $scope.mapTagging.title  = '';
-      $scope.mapTagging.tel  = '';
-      $scope.mapTagging.business  = '';
-      $scope.mapTagging.position  = '获取中....';
-      $scope.mapTagging.long   =  undefined;
-      $scope.mapTagging.lat   =  undefined;
+     
       //$scope.mapTagging.take_id
 
 
