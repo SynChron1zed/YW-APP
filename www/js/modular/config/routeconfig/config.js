@@ -1379,6 +1379,19 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
+      //系统消息
+    .state('r.Storemanagement',{
+      url: '/Companynotice',
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Notice/logisticsInfo.html',
+          controller: 'CompanynoticeCtr'
+        }
+      }
+    })
+
+
+
 
 
 

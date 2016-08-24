@@ -21,7 +21,7 @@ if(window.$cordovaGeolocation){
       //error
     });
 
-
+  
 }
 
 
@@ -111,10 +111,10 @@ $scope.chekselectpintlistdel = function(){
                    "address":$scope.mapTagging.position
                 });
 
-                
+
                 $scope.closetallcationvalue();
                 $timeout(function(){
-                      $scope.map.hide();      
+                      $scope.map.hide();
                 },400)
 
 
@@ -262,7 +262,7 @@ function  creatpint   (e){
            },700)
         }
 
-     
+
       //$scope.mapTagging.take_id
 
 
@@ -995,7 +995,7 @@ function  creatpint   (e){
 $scope.$on('$ionicView.beforeEnter',function(){
   inlint();
 })
-  
+
 
 
 
@@ -1437,7 +1437,7 @@ $scope.save  = function (){
             goodsState.total_in_price  = r.resp_data.total_in_price;
             goodsState.total_in_number   = r.resp_data.total_in_number;
             //console.log(goodsState)
-          
+
           native.task('保存成功!',3000)
           $timeout(function(){
               $rootScope.$ionicGoBack();
