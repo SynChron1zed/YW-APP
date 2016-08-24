@@ -18,7 +18,7 @@ $scope.dataList = false
     //页面的状态变化  请求
 
 
-  
+
     if ($ionicHistory.backView().forwardViewId) {
       window.androdzerofun  = function(parm1,parm2){
         $ionicHistory.goBack();
@@ -405,17 +405,31 @@ $scope.query =function () {
 
 
 
-  $scope.backtoprevView  =   fromStateServ.backView;
-  $scope.$on('$stateChangeSuccess',function(){
 
-    $scope.loginboj = {};
-    $scope.ing  = false;
-    $scope.parenttitle     =   fromStateServ.getState('r.HomSales').title;
-  });
+
+
+  //商品详情模块
+  //保存历史记录的方法  调用  上一次1 title  和返回方法
 
   $scope.backView  = function(){
     $scope.$ionicGoBack();
   };
+  $scope.$on('$ionicView.beforeEnter',function() {
+    if (fromStateServ.getState('r.HomSales')) {
+      $scope.showtitle = true;
+      $scope.ing = false;
+
+
+      $scope.parenttitle = fromStateServ.getState('r.HomSales').title;
+      $scope.backtoprevView = fromStateServ.backView;
+      window.androdzerofun = fromStateServ.backView;
+      window.androdzerofun_parms = 'r.HomSales';
+      window.androdzerofun_clback = function () {
+      };
+
+
+    }
+  });
 
   $scope.dataRight =function (value) {
 
@@ -433,7 +447,6 @@ $scope.query =function () {
 
   $scope.searchBody=function () {
     $scope.Modal.show();
-
 
   }
 

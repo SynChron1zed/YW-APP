@@ -312,6 +312,26 @@ $scope.recharge = function (value,val) {
 
 
 
+  $scope.$on('$ionicView.beforeEnter',function() {
+    if (fromStateServ.getState('r.management')) {
+      $scope.showtitle = true;
+      $scope.ing = false;
+
+
+      $scope.parenttitle = fromStateServ.getState('r.management').title;
+      $scope.backtoprevView = fromStateServ.backView;
+      window.androdzerofun = fromStateServ.backView;
+      window.androdzerofun_parms = 'r.management';
+      window.androdzerofun_clback = function () {
+      };
+
+
+    }
+  });
+
+
+
+
 
 }]);
 

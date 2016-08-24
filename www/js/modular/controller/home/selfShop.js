@@ -25,7 +25,7 @@ Ctr.controller('selfShopCtr',['$scope','native','$state','fromStateServ','Tools'
 
     if(r.msg== "success"){
       $scope.selfList =r.resp_data
-      
+
 
     }else{
 
@@ -41,7 +41,7 @@ Ctr.controller('selfShopCtr',['$scope','native','$state','fromStateServ','Tools'
 
      seeshopPint.datalist  =[];
     $scope.mapList = val;
-    
+
     seeshopPint.datalist  = [
       {
         name:$scope.mapList.name,
@@ -55,7 +55,26 @@ Ctr.controller('selfShopCtr',['$scope','native','$state','fromStateServ','Tools'
     $state.go('r.SeeshopPint',{name:$scope.mapList.name});
 
 
+    };
+
+
+
+  $scope.$on('$ionicView.beforeEnter',function() {
+    if (fromStateServ.getState('r.selfShop')) {
+      $scope.showtitle = true;
+      $scope.ing = false;
+
+
+      $scope.parenttitle = fromStateServ.getState('r.selfShop').title;
+      $scope.backtoprevView = fromStateServ.backView;
+      window.androdzerofun = fromStateServ.backView;
+      window.androdzerofun_parms = 'r.selfShop';
+      window.androdzerofun_clback = function () {
+      };
+
+
     }
+  });
 
 
 

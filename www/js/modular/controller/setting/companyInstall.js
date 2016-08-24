@@ -27,6 +27,7 @@ Ctr.controller('companyInstallCtr',['$scope','$rootScope','$ionicViewSwitcher','
 
   //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
+
     Initial ();
     select()
   });
@@ -187,19 +188,23 @@ $scope.deleteCompany=function () {
 
   //商品详情模块
   //保存历史记录的方法  调用  上一次1 title  和返回方法
-  $scope.backtoprevView  =   fromStateServ.backView;
 
-  $scope.$on('$stateChangeSuccess',function(){
+  $scope.$on('$ionicView.beforeEnter',function() {
+    if (fromStateServ.getState('r.companyInstall')) {
+      $scope.showtitle = true;
+      $scope.ing = false;
 
-    $scope.loginboj = {};
-    $scope.ing  = false;
-    $scope.parenttitle     =   fromStateServ.getState('r.companyInstall').title;
+
+      $scope.parenttitle = fromStateServ.getState('r.companyInstall').title;
+      $scope.backtoprevView = fromStateServ.backView;
+      window.androdzerofun = fromStateServ.backView;
+      window.androdzerofun_parms = 'r.companyInstall';
+      window.androdzerofun_clback = function () {
+      };
+
+
+    }
   });
-
-  $scope.backView  = function(){
-    $scope.$ionicGoBack();
-  };
-
 
 
 }]);
