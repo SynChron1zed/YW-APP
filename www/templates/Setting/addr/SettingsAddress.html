@@ -32,7 +32,7 @@
     <ion-list    show-delete="showdelt"   >
 
 
-                  <ion-item ng-repeat="ff in datalist" class="adderlistnoe" style="  " >
+                  <ion-item ng-repeat="ff in datalist" class="adderlistnoe    " style="  " >
                       <div   ng-click="adderedit(ff)"  >
                       <p style="margin:0px;    color: #343434;font-size: 16px;margin-bottom: 8px;">{{ff.link_man}}    <span style="float:right">{{ff.link_phone}}</span> </p>
                       <p style="margin:0px;">{{ff.province+" "+ff.city+" "+ff.region+"     "+ff.street}}</p>
@@ -42,7 +42,6 @@
                       </ion-delete-button>
 
                       <div  ng-show="ff.is_default"
-                        
                                style="display: inline-block;
                                       position: absolute;
                                       right: 24px;

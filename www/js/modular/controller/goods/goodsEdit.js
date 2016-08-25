@@ -16,12 +16,11 @@ if(window.$cordovaGeolocation){
           lat:lat,
           long:long
         });
-
     }, function(err) {
       //error
     });
 
-  
+
 }
 
 

@@ -114,5 +114,9 @@
       return{
       }
     }])
+    .factory('StoredataEdit',[function(){
+      return{
+      }
+    }])
 
 

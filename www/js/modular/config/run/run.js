@@ -32,11 +32,10 @@ window.networonline  =  true;
             };
 
 
-
-       $rootScope.$on('$stateChangeSuccess', function() {
-          console.log($location.path());
-          console.log($ionicHistory.viewHistory())
-      });
+      //  $rootScope.$on('$stateChangeSuccess', function() {
+      //     console.log($location.path());
+      //     console.log($ionicHistory.viewHistory())
+      // });
   
   $ionicPlatform.ready(function() {
 
@@ -375,7 +374,6 @@ window.networonline  =  true;
           window.hannotilistnow(e)
         }, false);
       }
-
     if(window.platform  !== 'ios'){
       window.updateAPP(true);
     }
@@ -391,6 +389,8 @@ window.networonline  =  true;
   });
   
   window.updateAPP  =  function(r){
+    
+    return  false;
     if(ionic.Platform.platform()  == 'ios'){
       return false;
     }

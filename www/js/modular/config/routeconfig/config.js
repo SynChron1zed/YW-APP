@@ -16,7 +16,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
   $ionicNativeTransitionsProvider.setDefaultOptions({
-    duration: 520, // in milliseconds (ms), default 400,
+    duration: 400, // in milliseconds (ms), default 400,
     slowdownfactor: 1, // overlap views (higher number is more) or no overlap (1), default 4
     iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
     androiddelay: 20, // same as above but for Android, default -1
@@ -1389,6 +1389,19 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+
+    //门店  编辑 增加
+    .state('r.StoremanagementEdit',{
+      url: '/StoremanagementEdit',
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Setting/StoremanagementEdit.html',
+          controller: 'StoremanagementEditCtr'
+        }
+      }
+    })
+
+
 
 
 

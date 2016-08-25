@@ -13,7 +13,7 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                                 $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
                                 "type": "slide",
                                 "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
-                                "duration":550, // in milliseconds (ms), default 400
+                                "duration":400, // in milliseconds (ms), default 400
                                 slowdownfactor: 1,
                                 iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
                                 androiddelay: 20, // same as above but for Android, default -1
@@ -30,7 +30,7 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                     $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
                             "type": "slide",
                             "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
-                            "duration":550, // in milliseconds (ms), default 400
+                            "duration":400, // in milliseconds (ms), default 400
                             slowdownfactor: 1,
                             iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
                             androiddelay: 20, // same as above but for Android, default -1
@@ -79,7 +79,7 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
             $ionicNativeTransitions.stateGo(stateName,parms, {
             "type": "slide",
              "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
-             "duration":550, // in milliseconds (ms), default 400
+             "duration":400, // in milliseconds (ms), default 400
               slowdownfactor: 1,
               iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
               androiddelay: -1, // same as above but for Android, default -1
