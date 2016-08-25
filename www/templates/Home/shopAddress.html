@@ -1,0 +1,118 @@
+<ion-view view-title="地址修改" >
+
+  <ion-nav-buttons side="right" >
+    <a    class="button button-icon " ng-click="queryAddress()">
+
+      保存
+    </a>
+  </ion-nav-buttons>
+
+
+  <ion-content  style="background: #F7F7F7;overflow: hidden;"  overflow-scroll="true"  scroll="false"  >
+
+    <div class="list">
+
+
+
+
+      <label class="item item-input"  ng-click="openselectprovince()" >
+        <span class="input-label">省市区</span><input readonly  placeholder="请选择省市区"   ng-model="opitionmsg.text"  style="background:transparent"  type="text">
+      </label>
+      <label class="item item-input" style="border-top: none;border-top: 1px solid #ccc;">
+        <span class="input-label">详细地址</span><input  maxlength="20" ng-model="addrs.detailmsg"   placeholder="请填写详细地址" style="background:transparent"  type="text">
+      </label>
+
+    </div>
+
+
+
+    <script id="sheng.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar  class="bar-positive item-input-inset  lb-main-title-search" >
+          <button  style="padding: 0px;" class="button button-icon "  >
+            选择省份
+          </button>
+          <h5 class="title"></h5>
+          <button class="button button-icon   ion-android-close"  ng-click="sheng.hide()" >
+          </button>
+        </ion-header-bar>
+        <ion-content style="background:#efefef"     overflow-scroll="false"   scrollbar-y="false"     >
+
+
+          <div class="list   gerenlist-icon"  >
+
+            <label class="item"    ng-repeat="ss  in  shenfeng"    ng-click='selectshengf(shenfeng,ss)'   style="width:100%;margin-left:0px"  >
+              {{ss.cityName}}
+              <i ng-show='ss.select' class="ion-ios-checkmark-empty"  style="font-size: 35px;margin-top: -3px;color:red"></i>
+            </label>
+          </div>
+
+        </ion-content>
+      </div>
+    </script>
+
+    <script id="city.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar  class="bar-positive item-input-inset  lb-main-title-search" >
+          <button  style="padding: 0px;" class="button button-icon "  >
+            选择城市
+          </button>
+          <h5 class="title"></h5>
+          <button class="button button-icon   ion-android-close"  ng-click="city.hide()" >
+          </button>
+        </ion-header-bar>
+        <ion-content style="background:#efefef"     overflow-scroll="false"   scrollbar-y="false"     >
+
+          <div class="list   gerenlist-icon"  >
+
+            <label class="item"    ng-repeat="ss  in  childCity"    ng-click='selectCity(childCity,ss)'   style="width:100%;margin-left:0px"  >
+              {{ss.cityName}}
+              <i ng-show='ss.select' class="ion-ios-checkmark-empty"  style="font-size: 35px;margin-top: -3px;color:red"></i>
+            </label>
+          </div>
+
+        </ion-content>
+      </div>
+    </script>
+
+    <script id="area.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar  class="bar-positive item-input-inset  lb-main-title-search" >
+          <button  style="padding: 0px;" class="button button-icon "  >
+            选择区域
+          </button>
+          <h5 class="title"></h5>
+          <button class="button button-icon   ion-android-close"  ng-click="area.hide()" >
+          </button>
+        </ion-header-bar>
+        <ion-content style="background:#efefef"     overflow-scroll="false"   scrollbar-y="false"     >
+
+          <div class="list   gerenlist-icon"  >
+
+            <label class="item"    ng-repeat="ss  in  childarea"    ng-click='selectArea(childarea,ss)'   style="width:100%;margin-left:0px"  >
+              {{ss.cityName}}
+              <i ng-show='ss.select' class="ion-ios-checkmark-empty"  style="font-size: 35px;margin-top: -3px;color:red"></i>
+            </label>
+          </div>
+
+        </ion-content>
+      </div>
+    </script>
+
+
+
+
+
+
+
+
+  </ion-content>
+
+</ion-view>
+
+
+
+
+
+
+

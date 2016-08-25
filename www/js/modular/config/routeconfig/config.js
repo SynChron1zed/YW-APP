@@ -586,6 +586,59 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
+    .state('r.shopAddress',{
+      url: '/shopAddress/:province/:city/:region/:detailmsg',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.shopAddress')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Home/shopAddress.html',
+          controller: 'shopAddressCtr'
+        }
+      }
+    })
+
+
+
+    .state('r.shopNumber',{
+      url: '/shopNumber/:Number',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.shopNumber')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Home/shopNumber.html',
+          controller: 'shopNumberCtr'
+        }
+      }
+    })
+
+    .state('r.classAdvice',{
+      url: '/classAdvice/:id',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.classAdvice')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Classif/ClassAdvice.html',
+          controller: 'ClassAdviceCtr'
+        }
+      }
+    })
+
+
+
+
 
     //店铺name
     .state('r.HomShopadminname',{
@@ -1328,7 +1381,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    
+
     //交易物流消息
     .state('r.LogisticsInformation',{
       url: '/LogisticsInformation',
