@@ -158,7 +158,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
             native.hidloading();
   };
   var   getData  = function(data,Callback,errorCallback,sendType,host,jsonp,cansologin){
-    
+
     if(!host){
       data.client_type =   window.platform?window.platform:'ios';
       data.post_content.token  = window.Token?window.Token:storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:'';
@@ -175,7 +175,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     }
 
 
-    
+
     if(!window.networonline){
       Callback(false);
       native.task('检查网络是否开启!')
@@ -286,6 +286,10 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     Zipcode:function(val){
       return /^[0-9][0-9]{5}$/.test(val);
     },
+    jifen:function (val) {
+      return /^(\d+(.\d{1,2})?)$/g.test(val);
+    },
+
     //汉字
     chinese:function(val){
       return /[\u4E00-\u9FA5]/.test(val);

@@ -7,7 +7,7 @@
  * Created by Why on 16/6/8.
  */
 Ctr.controller('managementCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize','storage','fromStateServ',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize,storage,fromStateServ){
-  
+
   $scope.newsList =[]
   $scope.expression=true;
   $scope.userid = storage.getObject('UserInfo').user_id;
@@ -160,6 +160,7 @@ Ctr.controller('managementCtr',['$scope','$rootScope','$ionicViewSwitcher','$sta
 
 $scope.recharge = function (value,val) {
 
+
   $scope.data={}
 
   $ionicPopup.show({
@@ -179,8 +180,13 @@ $scope.recharge = function (value,val) {
             // 不允许用户关闭，除非输入 wifi 密码
             e.preventDefault();
           } else {
+      
             console.log($scope.data.integral)
            $scope.integrals =  $scope.data.integral;
+            if(!Tools.reg.jifen($scope.integrals)){
+              native.task('请输入正确的积分');
+                   return false;
+            }
             Tools.getData({
               "interface_number": "000404",
               "post_content": {

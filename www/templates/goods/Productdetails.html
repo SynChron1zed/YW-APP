@@ -28,6 +28,7 @@
                 <div class="content">
                     <span style="position: relative;left: 4px;">￥</span>
                     {{goods.goodsInfo.total_in_price}}
+                  <span style="font-size: 12px;color: #a2a2a2;margin-left: 5px;" ng-if="goods.goodsInfo.total_in_price!=goods.goodsInfo.total_market_price">￥<span style="font-size: 12px;color: #a2a2a2;text-decoration:line-through;">{{goods.goodsInfo.total_market_price}}</span></span>
                     </div>
                 <div class="right"></div>
     </div>
@@ -35,7 +36,9 @@
           <div class="basemasg">
                 <div><label for="">运费 :</label> <span>￥</span>
                     {{goods.goodsInfo.express_fee}}              </div>
-                <div><label for="">库存 :</label> <span>{{goods.goodsInfo.total_in_number}}
+                <div><label for="">销量 :</label> <span>{{goods.goodsInfo.sale_num}}
+                </span> 件</div>
+            <div><label for="">库存 :</label> <span>{{goods.goodsInfo.total_in_number}}
                 </span> 件</div>
             </div>
 
