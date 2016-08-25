@@ -7,12 +7,11 @@
  * Created by Why on 16/6/8.
  */
 Ctr.controller('managementCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize','storage','fromStateServ',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize,storage,fromStateServ){
-
+  
   $scope.newsList =[]
   $scope.expression=true;
   $scope.userid = storage.getObject('UserInfo').user_id;
   $scope.integralnew = $stateParams.integral;
-
   //加载
   $scope.loadOlderStories=function (type) {
 

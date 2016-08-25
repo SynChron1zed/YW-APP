@@ -1379,13 +1379,13 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-      //系统消息
+    //门店管理
     .state('r.Storemanagement',{
-      url: '/Companynotice',
+      url: '/Storemanagement',
       views: {
         'rootview': {
-          templateUrl: 'templates/Notice/logisticsInfo.html',
-          controller: 'CompanynoticeCtr'
+          templateUrl: 'templates/Setting/Storemanagement.html',
+          controller: 'StoremanagementCtr'
         }
       }
     })
