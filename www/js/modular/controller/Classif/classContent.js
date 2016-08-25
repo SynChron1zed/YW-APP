@@ -49,15 +49,29 @@ Ctr.controller('classContentCtr',['$scope','native','$state','fromStateServ','To
 
     $scope.scorllheader  =  {};
     var  gescoheight   =   function () {
+      /*
       if(window.platform  == 'ios'){
+        debugger
         $scope.scorllheader  =  {
           height:( window.innerHeight-window.document.querySelector('.tab-nav').offsetHeight+6-window.document.querySelector('.casdawwwwww').offsetHeight)+'px'
         }
       }else{
+        debugger
         $scope.scorllheader  =  {//26
-          height:( window.innerHeight-window.document.querySelector('.tab-nav').offsetHeight-43-window.document.querySelector('.casdawwwwww').offsetHeight)+'px'
+          height:( window.innerHeight-window.document.querySelector('.tab-nav').offsetHeight-0-window.document.querySelector('.casdawwwwww').offsetHeight)+'px'
+        }
+      }*/
+      if(window.platform  == 'ios'){
+        $scope.scorllheader  = {
+          height:window.innerHeight-(64+29)+'px'
+        }
+      }else{
+        $scope.scorllheader  = {
+          height:window.innerHeight-(44+50)+'px'
         }
       }
+
+
     }
     gescoheight();
     $timeout(function() {
