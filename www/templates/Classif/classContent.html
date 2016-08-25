@@ -52,13 +52,15 @@
     <ion-scroll style="overflow-y: hidden;"  overflow-scroll="false"    delegate-handle="small"    scrollbar-y="false"   lazy-scroll   ng-style="scorllheader"    >
 
 
-
+<div ng-if='guankao'></div>
 
 
       <div class="shopgoodslit"  style="    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.03)"   ng-repeat="ff in goodlist"    ng-click="goodsdetail(ff)"  >
         <img image-lazy-src="{{ff.img_url}}" alt="" image-lazy-distance-from-bottom-to-load="10"     >
         <p style="height:40px;padding:0px 4px;">{{ff.goods_title}}</p>
-        <p><span style="color:#f16902">￥{{ff.total_in_price}}</span></p>
+        <p><span style="color:#f16902">￥{{ff.total_in_price}}</span><span style="font-size: 12px;color: #a2a2a2;margin-left: 5px;">￥<span style="font-size: 12px;color: #a2a2a2;text-decoration:line-through;">280</span></span></p>
+        <p style="margin-left: 5px">销量：<span style="font-size: 12px;color: #a2a2a2;">110件</span></p>
+
       </div>
 
 
@@ -67,8 +69,9 @@
 
       <ion-infinite-scroll ng-if="loadermoer"      style="height: 40px;line-height: 40px;margin-bottom:10px;text-align: center"   spinner="dots"      on-infinite="customcucdownlisloadMore()" distance="1%" ></ion-infinite-scroll>
       <p ng-if="!loadermoer" style="height: 40px;line-height: 40px;margin-bottom:10px;text-align: center;color:#999" >没有更多了!</p>
-      <div style="height:55px;">
-      </div>
+   <!--   <div style="height:55px;">
+      </div>-->
+
 
     </ion-scroll>
 

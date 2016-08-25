@@ -13,10 +13,12 @@ Ctr.controller('classContentCtr',['$scope','native','$state','fromStateServ','To
   //商品详情模块
   //保存历史记录的方法  调用  上一次1 title  和返回方法
 
+
   $scope.backView  = function(){
     $scope.$ionicGoBack();
   };
   $scope.$on('$ionicView.beforeEnter',function() {
+
     if (fromStateServ.getState('r.classContent')) {
       $scope.showtitle = true;
       $scope.ing = false;
@@ -38,12 +40,12 @@ Ctr.controller('classContentCtr',['$scope','native','$state','fromStateServ','To
 
   function  inlit   (){
 
+
     if($scope.guankao){ return false; }
     $scope.goodsdetail  = function(r){
      $state.go('r.Productdetails',{id:r.goods_basic_id});
     }
-
-
+    $scope.guankao = true
 
     $scope.scorllheader  =  {};
     var  gescoheight   =   function () {
@@ -52,8 +54,8 @@ Ctr.controller('classContentCtr',['$scope','native','$state','fromStateServ','To
           height:( window.innerHeight-window.document.querySelector('.tab-nav').offsetHeight+6-window.document.querySelector('.casdawwwwww').offsetHeight)+'px'
         }
       }else{
-        $scope.scorllheader  =  {
-          height:( window.innerHeight-window.document.querySelector('.tab-nav').offsetHeight+26-window.document.querySelector('.casdawwwwww').offsetHeight)+'px'
+        $scope.scorllheader  =  {//26
+          height:( window.innerHeight-window.document.querySelector('.tab-nav').offsetHeight-43-window.document.querySelector('.casdawwwwww').offsetHeight)+'px'
         }
       }
     }
@@ -165,11 +167,13 @@ Ctr.controller('classContentCtr',['$scope','native','$state','fromStateServ','To
   //对安卓返回键的  特殊处理  tabs
   $scope.$on('$ionicView.beforeEnter',function(){
 
-    if( $scope.loadermoer  != undefined){
-      $scope.pagenumber  = 1;
-      $scope.goodlist = [];
-      $ionicScrollDelegate.$getByHandle('small').resize();
-      $scope.loadermoer = true;
+    if ($ionicHistory.backView()) {
+
+      window.androdzerofun  = function(parm1,parm2){
+        $ionicHistory.goBack();
+      }
+      window.androdzerofun_parms  ='tabswtathing';
+      window.androdzerofun_clback  = 'nothing';
     }
 
     inlit();

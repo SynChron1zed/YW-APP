@@ -6,7 +6,7 @@
  */
 
 Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$ionicHistory','$ionicScrollDelegate','$ionicBackdrop',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$ionicHistory,$ionicScrollDelegate,$ionicBackdrop) {
-  
+
   function  inlit   (){
     if($scope.guankao){ return false; }
     Tools.getData({
@@ -49,6 +49,7 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
       window.androdzerofun_clback  = 'nothing';
     }
 
+    
     inlit();
   });
 
