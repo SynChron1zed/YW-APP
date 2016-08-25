@@ -34,7 +34,9 @@ Ctr.controller('applicationCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
   });
 
 
-  $scope.next  = function (){
+
+  function init() {
+    Tools.showlogin();
     Tools.getData({
       "interface_number": "000105",
       "post_content": {
@@ -65,7 +67,12 @@ Ctr.controller('applicationCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
 
 
     })
+  }
 
+
+  $scope.next  = function (){
+
+    init();
 
 
   }

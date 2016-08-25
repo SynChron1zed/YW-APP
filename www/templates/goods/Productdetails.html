@@ -23,21 +23,32 @@
         </span>
     </div>
 
-    <div class="goodpirce">
+    <div class="goodpirce" style="height: 2.2rem;
+    border-bottom: 1px solid #DCDCDC;
+    background: #f2f2f2;
+    line-height: 1.0rem;
+    font-size: .8rem;
+    color: #fc8800;">
                 <div class="left"></div>
                 <div class="content">
                     <span style="position: relative;left: 4px;">￥</span>
                     {{goods.goodsInfo.total_in_price}}
                   <span style="font-size: 12px;color: #a2a2a2;margin-left: 5px;" ng-if="goods.goodsInfo.total_in_price!=goods.goodsInfo.total_market_price">￥<span style="font-size: 12px;color: #a2a2a2;text-decoration:line-through;">{{goods.goodsInfo.total_market_price}}</span></span>
-                    </div>
-                <div class="right"></div>
+                  <div style="margin-left: 4px;
+    font-size: 12px;
+    color: #a2a2a2;">
+                  <span style="margin-left: 5px">销量：<span style="font-size: 12px;color: #a2a2a2;">{{goods.goodsInfo.sale_num}}件</span></span>
+                  </div>
+                </div>
+
+
+      <div class="right"></div>
     </div>
+
 
           <div class="basemasg">
                 <div><label for="">运费 :</label> <span>￥</span>
                     {{goods.goodsInfo.express_fee}}              </div>
-                <div><label for="">销量 :</label> <span>{{goods.goodsInfo.sale_num}}
-                </span> 件</div>
             <div><label for="">库存 :</label> <span>{{goods.goodsInfo.total_in_number}}
                 </span> 件</div>
             </div>
