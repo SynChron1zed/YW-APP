@@ -49,11 +49,11 @@ fromStateServ.stateChange('r.SeeshopPint',{name:'测试的店铺'});
   //慈善
 
   $scope.charitable =  function () {
-
     native.task('该活动暂未开放，敬请期待');
     return false;
 
-    //$scope.goModular('r.HomeCharitable');
+   // $scope.goModular('r.HomeCharitable');
+    //$scope.goModular('r.stretchOne');
 
   }
 

@@ -524,6 +524,27 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
+      //活动
+
+    .state('r.stretchOne', {
+      url: '/stretchOne',
+      cache:false,
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.stretchOne')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          params:{id:null,inside:null},
+          templateUrl: 'templates/shop/stretchOne.html',
+          controller: 'stretchOneCtr'
+        }
+      }
+    })
+
+
     //交易流程
 
 
