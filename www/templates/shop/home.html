@@ -6,7 +6,7 @@
       <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
     </div>
   </ion-nav-buttons>
-  
+
    <ion-nav-title>
     {{title}}
   </ion-nav-title>
@@ -21,7 +21,7 @@
             <div class="imgbox">
                 <img ng-src="{{shop_info.img_shop}}" alt="">
             </div>
-            
+
             <h5 style="overflow: hidden;text-overflow: ellipsis;margin: 0px;margin-top: 10px;
             ">{{shop_info.shop_name}}</h5>
             <p >{{shop_info.description}}</p>
@@ -29,23 +29,25 @@
       </div>
 
       <div class="shopclaslist" style="white-space: nowrap;overflow: hidden;">
-        
+
             <div draggable  style="display: inline-block;" >
                 <div class="listitme"     ng-repeat="ss in shopclasslist"  ng-click="swatchclass(ss)"  ng-class="{'active':ss.select}">
                   {{ss.cate_name}}
                 </div>
               </div>
-      </div>      
+      </div>
 
 
 
-    
+
 
           <div class="shopgoodslit"  ng-repeat="ff in goodlistdata"   ng-click="gogoodsdetial(ff)"  >
             <img image-lazy-src="{{ff.img_url}}" alt="" image-lazy-distance-from-bottom-to-load="100" >
                   <p style="height:40px;padding:0px 4px;">{{ff.goods_title}}</p>
-                  <p><span style="color:#f16902">￥{{ff.total_in_price}}</span></p>
-            </div>
+                  <p><span style="color:#f16902">￥{{ff.total_in_price}}</span><span style="font-size: 12px;color: #a2a2a2;margin-left: 5px;" ng-if="ff.total_in_price!=ff.total_market_price">￥<span style="font-size: 12px;color: #a2a2a2;text-decoration:line-through;">{{ff.total_market_price}}</span></span></p>
+            <p style="margin-left: 5px">销量：<span style="font-size: 12px;color: #a2a2a2;">{{ff.sale_num}}件</span></p>
+
+          </div>
 
 
 
@@ -53,8 +55,6 @@
 
           <ion-infinite-scroll ng-if="loadermoer"      style="height: 40px;line-height: 40px;margin-bottom:10px;text-align: center"   spinner="dots"      on-infinite="customcucdownlisloadMore()" distance="1%" ></ion-infinite-scroll>
           <p ng-if="!loadermoer" style="height: 40px;line-height: 40px;margin-bottom:10px;text-align: center;color:#999" >没有更多了!</p>
-              
-  
 
 
 
@@ -62,7 +62,9 @@
 
 
 
-      
+
+
+
   </ion-content>
 
 

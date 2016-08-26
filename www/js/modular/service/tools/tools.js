@@ -353,6 +353,10 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     Zipcode:function(val){
       return /^[0-9][0-9]{5}$/.test(val);
     },
+    jifen:function (val) {
+      return /^(\d+(.\d{1,2})?)$/g.test(val);
+    },
+
     //汉字
     chinese:function(val){
       return /[\u4E00-\u9FA5]/.test(val);

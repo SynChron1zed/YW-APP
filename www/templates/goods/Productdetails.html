@@ -23,19 +23,33 @@
         </span>
     </div>
 
-    <div class="goodpirce">
+    <div class="goodpirce" style="height: 2.2rem;
+    border-bottom: 1px solid #DCDCDC;
+    background: #f2f2f2;
+    line-height: 1.0rem;
+    font-size: .8rem;
+    color: #fc8800;">
                 <div class="left"></div>
                 <div class="content">
                     <span style="position: relative;left: 4px;">￥</span>
                     {{goods.goodsInfo.total_in_price}}
-                    </div>
-                <div class="right"></div>
+                  <span style="font-size: 12px;color: #a2a2a2;margin-left: 5px;" ng-if="goods.goodsInfo.total_in_price!=goods.goodsInfo.total_market_price">￥<span style="font-size: 12px;color: #a2a2a2;text-decoration:line-through;">{{goods.goodsInfo.total_market_price}}</span></span>
+                  <div style="margin-left: 4px;
+    font-size: 12px;
+    color: #a2a2a2;">
+                  <span style="margin-left: 5px">销量：<span style="font-size: 12px;color: #a2a2a2;">{{goods.goodsInfo.sale_num}}件</span></span>
+                  </div>
+                </div>
+
+
+      <div class="right"></div>
     </div>
+
 
           <div class="basemasg">
                 <div><label for="">运费 :</label> <span>￥</span>
                     {{goods.goodsInfo.express_fee}}              </div>
-                <div><label for="">库存 :</label> <span>{{goods.goodsInfo.total_in_number}}
+            <div><label for="">库存 :</label> <span>{{goods.goodsInfo.total_in_number}}
                 </span> 件</div>
             </div>
 
@@ -206,6 +220,11 @@
 
   <ion-footer-bar  class="goodsdetilfooterbar"   >
 
+    <div class="goshopchart" ng-click="zixun()"   >
+      <i class="ion-ios-chatbubble-outline"   style="font-size: 20px;text-align: center;" ></i>
+      <p style="top:-7px;" >咨询</p>
+    </div>
+
     <div class="goshopchart" ng-click="gouwuche()"   >
       <i class="shoping"   style="font-size: 20px;text-align: center;margin-left: -10px;" >&#xe611;</i>
       <p style="top:-6px;" >购物车</p>
@@ -216,8 +235,8 @@
       <p style="top:-6px;">店铺</p>
     </div>
 
-    <div class="addjoinshopcar"  ng-click="addjoinshopcart()"  >加入购物车</div>
-    <div class="buy"    ng-click="lijibuy()"  >立即购买</div>
+    <div class="addjoinshopcar"  ng-click="addjoinshopcart()"  style="width: 30%;">加入购物车</div>
+    <div class="buy"    ng-click="lijibuy()"  style="width: 25%;">立即购买</div>
 
   </ion-footer-bar>
 </ion-view>

@@ -18,7 +18,7 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
                 window.androdzerofun  =   fromStateServ.backView;
                 window.androdzerofun_parms  = 'r.HomShopadmin';
                 window.androdzerofun_clback  = function(){};
-                                
+
 
             }
   });
@@ -37,7 +37,7 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
   }
 
   $scope.shopadmindata=[];
-
+  $scope.addrs={}
 
   function  Initial  (){
 
@@ -53,6 +53,11 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
 
         $scope.shopadmindata = r.resp_data;
         $scope.shopadmindata.basic_info.img_shop  =   window.qiniuimgHost+$scope.shopadmindata.basic_info.img_shop+'?imageView2/2/w/200/h/200';
+        $scope.addrs.province =  $scope.shopadmindata.basic_info.province
+        $scope.addrs.city=  $scope.shopadmindata.basic_info.city
+        $scope.addrs.region =  $scope.shopadmindata.basic_info.region
+        $scope.addrs.detailmsg= $scope.shopadmindata.basic_info.shop_addr
+
       }
     });
   }
@@ -61,10 +66,18 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
   $scope.shopName = function () {
       $state.go('r.HomShopadminname',{nowname:$scope.shopadmindata.basic_info.shop_name});
   };
-  
+
   $scope.shopBrief = function () {
     $state.go('r.HomShopadminbrief', {nowdec:$scope.shopadmindata.basic_info.description});
   };
+
+  $scope.shopAddress = function () {
+    $state.go('r.shopAddress',{province:$scope.addrs.province,city:$scope.addrs.city,region:$scope.addrs.region,detailmsg:$scope.addrs.detailmsg})
+  }
+
+  $scope.shopNumber = function () {
+    $state.go('r.shopNumber',{Number:$scope.shopadmindata.basic_info.shop_phone})
+  }
 
   $scope.goodspice  = [];
   $scope.selectpir  = function (){
@@ -94,7 +107,7 @@ Ctr.controller('shopadminCtr',['$scope','native','$state','fromStateServ','Tools
 
                     },'user_img')
 
-                    
+
                   })
 
 

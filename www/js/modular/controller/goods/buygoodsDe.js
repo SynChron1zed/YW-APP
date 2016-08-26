@@ -42,6 +42,10 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
     $state.go('r.Shophome',{id:$scope.goods.shopInfo.shop_id,ref:'yes',inside:'yes'})
   }
 
+  $scope.zixun= function () {
+    $state.go('r.classAdvice',{id:$scope.goods.shopInfo.shop_id})
+  }
+
   $scope.addoactionlistimte  = function (pr) {
         if($scope.showstockprice){
           if($scope.selectsku.state){
@@ -602,7 +606,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
                         //  $scope.goodskuimte_attrbutsmsg.price =  key.baseinfo.retail_price;
                         //  $scope.goodskumsg.price   =   key.baseinfo.retail_price
                         //}
-                        
+
                         $scope.selectsku.skuid =   key.baseinfo.local_sku_id;
                         $scope.selectsku.price =   key.baseinfo.activity_price;
                         //零售价
@@ -734,7 +738,7 @@ $scope.$on('$ionicView.beforeLeave',function(){
             $scope.showpanl = false;
            },300)
          })
-         
+
   $scope.$on('$ionicView.beforeEnter',function(event, data){
             $scope.showpanl = true;
 
@@ -753,7 +757,7 @@ $scope.$on('$ionicView.beforeLeave',function(){
             }
             if(!$scope.parenttitle){
                     $scope.parenttitle  = '返回';
-            }   
+            }
             inlit();
     });
     function  inlit  (){
@@ -761,7 +765,7 @@ $scope.$on('$ionicView.beforeLeave',function(){
       if($scope.goods){
         return false;
       }
-      
+
 
       Tools.showlogin();
       Tools.getData({
@@ -862,7 +866,7 @@ $scope.$on('$ionicView.beforeLeave',function(){
 
 
             $timeout(function(){
-              
+
                 if($scope.showtitle){
                       $scope.backtoprevView('r.Productdetails');
                   }else{
@@ -872,7 +876,7 @@ $scope.$on('$ionicView.beforeLeave',function(){
 
             },420)
 
-        
+
 
 
 

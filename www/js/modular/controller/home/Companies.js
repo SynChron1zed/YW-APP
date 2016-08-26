@@ -72,7 +72,8 @@ Ctr.controller('CompaniesCtr',['$scope','$rootScope','$ionicViewSwitcher','$stat
 
 
 
- 
+
+  
 
   //商品详情模块
   //保存历史记录的方法  调用  上一次1 title  和返回方法

@@ -30,7 +30,7 @@ Ctr.controller('AddresslistCtr',['$scope','fromStateServ','Tools','native','$sta
                          s.province  =  adderupdatastat.province  ;
                          s.region  = adderupdatastat.region   ;
                          s.street  = adderupdatastat.street  ;
-                         s.is_default  =  false;                         
+                         s.is_default  =  false;
                             }
                         })
                     }
@@ -49,7 +49,7 @@ Ctr.controller('AddresslistCtr',['$scope','fromStateServ','Tools','native','$sta
 
             if(fromStateServ.getState('r.Addresslist')){
                 $scope.showtitle  = true;
-                $scope.backtoprevView  =   fromStateServ.backView; 
+                $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.Addresslist').title;
 
                    window.androdzerofun  =   fromStateServ.backView;
@@ -75,14 +75,14 @@ Ctr.controller('AddresslistCtr',['$scope','fromStateServ','Tools','native','$sta
                 if(r){
                         $scope.datalist = [];
                         angular.forEach(r.resp_data.data,function(s){
-                                s.select  =false;  
+                                s.select  =false;
                                 if(s.is_default  == '1'){
                                         s.is_default  = true
                                 }else{
-                                    s.is_default =  false;  
-                                } 
-                                
-                                $scope.datalist.push(s);     
+                                    s.is_default =  false;
+                                }
+
+                                $scope.datalist.push(s);
                         })
                 }
         })
@@ -99,25 +99,25 @@ Ctr.controller('AddresslistCtr',['$scope','fromStateServ','Tools','native','$sta
                     var index  = [];
                     angular.forEach($scope.datalist,function(s,lineind){
                                 if(s.select){
-                                  relf.push(s.addr_id);  
+                                  relf.push(s.addr_id);
                                   index.push(lineind)
-                                }     
+                                }
                         })
 
                         if(relf.length){
                             Tools.getData({
                             "interface_number": "020504",
                                 "post_content": {
-                                    "addr_id":relf                                    
+                                    "addr_id":relf
                                 }
                             },function(r){
                                 if(r){
-                                    
+
                                         index.reverse();
-                                        angular.forEach(index,function(s){                                       
-                                                Tools.rmArrin($scope.datalist,parseInt(s))   
+                                        angular.forEach(index,function(s){
+                                                Tools.rmArrin($scope.datalist,parseInt(s))
                                         })
-                                        
+
                                         native.task('删除成功');
 
 
@@ -126,17 +126,17 @@ Ctr.controller('AddresslistCtr',['$scope','fromStateServ','Tools','native','$sta
                         }
 
         }
-        $scope.showdelt  = !$scope.showdelt; 
-        $scope.edith   =  !$scope.edith;  
+        $scope.showdelt  = !$scope.showdelt;
+        $scope.edith   =  !$scope.edith;
     }
 
-//编辑  
+//编辑
 $scope.adderedit  = function(tar){
-   $state.go('r.AddressEdith',{id:tar.addr_id}); 
+   $state.go('r.AddressEdith',{id:tar.addr_id});
 }
-//选中 
+//选中
 $scope.selectthi  = function(tar){
-    tar.select   = !tar.select; 
+    tar.select   = !tar.select;
 }
 
 //添加地址
@@ -148,7 +148,7 @@ $scope.addreder   =  function(){
 
 .controller('AddressEdithCtr',['$scope','Tools','$stateParams','fromStateServ','$ionicModal','$timeout','native','$rootScope','adderupdatastat',function($scope,Tools,$stateParams,fromStateServ,$ionicModal,$timeout,native,$rootScope,adderupdatastat){
 
-  
+
 
 
   $scope.showtitle   = false;
@@ -182,7 +182,7 @@ $scope.addreder   =  function(){
                      "interface_number": "020506",
                     "client_type": "ios",
                     "post_content": {
-                        addrId : $stateParams.id 
+                        addrId : $stateParams.id
                     }
                 },function(r){
 
@@ -213,7 +213,7 @@ $scope.addreder   =  function(){
             }else{
                 $scope.title = '添加地址';
             }
-        // 保存        
+        // 保存
         $scope.savechil   =  function(){
 
             if(!$scope.addrs.name){
@@ -251,7 +251,7 @@ $scope.addreder   =  function(){
                     if(r){
 
                         $rootScope.$ionicGoBack();
-                        native.task('保存成功');       
+                        native.task('保存成功');
                     }
             })
             }else{
@@ -279,10 +279,10 @@ $scope.addreder   =  function(){
                          adderupdatastat.region   =$scope.addrs.region;
                          adderupdatastat.street  = $scope.addrs.detailmsg,
                          adderupdatastat.is_default   = $scope.addrs.is_virtual?'1':'0';
- 
+
 
                         $rootScope.$ionicGoBack();
-                        native.task('保存成功');       
+                        native.task('保存成功');
                     }
             })
 
@@ -291,7 +291,7 @@ $scope.addreder   =  function(){
 
             }
 
-          
+
 
 
 
@@ -308,32 +308,32 @@ $scope.addreder   =  function(){
             Tools.showlogin();
             $scope.shenfeng  = [];
             angular.forEach($scope.cityall,function(sheng){
-                    sheng.select   = false;                    
+                    sheng.select   = false;
                     $scope.shenfeng.push(sheng);
-            })   
+            })
 
             $timeout(function(){
                 Tools.hidelogin();
                 $scope.sheng.show();
-            },300)            
+            },300)
         };
 
         $scope.selectshengf  =  function(shenfeng,aa){
                      angular.forEach(shenfeng,function(sheng){
-                                sheng.select   = false;                                    
+                                sheng.select   = false;
                      });
 
                      aa.select  = true;
                      if(aa.child.length){
-                            $scope.childCity = [];   
+                            $scope.childCity = [];
                             Tools.showlogin();
                             angular.forEach(aa.child,function(chidlist){
                                 $scope.childCity.push(chidlist);
-                            });                            
+                            });
                          $timeout(function(){
                                 Tools.hidelogin();
                                 $scope.city.show();
-                            },300)   
+                            },300)
 
                      }else{
                         $scope.sheng.hide();
@@ -344,18 +344,18 @@ $scope.addreder   =  function(){
         $scope.selectCity  =  function(ss,ff){
 
              angular.forEach(ss,function(sheng){
-                                sheng.select   = false;                                    
+                                sheng.select   = false;
                      });
                      ff.select  = true;
                      if(ff.child.length){
                          //选择市区
-                             $scope.childarea = [];   
+                             $scope.childarea = [];
                             Tools.showlogin();
                             angular.forEach(ff.child,function(chidlist){
                                 $scope.childarea.push(chidlist);
                             });
 
-                         $timeout(function(){                             
+                         $timeout(function(){
                                 Tools.hidelogin();
                                 $scope.area.show();
                             },300)
@@ -365,7 +365,7 @@ $scope.addreder   =  function(){
                             Tools.showlogin();
                             $scope.sheng.hide();
                             $timeout(function(){
-                                    $scope.chomfadder(); 
+                                    $scope.chomfadder();
                                     Tools.hidelogin();
                                     $scope.city.hide();
 
@@ -383,10 +383,10 @@ $scope.addreder   =  function(){
                      ff.select  = true;
                      Tools.showlogin();
                      $scope.sheng.hide();
-                     $scope.city.hide();                     
+                     $scope.city.hide();
                      $timeout(function(){
                             Tools.hidelogin();
-                            $scope.chomfadder(); 
+                            $scope.chomfadder();
                             $scope.area.hide();
 
                      },300)
@@ -398,20 +398,20 @@ $scope.addreder   =  function(){
             //获取  身份
             angular.forEach($scope.shenfeng,function(r){
                 if(r.select){
-                            $scope.shenfengtext   =r.cityName;                            
-                }   
+                            $scope.shenfengtext   =r.cityName;
+                }
             })
             //获取城市
              angular.forEach($scope.childCity,function(r){
                 if(r.select){
-                            $scope.Citytext   =r.cityName;                            
-                }   
+                            $scope.Citytext   =r.cityName;
+                }
             });
 
             if($scope.childarea){
                     angular.forEach($scope.childarea,function(r){
                         if(r.select){
-                            $scope.areatext   =r.cityName;                            
+                            $scope.areatext   =r.cityName;
                         }
                     });
             };
@@ -435,7 +435,7 @@ $scope.addreder   =  function(){
             $scope.shenfengtext  = undefined;
             $scope.Citytext  = undefined;
             $scope.areatext  = undefined;
-                
+
         };
 
         $scope.opitionmsg   = {};
@@ -476,10 +476,6 @@ $scope.addreder   =  function(){
         }).then(function(modal) {
             $scope.area = modal;
         });
-        
-
-
-        
 
 
 
@@ -489,6 +485,10 @@ $scope.addreder   =  function(){
 
 
 
-    
+
+
+
+
+
 
 }])

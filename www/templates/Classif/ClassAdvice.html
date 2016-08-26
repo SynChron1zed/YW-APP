@@ -1,0 +1,113 @@
+<ion-view view-title="用户咨询" >
+
+
+
+
+  <ion-content  style="background: #F7F7F7;overflow: hidden;"  overflow-scroll="true"  scroll="false"  >
+
+    <div class="list">
+
+
+      <label class="item item-input"  style="background-color: whitesmoke;
+    font-size: 13px;
+    color: #a2a2a2;
+    height: 2rem;" >
+        <span>商家电话</span>
+      </label>
+
+      <div class="item item-input" style="border-top: none;border-top: 1px solid #ccc;height: 2.5rem" >
+        <div class="row" ng-if="item.link">
+          <div class="col col-80"><span style=" margin-left: -10px;">{{item.link}}</span></div>
+          <div>
+            <a href="tel:{{item.link}}">
+              <img  src="./img/classif/icom_iphone@3X.png" style="     width: 30px;
+    border-left: 1px solid rgb(162, 162, 162);
+    float: right;
+    padding: 5px;
+    margin-left: 40px">
+            </a>
+
+          </div>
+        </div>
+<div ng-if="!item.link">
+        <span  style="font-size: 15px;">商家暂无联系方式</span>
+
+</div>
+      </div>
+      <label class="item item-input"  style="background-color: whitesmoke;
+    font-size: 13px;
+    color: #a2a2a2;
+    height: 2rem;" >
+        <span >客服热线</span>
+      </label>
+
+      <div class="item item-input" style="border-top: none;border-top: 1px solid #ccc;height: 2.5rem" >
+           <div class="row" ng-if="item.sys_tel">
+             <div class="col col-80"><span style=" margin-left: -10px;">{{item.sys_tel}}</span></div>
+             <div>
+               <a href="tel:{{item.sys_tel}}">
+               <img  src="./img/classif/icom_iphone@3X.png" style="     width: 30px;
+    border-left: 1px solid rgb(162, 162, 162);
+    float: right;
+    padding: 5px;
+    margin-left: 40px">
+               </a>
+             </div>
+
+
+
+           </div>
+
+        <div ng-if="!item.sys_tel">
+        <span style="font-size: 15px;" >客服暂无联系方式</span>
+
+        </div>
+      </div>
+
+
+      <label class="item item-input"  style="background-color: whitesmoke;
+    font-size: 13px;
+    color: #a2a2a2;
+    height: 2rem;" >
+        <span>商家地址</span>
+      </label>
+
+      <div  style="border-top: 1px solid #ccc;
+    height: 5.5rem;
+    background-color: white;
+    padding-left: 15px;
+    padding-right: 10px;" >
+        <div  ng-if="item.addr" style="font-size: 15px">
+
+            {{item.addr}}
+
+        </div>
+
+<span ng-if="!item.addr">
+            商家暂无地址
+          </span>
+
+
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+  </ion-content>
+
+</ion-view>
+
+
+
+
+
+
+
+

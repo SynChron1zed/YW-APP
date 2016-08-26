@@ -11,7 +11,7 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
     if($stateParams.data==1){
       $scope.dfks();
     }
-    
+
             if(fromStateServ.getState('r.HomPurchase')){
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView;
@@ -395,10 +395,10 @@ if(bascId==1){
 
 
   $scope.msg={};
+  
   $scope.clear  = function(){
     $scope.msg.key   = undefined;
   }
-
 
   $scope.myKeyup = function (e) {
     var keycode = window.event?e.keyCode:e.which;

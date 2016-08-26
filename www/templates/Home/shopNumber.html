@@ -1,0 +1,55 @@
+<ion-view view-title="修改电话" >
+
+  <ion-nav-buttons side="right" >
+    <a    class="button button-icon " ng-click="queryname()">
+
+      保存
+    </a>
+  </ion-nav-buttons>
+
+
+  <ion-content  style="background: #F7F7F7;overflow: hidden;"  overflow-scroll="true"  scroll="false"  >
+
+    <div class="list"   >
+
+      <a class="item item-icon-left item-input-left"   style="
+      padding-top:10px;
+      padding-bottom:10px;
+      " >
+
+        <div>
+          <input type="text"    maxlength="11"   class="input-color-usercolse" placeholder="修改联系方式" ng-model="shop.name"  ng-change="newshopname()" >
+
+          <div  ng-show="shop.name.length"  ng-click="clear()"   class="ion-close-circled ion-close-user"
+
+                style="    position: absolute;
+                        right: 20px;
+                        margin-top: -10px;
+                        color: #a2a2a2;
+                        top: 50%;
+                  "
+
+
+
+          ></div>
+        </div>
+
+      </a>
+
+
+
+    </div>
+
+
+
+  </ion-content>
+
+
+
+</ion-view>
+
+
+
+
+
+
