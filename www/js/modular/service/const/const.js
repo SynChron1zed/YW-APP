@@ -118,5 +118,9 @@
       return{
       }
     }])
+    .factory('EmployeeObjdata',[function(){
+      return{
+      }
+    }])
 
 

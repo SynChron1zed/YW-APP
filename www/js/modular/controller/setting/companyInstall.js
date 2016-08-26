@@ -114,13 +114,10 @@ function Initial() {
 
 
 
+$scope.goManagement = function () {
 
-$scope.Unauthorized=function () {
-  alert('前往认证页面')
-}
-
-$scope.goManagement = function (value) {
-  $state.go('r.management',{integral:value})
+  
+  $state.go('r.management')
 }
 
   //解除绑定

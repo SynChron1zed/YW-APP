@@ -908,13 +908,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     //setting  个人设置
     .state('r.management',{
-      url: '/management/:integral',
-      onEnter: function(fromStateServ,$ionicHistory) {
-        fromStateServ.saveHisty($ionicHistory,'r.management')
-      },
-      onExit:function(fromStateServ){
-        fromStateServ.removebackregistevent();
-      },
+      url: '/management',
       views: {
         'rootview': {
           templateUrl: 'templates/Setting/management.html',
@@ -1397,6 +1391,16 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         'rootview': {
           templateUrl: 'templates/Setting/StoremanagementEdit.html',
           controller: 'StoremanagementEditCtr'
+        }
+      }
+    })
+    //员工详情
+    .state('r.Employeedetails',{
+      url: '/Employeedetails',
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Setting/managementDetail.html',
+          controller: 'EmployeedetailsCtr'
         }
       }
     })

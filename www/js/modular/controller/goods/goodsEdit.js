@@ -239,8 +239,7 @@ function  creatpint   (e){
       $scope.mapTagging.position  = undefined;
       $scope.mapTagging.long   =  '';
       $scope.mapTagging.lat   =  '';
-
-
+      
     $scope.map.show();
 
     $timeout(function(){

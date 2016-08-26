@@ -222,6 +222,7 @@ window.networonline  =  true;
        if(window.lockingJump) return  false;
        window.lockingJump  =  true;
        $rootScope.$ionicGoBack();
+
        $timeout(function(){
           window.lockingJump  =  false;
        },600)
@@ -229,7 +230,6 @@ window.networonline  =  true;
      }else {
        // This is the last page: Show confirmation popup
        window.extapp();
-
      }
      return false;
    }, 100);
@@ -389,7 +389,7 @@ window.networonline  =  true;
   });
   
   window.updateAPP  =  function(r){
-    
+
     return  false;
     if(ionic.Platform.platform()  == 'ios'){
       return false;

@@ -306,8 +306,7 @@ ion-view {
   line-height: 34px !important; }
 
 .gooddetilslidbox .slider-slide img {
-  width: 100%;
-  height: 16rem; }
+  width: 100%; }
 
 .slider-pager .slider-pager-page.active {
   opacity: .6; }
