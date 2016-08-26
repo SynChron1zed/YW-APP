@@ -17,7 +17,7 @@
 
       <div class="item item-input" style="border-top: none;border-top: 1px solid #ccc;height: 2.5rem" >
         <div class="row" ng-if="item.link">
-          <div class="col col-80"><span>{{item.link}}</span></div>
+          <div class="col col-80"><span style=" margin-left: -10px;">{{item.link}}</span></div>
           <div>
             <a href="tel:{{item.link}}">
               <img  src="./img/classif/icom_iphone@3X.png" style="     width: 30px;
@@ -30,7 +30,7 @@
           </div>
         </div>
 <div ng-if="!item.link">
-        <span  >商家暂无联系方式</span>
+        <span  style="font-size: 15px;">商家暂无联系方式</span>
 
 </div>
       </div>
@@ -38,12 +38,12 @@
     font-size: 13px;
     color: #a2a2a2;
     height: 2rem;" >
-        <span>客服热线</span>
+        <span >客服热线</span>
       </label>
 
       <div class="item item-input" style="border-top: none;border-top: 1px solid #ccc;height: 2.5rem" >
            <div class="row" ng-if="item.sys_tel">
-             <div class="col col-80"><span>{{item.sys_tel}}</span></div>
+             <div class="col col-80"><span style=" margin-left: -10px;">{{item.sys_tel}}</span></div>
              <div>
                <a href="tel:{{item.sys_tel}}">
                <img  src="./img/classif/icom_iphone@3X.png" style="     width: 30px;
@@ -59,7 +59,7 @@
            </div>
 
         <div ng-if="!item.sys_tel">
-        <span  >暂无客服联系方式</span>
+        <span style="font-size: 15px;" >客服暂无联系方式</span>
 
         </div>
       </div>
@@ -75,7 +75,7 @@
       <div  style="border-top: 1px solid #ccc;
     height: 5.5rem;
     background-color: white;
-    padding-left: 10px;
+    padding-left: 15px;
     padding-right: 10px;" >
         <div  ng-if="item.addr" style="font-size: 15px">
 
@@ -84,7 +84,7 @@
         </div>
 
 <span ng-if="!item.addr">
-            暂无商家地址
+            商家暂无地址
           </span>
 
 
