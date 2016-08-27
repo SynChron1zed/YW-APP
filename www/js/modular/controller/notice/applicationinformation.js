@@ -22,6 +22,11 @@ Ctr.controller('informationCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
     $scope.$ionicGoBack();
   };
   $scope.$on('$ionicView.beforeEnter',function() {
+
+
+    if($scope.newsList.length==0){
+      $scope.loadOlderStories();
+    }
     if (fromStateServ.getState('r.information')) {
       $scope.showtitle = true;
       $scope.ing = false;
