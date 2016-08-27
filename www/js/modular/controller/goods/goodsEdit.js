@@ -121,23 +121,21 @@ $scope.chekselectpintlistdel = function(){
             }
           })
         }
-
         //console.log($scope.mapTagging);
-
     }
 
   $scope.comfpintbasemsg  = function (){
 
       //$scope.closetallcationvalue();
       $scope.savePintthi();
-
+      
       if(marker){
           infoWindow.setContent(setcontext());
           openinfo();
       }
-  }
+    }
 
-    $scope.stopporp  = function(e){e.stopPropagation();}
+   $scope.stopporp  = function(e){e.stopPropagation();}
 
     $scope.closetallcationvalue  =   function(){
       $scope.setallcationstate  =  false;
@@ -153,6 +151,7 @@ $scope.chekselectpintlistdel = function(){
         $scope.shopcartnumber  =  ($scope.shopcartnumber+key.number);
       })
     };
+
   $scope.setmendianmsg  = function(){
       $scope.setallcationstate  = true;
   }

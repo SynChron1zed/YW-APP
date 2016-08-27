@@ -1,4 +1,4 @@
-Ctr.controller('ConfirmorderZfctr',['$scope','buyConfirmorde','Tools','$timeout','$state','comforderlistadder','native','fromStateServ','$ionicScrollDelegate','comfrombackresitl',function ($scope,buyConfirmorde,Tools,$timeout,$state,comforderlistadder,native,fromStateServ,$ionicScrollDelegate,comfrombackresitl){
+Ctr.controller('ConfirmorderZfctr',['$scope','buyConfirmorde','Tools','$timeout','$state','comforderlistadder','native','fromStateServ','$ionicScrollDelegate','comfrombackresitl','storage',function ($scope,buyConfirmorde,Tools,$timeout,$state,comforderlistadder,native,fromStateServ,$ionicScrollDelegate,comfrombackresitl,storage){
 
 
 
@@ -75,13 +75,24 @@ $scope.selecthiswuliufun  =   function(r){
 
 };
 
-
 $scope.comorder  =function () {
 
     if(!$scope.info.address.addr_id){
         native.task('请选择收货地址');
         return  false;
     }
+        if(parseFloat(storage.getObject('UserInfo').integral) <  parseFloat($scope.info.total_pricy)  ){
+                    //积分不足
+                    native.task('积分不足');
+                    native.confirm('积分不足,当前积分:￥'+storage.getObject('UserInfo').integral,'提示',['充值','取消'],function(c){
+                            if(c  == 1){
+                                $state.go('r.Inputamount',{type:2})
+                    }})
+                    
+                return  false;
+        }
+     
+
 
     var  carids  = '';
 

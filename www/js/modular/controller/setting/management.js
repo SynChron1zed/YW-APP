@@ -1,18 +1,19 @@
 
-Ctr.controller('managementCtr',['$scope','Tools','native','EmployeeObjdata','$state','$ionicNativeTransitions',function($scope,Tools,native,EmployeeObjdata,$state,$ionicNativeTransitions){
+Ctr.controller('managementCtr',['$scope','Tools','native','EmployeeObjdata','$state','$ionicNativeTransitions','$timeout',function($scope,Tools,native,EmployeeObjdata,$state,$ionicNativeTransitions,$timeout){
 
 //充值  
 $scope.Recharge  = function(item){ 
       native.prompt('正在为'+item.user.real_name+'分配积分,该员工积分余额:'+item.user.integral,'提示',['确认','取消'],'',function(c){
                     if(c.buttonIndex == 1){
-                          console.log(parseInt(c.input1))
+
+                          ///console.log(parseInt(c.input1))
                           var mony = 0;
-                          if(!isNaN(parseInt(c.input1)))  {
-                            mony =   parseInt(c.input1);
+                          if(!isNaN(parseFloat(c.input1)))  {
+                            mony =   parseFloat(c.input1);
+
                           }
                             var  userlist =  [];
                             userlist.push(item.user_id);
-
                              native.confirm('积分:'+mony,'确认分配?',['确定','取消'],function(c){
                                 if(c  == 1){
                                     Tools.showlogin();
@@ -26,9 +27,10 @@ $scope.Recharge  = function(item){
                                     },function(r){
                                         if(r){
                                             $timeout(function(){
-                                              item.user.integral+=  mony;
+                                              item.user.integral=  parseFloat(item.user.integral)+parseFloat(mony);
                                             })
-                                              native.task('分配成功');
+                                            native.task('分配成功');
+                                            
                                         }
                                     })
                              }})                          
@@ -63,9 +65,8 @@ $scope.Recharge  = function(item){
     }
     //跟新  门店信息
     if(EmployeeObjdata.take_name){
-
              angular.forEach($scope.listdata,function(xxx,indxxxx){
-            if(xxx.user_id   ==   EmployeeObjdata.user_id){
+              if(xxx.user_id   ==   EmployeeObjdata.user_id){
               xxx.takeAddr  = {};
               xxx.takeAddr.name   =   EmployeeObjdata.take_name;
               EmployeeObjdata.take_name  = undefined;
@@ -74,10 +75,8 @@ $scope.Recharge  = function(item){
         })
         
     }
-    
-
+  
     EmployeeObjdata.user_id  = false;
-
     }
   })
 
@@ -162,7 +161,7 @@ $scope.edithmenid =  function(item){
   }
 }])
 
-.controller('EmployeedetailsCtr',['$scope','Tools','native','EmployeeObjdata','$ionicModal','$timeout','storage','$rootScope',function($scope,Tools,native,EmployeeObjdata,$ionicModal,$timeout,storage,$rootScope){
+.controller('EmployeedetailsCtr',['$scope','Tools','native','EmployeeObjdata','$ionicModal','$timeout','storage','$rootScope','$state',function($scope,Tools,native,EmployeeObjdata,$ionicModal,$timeout,storage,$rootScope,$state){
 
 //  =
 $scope.changethisuerinfo =  function(r){
@@ -223,7 +222,8 @@ $scope.save  = function(){
         if($scope.info.company_relation.is_admin   ==  $scope.nowuserinfostat){
           //没有移交管理员
           $rootScope.$ionicGoBack();
-          native.task('设置收银员成功')
+          
+          //native.task('设置收银员成功')
         }else{
             window.outlogin(function(){
                           $timeout(function(){
@@ -361,6 +361,9 @@ $scope.shohwchange   = false;
                   $scope.shohwchange   = false;
                 }else{
                   $scope.shohwchange   = true;
+                }
+                if(r.resp_data.company_relation.is_sales == '1'){
+                  $scope.Identity[1].select  = true;
                 }
                     Tools.getData({
                     "interface_number":"000408",

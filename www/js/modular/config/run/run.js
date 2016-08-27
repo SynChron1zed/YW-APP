@@ -24,7 +24,6 @@ window.networonline  =  true;
                         Callback();
                         native.task('退出成功');
                       }
-
                       window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
 
                   }
@@ -32,10 +31,11 @@ window.networonline  =  true;
             };
 
 
-      //  $rootScope.$on('$stateChangeSuccess', function() {
-      //     console.log($location.path());
-      //     console.log($ionicHistory.viewHistory())
-      // });
+          $rootScope.$on('$stateChangeSuccess', function() {
+          console.log($location.path());
+          console.log($ionicHistory.viewHistory())
+          });
+
   
   $ionicPlatform.ready(function() {
 
@@ -52,16 +52,17 @@ window.networonline  =  true;
       })
 
     }
-    
-
+  
+  
    setTimeout(function () {
      if(navigator){
        navigator.splashscreen.hide();
        }
     }, 500);
-
-    //$state.go('r.selectAuth');
+    //$state.go('r.selectPaydues');
     $state.go('r.tab.Home');
+    
+
 
     //初始化    用户信息
     if(!storage.getObject('UserInfo').user_id){

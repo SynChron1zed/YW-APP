@@ -33,6 +33,7 @@ Ctr.controller('purchaseorderCtr',['$scope','native','$state','fromStateServ','T
                     }
 
                 window.androdzerofun  = function(parm1,parm2){
+
                           $ionicNativeTransitions.stateGo('r.tab.Home',{}, {
                               "type": "slide",
                               "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
@@ -94,7 +95,6 @@ if(bascId==1){
         "keyword":$scope.key
       }
     };
-
     if(type){
       sendoption.post_content.page_num  = $scope.page_number  = 1;
     }else{

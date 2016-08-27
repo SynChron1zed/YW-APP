@@ -258,7 +258,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-
       //选择认证
       .state('r.selectAuth',{
             onEnter: function(fromStateServ,$ionicHistory) {
@@ -1457,7 +1456,72 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+    //支付·密码 (暂时支持密码)
+    .state('r.comforderpayPwd',{
+      url: '/comforderpayPwd',
+      cache:false,
 
+        onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.comforderpayPwd')
+        },
+       onExit:function(fromStateServ){
+         fromStateServ.removebackregistevent();
+       },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/root/comfpayPwd.html',
+          controller: 'comforderpayPwdCtr'
+        }
+      }
+    })
+    
+    //二维码 支付页面
+    .state('r.ercodepayPage',{
+      url: '/ercodepayPage?ecode:&monye:',
+      views: {
+        params:{ecode:null,monye:null},
+        'rootview': {
+          templateUrl: 'templates/root/ercodepay.html',
+          controller: 'ercodepayPageCtr'
+        }
+      }
+    })
+
+    //充值 选择输入金额
+    .state('r.Inputamount',{
+      url: '/Inputamount?type:&monye:',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.Inputamount')
+      },
+       onExit:function(fromStateServ){
+         fromStateServ.removebackregistevent();
+       },
+      views: {
+         params:{type:null,monye:null},
+        'rootview': {
+          templateUrl: 'templates/root/inputamount.html',
+          controller:  'InputamountCtr'
+        }
+      }
+    })
+    
+    //充值 选择支付方式
+    .state('r.Selectpaymentmethod',{
+      url: '/Selectpaymentmethod?type:&monye:&toSt:',
+      cache:false,
+      views: {
+         params:{type:null,monye:null,toSt:null},
+        'rootview': {
+          templateUrl: 'templates/root/Selectpaymentmethod.html',
+          controller:  'SelectpaymentmethodCtr'
+        }
+      }
+    })
+
+    
+
+
+    
 
 
 

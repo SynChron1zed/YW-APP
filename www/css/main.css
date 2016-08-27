@@ -2261,7 +2261,8 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
   width: 50%;
   float: left;
   overflow: hidden;
-  text-overflow: ellipsis; }
+  text-overflow: ellipsis;
+  white-space: nowrap; }
 
 .addermsg .contact > div:nth-child(2) {
   text-align: right; }
@@ -2587,6 +2588,63 @@ input[readonly] {
       font-size: 20px;
       float: left;
       margin-right: 3px; }
+
+.setinnglistheaden {
+  height: 2rem;
+  line-height: 2rem;
+  background: #ead604;
+  box-shadow: 2px -1px 1px 0px rgba(255, 255, 255, 0.05);
+  padding-top: 0px;
+  padding-bottom: 0px; }
+  .setinnglistheaden div:last-child {
+    border-right: none; }
+  .setinnglistheaden > div {
+    border-right: 1px dashed #000;
+    text-align: center;
+    line-height: 2.1rem; }
+    .setinnglistheaden > div img {
+      position: relative;
+      float: left;
+      left: .5rem;
+      top: .5rem;
+      width: 1rem;
+      height: 1rem; }
+
+.malbgehhahaoui {
+  position: relative; }
+  .malbgehhahaoui:after {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: #e8e8e8;
+    position: absolute;
+    left: -10px;
+    border-radius: 50%;
+    top: 0; }
+  .malbgehhahaoui:before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: #e8e8e8;
+    position: absolute;
+    right: -10px;
+    border-radius: 50%;
+    top: 0; }
+
+.plient {
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0  10px; }
+  .plient > span {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 4px;
+    background: #e8e8e8; }
 
 .shopcartnoitem {
   margin-top: 10px;
@@ -2957,6 +3015,19 @@ ion-content {
 
 .shoping {
   font-family: "shoping" !important;
+  font-size: 20px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: normal !important; }
+
+@font-face {
+  font-family: 'payfont';
+  src: url("../fonts/payfun/iconfont.svg#iconfont") format("svg"), url("../fonts/payfun/iconfont.woff") format("woff"), url("../fonts/payfun/iconfont.ttf") format("truetype"); }
+
+.payfont {
+  font-family: "payfont" !important;
   font-size: 20px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;

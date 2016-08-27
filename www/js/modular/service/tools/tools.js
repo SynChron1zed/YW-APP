@@ -9,36 +9,30 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   //支付的封装  支持ios  安卓
   var  pay = {
     alipaly:function(config,success,error){
-
-
-      
-          // window.alipay.pay({
-          //         tradeNo: new Date().getTime(),
-          //         subject: "测试标题",
-          //         body: 'partner="2088421504010137"&seller_id="485663131@qq.com"&out_trade_no="0826114148-5303"&subject="易物宜得积分充值"&body="易物宜得积分充值"&total_fee="0.01"¬ify_url="http://121.40.62.137/alipay/appNotifl"&service="mobile.securitypay.pay"&payment_type="1"&_input_charset="utf-8"&it_b_pay="30m"&return_url="m.alipay.com"&sign="hibPHi7IcE8MN2C6vMM%2FJACmtsLPM9KhB5AR3h4hyO3LTl39UkQtE9xZJRY993haDDZ7iouVE0CcCDaNZ5eJykPPcEI0Te%2FHxRlBvVHrtdxsolPDrN%2B8Cc0ShcANdfyx1SrxzuCNDUfLbfIw8TCyLbcdieTwO6XKsAjRVuUxDfI%3D"&sign_type="RSA"',  //这个是 支付的秘钥    
-          //         price: 0.01,
-          //         notifyUrl: "http://your.server.notify.url"
-          //         }, function(successResults){alert(successResults)}, function(errorResults){alert(errorResults)});
-
-
-          //     return  false;
-          var config  =  {}
-          config.type  =1;
-          config.buyer_id  =42141;
-          config.money  =0.01;
-
+        // 1 平台诚信金缴纳
+        // 2 个人积分充值
+        // 3 公司积分充值
             var data   =  'http://121.40.62.137/alipay/getOrderInfo?type='+config.type+'&buyer_id='+config.buyer_id+'&total_amount='+config.money;
+            getData({},function(r){},function(){},'POST',data,false,false,function(r){
+              if(r.code  == "success"){
+                 window.alipay.pay({
+                  tradeNo: new Date().getTime()+(Math.random()*10000),
+                  subject: "yiwuyid",
+                  body: r.msg,  //这个是 支付的秘钥    
+                  price: 0.01,
+                  notifyUrl: "http://your.server.notify.url"
+                  }, function(successResults){
+                    success(successResults)
+                  }, function(errorResults){
+                     error(errorResults) 
+                  });
+              }else{
 
-            
-            // function jsonpCallback(result) {  
-            //   alert(result);  
-            
-            // }  
-            // var JSONP=document.createElement("script");  
-            // JSONP.type="text/javascript";  
-            // JSONP.src=data;  
-            // document.getElementsByTagName("head")[0].appendChild(JSONP); 
+                  native.task('支付失败')
 
+              }
+
+          })
 
             //     $http.jsonp(data).success(
             //       function(data, status, header, config){
@@ -270,9 +264,10 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     }).success(function(r){
 
       //针对支付的特殊回调
-
       if(playclbac){
         playclbac(r)
+
+        return false;
       }
       
 
@@ -328,7 +323,8 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
           native.task(r.msg);
 
         }else{
-           native.task('异常错误!')
+
+           //native.task('异常错误!')
         }
       }
     }).error(function(e){

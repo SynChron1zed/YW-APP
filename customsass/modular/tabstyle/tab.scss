@@ -1006,6 +1006,8 @@ background-color: #fff;
     float: left;
     overflow: hidden;
     text-overflow: ellipsis;
+     white-space: nowrap;
+         
 }
 .addermsg .contact>div:nth-child(2) {
     text-align: right;
@@ -1376,8 +1378,117 @@ input[readonly]{
            i{ font-size: 20px;float: left;margin-right: 3px;}
 
           }
+      }
+}
 
 
+.setinnglistheaden{
+  height: 2rem;
+  line-height: 2rem;
+  background: rgb(234, 214, 4);
+  box-shadow: 2px -1px 1px 0px rgba(255, 255, 255, 0.05);
+  padding-top:0px;
+  padding-bottom: 0px;
+
+  div:last-child{
+    border-right: none;
+  } 
+  >div{
+    border-right: 1px dashed #000;
+    text-align:center;
+    line-height: 2.1rem;
+    img{
+      position: relative;
+      float: left;
+      left: .5rem;
+      top: .5rem;
+      width: 1rem;
+      height: 1rem;  
+    }
+
+  };
+
+  // &:after{
+  //   content: '';
+  //   display: block;
+  //   clear:both;
+  // }
+  // >div{
+  //   text-align:center;
+  //   float: left;
+  //   width: 32.33%;
+  //   border-right: 1px dashed  #000;
+  //   span{
+  //     // display: inline-block;
+  //     // width: 50%;
+  //     // overflow: hidden;
+  //     // //text-overflow: ellipsis
+
+  //   }
+  //   i{
+  //     font-size: 20px;
+
+  //   }
+  //   img{
+  //     width: 25px;
+  //     height: 25px;
+  //   }
+  // }
+  // >div:last-child{
+  //   border: none;
+  // }
+
+  
+
+
+}
+
+.malbgehhahaoui{
+  position: relative;
+
+     &:after{
+        content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: #e8e8e8;
+    position: absolute;
+    left: -10px;
+    border-radius: 50%;
+    top: 0;
+
+     }
+
+        &:before{
+        content: '';
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background: #e8e8e8;
+        position: absolute;
+        right: -10px;
+        border-radius: 50%;
+        top: 0;
+
+     }
+
+}
+
+.plient{
+      //float: left;
+      position:relative;
+      overflow: hidden;
+      white-space: nowrap;
+      margin: 0  10px;
+
+
+      >span{
+            display:inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin: 4px;
+            background: #e8e8e8;
 
       }
 }
