@@ -6,18 +6,18 @@
     <div    ng-if='showtitle'  class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.Addresslist')">
       <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
       <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
-    </div>    
+    </div>
   </ion-nav-buttons>
 
   <ion-nav-buttons    side="right"         class="button back-button buttons button-clear header-item">
 
     <div ng-click="savechil()"   class="button back-button buttons button-clear header-item  button-icon"  >保存</div>
-    
+
   </ion-nav-buttons>
 
   <ion-content           overflow-scroll="false"   scrollbar-y="false"     style="background: #f5f5f5;"       >
 
-    
+
 
 
 
@@ -55,20 +55,20 @@
         </div>
 
         <label class="item item-input">
-          <span class="input-label">邮编</span><input   ng-model="addrs.zipcode"  placeholder="请填写邮编"  style="background:transparent"  type="tel">
+          <span class="input-label">邮编</span><input  maxlength="6" ng-model="addrs.zipcode"  placeholder="请填写邮编"  style="background:transparent"  type="tel">
         </label>
 
         <label class="item item-input">
           <textarea name=""   ng-model="addrs.detailmsg"  maxlength="60" placeholder="请填写详细地址,街道等信息"  id="" cols="30" rows="10"></textarea>
         </label>
 
-        
+
 
 
       </div>
 
 
-      
+
 
 
 
@@ -95,7 +95,7 @@
                 <i ng-show='ss.select' class="ion-ios-checkmark-empty"  style="font-size: 35px;margin-top: -3px;color:red"></i>
           </label>
         </div>
-        
+
     </ion-content>
   </div>
 </script>
@@ -115,7 +115,7 @@
         <div class="list   gerenlist-icon"  >
 
           <label class="item"    ng-repeat="ss  in  childCity"    ng-click='selectCity(childCity,ss)'   style="width:100%;margin-left:0px"  >
-                {{ss.cityName}}                
+                {{ss.cityName}}
                 <i ng-show='ss.select' class="ion-ios-checkmark-empty"  style="font-size: 35px;margin-top: -3px;color:red"></i>
           </label>
         </div>

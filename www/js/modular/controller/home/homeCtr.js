@@ -59,10 +59,20 @@ fromStateServ.stateChange('r.SeeshopPint',{name:'测试的店铺'});
 
   $scope.charitable =  function () {
 
-    native.task('该活动暂未开放，敬请期待');
-    return false;
+   // native.task('该活动暂未开放，敬请期待');
+   // return false;
+   // $scope.goModular('r.HomeCharitable');
 
-    //$scope.goModular('r.HomeCharitable');
+
+    if(storage.getObject('UserInfo').user_id){
+      $scope.goModular('r.stretchOne');
+    }else{
+      native.confirm('该操作需要登录','您还没有登录',['登录','取消'],function(c){
+        if(c  == 1){
+          $scope.goModular('r.login');
+        }
+      });
+    }
 
   }
 
@@ -107,7 +117,11 @@ $scope.showlogistics  =  function () {
        }else  if(item.request_type  == '3'){
 
           fromStateServ.stateChange('r.Productdetails',{id:item.request_id});
-       }else{
+       }else  if(item.request_type  == '4'){
+
+         fromStateServ.stateChange('r.stretchOne');
+       }
+       else{
          native.task('活动暂未开始');
        }
     }

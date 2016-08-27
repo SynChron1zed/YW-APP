@@ -16,6 +16,9 @@ $scope.dataList = false
   $scope.$on('$ionicView.beforeEnter',function(){
 
     //页面的状态变化  请求
+
+
+
     if ($ionicHistory.backView().forwardViewId) {
       window.androdzerofun  = function(parm1,parm2){
         $ionicHistory.goBack();
@@ -172,7 +175,7 @@ $scope.dataList = false
 
   $scope.ordersbody= function (value) {
 
-    $state.go('r.Homordersbody',{basicID:value});
+    $state.go('r.Homordersbody',{basicID:value,seorde:1});
   };
 
   $scope.calssifloadMore = function (xxx) {
@@ -290,7 +293,7 @@ $scope.dataList = false
     var keycode = window.event?e.keyCode:e.which;
     if(keycode==13){
 
-      debugger;
+
       if($scope.expressionList){
         $scope.expressionList=false;
         $ionicScrollDelegate.scrollTop();
@@ -377,6 +380,7 @@ $scope.query =function () {
       }
 
 
+
     });
 
   }
@@ -445,6 +449,7 @@ $scope.query =function () {
   $scope.searchBody=function () {
     $scope.Modal.show();
 
+
   }
 
   $scope.back  =  function (){
@@ -459,6 +464,7 @@ $scope.query =function () {
 
 
   $scope.newKeyup = function (e) {
+
     var keycode = window.event?e.keyCode:e.which;
     if(keycode==13){
 
@@ -474,7 +480,11 @@ $scope.query =function () {
       $scope.expression  = true;
     }
 
+
   }
+
+
+
   $scope.leftHide =  function () {
 
     $scope.Modal.hide();

@@ -108,6 +108,9 @@ Ctr.controller('tasteCtr',['$scope','native','$state','fromStateServ','Tools','$
       $state.go('r.Shophome',{id:item.request_id});
     }else  if(item.request_type  == '3'){
       $state.go('r.Productdetails',{id:item.request_id});
+    }else  if(item.request_type  == '4'){
+
+      fromStateServ.stateChange('r.stretchOne');
     }else{
       native.task('活动暂未开始');
     }

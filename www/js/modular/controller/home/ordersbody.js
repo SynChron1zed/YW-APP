@@ -6,6 +6,7 @@ Ctr.controller('ordersbodyCtr',['$scope','native','$state','fromStateServ','Tool
 
 
   $scope.ID = $stateParams.basicID;
+  $scope.seordeData = $stateParams.seorde;
 
   $scope.$on('$ionicView.beforeEnter',function(event, data){
 
@@ -72,7 +73,12 @@ function init() {
 }
 
 
-
+  $scope.goShop=function () {
+    $state.go('r.Shophome',{id:$scope.shopbody.order.data[0].shop_id})
+  }
+  $scope.goSeorder=function () {
+    $state.go('r.HomSales')
+  }
 
 
 }]);

@@ -210,7 +210,7 @@ if(bascId==1){
   };
 
   $scope.purchaseorde=function (value) {
-    $state.go('r.HomPurordersbody',{basicID:value});
+    $state.go('r.HomPurordersbody',{basicID:value,seorde:1});
   }
 
 
@@ -395,7 +395,7 @@ if(bascId==1){
 
 
   $scope.msg={};
-  
+
   $scope.clear  = function(){
     $scope.msg.key   = undefined;
   }

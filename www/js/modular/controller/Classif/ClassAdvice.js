@@ -19,6 +19,7 @@ Ctr.controller('ClassAdviceCtr',['$scope','Tools','$stateParams','fromStateServ'
 
   })
 
+  
 
 
 }]);

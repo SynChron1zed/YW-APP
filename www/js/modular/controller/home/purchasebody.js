@@ -4,6 +4,7 @@
 Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams) {
 
   $scope.ID = $stateParams.basicID;
+  $scope.seordeData = $stateParams.seorde;
 
   $scope.$on('$ionicView.beforeEnter',function(event, data){
 
@@ -61,7 +62,13 @@ Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools',
     });
   }
 
+$scope.goShop=function () {
+  $state.go('r.Shophome',{id:$scope.shopbody.shop_id})
+}
 
+  $scope.goSeorder=function () {
+    $state.go('r.HomPurchase')
+  }
 
 
 }]);
