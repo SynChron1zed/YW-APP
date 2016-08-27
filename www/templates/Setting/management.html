@@ -2,19 +2,19 @@
   <ion-content  scrollbar-y="false"  overflow-scroll="true"   style="background: #f2f2f2"  >
 
 
-  <p style="margin:0px;height: 35px;line-height: 35px;text-indent: 10px;color: dimgrey;font-size: 13px;">侧滑,发送短信和拨打电话,给员工分配积分</p>
+  <p style="margin:0px;height: 35px;line-height: 35px;text-indent: 10px;color: dimgrey;font-size: 13px;">友情提示：侧滑,发送短信和拨打电话,给员工分配积分</p>
 
 
 
  <ion-scroll  lazy-scroll    style="height:calc(100% - 35px)"  scrollbar-y="false"  overflow-scroll="false"    >
     <ion-list   can-swipe="true" >
-      
+
   <ion-item ng-repeat="item in listdata"  class="item-avatar   item-remove-animate"    ng-click="edithmenid(item)"  >
    <img image-lazy-src="{{item.user.avatar}}"  image-lazy-distance-from-bottom-to-load="100"  >
     <h2>{{item.user.real_name}}   <span  style="color: #989898;position: absolute;right: 16px;" >{{item.user.phone}}</span>  </h2>
     <p >所属门店 : {{item.takeAddr?item.takeAddr.name:'暂未设置'}}</p>
 
-    <ion-option-button class="button-balanced" ng-click="sendSms(item)"> 
+    <ion-option-button class="button-balanced" ng-click="sendSms(item)">
       <i class="ion-chatboxes"  style="font-size: 26px;margin: 0 auto;"    ></i>
     </ion-option-button>
 
@@ -23,11 +23,11 @@
     <i class="ion-ios-telephone" style="font-size: 26px;margin: 0 auto;"  ></i>
     </ion-option-button>
 
-    
+
     <ion-option-button class="button-royal"   ng-click="Recharge(item)">
           <i class="ion-card" style="font-size: 26px;margin: 0 auto;"  ></i>
     </ion-option-button>
-    
+
   </ion-item>
 
 </ion-list>
