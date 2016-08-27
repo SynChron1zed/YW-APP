@@ -13,7 +13,7 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                                 $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
                                 "type": "slide",
                                 "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
-                                "duration":550, // in milliseconds (ms), default 400
+                                "duration":400, // in milliseconds (ms), default 400
                                 slowdownfactor: 1,
                                 iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
                                 androiddelay: 20, // same as above but for Android, default -1
@@ -30,7 +30,7 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
                     $ionicNativeTransitions.stateGo(box.getState(tartg).fromState,box.getState(tartg).fromParams, {
                             "type": "slide",
                             "direction": "right", // 'left|right|up|down', default 'left' (which is like 'next')
-                            "duration":550, // in milliseconds (ms), default 400
+                            "duration":400, // in milliseconds (ms), default 400
                             slowdownfactor: 1,
                             iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
                             androiddelay: 20, // same as above but for Android, default -1
@@ -66,20 +66,17 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
             return this.data[module];
         },
         stateChange: function(stateName,parms,animation){
-
             if(window.Permission(stateName,parms,animation)){
                             return  false;
             }
-
             if(window.lockingJump) return  false;
             window.lockingJump =  true;
             box.savestate = true;
-
             $ionicViewSwitcher.nextDirection('forward');
             $ionicNativeTransitions.stateGo(stateName,parms, {
             "type": "slide",
              "direction": "left", // 'left|right|up|down', default 'left' (which is like 'next')
-             "duration":550, // in milliseconds (ms), default 400
+             "duration":400, // in milliseconds (ms), default 400
               slowdownfactor: 1,
               iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
               androiddelay: -1, // same as above but for Android, default -1
@@ -87,19 +84,15 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
               fixedPixelsBottom: 0, // the number of pixels of your fixed footer (f.i. a tab bar), default 0 (iOS and Android)
               triggerTransitionEvent: '$ionicView.afterEnter', // internal ionic-native-transitions option
             });
-
             $timeout(function(){
                     window.lockingJump =  false;
             },560)
-
         },
         removebackregistevent:function(){
             window.androdzerofun   =  undefined;
         },
-
         saveHisty:function ($histy,stateNa){
             //|| box.getState(stateNa)
-
             if(this.savestate  ){
                     var hostiy  = $histy.currentView();
                    //注册安卓返回监听

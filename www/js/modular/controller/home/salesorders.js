@@ -17,6 +17,8 @@ $scope.dataList = false
 
     //页面的状态变化  请求
 
+
+
     if ($ionicHistory.backView().forwardViewId) {
       window.androdzerofun  = function(parm1,parm2){
         $ionicHistory.goBack();
@@ -33,6 +35,7 @@ $scope.dataList = false
     $scope.index = index
 
     $scope.newmodal.show();
+
 
   }
 

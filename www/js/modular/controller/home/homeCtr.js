@@ -1,20 +1,37 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','selectaouthfunl','seeshopPint',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,selectaouthfunl,seeshopPint) {
+Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','selectaouthfunl','seeshopPint','$http','share',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,selectaouthfunl,seeshopPint,$http,share) {
+
+
+window.share  = share;
+
+
+
+
 
 $scope.paly  = function () {
-    window.alipay.pay({
-    tradeNo: new Date().getTime(),
-    subject: "测试标题",
-    body: "我是测试内容",
-    price: 0.02,
-    notifyUrl: "http://your.server.notify.url"
-}, function(successResults){alert(successResults)}, function(errorResults){alert(errorResults)});
+  share.weichat()
+  // Tools.pay.alipaly({
+  //   type:1,
+  //   buyer_id:1222,
+  //   money:1.00
+  // },function(r){
+  //   console.log(r)
+  // },function(r){
+  //   console.log(r)
+  // });
+}
+
+
+
+
+
+$scope.paly =  function(){
 
 }
-$scope.catshowtakepint  = function () {
 
+$scope.catshowtakepint  = function () {
   seeshopPint.datalist  = [
     {
       name:'我是自提点',
@@ -128,12 +145,16 @@ $scope.showlogistics  =  function () {
   $scope.jindian  =  function () {
 
         native.Barcode(function (rr) {
+
+
           if(!rr.cancelled){
+
                 if(rr.text){
 
 
 
                     if(rr.text.length  == 12){
+
                       Tools.showlogin();
                       Tools.getData({
                           "interface_number": "020605",
@@ -147,7 +168,48 @@ $scope.showlogistics  =  function () {
                           native.task('自提订单验证成功',4000);
                         }
                       })
-                    }else{
+                    }else if( rr.text.length  == 10 ){
+
+
+
+                      Tools.showlogin();
+                      Tools.getData({
+                       "interface_number": "020708",
+                        "client_type": "ios",
+                        "post_content": {
+                          key:rr.text
+                        }
+                      },function (r) {
+                        if(r){
+                        native.confirm(r.resp_data.real_name+'正在向你支付:￥'+r.resp_data.payMoney,'提示',['收款','取消'],function(c){
+                        if(c  == 1){    
+                            Tools.showlogin();
+                            Tools.getData({
+                            "interface_number": "020709",
+                              "post_content": {
+                                ensureCharge:'1',
+                                key:rr.text
+                              }
+                            },function (ff) {
+                              if(ff){
+
+                                  native.task('收款成功');
+                              }
+
+                            })
+
+
+                          }
+                      });
+
+
+
+                        }
+                      })
+
+
+                    }
+                    else{
                         $scope.goModular('r.Shophome',{id:rr.text});
                     }
 

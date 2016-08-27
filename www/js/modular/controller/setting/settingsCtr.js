@@ -2,8 +2,44 @@
  * Created by Why on 16/6/8.
  */
 
-Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state','$ionicHistory','storage','fromStateServ','$ionicScrollDelegate','Tools','native','selectArr','$rootScope','selectArr',function($scope,$ionicPopover, $ionicPopup,$timeout,$state,$ionicHistory,storage,fromStateServ,$ionicScrollDelegate,Tools,native,selectArr,$rootScope,selectArr) {
+Ctr.controller('settingsCtr',['$scope','$ionicPopover', '$ionicPopup','$timeout','$state','$ionicHistory','storage','fromStateServ','$ionicScrollDelegate','Tools','native','selectArr','$rootScope',function($scope,$ionicPopover, $ionicPopup,$timeout,$state,$ionicHistory,storage,fromStateServ,$ionicScrollDelegate,Tools,native,selectArr,$rootScope) {
 
+$scope.chongjif1 =  function(){
+   if(storage.getObject('UserInfo').user_id){
+        fromStateServ.stateChange('r.Inputamount',{type:2});
+    }else{
+      native.confirm('该操作需要登录','提示',['登录','取消'],function(c){
+        if(c  == 1){
+
+          fromStateServ.stateChange('r.login');
+        }
+      }); 
+      return false;
+    }
+}
+
+$scope.ercodepay =  function(){
+
+   if(storage.getObject('UserInfo').user_id){
+      fromStateServ.stateChange('r.comforderpayPwd');
+    }else{
+      native.confirm('该操作需要登录','提示',['登录','取消'],function(c){
+        if(c  == 1){
+          fromStateServ.stateChange('r.login');
+        }
+      });
+      
+      return false;
+    }
+
+
+
+}
+
+$scope.showjif   =  function(){
+  //alert();
+  native.task('当前积分:'+$scope.Userinfo.integral,4000);
+}
 
 
   $scope.userfanhui  = function () {
@@ -55,36 +91,26 @@ $scope.Personalsetting  = function (){
     fromStateServ.stateChange('r.SettingWe');
   }
 
+
 $scope.addermge  = function(){
-
         $scope.getMdl('r.Addresslist')
-
 }
-
 $scope.updateAPP  =  function () {
     window.updateAPP();
 }
-
-  $scope.integral  = function(){
-
-
-
+$scope.integral  = function(){
     if(storage.getObject('UserInfo').user_id){
       fromStateServ.stateChange('r.SettingOne');
     }else{
       native.confirm('该操作需要登录','提示',['登录','取消'],function(c){
         if(c  == 1){
           fromStateServ.stateChange('r.login');
-
         }
       });
-
       return false;
     }
-
-
   }
-
+  
   $scope.companyInstall=function () {
         $scope.getMdl('r.companyInstall')
   }
@@ -159,7 +185,17 @@ var   userone = storage.getObject('UserInfo');
         "post_content": {}
       },function(r) {
         if(r){
+          
            $scope.Userinfo.integral   =     r.resp_data.integral;
+           var  user = storage.getObject('UserInfo');
+           if(user.user_id){
+              user.integral   = r.resp_data.integral;
+              storage.setObject('UserInfo',user)
+
+
+           }
+
+
         }
       })
     }else{
@@ -226,7 +262,7 @@ var   userone = storage.getObject('UserInfo');
 
  $scope.$on('$ionicView.beforeLeave',function(){
            $scope.closetallcationvalue();
-           $scope.showco(true);
+           //$scope.showco(true);
 
 
 

@@ -3,10 +3,62 @@
  */
 //小工具方法类
 Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup','storage','native','$ionicHistory','$state','$ionicNativeTransitions',function($window,$ionicLoading,$http,$timeout,$ionicPopup,storage,native,$ionicHistory,$state,$ionicNativeTransitions){
+
+
+
+  //支付的封装  支持ios  安卓
+  var  pay = {
+    alipaly:function(config,success,error){
+        // 1 平台诚信金缴纳
+        // 2 个人积分充值
+        // 3 公司积分充值
+            var data   =  'http://121.40.62.137/alipay/getOrderInfo?type='+config.type+'&buyer_id='+config.buyer_id+'&total_amount='+config.money;
+            getData({},function(r){},function(){},'POST',data,false,false,function(r){
+              if(r.code  == "success"){
+                 window.alipay.pay({
+                  tradeNo: new Date().getTime()+(Math.random()*10000),
+                  subject: "yiwuyid",
+                  body: r.msg,  //这个是 支付的秘钥    
+                  price: 0.01,
+                  notifyUrl: "http://your.server.notify.url"
+                  }, function(successResults){
+                    success(successResults)
+                  }, function(errorResults){
+                     error(errorResults) 
+                  });
+              }else{
+
+                  native.task('支付失败')
+
+              }
+
+          })
+
+            //     $http.jsonp(data).success(
+            //       function(data, status, header, config){
+
+            //       //var c  =  data;
+            //       //var c  = eval(data)
+            //       alert(data)
+
+
+            //       }
+            //   ).error(
+            //     function(data){
+            //     native.task('支付失败');
+            //   }
+            // );
+
+
+
+    }
+
+  }
+
+
   //通知挑战
   var  Notificationjump  = function (obj) {
     console.log(obj);
-
     //判断类型
     if(obj.value.msg_type  == '1'){
       //物流信息
@@ -157,8 +209,8 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
   var   hidelogin = function(){
             native.hidloading();
   };
-  var   getData  = function(data,Callback,errorCallback,sendType,host,jsonp,cansologin){
-
+  var   getData  = function(data,Callback,errorCallback,sendType,host,jsonp,cansologin,playclbac){
+    
     if(!host){
       data.client_type =   window.platform?window.platform:'ios';
       data.post_content.token  = window.Token?window.Token:storage.getObject('UserInfo').token?storage.getObject('UserInfo').token:'';
@@ -175,7 +227,7 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     }
 
 
-
+    
     if(!window.networonline){
       Callback(false);
       native.task('检查网络是否开启!')
@@ -186,10 +238,10 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     // console.log(JSON.stringify(data));
 
     if(jsonp){
+
         $http.jsonp(host).success(
         function(data, status, header, config){
             Callback(JSON.parse(data));
-
         }
     )
     .error(
@@ -197,6 +249,8 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
             //native.task('获取数据失败,请检查网络')
         }
     );
+
+
       return false;
     }
 
@@ -208,6 +262,14 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
       headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
       data:data
     }).success(function(r){
+
+      //针对支付的特殊回调
+      if(playclbac){
+        playclbac(r)
+
+        return false;
+      }
+      
 
       $timeout(function(){
 
@@ -261,7 +323,8 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
           native.task(r.msg);
 
         }else{
-           native.task('异常错误!')
+
+           //native.task('异常错误!')
         }
       }
     }).error(function(e){
@@ -462,7 +525,8 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
     sendqiniu_single:sendqiniu_single,
     sendqiniu_queue:sendqiniu_queue,
     chekpirc:chekpirc,
-    Notificationjump:Notificationjump
+    Notificationjump:Notificationjump,
+    pay:pay
 
 
 

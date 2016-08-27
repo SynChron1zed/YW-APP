@@ -8,6 +8,17 @@ Ctr.controller('companyInstallCtr',['$scope','$rootScope','$ionicViewSwitcher','
 
 
 
+  $scope.chongzhi1  =function(){
+
+         native.confirm('充值积分','提示',['充值','取消'],function(c){
+          if(c  == 1){
+             $state.go('r.Inputamount',{type:3});
+          }
+        });
+
+
+  }
+
   $scope.goselectaouth  =  function  (){
       selectaouthfunl.state=true;
       $state.go('r.selectAuth');
@@ -114,13 +125,10 @@ function Initial() {
 
 
 
+$scope.goManagement = function () {
 
-$scope.Unauthorized=function () {
-  alert('前往认证页面')
-}
-
-$scope.goManagement = function (value) {
-  $state.go('r.management',{integral:value})
+  
+  $state.go('r.management')
 }
 
   //解除绑定

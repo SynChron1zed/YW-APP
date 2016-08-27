@@ -16,7 +16,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
   $ionicNativeTransitionsProvider.setDefaultOptions({
-    duration: 520, // in milliseconds (ms), default 400,
+    duration: 400, // in milliseconds (ms), default 400,
     slowdownfactor: 1, // overlap views (higher number is more) or no overlap (1), default 4
     iosdelay: -1, // ms to wait for the iOS webview to update before animation kicks in, default -1
     androiddelay: 20, // same as above but for Android, default -1
@@ -257,7 +257,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
 
       //选择认证
       .state('r.selectAuth',{
@@ -982,13 +981,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
     //setting  个人设置
     .state('r.management',{
-      url: '/management/:integral',
-      onEnter: function(fromStateServ,$ionicHistory) {
-        fromStateServ.saveHisty($ionicHistory,'r.management')
-      },
-      onExit:function(fromStateServ){
-        fromStateServ.removebackregistevent();
-      },
+      url: '/management',
       views: {
         'rootview': {
           templateUrl: 'templates/Setting/management.html',
@@ -1463,6 +1456,94 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
+
+    //门店  编辑 增加
+    .state('r.StoremanagementEdit',{
+      url: '/StoremanagementEdit',
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Setting/StoremanagementEdit.html',
+          controller: 'StoremanagementEditCtr'
+        }
+      }
+    })
+    //员工详情
+    .state('r.Employeedetails',{
+      url: '/Employeedetails',
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Setting/managementDetail.html',
+          controller: 'EmployeedetailsCtr'
+        }
+      }
+    })
+    //支付·密码 (暂时支持密码)
+    .state('r.comforderpayPwd',{
+      url: '/comforderpayPwd',
+      cache:false,
+
+        onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.comforderpayPwd')
+        },
+       onExit:function(fromStateServ){
+         fromStateServ.removebackregistevent();
+       },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/root/comfpayPwd.html',
+          controller: 'comforderpayPwdCtr'
+        }
+      }
+    })
+    
+    //二维码 支付页面
+    .state('r.ercodepayPage',{
+      url: '/ercodepayPage?ecode:&monye:',
+      views: {
+        params:{ecode:null,monye:null},
+        'rootview': {
+          templateUrl: 'templates/root/ercodepay.html',
+          controller: 'ercodepayPageCtr'
+        }
+      }
+    })
+
+    //充值 选择输入金额
+    .state('r.Inputamount',{
+      url: '/Inputamount?type:&monye:',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.Inputamount')
+      },
+       onExit:function(fromStateServ){
+         fromStateServ.removebackregistevent();
+       },
+      views: {
+         params:{type:null,monye:null},
+        'rootview': {
+          templateUrl: 'templates/root/inputamount.html',
+          controller:  'InputamountCtr'
+        }
+      }
+    })
+    
+    //充值 选择支付方式
+    .state('r.Selectpaymentmethod',{
+      url: '/Selectpaymentmethod?type:&monye:&toSt:',
+      cache:false,
+      views: {
+         params:{type:null,monye:null,toSt:null},
+        'rootview': {
+          templateUrl: 'templates/root/Selectpaymentmethod.html',
+          controller:  'SelectpaymentmethodCtr'
+        }
+      }
+    })
+
+    
+
+
+    
+
 
 
 

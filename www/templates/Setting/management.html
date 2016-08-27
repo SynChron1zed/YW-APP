@@ -1,71 +1,44 @@
-<ion-view hide-tabs="true" view-title="员工管理"  >
+<ion-view  view-title="员工管理"  >
+  <ion-content  scrollbar-y="false"  overflow-scroll="true"   style="background: #f2f2f2"  >
+
+
+  <p style="margin:0px;height: 35px;line-height: 35px;text-indent: 10px;color: dimgrey;font-size: 13px;">侧滑,发送短信和拨打电话,给员工分配积分</p>
 
 
 
+ <ion-scroll  lazy-scroll    style="height:calc(100% - 35px)"  scrollbar-y="false"  overflow-scroll="false"    >
+    <ion-list   can-swipe="true" >
+      
+  <ion-item ng-repeat="item in listdata"  class="item-avatar   item-remove-animate"    ng-click="edithmenid(item)"  >
+   <img image-lazy-src="{{item.user.avatar}}"  image-lazy-distance-from-bottom-to-load="100"  >
+    <h2>{{item.user.real_name}}   <span  style="color: #989898;position: absolute;right: 16px;" >{{item.user.phone}}</span>  </h2>
+    <p >所属门店 : {{item.takeAddr?item.takeAddr.name:'暂未设置'}}</p>
 
-  <ion-content  scrollbar-y="false"  overflow-scroll="false"   style="background: #f2f2f2"  >
+    <ion-option-button class="button-balanced" ng-click="sendSms(item)"> 
+      <i class="ion-chatboxes"  style="font-size: 26px;margin: 0 auto;"    ></i>
+    </ion-option-button>
 
+    <ion-option-button class="button-assertive   "
+                       ng-click="callphone(item)">
+    <i class="ion-ios-telephone" style="font-size: 26px;margin: 0 auto;"  ></i>
+    </ion-option-button>
 
-    <ion-scroll  delegate-handle="list"
-                 lazy-scroll
-                 overflow-scroll="false"
-                 scrollbar-y="false"
-                 style="width: 100%;
-                     overflow:hidden
-                     "
-                 ng-style="caklateheight"  >
-      <ion-refresher spinner="ios"  pulling-text="刷新" on-refresh="loadOlderStories(true)"   ></ion-refresher>
+    
+    <ion-option-button class="button-royal"   ng-click="Recharge(item)">
+          <i class="ion-card" style="font-size: 26px;margin: 0 auto;"  ></i>
+    </ion-option-button>
+    
+  </ion-item>
 
-      <div class="list   gerenlist-icon" style="">
+</ion-list>
 
+      <ion-infinite-scroll ng-if="loadstat"      style="height: 40px;line-height: 40px;margin-bottom:10px;text-align: center"   spinner="dots"      on-infinite="loadmoreData()" distance="1%" ></ion-infinite-scroll>
+      <p ng-if="!loadstat" style="height: 40px;line-height: 40px;margin-bottom:10px;text-align: center;color:#999" >没有更多了!</p>
 
-        <div class="row" style="height: 60px;    border-bottom: 1px solid #ccc;" ng-repeat="item in newsList" >
-          <div  class="col " style="width: 100px">
-            <div style="    font-size: 15px;
-    margin-top: 15px">{{item.user.real_name}}</div>
-
-          </div>
-
-          <div class="col ">
-            <button ng-click="deleteCompany(item.user.user_id,$index)" class="button button-small  button-balanced " style="    min-width: 41px;
-    float: right;
-    margin-top: 10px;
-    background-color: #a2a2a2">离职</button>
-
-            <button class="button button-small  button-balanced" style="    min-width: 41px;
-    float: right;
-    margin-top: 10px;
-    color: #333;
-    background-color: #feeb0b;
-    margin-right: 4%;" ng-click="handed(item.user.user_id)">移交</button>
-
-            <button ng-click="recharge(item.user.user_id,item.user.real_name)" class="button button-small  button-balanced " style="    min-width: 41px;
-    float: right;
-    margin-right: 4%;
-    margin-top: 10px;
-    background-color: #ef473a;" >充值</button>
+</ion-scroll>
 
 
-          </div>
-
-
-
-
-
-        </div>
-
-      </div>
-
-      <ion-infinite-scroll  ng-if="expression" style="height: 20px;line-height: 40px;margin-bottom:20px;text-align: center" spinner="dots" on-infinite="loadOlderStories()"  distance="1%"  > </ion-infinite-scroll>
-      <div ng-if="!expression" style="line-height: 90px;margin-bottom:40px;text-align: center;color:#999" >没有更多了!</div>
-
-    </ion-scroll>
-
-
-  </ion-content>
-
-
-
+</ion-content>
 </ion-view>
 
 

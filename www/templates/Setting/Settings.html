@@ -10,7 +10,7 @@
                      <img  class="userheaderimg"  ng-src="{{Userinfo.imgheader}}" alt="">
                      <img  class="sex" ng-src="{{Userinfo.sex}}" alt="">
               </div>
-
+              
               <div class="basinfo">
                       <h5 class="username"  ng-show='Userinfo.login'  > {{Userinfo.name}}</h5>
                       <p  ng-show='!Userinfo.login'>
@@ -21,79 +21,109 @@
     </div>
 
 
-
-    <div class="user-integral">
-        <div>  <img src="./img/icon_integral@3x.png"  style="width:.9rem;height:.9rem"  alt="">
-            <span> 积分 {{Userinfo.integral}}</span>
+    <div class="setinnglistheaden  row">
+           <div class="col-50"  ng-click="showjif()"   >  <img src="./img/icon_integral@3x.png"  style="width:.9rem;height:.9rem"  alt="">
+            <span  style="    
+                display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: relative;
+    text-align: left;
+    width: 80%;
+    text-indent: 8px;
+    " > 积分 {{Userinfo.integral}}</span>
           </div>
-        <div>  <img src="./img/icon_top-up.png" alt=""   style="margin-top:-.55rem" >
-         <span>充值积分</span> </div>
+            <div  class="col-25"   ng-click="chongjif1()" >  <img src="./img/icon_top-up.png" alt=""   style="top:.5rem;" >
+            <span>充 值</span> 
+            </div>
+            <div   class="col-25" ng-click="ercodepay()"  > 
+                <i class="ion-card" style="    font-size: 22px;
+    float: left;
+    position: relative;
+    left: 16px;
+    color: #44402e;
+    top: -1px;" ></i>
+                <span style="
+                    margin-left: 1rem;
+                "  >买 单</span>
+            </div>
+
+
+
+
     </div>
+
+    <!--<div class="user-integral">
+     
+      
+    </div>-->
+
 
     <div  style="background: whitesmoke;" >
 
    <div  class="list   gerenlist-icon"  style="margin-top:20px;">
 
-   <label class="item " ng-click='Personalsetting()' >
+   <div class="item " ng-click='Personalsetting()' >
        <img src="./img/icon_management.png" alt="">
           个人信息设置
                 <i class="ion-ios-arrow-right">  </i>
-     </label>
+     </div>
 
 
 
-     <label class="item " ng-click="companyInstall('r.companyInstall')">
+     <div class="item " ng-click="companyInstall('r.companyInstall')">
        <img src="./img/icon_company.png" alt=""  >
           企业信息设置
                 <i class="ion-ios-arrow-right">  </i>
-     </label>
+     </div>
 
 
-    <label class="item  "  ng-click="addermge()"  >
+    <div class="item  "  ng-click="addermge()"  >
         <img src="./img/icon_dizhi@3x.png" alt="">
             管理收货地址
                   <i class="ion-ios-arrow-right">  </i>
-      </label>
+      </div>
 
 
-    <label class="item "  ng-click="showco()"  >
+    <div class="item "  ng-click="showco()"  >
         <img src="./img/icon_code.png" alt="">
           我的二维码
                 <i class="ion-ios-arrow-right">  </i>
-     </label>
+     </div>
 
 
-       <label class="item " ng-click="integral()">
+       <div class="item " ng-click="integral()">
         <img src="./img/icon_share.png" alt=""  style="    margin-top: -1px;" >
           分享好友<span style="    margin-left: 6rem;position: absolute;
     color: #aaa;">奖励积分</span>
          <i class="ion-ios-arrow-right">  </i>
-     </label>
+     </div>
    </div>
 
 
 
    <div class="list   gerenlist-icon">
 
-     <label class="item "  ng-click="userfanhui()" >
+     <div class="item "  ng-click="userfanhui()" >
         <img src="./img/icon_feedback.png" alt="">
           用户反馈
                 <i class="ion-ios-arrow-right">  </i>
-     </label>
+     </div>
 
 
-       <label class="item "   ng-click="updateAPP()"  ng-show="update"  >
+       <div class="item "   ng-click="updateAPP()"  ng-show="update"  >
         <img src="./img/icon_update.png" alt="">
            版本更新
         <i class="ion-ios-arrow-right"></i>
-     </label>
+     </div>
 
 
-     <label class="item " ng-click="aboutWe('r.SettingWe')">
+     <div class="item " ng-click="aboutWe('r.SettingWe')">
         <img src="./img/icon_About.png" alt="">
           关于我们
         <i class="ion-ios-arrow-right">  </i>
-     </label>
+     </div>
 
 </div>
 

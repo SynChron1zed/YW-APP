@@ -24,7 +24,6 @@ window.networonline  =  true;
                         Callback();
                         native.task('退出成功');
                       }
-
                       window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
 
                   }
@@ -32,11 +31,11 @@ window.networonline  =  true;
             };
 
 
-
-       $rootScope.$on('$stateChangeSuccess', function() {
+          $rootScope.$on('$stateChangeSuccess', function() {
           console.log($location.path());
           console.log($ionicHistory.viewHistory())
-      });
+          });
+
   
   $ionicPlatform.ready(function() {
 
@@ -53,16 +52,17 @@ window.networonline  =  true;
       })
 
     }
-    
-
+  
+  
    setTimeout(function () {
      if(navigator){
        navigator.splashscreen.hide();
        }
     }, 500);
-
-    //$state.go('r.selectAuth');
+    //$state.go('r.selectPaydues');
     $state.go('r.tab.Home');
+    
+
 
     //初始化    用户信息
     if(!storage.getObject('UserInfo').user_id){
@@ -223,6 +223,7 @@ window.networonline  =  true;
        if(window.lockingJump) return  false;
        window.lockingJump  =  true;
        $rootScope.$ionicGoBack();
+
        $timeout(function(){
           window.lockingJump  =  false;
        },600)
@@ -230,7 +231,6 @@ window.networonline  =  true;
      }else {
        // This is the last page: Show confirmation popup
        window.extapp();
-
      }
      return false;
    }, 100);
@@ -375,7 +375,6 @@ window.networonline  =  true;
           window.hannotilistnow(e)
         }, false);
       }
-
     if(window.platform  !== 'ios'){
       window.updateAPP(true);
     }
@@ -391,6 +390,8 @@ window.networonline  =  true;
   });
   
   window.updateAPP  =  function(r){
+
+    return  false;
     if(ionic.Platform.platform()  == 'ios'){
       return false;
     }

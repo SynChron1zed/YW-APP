@@ -114,5 +114,13 @@
       return{
       }
     }])
+    .factory('StoredataEdit',[function(){
+      return{
+      }
+    }])
+    .factory('EmployeeObjdata',[function(){
+      return{
+      }
+    }])
 
 

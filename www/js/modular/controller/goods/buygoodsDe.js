@@ -779,12 +779,13 @@ $scope.$on('$ionicView.beforeLeave',function(){
 
               if(!r.resp_data.goodsInfo.img.length){
                   var   width  =  window.innerWidth*2;
-                  r.resp_data.goodsInfo.img[0]  =    window.qiniuimgHost+r.resp_data.goodsInfo.img_url+'?imageView2/2/w/'+width+'/h/'+width; ;
+                  r.resp_data.goodsInfo.img[0]  =    window.qiniuimgHost+r.resp_data.goodsInfo.img_url+'?imageMogr2/thumbnail/'+width+'x/gravity/Center/crop/'+width+'x'+width;
+
               }else{
 
                   angular.forEach(r.resp_data.goodsInfo.img,function (fff,index) {
                         var   width  =  window.innerWidth*2;
-                        r.resp_data.goodsInfo.img[index]     =  window.qiniuimgHost+fff+'?imageView2/2/w/'+width+'/h/'+width;
+                  r.resp_data.goodsInfo.img[index]     =  window.qiniuimgHost+fff+'?imageMogr2/thumbnail/'+width+'x/gravity/Center/crop/'+width+'x'+width;
                     });
               }
 
