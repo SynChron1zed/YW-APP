@@ -98,6 +98,7 @@ $scope.callPhone = function (r) {
 
   window.plugins.CallNumber.callNumber(function(){}, function(){},r, true);
 
+  
 }
 
 }]);
