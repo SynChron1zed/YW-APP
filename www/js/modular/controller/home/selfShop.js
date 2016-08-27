@@ -94,7 +94,11 @@ Ctr.controller('selfShopCtr',['$scope','native','$state','fromStateServ','Tools'
 
   }*/
 
+$scope.callPhone = function (r) {
 
+  window.plugins.CallNumber.callNumber(function(){}, function(){},r, true);
+
+}
 
 }]);
 
