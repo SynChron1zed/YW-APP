@@ -70,7 +70,7 @@ fromStateServ.stateChange('r.SeeshopPint',{name:'测试的店铺'});
     if(storage.getObject('UserInfo').user_id){
       $scope.goModular('r.stretchOne');
     }else{
-      native.confirm('该操作需要登录','您还没有登录',['登录','取消'],function(c){
+      native.confirm('该操作需要登录','您还未登录',['登录','取消'],function(c){
         if(c  == 1){
           $scope.goModular('r.login');
         }
@@ -177,7 +177,7 @@ $scope.showlogistics  =  function () {
                       },function (r) {
                         if(r){
                         native.confirm(r.resp_data.real_name+'正在向你支付:￥'+r.resp_data.payMoney,'提示',['收款','取消'],function(c){
-                        if(c  == 1){    
+                        if(c  == 1){
                             Tools.showlogin();
                             Tools.getData({
                             "interface_number": "020709",
@@ -233,7 +233,7 @@ $scope.showlogistics  =  function () {
      if(storage.getObject('UserInfo').user_id){
       $scope.gosales('r.HomPurchase');
       }else{
-        native.confirm('该操作需要登录','您还没有登录',['登录','取消'],function(c){
+        native.confirm('该操作需要登录','您还未登录',['登录','取消'],function(c){
           if(c  == 1){
             $scope.goModular('r.login');
           }
@@ -253,7 +253,7 @@ $scope.showlogistics  =  function () {
 
 
       }else{
-        native.confirm('该操作需要登录','您还没有登录',['登录','取消'],function(c){
+        native.confirm('该操作需要登录','您还未登录',['登录','取消'],function(c){
           if(c  == 1){
             $scope.goModular('r.login');
           }
@@ -301,7 +301,7 @@ $scope.gosales=function (r) {
 
       }else{
 
-        native.confirm('该操作需要登录','您还没有登录',['登录','取消'],function(c){
+        native.confirm('该操作需要登录','您还未登录',['登录','取消'],function(c){
           if(c  == 1){
             $scope.goModular('r.login');
           }
@@ -321,7 +321,7 @@ $scope.gosales=function (r) {
 
     }else{
 
-        native.confirm('该操作需要登录','您还没有登录',['登录','取消'],function(c){
+        native.confirm('该操作需要登录','您还未登录',['登录','取消'],function(c){
           if(c  == 1){
             $scope.goModular('r.login');
           }

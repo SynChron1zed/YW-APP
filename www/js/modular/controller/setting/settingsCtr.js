@@ -8,12 +8,12 @@ $scope.chongjif1 =  function(){
    if(storage.getObject('UserInfo').user_id){
         fromStateServ.stateChange('r.Inputamount',{type:2});
     }else{
-      native.confirm('该操作需要登录','提示',['登录','取消'],function(c){
+      native.confirm('该操作需要登录','您还未登录',['登录','取消'],function(c){
         if(c  == 1){
 
           fromStateServ.stateChange('r.login');
         }
-      }); 
+      });
       return false;
     }
 }
@@ -23,12 +23,12 @@ $scope.ercodepay =  function(){
    if(storage.getObject('UserInfo').user_id){
       fromStateServ.stateChange('r.comforderpayPwd');
     }else{
-      native.confirm('该操作需要登录','提示',['登录','取消'],function(c){
+      native.confirm('该操作需要登录','您还未登录',['登录','取消'],function(c){
         if(c  == 1){
           fromStateServ.stateChange('r.login');
         }
       });
-      
+
       return false;
     }
 
@@ -47,7 +47,7 @@ $scope.showjif   =  function(){
     if(storage.getObject('UserInfo').user_id){
       fromStateServ.stateChange('r.SettingsUser');
     }else{
-      native.confirm('该操作需要登录','提示',['登录','取消'],function(c){
+      native.confirm('该操作需要登录','您还未登录',['登录','取消'],function(c){
         if(c  == 1){
 
           fromStateServ.stateChange('r.login');
@@ -65,7 +65,7 @@ $scope.showjif   =  function(){
 
 //切换到登录   login
 function   login   (){
-      native.confirm('该操作需要登录','你还没有登录',['登录','取消'],function(c){
+      native.confirm('该操作需要登录','您还未登录',['登录','取消'],function(c){
 
         if(c  == 1){
           fromStateServ.stateChange('r.login');
@@ -102,7 +102,7 @@ $scope.integral  = function(){
     if(storage.getObject('UserInfo').user_id){
       fromStateServ.stateChange('r.SettingOne');
     }else{
-      native.confirm('该操作需要登录','提示',['登录','取消'],function(c){
+      native.confirm('该操作需要登录','您还未登录',['登录','取消'],function(c){
         if(c  == 1){
           fromStateServ.stateChange('r.login');
         }
@@ -110,7 +110,7 @@ $scope.integral  = function(){
       return false;
     }
   }
-  
+
   $scope.companyInstall=function () {
         $scope.getMdl('r.companyInstall')
   }
@@ -185,7 +185,7 @@ var   userone = storage.getObject('UserInfo');
         "post_content": {}
       },function(r) {
         if(r){
-          
+
            $scope.Userinfo.integral   =     r.resp_data.integral;
            var  user = storage.getObject('UserInfo');
            if(user.user_id){
@@ -219,7 +219,7 @@ var   userone = storage.getObject('UserInfo');
           if(!f){
             login();
           }
-          
+
         }else{
 
           if(!selectArr.selectarrs.companyid()){
@@ -233,7 +233,7 @@ var   userone = storage.getObject('UserInfo');
             $rootScope.hideTabs =true;
             $scope.setallcationstate   = true;
             }
-            
+
 
         }
       }
@@ -277,7 +277,7 @@ var   userone = storage.getObject('UserInfo');
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.SettingsUser').title;
-                
+
                 window.androdzerofun  =   fromStateServ.backView;
                 window.androdzerofun_parms  = 'r.SettingsUser';
                 window.androdzerofun_clback  = function(){};
