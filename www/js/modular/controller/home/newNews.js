@@ -9,6 +9,9 @@ Ctr.controller('NewnewsCtr',['$scope','$rootScope','$ionicViewSwitcher','$state'
 
 
 
+
+
+
   $scope.newsList =[]
   $scope.expression=true
 
@@ -80,6 +83,12 @@ Ctr.controller('NewnewsCtr',['$scope','$rootScope','$ionicViewSwitcher','$state'
     $scope.$ionicGoBack();
   };
   $scope.$on('$ionicView.beforeEnter',function() {
+
+
+    if($scope.newsList.length==0){
+     
+      $scope.loadOlderStories();
+    }
     if (fromStateServ.getState('r.homeNews')) {
       $scope.showtitle = true;
       $scope.ing = false;
