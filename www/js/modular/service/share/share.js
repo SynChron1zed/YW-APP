@@ -28,10 +28,13 @@ Server.factory('share',['$window','native',function($window,native){
     });
   }
 
+
+
   return{
     //微信分享
     weichat:function(config){
       wechatishas(function(){
+
 
 
 
@@ -53,14 +56,22 @@ Server.factory('share',['$window','native',function($window,native){
           //TIMELINE   盆友圈
           //FAVORITE   收藏
           //SESSION    微信聊天回话
-
-
-
         }, function () {
         }, function (reason) {
-          alert("Failed: " + reason);
+          //alert("Failed: " + reason);
+
         });
+
+
       })
+
+
+
+
+
+
+
+
     }
 
 

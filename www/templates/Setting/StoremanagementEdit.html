@@ -1,0 +1,38 @@
+
+<ion-view hide-tabs="true" view-title="{{title}}" >
+
+    <ion-nav-buttons side="right">
+      <a       class="button button-icon  " ng-click="keepaddress()">
+        保存
+      </a>
+    </ion-nav-buttons>
+
+<ion-content    overflow-scroll="false"   scrollbar-y="false"   style='background-color:#f3f3f3' >
+
+
+  <div class="list">
+        <label class="item item-input" style="border-top: none">
+          <span class="input-label">店铺名称</span><input   ng-model="stroe.name"   placeholder="请填写店铺名称/自提点名称" style="background:transparent"  type="text">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">联系电话</span><input   ng-model="stroe.phone"  placeholder="请填写联系方式"  style="background:transparent"  type="tel">
+        </label>
+
+         <label class="item item-input">
+          <span class="input-label">位置</span><input   ng-model="stroe.position"    placeholder="请填写具体位置"  style="background:transparent"  type="text">          
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">营业时间</span><input   ng-model="stroe.businessHours"    placeholder="请填写营业时间"  style="background:transparent"  type="text">          
+        </label>
+
+
+      </div>
+
+
+
+
+
+  </ion-content>
+</ion-view>

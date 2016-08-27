@@ -1,0 +1,72 @@
+<ion-view style='background:#feeb0b'  view-title="选择支付方式"     >
+
+  <ion-content          overflow-scroll="false"   scrollbar-y="false"     style="background: #ffffff;overflow:hidden; overflow-y:visible;"       >
+
+
+    <!--<p style="margin:0px;height: 35px;line-height: 35px;text-indent: 10px;color: dimgrey;font-size: 13px;">支付暂时仅支持支付宝,</p>-->
+    <!--.payfont-->
+
+    <style>
+        .milgbliblbihahahalihdlak .ion-ios-checkmark-outline{
+          color:#fe7e0b !important
+        }
+    </style>
+
+
+      <div  style="    width: 90%;
+    margin: 0 auto;
+    line-height: 30px;
+    font-size: 20px;
+    margin-top: 20px;" >
+        ￥ <span style="      position: relative;
+    top: 1px;  font-size: 25px;">{{palin.money}}</span>
+      </div>
+
+
+    <p style="height:10px;"></p>
+      <div  class="milgbliblbihahahalihdlak" style="width: 90%;margin: 0 auto;">
+        <div  ng-repeat="xxx   in  plaufun "   style="height: 50px;line-height: 50px;border-bottom: 1px solid #ddd;    position: relative;"  >
+          <i class="payfont" style="font-size: 32px;color:#04a4e3;    float: left;"  >{{xxx.icon}}</i>
+          <div style="height: 50px;
+    line-height: 50px;
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 15px;
+    color: #4c4c4c;">
+            {{xxx.name}}
+          </div>
+          <i class=""   ng-class="{'ion-ios-checkmark-outline':!xxx.select,'ion-ios-checkmark-outline':xxx.select}"   style="font-size: 26px;float: right;color: #b1b1b1;"></i>
+
+          <!---->
+
+        </div>
+
+
+
+
+
+
+
+      </div>
+
+    <button  ng-click="pay()"  class="button button-block " style="    
+                                          letter-spacing: 3px;
+                                          background: #feeb0b;
+                                          width: 90%;
+                                          margin-left: 5%;
+                                          margin-top: 60px;
+                                          color: #6b3801;
+            "
+    >
+    确 认
+  </button>
+
+
+
+
+
+  </ion-content>
+</ion-view>
+
+
+

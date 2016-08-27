@@ -1,0 +1,147 @@
+<ion-view style='background:#feeb0b'    view-title="设置买单金额"    >
+     
+  <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
+    <div    ng-if='showtitle'  class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.comforderpayPwd')">
+      <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
+    </div>
+  </ion-nav-buttons>
+
+  <ion-content          overflow-scroll="false"   scrollbar-y="false"     style="background: #f5f5f5;overflow:hidden; overflow-y:visible;"       >
+
+
+    <p  style="font-size: 14px;height: 40px;line-height: 40px;text-indent: 10px;color: dimgrey;"  >金额</p>
+
+
+
+    <div class="inpumonny"   ng-blur="quzheng()"    style="    position: relative;" >
+
+      <p style="margin: 0px;
+    position: absolute;
+    width: 92%;
+    left: 3.5%;
+    background: #bfbfbf;
+    height: 1px;
+    top: 60px;"></p>
+
+        <div  style="    float: left;
+    width: 10%;
+    text-align: center;
+    display: inline-block;
+    height: 40px;
+    line-height: 80px;
+    font-size: 30px;
+    font-weight: normal;
+    color: #464646;" >￥</div>
+
+        <input type="number"
+        ng-model="palu.money"
+          placeholder="0.00"
+          style="        -webkit-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 220px;
+    -moz-box-flex: 1;
+    -moz-flex: 1 220px;
+    -ms-flex: 1 220px;
+    flex: 1 220px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+    padding-right: 24px;
+    background-color: transparent;
+    float: left;
+    width: 86%;
+    padding: 0px;
+    margin: 0px;
+    height: 80px;
+    line-height: 80px;
+    font-size: 30px;
+
+          "    
+      >
+    </div>
+
+
+    <button  ng-click="pay()"  class="button button-block " style="    
+                                          letter-spacing: 3px;
+                                          background: #feeb0b;
+                                          width: 90%;
+                                          margin-left: 5%;
+                                          margin-top: 160px;
+                                          color: #6b3801;
+            "
+    >
+      确认金额
+    </button>
+
+
+
+
+
+
+
+  </ion-content>
+  <!--//set模块-->
+            <div class="action-sheet-backdrop cutom-sheet" 
+            
+            ng-click="closetallcationvalue()"
+                id='setmapidfff'   style="overflow: visible;
+            "  ng-class="{'active':setallcationstate}" >
+
+                <div class="action-sheet-wrapper    setmapintking   "   ng-class="{'action-sheet-up':setallcationstate}" style="overflow: visible;
+                    top:0px;
+                    transform: translate3d(0,-100%,0);
+                    -webkit-transform: translate3d(0,-100%,0);
+                "   >
+                    <div class="action-sheet"  " style="
+                    
+                    width: 100%;margin: 0px;border-radius: 0px;overflow:visible;
+                    margin-top: 44px;
+                    ">
+                        <div class="action-sheet-group action-sheet-options   Custom-menu" 
+                        ng-click="stopporp($event)"
+                        style="background: #fff;overflow: visible;margin: 0px;border-radius: 0px;"  >
+                            <div style="width:94%;margin-left:3%;position:relative">
+
+                                  <p style="height:20px;"></p>
+                                  <div class="list">
+
+                                    <label class="item item-input"><input type="password" ng-model="palu.pwd"   placeholder="账号密码"></label>
+                                    <label class="item item-input"><input type="password"   ng-model="palu.reppwd"    placeholder="确认密码"></label>
+
+                                    </div>
+
+                                    <button    ng-click="pay(true)"
+
+                                    style="
+
+                                        margin:10px 5%;
+                                        width: 90%;
+                                        border: none;
+                                        color: rgb(255, 255, 255);
+                                        font-size: 16px;
+                                        font-weight: 400;
+                                        height: 42px;
+                                        border-radius: 0px;
+                                        background: rgb(255, 159, 4);
+                                        
+                                    " > 确 认 </button>
+
+                        
+                                        </div>
+
+
+                            </div>
+                                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+
+</ion-view>
+
+
+

@@ -1,0 +1,71 @@
+<ion-view style='background:#feeb0b' view-title="付款"        >
+<ion-nav-bar   class="bar-positive ">
+                   <ion-nav-back-button class="button-clear"    style="font-size:14px;color:#6b3801"  ng-click="GoBackHome()" >
+                      <i class="icon ion-ios-arrow-left" style='#6b3801'  ></i> 返回
+                    </ion-nav-back-button>
+  </ion-nav-bar>
+<ion-content          overflow-scroll="false"   scrollbar-y="false"     style="background: #e8e8e8;overflow:hidden; overflow-y:visible;"       >
+<!--<ion-refresher  spinner="ios"     pulling-text="刷新" on-refresh="refl()"  ></ion-refresher>-->
+<!--<p style="margin:0px;height: 35px;line-height: 35px;text-indent: 10px;color: dimgrey;font-size: 13px;">下拉，可以刷新二维码</p>-->
+            <div style="
+                overflow: hidden;
+            width:90%;
+            margin:40px  5%;
+            background:#fff;
+            padding: 20px 0px;">
+            <p  style="    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 17px;
+    color: #868686;" >扫二维码付款</p>
+            <p style="line-height: 70px;
+    text-align: center;
+    font-size: 30px;" >￥<span  style="    font-size: 32px;" >{{data.money}}</span></p>
+    
+<div class="malbgehhahaoui">
+    <div class="plient">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+</div>
+
+
+            <img  style="width: 80%;
+    margin: 20px 10%;"  ng-src="{{data.keyimg}}" alt="">
+
+    <p style="margin:0px;height: 35px;line-height: 35px;text-indent: 10px;color: dimgrey;font-size: 13px;text-align: center;">
+        每分钟自动跟新，限当面使用
+    </p>
+
+
+            </div>
+
+  </ion-content>
+</ion-view>
+
+
+
