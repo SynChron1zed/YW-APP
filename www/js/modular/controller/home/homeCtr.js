@@ -3,10 +3,15 @@
  */
 Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','selectaouthfunl','seeshopPint','$http','share',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,selectaouthfunl,seeshopPint,$http,share) {
 
+
+window.share  = share;
+
+
+
+
+
 $scope.paly  = function () {
   share.weichat()
-
-
   // Tools.pay.alipaly({
   //   type:1,
   //   buyer_id:1222,
