@@ -526,7 +526,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       //活动
 
     .state('r.stretchOne', {
-      url: '/stretchOne',
+      url: '/stretchOne/:id',
       cache:false,
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.stretchOne')
