@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2016/7/23.
  */
-Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams) {
+Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$timeout',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$timeout) {
 
   $scope.ID = $stateParams.basicID;
   $scope.seordeData = $stateParams.seorde;
@@ -50,7 +50,6 @@ Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools',
           $scope.statusOne = true
         }
 
-
         console.log($scope.shopbody)
 
         $scope.pay = $scope.shopbody.total_fee
@@ -59,13 +58,11 @@ Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools',
 
       }else{
         $timeout(function(){
-
           if($scope.showtitle){
             $scope.backtoprevView('r.HomPurordersbody');
           }else{
             $ionicHistory.goBack();
           }
-
 
         },420)
       }
