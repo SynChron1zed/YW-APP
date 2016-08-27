@@ -6,6 +6,9 @@ Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools',
   $scope.ID = $stateParams.basicID;
   $scope.seordeData = $stateParams.seorde;
 
+
+  $scope.status= false;
+  $scope.statusOne= false;
   $scope.$on('$ionicView.beforeEnter',function(event, data){
 
 
@@ -41,6 +44,13 @@ Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools',
     },function(r){
       if(r){
         $scope.shopbody = (r.resp_data);
+        if($scope.shopbody.post_status!=5){
+          $scope.status = true
+        }else{
+          $scope.statusOne = true
+        }
+
+
         console.log($scope.shopbody)
 
         $scope.pay = $scope.shopbody.total_fee

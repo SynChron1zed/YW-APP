@@ -21,18 +21,24 @@
 
   <ion-content  style="background: #F7F7F7;"   scrollbar-y="false"  >
 
+   <!-- <div class="paystate"  ng-if="shopbody.post_status!=5" >
 
-    <div class="paystate"  ng-if="shopbody.post_status!=5" >
+    </div>-->
+
+
+    <div class="paystate"  ng-if="status">
       <i class="ion-ios-checkmark"  ></i >
       <span style="float: left;margin-left:5px;position: relative;top:10px;">支付成功</span>
       <span style="display: block;clear: both"></span>
     </div>
 
-    <div class="paystate" ng-if="shopbody.post_status==5">
+
+    <div class="paystate" ng-if="statusOne">
       <i class="ion-ios-close"  style="float: left;font-size: 40px;display: inline-block;color: #e42112;" ></i >
       <span style="float: left;margin-left:5px;position: relative;top:10px;color: #e42112;">交易关闭</span>
       <span style="display: block;clear: both"></span>
     </div>
+
 
     <div class="list cus-list   cus-listzzzsda" style="padding: 0px;border-top:1px solid #FFF3E7 !important;">
       <label class="item item-input" style=" height: 35px;" ng-if="seordeData==1" >
