@@ -1,0 +1,42 @@
+<ion-view style='background:#feeb0b' ion-nav-title='{{title}}'  >
+
+  <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
+    <div    ng-if='showtitle'  class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.Systemessagenotice')">
+      <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
+    </div>
+  </ion-nav-buttons>
+
+  <ion-content  lazy-scroll      overflow-scroll="false"   scrollbar-y="false"     style="background: #f5f5f5;overflow:hidden; overflow-y:visible;"       >
+
+<ion-refresher
+    spinner="ios"
+    pulling-text="刷新"
+    on-refresh="init()">
+</ion-refresher>
+
+    <div class="nomsgnoticeshopliu"  ng-show="nomsg" >
+      <i class="ion-ios-email-outline"></i>
+      <p>亲,你暂时没有消息</p>
+    </div>
+    
+    <div  class="notilist-Tradelogistics"     >
+           <div class="notilist-Trade-item"  ng-repeat=" ss   in  notilist  "   ng-click="actionTy(ss)"  >
+              <span>{{ss.value.post_time}}</span> 
+                <div class="msgbox">
+                    <div class="msgtirle"> {{ss.title}} </div>
+                    <div class="centerbox">
+                      <div class="img"> <img image-lazy-src="{{ss.value.img}}" alt="" image-lazy-distance-from-bottom-to-load="100"   >  </div>
+                      <div class="alertx">{{ss.alert}}</div>
+                    </div>
+                </div>
+           </div>
+    </div>
+
+      <div style="height:40px;">
+
+      </div>
+  </ion-content>
+
+
+</ion-view>

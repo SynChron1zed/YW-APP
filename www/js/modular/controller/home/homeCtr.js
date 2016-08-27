@@ -5,11 +5,6 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 
 
 window.share  = share;
-
-
-
-
-
 $scope.paly  = function () {
   share.weichat()
   // Tools.pay.alipaly({

@@ -1,0 +1,122 @@
+<ion-view  view-title="员工详情"  >
+    <ion-nav-buttons side="right">
+      <a       class="button button-icon  " ng-click="save()">
+        保存
+      </a>
+    </ion-nav-buttons>
+  <ion-content  scrollbar-y="false"  overflow-scroll="false"   style="background: #f2f2f2"  >
+
+ <div class="list">
+        <label class="item item-input" style="border-top: none">
+
+          <span class="input-label">名称</span><input   ng-model="info.userInfo.real_name"   placeholder="员工姓名"   readonly  style="background:transparent"  type="text">
+        </label>
+        
+     <div class="item item-input" ng-click="openstorelist()" >
+           <span style="
+                            position: absolute;
+                            right: 16px;
+                            width: 0;
+                            height: 0;
+                            border-left: 1px solid transparent;
+                            border-right: 12px solid transparent;
+                            border-bottom: 14px solid #fd6f64;
+                            transform: rotateZ(-94deg);
+                            margin-top: 4px;"
+                ></span>
+          <span class="input-label">门店</span><input    ng-model="info.company_relation.take_name"    placeholder="门店名称" readonly style="background:transparent"  type="text">          
+        </div>
+        <label class="item item-input">
+          <span class="input-label">QQ</span><input   ng-model="info.userInfo.QQ"  placeholder="QQ号码"  readonly style="background:transparent"  type="tel">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">联系电话</span><input  ng-model="info.userInfo.phone" placeholder="联系方式"  readonly style="background:transparent"  type="tel">
+        </label>
+
+       
+                <label class="item item-input">
+          <span class="input-label">积分余额</span><input   ng-model="info.userInfo.integral"  placeholder="QQ号码"  readonly style="background:transparent"  type="tel">
+        </label>
+      </div>
+
+
+  <p style="margin:0px;height: 35px;line-height: 35px;text-indent: 10px;color: dimgrey;font-size: 13px;">所属角色</p>
+
+    <div class="shenflistai"  ng-if='shohwchange'  >
+    <style>
+        .shenflistai .radio-content  .radio-icon{
+          color: #fd6f64;
+          font-size: 20px;
+          line-height: 50px;
+        }
+        .shenflistai .radio-content  h4{
+          font-size:15px;
+          font-weight: normal;
+        }
+    </style>
+      <div class="list" >
+            <div class="item"  style="padding-top: 10px;padding-bottom: 8px;"    ng-repeat=" xx  in   Identity "   ng-click="changethisuerinfo(xx)"   >
+              <h1 style="    font-size: 16px;font-weight: normal;margin-bottom: 4px;"  >{{xx.name}}</h1>
+              <p>{{xx.desc}}</p>
+              <i   ng-show="xx.select"  style="position: absolute;right: 16px;top: 50%;margin-top: -10px;font-size: 24px;color: #ff3a2b;"   class="ion-android-done"></i>
+            </div>
+        </div>
+   </div>
+
+    <div class="shenflistai"  ng-if='!shohwchange'  >
+   <div class="list" >
+            <div class="item"  style="padding-top: 10px;padding-bottom: 8px;"    >
+              <h1 style="    font-size: 16px;font-weight: normal;margin-bottom: 4px;"  >管理员</h1>
+              <p>公司的管理员</p>
+              <i  style="position: absolute;right: 16px;top: 50%;margin-top: -10px;font-size: 24px;color: #ff3a2b;"   class="ion-android-done"></i>
+            </div>
+        </div>
+
+    </div>
+
+<button class="button  button-block button-assertive "  ng-click="lizhi()"    style="width:90%;margin-left:5%;margin-top:40px;"  >离 职</button>
+
+ <script id="Since.html" type="text/ng-template">
+          <div class="modal">
+                      <ion-header-bar  class="bar-positive item-input-inset  lb-main-title-search" >
+                        <button  style="padding: 0px;" class="button button-icon " ng-click="setmendianmsg()"  >
+                          门店列表                          
+                        </button>
+                        <h5 class="title"></h5>
+                        <button class="button button-icon ion-android-close"  ng-click="Since.hide()" >
+                        </button>
+                      </ion-header-bar>
+                      <ion-content   overflow-scroll="false"  scrollbar-y="false" style='background:#f7f7f7'    >
+
+                          <style>
+                              .storelistffff  .ion-ios-checkmark-outline{
+                                color:#ff7a37 !important
+                                }
+                          </style>
+                                 <ion-list   class="storelistffff"  >
+                                    <ion-item ng-repeat="item in storelist"
+                                     style="padding-left: 40px;" 
+                                        ng-click="edithmenid(item)"  >
+                                      <i   style="    position: absolute;left: 10px;font-size: 28px;top: 25px;color:#ababab;"  ng-class="{'ion-ios-circle-outline':!item.select,'ion-ios-checkmark-outline':item.select}"></i>
+                                      <h2>{{item.name}}</h2>
+                                      <p  ><i class="ion-ios-location-outline"  style="font-size: 20px;float: left;margin-right: 4px;"  ></i>  {{item.address}}</p>
+                                    </ion-item>
+                                  </ion-list>
+
+
+
+                        </ion-content>
+      </div>
+ </script>
+
+
+
+
+
+
+</ion-content>
+</ion-view>
+
+
+

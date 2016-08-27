@@ -1,0 +1,49 @@
+
+<ion-view hide-tabs="true" view-title="门店列表" >
+
+    <ion-nav-buttons side="right">
+      <a       class="button button-icon  ion-android-add " ng-click="addnewmendian()"></a>
+    </ion-nav-buttons>
+
+<ion-content    overflow-scroll="false"   scrollbar-y="false"   style='background-color:#f3f3f3' >
+
+    <p style="margin:0px;height: 35px;line-height: 35px;text-indent: 10px;color: dimgrey;font-size: 13px;">侧滑,发送短信和拨打电话</p>
+
+    <!--//storelist-->
+    
+    <ion-list 
+       class="storelist-in"
+        show-delete="shouldShowDelete"
+          can-swipe="true" >
+  <ion-item ng-repeat="item in storelist"  class="item-remove-animate"    ng-click="edithmenid(item)"  >
+
+    <h2>{{item.name}}</h2>
+    <p  ><i class="ion-ios-location-outline"></i>  {{item.address}}</p>
+    <ion-option-button class="button-balanced"
+
+                       ng-click="sendSms(item)">
+                       <i class="ion-chatboxes"  style="    font-size: 26px;margin: 0 auto;"    ></i>
+    </ion-option-button>
+    <ion-option-button class="button-assertive   "
+                       ng-click="callphone(item)">
+    <i class="ion-ios-telephone" style="    font-size: 26px;margin: 0 auto;"  ></i>
+    </ion-option-button>
+
+    <ion-delete-button class="ion-minus-circled"
+                       ng-click="delthis($index,item)">
+    </ion-delete-button>
+    
+  </ion-item>
+</ion-list>
+
+  </ion-content>
+
+        <ion-footer-bar class="bar-energized "   >
+          <h1 class="title" ng-click="delstate()"  style="font-size: 15px;font-weight: normal;color: #794901;letter-spacing: 1px;"  > 
+            <span ng-show="!shouldShowDelete">删除自提点</span> 
+            <span ng-show="shouldShowDelete">完 成</span> 
+        </h1>
+        </ion-footer-bar>
+
+
+</ion-view>
