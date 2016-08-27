@@ -40,7 +40,7 @@
                 ">&#xe62e;</i>
             <input type="text"   ng-model="goods.barcode"
             style="padding-right:40px;"
-             placeholder="条码">
+             placeholder="条码" maxlength="16" minlength="3">
           </div>
 
 
@@ -99,7 +99,7 @@
             <input type="text" placeholder="￥0.00"    ng-blur="matthisvaluplaform(goods)" ng-model="goods.Platform_price" >
           </div>
           </div>
-          
+
                 <ion-list >
                     <h5     ng-show="!goods.edit"  style="background: #fff;text-indent:20px;margin: 0;padding: 10px 4px;font-weight: normal;font-size:15px;border-top: 1px solid #DDD">添加商品规格:</h5>
                     <div class="item   lastitemnoborer"   ng-repeat="fff  in attrsprices"    >
@@ -549,20 +549,20 @@
                       </ion-header-bar>
                       <ion-content   overflow-scroll="false"  scrollbar-y="false" style='background:#f7f7f7'    >
 
-                    
+
 
                     <p ng-show="!Sincesome.length"
-                     style="    text-indent: 10px;color: #777777;" 
+                     style="    text-indent: 10px;color: #777777;"
                      >还没有自提点</p>
 
-<!--                     
+<!--
                         <p ng-show="Sincesome.length"
-                     style="    text-indent: 10px;color: #777777;" 
+                     style="    text-indent: 10px;color: #777777;"
                      >侧滑删除</p> -->
 
 
 <!--
-                    <ion-list   
+                    <ion-list
                     >
                       <ion-item  ng-repeat="aa  in  Sincesome"                               >
                         <h5>{{aa.name}}   <span style="float:right;"   >{{aa.link}}</span> </h5>
@@ -585,18 +585,18 @@
                             color:#fe7e0b !important
                         }
                         .bildthisitmeicon   .item-content {
-                              padding-right: 62px  !important;   
+                              padding-right: 62px  !important;
                         }
                       </style>
 
 
-                    <ion-list   class="bildthisitmeicon"     
+                    <ion-list   class="bildthisitmeicon"
                                 show-delete="true"
                                 show-reorder="shouldShowReorder"
                                   >
-                                  
-                        <ion-item 
-                        
+
+                        <ion-item
+
                         ng-repeat="aa  in  Sincesome"   ng-click="xuanzheopition(aa)"    >
                             <div >
                             <p  style="    color: #3a3a3a;">{{aa.name}}   <span style="float:right;"   >{{aa.link}}</span> </p>
@@ -614,7 +614,7 @@
 
                 <ion-footer-bar class="bar-energized "   >
 
-          <!--<div class="buttons" ng-click="setmendianmsg()"   style="font-size:15px;line-height: 34px;color: #794901;"  > 
+          <!--<div class="buttons" ng-click="setmendianmsg()"   style="font-size:15px;line-height: 34px;color: #794901;"  >
           </div>-->
 
           <h1 class="title" ng-click="xuanzheopition()"  style="font-size: 15px;font-weight: normal;color: #794901;letter-spacing: 1px;"  >   添加自提点</h1>
@@ -645,13 +645,13 @@
                   <ion-content  scroll="false"   >
 
 
-                        <div  style="height:100%;"  id="container"></div> 
+                        <div  style="height:100%;"  id="container"></div>
 
             </ion-content>
 
   <ion-footer-bar class="bar-energized "   >
 
-          <!--<div class="buttons" ng-click="setmendianmsg()"   style="font-size:15px;line-height: 34px;color: #794901;"  > 
+          <!--<div class="buttons" ng-click="setmendianmsg()"   style="font-size:15px;line-height: 34px;color: #794901;"  >
           </div>-->
 
           <h1 class="title" ng-click="setmendianmsg()"  style="font-size: 15px;font-weight: normal;color: #794901;letter-spacing: 1px;"  > 设置门店信息</h1>
@@ -671,7 +671,7 @@
             -webkit-transform: translate3d(0,-100%,0);
         "   >
             <div class="action-sheet"  " style="width: 100%;margin: 0px;border-radius: 0px;overflow:visible">
-                <div class="action-sheet-group action-sheet-options   Custom-menu" 
+                <div class="action-sheet-group action-sheet-options   Custom-menu"
                 ng-click="stopporp($event)"
                 style="background: #fff;overflow: visible;margin: 0px;border-radius: 0px;"  >
                     <div style="width:94%;margin-left:3%;position:relative">
@@ -689,7 +689,7 @@
                             <button    ng-click="comfpintbasemsg()"
 
                              style="
-                                
+
                                 margin:10px 5%;
                                 width: 40%;
                                 border: none;
@@ -723,7 +723,7 @@
 
 
                     </div>
-                             
+
                 </div>
             </div>
         </div>
@@ -736,7 +736,7 @@
 
 
 
-      
+
 
       </ion-content>
 </ion-view>
