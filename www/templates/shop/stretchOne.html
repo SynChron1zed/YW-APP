@@ -1,0 +1,34 @@
+<ion-view  hide-tabs="true" view-title="促销专区">
+
+
+
+  <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
+    <div     class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.stretchOne')">
+      <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title"
+                                                                                                                                                     style="display: block;"
+      >{{parenttitle}}</span></span>
+    </div>
+
+  </ion-nav-buttons>
+
+
+
+
+  <ion-nav-buttons side="right">
+    <a   nav-direction="back"  href=""  class="button button-icon ">
+
+    </a>
+  </ion-nav-buttons>
+
+
+  <ion-content style="background-color: whitesmoke;overflow: hidden;" overflow-scroll="false"  scrollbar-y="false" >
+
+
+    <iframe frameborder="0" width="100%" height="100%"  ng-src="{{trustSrc}}"></iframe>
+
+
+  </ion-content>
+</ion-view>
+
+

@@ -172,7 +172,7 @@ $scope.dataList = false
 
   $scope.ordersbody= function (value) {
 
-    $state.go('r.Homordersbody',{basicID:value});
+    $state.go('r.Homordersbody',{basicID:value,seorde:1});
   };
 
   $scope.calssifloadMore = function (xxx) {

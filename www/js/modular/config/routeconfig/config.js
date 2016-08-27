@@ -713,7 +713,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
     .state('r.Homordersbody', {
-      url: '/Homordersbody/:basicID',
+      url: '/Homordersbody/:basicID/:seorde',
 
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.Homordersbody')
@@ -746,7 +746,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
     .state('r.HomPurordersbody', {
-      url: '/HomPurOrdersBody/:basicID',
+      url: '/HomPurOrdersBody/:basicID/:seorde',
 
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.HomPurordersbody')
