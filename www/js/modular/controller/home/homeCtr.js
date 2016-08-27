@@ -1,20 +1,23 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','selectaouthfunl','seeshopPint','$http',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,selectaouthfunl,seeshopPint,$http) {
+Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','selectaouthfunl','seeshopPint','$http','share',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,selectaouthfunl,seeshopPint,$http,share) {
 
-// $scope.paly  = function () {
-//   Tools.pay.alipaly({
-//     type:1,
-//     buyer_id:1222,
-//     money:1.00
-//   },function(r){
-//     console.log(r)
-//   },function(r){
-//     console.log(r)
-//   });
-// }
-//支付页面
+$scope.paly  = function () {
+  share.weichat()
+
+
+  // Tools.pay.alipaly({
+  //   type:1,
+  //   buyer_id:1222,
+  //   money:1.00
+  // },function(r){
+  //   console.log(r)
+  // },function(r){
+  //   console.log(r)
+  // });
+}
+
 
 
 
