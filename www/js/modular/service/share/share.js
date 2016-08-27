@@ -33,12 +33,9 @@ Server.factory('share',['$window','native',function($window,native){
   return{
     //微信分享
     weichat:function(config){
+
       wechatishas(function(){
-
-
-
-
-
+        
         window.Wechat.share({
           message: {
             title: "这是测试",

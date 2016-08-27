@@ -3,6 +3,7 @@ Ctr.controller('StoremanagementCtr',['$scope','Tools','native','StoredataEdit','
 
 $scope.delthis  = function(r,item){
     //console.log(item.take_id);
+
     Tools.showlogin();
     Tools.getData({
          "interface_number": "020803",
@@ -11,8 +12,9 @@ $scope.delthis  = function(r,item){
          }         
     },function(r){
             if(r){
-                $scope.storelist.splice(r, 1);
-                native.task('删除成功',1000);
+
+                  Tools.rmArrin($scope.storelist,r-1)
+                  native.task('删除成功',1000);
             }
     })
 }
@@ -60,11 +62,12 @@ $scope.loadDatae  =  function(){
                         StoredataEdit.take_id =  undefined;  
                     }
         })
+    }else{
+
+
     }
 
     if(StoredataEdit.Ref) {StoredataEdit.Ref = false;   return  false;}
-    
-    Tools.showlogin();
     Tools.getData({
          "interface_number": "000408",
          "post_content": {}
@@ -124,6 +127,7 @@ $scope.callphone  =  function (r){
                     native.task('请填写营业时间');
                     return  false;
                 }
+            
                 Tools.showlogin();
                 Tools.getData({
                        "interface_number": "020802",

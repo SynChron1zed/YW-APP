@@ -30,7 +30,7 @@ $scope.Recharge  = function(item){
                                               item.user.integral=  parseFloat(item.user.integral)+parseFloat(mony);
                                             })
                                             native.task('分配成功');
-                                            
+
                                         }
                                     })
                              }})                          
@@ -60,7 +60,10 @@ $scope.Recharge  = function(item){
             }
         })
         $timeout(function(){
-          $scope.listdata.splice(index, 1);
+          
+
+          Tools.rmArrin($scope.listdata,index)
+
         },400)
     }
     //跟新  门店信息
@@ -287,7 +290,7 @@ $scope.shohwchange   = false;
         {
           name:'管理员',
           desc:'公司的管理员',
-          select:true
+          select:false
         },
         {
            name:'收银员',
