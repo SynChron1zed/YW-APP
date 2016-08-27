@@ -40,11 +40,12 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
     });
 
     var   inlit  = function (){
-
                 Tools.getData({ "interface_number": "030201",
                 "post_content": {shop_id:$stateParams.id}
                 },function(r){
                         if(r){
+
+
                             $scope.shopclasslist = r.resp_data.cate_info;
                             $scope.shopclasslist.unshift({
                                 cate_id:"",
@@ -56,9 +57,18 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
                             $scope.shop_info.img_header  = window.qiniuimgHost+$scope.shop_info.img_header+'?imageView2/2/w/800';
                             $scope.shop_info.img_shop  =  window.qiniuimgHost+$scope.shop_info.img_shop+'?imageView2/2/w/200';
                             $ionicScrollDelegate.$getByHandle('goodslistshop').scrollTop();
+
+
+
                             $scope.goodlistdata = [];
                             $scope.pagnumber = 1;
-                            $scope.loadermoer = true;
+                            //$scope.loadermoer = true;
+                            $scope.customcucdownlisloadMore(true);
+
+
+
+
+
                         }else{
                                     if(fromStateServ.getState('r.Shophome')){
                                         fromStateServ.backView('r.Shophome')
