@@ -24,6 +24,7 @@ Ctr.controller('stretchOneCtr',['$scope','$interval','$timeout','$ionicPlatform'
 
 
 
+
     }
   });
 
@@ -58,12 +59,12 @@ Ctr.controller('stretchOneCtr',['$scope','$interval','$timeout','$ionicPlatform'
     $scope.token_phone =  storage.getObject('UserInfo').token_phone;
 
 
-    $scope.MyUrl="yiwu.com/index.php?r=web/prize/index&token=123&token_phone=%27%27"
+    //$scope.MyUrl="yiwu.com/index.php?r=web/prize/index&token=123&token_phone=%27%27"
 
-   // $scope.MyUrl=$scope.Url+'&'+'token='+$scope.token+'&'+'token_phone='+$scope.token_phone
-    $scope.trustSrc = $sce.trustAsResourceUrl("http://" + $scope.MyUrl)
+   $scope.MyUrl=$scope.Url+'&'+'token='+$scope.token+'&'+'token_phone='+$scope.token_phone
+    //$scope.trustSrc = $sce.trustAsResourceUrl("http://" + $scope.MyUrl)
 
-  //  $scope.trustSrc = $sce.trustAsResourceUrl($scope.MyUrl)
+    $scope.trustSrc = $sce.trustAsResourceUrl($scope.MyUrl)
 
   },1000)
 
