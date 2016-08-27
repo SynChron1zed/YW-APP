@@ -712,7 +712,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
     .state('r.Homordersbody', {
-      url: '/Homordersbody/:basicID/:seorde',
+      url: '/Homordersbody/:basicID',
 
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.Homordersbody')
@@ -745,7 +745,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
     .state('r.HomPurordersbody', {
-      url: '/HomPurOrdersBody/:basicID/:seorde',
+      url: '/HomPurOrdersBody/:basicID',
 
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.HomPurordersbody')
@@ -1495,7 +1495,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    
+
     //二维码 支付页面
     .state('r.ercodepayPage',{
       url: '/ercodepayPage?ecode:&monye:',
@@ -1525,7 +1525,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    
+
     //充值 选择支付方式
     .state('r.Selectpaymentmethod',{
       url: '/Selectpaymentmethod?type:&monye:&toSt:',
@@ -1539,10 +1539,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-    
 
 
-    
+
+
 
 
 

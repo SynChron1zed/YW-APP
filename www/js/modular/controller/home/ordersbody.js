@@ -6,7 +6,7 @@ Ctr.controller('ordersbodyCtr',['$scope','native','$state','fromStateServ','Tool
 
 
   $scope.ID = $stateParams.basicID;
-  $scope.seordeData = $stateParams.seorde;
+ // $scope.seordeData = $stateParams.seorde;
 
   $scope.$on('$ionicView.beforeEnter',function(event, data){
 
