@@ -1,11 +1,14 @@
 /**
  * Created by Administrator on 2016/7/23.
  */
-Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams) {
+Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$timeout',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$timeout) {
 
   $scope.ID = $stateParams.basicID;
   $scope.seordeData = $stateParams.seorde;
 
+
+  $scope.status= false;
+  $scope.statusOne= false;
   $scope.$on('$ionicView.beforeEnter',function(event, data){
 
 
@@ -41,6 +44,12 @@ Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools',
     },function(r){
       if(r){
         $scope.shopbody = (r.resp_data);
+        if($scope.shopbody.post_status!=5){
+          $scope.status = true
+        }else{
+          $scope.statusOne = true
+        }
+
         console.log($scope.shopbody)
 
         $scope.pay = $scope.shopbody.total_fee
@@ -49,13 +58,11 @@ Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools',
 
       }else{
         $timeout(function(){
-
           if($scope.showtitle){
             $scope.backtoprevView('r.HomPurordersbody');
           }else{
             $ionicHistory.goBack();
           }
-
 
         },420)
       }
