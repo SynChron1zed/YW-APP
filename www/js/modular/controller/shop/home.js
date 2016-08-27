@@ -41,12 +41,6 @@ Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state
 
     var   inlit  = function (){
 
-
-
-
-
-
-
                 Tools.getData({ "interface_number": "030201",
                 "post_content": {shop_id:$stateParams.id}
                 },function(r){
