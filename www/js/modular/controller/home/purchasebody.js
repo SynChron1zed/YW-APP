@@ -77,5 +77,11 @@ $scope.goShop=function () {
     $state.go('r.HomPurchase')
   }
 
+  $scope.callPhone = function (r) {
+
+    window.plugins.CallNumber.callNumber(function(){}, function(){},r, true);
+
+
+  }
 
 }]);
