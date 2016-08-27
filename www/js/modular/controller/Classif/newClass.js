@@ -31,7 +31,7 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
         fromStateServ.stateChange('r.Productdetails',{id:item.request_id});
       }else  if(item.request_type  == '4'){
 
-        fromStateServ.stateChange('r.stretchOne');
+        fromStateServ.stateChange('r.stretchOne',{id:item.request_id});
       }else{
         native.task('活动暂未开始');
       }
