@@ -8,12 +8,10 @@
 Ctr.controller('NewnewsCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','fromStateServ',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,fromStateServ){
 
 
-
-
-
+  
 
   $scope.newsList =[]
-  $scope.expression=true
+  //$scope.expression=true
 
 
   $scope.loadOlderStories=function (type) {
@@ -86,7 +84,7 @@ Ctr.controller('NewnewsCtr',['$scope','$rootScope','$ionicViewSwitcher','$state'
 
 
     if($scope.newsList.length==0){
-     
+
       $scope.loadOlderStories();
     }
     if (fromStateServ.getState('r.homeNews')) {
