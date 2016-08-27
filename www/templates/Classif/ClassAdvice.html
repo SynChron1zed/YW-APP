@@ -18,15 +18,12 @@
       <div class="item item-input" style="border-top: none;border-top: 1px solid #ccc;height: 2.5rem" >
         <div class="row" ng-if="item.link">
           <div class="col col-80"><span style=" margin-left: -10px;">{{item.link}}</span></div>
-          <div>
-            <a href="tel:{{item.link}}">
+          <div ng-click="callPhone(item.link)">
               <img  src="./img/classif/icom_iphone@3X.png" style="     width: 30px;
     border-left: 1px solid rgb(162, 162, 162);
     float: right;
     padding: 5px;
     margin-left: 40px">
-            </a>
-
           </div>
         </div>
 <div ng-if="!item.link">
@@ -44,14 +41,14 @@
       <div class="item item-input" style="border-top: none;border-top: 1px solid #ccc;height: 2.5rem" >
            <div class="row" ng-if="item.sys_tel">
              <div class="col col-80"><span style=" margin-left: -10px;">{{item.sys_tel}}</span></div>
-             <div>
-               <a href="tel:{{item.sys_tel}}">
+             <div ng-click="newcallPhone(item.sys_tel)">
+
                <img  src="./img/classif/icom_iphone@3X.png" style="     width: 30px;
     border-left: 1px solid rgb(162, 162, 162);
     float: right;
     padding: 5px;
     margin-left: 40px">
-               </a>
+
              </div>
 
 

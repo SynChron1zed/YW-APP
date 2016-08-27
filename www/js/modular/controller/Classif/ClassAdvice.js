@@ -18,8 +18,21 @@ Ctr.controller('ClassAdviceCtr',['$scope','Tools','$stateParams','fromStateServ'
     }
 
   })
+  $scope.callPhone = function (r) {
 
-  
+    window.plugins.CallNumber.callNumber(function(){}, function(){},r, true);
+
+
+  }
+
+  $scope.newcallPhone = function (r) {
+
+    window.plugins.CallNumber.callNumber(function(){}, function(){},r, true);
+
+
+  }
+
+
 
 
 }]);
