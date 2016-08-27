@@ -10,11 +10,13 @@ $scope.delthis  = function(r,item){
          "post_content": {
              takeAddrId:item.take_id
          }         
-    },function(r){
-            if(r){
+    },function(c){
+            if(c){
 
-                  Tools.rmArrin($scope.storelist,r-1)
+
+                  Tools.rmArrin($scope.storelist,r)
                   native.task('删除成功',1000);
+
             }
     })
 }
@@ -127,7 +129,6 @@ $scope.callphone  =  function (r){
                     native.task('请填写营业时间');
                     return  false;
                 }
-            
                 Tools.showlogin();
                 Tools.getData({
                        "interface_number": "020802",
