@@ -41,22 +41,22 @@
 
 
     <div class="list cus-list   cus-listzzzsda" style="padding: 0px;border-top:1px solid #FFF3E7 !important;">
-      <label class="item item-input" style=" height: 35px;" ng-if="seordeData==1" >
+      <label class="item item-input" style=" height: 35px;"  >
         <span class="input-label" style="color: #111"  >店铺名称</span> <div style="color: #444">{{shopbody.shop_name}}</div>
          </label>
 
-      <label class="item item-input" style=" height: 35px;" ng-if="seordeData!=1" ng-click="goShop()">
+     <!-- <label class="item item-input" style=" height: 35px;" ng-if="seordeData!=1" ng-click="goShop()">
           <span class="input-label" style="color: #111" ng-if="seordeData==1" >店铺名称</span> <div style="color: #444">{{shopbody.shop_name}}</div>
       </label>
+-->
 
-
-      <div class="item item-input"  style=" height: 35px;" ng-if="seordeData==1">
+      <div class="item item-input"  style=" height: 35px;" >
         <span class="input-label" style="color: #111">单&nbsp;号</span><div style="color: #444">{{shopbody.order_basic_id}}</div>
       </div>
 
-      <div class="item item-input"  style=" height: 35px;" ng-if="seordeData!=1" ng-click="goSeorder()">
+     <!-- <div class="item item-input"  style=" height: 35px;" ng-if="seordeData!=1" ng-click="goSeorder()">
         <span class="input-label" style="color: #111">单&nbsp;号</span><div style="color: #444">{{shopbody.order_basic_id}}</div>
-      </div>
+      </div>-->
 
       <label class="item item-input" style=" height: 35px;" >
         <span class="input-label" style="color: #111">状&nbsp;态</span>

@@ -4,7 +4,7 @@
 Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$timeout','$ionicHistory',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$timeout,$ionicHistory) {
 
   $scope.ID = $stateParams.basicID;
-  $scope.seordeData = $stateParams.seorde;
+ // $scope.seordeData = $stateParams.seorde;
 
 
   $scope.status= false;
