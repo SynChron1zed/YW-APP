@@ -117,7 +117,7 @@ function  init() {
     $scope.MyUrl=$scope.Url+'&token='+$scope.token+'&token_phone='+$scope.token_phone
     //$scope.trustSrc = $sce.trustAsResourceUrl($scope.Url)
 
-    $scope.trustSrc = $sce.trustAsResourceUrl("http://"+$scope.MyUrl)
+    $scope.trustSrc = $sce.trustAsResourceUrl($scope.MyUrl)
 
 
     console.log( $scope.MyUrl )
