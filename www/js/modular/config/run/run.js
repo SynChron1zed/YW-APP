@@ -36,7 +36,7 @@ window.networonline  =  true;
           console.log($ionicHistory.viewHistory())
           });
 
-  
+
   $ionicPlatform.ready(function() {
 
     if(window.cordova){
@@ -52,8 +52,8 @@ window.networonline  =  true;
       })
 
     }
-  
-  
+
+
    setTimeout(function () {
      if(navigator){
        navigator.splashscreen.hide();
@@ -61,7 +61,7 @@ window.networonline  =  true;
     }, 500);
     //$state.go('r.selectPaydues');
     $state.go('r.tab.Home');
-    
+
 
 
     //初始化    用户信息
@@ -215,7 +215,7 @@ window.networonline  =  true;
             window.androdzerofun(window.androdzerofun_parms,window.androdzerofun_clback);
           return false;
         }
-        
+
      // Is there a page to go back to?
      if (JSON.stringify($location.path()) == '/r/tab/Home'  ||  JSON.stringify($location.path()) == '/r/tab/goodsclasslist' ||  JSON.stringify($location.path()) == '/r/tab/Notice'  ||  JSON.stringify($location.path()) == '/r/tab/Settings' ) {
        showConfirm();
@@ -388,7 +388,7 @@ window.networonline  =  true;
       window.networonline  =  false;
     })
   });
-  
+
   window.updateAPP  =  function(r){
 
     return  false;
@@ -567,7 +567,7 @@ window.networonline  =  true;
   }
 
   window.Permission  =  function (a,b,c) {
-  
+
 
     if(a  ==  'r.SeeshopPint') {
       return  true;
@@ -576,7 +576,7 @@ window.networonline  =  true;
     if(a =='r.Storemanagement'){
       return   handeposins(a,PermissionConfig.Storemanagement)
     }
-    
+
     if(a   == 'r.HomSales' ){
         return  handeposins(a,PermissionConfig.HomSales)
     }
@@ -612,7 +612,7 @@ window.networonline  =  true;
 
         if(targ.login){
             if(!nowjurisdiction.user_id){
-                   native.confirm('该操作需要登录','提示',['登录','取消'],function(c){
+                   native.confirm('该操作需要登录','您还未登录',['登录','取消'],function(c){
                         if(c  == 1){
                             nopossionchangrout(ruter,'r.login')
                         }

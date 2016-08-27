@@ -1,10 +1,14 @@
 <ion-view view-title="易物流程"  >
 
 
-  <ion-nav-buttons side="left" >
+  <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
+    <div  class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.flow')">
+      <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title"
+                                                                                                                                                     style="display: block;"
+      >{{parenttitle}}</span></span>
+    </div>
 
-    <button    ng-click="$ionicGoBack()" class="button back-button buttons  button-clear header-item"><i class="icon ion-ios-arrow-left"></i>首页
-    </button>
   </ion-nav-buttons>
 
   <ion-content  scrollbar-y="false"  overflow-scroll="false"   style="background: whitesmoke" scroll="false">
