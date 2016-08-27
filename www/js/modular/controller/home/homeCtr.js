@@ -387,8 +387,9 @@ $scope.gosales=function (r) {
     fromStateServ.stateChange(r);
   };
 
-  $scope.flow=function () {
-    $state.go('r.flow')
+  $scope.flow=function (r) {
+
+    fromStateServ.stateChange(r);
   }
 
 

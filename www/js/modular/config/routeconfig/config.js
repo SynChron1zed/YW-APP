@@ -548,7 +548,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
 
-    .state('r.flow', {
+  /*  .state('r.flow', {
       url: '/flow',
       cache: false,
       views: {
@@ -557,7 +557,25 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
           controller: 'flowCtr'
         }
       }
+    })*/
+
+
+    .state('r.flow',{
+      url: '/flow',
+      onEnter: function(fromStateServ,$ionicHistory) {
+        fromStateServ.saveHisty($ionicHistory,'r.flow')
+      },
+      onExit:function(fromStateServ){
+        fromStateServ.removebackregistevent();
+      },
+      views: {
+        'rootview': {
+          templateUrl: 'templates/Home/flow.html',
+          controller: 'flowCtr'
+        }
+      }
     })
+
 
 
     //销售订单
