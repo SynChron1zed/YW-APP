@@ -24,8 +24,16 @@
   <ion-content  style="background: #F7F7F7;"   scrollbar-y="false"  >
 
 
-    <div class="paystate" >
-      <i class="ion-ios-checkmark"  ></i >  <span style="float: left;margin-left:5px;position: relative;top:10px;">支付成功</span>
+    <div class="paystate"  ng-if="status">
+      <i class="ion-ios-checkmark"  ></i >
+      <span style="float: left;margin-left:5px;position: relative;top:10px;">支付成功</span>
+      <span style="display: block;clear: both"></span>
+    </div>
+
+
+    <div class="paystate" ng-if="statusOne">
+      <i class="ion-ios-close"  style="float: left;font-size: 40px;display: inline-block;color: #e42112;" ></i >
+      <span style="float: left;margin-left:5px;position: relative;top:10px;color: #e42112;">交易关闭</span>
       <span style="display: block;clear: both"></span>
     </div>
 
@@ -50,7 +58,8 @@
 
       <label class="item item-input" style=" height: 35px;" >
         <span class="input-label" style="color: #111">状&nbsp;态</span>
-        <div style="color: #444">已付款</div>
+        <div style="color: #444"  ng-if="poststuds!=5">已付款</div>
+        <div style="color: #444"  ng-if="poststuds==5">已退款</div>
       </label>
 
 

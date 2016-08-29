@@ -41,6 +41,7 @@ $scope.data = true;
 
       if(r){
         $scope.Url = r.resp_data.link;
+        $scope.id = r.resp_data.id;
 
         if(!$scope.Url){
           //native.task('该活动暂未开放，敬请期待');
@@ -77,6 +78,7 @@ $scope.data = true;
 
       if(r){
           $scope.Url = r.resp_data.link;
+         $scope.id = r.resp_data.id;
 
           if(!$scope.Url){
             //native.task('该活动暂未开放，敬请期待');
@@ -114,7 +116,7 @@ function  init() {
       $scope.Url1= "yiwu.com/index.php?r=web/prize/index"
     //$scope.MyUrl="yiwu.com/index.php?r=web/prize/index&token=123&token_phone=%27%27"
 
-    $scope.MyUrl=$scope.Url+'&token='+$scope.token+'&token_phone='+$scope.token_phone
+    $scope.MyUrl=$scope.Url+'&token='+$scope.token+'&token_phone='+$scope.token_phone+'&activity_id='+$scope.id
     //$scope.trustSrc = $sce.trustAsResourceUrl($scope.Url)
 
     $scope.trustSrc = $sce.trustAsResourceUrl($scope.MyUrl)
