@@ -4,7 +4,7 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('companyInstallCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','storage','fromStateServ','selectaouthfunl','selectArr',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,storage,fromStateServ,selectaouthfunl,selectArr){
+Ctr.controller('companyInstallCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','storage','fromStateServ','selectaouthfunl','selectArr','$ionicHistory',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,storage,fromStateServ,selectaouthfunl,selectArr,$ionicHistory){
 
 
 
@@ -31,10 +31,10 @@ Ctr.controller('companyInstallCtr',['$scope','$rootScope','$ionicViewSwitcher','
   $scope.expression = true;
   $scope.newexpression =true;
 
-  $scope.companyName = storage.getObject('UserInfo').company_name;
+  /*$scope.companyName = storage.getObject('UserInfo').company_name;
   $scope.adminer = storage.getObject('UserInfo').is_admin;
   $scope.userid = storage.getObject('UserInfo').user_id;
-
+*/
 
 
 
@@ -50,7 +50,7 @@ Ctr.controller('companyInstallCtr',['$scope','$rootScope','$ionicViewSwitcher','
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.companyInstall').title;
-                
+
                 window.androdzerofun  =   fromStateServ.backView;
                 window.androdzerofun_parms  = 'r.companyInstall';
                 window.androdzerofun_clback  = function(){};
@@ -67,6 +67,7 @@ Ctr.controller('companyInstallCtr',['$scope','$rootScope','$ionicViewSwitcher','
   });
 
   function select() {
+    $scope.userid = selectArr.selectarrs.id();
     $scope.companyID =  selectArr.selectarrs.companyid();
     $scope.companyName =  selectArr.selectarrs.companyname();
     $scope.adminer = selectArr.selectarrs.isadmin();
@@ -127,57 +128,92 @@ function Initial() {
 
 $scope.goManagement = function () {
 
-  
+
   $state.go('r.management')
 }
 
   //解除绑定
 $scope.deleteCompany=function () {
 
-/*if($scope.adminer == 1){
+  
 
-  $ionicPopup.alert({
-    title:"请先移交管理员！",
-    okText:'确定'
+    native.confirm('你确定解除公司绑定?','提示',['确定','取消'],function(c){
+      if(c  == 1){
 
-  });
-  return false;
-}else {*/
-
-  Tools.getData({
-    "interface_number": "000402",
-    "post_content": {
-      "token":"",
-      "token_phone": "",
-      "userId": $scope.userid,
-      "isSelf":"1"
-    }
-
-  },function(r){
-
-    if(r.msg== "success"){
-
-      native.task('解绑成功');
-      window.outlogin(function(){
-        $timeout(function(){
-          newInitial();
-        },30)
-      })
-
-      $state.go('r.tab.Settings');
-    }else{
-
-      return false
-
-    }
+        Tools.showlogin();
+        Tools.getData({
+          "interface_number": "000402",
+          "post_content": {
+            "token": "",
+            "token_phone": "",
+            "userId": $scope.userid,
+            "isSelf": "1"
+          }
+        },function(r){
+          if(r){
+            window.outlogin(function(){
+              $timeout(function(){
+                $state.go('r.tab.Settings');
+                $timeout(function(){
+                  $ionicHistory.clearHistory();
+                },30)
+              },30)
+            })
+            native.task('解除公司绑定,成功');
+          }
+        })
+      }})
 
 
-  });
 
 
+
+
+
+
+
+   /* $ionicPopup.alert({
+      title: "您确定解除公司绑定！",
+      okText: '确定'
+
+    });
+    return false;
+  } else {
+
+    Tools.getData({
+      "interface_number": "000402",
+      "post_content": {
+        "token": "",
+        "token_phone": "",
+        "userId": $scope.userid,
+        "isSelf": "1"
+      }
+
+    }, function (r) {
+
+      if (r.msg == "success") {
+
+        native.task('解绑成功');
+        window.outlogin(function () {
+          $timeout(function () {
+            newInitial();
+          }, 30)
+        })
+
+        $state.go('r.tab.Settings');
+      } else {
+
+        return false
+
+      }
+
+
+    });
+
+
+  }
+*/
 }
-
-
 
 
   //初始  信息

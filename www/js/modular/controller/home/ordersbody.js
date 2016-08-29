@@ -8,6 +8,9 @@ Ctr.controller('ordersbodyCtr',['$scope','native','$state','fromStateServ','Tool
   $scope.ID = $stateParams.basicID;
  // $scope.seordeData = $stateParams.seorde;
 
+
+  $scope.status= false;
+  $scope.statusOne= false;
   $scope.$on('$ionicView.beforeEnter',function(event, data){
 
 
@@ -38,6 +41,7 @@ function init() {
 
     if(r){
       $scope.shopbody = (r.resp_data);
+      $scope.poststuds=$scope.shopbody.order.data[0].post_status
       $scope.shopname = $scope.shopbody.order.data[0].shop_name
       $scope.id = $scope.shopbody.order.data[0].order_basic_id
       $scope.pay = $scope.shopbody.order.data[0].total_fee
@@ -54,6 +58,13 @@ function init() {
       console.log( $scope.shopchirld)
       console.log($scope.shopbody)
       console.log($scope.shopbody.order.data[0].buyer_nick)
+
+
+      if($scope.poststuds!=5){
+        $scope.status = true
+      }else{
+        $scope.poststuds = true
+      }
 
 
     }else{
