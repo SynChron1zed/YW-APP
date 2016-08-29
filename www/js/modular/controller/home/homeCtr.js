@@ -1,24 +1,23 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','selectaouthfunl','seeshopPint','$http','share',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,selectaouthfunl,seeshopPint,$http,share) {
-
-
-window.share  = share;
-$scope.paly  = function () {
-
-  share.weichat({})
+Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','selectaouthfunl','seeshopPint','$http',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,selectaouthfunl,seeshopPint,$http) {
   
-  // Tools.pay.alipaly({
-  //   type:1,
-  //   buyer_id:1222,
-  //   money:1.00
-  // },function(r){
-  //   console.log(r)
-  // },function(r){
-  //   console.log(r)
-  // });
-}
+// window.share  = share;
+// $scope.paly  = function () {
+
+//   share.weichat({})
+  
+//   // Tools.pay.alipaly({
+//   //   type:1,
+//   //   buyer_id:1222,
+//   //   money:1.00
+//   // },function(r){
+//   //   console.log(r)
+//   // },function(r){
+//   //   console.log(r)
+//   // });
+// }
 
 
 

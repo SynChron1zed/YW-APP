@@ -57,18 +57,25 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 
   //通知挑战
   var  Notificationjump  = function (obj) {
-    console.log(obj);
     //判断类型
     if(obj.value.msg_type  == '1'){
       //物流信息
-       console.log(obj)
        if(obj.value.action_type  == '1' || obj.value.action_type  == '3' || obj.value.action_type  == '4'){
         //obj.value.pk_id
-         $state.go('r.Homordersbody',{basicID:obj.value.pk_id})
+        //采购
+        $state.go('r.Homordersbody',{basicID:obj.value.pk_id})
        }
        if(obj.value.action_type  == '2'){
-         $state.go('r.HomPurordersbody',{basicID:obj.value.pk_id})
+        //销售订单
+        $state.go('r.HomPurordersbody',{basicID:obj.value.pk_id})
        }
+
+
+
+
+
+
+
     }
 
     //系统通知

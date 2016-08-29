@@ -7,6 +7,7 @@
         window.dev_version   = '1.1.0';
         //window.Interactivehost  = 'http://pay.ywyde.com/index.php?r=app/index';
         //window.Interactivehost =  'http://app.ywyde.com/index.php?r=app/index';
+
         //window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
         window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';
 
@@ -22,7 +23,6 @@
         haha:'哈哈'
       }
     }])
-
     //商品编辑状态
     .factory('goodsState',[function(){
       return{
