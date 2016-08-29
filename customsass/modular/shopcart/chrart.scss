@@ -92,45 +92,49 @@ ion-content{
           width: 100%;
           &:after{  content: '';  display: block;  clear: both;}
           .goodsitem{
-            display: flex;
-            height: 4.8rem;
+
             width: 100%;
             top:-10px;
             margin-bottom: 5px;
             position:relative;
-            padding-bottom: 5px;
             border-bottom: 1px   solid #ddd;
-            >div{height: 4.8rem;float: left;display: inline-block}
+            >div{height: 4.8rem;
+            float: left;display: inline-block
+            }
             &:after{  content: '';  display: block;  clear: both;}
+
             .icons{
-              flex: 1;
-              width: 30px;
-              text-align: center;
-              line-height: 4.7rem;
-              font-size: 1.05rem;
-              color: #868686;
-              position: relative;
-              i{  }
+              
+            width: 10%;
+text-align: center;
+line-height: 4.7rem;
+font-size: 1.05rem;
+color: #868686;
+position: absolute;
+left: 0;
+top: 12px;
+          
             }
             .icons.chekthis{
               i{color: #fe7e0b}
             }
 
             .goodsimg{
-               flex: 3.2;
-                overflow: hidden;
-                width: 30%;
-                display: box;
-                display: -webkit-box;
-                display: -moz-box;
-                -webkit-box-pack: center;
-                -moz-box-pack: center;
-                -webkit-box-align: center;
-                margin-bottom: .3rem;
-                -moz-box-align: center;
-                height: 4.5rem;
-                
-            }
+              overflow: hidden;
+width: 30%;
+display: box;
+display: -webkit-box;
+display: -moz-box;
+-webkit-box-pack: center;
+-moz-box-pack: center;
+-webkit-box-align: center;
+margin-bottom: .3rem;
+-moz-box-align: center;
+height: 4.5rem;
+position: absolute;
+left: 10%;
+top: 14px;
+  }
 
             .goodsbasmsg.edit {
               .cheknumber{
@@ -146,10 +150,9 @@ ion-content{
             }
 
             .goodsbasmsg{
-              flex:7;
-              width: 30%;
+              width: 57%;
               position: relative;
-              padding-left: 5px;
+              margin-left: 43%;
 
               .cheknumber{
                 width: 100%;

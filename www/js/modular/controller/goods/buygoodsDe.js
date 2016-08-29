@@ -61,7 +61,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
                   buyConfirmorde.goods_basic_id  =  $scope.goods.goodsInfo.goods_basic_id;
                   buyConfirmorde.number  =  $scope.selectsku.number;
 
-                  console.log($scope.selectsku,'沙龙的拉升的萨克的萨克拉的卡拉上课了')
+                  
 
                   Tools.hidelogin();
                   $state.go('r.ConfirmorderZf')
@@ -779,13 +779,11 @@ $scope.$on('$ionicView.beforeLeave',function(){
 
               if(!r.resp_data.goodsInfo.img.length){
                   var   width  =  window.innerWidth*2;
-                  r.resp_data.goodsInfo.img[0]  =    window.qiniuimgHost+r.resp_data.goodsInfo.img_url+'?imageMogr2/thumbnail/'+width+'x/gravity/Center/crop/'+width+'x'+width;
-
+                  r.resp_data.goodsInfo.img[0]  =    window.qiniuimgHost+r.resp_data.goodsInfo.img_url+'?imageMogr2/auto-orient/thumbnail/'+width+'x/gravity/Center/crop/'+width+'x'+width;
               }else{
-
                   angular.forEach(r.resp_data.goodsInfo.img,function (fff,index) {
                         var   width  =  window.innerWidth*2;
-                  r.resp_data.goodsInfo.img[index]     =  window.qiniuimgHost+fff+'?imageMogr2/thumbnail/'+width+'x/gravity/Center/crop/'+width+'x'+width;
+                  r.resp_data.goodsInfo.img[index]     =  window.qiniuimgHost+fff+'?imageMogr2/auto-orient/thumbnail/'+width+'x/gravity/Center/crop/'+width+'x'+width;
                     });
               }
 

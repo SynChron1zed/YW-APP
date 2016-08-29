@@ -845,7 +845,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
     .state('r.Homordersbody', {
-      url: '/Homordersbody/:basicID/:seorde',
+      url: '/Homordersbody/:basicID',
 
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.Homordersbody')
@@ -878,7 +878,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
 
 
     .state('r.HomPurordersbody', {
-      url: '/HomPurOrdersBody/:basicID/:seorde',
+      url: '/HomPurOrdersBody/:basicID',
 
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.HomPurordersbody')
@@ -1628,7 +1628,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    
+
     //二维码 支付页面
     .state('r.ercodepayPage',{
       url: '/ercodepayPage?ecode:&monye:',
@@ -1658,7 +1658,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-    
+
     //充值 选择支付方式
     .state('r.Selectpaymentmethod',{
       url: '/Selectpaymentmethod?type:&monye:&toSt:',
@@ -1672,10 +1672,10 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
       }
     })
 
-    
 
 
-    
+
+
 
 
 
@@ -3220,13 +3220,6 @@ $scope.newclass = function (value,name) {
 
 }]);
 
-
-/**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('tabCtr',[function(){
-
-}])
 
 Ctr.controller('goodsclasslist',['$scope','fromStateServ','$timeout','Tools','native','$ionicModal','$state',function($scope,fromStateServ,$timeout,Tools,native,$ionicModal,$state){
 
@@ -7291,6 +7284,13 @@ $scope.swatchtstate  = function (){
 }])
 
 /**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('tabCtr',[function(){
+
+}])
+
+/**
  * Created by Administrator on 2016/7/29.
  */
 
@@ -8331,7 +8331,7 @@ Ctr.controller('ordersbodyCtr',['$scope','native','$state','fromStateServ','Tool
 
 
   $scope.ID = $stateParams.basicID;
-  $scope.seordeData = $stateParams.seorde;
+ // $scope.seordeData = $stateParams.seorde;
 
   $scope.$on('$ionicView.beforeEnter',function(event, data){
 
@@ -8414,7 +8414,7 @@ function init() {
 Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$stateParams','$timeout','$ionicHistory',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$stateParams,$timeout,$ionicHistory) {
 
   $scope.ID = $stateParams.basicID;
-  $scope.seordeData = $stateParams.seorde;
+ // $scope.seordeData = $stateParams.seorde;
 
 
   $scope.status= false;
@@ -13648,11 +13648,13 @@ $scope.delthis  = function(r,item){
          "post_content": {
              takeAddrId:item.take_id
          }         
-    },function(r){
-            if(r){
+    },function(c){
+            if(c){
 
-                  Tools.rmArrin($scope.storelist,r-1)
+
+                  Tools.rmArrin($scope.storelist,r)
                   native.task('删除成功',1000);
+
             }
     })
 }
@@ -13765,7 +13767,6 @@ $scope.callphone  =  function (r){
                     native.task('请填写营业时间');
                     return  false;
                 }
-            
                 Tools.showlogin();
                 Tools.getData({
                        "interface_number": "020802",
@@ -14334,7 +14335,9 @@ $scope.Recharge  = function(item){
                                     },function(r){
                                         if(r){
                                             $timeout(function(){
-                                              item.user.integral=  parseFloat(item.user.integral)+parseFloat(mony);
+                                              item.user.integral=  (parseFloat(item.user.integral)+parseFloat(mony)).toFixed(2);
+
+
                                             })
                                             native.task('分配成功');
 
@@ -14488,6 +14491,8 @@ $scope.changethisuerinfo =  function(r){
               $scope.info.company_relation.is_admin  = '0'
               $scope.info.company_relation.is_sales  = '1'  
         }
+    }else{
+        r.select  = false;
     }
 
 
@@ -14497,28 +14502,43 @@ $scope.changethisuerinfo =  function(r){
 
 $scope.save  = function(){
   
-  Tools.showlogin();
 
+
+
+
+  
   var  statin  =  0;
   
 
     angular.forEach($scope.Identity,function(xx){
         if(xx.select){
+
+          console.log(xx.name)
           if(xx.name  =='管理员'){
               statin  = 1
           }else{
-            statin  = 2
+              statin  = 2
           }
         }
     })
+    if(statin  ==2  && $scope.info.company_relation.take_name =='暂未设置'){
 
-    if(statin  = 1){
+        native.task('收银员必须,填写门店信息');
+        return  false;  
+    }
+
+
+  
+
+    if(statin  == 1){
       if($scope.info.company_relation.is_admin   ==  $scope.nowuserinfostat){
           statin  = undefined
       }
 
     }
 
+    console.log(statin)
+Tools.showlogin();
   Tools.getData({
     "interface_number": "000407",
     "post_content": {
@@ -15020,6 +15040,268 @@ var   userone = storage.getObject('UserInfo');
 
   }])
 
+/**
+ * Created by Why on 16/6/8.
+ */
+Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$rootScope','$ionicPopup','$ionicHistory','native','buyConfirmorde','$stateParams','shopcartbactitle',function($scope,fromStateServ,storage,Tools,$rootScope,$ionicPopup,$ionicHistory,native,buyConfirmorde,$stateParams,shopcartbactitle){
+
+
+ //对安卓返回键的  特殊处理  tabs
+  $scope.$on('$ionicView.beforeEnter',function(){
+    //页面的状态变化  请求
+      handtat();
+     if ($ionicHistory.backView()) {
+       window.androdzerofun  = function(parm1,parm2){
+         
+         window.extapp()
+
+       }
+       window.androdzerofun_parms   ='tabswtathing';
+       window.androdzerofun_clback  = 'nothing';
+     }
+
+     if(shopcartbactitle.state){
+       $scope.showtitle  = true;
+       $scope.backv    =function (){
+         $rootScope.$ionicGoBack();
+       }
+
+        window.androdzerofun  = function(parm1,parm2){
+         $rootScope.$ionicGoBack();
+       }
+       window.androdzerofun_parms   ='tabswtathing';
+       window.androdzerofun_clback  = 'nothing';
+
+     }else{
+        $scope.showtitle  = false;
+     }
+
+    });
+
+    $scope.$on('$ionicView.beforeLeave',function(){
+      window.androdzerofun  = undefined;
+      $scope.showtitle  = false;
+      shopcartbactitle.state  =  false;
+
+    })
+
+
+
+
+
+
+
+      $scope.login  =  function(r){
+            fromStateServ.stateChange(r);
+      };
+      $scope.shopcartdata  =[];
+      $scope.TotalPrice  = '0.00';
+
+  //统计总价
+  $scope.Total  =function (){
+    $scope.TotalPrice  = 0;
+    angular.forEach($scope.shopcartdata,function(v){
+      angular.forEach(v.goods_info,function(value){
+        if(value.select){
+          $scope.TotalPrice += parseFloat(value.activity_price)*parseInt(value.number);
+        }
+      })
+    });
+    $scope.TotalPrice   = $scope.TotalPrice.toFixed(2);
+  };
+
+      //请求购物数据  整体刷新
+      $scope.doRefresh  =  function (){
+           Tools.getData({
+             "interface_number": "020402",
+             "post_content": {}
+           },function(r){
+             $scope.$broadcast('scroll.refreshComplete');
+             $scope.selectall   = false;
+             if(r){
+                      if(r.resp_data.cart == []){
+                        $scope.noitem  = true;
+                        return  false;
+                      }else{
+                        $scope.noitem  = false;
+                      }
+
+                    $scope.shopcartdata  = r.resp_data.cart;
+
+                    if(Object.keys($scope.shopcartdata).length  == 0){
+                      $scope.noitem  = true;
+                    }else{
+                      $scope.noitem  = false;
+                      angular.forEach($scope.shopcartdata,function(value){
+                          angular.forEach(value.goods_info,function(subvalue){
+                              subvalue.edit  =false;
+                          })
+                      })
+                    }
+             }
+           })
+      };
+
+      function handtat  (){
+
+        if(storage.getObject('UserInfo').user_id){
+            $scope.isShow = false;
+            $scope.doRefresh();
+            $scope.Total();
+        }else{
+          $scope.isShow = true;
+        }
+      $scope.TotalPrice  = '0.00';
+
+      }
+
+      //编辑
+      $scope.edit  =function (e){
+        if(!e.edit){
+            e.edit  = true;
+        }else{
+            e.edit  = false;
+
+          var changedatat =  [];
+          angular.forEach(e.goods_info,function(v){
+            changedatat.push({
+              number:v.number,
+              cart_id:v.cart_id
+            });
+
+          });
+          //完成的交互
+          Tools.showlogin();
+          Tools.getData({
+            "interface_number": "020404",
+            "post_content": {
+              "cart_data": changedatat
+            }
+          },function(r){
+            if(r){
+              Tools.hidelogin();
+                console.log(r)
+            }
+          })
+
+        }
+      };
+
+  //选中自身
+  $scope.chekthis  = function (r){
+
+       if(!r.select){
+         r.select  =true;
+       }else{
+         r.select  =false;
+       }
+
+    $scope.Total();
+  };
+
+
+  //选中所以
+  $scope.selctall   = function (){
+
+    
+    if($scope.shopcartdata.length==0){
+      $scope.selectall   = false;
+      return false
+    }
+
+      if(!$scope.selectall){
+        $scope.selectall   = true;
+        angular.forEach($scope.shopcartdata,function(v){
+          angular.forEach(v.goods_info,function(value){
+            value.select  = true;
+          })
+        })
+
+      }else {
+        $scope.selectall   = false;
+        angular.forEach($scope.shopcartdata,function(v){
+          angular.forEach(v.goods_info,function(value){
+            value.select  = false;
+          })
+        })
+
+      }
+
+    $scope.Total()
+
+  }
+
+
+
+   //自  --
+        $scope.Subtractme  = function (r){
+            r.number    = (parseInt(r.number) -1);
+            if(r.number  <=1){
+              r.number  = 1;
+            }
+        }
+   //增加  ++
+        $scope.Increase  = function (r){
+
+            r.number    = (parseInt(r.number)+1);
+            if(r.number  >=  parseInt(r.max_buy_num)){
+              r.number  = parseInt(r.max_buy_num);
+            }
+        }
+
+        //del    Myself
+        $scope.delmyseif  = function (c,key,parnt,parntkey,root){
+
+          Tools.getData({
+              "interface_number": "020403",
+              "post_content": {
+              "cart_id": [c.cart_id]
+              }
+          },function(r){
+            if(r){
+               Tools.rmArrin(parnt.goods_info,key)
+               if(parnt.goods_info.length  ==0 ){
+                    delete  root[parntkey];
+               }
+            }
+          });
+          $scope.Total();
+        };
+
+
+        //去结算
+        $scope.Settlement  = function (){
+
+          //用于结算的  订单的 商品存储对象
+          var   shopcartOrder  = '';
+          var   nogoods  = true;
+
+          angular.forEach($scope.shopcartdata,function(v){
+            angular.forEach(v.goods_info,function(value){
+              if(value.select){
+                nogoods   = false;
+                shopcartOrder += value.cart_id+','
+              }
+            })
+          });
+          if(nogoods){
+            native.task('请选择结算的商品');
+            return false;
+          }
+            //选中的商品
+            shopcartOrder  = shopcartOrder.substring(0,shopcartOrder.length-1);
+            buyConfirmorde.cart   =shopcartOrder;
+            fromStateServ.stateChange('r.ConfirmorderZf');
+            //这里去 确认订单
+        };
+
+
+
+
+
+
+}])
+
 
 
 Ctr.controller('shophomeCtr',['$scope','$timeout','Tools','$stateParams','$state','fromStateServ','$ionicScrollDelegate','$rootScope',function($scope,$timeout,Tools,$stateParams,$state,fromStateServ,$ionicScrollDelegate,$rootScope){
@@ -15334,6 +15616,7 @@ Ctr.controller('stretchOneCtr',['$scope','$interval','$timeout','$ionicPlatform'
 
 
 
+
     }
   });
 
@@ -15368,407 +15651,18 @@ Ctr.controller('stretchOneCtr',['$scope','$interval','$timeout','$ionicPlatform'
     $scope.token_phone =  storage.getObject('UserInfo').token_phone;
 
 
-    $scope.MyUrl="yiwu.com/index.php?r=web/prize/index&token=123&token_phone=%27%27"
+    //$scope.MyUrl="yiwu.com/index.php?r=web/prize/index&token=123&token_phone=%27%27"
 
-   // $scope.MyUrl=$scope.Url+'&'+'token='+$scope.token+'&'+'token_phone='+$scope.token_phone
-    $scope.trustSrc = $sce.trustAsResourceUrl("http://" + $scope.MyUrl)
+   $scope.MyUrl=$scope.Url+'&'+'token='+$scope.token+'&'+'token_phone='+$scope.token_phone
+    //$scope.trustSrc = $sce.trustAsResourceUrl("http://" + $scope.MyUrl)
 
-  //  $scope.trustSrc = $sce.trustAsResourceUrl($scope.MyUrl)
+    $scope.trustSrc = $sce.trustAsResourceUrl($scope.MyUrl)
 
   },1000)
 
 
 
 }]);
-
-/**
- * Created by Why on 16/6/8.
- */
-Ctr.controller('shoppingCartCtr',['$scope','fromStateServ','storage','Tools','$rootScope','$ionicPopup','$ionicHistory','native','buyConfirmorde','$stateParams','shopcartbactitle',function($scope,fromStateServ,storage,Tools,$rootScope,$ionicPopup,$ionicHistory,native,buyConfirmorde,$stateParams,shopcartbactitle){
-
-
- //对安卓返回键的  特殊处理  tabs
-  $scope.$on('$ionicView.beforeEnter',function(){
-    //页面的状态变化  请求
-      handtat();
-     if ($ionicHistory.backView()) {
-       window.androdzerofun  = function(parm1,parm2){
-         
-         window.extapp()
-
-       }
-       window.androdzerofun_parms   ='tabswtathing';
-       window.androdzerofun_clback  = 'nothing';
-     }
-
-     if(shopcartbactitle.state){
-       $scope.showtitle  = true;
-       $scope.backv    =function (){
-         $rootScope.$ionicGoBack();
-       }
-
-        window.androdzerofun  = function(parm1,parm2){
-         $rootScope.$ionicGoBack();
-       }
-       window.androdzerofun_parms   ='tabswtathing';
-       window.androdzerofun_clback  = 'nothing';
-
-     }else{
-        $scope.showtitle  = false;
-     }
-
-    });
-
-    $scope.$on('$ionicView.beforeLeave',function(){
-      window.androdzerofun  = undefined;
-      $scope.showtitle  = false;
-      shopcartbactitle.state  =  false;
-
-    })
-
-
-
-
-
-
-
-      $scope.login  =  function(r){
-            fromStateServ.stateChange(r);
-      };
-      $scope.shopcartdata  =[];
-      $scope.TotalPrice  = '0.00';
-
-  //统计总价
-  $scope.Total  =function (){
-    $scope.TotalPrice  = 0;
-    angular.forEach($scope.shopcartdata,function(v){
-      angular.forEach(v.goods_info,function(value){
-        if(value.select){
-          $scope.TotalPrice += parseFloat(value.activity_price)*parseInt(value.number);
-        }
-      })
-    });
-    $scope.TotalPrice   = $scope.TotalPrice.toFixed(2);
-  };
-
-      //请求购物数据  整体刷新
-      $scope.doRefresh  =  function (){
-           Tools.getData({
-             "interface_number": "020402",
-             "post_content": {}
-           },function(r){
-             $scope.$broadcast('scroll.refreshComplete');
-             $scope.selectall   = false;
-             if(r){
-                      if(r.resp_data.cart == []){
-                        $scope.noitem  = true;
-                        return  false;
-                      }else{
-                        $scope.noitem  = false;
-                      }
-
-                    $scope.shopcartdata  = r.resp_data.cart;
-
-                    if(Object.keys($scope.shopcartdata).length  == 0){
-                      $scope.noitem  = true;
-                    }else{
-                      $scope.noitem  = false;
-                      angular.forEach($scope.shopcartdata,function(value){
-                          angular.forEach(value.goods_info,function(subvalue){
-                              subvalue.edit  =false;
-                          })
-                      })
-                    }
-             }
-           })
-      };
-
-      function handtat  (){
-
-        if(storage.getObject('UserInfo').user_id){
-            $scope.isShow = false;
-            $scope.doRefresh();
-            $scope.Total();
-        }else{
-          $scope.isShow = true;
-        }
-      $scope.TotalPrice  = '0.00';
-
-      }
-
-      //编辑
-      $scope.edit  =function (e){
-        if(!e.edit){
-            e.edit  = true;
-        }else{
-            e.edit  = false;
-
-          var changedatat =  [];
-          angular.forEach(e.goods_info,function(v){
-            changedatat.push({
-              number:v.number,
-              cart_id:v.cart_id
-            });
-
-          });
-          //完成的交互
-          Tools.showlogin();
-          Tools.getData({
-            "interface_number": "020404",
-            "post_content": {
-              "cart_data": changedatat
-            }
-          },function(r){
-            if(r){
-              Tools.hidelogin();
-                console.log(r)
-            }
-          })
-
-        }
-      };
-
-  //选中自身
-  $scope.chekthis  = function (r){
-
-       if(!r.select){
-         r.select  =true;
-       }else{
-         r.select  =false;
-       }
-
-    $scope.Total();
-  };
-
-
-  //选中所以
-  $scope.selctall   = function (){
-
-    
-    if($scope.shopcartdata.length==0){
-      $scope.selectall   = false;
-      return false
-    }
-
-      if(!$scope.selectall){
-        $scope.selectall   = true;
-        angular.forEach($scope.shopcartdata,function(v){
-          angular.forEach(v.goods_info,function(value){
-            value.select  = true;
-          })
-        })
-
-      }else {
-        $scope.selectall   = false;
-        angular.forEach($scope.shopcartdata,function(v){
-          angular.forEach(v.goods_info,function(value){
-            value.select  = false;
-          })
-        })
-
-      }
-
-    $scope.Total()
-
-  }
-
-
-
-   //自  --
-        $scope.Subtractme  = function (r){
-            r.number    = (parseInt(r.number) -1);
-            if(r.number  <=1){
-              r.number  = 1;
-            }
-        }
-   //增加  ++
-        $scope.Increase  = function (r){
-
-            r.number    = (parseInt(r.number)+1);
-            if(r.number  >=  parseInt(r.max_buy_num)){
-              r.number  = parseInt(r.max_buy_num);
-            }
-        }
-
-        //del    Myself
-        $scope.delmyseif  = function (c,key,parnt,parntkey,root){
-
-          Tools.getData({
-              "interface_number": "020403",
-              "post_content": {
-              "cart_id": [c.cart_id]
-              }
-          },function(r){
-            if(r){
-               Tools.rmArrin(parnt.goods_info,key)
-               if(parnt.goods_info.length  ==0 ){
-                    delete  root[parntkey];
-               }
-            }
-          });
-          $scope.Total();
-        };
-
-
-        //去结算
-        $scope.Settlement  = function (){
-
-          //用于结算的  订单的 商品存储对象
-          var   shopcartOrder  = '';
-          var   nogoods  = true;
-
-          angular.forEach($scope.shopcartdata,function(v){
-            angular.forEach(v.goods_info,function(value){
-              if(value.select){
-                nogoods   = false;
-                shopcartOrder += value.cart_id+','
-              }
-            })
-          });
-          if(nogoods){
-            native.task('请选择结算的商品');
-            return false;
-          }
-            //选中的商品
-            shopcartOrder  = shopcartOrder.substring(0,shopcartOrder.length-1);
-            buyConfirmorde.cart   =shopcartOrder;
-            fromStateServ.stateChange('r.ConfirmorderZf');
-            //这里去 确认订单
-        };
-
-
-
-
-
-
-}])
-
-/**
- * Created by Why on 16/6/12.
- */
-      //全局变量定义
-      //window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
-      window.Interactivehost  = 'http://192.168.0.56:1155/index.php?r=app/index';
-      window.dev_version   = '1.1.0';
-      //window.Interactivehost  = 'http://pay.ywyde.com/index.php?r=app/index';
-      //window.Interactivehost =  'http://app.ywyde.com/index.php?r=app/index';
-      //window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
-      window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';
-
-
-      //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
-      //没有使用过度的返回页面的使用
-      //本地缓存   对象列表 定义
-      // window.LocalCacheStatelist  =  {
-      //   shopCart:'YES',
-      // };
-
-  window.defaultUserheader  =  './img/sys_male.jpg';
-  Server.factory('const',['$window','$ionicHistory','$timeout','$ionicNativeTransitions',function($window,$ionicHistory,$timeout,$ionicNativeTransitions){
-      return{
-        haha:'哈哈'
-      }
-    }])
-
-    //商品编辑状态
-    .factory('goodsState',[function(){
-      return{
-         Refresh:false,
-         goods_basic_id:undefined,
-         goods_title:undefined,
-         img_url:undefined,
-         activity_price:undefined,
-         total_in_number:undefined
-      }
-    }])
-
- /* var selectStorge =  function () {
-     return
-  }*/
-
-
-
-//验证状态
-  .factory('selectArr',['storage',function(storage){
-    return{
-
-            selectarrs: {
-        id:function () {
-          return storage.getObject('UserInfo').user_id
-        },
-        isadmin:function () {
-          return  storage.getObject('UserInfo').is_admin
-        }  ,
-        companyid:function () {
-          return storage.getObject('UserInfo').company_id
-        },
-        authstatus:function () {
-          return  storage.getObject('UserInfo').auth_status
-        },
-        needpaid:function () {
-          return  storage.getObject('UserInfo').need_paid
-        },
-              companyname:function () {
-                return  storage.getObject('UserInfo').company_name
-              },
-
-      }
-    }
-  }])
-
-
-
-    .factory('loginregisterstate',[function(){
-      return{
-         Refresh:false,
-      }
-    }])
-    .factory('adderupdatastat',[function(){
-      return{
-          id:false,
-          linkname:undefined,
-          phone:undefined,
-          city:undefined,
-          province:undefined,
-          region:undefined,
-          street:undefined,
-          is_default:undefined,
-      }
-    }])
-    .factory('buyConfirmorde',[function(){
-      return{
-      }
-    }])
-    .factory('comforderlistadder',[function(){
-      return{
-      }
-    }])
-    .factory('shopcartbactitle',[function(){
-      return{
-      }
-    }])
-     .factory('selectaouthfunl',[function(){
-      return{
-      }
-    }])
-    .factory('seeshopPint',[function(){
-      return{
-      }
-    }])
-     .factory('comfrombackresitl',[function(){
-      return{
-      }
-    }])
-    .factory('StoredataEdit',[function(){
-      return{
-      }
-    }])
-    .factory('EmployeeObjdata',[function(){
-      return{
-      }
-    }])
-
-
 
 /**
  * Created by Why on 16/6/10.
@@ -16013,6 +15907,133 @@ Server.factory('native',['$window','$cordovaCamera','$cordovaDialogs','$cordovaA
 }]);
 
 /**
+ * Created by Why on 16/6/12.
+ */
+      //全局变量定义
+      //window.Interactivehost  = 'http://192.168.0.149:8001/index.php?r=app/index';
+      window.Interactivehost  = 'http://192.168.0.56:1155/index.php?r=app/index';
+      window.dev_version   = '1.1.0';
+      //window.Interactivehost  = 'http://pay.ywyde.com/index.php?r=app/index';
+      //window.Interactivehost =  'http://app.ywyde.com/index.php?r=app/index';
+      //window.Interactivehost  = 'http://192.168.0.89:7878/index.php?r=app/index';
+      window.qiniuimgHost =  'http://oap3nxgde.bkt.clouddn.com/';
+
+
+      //window.Interactivehost  = 'http://192.168.0.115:8001/index.php?r=app/index';
+      //没有使用过度的返回页面的使用
+      //本地缓存   对象列表 定义
+      // window.LocalCacheStatelist  =  {
+      //   shopCart:'YES',
+      // };
+
+  window.defaultUserheader  =  './img/sys_male.jpg';
+  Server.factory('const',['$window','$ionicHistory','$timeout','$ionicNativeTransitions',function($window,$ionicHistory,$timeout,$ionicNativeTransitions){
+      return{
+        haha:'哈哈'
+      }
+    }])
+
+    //商品编辑状态
+    .factory('goodsState',[function(){
+      return{
+         Refresh:false,
+         goods_basic_id:undefined,
+         goods_title:undefined,
+         img_url:undefined,
+         activity_price:undefined,
+         total_in_number:undefined
+      }
+    }])
+
+ /* var selectStorge =  function () {
+     return
+  }*/
+
+
+
+//验证状态
+  .factory('selectArr',['storage',function(storage){
+    return{
+
+            selectarrs: {
+        id:function () {
+          return storage.getObject('UserInfo').user_id
+        },
+        isadmin:function () {
+          return  storage.getObject('UserInfo').is_admin
+        }  ,
+        companyid:function () {
+          return storage.getObject('UserInfo').company_id
+        },
+        authstatus:function () {
+          return  storage.getObject('UserInfo').auth_status
+        },
+        needpaid:function () {
+          return  storage.getObject('UserInfo').need_paid
+        },
+              companyname:function () {
+                return  storage.getObject('UserInfo').company_name
+              },
+
+      }
+    }
+  }])
+
+
+
+    .factory('loginregisterstate',[function(){
+      return{
+         Refresh:false,
+      }
+    }])
+    .factory('adderupdatastat',[function(){
+      return{
+          id:false,
+          linkname:undefined,
+          phone:undefined,
+          city:undefined,
+          province:undefined,
+          region:undefined,
+          street:undefined,
+          is_default:undefined,
+      }
+    }])
+    .factory('buyConfirmorde',[function(){
+      return{
+      }
+    }])
+    .factory('comforderlistadder',[function(){
+      return{
+      }
+    }])
+    .factory('shopcartbactitle',[function(){
+      return{
+      }
+    }])
+     .factory('selectaouthfunl',[function(){
+      return{
+      }
+    }])
+    .factory('seeshopPint',[function(){
+      return{
+      }
+    }])
+     .factory('comfrombackresitl',[function(){
+      return{
+      }
+    }])
+    .factory('StoredataEdit',[function(){
+      return{
+      }
+    }])
+    .factory('EmployeeObjdata',[function(){
+      return{
+      }
+    }])
+
+
+
+/**
  * Created by Why on 16/6/6.
  */
 Server.factory('Chats', function() {
@@ -16185,33 +16206,6 @@ Server.factory("fromStateServ",['$state','$ionicViewSwitcher','$ionicHistory','$
 }])
 
 /**
- * Created by Why on 16/6/10.
- */
-  //本地存储数据===================================
-Server.factory('storage',['$window',function($window){
-    return{
-      //存储单个属性
-      set :function(key,value){
-        $window.localStorage[key]=value;
-      },
-      //读取单个属性
-      get:function(key,defaultValue){
-        return  $window.localStorage[key] || defaultValue;
-      },
-      //存储对象，以JSON格式存储
-      setObject:function(key,value){
-        $window.localStorage[key]=JSON.stringify(value);
-      },      
-      //读取对象
-      getObject: function (key) {
-          return JSON.parse( $window.localStorage[key] || '{}'   );
-      }
-    }
-
-
-  }]);
-
-/**
  * Created by Why on 16/6/14.
  */
   //本地存储数据===================================
@@ -16248,7 +16242,7 @@ Server.factory('share',['$window','native',function($window,native){
     weichat:function(config){
 
       wechatishas(function(){
-        
+
         window.Wechat.share({
           message: {
             title: "这是测试",
@@ -16290,6 +16284,33 @@ Server.factory('share',['$window','native',function($window,native){
 
 
 }]);
+
+/**
+ * Created by Why on 16/6/10.
+ */
+  //本地存储数据===================================
+Server.factory('storage',['$window',function($window){
+    return{
+      //存储单个属性
+      set :function(key,value){
+        $window.localStorage[key]=value;
+      },
+      //读取单个属性
+      get:function(key,defaultValue){
+        return  $window.localStorage[key] || defaultValue;
+      },
+      //存储对象，以JSON格式存储
+      setObject:function(key,value){
+        $window.localStorage[key]=JSON.stringify(value);
+      },      
+      //读取对象
+      getObject: function (key) {
+          return JSON.parse( $window.localStorage[key] || '{}'   );
+      }
+    }
+
+
+  }]);
 
 /**
  * Created by Why on 16/6/10.

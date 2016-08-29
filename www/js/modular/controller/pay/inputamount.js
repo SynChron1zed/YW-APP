@@ -58,13 +58,12 @@ $scope.pay  =  function(){
         native.task('请输入金额')
     }
 }
-
 }])
 .controller('SelectpaymentmethodCtr',['$scope','Tools','native','$stateParams','storage','$ionicHistory','$timeout','$ionicViewSwitcher','$ionicNativeTransitions',function($scope,Tools,native,$stateParams,storage,$ionicHistory,$timeout,$ionicViewSwitcher,$ionicNativeTransitions){
     $scope.plaufun  = [
         {
          name:'支付宝',
-         icon:'',
+         icon:'',
          select:true,
          id:1
         }

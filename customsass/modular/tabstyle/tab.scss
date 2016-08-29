@@ -1471,7 +1471,6 @@ input[readonly]{
         top: 0;
 
      }
-
 }
 
 .plient{
@@ -1480,8 +1479,6 @@ input[readonly]{
       overflow: hidden;
       white-space: nowrap;
       margin: 0  10px;
-
-
       >span{
             display:inline-block;
             width: 10px;
@@ -1489,6 +1486,11 @@ input[readonly]{
             border-radius: 50%;
             margin: 4px;
             background: #e8e8e8;
-
       }
+}
+
+.slider-slide{
+  display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
 }

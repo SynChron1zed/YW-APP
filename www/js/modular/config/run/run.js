@@ -247,9 +247,9 @@ window.networonline  =  true;
 
     //极光推送  初始初始化
     var  jpushstat  =   window.plugins.jPushPlugin.init();
-
+    
     //调试模式
-    window.plugins.jPushPlugin.setDebugMode(true);
+    //window.plugins.jPushPlugin.setDebugMode(true);
 
 
 

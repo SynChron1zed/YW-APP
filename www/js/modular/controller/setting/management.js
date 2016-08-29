@@ -27,7 +27,10 @@ $scope.Recharge  = function(item){
                                     },function(r){
                                         if(r){
                                             $timeout(function(){
-                                              item.user.integral=  parseFloat(item.user.integral)+parseFloat(mony);
+                                              
+                                              item.user.integral=  (parseFloat(item.user.integral)+parseFloat(mony)).toFixed(2);
+
+
                                             })
                                             native.task('分配成功');
 
@@ -181,6 +184,8 @@ $scope.changethisuerinfo =  function(r){
               $scope.info.company_relation.is_admin  = '0'
               $scope.info.company_relation.is_sales  = '1'  
         }
+    }else{
+        r.select  = false;
     }
 
 
@@ -190,28 +195,43 @@ $scope.changethisuerinfo =  function(r){
 
 $scope.save  = function(){
   
-  Tools.showlogin();
 
+
+
+
+  
   var  statin  =  0;
   
 
     angular.forEach($scope.Identity,function(xx){
         if(xx.select){
+
+          console.log(xx.name)
           if(xx.name  =='管理员'){
               statin  = 1
           }else{
-            statin  = 2
+              statin  = 2
           }
         }
     })
+    if(statin  ==2  && $scope.info.company_relation.take_name =='暂未设置'){
 
-    if(statin  = 1){
+        native.task('收银员必须,填写门店信息');
+        return  false;  
+    }
+
+
+  
+
+    if(statin  == 1){
       if($scope.info.company_relation.is_admin   ==  $scope.nowuserinfostat){
           statin  = undefined
       }
 
     }
 
+    console.log(statin)
+Tools.showlogin();
   Tools.getData({
     "interface_number": "000407",
     "post_content": {
@@ -252,16 +272,30 @@ $scope.save  = function(){
 
 
   $scope.edithmenid  =  function(item){
-
+    
     angular.forEach($scope.storelist,function(xxx){
         if(xxx.take_id   == item.take_id){
+
+          if(!xxx.select){
+
           xxx.select  = true;
           $scope.info.company_relation.take_name  =  xxx.name;
           $scope.info.company_relation.take_id   =   xxx.take_id;
+          }else{
+
+          xxx.select  = false;
+          $scope.info.company_relation.take_name  =  '暂未设置';
+          $scope.info.company_relation.take_id   =  null;
+          }
+          
+
+
         }else{
           xxx.select  =false
+
         }
     })
+
 
     $timeout(function(){
       $scope.Since.hide();

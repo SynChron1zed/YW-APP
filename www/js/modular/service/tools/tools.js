@@ -4,15 +4,14 @@
 //小工具方法类
 Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup','storage','native','$ionicHistory','$state','$ionicNativeTransitions',function($window,$ionicLoading,$http,$timeout,$ionicPopup,storage,native,$ionicHistory,$state,$ionicNativeTransitions){
 
-
-
+  
   //支付的封装  支持ios  安卓
   var  pay = {
     alipaly:function(config,success,error){
         // 1 平台诚信金缴纳
         // 2 个人积分充值
         // 3 公司积分充值
-            var data   =  'http://121.40.62.137/alipay/getOrderInfo?type='+config.type+'&buyer_id='+config.buyer_id+'&total_amount='+config.money;
+            var data   =  'http://120.26.120.213:8080/EWPayServer/alipay/getOrderInfo?type='+config.type+'&buyer_id='+config.buyer_id+'&total_amount='+config.money;
             getData({},function(r){},function(){},'POST',data,false,false,function(r){
               if(r.code  == "success"){
                  window.alipay.pay({
@@ -58,18 +57,25 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
 
   //通知挑战
   var  Notificationjump  = function (obj) {
-    console.log(obj);
     //判断类型
     if(obj.value.msg_type  == '1'){
       //物流信息
-       console.log(obj)
        if(obj.value.action_type  == '1' || obj.value.action_type  == '3' || obj.value.action_type  == '4'){
         //obj.value.pk_id
-         $state.go('r.Homordersbody',{basicID:obj.value.pk_id})
+        //采购
+        $state.go('r.Homordersbody',{basicID:obj.value.pk_id})
        }
        if(obj.value.action_type  == '2'){
-         $state.go('r.HomPurordersbody',{basicID:obj.value.pk_id})
+        //销售订单
+        $state.go('r.HomPurordersbody',{basicID:obj.value.pk_id})
        }
+
+
+
+
+
+
+
     }
 
     //系统通知
