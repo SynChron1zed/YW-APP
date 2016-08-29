@@ -43,7 +43,7 @@
 
      <div class="sales-name" >
        <div style="float: left">{{item.buyer_nick}}</div>
-       <div ng-switch="{{item.orderDetail[0].post_status}}">
+       <div ng-switch="{{item.post_status}}">
          <div style="float: right"ng-switch-when="1" >已付款</div>
          <div style="float: right" ng-switch-when="2">已发货</div>
          <div style="float: right" ng-switch-when="3">已收货</div>
