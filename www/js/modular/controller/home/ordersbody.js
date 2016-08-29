@@ -41,7 +41,7 @@ function init() {
 
     if(r){
       $scope.shopbody = (r.resp_data);
-      $scope.poststuds=$scope.shopbody.order.data[0].post_status
+      $scope.poststuds=$scope.shopbody.order.data[0].orderDetail[0].post_status
       $scope.shopname = $scope.shopbody.order.data[0].shop_name
       $scope.id = $scope.shopbody.order.data[0].order_basic_id
       $scope.pay = $scope.shopbody.order.data[0].total_fee
@@ -61,9 +61,11 @@ function init() {
 
 
       if($scope.poststuds!=5){
+
         $scope.status = true
       }else{
-        $scope.poststuds = true
+        $scope.statusOne = true
+
       }
 
 

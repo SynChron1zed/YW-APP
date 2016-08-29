@@ -88,7 +88,7 @@ $scope.dataList = false
           });
         }
 
-
+console.log($scope.SalesList)
 
 
       }
