@@ -21,10 +21,13 @@
         <span >{{newsList.title}}</span>
       </div>
 
-      <div  class="newsC-img">
+      <div  class="newsC-img" ng-if="Newimg_status">
         <img src="{{newsList.content_img}}" class="newsC-img2">
       </div>
 
+      <div  class="newsC-img" ng-if="img_status">
+        <img src="{{newsList.qiniu_key}}" class="newsC-img2">
+      </div>
 
 
 <div class="newsC-content">
