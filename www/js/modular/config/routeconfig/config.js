@@ -1094,9 +1094,6 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
-
-
     //setting  个人设置 管理收货地址 selectaddadresss
     .state('r.tab.SettingsSelectaddaddress', {
       url: '/Settings/address/add/select',
@@ -1107,11 +1104,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         }
       }
     })
-
-
-
-
-    //setting  个人设置 更新管理收货地址
+  //setting  个人设置 更新管理收货地址
   .state('r.tab.SettingsUpdateAdress', {
     url: '/r.tab.SettingsUpdateAdress/:item',
     views: {
@@ -1119,14 +1112,9 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
         templateUrl: 'templates/Setting/UpdateAddress.html',
         controller: 'UpdateaddressCtr'
       }
-
     }
   })
-
-
-
-
-
+  
   //setting  个人设置 邀请好友
     .state('r.SettingOne', {
       url: '/Settings/SettingOne',

@@ -6,7 +6,9 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 
 window.share  = share;
 $scope.paly  = function () {
-  share.weichat()
+
+  share.weichat({})
+  
   // Tools.pay.alipaly({
   //   type:1,
   //   buyer_id:1222,
@@ -19,12 +21,6 @@ $scope.paly  = function () {
 }
 
 
-
-
-
-$scope.paly =  function(){
-
-}
 
 $scope.catshowtakepint  = function () {
   seeshopPint.datalist  = [

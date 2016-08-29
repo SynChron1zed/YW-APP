@@ -1,8 +1,8 @@
 /**
  * Created by Administrator on 2016/7/28.
  */
-Ctr.controller('SettinginviteCtr',['$scope','storage','Tools','native','$state','fromStateServ',function($scope,storage,Tools,native,$state,fromStateServ){
-  $scope.Hight={}
+Ctr.controller('SettinginviteCtr',['$scope','storage','Tools','native','$state','fromStateServ','$timeout',function($scope,storage,Tools,native,$state,fromStateServ,$timeout){
+
 
 
   $scope.$on('$ionicView.beforeEnter',function(){
@@ -10,63 +10,56 @@ Ctr.controller('SettinginviteCtr',['$scope','storage','Tools','native','$state',
                 $scope.showtitle  = true;
                 $scope.backtoprevView  =   fromStateServ.backView;
                 $scope.parenttitle     =   fromStateServ.getState('r.SettingOne').title;
-                                         
                 window.androdzerofun  =   fromStateServ.backView;
                 window.androdzerofun_parms  = 'r.SettingOne';
                 window.androdzerofun_clback  = function(){};
-
             }else{
                 $scope.showtitle  = false;
             }
-
+            $scope.initialize();
   })
   
 
 
-  $scope.Hight =window.innerHeight+"px";
-  console.log($scope.Hight)
+
+
+
+
+$scope.initialize  =  function(){
+
+
   Tools.getData({
     "interface_number": "050203",
     "post_content": {
       "token":"",
       "token_phone": ""
-
     }
-
   },function(r){
-
-
-    if(r.msg== "success"){
-        $scope.one = r.resp_data.one;
+    if(r){  
+       $scope.one = r.resp_data.one;
        $scope.count = r.resp_data.total_count;
        $scope.rebate = r.resp_data.total_rebate
 
-    }else{
+    }
+    
+  });
+}
+$scope.yaoqing =   function(){
+  $scope.setallcationstate =  true;
+}
 
-      return false
-
+  $scope.stopporp  = function (e) {
+        e.stopPropagation();
     }
 
-
-  });
-
-
-  //商品详情模块
-  //保存历史记录的方法  调用  上一次1 title  和返回方法
-  $scope.backtoprevView  =   fromStateServ.backView;
-
-  $scope.$on('$stateChangeSuccess',function(){
-
-    $scope.loginboj = {};
-    $scope.ing  = false;
-    $scope.parenttitle     =   fromStateServ.getState('r.SettingOne').title;
-  });
-
-  $scope.backView  = function(){
-    $scope.$ionicGoBack();
-  };
-
-
-
+     $scope.closetallcationvalue  =   function(){
+            $scope.setallcationstate  =  false;
+            var  c   =   document.querySelector('#cutom_sheetsharer');
+            c.className = "action-sheet-backdrop";
+            $timeout(function(){
+                c.className  ="action-sheet-backdrop cutom-sheet"
+            },400);            
+        };
+        
 }])
 

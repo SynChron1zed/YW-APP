@@ -4,15 +4,14 @@
 //小工具方法类
 Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopup','storage','native','$ionicHistory','$state','$ionicNativeTransitions',function($window,$ionicLoading,$http,$timeout,$ionicPopup,storage,native,$ionicHistory,$state,$ionicNativeTransitions){
 
-
-
+  
   //支付的封装  支持ios  安卓
   var  pay = {
     alipaly:function(config,success,error){
         // 1 平台诚信金缴纳
         // 2 个人积分充值
         // 3 公司积分充值
-            var data   =  'http://121.40.62.137/alipay/getOrderInfo?type='+config.type+'&buyer_id='+config.buyer_id+'&total_amount='+config.money;
+            var data   =  'http://120.26.120.213:8080/EWPayServer/alipay/getOrderInfo?type='+config.type+'&buyer_id='+config.buyer_id+'&total_amount='+config.money;
             getData({},function(r){},function(){},'POST',data,false,false,function(r){
               if(r.code  == "success"){
                  window.alipay.pay({

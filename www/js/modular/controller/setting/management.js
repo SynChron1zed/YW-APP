@@ -272,16 +272,30 @@ Tools.showlogin();
 
 
   $scope.edithmenid  =  function(item){
-
+    
     angular.forEach($scope.storelist,function(xxx){
         if(xxx.take_id   == item.take_id){
+
+          if(!xxx.select){
+
           xxx.select  = true;
           $scope.info.company_relation.take_name  =  xxx.name;
           $scope.info.company_relation.take_id   =   xxx.take_id;
+          }else{
+
+          xxx.select  = false;
+          $scope.info.company_relation.take_name  =  '暂未设置';
+          $scope.info.company_relation.take_id   =  null;
+          }
+          
+
+
         }else{
           xxx.select  =false
+
         }
     })
+
 
     $timeout(function(){
       $scope.Since.hide();

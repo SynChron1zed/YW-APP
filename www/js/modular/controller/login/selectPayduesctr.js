@@ -1,10 +1,7 @@
 /**
  * Created by Why on 16/6/8.
  */
-Ctr.controller('selectPayduesctr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher','$state','$timeout','$ionicNativeTransitions','selectaouthfunl','storage','fromStateServ',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher,$state,$timeout,$ionicNativeTransitions,selectaouthfunl,storage,fromStateServ){
-
-
-
+Ctr.controller('selectPayduesctr',['$ionicHistory','$scope','$rootScope','$ionicViewSwitcher','$state','$timeout','$ionicNativeTransitions','selectaouthfunl','storage','fromStateServ','Tools',function($ionicHistory,$scope,$rootScope,$ionicViewSwitcher,$state,$timeout,$ionicNativeTransitions,selectaouthfunl,storage,fromStateServ,Tools){
 
                window.androdzerofun  = function(){
                           $ionicNativeTransitions.stateGo('r.tab.Home',{}, {
@@ -16,7 +13,6 @@ Ctr.controller('selectPayduesctr',['$ionicHistory','$scope','$rootScope','$ionic
                               $ionicHistory.clearHistory();
                             },100)
                };
-
                 window.androdzerofun_parms  = '';
                 window.androdzerofun_clback  = function(){};
                 $scope.backtoprevView  =  function(){
@@ -29,11 +25,18 @@ Ctr.controller('selectPayduesctr',['$ionicHistory','$scope','$rootScope','$ionic
                               $ionicHistory.clearHistory();
                             },100)                            
                 }
-
-
-
       $scope.renzhi  =function(){
-        $state.go('r.Inputamount',{type:1,monye:'0.01'})        
+        Tools.showlogin();
+        Tools.getData({
+        "interface_number":"000005",
+        "post_content":{}      
+        },function(r){
+          if(r){
+            $state.go('r.Inputamount',{type:1,monye:r.resp_data.money})
+          }
+        })
+        
+
       }
 
 

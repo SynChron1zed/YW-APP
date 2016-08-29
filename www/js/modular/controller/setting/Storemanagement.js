@@ -12,8 +12,7 @@ $scope.delthis  = function(r,item){
          }         
     },function(c){
             if(c){
-
-
+                
                   Tools.rmArrin($scope.storelist,r)
                   native.task('删除成功',1000);
 

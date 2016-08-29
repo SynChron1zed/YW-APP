@@ -1,38 +1,87 @@
-<ion-view view-title="邀请奖励"    hide-tabs="true"  >
-
-
-
-          <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
+<ion-view view-title="邀请奖励"     >
+      <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
     <div    ng-if='showtitle'  class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.SettingOne')">
       <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
       <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
     </div>
   </ion-nav-buttons>
 
-  <ion-content style="background-color: whitesmoke"   overflow-scroll="false"   scrollbar-y="false"        >
+  <ion-content   style="background-color: whitesmoke"   overflow-scroll="false"   scrollbar-y="false"        >
 
-<div>
-   <div style="position: absolute">
+
+
      <img src="./img/setting/friends-1@3x.png" style=" vertical-align: top">
-    <img src="./img/setting/icon_anniu2@3x.png" style="    width: 60%;
-    margin: 0 auto;
-    position: absolute;
-    margin-left: 20%;    margin-top: -25%;">
-     <div style="      margin-top: -90%;
-    color: #feeb0b;
+    
+
+     <div style=" 
+
+       color: #feeb0b;
     font-size: 25px;
     text-align: -webkit-center;
     line-height: 30px;
-    font-weight: 600;">每邀请一位好友<br>最高奖励{{one}}积分</div>
-     <div style="    margin-top: 20%;
-    color: white;
-    font-size: 14px;
-    text-align: -webkit-center;">一共邀请{{count}}位好友，累积{{rebate}}积分</div>
-   </div>
+    font-weight: 600;
+    position: absolute;
+    bottom: 250px;
+    width: 100%;
+    ">每邀请一位好友<br>最高奖励{{one}}积分</div>
 
-</div>
+     <div style="
+       color: white;
+    font-size: 14px;
+    text-align: -webkit-center;
+    position: absolute;
+    bottom: 190px;
+    width: 100%;">一共邀请{{count}}位好友，累积{{rebate}}积分</div>
+
+<img src="./img/setting/icon_anniu2@3x.png" ng-click="yaoqing()"    style="    width: 60%;
+    position: absolute;
+    bottom: 60px;
+    left: 20%;">
 
   </ion-content>
+
+
+
+
+
+
+
+    <!--//set模块-->
+    <div class="action-sheet-backdrop cutom-sheet"      ng-click="closetallcationvalue()"   id='cutom_sheetsharer'   style="overflow: visible;
+
+    "  ng-class="{'active':setallcationstate}"    >
+        <div class="action-sheet-wrapper "   ng-class="{'action-sheet-up':setallcationstate}" style="overflow: visible"   >
+
+            <div class="action-sheet"  " style="width: 100%;margin: 0px;border-radius: 0px;overflow:visible">
+
+                <div class="action-sheet-group action-sheet-options   Custom-menu"
+                ng-click="stopporp($event)"
+                style="background: #fff;overflow: visible;margin: 0px;border-radius: 0px;"  >
+
+                  <div class="row">
+                    <div class="col-25">
+                      <i class="payfont">&#xe6ab;</i>
+                      </div>
+                    <div class="col-25">2</div>
+                  </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+
+
 
 
 
