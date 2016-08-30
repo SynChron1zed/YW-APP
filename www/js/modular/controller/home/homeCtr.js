@@ -2,7 +2,7 @@
  * Created by Why on 16/6/8.
  */
 Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','selectaouthfunl','seeshopPint','$http',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,selectaouthfunl,seeshopPint,$http) {
-  
+
 // window.share  = share;
 // $scope.paly  = function () {
 
@@ -18,8 +18,6 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 //   //   console.log(r)
 //   // });
 // }
-
-
 
 $scope.catshowtakepint  = function () {
   seeshopPint.datalist  = [

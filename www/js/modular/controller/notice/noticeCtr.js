@@ -6,8 +6,12 @@ Ctr.controller('noticeCtr',['$scope','$rootScope','$ionicViewSwitcher','$state',
 //物流消息
 $scope.goinstinfo  = function (params) {
    var  usid  =   storage.getObject('UserInfo').user_id;
+
+   alert(usid)
     if(usid){
           var     noti   =   storage.getObject('Notice');
+
+          alert(noti.userlist[usid])
           if(noti.userlist){
               if(noti.userlist[usid]){
                 if(noti.userlist[usid].Tradelogistics){
@@ -31,7 +35,20 @@ $scope.goinstinfo  = function (params) {
                       }
                     }
                 }
+              }else{
+
+                   if(window.platform  == 'ios'){
+                       var c   =0;
+                        window.plugins.jPushPlugin.setApplicationIconBadgeNumber(c);
+                        var  nule = {};
+                          nule.number  = c;
+                          storage.setObject('badge',nule);
+                      }
+
+
+
               }
+
           }
     }
 

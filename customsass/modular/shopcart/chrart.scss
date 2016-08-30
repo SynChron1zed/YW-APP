@@ -91,8 +91,13 @@ ion-content{
           display: block;
           width: 100%;
           &:after{  content: '';  display: block;  clear: both;}
-          .goodsitem{
 
+          .goodsitem:first-child{
+            .goodsimg{
+              top: 14px;
+            }
+          }
+          .goodsitem{
             width: 100%;
             top:-10px;
             margin-bottom: 5px;
@@ -113,27 +118,25 @@ color: #868686;
 position: absolute;
 left: 0;
 top: 12px;
-          
             }
             .icons.chekthis{
               i{color: #fe7e0b}
             }
-
             .goodsimg{
               overflow: hidden;
-width: 30%;
-display: box;
-display: -webkit-box;
-display: -moz-box;
--webkit-box-pack: center;
--moz-box-pack: center;
--webkit-box-align: center;
-margin-bottom: .3rem;
--moz-box-align: center;
-height: 4.5rem;
-position: absolute;
-left: 10%;
-top: 14px;
+              width: 30%;
+              display: box;
+              display: -webkit-box;
+              display: -moz-box;
+              -webkit-box-pack: center;
+              -moz-box-pack: center;
+              -webkit-box-align: center;
+              margin-bottom: .3rem;
+              -moz-box-align: center;
+              height: 4.5rem;
+              position: absolute;
+              left: 10%;
+              top: 0px;
   }
 
             .goodsbasmsg.edit {

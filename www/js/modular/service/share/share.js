@@ -2,37 +2,35 @@
  * Created by Why on 16/6/14.
  */
   //本地存储数据===================================
-Server.factory('share',['$window','native','$timeout',function($window,native,$timeout){
-  
+Server.factory('share',['$window','native','$timeout','$cordovaProgress',function($window,native,$timeout,$cordovaProgress){
+
   //是否安装微信
   function wechatishas  (sharego){
-      
-        if(window.platform  == 'android'){
-            native.loading('启动微信...');
-        }
-
         Wechat.isInstalled(function (installed) {
         if(!installed){
-            $timeout(function(){
-              native.hidloading()
-            },300) 
+            // $timeout(function(){
+            //     $cordovaProgress.hide();
+            // },200) 
             native.task('没有安装微信')
         }else{
             sharego();
         }
-       }, function (reason) {
-            $timeout(function(){
-          native.hidloading()
-        },200)
+       }, function (reason){
+            // $timeout(function(){
+            //   $cordovaProgress.hide();
+            // },200)
             native.task('打开微信失败')
       });
   }
 
   return{
     //微信分享
-    weichat:function(config,success){
-
+    weichat:function(config,success,error){      
+      if(config.type   == Wechat.Scene.TIMELINE){
+          config.title  =  config.title+config.dec; 
+      }
       wechatishas(function(){
+
         Wechat.share({
           message: {
             title: config.title?config.title:"默认标题",
@@ -51,17 +49,16 @@ Server.factory('share',['$window','native','$timeout',function($window,native,$t
           //FAVORITE   收藏
           //SESSION    微信聊天回话
         }, function () {        
-          
           if(success){
             success()
-          }
-
+          }          
+          //$cordovaProgress.hide();
         }, function (reason) {
+          if(error){
+            error()
+          }
+          //$cordovaProgress.hide();
         });
-        $timeout(function(){
-          native.hidloading()
-        },200)
-
 
       })
 

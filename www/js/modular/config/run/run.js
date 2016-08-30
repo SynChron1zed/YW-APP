@@ -389,9 +389,10 @@ window.networonline  =  true;
     })
   });
 
-  window.updateAPP  =  function(r){
 
-    return  false;
+
+  window.updateAPP  =  function(r){
+    return false;
     if(ionic.Platform.platform()  == 'ios'){
       return false;
     }
@@ -400,7 +401,7 @@ window.networonline  =  true;
 
 
     }
-
+    
     if(window.cordova){
       window.cordova.getAppVersion.getVersionNumber(function (version) {
 
