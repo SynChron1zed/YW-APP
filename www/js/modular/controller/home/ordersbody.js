@@ -45,7 +45,7 @@ function init() {
 
     if(r){
       $scope.shopbody = (r.resp_data);
-      $scope.poststuds=$scope.shopbody.order.data[0].orderDetail[0].post_status
+     //$scope.newpoststuds=$scope.shopbody.order.data[0].orderDetail[0].post_status
       $scope.shopname = $scope.shopbody.order.data[0].shop_name
       $scope.id = $scope.shopbody.order.data[0].order_basic_id
       $scope.pay = $scope.shopbody.order.data[0].total_fee
@@ -63,27 +63,102 @@ function init() {
       console.log($scope.shopbody)
       console.log($scope.shopbody.order.data[0].buyer_nick)
 
+      $scope.poststuds= false;
+      $scope.shouhuoStuds = false;
+      $scope.newpoststuds=0;
+      $scope.count = 0;
+      $scope.count1 = 0
+      $scope.count2 = 0
+      $scope.count5 = 0
+      $scope.fukuan = false;
+      $scope.fahuo = false;
+      angular.forEach($scope.shopbody.order.data[0].orderDetail,function(c){
 
-      if($scope.poststuds!=5){
+        if(c.post_status!=5) {
+          $scope.poststuds = true
+        }
 
+        if(c.post_status==3){
+          $scope.count +=1;
+        }
+
+        if(c.post_status==1){
+          $scope.count1 +=1;
+        }
+
+        if(c.post_status==2){
+          $scope.count2 +=1;
+        }
+
+        if(c.post_status==5){
+          $scope.count5 +=1;
+        }
+
+        if(c.post_status==1){
+
+          $scope.fukuan = true
+        }
+
+        if(c.post_status==2 ){
+
+          $scope.fahuo = true
+        }
+
+
+      });
+
+      if($scope.count==$scope.shopbody.order.data[0].orderDetail.length){
+           $scope.bodyOne2 = true;
+      }else if($scope.count>0) {
+   
+          if(0<$scope.count5 && $scope.count5<$scope.shopbody.order.data[0].orderDetail.length && $scope.fahuo != true){
+            $scope.bodyOne2 = true;
+          }else{
+            $scope.bodyOne3 = true;
+          }
+
+      }else if($scope.count==0){
+        if($scope.count1==$scope.shopbody.order.data[0].orderDetail.length){
+          $scope.bodyOne = true;
+        }else {
+          if($scope.count2==$scope.shopbody.order.data[0].orderDetail.length){
+            $scope.bodyOne1 = true;
+          }else if($scope.count5==$scope.shopbody.order.data[0].orderDetail.length) {
+            $scope.bodyOne4 = true;
+          }else {
+            if($scope.fukuan){
+              $scope.bodyOne = true;
+            }else{
+              $scope.bodyOne1 = true;
+            }
+
+          }
+        }
+      }
+
+
+
+
+      if($scope.poststuds){
         $scope.status = true
       }else{
         $scope.statusOne = true
-
       }
 
 
-      if($scope.poststuds==1){
+
+
+     /* if($scope.newpoststuds==1){
         $scope.bodyOne = true;
-      }else if($scope.poststuds==2){
+      }else if($scope.newpoststuds==2){
         $scope.bodyOne1 = true;
-      }else if($scope.poststuds==3){
+      }else if($scope.newpoststuds==3){
         $scope.bodyOne2 = true;
-      }else if($scope.poststuds==4){
+      }else if($scope.newpoststuds==4){
         $scope.bodyOne3 = true;
-      }else if($scope.poststuds==5){
+      }else if($scope.newpoststuds==5){
         $scope.bodyOne4 = true;
-      }
+      }*/
 
 
     }else{

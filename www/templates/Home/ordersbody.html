@@ -61,18 +61,17 @@
           <div ng-if="bodyOne" >已付款</div>
           <div  ng-if="bodyOne1">已发货</div>
           <div  ng-if="bodyOne2">已收货</div>
-          <div  ng-if="bodyOne3">交易完成</div>
+          <div  ng-if="bodyOne3">部分收货</div>
           <div  ng-if="bodyOne4">已取消</div>
         </div>
       </label>
 
 
 
-      <label class="item item-input" style=" height: 35px;" ng-if="poststuds==5">
-        <span class="input-label" style="color: #111">已付(￥)</span><div style="color: #444">0.00</div> </label>
 
 
-      <label class="item item-input" style=" height: 35px;" ng-if="poststuds!=5">
+
+      <label class="item item-input" style=" height: 35px;" >
         <span class="input-label" style="color: #111">已付(￥)</span><div style="color: #444">{{pay}}</div> </label>
 
       <div class="item item-input" style=" height: 35px;">
@@ -130,9 +129,10 @@
    <div ng-repeat="item in shopchirld">
 
      <div ng-if="item.post_status!=5">
-     <div style="    font-size: 16px;
-    padding-left: 15px;">{{item.goods_name}}</div>
-     <div ><hr style="width: 90%;
+     <div style=" font-size: 16px;padding-left: 15px;" ng-if="item.post_status==1">{{item.goods_name}}<span style="font-size: 13px; float: right; padding-right: 20px;">已付款</span></div>
+       <div style=" font-size: 16px;padding-left: 15px;" ng-if="item.post_status==2">{{item.goods_name}}<span style="font-size: 13px; float: right; padding-right: 20px;">已发货</span></div>
+       <div style=" font-size: 16px;padding-left: 15px;" ng-if="item.post_status==3">{{item.goods_name}}<span style="font-size: 13px; float: right; padding-right: 20px;">已收货</span></div>
+        <div ><hr style="width: 90%;
     "/></div><!--border-bottom: 2px dotted #e6b500;-->
     <div style=" padding-left: 15px;">商品规格</div>
      <div style="    padding-left: 15px;
@@ -142,7 +142,7 @@
 
      <div ng-if="item.post_status==5" >
        <div style="    font-size: 16px;
-    padding-left: 15px;color: #a2a2a2">{{item.goods_name}}<span style="color: red;font-size: 14px">(买家已取消)</span></div>
+    padding-left: 15px;color: #a2a2a2">{{item.goods_name}}<span style="color: red;font-size: 13px;float: right; padding-right: 20px;">已取消</span></div>
        <div ><hr style="width: 90%;
     "/></div><!--border-bottom: 2px dotted #e6b500;-->
        <div style=" padding-left: 15px;color: #a2a2a2">商品规格</div>
