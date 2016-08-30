@@ -5,7 +5,7 @@
  * Created by Why on 16/6/8.
  */
 
-Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$ionicHistory','$ionicScrollDelegate','$ionicBackdrop',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$ionicHistory,$ionicScrollDelegate,$ionicBackdrop) {
+Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','$timeout','$ionicHistory','$ionicScrollDelegate','$ionicBackdrop','storage',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,$timeout,$ionicHistory,$ionicScrollDelegate,$ionicBackdrop,storage) {
 
   function  inlit   (){
     if($scope.guankao){ return false; }
@@ -30,8 +30,16 @@ Ctr.controller('Classif',['$scope','native','$state','fromStateServ','Tools','$i
       }else  if(item.request_type  == '3'){
         fromStateServ.stateChange('r.Productdetails',{id:item.request_id});
       }else  if(item.request_type  == '4'){
+        if(storage.getObject('UserInfo').user_id){
+          fromStateServ.stateChange('r.stretchOne',{id:item.request_id});
+        }else{
+          native.confirm('该操作需要登录','您还未登录',['登录','取消'],function(c){
+            if(c  == 1){
+              $scope.goModular('r.login');
+            }
+          });
+        }
 
-        fromStateServ.stateChange('r.stretchOne',{id:item.request_id});
       }else{
         native.task('活动暂未开始');
       }
