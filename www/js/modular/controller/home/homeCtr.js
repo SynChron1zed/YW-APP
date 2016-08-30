@@ -7,7 +7,7 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 // $scope.paly  = function () {
 
 //   share.weichat({})
-  
+
 //   // Tools.pay.alipaly({
 //   //   type:1,
 //   //   buyer_id:1222,
@@ -115,7 +115,19 @@ $scope.showlogistics  =  function () {
           fromStateServ.stateChange('r.Productdetails',{id:item.request_id});
        }else  if(item.request_type  == '4'){
 
-         fromStateServ.stateChange('r.stretchOne',{id:item.request_id});
+
+         if(storage.getObject('UserInfo').user_id){
+           fromStateServ.stateChange('r.stretchOne',{id:item.request_id});
+         }else{
+           native.confirm('该操作需要登录','您还未登录',['登录','取消'],function(c){
+             if(c  == 1){
+               $scope.goModular('r.login');
+             }
+           });
+         }
+
+         
+
        }
        else{
          native.task('活动暂未开始');
