@@ -321,6 +321,10 @@ $scope.query =function () {
 
 }
 
+  $scope.selectWuliu = function () {
+    $scope.modal.hide();
+  }
+
   $scope.goods = []
   $scope.SalesList=[]
   ///扫码

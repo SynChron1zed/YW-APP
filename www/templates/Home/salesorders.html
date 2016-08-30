@@ -47,7 +47,6 @@
          <div style="float: right"ng-switch-when="1" >已付款</div>
          <div style="float: right" ng-switch-when="2">已发货</div>
          <div style="float: right" ng-switch-when="3">已收货</div>
-         <div style="float: right" ng-switch-when="4">交易完成</div>
          <div style="float: right" ng-switch-when="5">已取消</div>
        </div>
      </div>
@@ -213,7 +212,7 @@
       <ion-header-bar class="bar bar-header bar-positive">
         <button class="button button-clear button-primary"  ng-click="newQuery()"  style="color: #333"><i class="icon ion-ios-arrow-left"></i></button>
         <h1 class="title">物流快递</h1>
-        <button class="button button-clear button-primary" ng-click="query()" style="color: #333">保存</button>
+      <!--  <button class="button button-clear button-primary" ng-click="query()" style="color: #333">保存</button>-->
       </ion-header-bar>
 
       <ion-content>
@@ -237,7 +236,7 @@
 
           <ion-radio  ng-repeat="item in selectList"
                       ng-value="item"
-                      ng-model="data.clientSide">
+                      ng-model="data.clientSide" ng-click="selectWuliu()">
             {{ item.logistics_company_name}}
           </ion-radio>
 
