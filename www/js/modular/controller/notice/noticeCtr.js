@@ -35,18 +35,6 @@ $scope.goinstinfo  = function (params) {
                       }
                     }
                 }
-              }else{
-
-                   if(window.platform  == 'ios'){
-                       var c   =0;
-                        window.plugins.jPushPlugin.setApplicationIconBadgeNumber(c);
-                        var  nule = {};
-                          nule.number  = c;
-                          storage.setObject('badge',nule);
-                      }
-
-
-
               }
 
           }
@@ -169,14 +157,27 @@ function Handlenotice() {
         if(storage.getObject('UserInfo').company_id !=''){
           $scope.hasCompay  = true;
         }
+
+
         //多去当前用户消息
         var notilength   = 0;
          notilength  =  storage.getObject('Notice');
          if(!notilength.userlist){
            return false;
          }
+
           var nowuser  =   notilength.userlist[id];
-          if(!nowuser)  return  false;
+          if(!nowuser){
+            $scope.notice = {
+            Tradelogistics:0,
+            Systemmessage:0,
+            Companynotice:0
+          };
+
+
+
+            return  false;
+          }  
           if(nowuser.Tradelogistics){
                if(nowuser.Tradelogistics.length){
                 var badgenumber =  0;
