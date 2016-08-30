@@ -75,7 +75,7 @@ $scope.dataList = false
 
         angular.forEach(r.resp_data.data,function(c){
 
-          c.pic_path  =  window.qiniuimgHost+c.pic_path +'?imageView2/1/w/200/h/200';
+          c.pic_path  =  window.qiniuimgHost+c.pic_path +'?imageView2/1/w/200/h/200/q/100';
 
         });
 

@@ -8,6 +8,8 @@
 Ctr.controller('newsContentCtr',['$scope','$rootScope','$ionicViewSwitcher','$state','Tools','$ionicPopup','loginregisterstate','native','$timeout','$stateParams','$sanitize','fromStateServ','$ionicHistory',function($scope,$rootScope,$ionicViewSwitcher,$state,Tools,$ionicPopup,loginregisterstate,native,$timeout,$stateParams,$sanitize,fromStateServ,$ionicHistory){
 
  $scope.Postid = $stateParams.postID;
+    $scope.Newimg_status  =false
+  $scope.img_status = false
 
 
   $scope.$on('$ionicView.beforeEnter',function(event, data){
@@ -40,10 +42,20 @@ Ctr.controller('newsContentCtr',['$scope','$rootScope','$ionicViewSwitcher','$st
 
 
      if(r.msg== "success"){
+       if(!r.resp_data.content_img){
+         $scope.img_status = true;
 
+       }else{
+         $scope.Newimg_status = true;
+       }
+      
        r.resp_data.content_img  =  window.qiniuimgHost+r.resp_data.content_img +'?imageView2/2/w/400/q/100';
-       $scope.newsList = r.resp_data
+       r.resp_data.qiniu_key = window.qiniuimgHost+r.resp_data.qiniu_key +'?imageView2/2/w/400/q/100';
 
+
+
+
+       $scope.newsList = r.resp_data
        $scope.myHtml=r.resp_data.content
 
 

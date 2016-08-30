@@ -29,7 +29,7 @@
       <span style="float: left;margin-left:5px;position: relative;top:10px;">支付成功</span>
       <span style="display: block;clear: both"></span>
     </div>
-    
+
     <div class="paystate" ng-if="statusOne">
       <i class="ion-ios-close"  style="float: left;font-size: 40px;display: inline-block;color: #e42112;" ></i >
       <span style="float: left;margin-left:5px;position: relative;top:10px;color: #e42112;">交易关闭</span>
@@ -57,13 +57,22 @@
 
       <label class="item item-input" style=" height: 35px;" >
         <span class="input-label" style="color: #111">状&nbsp;态</span>
-        <div style="color: #444"  ng-if="poststuds!=5">已付款</div>
-        <div style="color: #444"  ng-if="poststuds==5">已退款</div>
+        <div >
+          <div ng-if="bodyOne" >已付款</div>
+          <div  ng-if="bodyOne1">已发货</div>
+          <div  ng-if="bodyOne2">已收货</div>
+          <div  ng-if="bodyOne3">交易完成</div>
+          <div  ng-if="bodyOne4">已取消</div>
+        </div>
       </label>
 
 
 
-      <label class="item item-input" style=" height: 35px;">
+      <label class="item item-input" style=" height: 35px;" ng-if="poststuds==5">
+        <span class="input-label" style="color: #111">已付(￥)</span><div style="color: #444">0</div> </label>
+
+
+      <label class="item item-input" style=" height: 35px;" ng-if="poststuds!=5">
         <span class="input-label" style="color: #111">已付(￥)</span><div style="color: #444">{{pay}}</div> </label>
 
       <div class="item item-input" style=" height: 35px;">
@@ -125,7 +134,7 @@
     "/></div><!--border-bottom: 2px dotted #e6b500;-->
     <div style=" padding-left: 15px;">商品规格</div>
      <div style="    padding-left: 15px;
-    padding-top: 5px;color: orange">{{item.goods_price}}元 * {{item.goods_num}}{{item.goods_property}}</div>
+    padding-top: 5px;color: orange">{{item.goods_price}}元 * {{item.goods_num}} (含运费：{{postage}}) {{item.goods_property}}</div>
      <div ><hr style="width: 90%;"/></div>
 
    </div>

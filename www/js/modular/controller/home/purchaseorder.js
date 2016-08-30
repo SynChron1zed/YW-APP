@@ -116,7 +116,7 @@ if(bascId==1){
 
 
           angular.forEach(r.resp_data.data,function(c){
-            c.pic_path  =  window.qiniuimgHost+c.pic_path +'?imageView2/1/w/200/h/200';
+            c.pic_path  =  window.qiniuimgHost+c.pic_path +'?imageView2/1/w/200/h/200/q/100';
             if(c.post_status=="2"){
               $scope.dataNew = true
             }
@@ -317,7 +317,7 @@ if(bascId==1){
 
 
                 Tools.rmArrin($scope.ShoppingList,index);
-                native.task('成功');
+                native.task('取消订单成功');
 
               }else{
 

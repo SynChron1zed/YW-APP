@@ -7,7 +7,11 @@ Ctr.controller('ordersbodyCtr',['$scope','native','$state','fromStateServ','Tool
 
   $scope.ID = $stateParams.basicID;
  // $scope.seordeData = $stateParams.seorde;
-
+  $scope.bodyOne = false;
+  $scope.bodyOne1 = false;
+  $scope.bodyOne2 = false;
+  $scope.bodyOne3 = false;
+  $scope.bodyOne4 = false;
 
   $scope.status= false;
   $scope.statusOne= false;
@@ -66,6 +70,19 @@ function init() {
       }else{
         $scope.statusOne = true
 
+      }
+
+
+      if($scope.poststuds==1){
+        $scope.bodyOne = true;
+      }else if($scope.poststuds==2){
+        $scope.bodyOne1 = true;
+      }else if($scope.poststuds==3){
+        $scope.bodyOne2 = true;
+      }else if($scope.poststuds==4){
+        $scope.bodyOne3 = true;
+      }else if($scope.poststuds==5){
+        $scope.bodyOne4 = true;
       }
 
 
