@@ -32,6 +32,7 @@ $scope.initialize  =  function(){
        $scope.one = r.resp_data.one;
        $scope.count = r.resp_data.total_count;
        $scope.rebate = r.resp_data.total_rebate
+       $scope.code =  r.resp_data.code;
     }   
   });
 }

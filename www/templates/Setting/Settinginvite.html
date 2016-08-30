@@ -1,5 +1,5 @@
 <ion-view view-title="邀请奖励"     >
-      <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
+  <ion-nav-buttons    side="left"         class="button back-button buttons button-clear header-item">
     <div    ng-if='showtitle'  class="button back-button buttons button-clear header-item"   ng-click="backtoprevView('r.SettingOne')">
       <i class="icon ion-ios-arrow-left" style="float:left;margin-right:5px;"></i>
       <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide" style='display:none' >Back</span><span class="previous-title">{{parenttitle}}</span></span>
@@ -8,81 +8,139 @@
 
   <ion-content   style="background-color: whitesmoke"   overflow-scroll="false"   scrollbar-y="false"        >
 
+    <style>
+
+      @media (min-width:320px) and (max-width:330px){
+        .lisndlalandlaindla{
+          bottom: 190px;
+        }
+      }
+
+      @media (min-width:360px) and (max-width:370px){
+        .lisndlalandlaindla{
+          bottom: 200px;
+        }
+      }
+
+      @media (min-width:600px) and (max-width:610px){
+        .lisndlalandlaindla{
+          bottom: 400px;
+        }
+      }
+
+      @media (min-width:380px) and (max-width:390px){
+        .lisndlalandlaindla{
+          bottom: 220px;
+        }
+      }
+      @media (min-width:412px) and (max-width:420px){
+        .lisndlalandlaindla{
+          bottom: 220px;
+        }
+      }
+
+      @media (min-width:375px) and (max-width:380px){
+        .lisndlalandlaindla{
+          bottom: 220px;
+        }
+      }
 
 
-     <img src="./img/setting/friends-1@3x.png" style=" vertical-align: top">
 
 
-     <div style="
 
-       color: #feeb0b;
+    </style>
+
+
+
+
+
+
+    <div  style="    position: relative;" >
+
+      <img src="./img/setting/friends-1@3x.png" style=" vertical-align: top">
+
+      <div
+        class="lisndlalandlaindla"
+        style="
+  color: #feeb0b;
     font-size: 25px;
     text-align: -webkit-center;
     line-height: 30px;
     font-weight: 600;
     position: absolute;
-    bottom: 250px;
-    width: 100%;
-    ">每邀请一位好友<br>最高奖励{{one}}积分</div>
 
-     <div style="
-       color: white;
+    width: 70%;
+    margin-left: 15%;
+    ">
+    每邀请一位商户认证成功，奖励推荐人{{one}}积分，多邀多得，不设上限！<br />
+    <span style="position: relative;top:10px;"  >我的邀请码:{{code}}</span>
+
+        <div style="
+     color: white;
     font-size: 14px;
     text-align: -webkit-center;
     position: absolute;
-    bottom: 190px;
-    width: 100%;">一共邀请{{count}}位好友，累积{{rebate}}积分</div>
+    /* bottom: 190px; */
+    width: 100%;
+    margin-top: 30px;
+    ">一共邀请{{count}}位商户，累积{{rebate}}积分</div>
 
-    <img src="./img/setting/icon_anniu2@3x.png" ng-click="yaoqing()"    style="    width: 60%;
+        <img src="./img/setting/icon_anniu2@3x.png" ng-click="yaoqing()"    style="
+        width: 70%;
     position: absolute;
-    bottom: 60px;
-    left: 20%;">
+    /* bottom: 0px; */
+    left: 15%;
+    margin-top: 120px;
+    ">
+
+
+
+
+
+      </div>
+
 
   </ion-content>
 
 
 
-  
-    <!--//set模块-->
-    <div class="action-sheet-backdrop cutom-sheet"      ng-click="closetallcationvalue()"   id='cutom_sheetsharer'   style="overflow: visible;
+
+  <!--//set模块-->
+  <div class="action-sheet-backdrop cutom-sheet"      ng-click="closetallcationvalue()"   id='cutom_sheetsharer'   style="overflow: visible;
 
     "  ng-class="{'active':setallcationstate}"    >
-        <div class="action-sheet-wrapper "   ng-class="{'action-sheet-up':setallcationstate}" style="overflow: visible"   >
-            <div class="action-sheet"  style="width: 100%;margin: 0px;border-radius: 0px;overflow:visible">
+    <div class="action-sheet-wrapper "   ng-class="{'action-sheet-up':setallcationstate}" style="overflow: visible"   >
+      <div class="action-sheet"  style="width: 100%;margin: 0px;border-radius: 0px;overflow:visible">
 
-                <div class="action-sheet-group action-sheet-options   Custom-menu"
-                ng-click="stopporp($event)"
-                style="background: #fff;overflow: visible;margin: 0px;border-radius: 0px;"  >
+        <div class="action-sheet-group action-sheet-options   Custom-menu"
+             ng-click="stopporp($event)"
+             style="background: #fff;overflow: visible;margin: 0px;border-radius: 0px;"  >
 
-                  <div class="row"  >
-                    <div class="col-33"  style="text-align:center;"    ng-click="wei()" >
-                      <i class="payfont"   style="color: #3cd818;;font-size: 36px;    display: inline-block;    margin-top: 10px;" >&#xe636;</i>
-                      <p style="color: #3c3c3c;margin-top: 4px;margin-bottom: 0px;    " >微信</p>
-                    </div>
-
-                    <div class="col-33" style="text-align: center;"  ng-click='penyouq()'  >
-                      <i class="payfont"   style="color: #fd671c;font-size: 36px;    display: inline-block;    margin-top: 10px;" >&#xe965;</i>
-                      <p style="     color: #3c3c3c;margin-top: 4px;margin-bottom: 0px;    " >朋友圈</p>
-                    </div>
-
-                    <div class="col-33" style="    text-align: center;" ng-click='qq()' >
-                      <i class="payfont"   style="    color: #0096f3;;font-size: 36px;    display: inline-block;     margin-top: 10px;"  >&#xe8b1;</i>
-                      <p  style="     color: #3c3c3c;    margin-top: 4px;margin-bottom: 0px;   " >QQ</p>
-                    </div>
-
-                  </div>
-
-
-                </div>
-
+          <div class="row"  >
+            <div class="col-33"  style="text-align:center;"    ng-click="wei()" >
+              <i class="payfont"   style="color: #3cd818;;font-size: 36px;    display: inline-block;    margin-top: 10px;" >&#xe636;</i>
+              <p style="color: #3c3c3c;margin-top: 4px;margin-bottom: 0px;    " >微信</p>
             </div>
 
+            <div class="col-33" style="text-align: center;"  ng-click='penyouq()'  >
+              <i class="payfont"   style="color: #fd671c;font-size: 36px;    display: inline-block;    margin-top: 10px;" >&#xe965;</i>
+              <p style="     color: #3c3c3c;margin-top: 4px;margin-bottom: 0px;    " >朋友圈</p>
+            </div>
+
+            <div class="col-33" style="    text-align: center;" ng-click='qq()' >
+              <i class="payfont"   style="    color: #0096f3;;font-size: 36px;    display: inline-block;     margin-top: 10px;"  >&#xe8b1;</i>
+              <p  style="     color: #3c3c3c;    margin-top: 4px;margin-bottom: 0px;   " >QQ</p>
+            </div>
+
+          </div>
+
         </div>
-
-
-
-
+      </div>
     </div>
+
+
+  </div>
 
 
 
