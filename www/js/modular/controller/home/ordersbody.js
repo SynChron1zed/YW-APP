@@ -45,7 +45,7 @@ function init() {
 
     if(r){
       $scope.shopbody = (r.resp_data);
-      $scope.poststuds=$scope.shopbody.order.data[0].orderDetail[0].post_status
+     // $scope.poststuds=$scope.shopbody.order.data[0].orderDetail[0].post_status
       $scope.shopname = $scope.shopbody.order.data[0].shop_name
       $scope.id = $scope.shopbody.order.data[0].order_basic_id
       $scope.pay = $scope.shopbody.order.data[0].total_fee
@@ -63,8 +63,17 @@ function init() {
       console.log($scope.shopbody)
       console.log($scope.shopbody.order.data[0].buyer_nick)
 
+      $scope.poststuds= false
+      angular.forEach($scope.shopbody.order.data[0].orderDetail,function(c){
 
-      if($scope.poststuds!=5){
+        if(c.post_status!=5) {
+          $scope.poststuds = true
+        }
+
+      });
+
+
+      if($scope.poststuds){
 
         $scope.status = true
       }else{
