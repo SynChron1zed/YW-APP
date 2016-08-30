@@ -317,7 +317,7 @@ if(bascId==1){
 
 
                 Tools.rmArrin($scope.ShoppingList,index);
-                native.task('成功');
+                native.task('取消订单成功');
 
               }else{
 
