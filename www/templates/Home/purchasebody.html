@@ -60,8 +60,14 @@
 
       <label class="item item-input" style=" height: 35px;" >
         <span class="input-label" style="color: #111">状&nbsp;态</span>
-        <div style="color: #444"  ng-if="shopbody.post_status!=5">已付款</div>
-        <div style="color: #444"  ng-if="shopbody.post_status==5">已退款</div>
+
+        <div >
+          <div ng-if="bodyOne" >已付款</div>
+          <div  ng-if="bodyOne1">已发货</div>
+          <div  ng-if="bodyOne2">已收货</div>
+          <div  ng-if="bodyOne3">交易完成</div>
+          <div  ng-if="bodyOne4">已取消</div>
+        </div>
       </label>
 
 
@@ -71,7 +77,7 @@
 
 
       <label class="item item-input" style=" height: 35px;" ng-if="shopbody.post_status==5">
-        <span class="input-label" style="color: #111">已付(￥)</span><div style="color: #444">{{pay}}</div> </label>
+        <span class="input-label" style="color: #111">已付(￥)</span><div style="color: #444">0</div> </label>
 
       <div class="item item-input" style=" height: 35px;">
         <span class="input-label" style="color: #111">应付(￥)</span><div style="color: #444">{{pay}}</div>
@@ -122,7 +128,7 @@
     "/></div><!--border-bottom: 2px dotted #e6b500;-->
         <div style=" padding-left: 15px;">商品规格</div>
         <div style="    padding-left: 15px;
-    padding-top: 5px;color: orange">{{shopbody.goods_price}}元 * {{shopbody.goods_num}}{{shopbody.goods_property}}</div>
+    padding-top: 5px;color: orange">{{shopbody.goods_price}}元 * {{shopbody.goods_num}} (含运费：{{shopbody.post_fee}}) {{shopbody.goods_property}}</div>
         <div ><hr style="width: 90%;"/></div>
 
       </div>

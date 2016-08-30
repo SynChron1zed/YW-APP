@@ -5,7 +5,11 @@ Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools',
 
   $scope.ID = $stateParams.basicID;
  // $scope.seordeData = $stateParams.seorde;
-
+  $scope.bodyOne = false;
+  $scope.bodyOne1 = false;
+  $scope.bodyOne2 = false;
+  $scope.bodyOne3 = false;
+  $scope.bodyOne4 = false;
 
   $scope.status= false;
   $scope.statusOne= false;
@@ -49,6 +53,21 @@ Ctr.controller('purbodyCtr',['$scope','native','$state','fromStateServ','Tools',
         }else{
           $scope.statusOne = true
         }
+
+
+        if($scope.shopbody.post_status==1){
+          $scope.bodyOne = true;
+        }else if($scope.shopbody.post_status==2){
+          $scope.bodyOne1 = true;
+        }else if($scope.shopbody.post_status==3){
+          $scope.bodyOne2 = true;
+        }else if($scope.shopbody.post_status==4){
+          $scope.bodyOne3 = true;
+        }else if($scope.shopbody.post_status==5){
+          $scope.bodyOne4 = true;
+        }
+
+
 
         console.log($scope.shopbody)
 
