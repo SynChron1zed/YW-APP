@@ -23,10 +23,18 @@
 
 
   <ion-content style="background-color: whitesmoke;overflow: auto" >
-
+    <ion-scroll  delegate-handle="list"
+                 lazy-scroll
+                 overflow-scroll="false"
+                 scrollbar-y="false"
+                 style="width: 100%;
+                     overflow:hidden;height: 100%;
+                     "
+                  >
 
     <iframe   width="100%" height="100%"  ng-src="{{trustSrc}}"></iframe>
 
+    </ion-scroll>
 
   </ion-content>
 </ion-view>
