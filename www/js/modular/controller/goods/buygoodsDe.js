@@ -43,7 +43,8 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
   }
 
   $scope.zixun= function () {
-    $state.go('r.classAdvice',{id:$scope.goods.shopInfo.shop_id})
+   
+    $state.go('r.classAdvice',{id:$scope.goods.shopInfo.shop_id,companyID:$scope.goods.goodsInfo.company_id})
   }
 
   $scope.addoactionlistimte  = function (pr) {
@@ -61,7 +62,7 @@ Ctr.controller('ProductdetailsCtr',['$scope','$stateParams','fromStateServ','$io
                   buyConfirmorde.goods_basic_id  =  $scope.goods.goodsInfo.goods_basic_id;
                   buyConfirmorde.number  =  $scope.selectsku.number;
 
-                  
+
 
                   Tools.hidelogin();
                   $state.go('r.ConfirmorderZf')

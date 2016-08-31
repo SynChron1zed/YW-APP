@@ -659,7 +659,7 @@ App.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider','$httpP
     })
 
     .state('r.classAdvice',{
-      url: '/classAdvice/:id',
+      url: '/classAdvice/:id/:companyID',
       onEnter: function(fromStateServ,$ionicHistory) {
         fromStateServ.saveHisty($ionicHistory,'r.classAdvice')
       },

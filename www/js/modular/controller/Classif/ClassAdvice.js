@@ -1,10 +1,11 @@
 /**
  * Created by Administrator on 2016/8/25.
  */
-Ctr.controller('ClassAdviceCtr',['$scope','Tools','$stateParams','fromStateServ','$ionicModal','$timeout','native','$rootScope','adderupdatastat',function($scope,Tools,$stateParams,fromStateServ,$ionicModal,$timeout,native,$rootScope,adderupdatastat){
-  $scope.shop={}
-  $scope.shop.id  = $stateParams.id;
+Ctr.controller('ClassAdviceCtr',['$scope','Tools','$stateParams','fromStateServ','$ionicModal','$timeout','native','$rootScope','adderupdatastat','$state',function($scope,Tools,$stateParams,fromStateServ,$ionicModal,$timeout,native,$rootScope,adderupdatastat,$state){
 
+  $scope.shop={}
+  $scope.shop.id  = $stateParams.id
+  $scope.company_ID  = $stateParams.companyID
 
   Tools.getData({
     "interface_number": "020206",
@@ -32,7 +33,9 @@ Ctr.controller('ClassAdviceCtr',['$scope','Tools','$stateParams','fromStateServ'
 
   }
 
-
+  $scope.goMshop=function () {
+    $state.go('r.selfShop',{goodsId:"",company_id:$scope.company_ID})
+  }
 
 
 }]);
