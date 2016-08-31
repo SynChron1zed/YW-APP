@@ -2652,6 +2652,23 @@ input[readonly] {
   -webkit-box-pack: center;
   -webkit-box-align: center; }
 
+.comfgenxios {
+  width: 49%;
+  display: inline-block;
+  text-align: center;
+  float: left;
+  border-right: 1px solid #ddd; }
+
+.comfgenxioschanel {
+  width: 50%;
+  display: inline-block;
+  text-align: center; }
+
+.iosgenxinbixuy {
+  width: 100%;
+  display: inline-block;
+  text-align: center; }
+
 .shopcartnoitem {
   margin-top: 10px;
   height: 2.4rem;

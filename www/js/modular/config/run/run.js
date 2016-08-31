@@ -423,6 +423,8 @@ window.networonline  =  true;
       }
     if(window.platform  !== 'ios'){
       window.updateAPP(true);
+    }else{
+      window.updateAPP();
     }
 
     //listen for Online event
@@ -434,14 +436,58 @@ window.networonline  =  true;
       window.networonline  =  false;
     })
   });
-  
+
+
   window.updateAPP  =  function(r){
 
     if(ionic.Platform.platform()  == 'ios'){
-      alert(1)
-      //var body  =  
-      var updatatipsbox  =  document.getElementById('div');
-      createElement.id  = 'updatatipsbox';
+      Tools.getData({
+          "interface_number": "050204",
+          "post_content": {
+            ver_id:  window.dev_version
+          }
+      },function(r){
+        if(r){
+
+              if(r.resp_data.new   == '1'){
+                var url   = r.resp_data.downloadUrl;
+                var updatips  = r.resp_data.note;
+                //var body  =  
+                var box    =  window.document.getElementById('iosupdatabox');
+                var msgconent   = window.document.getElementById('iosupdatatipeboxConent');
+                var footerbox   = window.document.getElementById('footerbuttonsinupd');
+                var verid   = window.document.getElementById('iosnowVosionid');
+
+                msgconent.innerHTML  =  updatips;
+                verid.innerHTML  = r.resp_data.version;
+                var  button  = '';
+                if(r.resp_data.must){
+                  button  =  "<div  class='iosgenxinbixuy' style='    font-size: 15px;'  onclick='window.updataios()'  >更 新</div>"
+                }else{
+                  button  =  "<div class='comfgenxios'   style='    font-size: 15px;'  onclick='window.updataios()'   >更 新</div> <div  onclick='window.quxiaoiosgenx()'  style='    font-size: 15px;'  class='comfgenxioschanel' >取 消</div>"
+                }
+                footerbox.innerHTML  = button;
+                window.document.getElementById('iosupdatabox').className  = window.document.getElementById('iosupdatabox').className+'   active';
+
+                window.quxiaoiosgenx  =  function(){
+                    window.document.getElementById('iosupdatabox').className  =  'action-sheet-backdrop cutom-sheet';
+                }
+                window.updataios  = function (){
+                    cordova.InAppBrowser.open(url, '_system', 'location=yes')
+                }
+
+
+
+              }
+
+
+
+
+        }
+
+      })
+      
+
       //版本号
       //window.dev_version
       //打开浏览器   app store

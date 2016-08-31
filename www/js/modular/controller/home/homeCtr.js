@@ -5,13 +5,9 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 
 
 
-
 // window.share  = share;
 $scope.paly  = function () {
-
   window.updateAPP()
-
-
   //share.weichat({})
   // Tools.pay.alipaly({
   //   type:1,
@@ -22,7 +18,7 @@ $scope.paly  = function () {
   // },function(r){
   //   console.log(r)
   // });
-  
+
 }
 
 
