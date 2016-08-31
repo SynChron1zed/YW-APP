@@ -25,7 +25,6 @@ window.networonline  =  true;
                         native.task('退出成功');
                       }
                       window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
-
                   }
                 })
             };
@@ -40,16 +39,25 @@ window.networonline  =  true;
   $ionicPlatform.ready(function() {
 
     if(window.cordova){
-
       window.cordova.getAppVersion.getVersionNumber(function (version) {
-            window.dev_version  = version;
-
-
-
-
-
-
+      window.dev_version  = version;
       })
+      
+      //循环获取极光id
+      var  jpushIdInterv  =   undefined;
+      var  frequencyJpush  = 0;
+        jpushIdInterv  =  setInterval(function(){
+          frequencyJpush++;
+          if(frequencyJpush >= 15){
+
+            return false;
+          }
+
+
+        },5000)
+
+
+
 
     }
 
@@ -247,7 +255,7 @@ window.networonline  =  true;
 
     //极光推送  初始初始化
     var  jpushstat  =   window.plugins.jPushPlugin.init();
-    
+
     //调试模式
     //window.plugins.jPushPlugin.setDebugMode(true);
 
@@ -256,7 +264,6 @@ window.networonline  =  true;
     //极光推送事件处理
     //极光数据处理  兼容ios  安卓平台  剥离数据
     var bestripped  =  function(data){
-
 
     var result = {};
       if(device.platform == "Android") {
@@ -392,7 +399,7 @@ window.networonline  =  true;
 
 
   window.updateAPP  =  function(r){
-    return false;
+    return  false;
     if(ionic.Platform.platform()  == 'ios'){
       return false;
     }

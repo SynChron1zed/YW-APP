@@ -13,9 +13,11 @@ Server.factory('Tools',['$window','$ionicLoading','$http','$timeout','$ionicPopu
         // 3 公司积分充值
 
             //线上
-            //var data   =  'http://120.26.120.213:8080/EWPayServer/alipay/getOrderInfo?type='+config.type+'&buyer_id='+config.buyer_id+'&total_amount='+config.money;
+            var data    =  'http://120.26.120.213:8080/EWPayServer/alipay/getOrderInfo?type='+config.type+'&buyer_id='+config.buyer_id+'&total_amount='+config.money;
+
+
             //测试
-            var data   =  'http://121.40.62.137/alipay/getOrderInfo?type='+config.type+'&buyer_id='+config.buyer_id+'&total_amount='+config.money;            
+            //var data   =  'http://121.40.62.137/alipay/getOrderInfo?type='+config.type+'&buyer_id='+config.buyer_id+'&total_amount='+config.money;            
             getData({},function(r){},function(){},'POST',data,false,false,function(r){
               if(r.code  == "success"){
                  window.alipay.pay({

@@ -16,8 +16,23 @@ Ctr.controller('SettinginviteCtr',['$scope','storage','Tools','native','$state',
             }else{
                 $scope.showtitle  = false;
             }
+
+              $timeout(function(){
+                gethei();
+              },300)
+           
+
             $scope.initialize();
   })
+
+  function  gethei  (){
+     ///初始化高度
+            $scope.box  = {
+                position:'relative',
+                height:document.querySelector('#sharbg_img').offsetHeight+'px'
+              }
+  }
+
 
 
 $scope.initialize  =  function(){
@@ -36,6 +51,7 @@ $scope.initialize  =  function(){
     }   
   });
 }
+
 
 
 
