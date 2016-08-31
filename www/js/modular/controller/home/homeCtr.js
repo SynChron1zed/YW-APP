@@ -3,21 +3,25 @@
  */
 Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$ionicPopup','storage','$ionicHistory','selectArr','selectaouthfunl','seeshopPint','$http',function($scope,native,$state,fromStateServ,Tools,$ionicPopup,storage,$ionicHistory,selectArr,selectaouthfunl,seeshopPint,$http) {
 
+
+
 // window.share  = share;
-// $scope.paly  = function () {
+$scope.paly  = function () {
+  window.updateAPP()
+  //share.weichat({})
+  // Tools.pay.alipaly({
+  //   type:1,
+  //   buyer_id:1222,
+  //   money:1.00
+  // },function(r){
+  //   console.log(r)
+  // },function(r){
+  //   console.log(r)
+  // });
 
-//   share.weichat({})
+}
 
-//   // Tools.pay.alipaly({
-//   //   type:1,
-//   //   buyer_id:1222,
-//   //   money:1.00
-//   // },function(r){
-//   //   console.log(r)
-//   // },function(r){
-//   //   console.log(r)
-//   // });
-// }
+
 
 $scope.catshowtakepint  = function () {
   seeshopPint.datalist  = [

@@ -52,6 +52,74 @@
 
 </head>
 <body ng-app="starter">
+
+    <!--//ios  跟新提示-->
+    <div class="action-sheet-backdrop cutom-sheet"        id='iosupdatabox'   style="overflow: visible;"   >
+        <div class="action-sheet-wrapper   action-sheet-up"   style="overflow: visible;top: 50%;margin-top: -200px;"   >
+
+            <div class="action-sheet"  " style="width: 100%;margin: 0px;border-radius: 0px;overflow:visible;
+                width: 82%;
+                margin: 0 auto;">
+
+                <div class="action-sheet-group action-sheet-options   Custom-menu"
+                style="background: #fff;overflow: hidden;margin: 0px;border-radius: 2px;
+                  
+                "  >
+                  <div class="headersss" style="
+                      text-align: center;
+                      background: whitesmoke;
+                      height:45px;
+                      line-height:45px;   
+                      font-weight: 400;
+                      font-size: 20px;
+                  "  >
+                        更新提示
+                  </div>
+
+                  <div
+                    id='iosnowVosionid'
+                   style="
+
+                      text-align: center;
+                      background: whitesmoke;
+                      /* height: 20px; */
+                      line-height: 20px;
+                      padding-bottom: 10px;
+                      font-weight: 400;
+                      font-size: 16px;
+                      color: #827e7e;
+
+                  " >
+                  1.241
+                  </div>
+
+                  <ion-scroll
+
+                   overflow-scroll="false"   scrollbar-y="false"     style="background: #fff;overflow:hidden; overflow-y:visible;
+                   height: 200px;"   
+                   style="
+                   "  >
+                    <pre style="
+                    padding: 10px;
+                    font-size: 14px;
+                    "   id='iosupdatatipeboxConent' >
+                    </pre>              
+                    </ion-scroll>
+                  <div id="footerbuttonsinupd" style="
+                  height:45px;
+                  line-height:45px;     
+                      border-top: 1px solid #ddd;             
+                  " >
+                  </div>
+
+                  
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+
 <!--
   The nav bar that will be updated as we navigate between views.
 -->
@@ -67,6 +135,9 @@
 </ion-nav-bar>
 
 <ion-nav-view  rootView="true"   ></ion-nav-view>
+
+
+
 
 </body>
 </html>

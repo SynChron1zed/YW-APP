@@ -42,15 +42,52 @@ window.networonline  =  true;
       window.cordova.getAppVersion.getVersionNumber(function (version) {
       window.dev_version  = version;
       })
-      
+
       //循环获取极光id
       var  jpushIdInterv  =   undefined;
       var  frequencyJpush  = 0;
         jpushIdInterv  =  setInterval(function(){
           frequencyJpush++;
           if(frequencyJpush >= 15){
-
+            clearInterval(jpushIdInterv)
             return false;
+          }
+
+          var  basinfo  =   storage.getObject('UserInfo');
+          var  pushid  =   storage.getObject('jPush');
+          if(pushid.RegistrationID){
+              clearInterval(jpushIdInterv)
+              return false;
+          }else{
+            window.plugins.jPushPlugin.getRegistrationID(function(data){
+                    if(data){
+                    var  locjPush  =    storage.getObject('jPush');
+                    locjPush.RegistrationID =  data;
+                    storage.setObject('jPush',locjPush);
+                    if(storage.getObject('UserInfo').user_id){
+                          Tools.getData({
+                          "interface_number": "000004",
+                          "post_content": {
+                            "pushId":data,
+                            "uuid":device.uuid
+                          }
+                    },function (r){
+                      if(r){
+                      }
+                    })
+                    }
+                    clearInterval(jpushIdInterv)
+                    return false;
+                    } 
+            })
+
+
+         
+
+
+
+
+
           }
 
 
@@ -115,9 +152,12 @@ window.networonline  =  true;
         //alert(window.jpushreightid,'获取推送id成功')
 
         if(data){
+
+
         var  locjPush  =    storage.getObject('jPush');
         locjPush.RegistrationID =  data;
         storage.setObject('jPush',locjPush);
+
         if(storage.getObject('UserInfo').user_id){
               Tools.getData({
               "interface_number": "000004",
@@ -129,9 +169,11 @@ window.networonline  =  true;
           if(r){
           }
          })
+
         }
 
-          }
+
+      }
 
 
 
@@ -206,9 +248,6 @@ window.networonline  =  true;
             }
           })
     }
-
-
-
     //安卓返回键的处理
     $ionicPlatform.registerBackButtonAction(function (e) {
       e.preventDefault();
@@ -384,6 +423,8 @@ window.networonline  =  true;
       }
     if(window.platform  !== 'ios'){
       window.updateAPP(true);
+    }else{
+      window.updateAPP();
     }
 
     //listen for Online event
@@ -397,18 +438,68 @@ window.networonline  =  true;
   });
 
 
-
   window.updateAPP  =  function(r){
-    return  false;
+
     if(ionic.Platform.platform()  == 'ios'){
-      return false;
-    }
+      Tools.getData({
+          "interface_number": "050204",
+          "post_content": {
+            ver_id:  window.dev_version
+          }
+      },function(r){
+        if(r){
+
+              if(r.resp_data.new   == '1'){
+                var url   = r.resp_data.downloadUrl;
+                var updatips  = r.resp_data.note;
+                //var body  =  
+                var box    =  window.document.getElementById('iosupdatabox');
+                var msgconent   = window.document.getElementById('iosupdatatipeboxConent');
+                var footerbox   = window.document.getElementById('footerbuttonsinupd');
+                var verid   = window.document.getElementById('iosnowVosionid');
+
+                msgconent.innerHTML  =  updatips;
+                verid.innerHTML  = r.resp_data.version;
+                var  button  = '';
+                if(r.resp_data.must){
+                  button  =  "<div  class='iosgenxinbixuy' style='    font-size: 15px;'  onclick='window.updataios()'  >更 新</div>"
+                }else{
+                  button  =  "<div class='comfgenxios'   style='    font-size: 15px;'  onclick='window.updataios()'   >更 新</div> <div  onclick='window.quxiaoiosgenx()'  style='    font-size: 15px;'  class='comfgenxioschanel' >取 消</div>"
+                }
+                footerbox.innerHTML  = button;
+                window.document.getElementById('iosupdatabox').className  = window.document.getElementById('iosupdatabox').className+'   active';
+
+                window.quxiaoiosgenx  =  function(){
+                    window.document.getElementById('iosupdatabox').className  =  'action-sheet-backdrop cutom-sheet';
+                }
+                window.updataios  = function (){
+                    cordova.InAppBrowser.open(url, '_system', 'location=yes')
+                }
+
+
+
+              }
+
+
+
+
+        }
+
+      })
+      
+
+      //版本号
+      //window.dev_version
+      //打开浏览器   app store
+      //cordova.InAppBrowser.open('http://apache.org', '_system', 'location=yes')
+
+
+
+    }else{
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
-
-
     }
-    
+
     if(window.cordova){
       window.cordova.getAppVersion.getVersionNumber(function (version) {
 
@@ -445,6 +536,9 @@ window.networonline  =  true;
     }else{
       alert('当前环境无法更新APP!');
     }
+    }
+
+
   };
   function  updataAp   (downloadUrl){
                 cordova.plugin.pDialog.init({
