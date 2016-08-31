@@ -110,7 +110,7 @@ function init() {
       if($scope.count==$scope.shopbody.order.data[0].orderDetail.length){
            $scope.bodyOne2 = true;
       }else if($scope.count>0) {
-   
+
           if(0<$scope.count5 && $scope.count5<$scope.shopbody.order.data[0].orderDetail.length && $scope.fahuo != true){
             $scope.bodyOne2 = true;
           }else{
