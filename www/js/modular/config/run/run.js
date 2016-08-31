@@ -42,15 +42,52 @@ window.networonline  =  true;
       window.cordova.getAppVersion.getVersionNumber(function (version) {
       window.dev_version  = version;
       })
-      
+
       //循环获取极光id
       var  jpushIdInterv  =   undefined;
       var  frequencyJpush  = 0;
         jpushIdInterv  =  setInterval(function(){
           frequencyJpush++;
           if(frequencyJpush >= 15){
-
+            clearInterval(jpushIdInterv)
             return false;
+          }
+
+          var  basinfo  =   storage.getObject('UserInfo');
+          var  pushid  =   storage.getObject('jPush');
+          if(pushid.RegistrationID){
+              clearInterval(jpushIdInterv)
+              return false;
+          }else{
+            window.plugins.jPushPlugin.getRegistrationID(function(data){
+                    if(data){
+                    var  locjPush  =    storage.getObject('jPush');
+                    locjPush.RegistrationID =  data;
+                    storage.setObject('jPush',locjPush);
+                    if(storage.getObject('UserInfo').user_id){
+                          Tools.getData({
+                          "interface_number": "000004",
+                          "post_content": {
+                            "pushId":data,
+                            "uuid":device.uuid
+                          }
+                    },function (r){
+                      if(r){
+                      }
+                    })
+                    }
+                    clearInterval(jpushIdInterv)
+                    return false;
+                    } 
+            })
+
+
+         
+
+
+
+
+
           }
 
 
@@ -115,9 +152,12 @@ window.networonline  =  true;
         //alert(window.jpushreightid,'获取推送id成功')
 
         if(data){
+
+
         var  locjPush  =    storage.getObject('jPush');
         locjPush.RegistrationID =  data;
         storage.setObject('jPush',locjPush);
+
         if(storage.getObject('UserInfo').user_id){
               Tools.getData({
               "interface_number": "000004",
@@ -129,9 +169,11 @@ window.networonline  =  true;
           if(r){
           }
          })
+
         }
 
-          }
+
+      }
 
 
 
@@ -206,9 +248,6 @@ window.networonline  =  true;
             }
           })
     }
-
-
-
     //安卓返回键的处理
     $ionicPlatform.registerBackButtonAction(function (e) {
       e.preventDefault();
@@ -395,20 +434,26 @@ window.networonline  =  true;
       window.networonline  =  false;
     })
   });
-
-
-
+  
   window.updateAPP  =  function(r){
-    return  false;
+
     if(ionic.Platform.platform()  == 'ios'){
-      return false;
-    }
+      alert(1)
+      //var body  =  
+      var updatatipsbox  =  document.getElementById('div');
+      createElement.id  = 'updatatipsbox';
+      //版本号
+      //window.dev_version
+      //打开浏览器   app store
+      //cordova.InAppBrowser.open('http://apache.org', '_system', 'location=yes')
+
+
+
+    }else{
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
-
-
     }
-    
+
     if(window.cordova){
       window.cordova.getAppVersion.getVersionNumber(function (version) {
 
@@ -445,6 +490,9 @@ window.networonline  =  true;
     }else{
       alert('当前环境无法更新APP!');
     }
+    }
+
+
   };
   function  updataAp   (downloadUrl){
                 cordova.plugin.pDialog.init({
