@@ -19,8 +19,6 @@ Ctr.controller('homeCtr',['$scope','native','$state','fromStateServ','Tools','$i
 //   // });
 // }
 
-
-
 $scope.catshowtakepint  = function () {
   seeshopPint.datalist  = [
     {

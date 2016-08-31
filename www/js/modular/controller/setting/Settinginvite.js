@@ -18,13 +18,6 @@ Ctr.controller('SettinginviteCtr',['$scope','storage','Tools','native','$state',
             }
             $scope.initialize();
   })
-  
-
-
-
-
-
-
 
 
 $scope.initialize  =  function(){
@@ -39,6 +32,7 @@ $scope.initialize  =  function(){
        $scope.one = r.resp_data.one;
        $scope.count = r.resp_data.total_count;
        $scope.rebate = r.resp_data.total_rebate
+       $scope.code =  r.resp_data.code;
     }   
   });
 }
@@ -68,17 +62,23 @@ $scope.getyaoqincode  = function(xxx){
        "post_content": {
       }
   },function(r){
+
+    Tools.hidelogin();
     if(r){
-        if(xxx  == 1){
+        if(xxx  == 1){      
                 share.weichat({
                   title:'欢迎加入易物宜得',
-                  description:r.resp_data.msg,
+                  dec:r.resp_data.msg,
+                },function(){
+                  native.task('分享成功')
                 })
         }else if(xxx  == 2){
               share.weichat({
                   title:'欢迎加入易物宜得',
-                  description:r.resp_data.msg,
-                  type:window.Wechat.Scene.TIMELINE
+                  dec:r.resp_data.msg,
+                  type:Wechat.Scene.TIMELINE
+                },function(){
+                  native.task('分享成功')
                 })
         }
     }
@@ -88,12 +88,12 @@ $scope.getyaoqincode  = function(xxx){
 
 
 $scope.wei = function(){
-  //$scope.getyaoqincode(1)
-  native.task('该功能在下一个版本,上线')
+  $scope.getyaoqincode(1)
+  //native.task('该功能在下一个版本,上线')
 }
 $scope.penyouq = function(){
-  //$scope.getyaoqincode(2)
-  native.task('该功能在下一个版本,上线')
+  $scope.getyaoqincode(2)
+  //native.task('该功能在下一个版本,上线')
 }
 $scope.qq = function(){
   native.task('该功能在下一个版本,上线')

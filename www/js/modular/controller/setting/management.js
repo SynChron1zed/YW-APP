@@ -1,6 +1,8 @@
 
 Ctr.controller('managementCtr',['$scope','Tools','native','EmployeeObjdata','$state','$ionicNativeTransitions','$timeout',function($scope,Tools,native,EmployeeObjdata,$state,$ionicNativeTransitions,$timeout){
 
+
+
 //充值  
 $scope.Recharge  = function(item){ 
       native.prompt('正在为'+item.user.real_name+'分配积分,该员工积分余额:'+item.user.integral,'提示',['确认','取消'],'',function(c){
@@ -39,18 +41,15 @@ $scope.Recharge  = function(item){
                              }})                          
                     }
             })
-}
-
-
-
-
-
-
+  }
+  
   $scope.$on('$ionicView.beforeEnter',function(){
     if(!EmployeeObjdata.user_id){
       $scope.listdata = []
-      $scope.loadstat = true;
       $scope.pag_number  = 1;
+      $scope.loadstat = true;
+      //$scope.loadmoreData();
+
     }else{
 
     if(EmployeeObjdata.leave){
@@ -99,8 +98,8 @@ $scope.callphone  =  function (r){
     window.plugins.CallNumber.callNumber(function(){}, function(){},r.user.phone, true);
 }
 
-$scope.edithmenid =  function(item){
 
+$scope.edithmenid =  function(item){
         EmployeeObjdata.user_id     =   item.user_id;
         $ionicNativeTransitions.stateGo('r.Employeedetails',{}, {
             "type": "slide",
@@ -123,6 +122,7 @@ $scope.edithmenid =  function(item){
   $scope.loadstat = false;
   $scope.pag_number  = 1;
   $scope.loadmoreData =  function (ff){
+
     var sendopition  =  {
     "interface_number": "000406",
     "post_content": {}
@@ -134,7 +134,6 @@ $scope.edithmenid =  function(item){
     }else{
       sendopition.post_content.page_num   = $scope.pag_number;
     }
-
     Tools.getData(sendopition,function(r){
       if(r){
 
@@ -147,7 +146,6 @@ $scope.edithmenid =  function(item){
             angular.forEach(r.resp_data.data,function(itme){
               itme.user.avatar  =  window.qiniuimgHost+itme.user.avatar+'?imageView2/2/w/150/h/150';
               $scope.listdata.push(itme);
-
             })
           }
 
@@ -159,12 +157,23 @@ $scope.edithmenid =  function(item){
             $scope.loadstat = true;
             $scope.pag_number  = r.resp_data.nextPage;
           }
-
-
       }
-    })
 
+      $timeout(function(){
+         $scope.$broadcast('scroll.infiniteScrollComplete');
+      },400)
+
+
+
+
+    })
   }
+
+
+
+
+
+
 }])
 
 .controller('EmployeedetailsCtr',['$scope','Tools','native','EmployeeObjdata','$ionicModal','$timeout','storage','$rootScope','$state',function($scope,Tools,native,EmployeeObjdata,$ionicModal,$timeout,storage,$rootScope,$state){

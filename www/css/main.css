@@ -2733,6 +2733,8 @@ ion-content {
     content: '';
     display: block;
     clear: both; }
+  .shopcartBOXLIST .shopitem .goodslist .goodsitem:first-child .goodsimg {
+    top: 14px; }
   .shopcartBOXLIST .shopitem .goodslist .goodsitem {
     width: 100%;
     top: -10px;
@@ -2772,7 +2774,7 @@ ion-content {
       height: 4.5rem;
       position: absolute;
       left: 10%;
-      top: 14px; }
+      top: 0px; }
     .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg.edit .cheknumber {
       display: block; }
     .shopcartBOXLIST .shopitem .goodslist .goodsitem .goodsbasmsg.edit .del {
